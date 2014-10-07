@@ -966,7 +966,7 @@ visitIRDynamicArray: anIRDynamicArray
 !
 
 visitIRDynamicDictionary: anIRDynamicDictionary
-	self stream nextPutAll: 'globals.HashedCollection._newFromPairs_(['.
+	self stream nextPutAll: '$globals.HashedCollection._newFromPairs_(['.
 		anIRDynamicDictionary instructions
 			do: [ :each | self visit: each ]
 			separatedBy: [ self stream nextPutAll: ',' ].
@@ -1034,7 +1034,7 @@ visitIRValue: anIRValue
 
 visitIRVariable: anIRVariable
 	anIRVariable variable name = 'thisContext'
-		ifTrue: [ self stream nextPutAll: 'smalltalk.getThisContext()' ]
+		ifTrue: [ self stream nextPutAll: '$core.getThisContext()' ]
 		ifFalse: [ self stream nextPutAll: anIRVariable variable alias ]
 !
 
@@ -1046,7 +1046,7 @@ visitIRVerbatim: anIRVerbatim
 visitReceiver: anIRInstruction
 	anIRInstruction needsBoxingAsReceiver ifFalse: [ ^ self visit: anIRInstruction ].
 	
-	self stream nextPutAll: '_st('.
+	self stream nextPutAll: '$recv('.
 	self visit: anIRInstruction.
 	self stream nextPutAll: ')'
 !
@@ -1069,7 +1069,7 @@ visitSuperSend: anIRSend
 		nextPutAll: self currentClass asJavascript;
 		nextPutAll: '.superclass.fn.prototype.';
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
-		nextPutAll: '_st('.
+		nextPutAll: '$recv('.
 	self visit: anIRSend instructions first.
 	self stream nextPutAll: '), ['.
 	anIRSend instructions allButFirst
@@ -1122,7 +1122,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	self
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
 		lf;
-		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';
+		nextPutAll: 'return $core.withContext(function(', anIRClosure scope alias, ') {';
 		lf;
 		nextPutAll: '//>>excludeEnd("ctx");';
 		lf.
@@ -1157,7 +1157,7 @@ nextPutClassRefFunction: aString
 	stream
 		nextPutAll: 'function $';
 		nextPutAll: aString;
-		nextPutAll: '(){return globals.';
+		nextPutAll: '(){return $globals.';
 		nextPutAll: aString;
 		nextPutAll: '||(typeof ';
 		nextPutAll: aString;
@@ -1183,7 +1183,7 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
 		lf;
-		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';
+		nextPutAll: 'return $core.withContext(function(', aMethod scope alias, ') { ';
 		lf;
 		nextPutAll: '//>>excludeEnd("ctx");';
 		lf.
@@ -1243,7 +1243,7 @@ nextPutIfElse: aBlock with: ifBlock with: elseBlock
 
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream
-		nextPutAll: 'smalltalk.method({'; lf;
+		nextPutAll: '$core.method({'; lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
 	aBlock value.
@@ -1300,7 +1300,7 @@ nextPutSendIndexFor: anIRSend
 
 nextPutSequenceWith: aBlock
 	"stream
-		nextPutAll: 'switch(smalltalk.thisContext.pc){'; lf."
+		nextPutAll: 'switch($core.thisContext.pc){'; lf."
 	aBlock value.
 	"stream
 		nextPutAll: '};'; lf"

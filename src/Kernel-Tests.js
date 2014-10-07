@@ -1,29 +1,30 @@
 define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
-var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
-smalltalk.addPackage('Kernel-Tests');
-smalltalk.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Kernel-Tests');
+$core.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('AnnouncementSubscriptionTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('AnnouncementSubscriptionTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testAddExtensionMethod",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var method,dirty;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$8,$7,$6,$9,$10;
 $2=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._package();
+$1=$recv($2)._package();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["package"]=1;
 //>>excludeEnd("ctx");
-dirty=_st($1)._isDirty();
+dirty=$recv($1)._isDirty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isDirty"]=1;
 //>>excludeEnd("ctx");
@@ -31,38 +32,38 @@ $4=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._package();
+$3=$recv($4)._package();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["package"]=2;
 //>>excludeEnd("ctx");
-_st($3)._beClean();
+$recv($3)._beClean();
 $5=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=3;
 //>>excludeEnd("ctx");
-method=_st($5)._compile_protocol_("doNothing","**not-a-package");
+method=$recv($5)._compile_protocol_("doNothing","**not-a-package");
 $8=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=4;
 //>>excludeEnd("ctx");
-$7=_st($8)._package();
+$7=$recv($8)._package();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["package"]=3;
 //>>excludeEnd("ctx");
-$6=_st($7)._isDirty();
+$6=$recv($7)._isDirty();
 self._deny_($6);
 $9=self._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=5;
 //>>excludeEnd("ctx");
-_st($9)._removeCompiledMethod_(method);
+$recv($9)._removeCompiledMethod_(method);
 $10=dirty;
-if(smalltalk.assert($10)){
-_st(_st(self._class())._package())._beDirty();
+if($core.assert($10)){
+$recv($recv(self._class())._package())._beDirty();
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},globals.AnnouncementSubscriptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddExtensionMethod",{method:method,dirty:dirty},$globals.AnnouncementSubscriptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -72,30 +73,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isDirty", "package", "class", "beClean", "compile:protocol:", "deny:", "removeCompiledMethod:", "ifTrue:", "beDirty"]
 }),
-globals.AnnouncementSubscriptionTest);
+$globals.AnnouncementSubscriptionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testHandlesAnnouncement",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var subscription,announcementClass1,announcementClass2,classBuilder;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
-function $AnnouncementSubscription(){return globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-classBuilder=_st($ClassBuilder())._new();
+classBuilder=$recv($ClassBuilder())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-announcementClass1=_st(classBuilder)._basicAddSubclassOf_named_instanceVariableNames_package_($SystemAnnouncement(),"TestAnnouncement1",[],"Kernel-Tests");
-subscription=_st(_st($AnnouncementSubscription())._new())._announcementClass_($SystemAnnouncement());
-$1=_st(subscription)._handlesAnnouncement_($SystemAnnouncement());
+announcementClass1=$recv(classBuilder)._basicAddSubclassOf_named_instanceVariableNames_package_($SystemAnnouncement(),"TestAnnouncement1",[],"Kernel-Tests");
+subscription=$recv($recv($AnnouncementSubscription())._new())._announcementClass_($SystemAnnouncement());
+$1=$recv(subscription)._handlesAnnouncement_($SystemAnnouncement());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["handlesAnnouncement:"]=1;
 //>>excludeEnd("ctx");
@@ -103,7 +104,7 @@ self._assert_equals_($1,true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(subscription)._handlesAnnouncement_(announcementClass1);
+$2=$recv(subscription)._handlesAnnouncement_(announcementClass1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["handlesAnnouncement:"]=2;
 //>>excludeEnd("ctx");
@@ -111,11 +112,11 @@ self._assert_equals_($2,true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(subscription)._handlesAnnouncement_($Object()),false);
-_st(classBuilder)._basicRemoveClass_(announcementClass1);
+self._assert_equals_($recv(subscription)._handlesAnnouncement_($Object()),false);
+$recv(classBuilder)._basicRemoveClass_(announcementClass1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},globals.AnnouncementSubscriptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},$globals.AnnouncementSubscriptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -125,45 +126,45 @@ referencedClasses: ["ClassBuilder", "SystemAnnouncement", "AnnouncementSubscript
 //>>excludeEnd("ide");
 messageSends: ["new", "basicAddSubclassOf:named:instanceVariableNames:package:", "announcementClass:", "assert:equals:", "handlesAnnouncement:", "basicRemoveClass:"]
 }),
-globals.AnnouncementSubscriptionTest);
+$globals.AnnouncementSubscriptionTest);
 
 
 
-smalltalk.addClass('AnnouncerTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('AnnouncerTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testOnDo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 counter=(0);
-announcer=_st($Announcer())._new();
+announcer=$recv($Announcer())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st(announcer)._on_do_($SystemAnnouncement(),(function(){
+$recv(announcer)._on_do_($SystemAnnouncement(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-counter=_st(counter).__plus((1));
+counter=$recv(counter).__plus((1));
 return counter;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 $1=announcer;
-$2=_st($SystemAnnouncement())._new();
+$2=$recv($SystemAnnouncement())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-_st($1)._announce_($2);
+$recv($1)._announce_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["announce:"]=1;
 //>>excludeEnd("ctx");
@@ -171,11 +172,11 @@ self._assert_equals_(counter,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(announcer)._announce_(_st($SystemAnnouncement())._new());
+$recv(announcer)._announce_($recv($SystemAnnouncement())._new());
 self._assert_equals_(counter,(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDo",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDo",{counter:counter,announcer:announcer},$globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -185,42 +186,42 @@ referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["new", "on:do:", "+", "announce:", "assert:equals:"]
 }),
-globals.AnnouncerTest);
+$globals.AnnouncerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testOnDoFor",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 counter=(0);
-announcer=_st($Announcer())._new();
+announcer=$recv($Announcer())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st(announcer)._on_do_for_($SystemAnnouncement(),(function(){
+$recv(announcer)._on_do_for_($SystemAnnouncement(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-counter=_st(counter).__plus((1));
+counter=$recv(counter).__plus((1));
 return counter;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),self);
 $1=announcer;
-$2=_st($SystemAnnouncement())._new();
+$2=$recv($SystemAnnouncement())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-_st($1)._announce_($2);
+$recv($1)._announce_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["announce:"]=1;
 //>>excludeEnd("ctx");
@@ -229,11 +230,11 @@ self._assert_equals_(counter,(1));
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 $3=announcer;
-$4=_st($SystemAnnouncement())._new();
+$4=$recv($SystemAnnouncement())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
-_st($3)._announce_($4);
+$recv($3)._announce_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["announce:"]=2;
 //>>excludeEnd("ctx");
@@ -241,12 +242,12 @@ self._assert_equals_(counter,(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-_st(announcer)._unsubscribe_(self);
-_st(announcer)._announce_(_st($SystemAnnouncement())._new());
+$recv(announcer)._unsubscribe_(self);
+$recv(announcer)._announce_($recv($SystemAnnouncement())._new());
 self._assert_equals_(counter,(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDoFor",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDoFor",{counter:counter,announcer:announcer},$globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -256,42 +257,42 @@ referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["new", "on:do:for:", "+", "announce:", "assert:equals:", "unsubscribe:"]
 }),
-globals.AnnouncerTest);
+$globals.AnnouncerTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testOnDoOnce",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var counter,announcer;
-function $Announcer(){return globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $SystemAnnouncement(){return globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return $globals.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 counter=(0);
-announcer=_st($Announcer())._new();
+announcer=$recv($Announcer())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st(announcer)._on_doOnce_($SystemAnnouncement(),(function(){
+$recv(announcer)._on_doOnce_($SystemAnnouncement(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-counter=_st(counter).__plus((1));
+counter=$recv(counter).__plus((1));
 return counter;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 $1=announcer;
-$2=_st($SystemAnnouncement())._new();
+$2=$recv($SystemAnnouncement())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-_st($1)._announce_($2);
+$recv($1)._announce_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["announce:"]=1;
 //>>excludeEnd("ctx");
@@ -299,11 +300,11 @@ self._assert_equals_(counter,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(announcer)._announce_(_st($SystemAnnouncement())._new());
+$recv(announcer)._announce_($recv($SystemAnnouncement())._new());
 self._assert_equals_(counter,(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDoOnce",{counter:counter,announcer:announcer},globals.AnnouncerTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDoOnce",{counter:counter,announcer:announcer},$globals.AnnouncerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -313,30 +314,30 @@ referencedClasses: ["Announcer", "SystemAnnouncement"],
 //>>excludeEnd("ide");
 messageSends: ["new", "on:doOnce:", "+", "announce:", "assert:equals:"]
 }),
-globals.AnnouncerTest);
+$globals.AnnouncerTest);
 
 
 
-smalltalk.addClass('BlockClosureTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('BlockClosureTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testCanClearInterval",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st((function(){
+return $recv($recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(_st($Error())._new())._signal();
+return $recv($recv($Error())._new())._signal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -347,7 +348,7 @@ return _st(_st($Error())._new())._signal();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -357,27 +358,27 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCanClearTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st((function(){
+return $recv($recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(_st($Error())._new())._signal();
+return $recv($recv($Error())._new())._signal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -388,7 +389,7 @@ return _st(_st($Error())._new())._signal();
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -398,20 +399,20 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCompiledSource",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_(_st(_st((function(){
+self._assert_($recv($recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -420,7 +421,7 @@ return (1).__plus((1));
 }))._compiledSource())._includesSubString_("function"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -430,51 +431,51 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "includesSubString:", "compiledSource", "+"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCurrySelf",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var curriedMethod,array;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-curriedMethod=_st(_st((function(selfarg,x){
+curriedMethod=$recv($recv((function(selfarg,x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(selfarg)._at_(x);
+return $recv(selfarg)._at_(x);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({selfarg:selfarg,x:x},$ctx1,1)});
 //>>excludeEnd("ctx");
 }))._currySelf())._asCompiledMethod_("foo:");
 array=[(3), (1), (4)];
-_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(curriedMethod,$Array(),"**test helper");
-_st((function(){
+$recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(curriedMethod,$Array(),"**test helper");
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(array)._foo_((2)),(1));
+return self._assert_equals_($recv(array)._foo_((2)),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }))._ensure_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st($Array())._removeCompiledMethod_(curriedMethod);
+return $recv($Array())._removeCompiledMethod_(curriedMethod);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -484,18 +485,18 @@ referencedClasses: ["ClassBuilder", "Array"],
 //>>excludeEnd("ide");
 messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:protocol:", "new", "ensure:", "assert:equals:", "foo:", "removeCompiledMethod:"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEnsure",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st((function(){
+self._assert_equals_($recv((function(){
 return (3);
 
 }))._ensure_((function(){
@@ -504,7 +505,7 @@ return (4);
 })),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -514,27 +515,27 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ensure:"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEnsureRaises",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st((function(){
+return $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(_st($Error())._new())._signal();
+return $recv($recv($Error())._new())._signal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
@@ -548,7 +549,7 @@ return true;
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -558,29 +559,29 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "ensure:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testExceptionSemantics",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._timeout_((100));
-_st(self._async_((function(){
+$recv(self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st((function(){
+return $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 self._assert_(true);
-_st($Error())._signal();
+$recv($Error())._signal();
 self._deny_(true);
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -591,7 +592,7 @@ $ctx3.sendIdx["finished"]=1;
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -604,7 +605,7 @@ return self._finished();
 })))._valueWithTimeout_((0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -614,53 +615,53 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "assert:", "signal", "deny:", "finished"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNewWithValues",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 
 	function TestConstructor(arg1, arg2, arg3) {}
 	TestConstructor.prototype.name = 'theTestPrototype';
 
-	var wrappedConstructor = _st(TestConstructor);
+	var wrappedConstructor = $recv(TestConstructor);
 	var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);
 	self._assert_(result instanceof TestConstructor);
 	self._assert_equals_(result.name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
-	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);;
+	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, $globals.Error);;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testNewWithValues\x0a<\x0a\x09function TestConstructor(arg1, arg2, arg3) {}\x0a\x09TestConstructor.prototype.name = 'theTestPrototype';\x0a\x0a\x09var wrappedConstructor = _st(TestConstructor);\x0a\x09var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_(result instanceof TestConstructor);\x0a\x09self._assert_equals_(result.name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);\x0a>",
+source: "testNewWithValues\x0a<\x0a\x09function TestConstructor(arg1, arg2, arg3) {}\x0a\x09TestConstructor.prototype.name = 'theTestPrototype';\x0a\x0a\x09var wrappedConstructor = $recv(TestConstructor);\x0a\x09var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_(result instanceof TestConstructor);\x0a\x09self._assert_equals_(result.name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, $globals.Error);\x0a>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNumArgs",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st((function(){
+$1=$recv((function(){
 
 }))._numArgs();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -670,12 +671,12 @@ self._assert_equals_($1,(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st((function(a,b){
+self._assert_equals_($recv((function(a,b){
 
 }))._numArgs(),(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -685,23 +686,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "numArgs"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testOnDo",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_(_st((function(){
+self._assert_($recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st($Error())._new())._signal();
+return $recv($recv($Error())._new())._signal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -711,7 +712,7 @@ return true;
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -721,21 +722,21 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "on:do:", "signal", "new"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testValue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st((function(){
+$1=$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -752,11 +753,11 @@ self._assert_equals_($1,(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st((function(x){
+self._assert_equals_($recv((function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(x).__plus((1));
+return $recv(x).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -764,11 +765,11 @@ return _st(x).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st((function(x,y){
+self._assert_equals_($recv((function(x,y){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(x).__star(y);
+return $recv(x).__star(y);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1,3)});
 //>>excludeEnd("ctx");
@@ -776,13 +777,13 @@ return _st(x).__star(y);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st((function(a,b,c){
+self._assert_equals_($recv((function(a,b,c){
 return (1);
 
 }))._value(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -792,19 +793,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testValueWithPossibleArguments",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-$1=_st((function(){
+$1=$recv((function(){
 return (1);
 
 }))._valueWithPossibleArguments_([(3), (4)]);
@@ -815,11 +816,11 @@ self._assert_equals_($1,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$2=_st((function(a){
+$2=$recv((function(a){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(a).__plus((4));
+return $recv(a).__plus((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["+"]=1;
 //>>excludeEnd("ctx");
@@ -834,18 +835,18 @@ self._assert_equals_($2,(7));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st((function(a,b){
+self._assert_equals_($recv((function(a,b){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(a).__plus(b);
+return $recv(a).__plus(b);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)});
 //>>excludeEnd("ctx");
 }))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -855,24 +856,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testWhileFalse",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var i;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 i=(0);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(i).__gt((5));
+return $recv(i).__gt((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[">"]=1;
 //>>excludeEnd("ctx");
@@ -881,9 +882,9 @@ $ctx2.sendIdx[">"]=1;
 //>>excludeEnd("ctx");
 }))._whileFalse_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-i=_st(i).__plus((1));
+i=$recv(i).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["+"]=1;
 //>>excludeEnd("ctx");
@@ -897,13 +898,13 @@ self._assert_equals_(i,(6));
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 i=(0);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-i=_st(i).__plus((1));
+i=$recv(i).__plus((1));
 i;
-return _st(i).__gt((5));
+return $recv(i).__gt((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
@@ -911,7 +912,7 @@ return _st(i).__gt((5));
 self._assert_equals_(i,(6));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -921,24 +922,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["whileFalse:", ">", "+", "assert:equals:", "whileFalse"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testWhileTrue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var i;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 i=(0);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(i).__lt((5));
+return $recv(i).__lt((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
@@ -947,9 +948,9 @@ $ctx2.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
 }))._whileTrue_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-i=_st(i).__plus((1));
+i=$recv(i).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["+"]=1;
 //>>excludeEnd("ctx");
@@ -963,13 +964,13 @@ self._assert_equals_(i,(5));
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 i=(0);
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-i=_st(i).__plus((1));
+i=$recv(i).__plus((1));
 i;
-return _st(i).__lt((5));
+return $recv(i).__lt((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
@@ -977,7 +978,7 @@ return _st(i).__lt((5));
 self._assert_equals_(i,(5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},globals.BlockClosureTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},$globals.BlockClosureTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -987,19 +988,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["whileTrue:", "<", "+", "assert:equals:", "whileTrue"]
 }),
-globals.BlockClosureTest);
+$globals.BlockClosureTest);
 
 
 
-smalltalk.addClass('BooleanTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('BooleanTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testEquality",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$10,$9,$12,$11;
 $1=(0).__eq(false);
@@ -1067,7 +1068,7 @@ $10=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$9=_st($10).__eq(true);
+$9=$recv($10).__eq(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=9;
 //>>excludeEnd("ctx");
@@ -1079,11 +1080,11 @@ $12=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=2;
 //>>excludeEnd("ctx");
-$11=_st($12).__eq(true._yourself());
+$11=$recv($12).__eq(true._yourself());
 self._assert_($11);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1093,16 +1094,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "=", "assert:", "yourself"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIdentity",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$10,$9,$12,$11;
 $1=(0).__eq_eq(false);
@@ -1170,7 +1171,7 @@ $10=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$9=_st($10).__eq_eq(true);
+$9=$recv($10).__eq_eq(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=9;
 //>>excludeEnd("ctx");
@@ -1182,11 +1183,11 @@ $12=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=2;
 //>>excludeEnd("ctx");
-$11=_st($12).__eq_eq(true._yourself());
+$11=$recv($12).__eq_eq(true._yourself());
 self._assert_($11);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1196,47 +1197,47 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "==", "assert:", "yourself"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIfTrueIfFalse",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8;
-if(smalltalk.assert(true)){
+if($core.assert(true)){
 $1="alternative block";
 };
 self._assert_equals_($1,"alternative block");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert(true)){
+if(!$core.assert(true)){
 $2="alternative block";
 };
 self._assert_equals_($2,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-if(smalltalk.assert(false)){
+if($core.assert(false)){
 $3="alternative block";
 };
 self._assert_equals_($3,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert(false)){
+if(!$core.assert(false)){
 $4="alternative block";
 };
 self._assert_equals_($4,"alternative block");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
-if(smalltalk.assert(false)){
+if($core.assert(false)){
 $5="alternative block";
 } else {
 $5="alternative block2";
@@ -1245,7 +1246,7 @@ self._assert_equals_($5,"alternative block2");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
-if(smalltalk.assert(false)){
+if($core.assert(false)){
 $6="alternative block2";
 } else {
 $6="alternative block";
@@ -1254,7 +1255,7 @@ self._assert_equals_($6,"alternative block");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=6;
 //>>excludeEnd("ctx");
-if(smalltalk.assert(true)){
+if($core.assert(true)){
 $7="alternative block";
 } else {
 $7="alternative block2";
@@ -1263,7 +1264,7 @@ self._assert_equals_($7,"alternative block");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=7;
 //>>excludeEnd("ctx");
-if(smalltalk.assert(true)){
+if($core.assert(true)){
 $8="alternative block2";
 } else {
 $8="alternative block";
@@ -1271,7 +1272,7 @@ $8="alternative block";
 self._assert_equals_($8,"alternative block2");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1281,23 +1282,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIfTrueIfFalseWithBoxing",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5,$8,$7,$10,$9,$12,$11,$14,$13,$16,$15;
 $2=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($2)){
+if($core.assert($2)){
 $1="alternative block";
 };
 self._assert_equals_($1,"alternative block");
@@ -1308,7 +1309,7 @@ $4=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=2;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert($4)){
+if(!$core.assert($4)){
 $3="alternative block";
 };
 self._assert_equals_($3,nil);
@@ -1319,7 +1320,7 @@ $6=false._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=3;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($6)){
+if($core.assert($6)){
 $5="alternative block";
 };
 self._assert_equals_($5,nil);
@@ -1330,7 +1331,7 @@ $8=false._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=4;
 //>>excludeEnd("ctx");
-if(! smalltalk.assert($8)){
+if(!$core.assert($8)){
 $7="alternative block";
 };
 self._assert_equals_($7,"alternative block");
@@ -1341,7 +1342,7 @@ $10=false._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=5;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($10)){
+if($core.assert($10)){
 $9="alternative block";
 } else {
 $9="alternative block2";
@@ -1354,7 +1355,7 @@ $12=false._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=6;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($12)){
+if($core.assert($12)){
 $11="alternative block2";
 } else {
 $11="alternative block";
@@ -1367,7 +1368,7 @@ $14=true._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=7;
 //>>excludeEnd("ctx");
-if(smalltalk.assert($14)){
+if($core.assert($14)){
 $13="alternative block";
 } else {
 $13="alternative block2";
@@ -1377,7 +1378,7 @@ self._assert_equals_($13,"alternative block");
 $ctx1.sendIdx["assert:equals:"]=7;
 //>>excludeEnd("ctx");
 $16=true._yourself();
-if(smalltalk.assert($16)){
+if($core.assert($16)){
 $15="alternative block2";
 } else {
 $15="alternative block";
@@ -1385,7 +1386,7 @@ $15="alternative block";
 self._assert_equals_($15,"alternative block2");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1395,16 +1396,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testLogic",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$17,$18,$16,$15,$20,$19,$22,$21,$25,$24,$23;
 $1=true.__and(true);
@@ -1487,7 +1488,7 @@ $14=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=2;
 //>>excludeEnd("ctx");
-$13=_st($14).__and(false);
+$13=$recv($14).__and(false);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["&"]=6;
 //>>excludeEnd("ctx");
@@ -1503,7 +1504,7 @@ $18=(1).__gt((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=4;
 //>>excludeEnd("ctx");
-$16=_st($17).__and($18);
+$16=$recv($17).__and($18);
 $15=self._deny_($16);
 $20=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1521,7 +1522,7 @@ $22=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=6;
 //>>excludeEnd("ctx");
-$21=_st($22).__or(false);
+$21=$recv($22).__or(false);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["|"]=6;
 //>>excludeEnd("ctx");
@@ -1533,11 +1534,11 @@ $25=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=7;
 //>>excludeEnd("ctx");
-$24=_st($25).__or((1).__gt((2)));
+$24=$recv($25).__or((1).__gt((2)));
 $23=self._assert_($24);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLogic",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLogic",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1547,16 +1548,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "&", "deny:", "|", ">"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testLogicKeywords",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$11,$13,$12,$16,$15,$14,$17,$19,$18,$22,$21,$20;
 $1=true._and_((function(){
@@ -1649,7 +1650,7 @@ $ctx1.sendIdx["deny:"]=4;
 //>>excludeEnd("ctx");
 $11=true._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1670,7 +1671,7 @@ $13=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=2;
 //>>excludeEnd("ctx");
-$12=_st($13)._and_((function(){
+$12=$recv($13)._and_((function(){
 return false;
 
 }));
@@ -1685,9 +1686,9 @@ $16=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=3;
 //>>excludeEnd("ctx");
-$15=_st($16)._and_((function(){
+$15=$recv($16)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1).__gt((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1700,7 +1701,7 @@ $ctx2.sendIdx[">"]=4;
 $14=self._deny_($15);
 $17=false._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1721,7 +1722,7 @@ $19=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=6;
 //>>excludeEnd("ctx");
-$18=_st($19)._or_((function(){
+$18=$recv($19)._or_((function(){
 return false;
 
 }));
@@ -1736,9 +1737,9 @@ $22=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=7;
 //>>excludeEnd("ctx");
-$21=_st($22)._or_((function(){
+$21=$recv($22)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1).__gt((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1748,7 +1749,7 @@ return (1).__gt((2));
 $20=self._assert_($21);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1758,23 +1759,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "and:", "deny:", "or:", ">"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNonBooleanError",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $NonBooleanReceiver(){return globals.NonBooleanReceiver||(typeof NonBooleanReceiver=="undefined"?nil:NonBooleanReceiver)}
+function $NonBooleanReceiver(){return $globals.NonBooleanReceiver||(typeof NonBooleanReceiver=="undefined"?nil:NonBooleanReceiver)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-if(smalltalk.assert("")){
+if($core.assert("")){
 } else {
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1783,7 +1784,7 @@ if(smalltalk.assert("")){
 }),$NonBooleanReceiver());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNonBooleanError",{},globals.BooleanTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNonBooleanError",{},$globals.BooleanTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1793,25 +1794,25 @@ referencedClasses: ["NonBooleanReceiver"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "ifTrue:ifFalse:"]
 }),
-globals.BooleanTest);
+$globals.BooleanTest);
 
 
 
-smalltalk.addClass('ClassBuilderTest', globals.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('ClassBuilderTest', $globals.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $ClassBuilder(){return globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@builder"]=_st($ClassBuilder())._new();
+self["@builder"]=$recv($ClassBuilder())._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1821,30 +1822,30 @@ referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
 messageSends: ["new"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "tearDown",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@theClass"];
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
-_st($Smalltalk())._removeClass_(self["@theClass"]);
+$recv($Smalltalk())._removeClass_(self["@theClass"]);
 self["@theClass"]=nil;
 self["@theClass"];
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"tearDown",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1854,25 +1855,25 @@ referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["ifNotNil:", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testClassCopy",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5,$8,$7;
-self["@theClass"]=_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
-$2=_st(self["@theClass"])._superclass();
+self["@theClass"]=$recv(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
+$2=$recv(self["@theClass"])._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["superclass"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__eq_eq(_st($ObjectMock())._superclass());
+$1=$recv($2).__eq_eq($recv($ObjectMock())._superclass());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
@@ -1880,11 +1881,11 @@ self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$4=_st(self["@theClass"])._instanceVariableNames();
+$4=$recv(self["@theClass"])._instanceVariableNames();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["instanceVariableNames"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq_eq(_st($ObjectMock())._instanceVariableNames());
+$3=$recv($4).__eq_eq($recv($ObjectMock())._instanceVariableNames());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=2;
 //>>excludeEnd("ctx");
@@ -1892,28 +1893,28 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self["@theClass"])._name(),"ObjectMock2");
+self._assert_equals_($recv(self["@theClass"])._name(),"ObjectMock2");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$6=_st(self["@theClass"])._package();
+$6=$recv(self["@theClass"])._package();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["package"]=1;
 //>>excludeEnd("ctx");
-$5=_st($6).__eq_eq(_st($ObjectMock())._package());
+$5=$recv($6).__eq_eq($recv($ObjectMock())._package());
 self._assert_($5);
-$8=_st(self["@theClass"])._methodDictionary();
+$8=$recv(self["@theClass"])._methodDictionary();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["methodDictionary"]=1;
 //>>excludeEnd("ctx");
-$7=_st($8)._keys();
+$7=$recv($8)._keys();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["keys"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_($7,_st(_st($ObjectMock())._methodDictionary())._keys());
+self._assert_equals_($7,$recv($recv($ObjectMock())._methodDictionary())._keys());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassCopy",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassCopy",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1923,42 +1924,42 @@ referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "assert:", "==", "superclass", "instanceVariableNames", "assert:equals:", "name", "package", "keys", "methodDictionary"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testClassMigration",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var instance,oldClass;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ObjectMock2(){return globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ObjectMock2(){return $globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$6,$7,$8,$9,$11,$10;
-oldClass=_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
-$2=_st($Smalltalk())._globals();
+oldClass=$recv(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
+$2=$recv($Smalltalk())._globals();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["globals"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._at_("ObjectMock2");
+$1=$recv($2)._at_("ObjectMock2");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
-instance=_st($1)._new();
-$4=_st($Smalltalk())._globals();
+instance=$recv($1)._new();
+$4=$recv($Smalltalk())._globals();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["globals"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._at_("ObjectMock2");
+$3=$recv($4)._at_("ObjectMock2");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=2;
 //>>excludeEnd("ctx");
-_st($ObjectMock())._subclass_instanceVariableNames_package_($3,"","Kernel-Tests");
-$5=_st(oldClass).__eq_eq($ObjectMock2());
+$recv($ObjectMock())._subclass_instanceVariableNames_package_($3,"","Kernel-Tests");
+$5=$recv(oldClass).__eq_eq($ObjectMock2());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
@@ -1966,7 +1967,7 @@ self._deny_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-$6=_st(_st($ObjectMock2())._superclass()).__eq_eq($ObjectMock());
+$6=$recv($recv($ObjectMock2())._superclass()).__eq_eq($ObjectMock());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=2;
 //>>excludeEnd("ctx");
@@ -1974,42 +1975,42 @@ self._assert_($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-self._assert_(_st(_st($ObjectMock2())._instanceVariableNames())._isEmpty());
+self._assert_($recv($recv($ObjectMock2())._instanceVariableNames())._isEmpty());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-$7=_st($ObjectMock2())._selectors();
+$7=$recv($ObjectMock2())._selectors();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["selectors"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_($7,_st(oldClass)._selectors());
+self._assert_equals_($7,$recv(oldClass)._selectors());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$8=_st($ObjectMock2())._comment();
+$8=$recv($ObjectMock2())._comment();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["comment"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_($8,_st(oldClass)._comment());
+self._assert_equals_($8,$recv(oldClass)._comment());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$9=_st(_st($ObjectMock2())._package())._name();
+$9=$recv($recv($ObjectMock2())._package())._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=1;
 //>>excludeEnd("ctx");
 self._assert_equals_($9,"Kernel-Tests");
-$11=_st(instance)._class();
+$11=$recv(instance)._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
 //>>excludeEnd("ctx");
-$10=_st($11).__eq_eq($ObjectMock2());
+$10=$recv($11).__eq_eq($ObjectMock2());
 self._deny_($10);
-self._assert_(_st(_st(_st($Smalltalk())._globals())._at_(_st(_st(instance)._class())._name()))._isNil());
-_st($Smalltalk())._removeClass_($ObjectMock2());
+self._assert_($recv($recv($recv($Smalltalk())._globals())._at_($recv($recv(instance)._class())._name()))._isNil());
+$recv($Smalltalk())._removeClass_($ObjectMock2());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2019,33 +2020,33 @@ referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"],
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "new", "at:", "globals", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testClassMigrationWithClassInstanceVariables",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
-function $ObjectMock2(){return globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock2(){return $globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
-$1=_st($ObjectMock2())._class();
+$recv(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
+$1=$recv($ObjectMock2())._class();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["class"]=1;
 //>>excludeEnd("ctx");
-_st($1)._instanceVariableNames_("foo bar");
-_st($ObjectMock())._subclass_instanceVariableNames_package_(_st(_st($Smalltalk())._globals())._at_("ObjectMock2"),"","Kernel-Tests");
-self._assert_equals_(_st(_st($ObjectMock2())._class())._instanceVariableNames(),["foo", "bar"]);
-_st($Smalltalk())._removeClass_($ObjectMock2());
+$recv($1)._instanceVariableNames_("foo bar");
+$recv($ObjectMock())._subclass_instanceVariableNames_package_($recv($recv($Smalltalk())._globals())._at_("ObjectMock2"),"","Kernel-Tests");
+self._assert_equals_($recv($recv($ObjectMock2())._class())._instanceVariableNames(),["foo", "bar"]);
+$recv($Smalltalk())._removeClass_($ObjectMock2());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2055,38 +2056,38 @@ referencedClasses: ["ObjectMock", "ObjectMock2", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:equals:", "instanceVariableNames", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testClassMigrationWithSubclasses",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
-function $ObjectMock2(){return globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
-function $ObjectMock3(){return globals.ObjectMock3||(typeof ObjectMock3=="undefined"?nil:ObjectMock3)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ObjectMock4(){return globals.ObjectMock4||(typeof ObjectMock4=="undefined"?nil:ObjectMock4)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock2(){return $globals.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
+function $ObjectMock3(){return $globals.ObjectMock3||(typeof ObjectMock3=="undefined"?nil:ObjectMock3)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ObjectMock4(){return $globals.ObjectMock4||(typeof ObjectMock4=="undefined"?nil:ObjectMock4)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
-_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
-_st($ObjectMock2())._subclass_instanceVariableNames_package_("ObjectMock3","","Kernel-Tests");
+$recv(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
+$recv($ObjectMock2())._subclass_instanceVariableNames_package_("ObjectMock3","","Kernel-Tests");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["subclass:instanceVariableNames:package:"]=1;
 //>>excludeEnd("ctx");
-_st($ObjectMock3())._subclass_instanceVariableNames_package_("ObjectMock4","","Kernel-Tests");
+$recv($ObjectMock3())._subclass_instanceVariableNames_package_("ObjectMock4","","Kernel-Tests");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["subclass:instanceVariableNames:package:"]=2;
 //>>excludeEnd("ctx");
-_st($ObjectMock())._subclass_instanceVariableNames_package_(_st(_st($Smalltalk())._globals())._at_("ObjectMock2"),"","Kernel-Tests");
-$2=_st($ObjectMock())._subclasses();
+$recv($ObjectMock())._subclass_instanceVariableNames_package_($recv($recv($Smalltalk())._globals())._at_("ObjectMock2"),"","Kernel-Tests");
+$2=$recv($ObjectMock())._subclasses();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["subclasses"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._includes_($ObjectMock2());
+$1=$recv($2)._includes_($ObjectMock2());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includes:"]=1;
 //>>excludeEnd("ctx");
@@ -2094,11 +2095,11 @@ self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$4=_st($ObjectMock2())._subclasses();
+$4=$recv($ObjectMock2())._subclasses();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["subclasses"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._includes_($ObjectMock3());
+$3=$recv($4)._includes_($ObjectMock3());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includes:"]=2;
 //>>excludeEnd("ctx");
@@ -2106,19 +2107,19 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-self._assert_(_st(_st($ObjectMock3())._subclasses())._includes_($ObjectMock4()));
-_st(_st($ObjectMock())._allSubclasses())._do_((function(each){
+self._assert_($recv($recv($ObjectMock3())._subclasses())._includes_($ObjectMock4()));
+$recv($recv($ObjectMock())._allSubclasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st($Smalltalk())._removeClass_(each);
+return $recv($Smalltalk())._removeClass_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2128,21 +2129,21 @@ referencedClasses: ["ObjectMock", "ObjectMock2", "ObjectMock3", "Smalltalk", "Ob
 //>>excludeEnd("ide");
 messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "at:", "globals", "assert:", "includes:", "subclasses", "do:", "allSubclasses", "removeClass:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testInstanceVariableNames",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self["@builder"])._instanceVariableNamesFor_("  hello   world   "),["hello", "world"]);
+self._assert_equals_($recv(self["@builder"])._instanceVariableNamesFor_("  hello   world   "),["hello", "world"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInstanceVariableNames",{},globals.ClassBuilderTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInstanceVariableNames",{},$globals.ClassBuilderTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2152,26 +2153,26 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "instanceVariableNamesFor:"]
 }),
-globals.ClassBuilderTest);
+$globals.ClassBuilderTest);
 
 
 
-smalltalk.addClass('CollectionTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('CollectionTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "assertSameContents:as:",
 protocol: 'convenience',
 fn: function (aCollection,anotherCollection){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
-$2=_st(aCollection)._size();
+$2=$recv(aCollection)._size();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["size"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__eq(_st(anotherCollection)._size());
+$1=$recv($2).__eq($recv(anotherCollection)._size());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -2179,15 +2180,15 @@ self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-_st(aCollection)._do_((function(each){
+$recv(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=_st(aCollection)._occurrencesOf_(each);
+$4=$recv(aCollection)._occurrencesOf_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["occurrencesOf:"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq(_st(anotherCollection)._occurrencesOf_(each));
+$3=$recv($4).__eq($recv(anotherCollection)._occurrencesOf_(each));
 return self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
@@ -2195,7 +2196,7 @@ return self._assert_($3);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2205,21 +2206,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "size", "do:", "occurrencesOf:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2229,22 +2230,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._class())._collectionClass();
+$1=$recv(self._class())._collectionClass();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2254,21 +2255,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionClass", "class"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2278,21 +2279,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionSize",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2302,21 +2303,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2326,21 +2327,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2350,10 +2351,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "isCollectionReadOnly",
 protocol: 'testing',
 fn: function (){
@@ -2368,10 +2369,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewValue",
 protocol: 'fixture',
 fn: function (){
@@ -2386,22 +2387,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._collectionClass())._with_(self._sampleNewValue());
+$1=$recv(self._collectionClass())._with_(self._sampleNewValue());
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2411,16 +2412,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["with:", "collectionClass", "sampleNewValue"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$5,$4,$6,$1,$7,$10,$9,$11,$12,$13,$8,$14,$17,$16,$18,$20,$19,$21,$15,$23,$24,$25,$26,$22,$27,$28,$29;
 $2=self._collection();
@@ -2432,15 +2433,15 @@ $5=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5)._new();
+$4=$recv($5)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st($3)._addAll_($4);
+$recv($3)._addAll_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=1;
 //>>excludeEnd("ctx");
-$6=_st($2)._yourself();
+$6=$recv($2)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
@@ -2457,7 +2458,7 @@ $10=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=2;
 //>>excludeEnd("ctx");
-$9=_st($10)._new();
+$9=$recv($10)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
@@ -2466,11 +2467,11 @@ $12=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-_st($11)._addAll_($12);
+$recv($11)._addAll_($12);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=2;
 //>>excludeEnd("ctx");
-$13=_st($9)._yourself();
+$13=$recv($9)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=2;
 //>>excludeEnd("ctx");
@@ -2487,7 +2488,7 @@ $17=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=3;
 //>>excludeEnd("ctx");
-$16=_st($17)._new();
+$16=$recv($17)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
@@ -2496,20 +2497,20 @@ $20=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=4;
 //>>excludeEnd("ctx");
-$19=_st($20)._new();
+$19=$recv($20)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=4;
 //>>excludeEnd("ctx");
-_st($18)._addAll_($19);
+$recv($18)._addAll_($19);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=3;
 //>>excludeEnd("ctx");
-$21=_st($16)._yourself();
+$21=$recv($16)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=3;
 //>>excludeEnd("ctx");
 $15=$21;
-self._assert_equals_($15,_st(self._collectionClass())._new());
+self._assert_equals_($15,$recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
@@ -2522,11 +2523,11 @@ $25=self._sampleNewValueAsCollection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["sampleNewValueAsCollection"]=1;
 //>>excludeEnd("ctx");
-_st($24)._addAll_($25);
+$recv($24)._addAll_($25);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=4;
 //>>excludeEnd("ctx");
-$26=_st($23)._yourself();
+$26=$recv($23)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=4;
 //>>excludeEnd("ctx");
@@ -2537,12 +2538,12 @@ $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
 self._assert_equals_($22,$27);
 $28=self._sampleNewValueAsCollection();
-_st($28)._addAll_(self._collection());
-$29=_st($28)._yourself();
+$recv($28)._addAll_(self._collection());
+$29=$recv($28)._yourself();
 self._assertSameContents_as_($29,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2552,26 +2553,26 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "addAll:", "collection", "new", "collectionClass", "yourself", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAllSatisfy",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var collection,anyOne;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 collection=self._collection();
-anyOne=_st(collection)._anyOne();
-$1=_st(collection)._allSatisfy_((function(each){
+anyOne=$recv(collection)._anyOne();
+$1=$recv(collection)._allSatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(collection)._includes_(each);
+return $recv(collection)._includes_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2580,18 +2581,18 @@ return _st(collection)._includes_(each);
 $ctx1.sendIdx["allSatisfy:"]=1;
 //>>excludeEnd("ctx");
 self._assert_($1);
-self._deny_(_st(collection)._allSatisfy_((function(each){
+self._deny_($recv(collection)._allSatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__tild_eq(anyOne);
+return $recv(each).__tild_eq(anyOne);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAllSatisfy",{collection:collection,anyOne:anyOne},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAllSatisfy",{collection:collection,anyOne:anyOne},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2601,24 +2602,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "anyOne", "assert:", "allSatisfy:", "includes:", "deny:", "~="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAnyOne",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st(self._collectionClass())._new())._anyOne();
+return $recv($recv(self._collectionClass())._new())._anyOne();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["anyOne"]=1;
 //>>excludeEnd("ctx");
@@ -2630,11 +2631,11 @@ $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._includes_(_st(self._collection())._anyOne());
+$1=$recv($2)._includes_($recv(self._collection())._anyOne());
 self._assert_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAnyOne",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAnyOne",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2644,34 +2645,34 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "anyOne", "new", "collectionClass", "assert:", "includes:", "collection"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAnySatisfy",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var anyOne;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2;
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-anyOne=_st($1)._anyOne();
+anyOne=$recv($1)._anyOne();
 $3=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$2=_st($3)._anySatisfy_((function(each){
+$2=$recv($3)._anySatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__eq(anyOne);
+return $recv(each).__eq(anyOne);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -2683,18 +2684,18 @@ $ctx2.sendIdx["="]=1;
 $ctx1.sendIdx["anySatisfy:"]=1;
 //>>excludeEnd("ctx");
 self._assert_($2);
-self._deny_(_st(self._collection())._anySatisfy_((function(each){
+self._deny_($recv(self._collection())._anySatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__eq(_st($Object())._new());
+return $recv(each).__eq($recv($Object())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{anyOne:anyOne},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{anyOne:anyOne},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2704,26 +2705,26 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["anyOne", "collection", "assert:", "anySatisfy:", "=", "deny:", "new"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsArray",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-self._assertSameContents_as_($1,_st(self._collection())._asArray());
+self._assertSameContents_as_($1,$recv(self._collection())._asArray());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2733,26 +2734,26 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assertSameContents:as:", "collection", "asArray"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsOrderedCollection",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-self._assertSameContents_as_($1,_st(self._collection())._asOrderedCollection());
+self._assertSameContents_as_($1,$recv(self._collection())._asOrderedCollection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2762,33 +2763,33 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assertSameContents:as:", "collection", "asOrderedCollection"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsSet",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var c,set;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 c=self._collectionWithDuplicates();
-set=_st(c)._asSet();
-self._assert_equals_(_st(set)._size(),(5));
-_st(c)._do_((function(each){
+set=$recv(c)._asSet();
+self._assert_equals_($recv(set)._size(),(5));
+$recv(c)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_(_st(set)._includes_(each));
+return self._assert_($recv(set)._includes_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2798,23 +2799,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "do:", "assert:", "includes:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCollect",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$5,$4,$8,$7,$6,$11,$10,$9;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._collect_((function(each){
+$1=$recv($2)._collect_((function(each){
 return each;
 
 }));
@@ -2833,7 +2834,7 @@ $5=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5)._collect_((function(each){
+$4=$recv($5)._collect_((function(each){
 return each;
 
 }));
@@ -2848,15 +2849,15 @@ $8=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$7=_st($8)._new();
+$7=$recv($8)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$6=_st($7)._collect_((function(each){
+$6=$recv($7)._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each)._printString();
+return $recv(each)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["printString"]=1;
 //>>excludeEnd("ctx");
@@ -2867,7 +2868,7 @@ $ctx2.sendIdx["printString"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collect:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_($6,_st(self._collectionClass())._new());
+self._assert_equals_($6,$recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
@@ -2875,9 +2876,9 @@ $11=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$10=_st($11)._collect_((function(){
+$10=$recv($11)._collect_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2890,7 +2891,7 @@ $ctx2.sendIdx["sampleNewValue"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collect:"]=4;
 //>>excludeEnd("ctx");
-$9=_st($10)._detect_((function(){
+$9=$recv($10)._detect_((function(){
 return true;
 
 }));
@@ -2898,18 +2899,18 @@ self._assert_equals_($9,self._sampleNewValue());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._collection())._collect_((function(each){
+self._assert_equals_($recv(self._collection())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each)._printString();
+return $recv(each)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,6)});
 //>>excludeEnd("ctx");
 })),self._collectionOfPrintStrings());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCollect",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCollect",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2919,16 +2920,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "collect:", "collection", "collectionWithNewValue", "new", "collectionClass", "printString", "detect:", "sampleNewValue", "collectionOfPrintStrings"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComma",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$4,$3,$1,$5,$8,$7,$9,$6,$10,$13,$12,$15,$14,$11,$17,$18,$16,$19;
 $2=self._collection();
@@ -2939,11 +2940,11 @@ $4=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4)._new();
+$3=$recv($4)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__comma($3);
+$1=$recv($2).__comma($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -2959,7 +2960,7 @@ $8=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=2;
 //>>excludeEnd("ctx");
-$7=_st($8)._new();
+$7=$recv($8)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
@@ -2967,7 +2968,7 @@ $9=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$6=_st($7).__comma($9);
+$6=$recv($7).__comma($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
@@ -2983,7 +2984,7 @@ $13=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=3;
 //>>excludeEnd("ctx");
-$12=_st($13)._new();
+$12=$recv($13)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
@@ -2991,15 +2992,15 @@ $15=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=4;
 //>>excludeEnd("ctx");
-$14=_st($15)._new();
+$14=$recv($15)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=4;
 //>>excludeEnd("ctx");
-$11=_st($12).__comma($14);
+$11=$recv($12).__comma($14);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_($11,_st(self._collectionClass())._new());
+self._assert_equals_($11,$recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
@@ -3011,7 +3012,7 @@ $18=self._sampleNewValueAsCollection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["sampleNewValueAsCollection"]=1;
 //>>excludeEnd("ctx");
-$16=_st($17).__comma($18);
+$16=$recv($17).__comma($18);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=4;
 //>>excludeEnd("ctx");
@@ -3020,10 +3021,10 @@ $19=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
 self._assert_equals_($16,$19);
-self._assertSameContents_as_(_st(self._sampleNewValueAsCollection()).__comma(self._collection()),self._collectionWithNewValue());
+self._assertSameContents_as_($recv(self._sampleNewValueAsCollection()).__comma(self._collection()),self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComma",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3033,28 +3034,28 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", ",", "collection", "new", "collectionClass", "sampleNewValueAsCollection", "collectionWithNewValue", "assertSameContents:as:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDetect",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$5,$7;
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-return _st($1)._detect_((function(){
+return $recv($1)._detect_((function(){
 return true;
 
 }));
@@ -3067,13 +3068,13 @@ $ctx2.sendIdx["detect:"]=1;
 }),$Error());
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-return _st($2)._detect_((function(){
+return $recv($2)._detect_((function(){
 return false;
 
 }));
@@ -3087,7 +3088,7 @@ $ctx2.sendIdx["detect:"]=2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["should:raise:"]=1;
 //>>excludeEnd("ctx");
-$3=_st(self._sampleNewValueAsCollection())._detect_((function(){
+$3=$recv(self._sampleNewValueAsCollection())._detect_((function(){
 return true;
 
 }));
@@ -3102,15 +3103,15 @@ self._assert_equals_($3,$4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$5=_st(self._collectionWithNewValue())._detect_((function(each){
+$5=$recv(self._collectionWithNewValue())._detect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $6=self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["sampleNewValue"]=2;
 //>>excludeEnd("ctx");
-return _st(each).__eq($6);
+return $recv(each).__eq($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -3128,13 +3129,13 @@ $ctx1.sendIdx["sampleNewValue"]=3;
 self._assert_equals_($5,$7);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._collection())._detect_((function(each){
+return $recv(self._collection())._detect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(each).__eq(self._sampleNewValue());
+return $recv(each).__eq(self._sampleNewValue());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,8)});
 //>>excludeEnd("ctx");
@@ -3145,7 +3146,7 @@ return _st(each).__eq(self._sampleNewValue());
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDetect",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDetect",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3155,26 +3156,26 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["shouldnt:raise:", "detect:", "collection", "should:raise:", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDetectIfNone",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var sentinel;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$5,$4,$6,$7,$9,$8,$10;
-sentinel=_st($Object())._new();
+sentinel=$recv($Object())._new();
 $3=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._detect_ifNone_((function(){
+$2=$recv($3)._detect_ifNone_((function(){
 return true;
 
 }),(function(){
@@ -3184,13 +3185,13 @@ return sentinel;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["detect:ifNone:"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__tild_eq(sentinel);
+$1=$recv($2).__tild_eq(sentinel);
 self._assert_($1);
 $5=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$4=_st($5)._detect_ifNone_((function(){
+$4=$recv($5)._detect_ifNone_((function(){
 return false;
 
 }),(function(){
@@ -3204,7 +3205,7 @@ self._assert_equals_($4,sentinel);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$6=_st(self._sampleNewValueAsCollection())._detect_ifNone_((function(){
+$6=$recv(self._sampleNewValueAsCollection())._detect_ifNone_((function(){
 return true;
 
 }),(function(){
@@ -3222,15 +3223,15 @@ self._assert_equals_($6,$7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$8=_st(self._collectionWithNewValue())._detect_ifNone_((function(each){
+$8=$recv(self._collectionWithNewValue())._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $9=self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["sampleNewValue"]=2;
 //>>excludeEnd("ctx");
-return _st(each).__eq($9);
+return $recv(each).__eq($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -3252,11 +3253,11 @@ self._assert_equals_($8,$10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._collection())._detect_ifNone_((function(each){
+self._assert_equals_($recv(self._collection())._detect_ifNone_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__eq(self._sampleNewValue());
+return $recv(each).__eq(self._sampleNewValue());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,9)});
 //>>excludeEnd("ctx");
@@ -3266,7 +3267,7 @@ return sentinel;
 })),sentinel);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDetectIfNone",{sentinel:sentinel},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3276,21 +3277,21 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "~=", "detect:ifNone:", "collection", "assert:equals:", "sampleNewValueAsCollection", "sampleNewValue", "collectionWithNewValue", "="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
-function $OrderedCollection(){return globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-newCollection=_st($OrderedCollection())._new();
+newCollection=$recv($OrderedCollection())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -3298,11 +3299,11 @@ $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-_st($1)._do_((function(each){
+$recv($1)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(newCollection)._add_(each);
+return $recv(newCollection)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
@@ -3317,16 +3318,16 @@ self._assertSameContents_as_(self._collection(),newCollection);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assertSameContents:as:"]=1;
 //>>excludeEnd("ctx");
-newCollection=_st($OrderedCollection())._new();
+newCollection=$recv($OrderedCollection())._new();
 $2=self._collectionWithDuplicates();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithDuplicates"]=1;
 //>>excludeEnd("ctx");
-_st($2)._do_((function(each){
+$recv($2)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(newCollection)._add_(each);
+return $recv(newCollection)._add_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -3334,7 +3335,7 @@ return _st(newCollection)._add_(each);
 self._assertSameContents_as_(self._collectionWithDuplicates(),newCollection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3344,27 +3345,27 @@ referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:", "collectionWithDuplicates"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIfEmptyFamily",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$15,$14,$16,$19,$18,$17,$21,$20,$23,$22,$24,$25,$27,$26,$29,$28;
 $3=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._new();
+$2=$recv($3)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._ifEmpty_((function(){
+$1=$recv($2)._ifEmpty_((function(){
 return (42);
 
 }));
@@ -3379,7 +3380,7 @@ $5=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5)._ifEmpty_((function(){
+$4=$recv($5)._ifEmpty_((function(){
 return (42);
 
 }));
@@ -3395,11 +3396,11 @@ $9=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=2;
 //>>excludeEnd("ctx");
-$8=_st($9)._new();
+$8=$recv($9)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-$7=_st($8)._ifNotEmpty_((function(){
+$7=$recv($8)._ifNotEmpty_((function(){
 return (42);
 
 }));
@@ -3410,7 +3411,7 @@ $11=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=3;
 //>>excludeEnd("ctx");
-$10=_st($11)._new();
+$10=$recv($11)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
@@ -3422,7 +3423,7 @@ $13=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$12=_st($13)._ifNotEmpty_((function(){
+$12=$recv($13)._ifNotEmpty_((function(){
 return (42);
 
 }));
@@ -3437,7 +3438,7 @@ $15=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=4;
 //>>excludeEnd("ctx");
-$14=_st($15)._ifNotEmpty_((function(col){
+$14=$recv($15)._ifNotEmpty_((function(col){
 return col;
 
 }));
@@ -3453,11 +3454,11 @@ $19=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=4;
 //>>excludeEnd("ctx");
-$18=_st($19)._new();
+$18=$recv($19)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=4;
 //>>excludeEnd("ctx");
-$17=_st($18)._ifEmpty_ifNotEmpty_((function(){
+$17=$recv($18)._ifEmpty_ifNotEmpty_((function(){
 return (42);
 
 }),(function(){
@@ -3475,7 +3476,7 @@ $21=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=6;
 //>>excludeEnd("ctx");
-$20=_st($21)._ifEmpty_ifNotEmpty_((function(){
+$20=$recv($21)._ifEmpty_ifNotEmpty_((function(){
 return (42);
 
 }),(function(){
@@ -3493,7 +3494,7 @@ $23=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=7;
 //>>excludeEnd("ctx");
-$22=_st($23)._ifEmpty_ifNotEmpty_((function(){
+$22=$recv($23)._ifEmpty_ifNotEmpty_((function(){
 return (42);
 
 }),(function(col){
@@ -3508,7 +3509,7 @@ self._assert_equals_($22,$24);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=8;
 //>>excludeEnd("ctx");
-$25=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
+$25=$recv($recv(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
 return (42);
 
 }),(function(){
@@ -3526,7 +3527,7 @@ $27=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=9;
 //>>excludeEnd("ctx");
-$26=_st($27)._ifNotEmpty_ifEmpty_((function(){
+$26=$recv($27)._ifNotEmpty_ifEmpty_((function(){
 return (42);
 
 }),(function(){
@@ -3544,7 +3545,7 @@ $29=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=10;
 //>>excludeEnd("ctx");
-$28=_st($29)._ifNotEmpty_ifEmpty_((function(col){
+$28=$recv($29)._ifNotEmpty_ifEmpty_((function(col){
 return col;
 
 }),(function(){
@@ -3554,7 +3555,7 @@ return (999);
 self._assert_equals_($28,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3564,27 +3565,27 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIsEmpty",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st(self._collectionClass())._new())._isEmpty();
+$1=$recv($recv(self._collectionClass())._new())._isEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isEmpty"]=1;
 //>>excludeEnd("ctx");
 self._assert_($1);
-self._deny_(_st(self._collection())._isEmpty());
+self._deny_($recv(self._collection())._isEmpty());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3594,34 +3595,34 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isEmpty", "new", "collectionClass", "deny:", "collection"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNoneSatisfy",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var anyOne;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2;
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-anyOne=_st($1)._anyOne();
+anyOne=$recv($1)._anyOne();
 $3=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$2=_st($3)._noneSatisfy_((function(each){
+$2=$recv($3)._noneSatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__eq(anyOne);
+return $recv(each).__eq(anyOne);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -3633,18 +3634,18 @@ $ctx2.sendIdx["="]=1;
 $ctx1.sendIdx["noneSatisfy:"]=1;
 //>>excludeEnd("ctx");
 self._deny_($2);
-self._assert_(_st(self._collection())._noneSatisfy_((function(each){
+self._assert_($recv(self._collection())._noneSatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__eq(_st($Object())._new());
+return $recv(each).__eq($recv($Object())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
 })));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNoneSatisfy",{anyOne:anyOne},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNoneSatisfy",{anyOne:anyOne},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3654,25 +3655,25 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["anyOne", "collection", "deny:", "noneSatisfy:", "=", "assert:", "new"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._collection();
-_st($1)._removeAll();
-$2=_st($1)._yourself();
-self._assert_equals_($2,_st(self._collectionClass())._new());
+$recv($1)._removeAll();
+$2=$recv($1)._yourself();
+self._assert_equals_($2,$recv(self._collectionClass())._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3682,23 +3683,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "removeAll", "collection", "yourself", "new", "collectionClass"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSelect",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5,$7,$9,$10,$8,$12,$13,$11,$14,$16,$17,$15;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._select_((function(){
+$1=$recv($2)._select_((function(){
 return false;
 
 }));
@@ -3709,7 +3710,7 @@ $4=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4)._new();
+$3=$recv($4)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -3721,7 +3722,7 @@ $6=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$5=_st($6)._select_((function(){
+$5=$recv($6)._select_((function(){
 return true;
 
 }));
@@ -3740,15 +3741,15 @@ $9=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
-$8=_st($9)._select_((function(each){
+$8=$recv($9)._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $10=self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["sampleNewValue"]=1;
 //>>excludeEnd("ctx");
-return _st(each).__eq($10);
+return $recv(each).__eq($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -3767,15 +3768,15 @@ $12=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=2;
 //>>excludeEnd("ctx");
-$11=_st($12)._select_((function(each){
+$11=$recv($12)._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $13=self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["sampleNewValue"]=2;
 //>>excludeEnd("ctx");
-return _st(each).__tild_eq($13);
+return $recv(each).__tild_eq($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["~="]=1;
 //>>excludeEnd("ctx");
@@ -3798,15 +3799,15 @@ $16=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=5;
 //>>excludeEnd("ctx");
-$15=_st($16)._select_((function(each){
+$15=$recv($16)._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $17=self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["sampleNewValue"]=3;
 //>>excludeEnd("ctx");
-return _st(each).__eq($17);
+return $recv(each).__eq($17);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,5)});
 //>>excludeEnd("ctx");
@@ -3814,22 +3815,22 @@ return _st(each).__eq($17);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["select:"]=5;
 //>>excludeEnd("ctx");
-self._assert_equals_($15,_st(self._collectionClass())._new());
+self._assert_equals_($15,$recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._collectionWithNewValue())._select_((function(each){
+self._assert_equals_($recv(self._collectionWithNewValue())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(each).__tild_eq(self._sampleNewValue());
+return $recv(each).__tild_eq(self._sampleNewValue());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,6)});
 //>>excludeEnd("ctx");
 })),self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSelect",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSelect",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3839,19 +3840,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "select:", "collection", "new", "collectionClass", "collectionWithNewValue", "=", "sampleNewValue", "sampleNewValueAsCollection", "~="]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSize",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-$1=_st(_st(self._collectionClass())._new())._size();
+$1=$recv($recv(self._collectionClass())._new())._size();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["size"]=1;
 //>>excludeEnd("ctx");
@@ -3859,7 +3860,7 @@ self._assert_equals_($1,(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(self._sampleNewValueAsCollection())._size();
+$2=$recv(self._sampleNewValueAsCollection())._size();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["size"]=2;
 //>>excludeEnd("ctx");
@@ -3867,10 +3868,10 @@ self._assert_equals_($2,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._collection())._size(),self._collectionSize());
+self._assert_equals_($recv(self._collection())._size(),self._collectionSize());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSize",{},globals.CollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSize",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3880,11 +3881,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "size", "new", "collectionClass", "sampleNewValueAsCollection", "collection", "collectionSize"]
 }),
-globals.CollectionTest);
+$globals.CollectionTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
@@ -3899,22 +3900,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.CollectionTest.klass);
+$globals.CollectionTest.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "isAbstract",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._collectionClass())._isNil();
+$1=$recv(self._collectionClass())._isNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.CollectionTest.klass)});
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.CollectionTest.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3924,23 +3925,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isNil", "collectionClass"]
 }),
-globals.CollectionTest.klass);
+$globals.CollectionTest.klass);
 
 
-smalltalk.addClass('IndexableCollectionTest', globals.CollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('IndexableCollectionTest', $globals.CollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3950,21 +3951,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewIndex",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNewIndex",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3974,21 +3975,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNonIndexesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNonIndexesDo:",{aBlock:aBlock},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNonIndexesDo:",{aBlock:aBlock},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -3998,21 +3999,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4022,32 +4023,32 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._nonIndexesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-return _st($1)._at_(each);
+return $recv($1)._at_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
@@ -4061,16 +4062,16 @@ $ctx3.sendIdx["at:"]=1;
 }));
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(self._collection())._at_(index),value);
+return self._assert_equals_($recv(self._collection())._at_(index),value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAt",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4080,29 +4081,29 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "should:raise:", "at:", "collection", "samplesDo:", "assert:equals:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfAbsent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3;
 self._nonIndexesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._at_ifAbsent_(each,(function(){
+$1=$recv($2)._at_ifAbsent_(each,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4129,11 +4130,11 @@ $ctx2.sendIdx["assert:equals:"]=1;
 }));
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(self._collection())._at_ifAbsent_(index,(function(){
+return self._assert_equals_($recv(self._collection())._at_ifAbsent_(index,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4146,7 +4147,7 @@ return self._sampleNewValue();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4156,17 +4157,17 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "assert:equals:", "at:ifAbsent:", "collection", "sampleNewValue", "samplesDo:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfAbsentPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 newCollection=self._collection();
@@ -4175,11 +4176,11 @@ $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$1=_st(newCollection)._at_ifAbsentPut_(index,(function(){
+$1=$recv(newCollection)._at_ifAbsentPut_(index,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4204,9 +4205,9 @@ self._assert_equals_(newCollection,self._collection());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(newCollection)._at_ifAbsentPut_(self._sampleNewIndex(),(function(){
+self._assert_equals_($recv(newCollection)._at_ifAbsentPut_(self._sampleNewIndex(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4222,7 +4223,7 @@ $ctx1.sendIdx["assert:equals:"]=3;
 self._assert_equals_(newCollection,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{newCollection:newCollection},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{newCollection:newCollection},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4232,24 +4233,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "samplesDo:", "assert:equals:", "at:ifAbsentPut:", "sampleNewValue", "sampleNewIndex", "collectionWithNewValue"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfPresent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var visited,sentinel;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
-sentinel=_st($Object())._new();
+sentinel=$recv($Object())._new();
 self._nonIndexesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 visited=nil;
 visited;
@@ -4257,7 +4258,7 @@ $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._at_ifPresent_(each,(function(value1){
+$1=$recv($2)._at_ifPresent_(each,(function(value1){
 visited=value1;
 visited;
 return sentinel;
@@ -4270,14 +4271,14 @@ self._assert_equals_($1,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-return self._assert_(_st(visited)._isNil());
+return self._assert_($recv(visited)._isNil());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 visited=nil;
 visited;
@@ -4285,7 +4286,7 @@ $4=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._at_ifPresent_(index,(function(value2){
+$3=$recv($4)._at_ifPresent_(index,(function(value2){
 visited=value2;
 visited;
 return sentinel;
@@ -4295,14 +4296,14 @@ self._assert_equals_($3,sentinel);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-return self._assert_equals_(visited,_st(self._collection())._at_(index));
+return self._assert_equals_(visited,$recv(self._collection())._at_(index));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{visited:visited,sentinel:sentinel},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{visited:visited,sentinel:sentinel},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4312,24 +4313,24 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:", "collection", "assert:", "isNil", "samplesDo:", "at:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfPresentIfAbsent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var visited,sentinel;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$5,$4;
-sentinel=_st($Object())._new();
+sentinel=$recv($Object())._new();
 self._nonIndexesDo_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 visited=nil;
 visited;
@@ -4337,14 +4338,14 @@ $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._at_ifPresent_ifAbsent_(each,(function(value1){
+$1=$recv($2)._at_ifPresent_ifAbsent_(each,(function(value1){
 visited=value1;
 visited;
 return sentinel;
 
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4365,14 +4366,14 @@ self._assert_equals_($1,$3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-return self._assert_(_st(visited)._isNil());
+return self._assert_($recv(visited)._isNil());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 visited=nil;
 visited;
@@ -4380,14 +4381,14 @@ $5=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$4=_st($5)._at_ifPresent_ifAbsent_(index,(function(value2){
+$4=$recv($5)._at_ifPresent_ifAbsent_(index,(function(value2){
 visited=value2;
 visited;
 return sentinel;
 
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4398,14 +4399,14 @@ self._assert_equals_($4,sentinel);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-return self._assert_equals_(visited,_st(self._collection())._at_(index));
+return self._assert_equals_(visited,$recv(self._collection())._at_(index));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,4)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{visited:visited,sentinel:sentinel},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{visited:visited,sentinel:sentinel},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4415,17 +4416,17 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nonIndexesDo:", "assert:equals:", "at:ifPresent:ifAbsent:", "collection", "sampleNewValue", "assert:", "isNil", "samplesDo:", "at:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 newCollection=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4433,9 +4434,9 @@ $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(newCollection)._at_put_(index,value);
+return $recv(newCollection)._at_put_(index,value);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
@@ -4447,11 +4448,11 @@ self._assert_equals_(newCollection,self._collection());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(newCollection)._at_put_(self._sampleNewIndex(),self._sampleNewValue());
+$recv(newCollection)._at_put_(self._sampleNewIndex(),self._sampleNewValue());
 self._assert_equals_(newCollection,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtPut",{newCollection:newCollection},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtPut",{newCollection:newCollection},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4461,23 +4462,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "samplesDo:", "at:put:", "assert:equals:", "sampleNewIndex", "sampleNewValue", "collectionWithNewValue"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEquality",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$6,$7,$10,$9,$11,$8;
 $2=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._new();
+$1=$recv($2)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -4485,7 +4486,7 @@ $4=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._new();
+$3=$recv($4)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
@@ -4514,7 +4515,7 @@ $10=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=3;
 //>>excludeEnd("ctx");
-$9=_st($10)._new();
+$9=$recv($10)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
@@ -4522,7 +4523,7 @@ $11=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$8=_st($9).__eq($11);
+$8=$recv($9).__eq($11);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -4530,10 +4531,10 @@ self._deny_($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-self._deny_(_st(self._collection()).__eq(_st(self._collectionClass())._new()));
+self._deny_($recv(self._collection()).__eq($recv(self._collectionClass())._new()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4543,28 +4544,28 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIndexOf",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-return _st($1)._indexOf_(self._sampleNewValue());
+return $recv($1)._indexOf_(self._sampleNewValue());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["indexOf:"]=1;
 //>>excludeEnd("ctx");
@@ -4574,16 +4575,16 @@ $ctx2.sendIdx["indexOf:"]=1;
 }),$Error());
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(self._collection())._indexOf_(value),index);
+return self._assert_equals_($recv(self._collection())._indexOf_(value),index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4593,28 +4594,28 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "indexOf:", "collection", "sampleNewValue", "samplesDo:", "assert:equals:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIndexOfWithNull",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsNull;
-function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-jsNull=_st($JSON())._parse_("null");
+jsNull=$recv($JSON())._parse_("null");
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._collection();
-_st($1)._at_put_(index,jsNull);
-$2=_st($1)._indexOf_(jsNull);
+$recv($1)._at_put_(index,jsNull);
+$2=$recv($1)._indexOf_(jsNull);
 return self._assert_equals_($2,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)});
@@ -4622,7 +4623,7 @@ return self._assert_equals_($2,index);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{jsNull:jsNull},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOfWithNull",{jsNull:jsNull},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4632,34 +4633,34 @@ referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "samplesDo:", "assert:equals:", "at:put:", "collection", "indexOf:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testWithIndexDo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 collection=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-_st(self._collection())._withIndexDo_((function(each,index){
+$recv(self._collection())._withIndexDo_((function(each,index){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(collection)._at_(index),each);
+return self._assert_equals_($recv(collection)._at_(index),each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWithIndexDo",{collection:collection},globals.IndexableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWithIndexDo",{collection:collection},$globals.IndexableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4669,24 +4670,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "withIndexDo:", "assert:equals:", "at:"]
 }),
-globals.IndexableCollectionTest);
+$globals.IndexableCollectionTest);
 
 
 
-smalltalk.addClass('AssociativeCollectionTest', globals.IndexableCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('AssociativeCollectionTest', $globals.IndexableCollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collectionKeys",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4696,21 +4697,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionValues",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionValues",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4720,25 +4721,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "nonIndexesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aBlock)._value_((5));
+$recv(aBlock)._value_((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=1;
 //>>excludeEnd("ctx");
-_st(aBlock)._value_("z");
+$recv(aBlock)._value_("z");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4748,10 +4749,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewIndex",
 protocol: 'fixture',
 fn: function (){
@@ -4766,21 +4767,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aBlock)._value_value_("a",(2));
+$recv(aBlock)._value_value_("a",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4790,23 +4791,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:value:"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4819,11 +4820,11 @@ $4=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-_st($3)._addAll_($4);
+$recv($3)._addAll_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=1;
 //>>excludeEnd("ctx");
-$5=_st($2)._yourself();
+$5=$recv($2)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
@@ -4845,11 +4846,11 @@ $10=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
-_st($9)._addAll_($10);
+$recv($9)._addAll_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=2;
 //>>excludeEnd("ctx");
-$11=_st($8)._yourself();
+$11=$recv($8)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=2;
 //>>excludeEnd("ctx");
@@ -4866,13 +4867,13 @@ $14=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
-_st($14)._addAll_(self._collection());
-$15=_st($14)._yourself();
+$recv($14)._addAll_(self._collection());
+$15=$recv($14)._yourself();
 $13=$15;
 self._assert_equals_($13,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4882,22 +4883,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsDictionary",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_(_st(_st(_st(self._collectionClass())._new())._asDictionary())._isMemberOf_($Dictionary()));
+self._assert_($recv($recv($recv(self._collectionClass())._new())._asDictionary())._isMemberOf_($Dictionary()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsDictionary",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsDictionary",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4907,22 +4908,22 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isMemberOf:", "asDictionary", "new", "collectionClass"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsHashedCollection",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_(_st(_st(_st(self._collectionClass())._new())._asHashedCollection())._isMemberOf_($HashedCollection()));
+self._assert_($recv($recv($recv(self._collectionClass())._new())._asHashedCollection())._isMemberOf_($HashedCollection()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsHashedCollection",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsHashedCollection",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -4932,23 +4933,23 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isMemberOf:", "asHashedCollection", "new", "collectionClass"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComma",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4960,7 +4961,7 @@ $3=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__comma($3);
+$1=$recv($2).__comma($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -4980,7 +4981,7 @@ $7=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
-$5=_st($6).__comma($7);
+$5=$recv($6).__comma($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
@@ -4996,11 +4997,11 @@ $10=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
-$9=_st($10).__comma(self._collection());
+$9=$recv($10).__comma(self._collection());
 self._assert_equals_($9,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComma",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5010,17 +5011,17 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testFrom",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var associations;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1="a".__minus_gt((1));
@@ -5028,10 +5029,10 @@ $1="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
 //>>excludeEnd("ctx");
 associations=[$1,"b".__minus_gt((2))];
-self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._from_(associations),globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
+self._assertSameContents_as_($recv($recv(self._class())._collectionClass())._from_(associations),$globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5041,25 +5042,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["->", "assertSameContents:as:", "from:", "collectionClass", "class"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testKeys",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4;
-$2=_st(_st(self._collectionClass())._new())._keys();
+$2=$recv($recv(self._collectionClass())._new())._keys();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["keys"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._isEmpty();
+$1=$recv($2)._isEmpty();
 self._assert_($1);
-$3=_st(self._collection())._keys();
+$3=$recv(self._collection())._keys();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["keys"]=2;
 //>>excludeEnd("ctx");
@@ -5071,10 +5072,10 @@ self._assertSameContents_as_($3,$4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assertSameContents:as:"]=1;
 //>>excludeEnd("ctx");
-self._assertSameContents_as_(_st(self._collectionWithNewValue())._keys(),_st(self._collectionKeys()).__comma([self._sampleNewIndex()]));
+self._assertSameContents_as_($recv(self._collectionWithNewValue())._keys(),$recv(self._collectionKeys()).__comma([self._sampleNewIndex()]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testKeys",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testKeys",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5084,23 +5085,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isEmpty", "keys", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionKeys", "collectionWithNewValue", ",", "sampleNewIndex"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNewFromPairs",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var flattenedAssociations;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 flattenedAssociations=["a",(1),"b",(2)];
-self._assertSameContents_as_(_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations),globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
+self._assertSameContents_as_($recv($recv(self._class())._collectionClass())._newFromPairs_(flattenedAssociations),$globals.HashedCollection._newFromPairs_(["a",(1),"b",(2)]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5110,38 +5111,38 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPrintString",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$4,$1,$5;
 $3=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._new();
-_st($2)._at_put_("firstname","James");
+$2=$recv($3)._new();
+$recv($2)._at_put_("firstname","James");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("lastname","Bond");
-$4=_st($2)._printString();
+$recv($2)._at_put_("lastname","Bond");
+$4=$recv($2)._printString();
 $1=$4;
-$5=_st("a ".__comma(_st(self._collectionClass())._name())).__comma(" ('firstname' -> 'James' , 'lastname' -> 'Bond')");
+$5=$recv("a ".__comma($recv(self._collectionClass())._name())).__comma(" ('firstname' -> 'James' , 'lastname' -> 'Bond')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 self._assert_equals_($1,$5);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintString",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintString",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5151,23 +5152,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "at:put:", "new", "collectionClass", "printString", ",", "name"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveKey",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$6,$4,$7,$8;
 self._nonIndexesDo_((function(each){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 collection=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5176,9 +5177,9 @@ $ctx2.sendIdx["collection"]=1;
 collection;
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return _st(collection)._removeKey_(each);
+return $recv(collection)._removeKey_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["removeKey:"]=1;
 //>>excludeEnd("ctx");
@@ -5202,14 +5203,14 @@ $ctx2.sendIdx["assert:equals:"]=1;
 self._samplesDo_((function(index,value){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 collection=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
 collection;
-$3=_st(collection)._removeKey_(index);
+$3=$recv(collection)._removeKey_(index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["removeKey:"]=2;
 //>>excludeEnd("ctx");
@@ -5222,19 +5223,19 @@ $6=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=4;
 //>>excludeEnd("ctx");
-$4=_st($5).__eq($6);
+$4=$recv($5).__eq($6);
 return self._deny_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
 $7=self._collectionWithNewValue();
-_st($7)._removeKey_(self._sampleNewIndex());
-$8=_st($7)._yourself();
+$recv($7)._removeKey_(self._sampleNewIndex());
+$8=$recv($7)._yourself();
 self._assert_equals_($8,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5244,31 +5245,31 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "collection", "should:raise:", "removeKey:", "assert:equals:", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "yourself"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveKeyIfAbsent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$8,$6,$9,$10;
 self._nonIndexesDo_((function(each){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 collection=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
 collection;
-$1=_st(collection)._removeKey_ifAbsent_(each,(function(){
+$1=$recv(collection)._removeKey_ifAbsent_(each,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5305,16 +5306,16 @@ $ctx2.sendIdx["assert:equals:"]=2;
 self._samplesDo_((function(index,value){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 collection=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
 collection;
-$5=_st(collection)._removeKey_ifAbsent_(index,(function(){
+$5=$recv(collection)._removeKey_ifAbsent_(index,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx3) {
+return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return self._sampleNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5333,27 +5334,27 @@ $8=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=4;
 //>>excludeEnd("ctx");
-$6=_st($7).__eq($8);
+$6=$recv($7).__eq($8);
 return self._deny_($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
 $9=self._collectionWithNewValue();
-_st($9)._removeKey_ifAbsent_(self._sampleNewIndex(),(function(){
+$recv($9)._removeKey_ifAbsent_(self._sampleNewIndex(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._assert_(false);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
-$10=_st($9)._yourself();
+$10=$recv($9)._yourself();
 self._assert_equals_($10,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5363,25 +5364,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nonIndexesDo:", "collection", "assert:equals:", "removeKey:ifAbsent:", "sampleNewValue", "samplesDo:", "deny:", "=", "collectionWithNewValue", "sampleNewIndex", "assert:", "yourself"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testValues",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4;
-$2=_st(_st(self._collectionClass())._new())._values();
+$2=$recv($recv(self._collectionClass())._new())._values();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["values"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._isEmpty();
+$1=$recv($2)._isEmpty();
 self._assert_($1);
-$3=_st(self._collection())._values();
+$3=$recv(self._collection())._values();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["values"]=2;
 //>>excludeEnd("ctx");
@@ -5393,10 +5394,10 @@ self._assertSameContents_as_($3,$4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assertSameContents:as:"]=1;
 //>>excludeEnd("ctx");
-self._assertSameContents_as_(_st(self._collectionWithNewValue())._values(),_st(self._collectionValues()).__comma([self._sampleNewValue()]));
+self._assertSameContents_as_($recv(self._collectionWithNewValue())._values(),$recv(self._collectionValues()).__comma([self._sampleNewValue()]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValues",{},globals.AssociativeCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValues",{},$globals.AssociativeCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5406,41 +5407,41 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isEmpty", "values", "new", "collectionClass", "assertSameContents:as:", "collection", "collectionValues", "collectionWithNewValue", ",", "sampleNewValue"]
 }),
-globals.AssociativeCollectionTest);
+$globals.AssociativeCollectionTest);
 
 
 
-smalltalk.addClass('DictionaryTest', globals.AssociativeCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('DictionaryTest', $globals.AssociativeCollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Dictionary())._new();
-_st($2)._at_put_((1),(1));
+$2=$recv($Dictionary())._new();
+$recv($2)._at_put_((1),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("a",(2));
+$recv($2)._at_put_("a",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._at_put_(true,(3));
+$recv($2)._at_put_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._at_put_((1).__at((3)),(-4));
-$3=_st($2)._yourself();
+$recv($2)._at_put_((1).__at((3)),(-4));
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5450,22 +5451,22 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionKeys",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=[(1),"a",true,(1).__at((3))];
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5475,38 +5476,38 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["@"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Dictionary())._new();
-_st($2)._at_put_((1),"1");
+$2=$recv($Dictionary())._new();
+$recv($2)._at_put_((1),"1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("a","2");
+$recv($2)._at_put_("a","2");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._at_put_(true,"3");
+$recv($2)._at_put_(true,"3");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._at_put_((1).__at((3)),"-4");
-$3=_st($2)._yourself();
+$recv($2)._at_put_((1).__at((3)),"-4");
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5516,10 +5517,10 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
@@ -5534,10 +5535,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
@@ -5554,50 +5555,50 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Dictionary())._new();
-_st($2)._at_put_((1),(1));
+$2=$recv($Dictionary())._new();
+$recv($2)._at_put_((1),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("a",(2));
+$recv($2)._at_put_("a",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._at_put_(true,(3));
+$recv($2)._at_put_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._at_put_((4),(-4));
+$recv($2)._at_put_((4),(-4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=4;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("b",(1));
+$recv($2)._at_put_("b",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=5;
 //>>excludeEnd("ctx");
-_st($2)._at_put_((3),(3));
+$recv($2)._at_put_((3),(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=6;
 //>>excludeEnd("ctx");
-_st($2)._at_put_(false,(12));
-$3=_st($2)._yourself();
+$recv($2)._at_put_(false,(12));
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5607,42 +5608,42 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Dictionary())._new();
-_st($2)._at_put_((1),(1));
+$2=$recv($Dictionary())._new();
+$recv($2)._at_put_((1),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("a",(2));
+$recv($2)._at_put_("a",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._at_put_(true,(3));
+$recv($2)._at_put_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._at_put_((1).__at((3)),(-4));
+$recv($2)._at_put_((1).__at((3)),(-4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=4;
 //>>excludeEnd("ctx");
-_st($2)._at_put_("new","N");
-$3=_st($2)._yourself();
+$recv($2)._at_put_("new","N");
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5652,26 +5653,26 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Dictionary())._new();
-_st($2)._at_put_("new","N");
-$3=_st($2)._yourself();
+$2=$recv($Dictionary())._new();
+$recv($2)._at_put_("new","N");
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5681,33 +5682,33 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "yourself"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-_st(aBlock)._value_value_(true,(3));
+$recv(aBlock)._value_value_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:value:"]=1;
 //>>excludeEnd("ctx");
-_st(aBlock)._value_value_((1).__at((3)),(-4));
+$recv(aBlock)._value_value_((1).__at((3)),(-4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5717,26 +5718,26 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:", "@"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAccessing",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var d;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$9,$10,$8,$12,$13,$11;
-d=_st($Dictionary())._new();
-_st(d)._at_put_("hello","world");
+d=$recv($Dictionary())._new();
+$recv(d)._at_put_("hello","world");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-$1=_st(d)._at_("hello");
+$1=$recv(d)._at_("hello");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
@@ -5744,7 +5745,7 @@ self._assert_equals_($1,"world");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(d)._at_ifAbsent_("hello",(function(){
+$2=$recv(d)._at_ifAbsent_("hello",(function(){
 return nil;
 
 }));
@@ -5755,14 +5756,14 @@ self._assert_equals_($2,"world");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
+self._deny_($recv($recv(d)._at_ifAbsent_("foo",(function(){
 return nil;
 
 }))).__eq("world"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-$3=_st(d)._includesKey_("hello");
+$3=$recv(d)._includesKey_("hello");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includesKey:"]=1;
 //>>excludeEnd("ctx");
@@ -5770,7 +5771,7 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$4=_st(d)._includesKey_("foo");
+$4=$recv(d)._includesKey_("foo");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includesKey:"]=2;
 //>>excludeEnd("ctx");
@@ -5778,11 +5779,11 @@ self._deny_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=2;
 //>>excludeEnd("ctx");
-_st(d)._at_put_((1),(2));
+$recv(d)._at_put_((1),(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$5=_st(d)._at_((1));
+$5=$recv(d)._at_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=2;
 //>>excludeEnd("ctx");
@@ -5795,28 +5796,28 @@ $7=(1).__at((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=1;
 //>>excludeEnd("ctx");
-_st($6)._at_put_($7,(3));
+$recv($6)._at_put_($7,(3));
 $9=d;
 $10=(1).__at((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=2;
 //>>excludeEnd("ctx");
-$8=_st($9)._at_($10);
+$8=$recv($9)._at_($10);
 self._assert_equals_($8,(3));
 $12=d;
 $13=(1).__at((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=3;
 //>>excludeEnd("ctx");
-$11=_st($12)._includesKey_($13);
+$11=$recv($12)._includesKey_($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includesKey:"]=3;
 //>>excludeEnd("ctx");
 self._assert_($11);
-self._deny_(_st(d)._includesKey_((3).__at((1))));
+self._deny_($recv(d)._includesKey_((3).__at((1))));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5826,22 +5827,22 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDynamicDictionaries",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(globals.HashedCollection._newFromPairs_(["hello",(1)]))._asDictionary(),_st($Dictionary())._with_("hello".__minus_gt((1))));
+self._assert_equals_($recv($globals.HashedCollection._newFromPairs_(["hello",(1)]))._asDictionary(),$recv($Dictionary())._with_("hello".__minus_gt((1))));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.DictionaryTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -5851,16 +5852,16 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asDictionary", "with:", "->"]
 }),
-globals.DictionaryTest);
+$globals.DictionaryTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $Dictionary();
 
 },
@@ -5871,18 +5872,18 @@ referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.DictionaryTest.klass);
+$globals.DictionaryTest.klass);
 
 
-smalltalk.addClass('HashedCollectionTest', globals.AssociativeCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('HashedCollectionTest', $globals.AssociativeCollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
+$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
 return $1;
 
 },
@@ -5893,10 +5894,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionKeys",
 protocol: 'fixture',
 fn: function (){
@@ -5913,16 +5914,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
+$1=$globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
 return $1;
 
 },
@@ -5933,10 +5934,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
@@ -5951,10 +5952,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
@@ -5971,16 +5972,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
+$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
 return $1;
 
 },
@@ -5991,16 +5992,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
+$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
 return $1;
 
 },
@@ -6011,16 +6012,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 var $1;
-$1=globals.HashedCollection._newFromPairs_(["new","N"]);
+$1=$globals.HashedCollection._newFromPairs_(["new","N"]);
 return $1;
 
 },
@@ -6031,22 +6032,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDynamicDictionaries",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(globals.HashedCollection._newFromPairs_(["hello",(1)]))._asHashedCollection(),_st($HashedCollection())._with_("hello".__minus_gt((1))));
+self._assert_equals_($recv($globals.HashedCollection._newFromPairs_(["hello",(1)]))._asHashedCollection(),$recv($HashedCollection())._with_("hello".__minus_gt((1))));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},globals.HashedCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},$globals.HashedCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6056,16 +6057,16 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asHashedCollection", "with:", "->"]
 }),
-globals.HashedCollectionTest);
+$globals.HashedCollectionTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $HashedCollection(){return globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return $HashedCollection();
 
 },
@@ -6076,23 +6077,23 @@ referencedClasses: ["HashedCollection"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.HashedCollectionTest.klass);
+$globals.HashedCollectionTest.klass);
 
 
-smalltalk.addClass('SequenceableCollectionTest', globals.IndexableCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('SequenceableCollectionTest', $globals.IndexableCollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collectionFirst",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionFirst",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6102,21 +6103,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionFirstTwo",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6126,21 +6127,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionLast",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionLast",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionLast",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6150,21 +6151,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionLastTwo",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6174,29 +6175,29 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "nonIndexesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aBlock)._value_((0));
+$recv(aBlock)._value_((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=1;
 //>>excludeEnd("ctx");
-_st(aBlock)._value_(_st(self._collectionSize()).__plus((1)));
+$recv(aBlock)._value_($recv(self._collectionSize()).__plus((1)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=2;
 //>>excludeEnd("ctx");
-_st(aBlock)._value_("z");
+$recv(aBlock)._value_("z");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6206,25 +6207,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "+", "collectionSize"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(aBlock)._value_value_((1),self._collectionFirst());
+$recv(aBlock)._value_value_((1),self._collectionFirst());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:value:"]=1;
 //>>excludeEnd("ctx");
-_st(aBlock)._value_value_(self._collectionSize(),self._collectionLast());
+$recv(aBlock)._value_value_(self._collectionSize(),self._collectionLast());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6234,23 +6235,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:value:", "collectionFirst", "collectionSize", "collectionLast"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testBeginsWith",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$5,$3,$7,$6;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._beginsWith_(_st(self._collectionClass())._new());
+$1=$recv($2)._beginsWith_($recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["beginsWith:"]=1;
 //>>excludeEnd("ctx");
@@ -6266,7 +6267,7 @@ $5=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$3=_st($4)._beginsWith_($5);
+$3=$recv($4)._beginsWith_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["beginsWith:"]=2;
 //>>excludeEnd("ctx");
@@ -6278,15 +6279,15 @@ $7=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=4;
 //>>excludeEnd("ctx");
-$6=_st($7)._beginsWith_(self._collectionFirstTwo());
+$6=$recv($7)._beginsWith_(self._collectionFirstTwo());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["beginsWith:"]=3;
 //>>excludeEnd("ctx");
 self._assert_($6);
-self._deny_(_st(self._collection())._beginsWith_(self._collectionLastTwo()));
+self._deny_($recv(self._collection())._beginsWith_(self._collectionLastTwo()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBeginsWith",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBeginsWith",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6296,23 +6297,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "beginsWith:", "collection", "new", "collectionClass", "collectionFirstTwo", "deny:", "collectionLastTwo"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEndsWith",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$5,$3,$7,$6;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._endsWith_(_st(self._collectionClass())._new());
+$1=$recv($2)._endsWith_($recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["endsWith:"]=1;
 //>>excludeEnd("ctx");
@@ -6328,7 +6329,7 @@ $5=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$3=_st($4)._endsWith_($5);
+$3=$recv($4)._endsWith_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["endsWith:"]=2;
 //>>excludeEnd("ctx");
@@ -6340,15 +6341,15 @@ $7=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=4;
 //>>excludeEnd("ctx");
-$6=_st($7)._endsWith_(self._collectionLastTwo());
+$6=$recv($7)._endsWith_(self._collectionLastTwo());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["endsWith:"]=3;
 //>>excludeEnd("ctx");
 self._assert_($6);
-self._deny_(_st(self._collection())._endsWith_(self._collectionFirstTwo()));
+self._deny_($recv(self._collection())._endsWith_(self._collectionFirstTwo()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEndsWith",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEndsWith",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6358,21 +6359,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "endsWith:", "collection", "new", "collectionClass", "collectionLastTwo", "deny:", "collectionFirstTwo"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testFirst",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._collection())._first(),self._collectionFirst());
+self._assert_equals_($recv(self._collection())._first(),self._collectionFirst());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFirst",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFirst",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6382,24 +6383,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "first", "collection", "collectionFirst"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testFirstN",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5,$7;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._first_((2));
+$1=$recv($2)._first_((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["first:"]=1;
 //>>excludeEnd("ctx");
@@ -6411,11 +6412,11 @@ $4=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._first_((0));
+$3=$recv($4)._first_((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["first:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_($3,_st(self._collectionClass())._new());
+self._assert_equals_($3,$recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
@@ -6423,7 +6424,7 @@ $6=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$5=_st($6)._first_(self._collectionSize());
+$5=$recv($6)._first_(self._collectionSize());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["first:"]=3;
 //>>excludeEnd("ctx");
@@ -6434,16 +6435,16 @@ $ctx1.sendIdx["collection"]=4;
 self._assert_equals_($5,$7);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._collection())._first_((33));
+return $recv(self._collection())._first_((33));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFirstN",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6453,27 +6454,27 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "first:", "collection", "collectionFirstTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testFourth",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._fourth();
-self._assert_equals_($1,_st(self._collection())._at_((4)));
+$1=$recv($2)._fourth();
+self._assert_equals_($1,$recv(self._collection())._at_((4)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFourth",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFourth",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6483,30 +6484,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "fourth", "collection", "at:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIndexOfStartingAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsNull;
-function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
-jsNull=_st($JSON())._parse_("null");
+jsNull=$recv($JSON())._parse_("null");
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._indexOf_startingAt_(value,(1));
+$1=$recv($2)._indexOf_startingAt_(value,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["indexOf:startingAt:"]=1;
 //>>excludeEnd("ctx");
@@ -6518,7 +6519,7 @@ $4=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._indexOf_startingAt_(value,index);
+$3=$recv($4)._indexOf_startingAt_(value,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["indexOf:startingAt:"]=2;
 //>>excludeEnd("ctx");
@@ -6526,14 +6527,14 @@ self._assert_equals_($3,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(self._collection())._indexOf_startingAt_(value,_st(index).__plus((1))),(0));
+return self._assert_equals_($recv(self._collection())._indexOf_startingAt_(value,$recv(index).__plus((1))),(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAt",{jsNull:jsNull},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAt",{jsNull:jsNull},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6543,30 +6544,30 @@ referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "samplesDo:", "assert:equals:", "indexOf:startingAt:", "collection", "+"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIndexOfStartingAtWithNull",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsNull;
-function $JSON(){return globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
+function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-jsNull=_st($JSON())._parse_("null");
+jsNull=$recv($JSON())._parse_("null");
 self._samplesDo_((function(index,value){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 collection=self._collection();
 collection;
-_st(collection)._at_put_(index,jsNull);
-$1=_st(collection)._indexOf_startingAt_(jsNull,(1));
+$recv(collection)._at_put_(index,jsNull);
+$1=$recv(collection)._indexOf_startingAt_(jsNull,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["indexOf:startingAt:"]=1;
 //>>excludeEnd("ctx");
@@ -6574,7 +6575,7 @@ self._assert_equals_($1,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(collection)._indexOf_startingAt_(jsNull,index);
+$2=$recv(collection)._indexOf_startingAt_(jsNull,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["indexOf:startingAt:"]=2;
 //>>excludeEnd("ctx");
@@ -6582,14 +6583,14 @@ self._assert_equals_($2,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-return self._assert_equals_(_st(collection)._indexOf_startingAt_(jsNull,_st(index).__plus((1))),(0));
+return self._assert_equals_($recv(collection)._indexOf_startingAt_(jsNull,$recv(index).__plus((1))),(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{jsNull:jsNull},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIndexOfStartingAtWithNull",{jsNull:jsNull},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6599,21 +6600,21 @@ referencedClasses: ["JSON"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "samplesDo:", "collection", "at:put:", "assert:equals:", "indexOf:startingAt:", "+"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testLast",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._collection())._last(),self._collectionLast());
+self._assert_equals_($recv(self._collection())._last(),self._collectionLast());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLast",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLast",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6623,24 +6624,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "last", "collection", "collectionLast"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testLastN",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5,$7;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._last_((2));
+$1=$recv($2)._last_((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["last:"]=1;
 //>>excludeEnd("ctx");
@@ -6652,11 +6653,11 @@ $4=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._last_((0));
+$3=$recv($4)._last_((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["last:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_($3,_st(self._collectionClass())._new());
+self._assert_equals_($3,$recv(self._collectionClass())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
@@ -6664,7 +6665,7 @@ $6=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=3;
 //>>excludeEnd("ctx");
-$5=_st($6)._last_(self._collectionSize());
+$5=$recv($6)._last_(self._collectionSize());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["last:"]=3;
 //>>excludeEnd("ctx");
@@ -6675,16 +6676,16 @@ $ctx1.sendIdx["collection"]=4;
 self._assert_equals_($5,$7);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._collection())._last_((33));
+return $recv(self._collection())._last_((33));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLastN",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLastN",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6694,27 +6695,27 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSecond",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._second();
-self._assert_equals_($1,_st(self._collection())._at_((2)));
+$1=$recv($2)._second();
+self._assert_equals_($1,$recv(self._collection())._at_((2)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSecond",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSecond",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6724,27 +6725,27 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "second", "collection", "at:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testThird",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._third();
-self._assert_equals_($1,_st(self._collection())._at_((3)));
+$1=$recv($2)._third();
+self._assert_equals_($1,$recv(self._collection())._at_((3)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testThird",{},globals.SequenceableCollectionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testThird",{},$globals.SequenceableCollectionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6754,13 +6755,13 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "third", "collection", "at:"]
 }),
-globals.SequenceableCollectionTest);
+$globals.SequenceableCollectionTest);
 
 
 
-smalltalk.addClass('ArrayTest', globals.SequenceableCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('ArrayTest', $globals.SequenceableCollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
@@ -6777,10 +6778,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionFirst",
 protocol: 'fixture',
 fn: function (){
@@ -6795,10 +6796,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
@@ -6815,10 +6816,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionLast",
 protocol: 'fixture',
 fn: function (){
@@ -6833,10 +6834,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
@@ -6853,10 +6854,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
@@ -6873,10 +6874,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
@@ -6891,10 +6892,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
@@ -6911,10 +6912,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
@@ -6931,10 +6932,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewIndex",
 protocol: 'fixture',
 fn: function (){
@@ -6949,29 +6950,29 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-_st(aBlock)._value_value_((3),(3));
+$recv(aBlock)._value_value_((3),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6981,24 +6982,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAdd",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 array=self._collection();
-_st(array)._add_((6));
-self._assert_equals_(_st(array)._last(),(6));
+$recv(array)._add_((6));
+self._assert_equals_($recv(array)._last(),(6));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAdd",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAdd",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7008,25 +7009,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collection", "add:", "assert:equals:", "last"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddFirst",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._collection();
-_st($1)._addFirst_((0));
-$2=_st($1)._yourself();
-self._assert_equals_(_st($2)._first(),(0));
+$recv($1)._addFirst_((0));
+$2=$recv($1)._yourself();
+self._assert_equals_($recv($2)._first(),(0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7036,22 +7037,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "first", "addFirst:", "collection", "yourself"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPrintString",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9;
-array=_st($Array())._new();
-$1=_st(array)._printString();
+array=$recv($Array())._new();
+$1=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=1;
 //>>excludeEnd("ctx");
@@ -7060,15 +7061,15 @@ self._assert_equals_($1,"an Array ()");
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 $2=array;
-_st($2)._add_((1));
+$recv($2)._add_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-$3=_st($2)._add_((3));
+$3=$recv($2)._add_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-$4=_st(array)._printString();
+$4=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=2;
 //>>excludeEnd("ctx");
@@ -7076,8 +7077,8 @@ self._assert_equals_($4,"an Array (1 3)");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-_st(array)._add_("foo");
-$5=_st(array)._printString();
+$recv(array)._add_("foo");
+$5=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=3;
 //>>excludeEnd("ctx");
@@ -7086,12 +7087,12 @@ self._assert_equals_($5,"an Array (1 3 'foo')");
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
 $6=array;
-_st($6)._remove_((1));
+$recv($6)._remove_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["remove:"]=1;
 //>>excludeEnd("ctx");
-$7=_st($6)._remove_((3));
-$8=_st(array)._printString();
+$7=$recv($6)._remove_((3));
+$8=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=4;
 //>>excludeEnd("ctx");
@@ -7099,11 +7100,11 @@ self._assert_equals_($8,"an Array ('foo')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
-_st(array)._addLast_((3));
+$recv(array)._addLast_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addLast:"]=1;
 //>>excludeEnd("ctx");
-$9=_st(array)._printString();
+$9=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=5;
 //>>excludeEnd("ctx");
@@ -7111,11 +7112,11 @@ self._assert_equals_($9,"an Array ('foo' 3)");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
-_st(array)._addLast_((3));
-self._assert_equals_(_st(array)._printString(),"an Array ('foo' 3 3)");
+$recv(array)._addLast_((3));
+self._assert_equals_($recv(array)._printString(),"an Array ('foo' 3 3)");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7125,37 +7126,37 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemove",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 array=[(1), (2), (3), (4), (5)];
-_st(array)._remove_((3));
+$recv(array)._remove_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["remove:"]=1;
 //>>excludeEnd("ctx");
 self._assert_equals_(array,[(1), (2), (4), (5)]);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(array)._remove_((3));
+return $recv(array)._remove_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemove",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemove",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7165,16 +7166,16 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["remove:", "assert:equals:", "should:raise:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveFromTo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=[(1), (2), (3), (4)]._removeFrom_to_((1),(3));
@@ -7196,7 +7197,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(4)),[(1)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7206,16 +7207,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "removeFrom:to:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveIndex",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=[(1), (2), (3), (4)]._removeIndex_((2));
@@ -7237,7 +7238,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(["hello"]._removeIndex_((1)),[]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7247,24 +7248,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "removeIndex:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveLast",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 array=[(1), (2)];
-_st(array)._removeLast();
-self._assert_equals_(_st(array)._last(),(1));
+$recv(array)._removeLast();
+self._assert_equals_($recv(array)._last(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveLast",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveLast",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7274,23 +7275,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeLast", "assert:equals:", "last"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testReversed",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 array=[(5), (4), (3), (2), (1)];
-self._assert_equals_(_st(array)._reversed(),[(1), (2), (3), (4), (5)]);
+self._assert_equals_($recv(array)._reversed(),[(1), (2), (3), (4), (5)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReversed",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReversed",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7300,24 +7301,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "reversed"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSort",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var array;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 array=[(10), (1), (5)];
-_st(array)._sort();
+$recv(array)._sort();
 self._assert_equals_(array,[(1), (5), (10)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSort",{array:array},globals.ArrayTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSort",{array:array},$globals.ArrayTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7327,16 +7328,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["sort", "assert:equals:"]
 }),
-globals.ArrayTest);
+$globals.ArrayTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $Array();
 
 },
@@ -7347,12 +7348,12 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayTest.klass);
+$globals.ArrayTest.klass);
 
 
-smalltalk.addClass('StringTest', globals.SequenceableCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('StringTest', $globals.SequenceableCollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
@@ -7367,10 +7368,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionFirst",
 protocol: 'fixture',
 fn: function (){
@@ -7385,10 +7386,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
@@ -7403,10 +7404,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionLast",
 protocol: 'fixture',
 fn: function (){
@@ -7421,10 +7422,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
@@ -7439,10 +7440,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
@@ -7457,10 +7458,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
@@ -7475,10 +7476,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
@@ -7493,10 +7494,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
@@ -7511,10 +7512,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
@@ -7529,29 +7530,29 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "samplesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.StringTest.superclass.fn.prototype._samplesDo_.apply(_st(self), [aBlock]));
+$globals.StringTest.superclass.fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-_st(aBlock)._value_value_((3),"l");
+$recv(aBlock)._value_value_((3),"l");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7561,35 +7562,35 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["collection"]=1;
 //>>excludeEnd("ctx");
-return _st($1)._addAll_(self._collection());
+return $recv($1)._addAll_(self._collection());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7599,21 +7600,21 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "addAll:", "collection"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddRemove",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return "hello"._add_("a");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7625,7 +7626,7 @@ $ctx1.sendIdx["should:raise:"]=1;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return "hello"._remove_("h");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7634,7 +7635,7 @@ return "hello"._remove_("h");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7644,21 +7645,21 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "add:", "remove:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsArray",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("hello"._asArray(),["h", "e", "l", "l", "o"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7668,21 +7669,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asArray"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsLowerCase",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("JACKIE"._asLowercase(),"jackie");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsLowerCase",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsLowerCase",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7692,16 +7693,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asLowercase"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsNumber",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1="3"._asNumber();
@@ -7723,7 +7724,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_("-1.5"._asNumber(),(-1.5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7733,21 +7734,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asNumber"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsUpperCase",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("jackie"._asUppercase(),"JACKIE");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsUpperCase",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsUpperCase",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7757,22 +7758,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asUppercase"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsciiValue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var characterA,characterU;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 characterA="A";
 characterU="U";
-$1=_st(characterA)._asciiValue();
+$1=$recv(characterA)._asciiValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asciiValue"]=1;
 //>>excludeEnd("ctx");
@@ -7780,10 +7781,10 @@ self._assert_equals_($1,(65));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(characterU)._asciiValue(),(85));
+self._assert_equals_($recv(characterU)._asciiValue(),(85));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7793,21 +7794,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asciiValue"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfAbsentPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return "hello"._at_ifAbsentPut_((6),(function(){
 return "a";
@@ -7819,7 +7820,7 @@ return "a";
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsentPut",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7829,21 +7830,21 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:ifAbsentPut:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return "hello"._at_put_((1),"a");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7852,7 +7853,7 @@ return "hello"._at_put_((1),"a");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7862,16 +7863,16 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:put:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCapitalized",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1="test"._capitalized();
@@ -7905,7 +7906,7 @@ $ctx1.sendIdx["assert:equals:"]=4;
 self._assert_equals_("test"._isCapitalized(),false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7915,16 +7916,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "capitalized", "isCapitalized"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCharCodeAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 $1="jackie"._charCodeAt_((1));
@@ -7970,7 +7971,7 @@ $ctx1.sendIdx["assert:equals:"]=5;
 self._assert_equals_("jackie"._charCodeAt_((6)),(101));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7980,16 +7981,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "charCodeAt:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCopyFromTo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1="jackie"._copyFrom_to_((1),(3));
@@ -8003,7 +8004,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_("jackie"._copyFrom_to_((4),(6)),"kie");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopyFromTo",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopyFromTo",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8013,21 +8014,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "copyFrom:to:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCopyWithoutAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("*hello* *world*"._copyWithoutAll_("*"),"hello world");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopyWithoutAll",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopyWithoutAll",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8037,16 +8038,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "copyWithoutAll:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEquality",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 self._assert_equals_("hello","hello");
@@ -8083,7 +8084,7 @@ self._assert_equals_("hello"._yourself(),"hello");
 self._deny_("".__eq((0)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8093,16 +8094,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "deny:", "=", "at:ifAbsent:", "yourself"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIdentity",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5;
 $1="hello".__eq_eq("hello");
@@ -8133,7 +8134,7 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-$5=_st("hello"._yourself()).__eq_eq("hello");
+$5=$recv("hello"._yourself()).__eq_eq("hello");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=4;
 //>>excludeEnd("ctx");
@@ -8141,7 +8142,7 @@ self._assert_($5);
 self._deny_("".__eq_eq((0)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8151,16 +8152,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "==", "deny:", "yourself"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIdentityHash",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 $1="foo"._identityHash();
@@ -8176,11 +8177,11 @@ $4="foo"._identityHash();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["identityHash"]=3;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq("bar"._identityHash());
+$3=$recv($4).__eq("bar"._identityHash());
 self._deny_($3);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8190,16 +8191,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "identityHash", "deny:", "="]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIncludesSubString",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1="amber"._includesSubString_("ber");
@@ -8210,7 +8211,7 @@ self._assert_($1);
 self._deny_("amber"._includesSubString_("zork"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8220,10 +8221,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "includesSubString:", "deny:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIndexOfStartingAtWithNull",
 protocol: 'tests',
 fn: function (){
@@ -8238,10 +8239,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIndexOfWithNull",
 protocol: 'tests',
 fn: function (){
@@ -8256,22 +8257,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIsVowel",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var vowel,consonant;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 vowel="u";
 consonant="z";
-$1=_st(vowel)._isVowel();
+$1=$recv(vowel)._isVowel();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isVowel"]=1;
 //>>excludeEnd("ctx");
@@ -8279,10 +8280,10 @@ self._assert_equals_($1,true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(consonant)._isVowel(),false);
+self._assert_equals_($recv(consonant)._isVowel(),false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsVowel",{vowel:vowel,consonant:consonant},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsVowel",{vowel:vowel,consonant:consonant},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8292,21 +8293,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "isVowel"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testJoin",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_(","._join_(["hello", "world"]),"hello,world");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testJoin",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testJoin",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8316,30 +8317,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "join:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRemoveAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._collection())._removeAll();
+return $recv(self._collection())._removeAll();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8349,21 +8350,21 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "removeAll", "collection"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testReversed",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("jackiechan"._reversed(),"nahceikcaj");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReversed",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReversed",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8373,29 +8374,29 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "reversed"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testStreamContents",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-self._assert_equals_(_st($String())._streamContents_((function(aStream){
+self._assert_equals_($recv($String())._streamContents_((function(aStream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-_st(aStream)._nextPutAll_("hello");
+$recv(aStream)._nextPutAll_("hello");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
-_st(aStream)._space();
-$1=_st(aStream)._nextPutAll_("world");
+$recv(aStream)._space();
+$1=$recv(aStream)._nextPutAll_("world");
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1,1)});
@@ -8403,7 +8404,7 @@ return $1;
 })),"hello world");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8413,21 +8414,21 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "streamContents:", "nextPutAll:", "space"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSubStrings",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("jackiechan"._subStrings_("ie"),["jack", "chan"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSubStrings",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSubStrings",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8437,16 +8438,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "subStrings:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testTrim",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("       jackie"._trimLeft(),"jackie");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8455,7 +8456,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_("jackie               "._trimRight(),"jackie");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTrim",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTrim",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8465,16 +8466,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "trimLeft", "trimRight"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testValue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_("asString"._value_((1)),"1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8483,7 +8484,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_([(1), (2), (3)]._collect_("asString"),["1", "2", "3"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{},globals.StringTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{},$globals.StringTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8493,16 +8494,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "value:", "collect:"]
 }),
-globals.StringTest);
+$globals.StringTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $String();
 
 },
@@ -8513,41 +8514,41 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringTest.klass);
+$globals.StringTest.klass);
 
 
-smalltalk.addClass('SetTest', globals.CollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('SetTest', $globals.CollectionTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Set())._new();
-_st($2)._add_($Smalltalk());
+$2=$recv($Set())._new();
+$recv($2)._add_($Smalltalk());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._add_(nil);
+$recv($2)._add_(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._add_((3).__at((3)));
+$recv($2)._add_((3).__at((3)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._add_(false);
-$3=_st($2)._yourself();
+$recv($2)._add_(false);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collection",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8557,38 +8558,38 @@ referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "@", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Set())._new();
-_st($2)._add_("a SmalltalkImage");
+$2=$recv($Set())._new();
+$recv($2)._add_("a SmalltalkImage");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._add_("nil");
+$recv($2)._add_("nil");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._add_("3@3");
+$recv($2)._add_("3@3");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._add_("false");
-$3=_st($2)._yourself();
+$recv($2)._add_("false");
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8598,10 +8599,10 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
@@ -8616,25 +8617,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=self._collection();
-_st($2)._add_((0));
-$3=_st($2)._yourself();
+$recv($2)._add_((0));
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8644,43 +8645,43 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "collection", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Set())._new();
-_st($2)._add_($Smalltalk());
+$2=$recv($Set())._new();
+$recv($2)._add_($Smalltalk());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-_st($2)._add_(nil);
+$recv($2)._add_(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-_st($2)._add_((3).__at((3)));
+$recv($2)._add_((3).__at((3)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-_st($2)._add_("N");
+$recv($2)._add_("N");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=4;
 //>>excludeEnd("ctx");
-_st($2)._add_(false);
-$3=_st($2)._yourself();
+$recv($2)._add_(false);
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8690,23 +8691,23 @@ referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "@", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddAll",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.SetTest.superclass.fn.prototype._testAddAll.apply(_st(self), []));
+$globals.SetTest.superclass.fn.prototype._testAddAll.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -8719,11 +8720,11 @@ $4=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-_st($3)._addAll_($4);
+$recv($3)._addAll_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=1;
 //>>excludeEnd("ctx");
-$5=_st($2)._yourself();
+$5=$recv($2)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
@@ -8745,11 +8746,11 @@ $10=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
-_st($9)._addAll_($10);
+$recv($9)._addAll_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addAll:"]=2;
 //>>excludeEnd("ctx");
-$11=_st($8)._yourself();
+$11=$recv($8)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=2;
 //>>excludeEnd("ctx");
@@ -8766,13 +8767,13 @@ $14=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
-_st($14)._addAll_(self._collection());
-$15=_st($14)._yourself();
+$recv($14)._addAll_(self._collection());
+$15=$recv($14)._yourself();
 $13=$15;
 self._assert_equals_($13,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8782,30 +8783,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testAddAll", "assert:equals:", "addAll:", "collection", "yourself", "collectionWithNewValue"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAddRemove",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-set=_st($Set())._new();
-self._assert_(_st(set)._isEmpty());
+set=$recv($Set())._new();
+self._assert_($recv(set)._isEmpty());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-_st(set)._add_((3));
+$recv(set)._add_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-$1=_st(set)._includes_((3));
+$1=$recv(set)._includes_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includes:"]=1;
 //>>excludeEnd("ctx");
@@ -8813,17 +8814,17 @@ self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-_st(set)._add_((5));
-$2=_st(set)._includes_((5));
+$recv(set)._add_((5));
+$2=$recv(set)._includes_((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["includes:"]=2;
 //>>excludeEnd("ctx");
 self._assert_($2);
-_st(set)._remove_((3));
-self._deny_(_st(set)._includes_((3)));
+$recv(set)._remove_((3));
+self._deny_($recv(set)._includes_((3)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{set:set},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{set:set},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8833,31 +8834,31 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "isEmpty", "add:", "includes:", "remove:", "deny:"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st($Set())._new())._at_put_((1),(2));
+return $recv($recv($Set())._new())._at_put_((1),(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAt",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8867,23 +8868,23 @@ referencedClasses: ["Set", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "at:put:", "new"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCollect",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.SetTest.superclass.fn.prototype._testCollect.apply(_st(self), []));
+$globals.SetTest.superclass.fn.prototype._testCollect.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -8891,11 +8892,11 @@ $2=[(5), (6), (8)]._asSet();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asSet"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._collect_((function(x){
+$1=$recv($2)._collect_((function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(x).__backslash_backslash((3));
+return $recv(x).__backslash_backslash((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -8903,7 +8904,7 @@ return _st(x).__backslash_backslash((3));
 self._assert_equals_($1,[(0), (2)]._asSet());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCollect",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCollect",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8913,23 +8914,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testCollect", "assert:equals:", "collect:", "asSet", "\x5c\x5c"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComma",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-globals.SetTest.superclass.fn.prototype._testComma.apply(_st(self), []));
+$globals.SetTest.superclass.fn.prototype._testComma.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -8941,7 +8942,7 @@ $3=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__comma($3);
+$1=$recv($2).__comma($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -8961,7 +8962,7 @@ $7=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
-$5=_st($6).__comma($7);
+$5=$recv($6).__comma($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
@@ -8977,11 +8978,11 @@ $10=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
-$9=_st($10).__comma(self._collection());
+$9=$recv($10).__comma(self._collection());
 self._assert_equals_($9,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComma",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComma",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8991,16 +8992,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["testComma", "assert:equals:", ",", "collection", "collectionWithNewValue"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComparing",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$7,$5,$9,$8;
 $1=[(0), (2)]._asSet();
@@ -9032,7 +9033,7 @@ $7=[(0), (2)]._asSet();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asSet"]=6;
 //>>excludeEnd("ctx");
-$5=_st($6).__eq($7);
+$5=$recv($6).__eq($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -9044,11 +9045,11 @@ $9=[(1), (2)]._asSet();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["asSet"]=7;
 //>>excludeEnd("ctx");
-$8=_st($9).__eq([(0), (2)]._asSet());
+$8=$recv($9).__eq([(0), (2)]._asSet());
 self._deny_($8);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparing",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparing",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9058,22 +9059,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asSet", "deny:", "="]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPrintString",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$6,$7,$8,$9;
-set=_st($Set())._new();
-$1=_st(set)._printString();
+set=$recv($Set())._new();
+$1=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=1;
 //>>excludeEnd("ctx");
@@ -9082,15 +9083,15 @@ self._assert_equals_($1,"a Set ()");
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 $2=set;
-_st($2)._add_((1));
+$recv($2)._add_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-$3=_st($2)._add_((3));
+$3=$recv($2)._add_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-$4=_st(set)._printString();
+$4=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=2;
 //>>excludeEnd("ctx");
@@ -9098,11 +9099,11 @@ self._assert_equals_($4,"a Set (1 3)");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-_st(set)._add_("foo");
+$recv(set)._add_("foo");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$5=_st(set)._printString();
+$5=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=3;
 //>>excludeEnd("ctx");
@@ -9111,12 +9112,12 @@ self._assert_equals_($5,"a Set (1 3 'foo')");
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
 $6=set;
-_st($6)._remove_((1));
+$recv($6)._remove_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["remove:"]=1;
 //>>excludeEnd("ctx");
-$7=_st($6)._remove_((3));
-$8=_st(set)._printString();
+$7=$recv($6)._remove_((3));
+$8=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=4;
 //>>excludeEnd("ctx");
@@ -9124,11 +9125,11 @@ self._assert_equals_($8,"a Set ('foo')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
-_st(set)._add_((3));
+$recv(set)._add_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=4;
 //>>excludeEnd("ctx");
-$9=_st(set)._printString();
+$9=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=5;
 //>>excludeEnd("ctx");
@@ -9136,11 +9137,11 @@ self._assert_equals_($9,"a Set (3 'foo')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
-_st(set)._add_((3));
-self._assert_equals_(_st(set)._printString(),"a Set (3 'foo')");
+$recv(set)._add_((3));
+self._assert_equals_($recv(set)._printString(),"a Set (3 'foo')");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9150,16 +9151,16 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testUnboxedObjects",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $4="foo"._yourself();
@@ -9167,12 +9168,12 @@ $4="foo"._yourself();
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
 $3=[$4,"foo"._yourself()];
-$2=_st($3)._asSet();
-$1=_st($2)._asArray();
+$2=$recv($3)._asSet();
+$1=$recv($2)._asArray();
 self._assert_equals_($1,["foo"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnboxedObjects",{},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnboxedObjects",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9182,34 +9183,34 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asArray", "asSet", "yourself"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testUnicity",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var set;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-set=_st($Set())._new();
-_st(set)._add_((21));
+set=$recv($Set())._new();
+$recv(set)._add_((21));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-_st(set)._add_("hello");
+$recv(set)._add_("hello");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-_st(set)._add_((21));
+$recv(set)._add_((21));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$1=_st(set)._size();
+$1=$recv(set)._size();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["size"]=1;
 //>>excludeEnd("ctx");
@@ -9217,15 +9218,15 @@ self._assert_equals_($1,(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(set)._add_("hello");
-self._assert_equals_(_st(set)._size(),(2));
+$recv(set)._add_("hello");
+self._assert_equals_($recv(set)._size(),(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(set)._asArray(),[(21), "hello"]);
+self._assert_equals_($recv(set)._asArray(),[(21), "hello"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},globals.SetTest)});
+}, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},$globals.SetTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9235,16 +9236,16 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["new", "add:", "assert:equals:", "size", "asArray"]
 }),
-globals.SetTest);
+$globals.SetTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-function $Set(){return globals.Set||(typeof Set=="undefined"?nil:Set)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $Set();
 
 },
@@ -9255,33 +9256,33 @@ referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.SetTest.klass);
+$globals.SetTest.klass);
 
 
-smalltalk.addClass('ConsoleTranscriptTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('ConsoleTranscriptTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testShow",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var originalTranscript;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $ConsoleTranscript(){return globals.ConsoleTranscript||(typeof ConsoleTranscript=="undefined"?nil:ConsoleTranscript)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ConsoleTranscript(){return $globals.ConsoleTranscript||(typeof ConsoleTranscript=="undefined"?nil:ConsoleTranscript)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-originalTranscript=_st($Transcript())._current();
-_st($Transcript())._register_(_st($ConsoleTranscript())._new());
+originalTranscript=$recv($Transcript())._current();
+$recv($Transcript())._register_($recv($ConsoleTranscript())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["register:"]=1;
 //>>excludeEnd("ctx");
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st($Transcript())._show_("Hello console!");
+return $recv($Transcript())._show_("Hello console!");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["show:"]=1;
 //>>excludeEnd("ctx");
@@ -9294,17 +9295,17 @@ $ctx1.sendIdx["shouldnt:raise:"]=1;
 //>>excludeEnd("ctx");
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st($Transcript())._show_(console);
+return $recv($Transcript())._show_(console);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }),$Error());
-_st($Transcript())._register_(originalTranscript);
+$recv($Transcript())._register_(originalTranscript);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},globals.ConsoleTranscriptTest)});
+}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},$globals.ConsoleTranscriptTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9314,24 +9315,24 @@ referencedClasses: ["Transcript", "ConsoleTranscript", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"]
 }),
-globals.ConsoleTranscriptTest);
+$globals.ConsoleTranscriptTest);
 
 
 
-smalltalk.addClass('JSObjectProxyTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('JSObjectProxyTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "jsNull",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return null;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsNull",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"jsNull",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9341,21 +9342,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0};
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsObject",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"jsObject",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9365,21 +9366,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "jsUndefined",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"jsUndefined",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9389,21 +9390,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfAbsent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 testObject=self._jsObject();
-$1=_st(testObject)._at_ifAbsent_("abc",(function(){
+$1=$recv(testObject)._at_ifAbsent_("abc",(function(){
 return "Property does not exist";
 
 }));
@@ -9414,7 +9415,7 @@ self._assert_equals_($1,"Property does not exist");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(testObject)._at_ifAbsent_("e",(function(){
+$2=$recv(testObject)._at_ifAbsent_("e",(function(){
 return "Property does not exist";
 
 }));
@@ -9425,7 +9426,7 @@ self._assert_equals_($2,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$3=_st(testObject)._at_ifAbsent_("a",(function(){
+$3=$recv(testObject)._at_ifAbsent_("a",(function(){
 return "Property does not exist";
 
 }));
@@ -9436,13 +9437,13 @@ self._assert_equals_($3,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(testObject)._at_ifAbsent_("f",(function(){
+self._assert_equals_($recv(testObject)._at_ifAbsent_("f",(function(){
 return "Property does not exist";
 
 })),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9452,25 +9453,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfPresent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5;
 testObject=self._jsObject();
-$1=_st(testObject)._at_ifPresent_("abc",(function(x){
+$1=$recv(testObject)._at_ifPresent_("abc",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=_st(x)._asString();
+$2=$recv(x)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=1;
 //>>excludeEnd("ctx");
@@ -9489,11 +9490,11 @@ self._assert_equals_($1,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$3=_st(testObject)._at_ifPresent_("e",(function(x){
+$3=$recv(testObject)._at_ifPresent_("e",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=_st(x)._asString();
+$4=$recv(x)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=2;
 //>>excludeEnd("ctx");
@@ -9512,11 +9513,11 @@ self._assert_equals_($3,"hello nil");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$5=_st(testObject)._at_ifPresent_("a",(function(x){
+$5=$recv(testObject)._at_ifPresent_("a",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$6=_st(x)._asString();
+$6=$recv(x)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=3;
 //>>excludeEnd("ctx");
@@ -9535,18 +9536,18 @@ self._assert_equals_($5,"hello 1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(testObject)._at_ifPresent_("f",(function(x){
+self._assert_equals_($recv(testObject)._at_ifPresent_("f",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return "hello ".__comma(_st(x)._asString());
+return "hello ".__comma($recv(x)._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,4)});
 //>>excludeEnd("ctx");
 })),"hello nil");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9556,25 +9557,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtIfPresentIfAbsent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$6,$5;
 testObject=self._jsObject();
-$1=_st(testObject)._at_ifPresent_ifAbsent_("abc",(function(x){
+$1=$recv(testObject)._at_ifPresent_ifAbsent_("abc",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=_st(x)._asString();
+$2=$recv(x)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=1;
 //>>excludeEnd("ctx");
@@ -9596,11 +9597,11 @@ self._assert_equals_($1,"not present");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$3=_st(testObject)._at_ifPresent_ifAbsent_("e",(function(x){
+$3=$recv(testObject)._at_ifPresent_ifAbsent_("e",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=_st(x)._asString();
+$4=$recv(x)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=2;
 //>>excludeEnd("ctx");
@@ -9622,11 +9623,11 @@ self._assert_equals_($3,"hello nil");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$5=_st(testObject)._at_ifPresent_ifAbsent_("a",(function(x){
+$5=$recv(testObject)._at_ifPresent_ifAbsent_("a",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$6=_st(x)._asString();
+$6=$recv(x)._asString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["asString"]=3;
 //>>excludeEnd("ctx");
@@ -9648,11 +9649,11 @@ self._assert_equals_($5,"hello 1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("f",(function(x){
+self._assert_equals_($recv(testObject)._at_ifPresent_ifAbsent_("f",(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return "hello ".__comma(_st(x)._asString());
+return "hello ".__comma($recv(x)._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,7)});
 //>>excludeEnd("ctx");
@@ -9662,7 +9663,7 @@ return "not present";
 })),"hello nil");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9672,34 +9673,34 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtPut",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
 testObject=self._jsObject();
-$2=_st(testObject)._at_("abc");
+$2=$recv(testObject)._at_("abc");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__tild_eq("xyz");
+$1=$recv($2).__tild_eq("xyz");
 self._assert_($1);
-self._assert_equals_(_st(testObject)._at_put_("abc","xyz"),"xyz");
+self._assert_equals_($recv(testObject)._at_put_("abc","xyz"),"xyz");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(testObject)._at_("abc"),"xyz");
+self._assert_equals_($recv(testObject)._at_("abc"),"xyz");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtPut",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtPut",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9709,26 +9710,26 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:", "~=", "at:", "assert:equals:", "at:put:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComparison",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-self._assert_equals_(_st([console,(2)])._indexOf_(console),(1));
-$1=_st(console).__eq(console);
+self._assert_equals_($recv([console,(2)])._indexOf_(console),(1));
+$1=$recv(console).__eq(console);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 self._assert_($1);
-$2=_st(console).__eq(_st($Object())._new());
+$2=$recv(console).__eq($recv($Object())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=2;
 //>>excludeEnd("ctx");
@@ -9736,10 +9737,10 @@ self._deny_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-self._deny_(_st(console).__eq(self._jsObject()));
+self._deny_($recv(console).__eq(self._jsObject()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparison",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9749,30 +9750,30 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "indexOf:", "assert:", "=", "deny:", "new", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDNU",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self._jsObject())._foo();
+return $recv(self._jsObject())._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNU",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNU",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9782,31 +9783,31 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "foo", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDNURegression1057",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 jsObject=[];
-_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$recv(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicAt:put:"]=1;
 //>>excludeEnd("ctx");
-_st(jsObject)._basicAt_put_("foo",(3));
+$recv(jsObject)._basicAt_put_("foo",(3));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(jsObject)._foo();
+return $recv(jsObject)._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["foo"]=1;
 //>>excludeEnd("ctx");
@@ -9817,7 +9818,7 @@ $ctx2.sendIdx["foo"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["shouldnt:raise:"]=1;
 //>>excludeEnd("ctx");
-$1=_st(jsObject)._foo();
+$1=$recv(jsObject)._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["foo"]=2;
 //>>excludeEnd("ctx");
@@ -9827,17 +9828,17 @@ $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(jsObject)._foo_((4));
+return $recv(jsObject)._foo_((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }),$Error());
-self._assert_equals_(_st(jsObject)._foo(),(4));
+self._assert_equals_($recv(jsObject)._foo(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNURegression1057",{jsObject:jsObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9847,31 +9848,31 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:", "shouldnt:raise:", "foo", "assert:equals:", "foo:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDNURegression1059",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 jsObject=[];
-_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$recv(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicAt:put:"]=1;
 //>>excludeEnd("ctx");
-_st(jsObject)._basicAt_put_("x",(3));
+$recv(jsObject)._basicAt_put_("x",(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicAt:put:"]=2;
 //>>excludeEnd("ctx");
-_st(jsObject)._basicAt_put_("x:",(function(){
+$recv(jsObject)._basicAt_put_("x:",(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._error();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9880,17 +9881,17 @@ return self._error();
 }));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(jsObject)._x_((4));
+return $recv(jsObject)._x_((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }),$Error());
-self._assert_equals_(_st(jsObject)._x(),(4));
+self._assert_equals_($recv(jsObject)._x(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNURegression1059",{jsObject:jsObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9900,34 +9901,34 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:", "error", "shouldnt:raise:", "x:", "assert:equals:", "x"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDNURegression1062",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject,stored;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 jsObject=[];
-_st(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+$recv(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicAt:put:"]=1;
 //>>excludeEnd("ctx");
-_st(jsObject)._basicAt_put_("x",(function(v){
+$recv(jsObject)._basicAt_put_("x",(function(v){
 stored=v;
 return stored;
 
 }));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(jsObject)._x_((4));
+return $recv(jsObject)._x_((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -9935,7 +9936,7 @@ return _st(jsObject)._x_((4));
 self._assert_equals_(stored,(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNURegression1062",{jsObject:jsObject,stored:stored},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9945,23 +9946,23 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["basicAt:put:", "shouldnt:raise:", "x:", "assert:equals:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testMessageSend",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3;
 $2=self._jsObject();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["jsObject"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._a();
+$1=$recv($2)._a();
 self._assert_equals_($1,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
@@ -9970,15 +9971,15 @@ $4=self._jsObject();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["jsObject"]=2;
 //>>excludeEnd("ctx");
-$3=_st($4)._b();
+$3=$recv($4)._b();
 self._assert_equals_($3,(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._jsObject())._c_((3)),(3));
+self._assert_equals_($recv(self._jsObject())._c_((3)),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -9988,21 +9989,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "a", "jsObject", "b", "c:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testMethodWithArguments",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._jsObject())._c_((1)),(1));
+self._assert_equals_($recv(self._jsObject())._c_((1)),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMethodWithArguments",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMethodWithArguments",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10012,21 +10013,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "c:", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPrinting",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(self._jsObject())._printString(),"[object Object]");
+self._assert_equals_($recv(self._jsObject())._printString(),"[object Object]");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrinting",{},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrinting",{},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10036,21 +10037,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "printString", "jsObject"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPropertyThatReturnsEmptyString",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 object=self._jsObject();
-$1=_st(object)._d();
+$1=$recv(object)._d();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["d"]=1;
 //>>excludeEnd("ctx");
@@ -10058,11 +10059,11 @@ self._assert_equals_($1,"");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(object)._d_("hello");
-self._assert_equals_(_st(object)._d(),"hello");
+$recv(object)._d_("hello");
+self._assert_equals_($recv(object)._d(),"hello");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsEmptyString",{object:object},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsEmptyString",{object:object},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10072,25 +10073,25 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "d", "d:"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPropertyThatReturnsUndefined",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 object=self._jsObject();
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(object)._e();
+return $recv(object)._e();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["e"]=1;
 //>>excludeEnd("ctx");
@@ -10098,10 +10099,10 @@ $ctx2.sendIdx["e"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$MessageNotUnderstood());
-self._assert_(_st(_st(object)._e())._isNil());
+self._assert_($recv($recv(object)._e())._isNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10111,21 +10112,21 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSetPropertyWithFalsyValue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var jsObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 jsObject=self._jsObject();
-$1=_st(jsObject)._a();
+$1=$recv(jsObject)._a();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a"]=1;
 //>>excludeEnd("ctx");
@@ -10133,11 +10134,11 @@ self._assert_equals_($1,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(jsObject)._a_(self._jsNull());
+$recv(jsObject)._a_(self._jsNull());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(jsObject)._a();
+$2=$recv(jsObject)._a();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a"]=2;
 //>>excludeEnd("ctx");
@@ -10145,11 +10146,11 @@ self._assert_equals_($2,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-_st(jsObject)._a_((0));
+$recv(jsObject)._a_((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a:"]=2;
 //>>excludeEnd("ctx");
-$3=_st(jsObject)._a();
+$3=$recv(jsObject)._a();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a"]=3;
 //>>excludeEnd("ctx");
@@ -10157,11 +10158,11 @@ self._assert_equals_($3,(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-_st(jsObject)._a_(self._jsUndefined());
+$recv(jsObject)._a_(self._jsUndefined());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a:"]=3;
 //>>excludeEnd("ctx");
-$4=_st(jsObject)._a();
+$4=$recv(jsObject)._a();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a"]=4;
 //>>excludeEnd("ctx");
@@ -10169,11 +10170,11 @@ self._assert_equals_($4,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
-_st(jsObject)._a_("");
+$recv(jsObject)._a_("");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a:"]=4;
 //>>excludeEnd("ctx");
-$5=_st(jsObject)._a();
+$5=$recv(jsObject)._a();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["a"]=5;
 //>>excludeEnd("ctx");
@@ -10181,11 +10182,11 @@ self._assert_equals_($5,"");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
-_st(jsObject)._a_(false);
-self._assert_equals_(_st(jsObject)._a(),false);
+$recv(jsObject)._a_(false);
+self._assert_equals_($recv(jsObject)._a(),false);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSetPropertyWithFalsyValue",{jsObject:jsObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10195,24 +10196,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "assert:equals:", "a", "a:", "jsNull", "jsUndefined"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testValue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var testObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 testObject=self._jsObject();
-_st(testObject)._at_put_("value","aValue");
-self._assert_equals_(_st(testObject)._value(),"aValue");
+$recv(testObject)._at_put_("value","aValue");
+self._assert_equals_($recv(testObject)._value(),"aValue");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10222,27 +10223,27 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["jsObject", "at:put:", "assert:equals:", "value"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testYourself",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var object;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=self._jsObject();
-_st($1)._d_("test");
-$2=_st($1)._yourself();
+$recv($1)._d_("test");
+$2=$recv($1)._yourself();
 object=$2;
-self._assert_equals_(_st(object)._d(),"test");
+self._assert_equals_($recv(object)._d(),"test");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testYourself",{object:object},globals.JSObjectProxyTest)});
+}, function($ctx1) {$ctx1.fill(self,"testYourself",{object:object},$globals.JSObjectProxyTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10252,24 +10253,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["d:", "jsObject", "yourself", "assert:equals:", "d"]
 }),
-globals.JSObjectProxyTest);
+$globals.JSObjectProxyTest);
 
 
 
-smalltalk.addClass('JavaScriptExceptionTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('JavaScriptExceptionTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testCatchingException",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._throwException();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10277,16 +10278,16 @@ return self._throwException();
 //>>excludeEnd("ctx");
 }))._on_do_($Error(),(function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._assert_(_st(_st(error)._exception()).__eq("test"));
+return self._assert_($recv($recv(error)._exception()).__eq("test"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{},globals.JavaScriptExceptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{},$globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10296,21 +10297,21 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "throwException", "assert:", "=", "exception"]
 }),
-globals.JavaScriptExceptionTest);
+$globals.JavaScriptExceptionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRaisingException",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $JavaScriptException(){return globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
+function $JavaScriptException(){return $globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._throwException();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10319,7 +10320,7 @@ return self._throwException();
 }),$JavaScriptException());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{},globals.JavaScriptExceptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{},$globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10329,21 +10330,21 @@ referencedClasses: ["JavaScriptException"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "throwException"]
 }),
-globals.JavaScriptExceptionTest);
+$globals.JavaScriptExceptionTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "throwException",
 protocol: 'helpers',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 throw 'test';
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"throwException",{},globals.JavaScriptExceptionTest)});
+}, function($ctx1) {$ctx1.fill(self,"throwException",{},$globals.JavaScriptExceptionTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10353,36 +10354,36 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.JavaScriptExceptionTest);
+$globals.JavaScriptExceptionTest);
 
 
 
-smalltalk.addClass('MessageSendTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('MessageSendTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testValue",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var messageSend;
-function $MessageSend(){return globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-$1=_st($MessageSend())._new();
+$1=$recv($MessageSend())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-_st($1)._receiver_(_st($Object())._new());
-_st($1)._selector_("asString");
-$2=_st($1)._yourself();
+$recv($1)._receiver_($recv($Object())._new());
+$recv($1)._selector_("asString");
+$2=$recv($1)._yourself();
 messageSend=$2;
-self._assert_equals_(_st(messageSend)._value(),"an Object");
+self._assert_equals_($recv(messageSend)._value(),"an Object");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},globals.MessageSendTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},$globals.MessageSendTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10392,33 +10393,33 @@ referencedClasses: ["MessageSend", "Object"],
 //>>excludeEnd("ide");
 messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value"]
 }),
-globals.MessageSendTest);
+$globals.MessageSendTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testValueWithArguments",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var messageSend;
-function $MessageSend(){return globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-$1=_st($MessageSend())._new();
-_st($1)._receiver_((2));
-_st($1)._selector_("+");
-$2=_st($1)._yourself();
+$1=$recv($MessageSend())._new();
+$recv($1)._receiver_((2));
+$recv($1)._selector_("+");
+$2=$recv($1)._yourself();
 messageSend=$2;
-self._assert_equals_(_st(messageSend)._value_((3)),(5));
+self._assert_equals_($recv(messageSend)._value_((3)),(5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(messageSend)._valueWithPossibleArguments_([(4)]),(6));
+self._assert_equals_($recv(messageSend)._valueWithPossibleArguments_([(4)]),(6));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},globals.MessageSendTest)});
+}, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},$globals.MessageSendTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10428,18 +10429,18 @@ referencedClasses: ["MessageSend"],
 //>>excludeEnd("ide");
 messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value:", "valueWithPossibleArguments:"]
 }),
-globals.MessageSendTest);
+$globals.MessageSendTest);
 
 
 
-smalltalk.addClass('MethodInheritanceTest', globals.TestCase, ['receiverTop', 'receiverMiddle', 'receiverBottom', 'method', 'performBlock'], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('MethodInheritanceTest', $globals.TestCase, ['receiverTop', 'receiverMiddle', 'receiverBottom', 'method', 'performBlock'], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $CodeGenerator(){return globals.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
+function $CodeGenerator(){return $globals.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
 return $CodeGenerator();
 
 },
@@ -10450,26 +10451,26 @@ referencedClasses: ["CodeGenerator"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "compiler",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $Compiler(){return globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=_st($Compiler())._new();
-_st($2)._codeGeneratorClass_(self._codeGeneratorClass());
-$3=_st($2)._yourself();
+$2=$recv($Compiler())._new();
+$recv($2)._codeGeneratorClass_(self._codeGeneratorClass());
+$3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compiler",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"compiler",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10479,21 +10480,21 @@ referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
 messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "deinstallBottom",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self._targetClassBottom())._removeCompiledMethod_(self["@method"]);
+$recv(self._targetClassBottom())._removeCompiledMethod_(self["@method"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10503,21 +10504,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeCompiledMethod:", "targetClassBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "deinstallMiddle",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self._targetClassMiddle())._removeCompiledMethod_(self["@method"]);
+$recv(self._targetClassMiddle())._removeCompiledMethod_(self["@method"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10527,21 +10528,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeCompiledMethod:", "targetClassMiddle"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "deinstallTop",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st(self._targetClassTop())._removeCompiledMethod_(self["@method"]);
+$recv(self._targetClassTop())._removeCompiledMethod_(self["@method"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10551,21 +10552,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["removeCompiledMethod:", "targetClassTop"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "installBottom:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassBottom(),"tests");
+self["@method"]=$recv(self._compiler())._install_forClass_protocol_(aString,self._targetClassBottom(),"tests");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10575,21 +10576,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "targetClassBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "installMiddle:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassMiddle(),"tests");
+self["@method"]=$recv(self._compiler())._install_forClass_protocol_(aString,self._targetClassMiddle(),"tests");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10599,21 +10600,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "targetClassMiddle"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "installTop:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassTop(),"tests");
+self["@method"]=$recv(self._compiler())._install_forClass_protocol_(aString,self._targetClassTop(),"tests");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10623,30 +10624,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["install:forClass:protocol:", "compiler", "targetClassTop"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "setUp",
 protocol: 'initialization',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self["@receiverTop"]=_st(self._targetClassTop())._new();
+self["@receiverTop"]=$recv(self._targetClassTop())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-self["@receiverMiddle"]=_st(self._targetClassMiddle())._new();
+self["@receiverMiddle"]=$recv(self._targetClassMiddle())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-self["@receiverBottom"]=_st(self._targetClassBottom())._new();
+self["@receiverBottom"]=$recv(self._targetClassBottom())._new();
 self["@method"]=nil;
 self["@performBlock"]=(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._error_("performBlock not initialized");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10655,7 +10656,7 @@ return self._error_("performBlock not initialized");
 });
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setUp",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10665,23 +10666,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["new", "targetClassTop", "targetClassMiddle", "targetClassBottom", "error:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "shouldMNU",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._shouldMNUTop();
 self._shouldMNUMiddle();
 self._shouldMNUBottom();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10691,30 +10692,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["shouldMNUTop", "shouldMNUMiddle", "shouldMNUBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "shouldMNUBottom",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self["@performBlock"])._value_(self["@receiverBottom"]);
+return $recv(self["@performBlock"])._value_(self["@receiverBottom"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10724,30 +10725,30 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "value:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "shouldMNUMiddle",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+return $recv(self["@performBlock"])._value_(self["@receiverMiddle"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10757,30 +10758,30 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "value:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "shouldMNUTop",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(self["@performBlock"])._value_(self["@receiverTop"]);
+return $recv(self["@performBlock"])._value_(self["@receiverTop"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10790,19 +10791,19 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "value:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "shouldReturn:",
 protocol: 'testing',
 fn: function (anObject){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-result=_st(self["@performBlock"])._value_(self["@receiverTop"]);
+result=$recv(self["@performBlock"])._value_(self["@receiverTop"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=1;
 //>>excludeEnd("ctx");
@@ -10810,7 +10811,7 @@ self._assert_equals_(["top",anObject],["top",result]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-result=_st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+result=$recv(self["@performBlock"])._value_(self["@receiverMiddle"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=2;
 //>>excludeEnd("ctx");
@@ -10818,11 +10819,11 @@ self._assert_equals_(["middle",anObject],["middle",result]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
+result=$recv(self["@performBlock"])._value_(self["@receiverBottom"]);
 self._assert_equals_(["bottom",anObject],["bottom",result]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10832,19 +10833,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "assert:equals:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "shouldReturn:and:and:",
 protocol: 'testing',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-result=_st(self["@performBlock"])._value_(self["@receiverTop"]);
+result=$recv(self["@performBlock"])._value_(self["@receiverTop"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=1;
 //>>excludeEnd("ctx");
@@ -10852,7 +10853,7 @@ self._assert_equals_(["top",anObject],["top",result]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-result=_st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+result=$recv(self["@performBlock"])._value_(self["@receiverMiddle"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=2;
 //>>excludeEnd("ctx");
@@ -10860,11 +10861,11 @@ self._assert_equals_(["middle",anObject2],["middle",result]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
+result=$recv(self["@performBlock"])._value_(self["@receiverBottom"]);
 self._assert_equals_(["bottom",anObject3],["bottom",result]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10874,15 +10875,15 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "assert:equals:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "targetClassBottom",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $JavaScriptException(){return globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
+function $JavaScriptException(){return $globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 return $JavaScriptException();
 
 },
@@ -10893,15 +10894,15 @@ referencedClasses: ["JavaScriptException"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "targetClassMiddle",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 return $Error();
 
 },
@@ -10912,15 +10913,15 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "targetClassTop",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $Object();
 
 },
@@ -10931,21 +10932,21 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "tearDown",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._deinstallTop();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10957,9 +10958,9 @@ return self._deinstallTop();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._deinstallMiddle();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10971,9 +10972,9 @@ return self._deinstallMiddle();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["on:do:"]=2;
 //>>excludeEnd("ctx");
-_st((function(){
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return self._deinstallBottom();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -10984,7 +10985,7 @@ return self._deinstallBottom();
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"tearDown",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"tearDown",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -10994,22 +10995,22 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testMNU11",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@performBlock"]=(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(x)._foo();
+return $recv(x)._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -11027,7 +11028,7 @@ self._deinstallTop();
 self._shouldMNU();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11037,22 +11038,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testMNU22",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@performBlock"]=(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(x)._foo();
+return $recv(x)._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -11070,7 +11071,7 @@ self._deinstallMiddle();
 self._shouldMNU();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMNU22",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMNU22",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11080,22 +11081,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["foo", "shouldMNU", "installMiddle:", "deinstallMiddle"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testReturns1",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self["@performBlock"]=(function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(x)._foo();
+return $recv(x)._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -11112,7 +11113,7 @@ self._installTop_("foo ^ true");
 self._shouldReturn_(true);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},globals.MethodInheritanceTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11122,19 +11123,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["foo", "installTop:", "shouldReturn:"]
 }),
-globals.MethodInheritanceTest);
+$globals.MethodInheritanceTest);
 
 
 
-smalltalk.addClass('NumberTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('NumberTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testAbs",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=(4)._abs();
@@ -11148,7 +11149,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((-4)._abs(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAbs",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAbs",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11158,16 +11159,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "abs"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testArithmetic",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4;
 $1=(1.5).__plus((1));
@@ -11214,7 +11215,7 @@ $5=(1).__plus((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["+"]=2;
 //>>excludeEnd("ctx");
-$4=_st($5).__star((3));
+$4=$recv($5).__star((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["*"]=2;
 //>>excludeEnd("ctx");
@@ -11225,7 +11226,7 @@ $ctx1.sendIdx["assert:equals:"]=8;
 self._assert_equals_((1).__plus((2).__star((3))),(7));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11235,21 +11236,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "+", "-", "/", "*", "//", "\x5c\x5c"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAsNumber",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((3)._asNumber(),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11259,16 +11260,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "asNumber"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCeiling",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=(1.2)._ceiling();
@@ -11290,7 +11291,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((1)._ceiling(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11300,16 +11301,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ceiling"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComparison",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=(3).__gt((2));
@@ -11356,7 +11357,7 @@ $ctx1.sendIdx["assert:"]=5;
 self._assert_((3).__lt_eq((3.1)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparison",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11366,19 +11367,19 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", ">", "<", "deny:", ">=", "<="]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testCopying",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st((1)._copy()).__eq_eq((1));
+$1=$recv((1)._copy()).__eq_eq((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
@@ -11386,10 +11387,10 @@ self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-self._assert_(_st((1)._deepCopy()).__eq_eq((1)));
+self._assert_($recv((1)._deepCopy()).__eq_eq((1)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopying",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopying",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11399,16 +11400,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "==", "copy", "deepCopy"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEquality",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$7,$6,$9,$8,$10,$11,$12;
 $1=(1).__eq((1));
@@ -11439,7 +11440,7 @@ $5=(1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5).__eq((1));
+$4=$recv($5).__eq((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=4;
 //>>excludeEnd("ctx");
@@ -11463,7 +11464,7 @@ $9=(1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=3;
 //>>excludeEnd("ctx");
-$8=_st($9).__eq((1)._yourself());
+$8=$recv($9).__eq((1)._yourself());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=6;
 //>>excludeEnd("ctx");
@@ -11495,7 +11496,7 @@ $ctx1.sendIdx["deny:"]=4;
 self._deny_((0).__eq(""));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11505,16 +11506,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "deny:", "yourself"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testFloor",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=(1.2)._floor();
@@ -11536,7 +11537,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((1)._floor(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testFloor",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testFloor",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11546,16 +11547,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "floor"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testHexNumbers",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5;
 self._assert_equals_((9),(9));
@@ -11605,7 +11606,7 @@ $ctx1.sendIdx["assert:equals:"]=6;
 self._assert_equals_((15)._truncated(),(15));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testHexNumbers",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testHexNumbers",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11615,16 +11616,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "truncated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIdentity",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$7,$6,$9,$8;
 $1=(1).__eq_eq((1));
@@ -11655,7 +11656,7 @@ $5=(1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5).__eq_eq((1));
+$4=$recv($5).__eq_eq((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=4;
 //>>excludeEnd("ctx");
@@ -11679,7 +11680,7 @@ $9=(1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=3;
 //>>excludeEnd("ctx");
-$8=_st($9).__eq_eq((1)._yourself());
+$8=$recv($9).__eq_eq((1)._yourself());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=6;
 //>>excludeEnd("ctx");
@@ -11687,7 +11688,7 @@ self._assert_($8);
 self._deny_((1).__eq_eq((2)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -11697,21 +11698,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "==", "deny:", "yourself"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testInvalidHexNumbers",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rG();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11723,7 +11724,7 @@ $ctx1.sendIdx["should:raise:"]=1;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rg();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11735,7 +11736,7 @@ $ctx1.sendIdx["should:raise:"]=2;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rH();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11747,7 +11748,7 @@ $ctx1.sendIdx["should:raise:"]=3;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rh();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11759,7 +11760,7 @@ $ctx1.sendIdx["should:raise:"]=4;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rI();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11771,7 +11772,7 @@ $ctx1.sendIdx["should:raise:"]=5;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._ri();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11783,7 +11784,7 @@ $ctx1.sendIdx["should:raise:"]=6;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rJ();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11795,7 +11796,7 @@ $ctx1.sendIdx["should:raise:"]=7;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rj();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11807,7 +11808,7 @@ $ctx1.sendIdx["should:raise:"]=8;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rK();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11819,7 +11820,7 @@ $ctx1.sendIdx["should:raise:"]=9;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rk();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11831,7 +11832,7 @@ $ctx1.sendIdx["should:raise:"]=10;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rL();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11843,7 +11844,7 @@ $ctx1.sendIdx["should:raise:"]=11;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rl();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11855,7 +11856,7 @@ $ctx1.sendIdx["should:raise:"]=12;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rM();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11867,7 +11868,7 @@ $ctx1.sendIdx["should:raise:"]=13;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rm();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11879,7 +11880,7 @@ $ctx1.sendIdx["should:raise:"]=14;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rN();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11891,7 +11892,7 @@ $ctx1.sendIdx["should:raise:"]=15;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rn();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11903,7 +11904,7 @@ $ctx1.sendIdx["should:raise:"]=16;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rO();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11915,7 +11916,7 @@ $ctx1.sendIdx["should:raise:"]=17;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._ro();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11927,7 +11928,7 @@ $ctx1.sendIdx["should:raise:"]=18;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rP();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11939,7 +11940,7 @@ $ctx1.sendIdx["should:raise:"]=19;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rp();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11951,7 +11952,7 @@ $ctx1.sendIdx["should:raise:"]=20;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rQ();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11963,7 +11964,7 @@ $ctx1.sendIdx["should:raise:"]=21;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rq();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11975,7 +11976,7 @@ $ctx1.sendIdx["should:raise:"]=22;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rR();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11987,7 +11988,7 @@ $ctx1.sendIdx["should:raise:"]=23;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rr();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11999,7 +12000,7 @@ $ctx1.sendIdx["should:raise:"]=24;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rS();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12011,7 +12012,7 @@ $ctx1.sendIdx["should:raise:"]=25;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rs();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12023,7 +12024,7 @@ $ctx1.sendIdx["should:raise:"]=26;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rT();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12035,7 +12036,7 @@ $ctx1.sendIdx["should:raise:"]=27;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12047,7 +12048,7 @@ $ctx1.sendIdx["should:raise:"]=28;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rU();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12059,7 +12060,7 @@ $ctx1.sendIdx["should:raise:"]=29;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._ru();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12071,7 +12072,7 @@ $ctx1.sendIdx["should:raise:"]=30;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rV();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12083,7 +12084,7 @@ $ctx1.sendIdx["should:raise:"]=31;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rv();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12095,7 +12096,7 @@ $ctx1.sendIdx["should:raise:"]=32;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rW();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12107,7 +12108,7 @@ $ctx1.sendIdx["should:raise:"]=33;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rw();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12119,7 +12120,7 @@ $ctx1.sendIdx["should:raise:"]=34;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rX();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12131,7 +12132,7 @@ $ctx1.sendIdx["should:raise:"]=35;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rx();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12143,7 +12144,7 @@ $ctx1.sendIdx["should:raise:"]=36;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rY();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12155,7 +12156,7 @@ $ctx1.sendIdx["should:raise:"]=37;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._ry();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12167,7 +12168,7 @@ $ctx1.sendIdx["should:raise:"]=38;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rZ();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12179,7 +12180,7 @@ $ctx1.sendIdx["should:raise:"]=39;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (16)._rz();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12191,7 +12192,7 @@ $ctx1.sendIdx["should:raise:"]=40;
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (11259375)._Z();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12200,7 +12201,7 @@ return (11259375)._Z();
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12210,17 +12211,17 @@ referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testLog",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Number(){return globals.Number||(typeof Number=="undefined"?nil:Number)}
+function $Number(){return $globals.Number||(typeof Number=="undefined"?nil:Number)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((10000)._log(),(4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12230,10 +12231,10 @@ self._assert_equals_((512)._log_((2)),(9));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(_st($Number())._e())._ln(),(1));
+self._assert_equals_($recv($recv($Number())._e())._ln(),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testLog",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testLog",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12243,16 +12244,16 @@ referencedClasses: ["Number"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "log", "log:", "ln", "e"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testMinMax",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((2)._max_((5)),(5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12261,7 +12262,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((2)._min_((5)),(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testMinMax",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testMinMax",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12271,16 +12272,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "max:", "min:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNegated",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=(3)._negated();
@@ -12294,7 +12295,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((-3)._negated(),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNegated",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNegated",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12304,16 +12305,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "negated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPrintShowingDecimalPlaces",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$6,$8,$7,$10,$9,$11,$12,$13,$14,$15;
 $1=(23)._printShowingDecimalPlaces_((2));
@@ -12336,7 +12337,7 @@ $4=(234.567)._negated();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["negated"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4)._printShowingDecimalPlaces_((5));
+$3=$recv($4)._printShowingDecimalPlaces_((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=3;
 //>>excludeEnd("ctx");
@@ -12364,7 +12365,7 @@ $8=(23.4567)._negated();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["negated"]=2;
 //>>excludeEnd("ctx");
-$7=_st($8)._printShowingDecimalPlaces_((0));
+$7=$recv($8)._printShowingDecimalPlaces_((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=6;
 //>>excludeEnd("ctx");
@@ -12376,7 +12377,7 @@ $10=(23.5567)._negated();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["negated"]=3;
 //>>excludeEnd("ctx");
-$9=_st($10)._printShowingDecimalPlaces_((0));
+$9=$recv($10)._printShowingDecimalPlaces_((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=7;
 //>>excludeEnd("ctx");
@@ -12400,7 +12401,7 @@ self._assert_equals_($12,"0.98000");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=9;
 //>>excludeEnd("ctx");
-$13=_st((0.98)._negated())._printShowingDecimalPlaces_((2));
+$13=$recv((0.98)._negated())._printShowingDecimalPlaces_((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=10;
 //>>excludeEnd("ctx");
@@ -12427,7 +12428,7 @@ $ctx1.sendIdx["assert:equals:"]=12;
 self._assert_equals_((0)._printShowingDecimalPlaces_((2)),"0.00");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPrintShowingDecimalPlaces",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPrintShowingDecimalPlaces",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12437,16 +12438,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRaisedTo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 $1=(2)._raisedTo_((4));
@@ -12480,7 +12481,7 @@ $ctx1.sendIdx["assert:equals:"]=4;
 self._assert_equals_((2).__star_star((4)),(16));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12490,16 +12491,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "raisedTo:", "**"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testRounded",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=(3)._rounded();
@@ -12521,7 +12522,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((3.51)._rounded(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testRounded",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testRounded",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12531,16 +12532,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "rounded"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSign",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=(5)._sign();
@@ -12562,7 +12563,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((-1.4)._sign(),(-1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSign",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSign",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12572,16 +12573,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "sign"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSqrt",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=(4)._sqrt();
@@ -12595,7 +12596,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_((16)._sqrt(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSqrt",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSqrt",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12605,21 +12606,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "sqrt"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testSquared",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((4)._squared(),(16));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testSquared",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testSquared",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12629,24 +12630,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "squared"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testTimesRepeat",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var i;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 i=(0);
 (0)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-i=_st(i).__plus((1));
+i=$recv(i).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["+"]=1;
 //>>excludeEnd("ctx");
@@ -12664,9 +12665,9 @@ $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 (5)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-i=_st(i).__plus((1));
+i=$recv(i).__plus((1));
 return i;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
@@ -12675,7 +12676,7 @@ return i;
 self._assert_equals_(i,(5));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12685,21 +12686,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "+", "assert:equals:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testTo",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((1)._to_((5)),[(1), (2), (3), (4), (5)]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTo",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTo",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12709,17 +12710,17 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "to:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testToBy",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=(0)._to_by_((6),(2));
@@ -12729,7 +12730,7 @@ $ctx1.sendIdx["to:by:"]=1;
 self._assert_equals_($1,[(0), (2), (4), (6)]);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (1)._to_by_((4),(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12738,7 +12739,7 @@ return (1)._to_by_((4),(0));
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testToBy",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testToBy",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12748,16 +12749,16 @@ referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "to:by:", "should:raise:"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testTrigonometry",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_((0)._cos(),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -12782,7 +12783,7 @@ $ctx1.sendIdx["assert:equals:"]=5;
 self._assert_equals_((0)._arcTan(),(0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTrigonometry",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTrigonometry",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12792,16 +12793,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "cos", "sin", "tan", "arcCos", "arcSin", "arcTan"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testTruncated",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=(3)._truncated();
@@ -12823,7 +12824,7 @@ $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_((3.51)._truncated(),(3));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTruncated",{},globals.NumberTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTruncated",{},$globals.NumberTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12833,16 +12834,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "truncated"]
 }),
-globals.NumberTest);
+$globals.NumberTest);
 
 
 
-smalltalk.addClass('ObjectMock', globals.Object, ['foo', 'bar'], 'Kernel-Tests');
+$core.addClass('ObjectMock', $globals.Object, ['foo', 'bar'], 'Kernel-Tests');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-globals.ObjectMock.comment="ObjectMock is there only to perform tests on classes.";
+$globals.ObjectMock.comment="ObjectMock is there only to perform tests on classes.";
 //>>excludeEnd("ide");
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "foo",
 protocol: 'not yet classified',
 fn: function (){
@@ -12859,10 +12860,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ObjectMock);
+$globals.ObjectMock);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "foo:",
 protocol: 'not yet classified',
 fn: function (anObject){
@@ -12878,24 +12879,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ObjectMock);
+$globals.ObjectMock);
 
 
 
-smalltalk.addClass('ObjectTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('ObjectTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "notDefined",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 return void 0;;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"notDefined",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"notDefined",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12905,23 +12906,23 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testBasicAccess",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-o=_st($Object())._new();
-_st(o)._basicAt_put_("a",(1));
-$1=_st(o)._basicAt_("a");
+o=$recv($Object())._new();
+$recv(o)._basicAt_put_("a",(1));
+$1=$recv(o)._basicAt_("a");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicAt:"]=1;
 //>>excludeEnd("ctx");
@@ -12929,10 +12930,10 @@ self._assert_equals_($1,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(o)._basicAt_("b"),nil);
+self._assert_equals_($recv(o)._basicAt_("b"),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBasicAccess",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBasicAccess",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12942,44 +12943,44 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "basicAt:put:", "assert:equals:", "basicAt:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testBasicPerform",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-o=_st($Object())._new();
-_st(o)._basicAt_put_("func",(function(){
+o=$recv($Object())._new();
+$recv(o)._basicAt_put_("func",(function(){
 return "hello";
 
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["basicAt:put:"]=1;
 //>>excludeEnd("ctx");
-_st(o)._basicAt_put_("func2",(function(a){
+$recv(o)._basicAt_put_("func2",(function(a){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(a).__plus((1));
+return $recv(a).__plus((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({a:a},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-self._assert_equals_(_st(o)._basicPerform_("func"),"hello");
+self._assert_equals_($recv(o)._basicPerform_("func"),"hello");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(o)._basicPerform_withArguments_("func2",[(3)]),(4));
+self._assert_equals_($recv(o)._basicPerform_withArguments_("func2",[(3)]),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -12989,31 +12990,31 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "basicPerform:withArguments:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDNU",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
-function $MessageNotUnderstood(){return globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st($Object())._new())._foo();
+return $recv($recv($Object())._new())._foo();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$MessageNotUnderstood());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDNU",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDNU",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13023,30 +13024,30 @@ referencedClasses: ["Object", "MessageNotUnderstood"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "foo", "new"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEquality",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
-o=_st($Object())._new();
+o=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$1=_st(o).__eq(_st($Object())._new());
+$1=$recv(o).__eq($recv($Object())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 self._deny_($1);
-$2=_st(o).__eq(o);
+$2=$recv(o).__eq(o);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=2;
 //>>excludeEnd("ctx");
@@ -13054,11 +13055,11 @@ self._assert_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$4=_st(o)._yourself();
+$4=$recv(o)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq(o);
+$3=$recv($4).__eq(o);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=3;
 //>>excludeEnd("ctx");
@@ -13066,10 +13067,10 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-self._assert_(_st(o).__eq(_st(o)._yourself()));
+self._assert_($recv(o).__eq($recv(o)._yourself()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13079,31 +13080,31 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "deny:", "=", "assert:", "yourself"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testHalt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(_st($Object())._new())._halt();
+return $recv($recv($Object())._new())._halt();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testHalt",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testHalt",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13113,30 +13114,30 @@ referencedClasses: ["Object", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["should:raise:", "halt", "new"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIdentity",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
-o=_st($Object())._new();
+o=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$1=_st(o).__eq_eq(_st($Object())._new());
+$1=$recv(o).__eq_eq($recv($Object())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
 self._deny_($1);
-$2=_st(o).__eq_eq(o);
+$2=$recv(o).__eq_eq(o);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=2;
 //>>excludeEnd("ctx");
@@ -13144,11 +13145,11 @@ self._assert_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$4=_st(o)._yourself();
+$4=$recv(o)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq_eq(o);
+$3=$recv($4).__eq_eq(o);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=3;
 //>>excludeEnd("ctx");
@@ -13156,10 +13157,10 @@ self._assert_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-self._assert_(_st(o).__eq_eq(_st(o)._yourself()));
+self._assert_($recv(o).__eq_eq($recv(o)._yourself()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentity",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13169,29 +13170,29 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "deny:", "==", "assert:", "yourself"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIfNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$5,$4,$3,$7,$6,$9,$8,$11,$10,$receiver;
-$2=_st($Object())._new();
+$2=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._isNil();
+$1=$recv($2)._isNil();
 self._deny_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-$5=_st($Object())._new();
+$5=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
@@ -13200,9 +13201,9 @@ $4=true;
 } else {
 $4=$5;
 };
-$3=_st($4).__eq(true);
+$3=$recv($4).__eq(true);
 self._deny_($3);
-$7=_st($Object())._new();
+$7=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
@@ -13215,7 +13216,7 @@ self._assert_equals_($6,true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$9=_st($Object())._new();
+$9=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=4;
 //>>excludeEnd("ctx");
@@ -13228,7 +13229,7 @@ self._assert_equals_($8,true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$11=_st($Object())._new();
+$11=$recv($Object())._new();
 if(($receiver = $11) == null || $receiver.isNil){
 $10=false;
 } else {
@@ -13237,7 +13238,7 @@ $10=true;
 self._assert_equals_($10,true);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13247,22 +13248,22 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testInstVars",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
-o=_st($ObjectMock())._new();
-$1=_st(o)._instVarAt_("foo");
+o=$recv($ObjectMock())._new();
+$1=$recv(o)._instVarAt_("foo");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["instVarAt:"]=1;
 //>>excludeEnd("ctx");
@@ -13270,8 +13271,8 @@ self._assert_equals_($1,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(o)._instVarAt_put_("foo",(1));
-$2=_st(o)._instVarAt_("foo");
+$recv(o)._instVarAt_put_("foo",(1));
+$2=$recv(o)._instVarAt_("foo");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["instVarAt:"]=2;
 //>>excludeEnd("ctx");
@@ -13279,10 +13280,10 @@ self._assert_equals_($2,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(o)._instVarAt_("foo"),(1));
+self._assert_equals_($recv(o)._instVarAt_("foo"),(1));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testInstVars",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testInstVars",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13292,21 +13293,21 @@ referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:equals:", "instVarAt:", "instVarAt:put:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNilUndefined",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_(self._notDefined(),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNilUndefined",{},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNilUndefined",{},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13316,24 +13317,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "notDefined"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testYourself",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o;
-function $ObjectMock(){return globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-o=_st($ObjectMock())._new();
-self._assert_(_st(_st(o)._yourself()).__eq_eq(o));
+o=$recv($ObjectMock())._new();
+self._assert_($recv($recv(o)._yourself()).__eq_eq(o));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testYourself",{o:o},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testYourself",{o:o},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13343,47 +13344,47 @@ referencedClasses: ["ObjectMock"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "==", "yourself"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testidentityHash",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var o1,o2;
-function $Object(){return globals.Object||(typeof Object=="undefined"?nil:Object)}
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$5,$4;
-o1=_st($Object())._new();
+o1=$recv($Object())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-o2=_st($Object())._new();
-$2=_st(o1)._identityHash();
+o2=$recv($Object())._new();
+$2=$recv(o1)._identityHash();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["identityHash"]=1;
 //>>excludeEnd("ctx");
-$3=_st(o1)._identityHash();
+$3=$recv(o1)._identityHash();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["identityHash"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__eq_eq($3);
+$1=$recv($2).__eq_eq($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
 self._assert_($1);
-$5=_st(o1)._identityHash();
+$5=$recv(o1)._identityHash();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["identityHash"]=3;
 //>>excludeEnd("ctx");
-$4=_st($5).__eq_eq(_st(o2)._identityHash());
+$4=$recv($5).__eq_eq($recv(o2)._identityHash());
 self._deny_($4);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},globals.ObjectTest)});
+}, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},$globals.ObjectTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13393,27 +13394,27 @@ referencedClasses: ["Object"],
 //>>excludeEnd("ide");
 messageSends: ["new", "assert:", "==", "identityHash", "deny:"]
 }),
-globals.ObjectTest);
+$globals.ObjectTest);
 
 
 
-smalltalk.addClass('PointTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('PointTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testAccessing",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$3,$6,$5,$4;
-$2=_st($Point())._x_y_((3),(4));
+$2=$recv($Point())._x_y_((3),(4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x:y:"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._x();
+$1=$recv($2)._x();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x"]=1;
 //>>excludeEnd("ctx");
@@ -13421,7 +13422,7 @@ self._assert_equals_($1,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$3=_st(_st($Point())._x_y_((3),(4)))._y();
+$3=$recv($recv($Point())._x_y_((3),(4)))._y();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["y"]=1;
 //>>excludeEnd("ctx");
@@ -13429,20 +13430,20 @@ self._assert_equals_($3,(4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$6=_st($Point())._new();
+$6=$recv($Point())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$5=_st($6)._x_((3));
-$4=_st($5)._x();
+$5=$recv($6)._x_((3));
+$4=$recv($5)._x();
 self._assert_equals_($4,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-self._assert_equals_(_st(_st(_st($Point())._new())._y_((4)))._y(),(4));
+self._assert_equals_($recv($recv($recv($Point())._new())._y_((4)))._y(),(4));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAccessing",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAccessing",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13452,17 +13453,17 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "x", "x:y:", "y", "x:", "new", "y:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testArithmetic",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$11,$9,$12,$14,$13;
 $2=(3).__at((4));
@@ -13473,8 +13474,8 @@ $3=(3).__at((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__star($3);
-$4=_st($Point())._x_y_((9),(16));
+$1=$recv($2).__star($3);
+$4=$recv($Point())._x_y_((9),(16));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x:y:"]=1;
 //>>excludeEnd("ctx");
@@ -13490,8 +13491,8 @@ $7=(3).__at((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=4;
 //>>excludeEnd("ctx");
-$5=_st($6).__plus($7);
-$8=_st($Point())._x_y_((6),(8));
+$5=$recv($6).__plus($7);
+$8=$recv($Point())._x_y_((6),(8));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x:y:"]=2;
 //>>excludeEnd("ctx");
@@ -13507,8 +13508,8 @@ $11=(3).__at((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=6;
 //>>excludeEnd("ctx");
-$9=_st($10).__minus($11);
-$12=_st($Point())._x_y_((0),(0));
+$9=$recv($10).__minus($11);
+$12=$recv($Point())._x_y_((0),(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x:y:"]=3;
 //>>excludeEnd("ctx");
@@ -13520,11 +13521,11 @@ $14=(6).__at((8));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=7;
 //>>excludeEnd("ctx");
-$13=_st($14).__slash((3).__at((4)));
-self._assert_equals_($13,_st($Point())._x_y_((2),(2)));
+$13=$recv($14).__slash((3).__at((4)));
+self._assert_equals_($13,$recv($Point())._x_y_((2),(2)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13534,22 +13535,22 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "*", "@", "x:y:", "+", "-", "/"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAt",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_equals_((3).__at((4)),_st($Point())._x_y_((3),(4)));
+self._assert_equals_((3).__at((4)),$recv($Point())._x_y_((3),(4)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAt",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAt",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13559,16 +13560,16 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "@", "x:y:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testComparison",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$12,$10,$14,$15,$13,$17,$18,$16,$20,$21,$19,$23,$22;
 $2=(3).__at((4));
@@ -13579,7 +13580,7 @@ $3=(4).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__lt($3);
+$1=$recv($2).__lt($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["<"]=1;
 //>>excludeEnd("ctx");
@@ -13595,7 +13596,7 @@ $6=(4).__at((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=4;
 //>>excludeEnd("ctx");
-$4=_st($5).__lt($6);
+$4=$recv($5).__lt($6);
 self._deny_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
@@ -13608,7 +13609,7 @@ $9=(4).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=6;
 //>>excludeEnd("ctx");
-$7=_st($8).__lt_eq($9);
+$7=$recv($8).__lt_eq($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["<="]=1;
 //>>excludeEnd("ctx");
@@ -13624,7 +13625,7 @@ $12=(3).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=8;
 //>>excludeEnd("ctx");
-$10=_st($11).__lt_eq($12);
+$10=$recv($11).__lt_eq($12);
 self._deny_($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=2;
@@ -13637,7 +13638,7 @@ $15=(4).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=10;
 //>>excludeEnd("ctx");
-$13=_st($14).__gt($15);
+$13=$recv($14).__gt($15);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=1;
 //>>excludeEnd("ctx");
@@ -13653,7 +13654,7 @@ $18=(6).__at((6));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=12;
 //>>excludeEnd("ctx");
-$16=_st($17).__gt($18);
+$16=$recv($17).__gt($18);
 self._deny_($16);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=3;
@@ -13666,7 +13667,7 @@ $21=(4).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=14;
 //>>excludeEnd("ctx");
-$19=_st($20).__gt_eq($21);
+$19=$recv($20).__gt_eq($21);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">="]=1;
 //>>excludeEnd("ctx");
@@ -13675,11 +13676,11 @@ $23=(4).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=15;
 //>>excludeEnd("ctx");
-$22=_st($23).__gt_eq((5).__at((5)));
+$22=$recv($23).__gt_eq((5).__at((5)));
 self._deny_($22);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testComparison",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testComparison",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13689,16 +13690,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "<", "@", "deny:", "<=", ">", ">="]
 }),
-globals.PointTest);
+$globals.PointTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testEgality",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$5,$4;
 $2=(3).__at((4));
@@ -13709,7 +13710,7 @@ $3=(3).__at((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2).__eq($3);
+$1=$recv($2).__eq($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -13718,11 +13719,11 @@ $5=(3).__at((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=3;
 //>>excludeEnd("ctx");
-$4=_st($5).__eq((3).__at((6)));
+$4=$recv($5).__eq((3).__at((6)));
 self._deny_($4);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testEgality",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testEgality",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13732,28 +13733,28 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "@", "deny:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testNew",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Point(){return globals.Point||(typeof Point=="undefined"?nil:Point)}
+function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$2,$1,$7,$6,$5,$4,$10,$9,$8;
-$3=_st($Point())._new();
+$3=$recv($Point())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$2=_st($3)._x_((3));
+$2=$recv($3)._x_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x:"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2)._y();
+$1=$recv($2)._y();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["y"]=1;
 //>>excludeEnd("ctx");
@@ -13761,16 +13762,16 @@ self._assert_equals_($1,nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-$7=_st($Point())._new();
+$7=$recv($Point())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-$6=_st($7)._x_((3));
-$5=_st($6)._x();
+$6=$recv($7)._x_((3));
+$5=$recv($6)._x();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["x"]=1;
 //>>excludeEnd("ctx");
-$4=_st($5).__eq((0));
+$4=$recv($5).__eq((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -13778,20 +13779,20 @@ self._deny_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-$10=_st($Point())._new();
+$10=$recv($Point())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
-$9=_st($10)._y_((4));
+$9=$recv($10)._y_((4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["y:"]=1;
 //>>excludeEnd("ctx");
-$8=_st($9)._x();
+$8=$recv($9)._x();
 self._assert_equals_($8,nil);
-self._deny_(_st(_st(_st(_st($Point())._new())._y_((4)))._y()).__eq((0)));
+self._deny_($recv($recv($recv($recv($Point())._new())._y_((4)))._y()).__eq((0)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNew",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNew",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13801,16 +13802,16 @@ referencedClasses: ["Point"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "y", "x:", "new", "deny:", "=", "x", "y:"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testTranslateBy",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$3,$1,$4,$6,$8,$7,$5,$9,$11,$12,$10,$13,$15,$16,$14;
 $2=(3).__at((3));
@@ -13821,7 +13822,7 @@ $3=(0).__at((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=2;
 //>>excludeEnd("ctx");
-$1=_st($2)._translateBy_($3);
+$1=$recv($2)._translateBy_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["translateBy:"]=1;
 //>>excludeEnd("ctx");
@@ -13845,7 +13846,7 @@ $7=(0).__at($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=5;
 //>>excludeEnd("ctx");
-$5=_st($6)._translateBy_($7);
+$5=$recv($6)._translateBy_($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["translateBy:"]=2;
 //>>excludeEnd("ctx");
@@ -13865,7 +13866,7 @@ $12=(2).__at((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=8;
 //>>excludeEnd("ctx");
-$10=_st($11)._translateBy_($12);
+$10=$recv($11)._translateBy_($12);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["translateBy:"]=3;
 //>>excludeEnd("ctx");
@@ -13881,15 +13882,15 @@ $15=(3).__at((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=10;
 //>>excludeEnd("ctx");
-$16=_st((3)._negated()).__at((0));
+$16=$recv((3)._negated()).__at((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["@"]=11;
 //>>excludeEnd("ctx");
-$14=_st($15)._translateBy_($16);
+$14=$recv($15)._translateBy_($16);
 self._assert_equals_($14,(0).__at((3)));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},globals.PointTest)});
+}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},$globals.PointTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13899,38 +13900,38 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "translateBy:", "@", "negated"]
 }),
-globals.PointTest);
+$globals.PointTest);
 
 
 
-smalltalk.addClass('QueueTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('QueueTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testNextIfAbsent",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var queue;
-function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
+function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1;
-queue=_st($Queue())._new();
-_st(queue)._nextPut_("index1");
-$2=_st(queue)._nextIfAbsent_("empty");
+queue=$recv($Queue())._new();
+$recv(queue)._nextPut_("index1");
+$2=$recv(queue)._nextIfAbsent_("empty");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextIfAbsent:"]=1;
 //>>excludeEnd("ctx");
-$1=_st($2).__eq("index1");
+$1=$recv($2).__eq("index1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 self._assert_($1);
-self._deny_(_st(_st(queue)._nextIfAbsent_("empty")).__eq("index1"));
+self._deny_($recv($recv(queue)._nextIfAbsent_("empty")).__eq("index1"));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testNextIfAbsent",{queue:queue},globals.QueueTest)});
+}, function($ctx1) {$ctx1.fill(self,"testNextIfAbsent",{queue:queue},$globals.QueueTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13940,55 +13941,55 @@ referencedClasses: ["Queue"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nextPut:", "assert:", "=", "nextIfAbsent:", "deny:"]
 }),
-globals.QueueTest);
+$globals.QueueTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testQueueNext",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var queue;
-function $Queue(){return globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
-function $Error(){return globals.Error||(typeof Error=="undefined"?nil:Error)}
+function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$6,$5;
-queue=_st($Queue())._new();
+queue=$recv($Queue())._new();
 $1=queue;
-_st($1)._nextPut_("index1");
+$recv($1)._nextPut_("index1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPut:"]=1;
 //>>excludeEnd("ctx");
-$2=_st($1)._nextPut_("index2");
-$4=_st(queue)._next();
+$2=$recv($1)._nextPut_("index2");
+$4=$recv(queue)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["next"]=1;
 //>>excludeEnd("ctx");
-$3=_st($4).__eq("index1");
+$3=$recv($4).__eq("index1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 self._assert_($3);
-$6=_st(queue)._next();
+$6=$recv(queue)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["next"]=2;
 //>>excludeEnd("ctx");
-$5=_st($6).__eq("index");
+$5=$recv($6).__eq("index");
 self._deny_($5);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(queue)._next();
+return $recv(queue)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),$Error());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testQueueNext",{queue:queue},globals.QueueTest)});
+}, function($ctx1) {$ctx1.fill(self,"testQueueNext",{queue:queue},$globals.QueueTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -13998,39 +13999,39 @@ referencedClasses: ["Queue", "Error"],
 //>>excludeEnd("ide");
 messageSends: ["new", "nextPut:", "assert:", "=", "next", "deny:", "should:raise:"]
 }),
-globals.QueueTest);
+$globals.QueueTest);
 
 
 
-smalltalk.addClass('RandomTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('RandomTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testAtRandomNumber",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var val;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 (100)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 val=(10)._atRandom();
 val;
-self._assert_(_st(val).__gt((0)));
+self._assert_($recv(val).__gt((0)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-return self._assert_(_st(val).__lt((11)));
+return self._assert_($recv(val).__lt((11)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtRandomNumber",{val:val},globals.RandomTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtRandomNumber",{val:val},$globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14040,35 +14041,35 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "atRandom", "assert:", ">", "<"]
 }),
-globals.RandomTest);
+$globals.RandomTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtRandomSequenceableCollection",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var val;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1;
 (100)._timesRepeat_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 val="abc"._atRandom();
 val;
-$3=_st(val).__eq("a");
+$3=$recv(val).__eq("a");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-$4=_st(val).__eq("b");
+$4=$recv(val).__eq("b");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=2;
 //>>excludeEnd("ctx");
-$2=_st($3).__or($4);
-$1=_st($2).__or(_st(val).__eq("c"));
+$2=$recv($3).__or($4);
+$1=$recv($2).__or($recv(val).__eq("c"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["|"]=1;
 //>>excludeEnd("ctx");
@@ -14079,7 +14080,7 @@ return self._assert_($1);
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtRandomSequenceableCollection",{val:val},globals.RandomTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtRandomSequenceableCollection",{val:val},$globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14089,44 +14090,44 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "atRandom", "assert:", "|", "="]
 }),
-globals.RandomTest);
+$globals.RandomTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "textNext",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Random(){return globals.Random||(typeof Random=="undefined"?nil:Random)}
+function $Random(){return $globals.Random||(typeof Random=="undefined"?nil:Random)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 (10000)._timesRepeat_((function(){
 var current,next;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-next=_st(_st($Random())._new())._next();
+next=$recv($recv($Random())._new())._next();
 next;
-self._assert_(_st(next).__gt_eq((0)));
+self._assert_($recv(next).__gt_eq((0)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-self._assert_(_st(next).__lt((1)));
-$1=_st(current).__eq(next);
+self._assert_($recv(next).__lt((1)));
+$1=$recv(current).__eq(next);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["="]=1;
 //>>excludeEnd("ctx");
 self._deny_($1);
-return _st(next).__eq(current);
+return $recv(next).__eq(current);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({current:current,next:next},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"textNext",{},globals.RandomTest)});
+}, function($ctx1) {$ctx1.fill(self,"textNext",{},$globals.RandomTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14136,25 +14137,25 @@ referencedClasses: ["Random"],
 //>>excludeEnd("ide");
 messageSends: ["timesRepeat:", "next", "new", "assert:", ">=", "<", "deny:", "="]
 }),
-globals.RandomTest);
+$globals.RandomTest);
 
 
 
-smalltalk.addClass('StreamTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('StreamTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._class())._collectionClass();
+$1=$recv(self._class())._collectionClass();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14164,22 +14165,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionClass", "class"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "newCollection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._collectionClass())._new();
+$1=$recv(self._collectionClass())._new();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newCollection",{},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14189,22 +14190,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["new", "collectionClass"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "newStream",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(_st(self._collectionClass())._new())._stream();
+$1=$recv($recv(self._collectionClass())._new())._stream();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newStream",{},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"newStream",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14214,21 +14215,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["stream", "new", "collectionClass"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testAtStartAtEnd",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 stream=self._newStream();
-$1=_st(stream)._atStart();
+$1=$recv(stream)._atStart();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["atStart"]=1;
 //>>excludeEnd("ctx");
@@ -14236,7 +14237,7 @@ self._assert_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=1;
 //>>excludeEnd("ctx");
-$2=_st(stream)._atEnd();
+$2=$recv(stream)._atEnd();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["atEnd"]=1;
 //>>excludeEnd("ctx");
@@ -14244,13 +14245,13 @@ self._assert_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=2;
 //>>excludeEnd("ctx");
-_st(stream)._nextPutAll_(self._newCollection());
-$3=_st(stream)._atEnd();
+$recv(stream)._nextPutAll_(self._newCollection());
+$3=$recv(stream)._atEnd();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["atEnd"]=2;
 //>>excludeEnd("ctx");
 self._assert_($3);
-$4=_st(stream)._atStart();
+$4=$recv(stream)._atStart();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["atStart"]=2;
 //>>excludeEnd("ctx");
@@ -14258,15 +14259,15 @@ self._deny_($4);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=1;
 //>>excludeEnd("ctx");
-_st(stream)._position_((1));
-self._deny_(_st(stream)._atEnd());
+$recv(stream)._position_((1));
+self._deny_($recv(stream)._atEnd());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=2;
 //>>excludeEnd("ctx");
-self._deny_(_st(stream)._atStart());
+self._deny_($recv(stream)._atStart());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14276,17 +14277,17 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newStream", "assert:", "atStart", "atEnd", "nextPutAll:", "newCollection", "deny:", "position:"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testContents",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2;
 stream=self._newStream();
@@ -14295,11 +14296,11 @@ $2=self._newCollection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["newCollection"]=1;
 //>>excludeEnd("ctx");
-_st($1)._nextPutAll_($2);
-self._assert_equals_(_st(stream)._contents(),self._newCollection());
+$recv($1)._nextPutAll_($2);
+self._assert_equals_($recv(stream)._contents(),self._newCollection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14309,30 +14310,30 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newStream", "nextPutAll:", "newCollection", "assert:equals:", "contents"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIsEmpty",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 stream=self._newStream();
-$1=_st(stream)._isEmpty();
+$1=$recv(stream)._isEmpty();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["isEmpty"]=1;
 //>>excludeEnd("ctx");
 self._assert_($1);
-_st(stream)._nextPutAll_(self._newCollection());
-self._deny_(_st(stream)._isEmpty());
+$recv(stream)._nextPutAll_(self._newCollection());
+self._deny_($recv(stream)._isEmpty());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14342,32 +14343,32 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newStream", "assert:", "isEmpty", "nextPutAll:", "newCollection", "deny:"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testPosition",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var collection,stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 collection=self._newCollection();
 stream=self._newStream();
-_st(stream)._nextPutAll_(collection);
-$1=_st(stream)._position();
+$recv(stream)._nextPutAll_(collection);
+$1=$recv(stream)._position();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["position"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_($1,_st(collection)._size());
+self._assert_equals_($1,$recv(collection)._size());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
-_st(stream)._position_((0));
-$2=_st(stream)._position();
+$recv(stream)._position_((0));
+$2=$recv(stream)._position();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["position"]=2;
 //>>excludeEnd("ctx");
@@ -14375,11 +14376,11 @@ self._assert_equals_($2,(0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-_st(stream)._next();
+$recv(stream)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["next"]=1;
 //>>excludeEnd("ctx");
-$3=_st(stream)._position();
+$3=$recv(stream)._position();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["position"]=3;
 //>>excludeEnd("ctx");
@@ -14387,11 +14388,11 @@ self._assert_equals_($3,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=3;
 //>>excludeEnd("ctx");
-_st(stream)._next();
-self._assert_equals_(_st(stream)._position(),(2));
+$recv(stream)._next();
+self._assert_equals_($recv(stream)._position(),(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14401,29 +14402,29 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "nextPutAll:", "assert:equals:", "position", "size", "position:", "next"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testReading",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var stream,collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$2,$3;
 collection=self._newCollection();
 stream=self._newStream();
 $1=stream;
-_st($1)._nextPutAll_(collection);
-$2=_st($1)._position_((0));
-_st(collection)._do_((function(each){
+$recv($1)._nextPutAll_(collection);
+$2=$recv($1)._position_((0));
+$recv(collection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$3=_st(stream)._next();
+$3=$recv(stream)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["next"]=1;
 //>>excludeEnd("ctx");
@@ -14432,10 +14433,10 @@ return self._assert_equals_($3,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-self._assert_(_st(_st(stream)._next())._isNil());
+self._assert_($recv($recv(stream)._next())._isNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14445,10 +14446,10 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "nextPutAll:", "position:", "do:", "assert:equals:", "next", "assert:", "isNil"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testStreamContents",
 protocol: 'tests',
 fn: function (){
@@ -14463,33 +14464,33 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testWrite",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var stream,collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 collection=self._newCollection();
 stream=self._newStream();
-_st(collection)._do_((function(each){
+$recv(collection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(stream).__lt_lt(each);
+return $recv(stream).__lt_lt(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-self._assert_equals_(_st(stream)._contents(),collection);
+self._assert_equals_($recv(stream)._contents(),collection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWrite",{stream:stream,collection:collection},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWrite",{stream:stream,collection:collection},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14499,17 +14500,17 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "do:", "<<", "assert:equals:", "contents"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testWriting",
 protocol: 'tests',
 fn: function (){
 var self=this;
 var stream,collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 collection=self._newCollection();
@@ -14517,16 +14518,16 @@ stream=self._newStream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["newStream"]=1;
 //>>excludeEnd("ctx");
-_st(collection)._do_((function(each){
+$recv(collection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx2) {
+return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return _st(stream)._nextPut_(each);
+return $recv(stream)._nextPut_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-$1=_st(stream)._contents();
+$1=$recv(stream)._contents();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["contents"]=1;
 //>>excludeEnd("ctx");
@@ -14535,11 +14536,11 @@ self._assert_equals_($1,collection);
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 stream=self._newStream();
-_st(stream)._nextPutAll_(collection);
-self._assert_equals_(_st(stream)._contents(),collection);
+$recv(stream)._nextPutAll_(collection);
+self._assert_equals_($recv(stream)._contents(),collection);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},globals.StreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},$globals.StreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14549,11 +14550,11 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["newCollection", "newStream", "do:", "nextPut:", "assert:equals:", "contents", "nextPutAll:"]
 }),
-globals.StreamTest);
+$globals.StreamTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
@@ -14568,22 +14569,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StreamTest.klass);
+$globals.StreamTest.klass);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "isAbstract",
 protocol: 'testing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=_st(self._collectionClass())._isNil();
+$1=$recv(self._collectionClass())._isNil();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},globals.StreamTest.klass)});
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.StreamTest.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14593,24 +14594,24 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["isNil", "collectionClass"]
 }),
-globals.StreamTest.klass);
+$globals.StreamTest.klass);
 
 
-smalltalk.addClass('ArrayStreamTest', globals.StreamTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('ArrayStreamTest', $globals.StreamTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "newCollection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
 $1=[true,(1),(3).__at((4)),"foo"];
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"newCollection",{},globals.ArrayStreamTest)});
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.ArrayStreamTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14620,16 +14621,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["@"]
 }),
-globals.ArrayStreamTest);
+$globals.ArrayStreamTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return globals.Array||(typeof Array=="undefined"?nil:Array)}
+function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $Array();
 
 },
@@ -14640,12 +14641,12 @@ referencedClasses: ["Array"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.ArrayStreamTest.klass);
+$globals.ArrayStreamTest.klass);
 
 
-smalltalk.addClass('StringStreamTest', globals.StreamTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('StringStreamTest', $globals.StreamTest, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "newCollection",
 protocol: 'accessing',
 fn: function (){
@@ -14660,16 +14661,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringStreamTest);
+$globals.StringStreamTest);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "collectionClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $String(){return globals.String||(typeof String=="undefined"?nil:String)}
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $String();
 
 },
@@ -14680,23 +14681,23 @@ referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: []
 }),
-globals.StringStreamTest.klass);
+$globals.StringStreamTest.klass);
 
 
-smalltalk.addClass('UndefinedTest', globals.TestCase, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('UndefinedTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
 selector: "testCopying",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_equals_(nil._copy(),nil);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testCopying",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testCopying",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14706,21 +14707,21 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "copy"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testDeepCopy",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self._assert_(_st(nil._deepCopy()).__eq(nil));
+self._assert_($recv(nil._deepCopy()).__eq(nil));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testDeepCopy",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testDeepCopy",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14730,16 +14731,16 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "=", "deepCopy"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIfNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$6,$5,$receiver;
 if(($receiver = nil) == null || $receiver.isNil){
@@ -14756,7 +14757,7 @@ $3=nil;
 } else {
 $3=true;
 };
-$2=_st($3).__eq(true);
+$2=$recv($3).__eq(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
@@ -14775,11 +14776,11 @@ $6=false;
 } else {
 $6=true;
 };
-$5=_st($6).__eq(true);
+$5=$recv($6).__eq(true);
 self._deny_($5);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14789,22 +14790,22 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "testIsNil",
 protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return smalltalk.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._assert_(nil._isNil());
 self._deny_(nil._notNil());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},globals.UndefinedTest)});
+}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},$globals.UndefinedTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14814,7 +14815,7 @@ referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "isNil", "deny:", "notNil"]
 }),
-globals.UndefinedTest);
+$globals.UndefinedTest);
 
 
 });

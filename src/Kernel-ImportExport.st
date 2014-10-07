@@ -253,7 +253,7 @@ jsClassNameFor: aClass
 		ifFalse: [
 			aClass
 				ifNil: [ 'null' ]
-				ifNotNil: [ 'globals.', aClass name ] ]
+				ifNotNil: [ '$globals.', aClass name ] ]
 ! !
 
 !Exporter methodsFor: 'output'!
@@ -261,7 +261,7 @@ jsClassNameFor: aClass
 exportDefinitionOf: aClass on: aStream
 	aStream
 		lf;
-		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '$core.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
 		nextPutAll: (self jsClassNameFor: aClass superclass);
 		nextPutAll: ', ['.
@@ -300,8 +300,8 @@ exportMetaDefinitionOf: aClass on: aStream
 
 exportMethod: aMethod on: aStream
 	aStream
-		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: '$core.addMethod(';lf;
+		nextPutAll: '$core.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
@@ -340,7 +340,7 @@ exportPackage: aPackage on: aStream
 
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'smalltalk.addPackage(';
+		nextPutAll: '$core.addPackage(';
 		nextPutAll: '''', aPackage name, ''');';
 		lf
 !
@@ -359,7 +359,7 @@ exportPackagePrologueOf: aPackage on: aStream
 
 exportPackageTransportOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: '$core.packages[';
 		nextPutAll: aPackage name asJavascript;
 		nextPutAll: '].transport = ';
 		nextPutAll: aPackage transport asJSONString;
@@ -391,7 +391,9 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
 		nextPutAll: ', function($boot){';
 		lf;
-		nextPutAll: 'var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;';
+		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
+		lf;
+		nextPutAll: 'var smalltalk=$core,_st=$recv,globals=$globals;';
 		lf
 ! !
 

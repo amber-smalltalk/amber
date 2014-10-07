@@ -93,9 +93,9 @@ javascriptConstructor
 
 javascriptConstructor: aJavaScriptFunction
 	"Set the JS constructor used to instantiate.
-	See the JS counter-part in boot.js `smalltalk.setClassConstructor'"
+	See the JS counter-part in boot.js `$core.setClassConstructor'"
 	
-	<smalltalk.setClassConstructor(self, aJavaScriptFunction);>
+	<$core.setClassConstructor(self, aJavaScriptFunction);>
 !
 
 lookupSelector: selector
@@ -119,7 +119,7 @@ methodAt: aString
 !
 
 methodDictionary
-	<var dict = globals.HashedCollection._new();
+	<var dict = $globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
 		if(methods[i].selector) {
@@ -316,11 +316,11 @@ new
 !Behavior methodsFor: 'private'!
 
 basicAddCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod, self)>
+	<$core.addMethod(aMethod, self)>
 !
 
 basicRemoveCompiledMethod: aMethod
-	<smalltalk.removeMethod(aMethod,self)>
+	<$core.removeMethod(aMethod,self)>
 ! !
 
 !Behavior methodsFor: 'testing'!
@@ -451,7 +451,7 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 !Class methodsFor: 'converting'!
 
 asJavascript
-	^ 'globals.', self name
+	^ '$globals.', self name
 ! !
 
 !Class methodsFor: 'printing'!
@@ -517,7 +517,7 @@ theNonMetaClass
 !Metaclass methodsFor: 'converting'!
 
 asJavascript
-	^ 'globals.', self instanceClass name, '.klass'
+	^ '$globals.', self instanceClass name, '.klass'
 ! !
 
 !Metaclass methodsFor: 'printing'!
@@ -712,8 +712,8 @@ installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
-		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return globals[aString]
+		$core.addClass(aString, aClass, aCollection, packageName);
+		return $globals[aString]
 	>
 !
 
@@ -728,13 +728,13 @@ basicClass: aClass instanceVariables: aCollection
 !
 
 basicRemoveClass: aClass
-	<smalltalk.removeClass(aClass)>
+	<$core.removeClass(aClass)>
 !
 
 basicRenameClass: aClass to: aString
 	<
-		globals[aString] = aClass;
-		delete globals[aClass.className];
+		$globals[aString] = aClass;
+		delete $globals[aClass.className];
 		aClass.className = aString;
 	>
 !
@@ -749,14 +749,14 @@ basicSwapClassNames: aClass with: anotherClass
 
 rawRenameClass: aClass to: aString
 	<
-		globals[aString] = aClass;
+		$globals[aString] = aClass;
 	>
 ! !
 
 !ClassBuilder methodsFor: 'public'!
 
 setupClass: aClass
-	<smalltalk.init(aClass);>
+	<$core.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader

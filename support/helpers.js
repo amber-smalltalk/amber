@@ -1,7 +1,7 @@
 define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     var globals = boot.globals,
         exports = Object.create(globals), // backward compatibility, use {} later
-        vm = boot.vm,
+        api = boot.api,
         nil = boot.nil;
 
     // API
@@ -13,8 +13,8 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
             window.alert("Error loading helios.\nIf not present, you can install it with 'bower install helios --save-dev'.\nThe error follows:\n" + err);
         });
     };
-    Object.defineProperty(exports, "vm", {
-        value: vm,
+    Object.defineProperty(exports, "api", {
+        value: api,
         enumerable: true, configurable: true, writable: false
     });
     Object.defineProperty(exports, "globals", {
@@ -56,7 +56,7 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     }
 
     exports.initialize = function (options) {
-        globals.SmalltalkSettings['transport.defaultAmdNamespace'] = vm.defaultAmdNamespace;
+        globals.SmalltalkSettings['transport.defaultAmdNamespace'] = api.defaultAmdNamespace;
         settingsInLocalStorage();
         if (exports.defaultAmdNamespace) {
             console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({'transport.defaultAmdNamespace': 'namespace'});` instead.");
@@ -64,13 +64,17 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
         }
         mixinToSettings(options || {});
         console.warn("smalltalk.ClassName is deprecated. Please use smalltalk.globals.ClassName instead.");
-        return vm.initialize();
+        return api.initialize();
     };
 
     // Backward compatibility, deprecated
 
     Object.defineProperty(exports, "smalltalk", {
-        value: vm,
+        value: api,
+        enumerable: true, configurable: true, writable: false
+    });
+    Object.defineProperty(exports, "vm", {
+        value: api,
         enumerable: true, configurable: true, writable: false
     });
     exports.defaultAmdNamespace = null;

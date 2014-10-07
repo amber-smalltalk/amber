@@ -5,6 +5,10 @@
 * smalltalk.selector is now smalltalk.st2js
 * smalltalk.convertSelector is now smalltalk.js2st
 * Collection >> ifEmpty:ifNotEmpty: family passes self to ifNotEmpty: block
+* Smalltalk vm is now Smalltalk core
+* boot.js's .vm is now .api
+* amber load sets' .vm is now .api
+* Internal variables smalltalk/globals/_st are now $core/$globals/$recv
 
 + smalltalk.
   + accessJavaScript
@@ -13,6 +17,12 @@
   + postMessageTo:origin:
 + Class >>
   + heliosClass
++ SmalltalkImage >>
+  + core
++ amber/boot exports
+  + api
++ amber/{devel,deploy,lang} exports
+  + api
 
 - ProtoObject class >>
   - heliosClass

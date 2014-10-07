@@ -91,7 +91,7 @@ Typical use cases include IDEs, remote access and restricting browsing.!
 !Environment methodsFor: 'accessing'!
 
 allSelectors
-	^ Smalltalk vm allSelectors
+	^ Smalltalk core allSelectors
 !
 
 availableClassNames
@@ -424,7 +424,7 @@ doesNotUnderstand: aMessage
 
 forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.accessJavaScript(self._jsObject(), aString, anArray);
+		return $core.accessJavaScript(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -1089,20 +1089,18 @@ Object subclass: #SmalltalkImage
 	package: 'Kernel-Infrastructure'!
 !SmalltalkImage commentStamp!
 I represent the Smalltalk system, wrapping
-operations of variable `smalltalk` declared in `support/boot.js`.
+operations of variable `$core` declared in `support/boot.js`.
 
 ## API
 
 I have only one instance, accessed with global variable `Smalltalk`.
-
-The `smalltalk` object holds all class and packages defined in the system.
 
 ## Classes
 
 Classes can be accessed using the following methods:
 
 - `#classes` answers the full list of Smalltalk classes in the system
-- `#at:` answers a specific class or `nil`
+- `#globals #at:` answers a specific global (usually, a class) or `nil`
 
 ## Packages
 
@@ -1133,6 +1131,10 @@ at: aString put: anObject
 	^ self globals at: aString put: anObject
 !
 
+core
+	<return $core>
+!
+
 current
 	"Backward compatibility for Smalltalk current ..."
 	self deprecatedAPI.
@@ -1141,11 +1143,11 @@ current
 
 globals
 	"Future compatibility to be able to use Smalltalk globals at: ..."
-	<return globals>
+	<return $globals>
 !
 
 includesKey: aKey
-	<return smalltalk.hasOwnProperty(aKey)>
+	<return $core.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -1164,12 +1166,12 @@ pseudoVariableNames
 !
 
 readJSObject: anObject
-	<return smalltalk.readJSObject(anObject)>
+	<return $core.readJSObject(anObject)>
 !
 
 reservedWords
 	"JavaScript reserved words"
-	<return smalltalk.reservedWords>
+	<return $core.reservedWords>
 !
 
 settings
@@ -1183,14 +1185,14 @@ version
 !
 
 vm
-	"Future compatibility to be able to use Smalltalk vm ..."
-	<return smalltalk>
+	self deprecatedAPI: 'Use #core'.
+	^self core
 ! !
 
 !SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self vm at: 'amdRequire'
+	^ self core at: 'amdRequire'
 !
 
 defaultAmdNamespace
@@ -1204,7 +1206,7 @@ defaultAmdNamespace: aString
 !SmalltalkImage methodsFor: 'classes'!
 
 classes
-	<return smalltalk.classes()>
+	<return $core.classes()>
 !
 
 removeClass: aClass
@@ -1245,7 +1247,7 @@ deleteGlobalJsVariable: aString
 
 globalJsVariables
 	"Array of global JavaScript variables"
-	<return smalltalk.globalJsVariables>
+	<return $core.globalJsVariables>
 ! !
 
 !SmalltalkImage methodsFor: 'packages'!
@@ -1265,7 +1267,7 @@ createPackage: packageName
 !
 
 packageAt: packageName
-	<return smalltalk.packages[packageName]>
+	<return $core.packages[packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
@@ -1276,8 +1278,8 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		return Object.keys(smalltalk.packages).map(function(k) {
-			return smalltalk.packages[k];
+		return Object.keys($core.packages).map(function(k) {
+			return $core.packages[k];
 		})
 	>
 !
@@ -1307,7 +1309,7 @@ renamePackage: packageName to: newName
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
+	<return $core.addPackage(packageName)>
 !
 
 basicParse: aString
@@ -1325,14 +1327,14 @@ createPackage: packageName properties: aDict
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
-	<smalltalk.removeClass(aClass)>
+	<$core.removeClass(aClass)>
 !
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete smalltalk.packages[packageName]>
+	<delete $core.packages[packageName]>
 ! !
 
 !SmalltalkImage methodsFor: 'testing'!
@@ -1349,7 +1351,9 @@ SmalltalkImage class instanceVariableNames: 'current'!
 !SmalltalkImage class methodsFor: 'initialization'!
 
 initialize
-	globals at: 'Smalltalk' put: self current
+	| st |
+	st := self current.
+	st globals at: 'Smalltalk' put: st
 ! !
 
 !SmalltalkImage class methodsFor: 'instance creation'!
@@ -1374,7 +1378,7 @@ do: aBlock displayingProgress: aString
 !String methodsFor: '*Kernel-Infrastructure'!
 
 asJavaScriptPropertyName
-<return smalltalk.st2prop(self)>
+<return $core.st2prop(self)>
 !
 
 asJavaScriptSelector
