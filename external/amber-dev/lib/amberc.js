@@ -366,7 +366,7 @@ function create_compiler(configuration) {
 			}
 		});
 		//backward compatibility
-		if (builder.ids.indexOf("amber_vm/boot") === -1) { console.log(builder.ids); console.log("defining amber_vm/boot"); builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
+		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
 		// store the generated smalltalk env in configuration.{core,globals}
 		builder.finish('configuration.core = boot.vm; configuration.globals = boot.globals;');
