@@ -566,16 +566,16 @@ function compose_js_files(configuration) {
 		//backward compatibility
 		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
-		var mainFunctionOrFile = 'var vm = boot.vm, globals = boot.globals;\n';
+		var mainFunctionOrFile = 'var $core = boot.vm, $globals = boot.globals;\n';
 
 		if (undefined !== configuration.main) {
 			console.log('Adding call to: %s>>main', configuration.main);
-			mainFunctionOrFile += 'globals.' + configuration.main + '._main();';
+			mainFunctionOrFile += '$globals.' + configuration.main + '._main();';
 		}
 
 		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
 			console.log('Adding main file: ' + configuration.mainfile);
-			mainFunctionOrFile += '\nvar smalltalk = vm; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
+			mainFunctionOrFile += '\nvar smalltalk = $core, vm = $core, globals = $globals; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
 		}
 
 		builder.finish(mainFunctionOrFile);

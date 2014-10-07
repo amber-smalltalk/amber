@@ -84507,7 +84507,7 @@ $globals.Repl.klass);
 define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });
 define("amber/_init", ["amber/boot","amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_vm/_st","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Kernel-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
 boot.vm.initialize();
-var vm = boot.vm, globals = boot.globals;
-globals.AmberCli._main();
+var $core = boot.vm, $globals = boot.globals;
+$globals.AmberCli._main();
 });
 requirejs(["amber/_init"]);
