@@ -29,7 +29,7 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "amber-dev": "^0.2.1",
+    "amber-dev": "^0.2.2",
     "grunt": "^0.4.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-jshint": "^0.10.0",
