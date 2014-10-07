@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['peg', 'amberc:all']);
   grunt.registerTask('amberc:all', ['amberc:amber', 'amberc:cli']);
   grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
+  grunt.registerTask('devel', ['amdconfig:amber']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
