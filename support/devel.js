@@ -8,4 +8,4 @@ define([
     'amber_core/Examples',
     'amber_core/Benchfib',
 	'css!amber/resources/amber'
-], function (smalltalk) { return smalltalk; });
+], function (amber) { return amber; });

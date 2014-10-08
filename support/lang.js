@@ -14,4 +14,4 @@ define([
 	'amber_core/Compiler-Tests',
 	'amber_core/Kernel-Tests',
 	'amber_core/SUnit-Tests'
-], function (smalltalk) { return smalltalk; });
+], function (amber) { return amber; });
