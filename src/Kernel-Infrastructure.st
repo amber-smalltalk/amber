@@ -1181,7 +1181,7 @@ settings
 version
 	"Answer the version string of Amber"
 	
-	^ '0.13.0'
+	^ '0.14.0-pre'
 !
 
 vm
