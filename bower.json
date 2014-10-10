@@ -1,6 +1,6 @@
 {
   "name": "amber",
-  "version": "0.14.0-pre",
+  "version": "0.13.1",
   "main": "support/amber.js",
   "ignore": [
     "**/.*",
