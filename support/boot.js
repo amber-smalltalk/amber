@@ -37,6 +37,7 @@
  |
  ==================================================================== */
 
+//jshint eqnull:true
 
 define("amber/boot", [ 'require', './browser-compatibility' ], function (require) {
 
@@ -73,13 +74,14 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				while (typeof b === "function") { b = new b(brikz, api, bak); }
 				if (b && !chk[key]) { chk[key]=true; order.push(b); }
 				if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
-				return brikz[key] = b;
+				brikz[key] = b;
+				return b;
 			};
 			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
 			brikz.ensure = null;
 			mixin(oapi, mixin(null, api, api));
 			order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
-			order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
+			order.forEach(function(brik) { if (brik[initKey]) brik[initKey](); });
 			backup = mixin(brikz, {});
 		};
 	}
@@ -653,10 +655,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		st.removeMethod = function(method, klass) {
 			if (klass !== method.methodClass) {
 				throw new Error(
-					"Refusing to remove method "
-						+ method.methodClass.className+">>"+method.selector
-						+ " from different class "
-						+ klass.className);
+						"Refusing to remove method " +
+						method.methodClass.className + ">>" + method.selector +
+						" from different class " +
+						klass.className);
 			}
 
 			delete klass.fn.prototype[st.selector(method.selector)];
@@ -780,6 +782,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Boolean assertion */
 		st.assert = function(shouldBeBoolean) {
+			// jshint -W041
 			if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === globals.Boolean) {
 				return shouldBeBoolean == true;
 			} else {
@@ -958,7 +961,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		function pushContext(setup) {
-			return st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
+			var newContext = st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
+            return newContext;
 		}
 
 		function popContext(context) {
@@ -1092,14 +1096,14 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_at/g, '@');
 		}
 
-        st.st2prop = function (stSelector) {
-            var colonPosition = stSelector.indexOf(':');
-            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
-        };
+		st.st2prop = function (stSelector) {
+			var colonPosition = stSelector.indexOf(':');
+			return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+		};
 
-        // Backward-compatible names, deprecated.
-        st.selector = st.st2js;
-        st.convertSelector = st.js2st;
+		// Backward-compatible names, deprecated.
+		st.selector = st.st2js;
+		st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
@@ -1159,7 +1163,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.primitives = PrimitivesBrik;
 
 		brikz.rebuild();
-	};
+	}
 
 	return { api: api, /*deprecated:*/vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });
