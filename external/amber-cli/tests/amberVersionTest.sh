@@ -24,6 +24,7 @@ then
 	makeItColorful "ok 1 - amber version" $GREEN
 	exit 0
 else
+	makeItColorful "$amberResult" $RED
 	makeItColorful "not ok 1 - amber version\n\texpected : $expectedAmberVersion" $RED
 	exit 1
 fi
