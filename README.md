@@ -5,6 +5,19 @@ By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://gi
 
 Amber is an implementation of the Smalltalk language that runs on top of the JavaScript runtime. It is designed to make client-side development faster and easier.
 
+> \o/ **Call for contributors!**  \o/
+>
+> The core project of Amber has enough resources, but:
+> - the Helios IDE (https://github.com/amber-smalltalk/helios), as well as
+> - examples (https://github.com/amber-smalltalk/amber-examples), and
+> - documentation (https://github.com/amber-smalltalk/amber-documentation
+>
+> would need some of your care.
+>
+> Thank you very much!
+?
+> (see [CONTRIBUTING.md](CONTRIBUTING.md) for further details)
+
 Overview
 --------
 
