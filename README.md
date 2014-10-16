@@ -15,7 +15,7 @@ Amber is an implementation of the Smalltalk language that runs on top of the Jav
 > would need some of your care.
 >
 > Thank you very much!
-?
+>
 > (see [CONTRIBUTING.md](CONTRIBUTING.md) for further details)
 
 Overview
