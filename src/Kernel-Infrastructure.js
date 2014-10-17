@@ -4622,7 +4622,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09<return $globals>",
+source: "globals\x0a\x09<return $globals>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

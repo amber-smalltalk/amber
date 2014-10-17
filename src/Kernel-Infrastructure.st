@@ -1142,7 +1142,6 @@ current
 !
 
 globals
-	"Future compatibility to be able to use Smalltalk globals at: ..."
 	<return $globals>
 !
 
