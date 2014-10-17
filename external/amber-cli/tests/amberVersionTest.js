@@ -14,8 +14,7 @@ var expectedAmberVersion = require(JSON_PACKAGE_PATH).version;
 if (amberResult.indexOf(expectedAmberVersion) > -1) {
 	console.log("ok 1 - amber version".green);
 	exit(0);
-}
-else {
+} else {
 	console.log(amberResult.red);
 	console.log(("not ok 1 - amber version\n\texpected : " + expectedAmberVersion).red);
 	exit(1);
