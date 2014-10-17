@@ -1079,7 +1079,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aStamp"],
-source: "methodsFor: aString stamp: aStamp\x0a\x09\x22Added for compatibility, right now ignores stamp.\x22\x0a\x09^ self methodsFor: aString",
+source: "methodsFor: aString stamp: aStamp\x0a\x09\x22Added for file-in compatibility, ignores stamp.\x22\x0a\x09^ self methodsFor: aString",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["methodsFor:"]
@@ -1992,7 +1992,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anotherString"],
-source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
+source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:instanceVariableNames:package:"]
@@ -2009,7 +2009,6 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-self._deprecatedAPI();
 $1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2018,10 +2017,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "aString3"],
-source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
+messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 $globals.Class);
 
@@ -2043,7 +2042,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "classVars", "pools", "aString3"],
-source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Just ignore class variables and pools. Added for compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Kept for file-in compatibility. ignores class variables and pools.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:instanceVariableNames:package:"]

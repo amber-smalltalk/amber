@@ -5941,7 +5941,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anotherString"],
-source: "subclass: aString instanceVariableNames: anotherString\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
+source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:instanceVariableNames:package:"]
@@ -5958,7 +5958,6 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-self._deprecatedAPI();
 $1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5967,10 +5966,35 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "aString3"],
-source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
+messageSends: ["subclass:instanceVariableNames:package:"]
+}),
+$globals.UndefinedObject);
+
+$core.addMethod(
+$core.method({
+selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
+protocol: 'class creation',
+fn: function (aString,aString2,classVars,pools,aString3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",{aString:aString,aString2:aString2,classVars:classVars,pools:pools,aString3:aString3},$globals.UndefinedObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aString2", "classVars", "pools", "aString3"],
+source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Kept for file-in compatibility. ignores class variables and pools.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 $globals.UndefinedObject);
 

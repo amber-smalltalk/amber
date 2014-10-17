@@ -152,7 +152,7 @@ methodsFor: aString
 !
 
 methodsFor: aString stamp: aStamp
-	"Added for compatibility, right now ignores stamp."
+	"Added for file-in compatibility, ignores stamp."
 	^ self methodsFor: aString
 !
 
@@ -428,18 +428,17 @@ browse
 !Class methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	"Kept for compatibility."
+	"Kept for file-in compatibility."
 	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
-	"Kept for compatibility."
-	self deprecatedAPI.
+	"Kept for file-in compatibility."
 	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
-	"Just ignore class variables and pools. Added for compatibility."
+	"Kept for file-in compatibility. ignores class variables and pools."
 	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 

@@ -1311,12 +1311,17 @@ __note:__ When sending messages to the `undefined` JavaScript object, it will be
 !UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
+	"Kept for file-in compatibility."
 	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
-	"Kept for compatibility."
-	self deprecatedAPI.
+	"Kept for file-in compatibility."
+	^ self subclass: aString instanceVariableNames: aString2 package: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
+	"Kept for file-in compatibility. ignores class variables and pools."
 	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
