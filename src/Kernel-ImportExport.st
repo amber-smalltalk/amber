@@ -279,7 +279,7 @@ exportDefinitionOf: aClass on: aStream
 			lf;
 			nextPutAll: (self jsClassNameFor: aClass);
 			nextPutAll: '.comment=';
-			nextPutAll: aClass comment asJavascript;
+			nextPutAll: aClass comment crlfSanitized asJavascript;
 			nextPutAll: ';';
 			lf;
 			nextPutAll: '//>>excludeEnd("ide");' ].
