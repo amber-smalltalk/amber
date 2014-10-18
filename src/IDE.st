@@ -1358,7 +1358,7 @@ proceed
 save
 	| protocol |
 	protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.
-	selectedContext receiver class compile: sourceArea val category: protocol.
+	selectedContext receiver class compile: sourceArea val protocol: protocol.
 	self updateStatus
 !
 

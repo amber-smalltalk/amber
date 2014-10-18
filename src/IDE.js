@@ -6650,7 +6650,7 @@ $ctx1.sendIdx["class"]=1;
 $2=$recv($3)._methodDictionary();
 $1=$recv($2)._at_($recv(self["@selectedContext"])._selector());
 protocol=$recv($1)._category();
-$recv($recv($recv(self["@selectedContext"])._receiver())._class())._compile_category_($recv(self["@sourceArea"])._val(),protocol);
+$recv($recv($recv(self["@selectedContext"])._receiver())._class())._compile_protocol_($recv(self["@sourceArea"])._val(),protocol);
 self._updateStatus();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6659,10 +6659,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "save\x0a\x09| protocol |\x0a\x09protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.\x0a\x09selectedContext receiver class compile: sourceArea val category: protocol.\x0a\x09self updateStatus",
+source: "save\x0a\x09| protocol |\x0a\x09protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.\x0a\x09selectedContext receiver class compile: sourceArea val protocol: protocol.\x0a\x09self updateStatus",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["category", "at:", "methodDictionary", "class", "receiver", "selector", "compile:category:", "val", "updateStatus"]
+messageSends: ["category", "at:", "methodDictionary", "class", "receiver", "selector", "compile:protocol:", "val", "updateStatus"]
 }),
 $globals.Debugger);
 
