@@ -45,7 +45,8 @@ function createConcatenator () {
 		finish: function (realWork) {
 			this.add(
 				'define("amber/_init", ["' + this.ids.join('","') + '"], function (boot) {',
-				'boot.vm.initialize();',
+				'boot.api = boot.api || boot.vm; // future compatibility',
+				'boot.api.initialize();',
 				realWork,
 				'});',
 				'requirejs(["amber/_init"]);'
@@ -369,7 +370,7 @@ function create_compiler(configuration) {
 		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
 		// store the generated smalltalk env in configuration.{core,globals}
-		builder.finish('configuration.core = boot.vm; configuration.globals = boot.globals;');
+		builder.finish('configuration.core = boot.api; configuration.globals = boot.globals;');
 		loadIds.forEach(function (id) {
 			builder.add('requirejs("' + id + '");');
 		});
@@ -566,7 +567,7 @@ function compose_js_files(configuration) {
 		//backward compatibility
 		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
-		var mainFunctionOrFile = 'var $core = boot.vm, $globals = boot.globals;\n';
+		var mainFunctionOrFile = 'var $core = boot.api, $globals = boot.globals;\n';
 
 		if (undefined !== configuration.main) {
 			console.log('Adding call to: %s>>main', configuration.main);

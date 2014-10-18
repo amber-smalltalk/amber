@@ -199,7 +199,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				return methods[index];
 			}
 			this.selectors.push(stSelector);
-			var jsSelector = st.selector(stSelector);
+			var jsSelector = st.st2js(stSelector);
 			checker[jsSelector] = true;
 			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methods.push(method);
@@ -610,7 +610,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		st.addMethod = function (method, klass) {
 			if (!(method.jsSelector)) {
-				method.jsSelector = st.selector(method.selector);
+				method.jsSelector = st.st2js(method.selector);
 			}
 			manip.installMethod(method, klass);
 			klass.methods[method.selector] = method;
@@ -661,7 +661,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 						klass.className);
 			}
 
-			delete klass.fn.prototype[st.selector(method.selector)];
+			delete klass.fn.prototype[st.st2js(method.selector)];
 			delete klass.methods[method.selector];
 
 			st.initClass(klass);
@@ -867,7 +867,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				var method;
 				var lookup = this.lookupClass || this.receiver.klass;
 				while(!method && lookup) {
-					method = lookup.methods[st.convertSelector(this.selector)];
+					method = lookup.methods[st.js2st(this.selector)];
 					lookup = lookup.superclass;
 				}
 				return method;
@@ -988,7 +988,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			if(method) {
 				return method.apply(receiver, args);
 			} else {
-				return messageNotUnderstood(receiver, st.convertSelector(jsSelector), args);
+				return messageNotUnderstood(receiver, st.js2st(jsSelector), args);
 			}
 		};
 

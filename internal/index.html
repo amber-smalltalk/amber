@@ -14,8 +14,8 @@
     require.config({baseUrl: '..'});
     require(
         ["amber/devel", "helios/all", "amber_cli/AmberCli"],
-        function (smalltalk) {
-            smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
+        function (amber) {
+            amber.initialize({'transport.defaultAmdNamespace': "amber_core"});
         }
     );
 </script>

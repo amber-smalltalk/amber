@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       parser: {
         options: {
           cache: true,
-          export_var: 'globals.SmalltalkParser'
+          export_var: '$globals.SmalltalkParser'
         },
         src: 'support/parser.pegjs',
         dest: 'support/parser.js'
