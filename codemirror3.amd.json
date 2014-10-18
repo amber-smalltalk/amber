@@ -1,0 +1,16 @@
+{
+    "paths": {
+        "codemirror3": "."
+    },
+    "shim": {
+        "codemirror3/lib/codemirror": {
+            "deps": [ "css!codemirror3/lib/codemirror" ]
+        },
+        "codemirror3/mode/smalltalk/smalltalk": {
+            "deps": [ "../../lib/codemirror" ]
+        },
+        "codemirror3/addon/hint/show-hint": {
+            "deps": [ "../../lib/codemirror" ]
+        }
+    }
+}
