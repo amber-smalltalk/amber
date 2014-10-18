@@ -9,7 +9,7 @@ require.config({
     "jquery-ui": "bower_components/jquery-ui/jquery-ui.min",
     "amber_lib/es5-shim": "bower_components/es5-shim",
     "codemirror3": "bower_components/codemirror3",
-    "amber_lib/showdown": "my/helios/bower_components/showdown",
+    "helios/showdown": "my/helios/bower_components/showdown/src/showdown",
     "requireJS": "node_modules/requirejs/require",
     "bootstrap2.3.2": "my/helios/bower_components/bootstrap2.3.2/bootstrap",
     "amber": "support",
