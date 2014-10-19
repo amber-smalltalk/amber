@@ -6212,7 +6212,7 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 self._close();
-$recv($recv(self["@selectedContext"])._receiver())._perform_withArguments_($recv(self["@selectedContext"])._selector(),$recv(self["@selectedContext"])._temps());
+$recv($recv(self["@selectedContext"])._receiver())._perform_withArguments_($recv(self["@selectedContext"])._selector(),$recv(self["@selectedContext"])._locals());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"proceed",{},$globals.Debugger)});
@@ -6220,10 +6220,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "proceed\x0a\x09self close.\x0a\x09selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps",
+source: "proceed\x0a\x09self close.\x0a\x09selectedContext receiver perform: selectedContext selector withArguments: selectedContext locals",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["close", "perform:withArguments:", "receiver", "selector", "temps"]
+messageSends: ["close", "perform:withArguments:", "receiver", "selector", "locals"]
 }),
 $globals.Debugger);
 

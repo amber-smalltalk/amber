@@ -1352,7 +1352,7 @@ inspectSelectedVariable
 
 proceed
 	self close.
-	selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps
+	selectedContext receiver perform: selectedContext selector withArguments: selectedContext locals
 !
 
 save
