@@ -42,7 +42,8 @@ require.config({
         "css!codemirror3/lib/codemirror",
         "css!codemirror3/lib/codemirror",
         "css!codemirror3/lib/codemirror"
-      ]
+      ],
+      "exports": "CodeMirror"
     },
     "codemirror3/mode/smalltalk/smalltalk": {
       "deps": [

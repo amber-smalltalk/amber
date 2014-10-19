@@ -4,7 +4,8 @@
     },
     "shim": {
         "codemirror3/lib/codemirror": {
-            "deps": [ "css!codemirror3/lib/codemirror" ]
+            "deps": [ "css!codemirror3/lib/codemirror" ],
+            "exports": "CodeMirror"
         },
         "codemirror3/mode/smalltalk/smalltalk": {
             "deps": [ "../../lib/codemirror" ]
