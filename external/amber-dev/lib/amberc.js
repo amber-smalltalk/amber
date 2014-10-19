@@ -44,12 +44,12 @@ function createConcatenator () {
 		},
 		finish: function (realWork) {
 			this.add(
-				'define("amber/_init", ["' + this.ids.join('","') + '"], function (boot) {',
-				'boot.api = boot.api || boot.vm; // future compatibility',
+				'define("app", ["' + this.ids.join('","') + '"], function (boot) {',
+				'boot.api = boot.api || boot.vm; // backward compatibility',
 				'boot.api.initialize();',
 				realWork,
 				'});',
-				'requirejs(["amber/_init"]);'
+				'requirejs(["app"]);'
 			);
 		},
 		toString: function () {
