@@ -16,7 +16,7 @@
   "dependencies": {
     "jquery": ">=1.7.0",
     "jquery-ui": ">=1.9.2",
-    "es5-shim": "~3.3.0",
+    "es5-shim": "^4.0.3",
     "codemirror3": "codemirror#^3.24.0",
     "require-css": "^0.1.2"
   },
