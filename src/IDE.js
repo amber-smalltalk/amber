@@ -1332,7 +1332,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+self['@editor'] = self._class()._codeMirror().fromTextArea(aTextarea, {
 		theme: 'ide.codeMirrorTheme'._settingValueIfAbsent_('default'),
 		mode: 'text/x-stsrc',
 		lineNumbers: true,
@@ -1349,7 +1349,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'ide.codeMirrorTheme'._settingValueIfAbsent_('default'),\x0a\x09\x09mode: 'text/x-stsrc',\x0a\x09\x09lineNumbers: true,\x0a\x09\x09enterMode: 'flat',\x0a\x09\x09indentWithTabs: true,\x0a\x09\x09indentUnit: 4,\x0a\x09\x09matchBrackets: true,\x0a\x09\x09electricChars: false\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = self._class()._codeMirror().fromTextArea(aTextarea, {\x0a\x09\x09theme: 'ide.codeMirrorTheme'._settingValueIfAbsent_('default'),\x0a\x09\x09mode: 'text/x-stsrc',\x0a\x09\x09lineNumbers: true,\x0a\x09\x09enterMode: 'flat',\x0a\x09\x09indentWithTabs: true,\x0a\x09\x09indentUnit: 4,\x0a\x09\x09matchBrackets: true,\x0a\x09\x09electricChars: false\x0a\x09})>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1408,6 +1408,31 @@ $globals.SourceArea);
 
 $core.addMethod(
 $core.method({
+selector: "codeMirror",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(require)._value_("codemirror3/lib/codemirror");
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"codeMirror",{},$globals.SourceArea.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "codeMirror\x0a\x09^ require value: 'codemirror3/lib/codemirror'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.SourceArea.klass);
+
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1447,7 +1472,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
- CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
+ self._codeMirror().keyMap["default"].fallthrough = ["basic"] ;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},$globals.SourceArea.klass)});
@@ -1455,7 +1480,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap[\x22default\x22].fallthrough = [\x22basic\x22] >",
+source: "setupCodeMirror\x0a\x09< self._codeMirror().keyMap[\x22default\x22].fallthrough = [\x22basic\x22] >",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
