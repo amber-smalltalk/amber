@@ -6,7 +6,7 @@ require.config({
   "paths": {
     "require-css": "bower_components/require-css",
     "jquery": "bower_components/jquery/jquery",
-    "jquery-ui": "bower_components/jquery-ui/jquery-ui.min",
+    "jquery-ui": "bower_components/jquery-ui/jquery-ui",
     "amber_lib/es5-shim": "bower_components/es5-shim",
     "codemirror": "bower_components/codemirror",
     "helios/showdown": "my/helios/bower_components/showdown/src/showdown",
