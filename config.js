@@ -8,7 +8,6 @@ require.config({
     "jquery": "bower_components/jquery/jquery",
     "jquery-ui": "bower_components/jquery-ui/jquery-ui.min",
     "amber_lib/es5-shim": "bower_components/es5-shim",
-    "codemirror3": "bower_components/codemirror3",
     "codemirror": "bower_components/codemirror",
     "helios/showdown": "my/helios/bower_components/showdown/src/showdown",
     "requireJS": "node_modules/requirejs/require",
@@ -37,27 +36,10 @@ require.config({
         "jquery"
       ]
     },
-    "codemirror3/lib/codemirror": {
-      "deps": [
-        "css!codemirror3/lib/codemirror",
-        "css!codemirror3/lib/codemirror"
-      ],
-      "exports": "CodeMirror"
-    },
-    "codemirror3/mode/smalltalk/smalltalk": {
-      "deps": [
-        "../../lib/codemirror",
-        "../../lib/codemirror"
-      ]
-    },
-    "codemirror3/addon/hint/show-hint": {
-      "deps": [
-        "../../lib/codemirror",
-        "../../lib/codemirror"
-      ]
-    },
     "codemirror/lib/codemirror": {
       "deps": [
+        "css!codemirror/lib/codemirror",
+        "css!codemirror/lib/codemirror",
         "css!codemirror/lib/codemirror",
         "css!codemirror/lib/codemirror"
       ]
