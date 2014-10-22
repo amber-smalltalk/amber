@@ -317,6 +317,7 @@ define("amber/browser-compatibility", [], {});
  |
  ==================================================================== */
 
+//jshint eqnull:true
 
 define("amber/boot", [ 'require', './browser-compatibility' ], function (require) {
 
@@ -353,13 +354,14 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				while (typeof b === "function") { b = new b(brikz, api, bak); }
 				if (b && !chk[key]) { chk[key]=true; order.push(b); }
 				if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
-				return brikz[key] = b;
+				brikz[key] = b;
+				return b;
 			};
 			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
 			brikz.ensure = null;
 			mixin(oapi, mixin(null, api, api));
 			order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
-			order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
+			order.forEach(function(brik) { if (brik[initKey]) brik[initKey](); });
 			backup = mixin(brikz, {});
 		};
 	}
@@ -477,7 +479,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				return methods[index];
 			}
 			this.selectors.push(stSelector);
-			var jsSelector = st.selector(stSelector);
+			var jsSelector = st.st2js(stSelector);
 			checker[jsSelector] = true;
 			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methods.push(method);
@@ -888,7 +890,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		st.addMethod = function (method, klass) {
 			if (!(method.jsSelector)) {
-				method.jsSelector = st.selector(method.selector);
+				method.jsSelector = st.st2js(method.selector);
 			}
 			manip.installMethod(method, klass);
 			klass.methods[method.selector] = method;
@@ -933,13 +935,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		st.removeMethod = function(method, klass) {
 			if (klass !== method.methodClass) {
 				throw new Error(
-					"Refusing to remove method "
-						+ method.methodClass.className+">>"+method.selector
-						+ " from different class "
-						+ klass.className);
+						"Refusing to remove method " +
+						method.methodClass.className + ">>" + method.selector +
+						" from different class " +
+						klass.className);
 			}
 
-			delete klass.fn.prototype[st.selector(method.selector)];
+			delete klass.fn.prototype[st.st2js(method.selector)];
 			delete klass.methods[method.selector];
 
 			st.initClass(klass);
@@ -1060,6 +1062,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Boolean assertion */
 		st.assert = function(shouldBeBoolean) {
+			// jshint -W041
 			if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === globals.Boolean) {
 				return shouldBeBoolean == true;
 			} else {
@@ -1144,7 +1147,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				var method;
 				var lookup = this.lookupClass || this.receiver.klass;
 				while(!method && lookup) {
-					method = lookup.methods[st.convertSelector(this.selector)];
+					method = lookup.methods[st.js2st(this.selector)];
 					lookup = lookup.superclass;
 				}
 				return method;
@@ -1238,7 +1241,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		function pushContext(setup) {
-			return st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
+			var newContext = st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
+            return newContext;
 		}
 
 		function popContext(context) {
@@ -1264,7 +1268,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			if(method) {
 				return method.apply(receiver, args);
 			} else {
-				return messageNotUnderstood(receiver, st.convertSelector(jsSelector), args);
+				return messageNotUnderstood(receiver, st.js2st(jsSelector), args);
 			}
 		};
 
@@ -1372,14 +1376,14 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				.replace(/_at/g, '@');
 		}
 
-        st.st2prop = function (stSelector) {
-            var colonPosition = stSelector.indexOf(':');
-            return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
-        };
+		st.st2prop = function (stSelector) {
+			var colonPosition = stSelector.indexOf(':');
+			return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
+		};
 
-        // Backward-compatible names, deprecated.
-        st.selector = st.st2js;
-        st.convertSelector = st.js2st;
+		// Backward-compatible names, deprecated.
+		st.selector = st.st2js;
+		st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
@@ -1439,7 +1443,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.primitives = PrimitivesBrik;
 
 		brikz.rebuild();
-	};
+	}
 
 	return { api: api, /*deprecated:*/vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });
@@ -7404,7 +7408,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anotherString"],
-source: "subclass: aString instanceVariableNames: anotherString\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
+source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:instanceVariableNames:package:"]
@@ -7421,7 +7425,6 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-self._deprecatedAPI();
 $1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7430,10 +7433,35 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "aString3"],
-source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
+messageSends: ["subclass:instanceVariableNames:package:"]
+}),
+$globals.UndefinedObject);
+
+$core.addMethod(
+$core.method({
+selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
+protocol: 'class creation',
+fn: function (aString,aString2,classVars,pools,aString3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",{aString:aString,aString2:aString2,classVars:classVars,pools:pools,aString3:aString3},$globals.UndefinedObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aString2", "classVars", "pools", "aString3"],
+source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Kept for file-in compatibility. ignores class variables and pools.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 $globals.UndefinedObject);
 
@@ -8571,7 +8599,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aStamp"],
-source: "methodsFor: aString stamp: aStamp\x0a\x09\x22Added for compatibility, right now ignores stamp.\x22\x0a\x09^ self methodsFor: aString",
+source: "methodsFor: aString stamp: aStamp\x0a\x09\x22Added for file-in compatibility, ignores stamp.\x22\x0a\x09^ self methodsFor: aString",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["methodsFor:"]
@@ -9484,7 +9512,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anotherString"],
-source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
+source: "subclass: aString instanceVariableNames: anotherString\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: anotherString package: nil",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:instanceVariableNames:package:"]
@@ -9501,7 +9529,6 @@ var self=this;
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-self._deprecatedAPI();
 $1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9510,10 +9537,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "aString3"],
-source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for compatibility.\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+source: "subclass: aString instanceVariableNames: aString2 category: aString3\x0a\x09\x22Kept for file-in compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]
+messageSends: ["subclass:instanceVariableNames:package:"]
 }),
 $globals.Class);
 
@@ -9535,7 +9562,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aString2", "classVars", "pools", "aString3"],
-source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Just ignore class variables and pools. Added for compatibility.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
+source: "subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3\x0a\x09\x22Kept for file-in compatibility. ignores class variables and pools.\x22\x0a\x09^ self subclass: aString instanceVariableNames: aString2 package: aString3",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclass:instanceVariableNames:package:"]
@@ -28711,7 +28738,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "globals\x0a\x09\x22Future compatibility to be able to use Smalltalk globals at: ...\x22\x0a\x09<return $globals>",
+source: "globals\x0a\x09<return $globals>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -29164,12 +29191,12 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.13.0";
+return "0.13.2";
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.0'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.2'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -52496,9 +52523,9 @@ $globals.SendNode);
 
 });
 
-define("amber/parser", ["./boot"], function(boot) {
-var globals = boot.globals, nil = boot.nil;
-globals.SmalltalkParser = (function() {
+define("amber/parser", ["./boot"], function($boot) {
+var $globals = $boot.globals, nil = $boot.nil;
+$globals.SmalltalkParser = (function() {
   /*
    * Generated by PEG.js 0.8.0.
    *
@@ -52560,7 +52587,7 @@ globals.SmalltalkParser = (function() {
         peg$c25 = /^[^']/,
         peg$c26 = { type: "class", value: "[^']", description: "[^']" },
         peg$c27 = function(val) {
-                             return globals.ValueNode._new()
+                             return $globals.ValueNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._value_(val.join(""));
@@ -52569,7 +52596,7 @@ globals.SmalltalkParser = (function() {
         peg$c29 = { type: "literal", value: "$", description: "\"$\"" },
         peg$c30 = { type: "any", description: "any character" },
         peg$c31 = function(char) {
-                              return globals.ValueNode._new()
+                              return $globals.ValueNode._new()
                                      ._position_((line()).__at(column()))
                                      ._source_(text())
                                      ._value_(char);
@@ -52579,13 +52606,13 @@ globals.SmalltalkParser = (function() {
         peg$c34 = function(rest) {return rest;},
         peg$c35 = function(node) {return node._value();},
         peg$c36 = function(val) {
-                              return globals.ValueNode._new()
+                              return $globals.ValueNode._new()
                                      ._position_((line()).__at(column()))
                                      ._source_(text())
                                      ._value_(val);
                           },
         peg$c37 = function(n) {
-                             return globals.ValueNode._new()
+                             return $globals.ValueNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._value_(n);
@@ -52615,7 +52642,7 @@ globals.SmalltalkParser = (function() {
         peg$c60 = ")",
         peg$c61 = { type: "literal", value: ")", description: "\")\"" },
         peg$c62 = function(lits) {
-                             return globals.ValueNode._new()
+                             return $globals.ValueNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._value_(lits);
@@ -52625,7 +52652,7 @@ globals.SmalltalkParser = (function() {
         peg$c65 = "}",
         peg$c66 = { type: "literal", value: "}", description: "\"}\"" },
         peg$c67 = function(expressions) {
-                             return globals.DynamicArrayNode._new()
+                             return $globals.DynamicArrayNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._nodes_(expressions || []);
@@ -52633,7 +52660,7 @@ globals.SmalltalkParser = (function() {
         peg$c68 = "#{",
         peg$c69 = { type: "literal", value: "#{", description: "\"#{\"" },
         peg$c70 = function(expressions) {
-                                return globals.DynamicDictionaryNode._new()
+                                return $globals.DynamicDictionaryNode._new()
                                        ._position_((line()).__at(column()))
                                        ._source_(text())
                                        ._nodes_(expressions || []);
@@ -52648,13 +52675,13 @@ globals.SmalltalkParser = (function() {
         peg$c78 = { type: "literal", value: "nil", description: "\"nil\"" },
         peg$c79 = function() {return nil;},
         peg$c80 = function(val) {
-                               return globals.ValueNode._new()
+                               return $globals.ValueNode._new()
                                       ._position_((line()).__at(column()))
                                       ._source_(text())
                                       ._value_(val);
                            },
         peg$c81 = function(identifier) {
-                             return globals.VariableNode._new()
+                             return $globals.VariableNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._value_(identifier);
@@ -52682,7 +52709,7 @@ globals.SmalltalkParser = (function() {
         peg$c91 = ":=",
         peg$c92 = { type: "literal", value: ":=", description: "\":=\"" },
         peg$c93 = function(variable, expression) {
-                             return globals.AssignmentNode._new()
+                             return $globals.AssignmentNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._left_(variable)
@@ -52691,7 +52718,7 @@ globals.SmalltalkParser = (function() {
         peg$c94 = "^",
         peg$c95 = { type: "literal", value: "^", description: "\"^\"" },
         peg$c96 = function(expression) {
-                             return globals.ReturnNode._new()
+                             return $globals.ReturnNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._nodes_([expression]);
@@ -52712,7 +52739,7 @@ globals.SmalltalkParser = (function() {
                                return expressions || [];
                            },
         peg$c106 = function(temps, statements) {
-                             return globals.SequenceNode._new()
+                             return $globals.SequenceNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._temps_(temps || [])
@@ -52723,7 +52750,7 @@ globals.SmalltalkParser = (function() {
         peg$c109 = "]",
         peg$c110 = { type: "literal", value: "]", description: "\"]\"" },
         peg$c111 = function(params, sequence) {
-                             return globals.BlockNode._new()
+                             return $globals.BlockNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._parameters_(params || [])
@@ -52731,7 +52758,7 @@ globals.SmalltalkParser = (function() {
                          },
         peg$c112 = void 0,
         peg$c113 = function(selector) {
-                             return globals.SendNode._new()
+                             return $globals.SendNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._selector_(selector);
@@ -52753,7 +52780,7 @@ globals.SmalltalkParser = (function() {
                              }
                          },
         peg$c116 = function(selector, arg) {
-                             return globals.SendNode._new()
+                             return $globals.SendNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._selector_(selector)
@@ -52774,7 +52801,7 @@ globals.SmalltalkParser = (function() {
                                   selector.push(pairs[i].key);
                                   args.push(pairs[i].arg);
                               }
-                              return globals.SendNode._new()
+                              return $globals.SendNode._new()
                                      ._position_((line()).__at(column()))
                                      ._source_(text())
                                      ._selector_(selector.join(""))
@@ -52792,7 +52819,7 @@ globals.SmalltalkParser = (function() {
                              for(var i = 0; i < messages.length; i++) {
                                  cascade.push(messages[i]);
                              }
-                             return globals.CascadeNode._new()
+                             return $globals.CascadeNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._receiver_(send._receiver())
@@ -52808,12 +52835,12 @@ globals.SmalltalkParser = (function() {
         peg$c131 = ">",
         peg$c132 = { type: "literal", value: ">", description: "\">\"" },
         peg$c133 = function(val) {
-                             return globals.JSStatementNode._new()
+                             return $globals.JSStatementNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(val.join(""))
                          },
         peg$c134 = function(pattern, sequence) {
-                              return globals.MethodNode._new()
+                              return $globals.MethodNode._new()
                                      ._position_((line()).__at(column()))
                                      ._source_(text())
                                      ._selector_(pattern[0])
@@ -59235,7 +59262,7 @@ $recv(aStream)._nextPutAll_(".comment=");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=12;
 //>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_($recv($recv(aClass)._comment())._asJavascript());
+$recv(aStream)._nextPutAll_($recv($recv($recv(aClass)._comment())._crlfSanitized())._asJavascript());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=13;
 //>>excludeEnd("ctx");
@@ -59258,10 +59285,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass", "aStream"],
-source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '$core.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: '//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);';\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: (self jsClassNameFor: aClass);\x0a\x09\x09\x09nextPutAll: '.comment=';\x0a\x09\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09\x09nextPutAll: ';';\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: '//>>excludeEnd(\x22ide\x22);' ].\x0a\x09aStream lf",
+source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '$core.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: (self jsClassNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [ :each | aStream nextPutAll: '''', each, '''' ]\x0a\x09\x09separatedBy: [ aStream nextPutAll: ', ' ].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: '//>>excludeStart(\x22ide\x22, pragmas.excludeIdeData);';\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: (self jsClassNameFor: aClass);\x0a\x09\x09\x09nextPutAll: '.comment=';\x0a\x09\x09\x09nextPutAll: aClass comment crlfSanitized asJavascript;\x0a\x09\x09\x09nextPutAll: ';';\x0a\x09\x09\x09lf;\x0a\x09\x09\x09nextPutAll: '//>>excludeEnd(\x22ide\x22);' ].\x0a\x09aStream lf",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"]
+messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "jsClassNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript", "crlfSanitized"]
 }),
 $globals.Exporter);
 
@@ -84505,9 +84532,10 @@ $globals.Repl.klass);
 });
 
 define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });
-define("amber/_init", ["amber/boot","amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_vm/_st","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Kernel-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
-boot.vm.initialize();
-var $core = boot.vm, $globals = boot.globals;
+define("app", ["amber/boot","amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_vm/_st","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Kernel-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
+boot.api = boot.api || boot.vm; // backward compatibility
+boot.api.initialize();
+var $core = boot.api, $globals = boot.globals;
 $globals.AmberCli._main();
 });
-requirejs(["amber/_init"]);
+requirejs(["app"]);
