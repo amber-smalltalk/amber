@@ -11,13 +11,30 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclose
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-18th Dec 2014 - Release 0.13.2
+18th Dec 2014 - Release 0.13.3
 ===================================
 
 This is a planned maintenance release.
 It contains everything 0.14.0 contains,
 but it retains all the backwards compatibility stuff,
 which is going to be removed in 0.14.0.
+
+
+22th Oct 2014 - Release 0.13.2
+===================================
+
+This is maintenance release to upgrade CodeMirror
+jointly in Amber and Helios.
+
+Highlights:
+
+* CodeMirror upgrade for Amber and Helios.
+* Cleaned of all (as far as findable) uses of deprecated code.
+* Recompile using `grunt` in Windows now does not add cr characters.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.13.0...0.13.2
+
+For the most important API related changes see the file API-CHANGES.txt.
 
 
 10th Oct 2014 - Release 0.13.1

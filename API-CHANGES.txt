@@ -1,3 +1,9 @@
+0.13.2:
+
++ SourceArea class >>
+  + codeMirror
+
+
 0.13.1:
 
 * String >> asSelector is now String >> asJavaScriptMethodName
