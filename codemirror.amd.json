@@ -1,0 +1,10 @@
+{
+    "paths": {
+        "codemirror": "."
+    },
+    "shim": {
+        "codemirror/lib/codemirror": {
+            "deps": [ "css!codemirror/lib/codemirror" ]
+        }
+    }
+}

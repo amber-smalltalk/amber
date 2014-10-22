@@ -330,7 +330,7 @@ renderOn: html
 !SourceArea class methodsFor: 'accessing'!
 
 codeMirror
-	^ require value: 'codemirror3/lib/codemirror'
+	^ require value: 'codemirror/lib/codemirror'
 ! !
 
 !SourceArea class methodsFor: 'initialization'!

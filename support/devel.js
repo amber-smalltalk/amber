@@ -2,12 +2,12 @@ define([
 	'./helpers', // pre-fetch, dep of ./deploy
 	'./deploy', // pre-fetch, dep of ./lang
 	'./lang',
-    'codemirror3/lib/codemirror',
-    'codemirror3/mode/smalltalk/smalltalk',
-    'codemirror3/addon/hint/show-hint',
-    'css!codemirror3/theme/ambiance',
-    'css!codemirror3/lib/codemirror',
-    'css!codemirror3/addon/hint/show-hint',
+    'codemirror/lib/codemirror',
+    'codemirror/mode/smalltalk/smalltalk',
+    'codemirror/addon/hint/show-hint',
+    'css!codemirror/theme/ambiance',
+    'css!codemirror/lib/codemirror',
+    'css!codemirror/addon/hint/show-hint',
     'jquery-ui',
     'amber_core/IDE',
     'amber_core/Examples',
