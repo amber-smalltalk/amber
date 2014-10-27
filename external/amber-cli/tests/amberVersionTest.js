@@ -1,18 +1,16 @@
-// Tests if the `amber version` command returns the expected amber version number, according to the configuration file `package.json`
-// Displays 'ok' in green if test succeeds, else 'not ok' in red.
+// Tests if the `amber version` command returns the an amber version number
 
-require('shelljs/global');
-require('colors');
+var assert = require('assert'),
+    shelljs = require('shelljs');
 
 var AMBER_VERSION_COMMAND = './support/amber-cli.js version';
 
-var amberResult = exec("node " + AMBER_VERSION_COMMAND, {silent: true}).output;
+describe("amber version", function () {
+    it("should return line with amber version", function () {
+        this.timeout(7000);
+        var amberResult = shelljs.exec("node " + AMBER_VERSION_COMMAND, {silent: true}).output;
 
-if (amberResult.match(/[Aa]mber/) && amberResult.match(/version/)) {
-	console.log("ok 1 - amber version".green);
-	exit(0);
-} else {
-	console.log(amberResult.red);
-	console.log(("not ok 1 - amber version".red);
-	exit(1);
-}
+        assert.ok(amberResult.match(/[Aa]mber/));
+        assert.ok(amberResult.match(/version/));
+    });
+});
