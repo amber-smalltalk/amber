@@ -10,7 +10,7 @@ Amber is an implementation of the Smalltalk language that runs on top of the Jav
 > The core project of Amber has enough resources, but:
 > - the Helios IDE (https://github.com/amber-smalltalk/helios), as well as
 > - examples (https://github.com/amber-smalltalk/amber-examples), and
-> - documentation (https://github.com/amber-smalltalk/amber-documentation
+> - documentation (https://github.com/amber-smalltalk/amber-documentation)
 >
 > would need some of your care.
 >
