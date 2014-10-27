@@ -5,5 +5,8 @@ node_js:
 before_install:
   - npm -g install npm@1.x.x
 install:
-  - npm install -g grunt-cli
+  - npm install -g grunt-cli mocha
   - npm install
+  - cd external/amber_cli
+  - npm install
+  - cd ../..
