@@ -33,7 +33,7 @@
     "amberc": "./support/amberc-cli.js"
   },
   "scripts": {
-    "test": "mocha tests"
+    "test": "mocha"
   },
   "dependencies": {
     "amber": "^0.13.0",
