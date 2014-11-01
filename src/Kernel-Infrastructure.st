@@ -1037,13 +1037,22 @@ Object subclass: #Setting
 	instanceVariableNames: 'key value defaultValue'
 	package: 'Kernel-Infrastructure'!
 !Setting commentStamp!
-I represent a setting accessible via `Smalltalk settings`.
+I represent a setting **stored** at `Smalltalk settings`. 
+In the current implementation, `Smalltalk settings` is an object persisted in the localStorage.
 
 ## API
 
 A `Setting` value can be read using `value` and set using `value:`.
 
-Settings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.!
+Settings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: aDefaultValue`.
+
+To read the value of a setting you can also use the convenience:
+
+`theValueSet :=  'any.characteristic' settingValue` 
+
+or with a default using:
+
+ `theEnsuredValueSet := 'any.characteristic' settingValueIfAbsent: true`!
 
 !Setting methodsFor: 'accessing'!
 
@@ -1051,32 +1060,33 @@ defaultValue
 	^ defaultValue
 !
 
-defaultValue: anObject
-	defaultValue := anObject
+defaultValue: aStringifiableObject
+	defaultValue := aStringifiableObject
 !
 
 key
 	^ key
 !
 
-key: anObject
-	key := anObject
+key: aString
+	key := aString
 !
 
 value
 	^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]
 !
 
-value: aString
-	^ Smalltalk settings at: self key put: aString
+value: aStringifiableObject
+	^ Smalltalk settings at: self key put: aStringifiableObject
 ! !
 
 !Setting class methodsFor: 'instance creation'!
 
-at: aString ifAbsent: anotherString
+at: aString ifAbsent: aDefaultValue
+	
 	^ super new
 		key: aString;
-		defaultValue: anotherString;
+		defaultValue: aDefaultValue;
 		yourself
 !
 
@@ -1383,27 +1393,34 @@ asJavaScriptPropertyName
 asJavaScriptSelector
 	"Cannot add next line as it breaks commit:
 	self deprecatedAPI: 'Use #asJavaScriptPropertyName'."
-
 	^ self asJavaScriptPropertyName
 !
 
 asSetting
+	"Answer aSetting dedicated to locally store a value using this string as key.
+	Nil will be the default value."
 	^ Setting at: self ifAbsent: nil
 !
 
-asSettingIfAbsent: aString
-	^ Setting at: self ifAbsent: aString
+asSettingIfAbsent: aDefaultValue
+	"Answer aSetting dedicated to locally store a value using this string as key.
+	Make this setting to have aDefaultValue."
+	^ Setting at: self ifAbsent: aDefaultValue
 !
 
 settingValue
 	^ self asSetting value
 !
 
-settingValue: aString
-	^ self asSetting value: aString
+settingValue: aValue
+	"Sets the value of the setting that will be locally stored using this string as key.
+	Note that aValue can be any object that can be stringifyed"
+	^ self asSetting value: aValue
 !
 
-settingValueIfAbsent: aString
-	^ (self asSettingIfAbsent: aString) value
+settingValueIfAbsent: aDefaultValue
+	"Answer the value of the locally stored setting using this string as key.
+	Use aDefaultValue in case no setting is found"
+	^ (self asSettingIfAbsent: aDefaultValue) value
 ! !
 
