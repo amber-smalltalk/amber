@@ -59,10 +59,6 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     exports.initialize = function (options) {
         globals.SmalltalkSettings['transport.defaultAmdNamespace'] = api.defaultAmdNamespace;
         settingsInLocalStorage();
-        if (exports.defaultAmdNamespace) {
-            console.warn("`smalltalk.defaultAmdNamespace = 'namespace';` is deprecated. Please use `smalltalk.initialize({'transport.defaultAmdNamespace': 'namespace'});` instead.");
-            globals.SmalltalkSettings['transport.defaultAmdNamespace'] = globals.SmalltalkSettings['transport.defaultAmdNamespace'] || exports.defaultAmdNamespace;
-        }
         mixinToSettings(options || {});
         return api.initialize();
     };
@@ -77,7 +73,6 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
         value: api,
         enumerable: true, configurable: true, writable: false
     });
-    exports.defaultAmdNamespace = null;
 
     // Exports
 
