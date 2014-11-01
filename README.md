@@ -19,6 +19,7 @@ Amber is an implementation of the Smalltalk language that runs on top of the Jav
 >
 > (see [CONTRIBUTING.md](CONTRIBUTING.md) for further details)
 
+
 Overview
 --------
 
@@ -32,10 +33,14 @@ Some highlights:
 -    Amber can use Javascript libraries and the current IDE is built on [jQuery](http://www.jquery.com)
 -    You can inline Javascript code and there are many ways to interact between Amber and Javascript
 
+
 Getting Amber
 -------------
 
-Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side. For installation to work, you need to install node, npm and git (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
+Amber is shipped as a cli tool to create new projects and assist with development tasks in a [npm](http://npmjs.org) package  `amber-cli`
+and as a library to be used by projects in a [bower](https://github.com/bower/bower) package `amber`.
+
+Do this [1] to create an Amber project of your own and start working in it:
 
     # Install the CLI tool `amber-cli`
     npm install -g amber-cli
@@ -49,10 +54,12 @@ Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a
 
 The [Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-started) page shows more details on ways to obtain Amber and start a project.
 
-Building Amber
+[1] For installation to work, you need to install `node`, `npm` and `git` (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
+
+
+Developing Amber
 --------------
 
-This step is only used by people developing Amber itself.
 Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for further details.
 It explains the Amber development setup and how to contribute.
 
