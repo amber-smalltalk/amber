@@ -12,3 +12,6 @@ node_modules/
 
 # Ignoring local bower modules
 bower_components/
+
+# Ignoring place dedicated to hand-cloned user modules
+/my/

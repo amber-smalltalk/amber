@@ -6,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Nicolas Petton"/>
     <script type='text/javascript' src='../config.js'></script>
-    <script type='text/javascript' src='../support/requirejs/require.min.js'></script>
+    <script type='text/javascript' src='../node_modules/requirejs/require.js'></script>
 </head>
 
 <body>
@@ -14,12 +14,12 @@
     require.config({baseUrl: '..'});
     require(
         ["amber/devel", "helios/all", "amber_cli/AmberCli"],
-        function (smalltalk) {
-            smalltalk.initialize({'transport.defaultAmdNamespace': "amber_core"});
+        function (amber) {
+            amber.initialize({'transport.defaultAmdNamespace': "amber_core"});
         }
     );
 </script>
-<p>To start legacy in-page IDE, <a href="javascript:require('amber/helpers').globals.Browser._open()">click here</a>.</p>
-<p>To popup Helios IDE, <a href="javascript:require('amber/helpers').popupHelios()">click here</a>.</p>
+<p>To start legacy in-page IDE, <a href="#" onclick="require('amber/helpers').globals.Browser._open(); return false;">click here</a>.</p>
+<p>To popup Helios IDE, <a href="#" onclick="require('amber/helpers').popupHelios(); return false;">click here</a>.</p>
 </body>
 </html> 

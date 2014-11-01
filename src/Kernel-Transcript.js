@@ -1,84 +1,115 @@
 define("amber_core/Kernel-Transcript", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;
-smalltalk.addPackage('Kernel-Transcript');
-smalltalk.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var smalltalk=$core,_st=$recv,globals=$globals;
+$core.addPackage('Kernel-Transcript');
+$core.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('ConsoleTranscript', globals.Object, ['textarea'], 'Kernel-Transcript');
-globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
-smalltalk.addMethod(
-smalltalk.method({
+$core.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Kernel-Transcript');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
 selector: "clear",
 protocol: 'printing',
 fn: function (){
 var self=this;
-return self},
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "clear\x0a\x09\x22no op\x22",
-messageSends: [],
-referencedClasses: []
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "cr",
 protocol: 'printing',
 fn: function (){
 var self=this;
-return self},
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "cr\x0a\x09\x22no op\x22",
-messageSends: [],
-referencedClasses: []
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "open",
 protocol: 'actions',
 fn: function (){
 var self=this;
-return self},
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "open",
-messageSends: [],
-referencedClasses: []
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "show:",
 protocol: 'printing',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-console.log(String(_st(anObject)._asString()));
-return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},globals.ConsoleTranscript)})},
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+console.log(String($recv(anObject)._asString()));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},$globals.ConsoleTranscript)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String(_st(anObject)._asString()))>",
-messageSends: [],
-referencedClasses: []
+source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String($recv(anObject)._asString()))>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
-globals.ConsoleTranscript);
+$globals.ConsoleTranscript);
 
 
-smalltalk.addMethod(
-smalltalk.method({
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Transcript(){return globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-return smalltalk.withContext(function($ctx1) { 
-_st($Transcript())._registerIfNone_(self._new());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},globals.ConsoleTranscript.klass)})},
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+$recv($Transcript())._registerIfNone_(self._new());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleTranscript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "initialize\x0a\x09Transcript registerIfNone: self new",
-messageSends: ["registerIfNone:", "new"],
-referencedClasses: ["Transcript"]
+referencedClasses: ["Transcript"],
+//>>excludeEnd("ide");
+messageSends: ["registerIfNone:", "new"]
 }),
-globals.ConsoleTranscript.klass);
+$globals.ConsoleTranscript.klass);
 
 });

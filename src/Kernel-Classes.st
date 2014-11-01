@@ -93,9 +93,9 @@ javascriptConstructor
 
 javascriptConstructor: aJavaScriptFunction
 	"Set the JS constructor used to instantiate.
-	See the JS counter-part in boot.js `smalltalk.setClassConstructor'"
+	See the JS counter-part in boot.js `$core.setClassConstructor'"
 	
-	<smalltalk.setClassConstructor(self, aJavaScriptFunction);>
+	<$core.setClassConstructor(self, aJavaScriptFunction);>
 !
 
 lookupSelector: selector
@@ -119,7 +119,7 @@ methodAt: aString
 !
 
 methodDictionary
-	<var dict = globals.HashedCollection._new();
+	<var dict = $globals.HashedCollection._new();
 	var methods = self.methods;
 	Object.keys(methods).forEach(function(i) {
 		if(methods[i].selector) {
@@ -152,7 +152,7 @@ methodsFor: aString
 !
 
 methodsFor: aString stamp: aStamp
-	"Added for compatibility, right now ignores stamp."
+	"Added for file-in compatibility, ignores stamp."
 	^ self methodsFor: aString
 !
 
@@ -316,11 +316,11 @@ new
 !Behavior methodsFor: 'private'!
 
 basicAddCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod, self)>
+	<$core.addMethod(aMethod, self)>
 !
 
 basicRemoveCompiledMethod: aMethod
-	<smalltalk.removeMethod(aMethod,self)>
+	<$core.removeMethod(aMethod,self)>
 ! !
 
 !Behavior methodsFor: 'testing'!
@@ -383,6 +383,13 @@ definition
 			nextPutAll: '''' ]
 !
 
+heliosClass
+	"Should be an Helios extension. Unfortunately, since helios can browse remote
+	environments, we can't extend base classes"
+	
+	^ 'class'
+!
+
 package
 	^ self basicAt: 'pkg'
 !
@@ -421,18 +428,17 @@ browse
 !Class methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	"Kept for compatibility."
+	"Kept for file-in compatibility."
 	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
-	"Kept for compatibility."
-	self deprecatedAPI.
+	"Kept for file-in compatibility."
 	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
-	"Just ignore class variables and pools. Added for compatibility."
+	"Kept for file-in compatibility. ignores class variables and pools."
 	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
@@ -444,7 +450,7 @@ subclass: aString instanceVariableNames: aString2 package: aString3
 !Class methodsFor: 'converting'!
 
 asJavascript
-	^ 'globals.', self name
+	^ '$globals.', self name
 ! !
 
 !Class methodsFor: 'printing'!
@@ -510,7 +516,7 @@ theNonMetaClass
 !Metaclass methodsFor: 'converting'!
 
 asJavascript
-	^ 'globals.', self instanceClass name, '.klass'
+	^ '$globals.', self instanceClass name, '.klass'
 ! !
 
 !Metaclass methodsFor: 'printing'!
@@ -705,8 +711,8 @@ installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 
 basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
 	<
-		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return globals[aString]
+		$core.addClass(aString, aClass, aCollection, packageName);
+		return $globals[aString]
 	>
 !
 
@@ -721,13 +727,13 @@ basicClass: aClass instanceVariables: aCollection
 !
 
 basicRemoveClass: aClass
-	<smalltalk.removeClass(aClass)>
+	<$core.removeClass(aClass)>
 !
 
 basicRenameClass: aClass to: aString
 	<
-		globals[aString] = aClass;
-		delete globals[aClass.className];
+		$globals[aString] = aClass;
+		delete $globals[aClass.className];
 		aClass.className = aString;
 	>
 !
@@ -742,14 +748,14 @@ basicSwapClassNames: aClass with: anotherClass
 
 rawRenameClass: aClass to: aString
 	<
-		globals[aString] = aClass;
+		$globals[aString] = aClass;
 	>
 ! !
 
 !ClassBuilder methodsFor: 'public'!
 
 setupClass: aClass
-	<smalltalk.init(aClass);>
+	<$core.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader

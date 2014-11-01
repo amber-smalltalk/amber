@@ -253,7 +253,7 @@ jsClassNameFor: aClass
 		ifFalse: [
 			aClass
 				ifNil: [ 'null' ]
-				ifNotNil: [ 'globals.', aClass name ] ]
+				ifNotNil: [ '$globals.', aClass name ] ]
 ! !
 
 !Exporter methodsFor: 'output'!
@@ -261,7 +261,7 @@ jsClassNameFor: aClass
 exportDefinitionOf: aClass on: aStream
 	aStream
 		lf;
-		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '$core.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
 		nextPutAll: (self jsClassNameFor: aClass superclass);
 		nextPutAll: ', ['.
@@ -275,10 +275,14 @@ exportDefinitionOf: aClass on: aStream
 	aClass comment notEmpty ifTrue: [
 		aStream
 			lf;
-		nextPutAll: (self jsClassNameFor: aClass);
-		nextPutAll: '.comment=';
-		nextPutAll: aClass comment asJavascript;
-		nextPutAll: ';' ].
+			nextPutAll: '//>>excludeStart("ide", pragmas.excludeIdeData);';
+			lf;
+			nextPutAll: (self jsClassNameFor: aClass);
+			nextPutAll: '.comment=';
+			nextPutAll: aClass comment crlfSanitized asJavascript;
+			nextPutAll: ';';
+			lf;
+			nextPutAll: '//>>excludeEnd("ide");' ].
 	aStream lf
 !
 
@@ -296,18 +300,17 @@ exportMetaDefinitionOf: aClass on: aStream
 
 exportMethod: aMethod on: aStream
 	aStream
-		nextPutAll: 'smalltalk.addMethod(';lf;
-		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
-		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: '$core.addMethod(';lf;
+		nextPutAll: '$core.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'protocol: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: '//>>excludeStart("ide", pragmas.excludeIdeData);';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
-		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
-		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
-	aStream
-		lf;
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript, ',';lf;
+		nextPutAll: '//>>excludeEnd("ide");';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;lf;
 		nextPutAll: '}),';lf;
 		nextPutAll: (self jsClassNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
@@ -337,7 +340,7 @@ exportPackage: aPackage on: aStream
 
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'smalltalk.addPackage(';
+		nextPutAll: '$core.addPackage(';
 		nextPutAll: '''', aPackage name, ''');';
 		lf
 !
@@ -356,7 +359,7 @@ exportPackagePrologueOf: aPackage on: aStream
 
 exportPackageTransportOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: '$core.packages[';
 		nextPutAll: aPackage name asJavascript;
 		nextPutAll: '].transport = ';
 		nextPutAll: aPackage transport asJSONString;
@@ -388,7 +391,9 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
 		nextPutAll: ', function($boot){';
 		lf;
-		nextPutAll: 'var smalltalk=$boot.vm,nil=$boot.nil,_st=$boot.asReceiver,globals=$boot.globals;';
+		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
+		lf;
+		nextPutAll: 'var smalltalk=$core,_st=$recv,globals=$globals;';
 		lf
 ! !
 
@@ -697,7 +702,7 @@ load: aPackage
 	Smalltalk amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
 		ifNotNil: [ :require |
-			require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]
+			require value: (Array with: (self namespaceFor: aPackage), '/', aPackage name ) ]
 ! !
 
 !AmdPackageHandler methodsFor: 'private'!

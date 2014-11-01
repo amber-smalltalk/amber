@@ -1,4 +1,66 @@
-1st July  2014 - Release 0.12.6
+1st Jan 2015 - Release 0.14.0
+===================================
+
+Highlights:
+
+* Removed deprecated stuff and backward compatibility support code.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.13.0...0.14.0
+Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclosed+milestone%3A0.14.0
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+18th Dec 2014 - Release 0.13.3
+===================================
+
+This is a planned maintenance release.
+It contains everything 0.14.0 contains,
+but it retains all the backwards compatibility stuff,
+which is going to be removed in 0.14.0.
+
+
+22th Oct 2014 - Release 0.13.2
+===================================
+
+This is maintenance release to upgrade CodeMirror
+jointly in Amber and Helios.
+
+Highlights:
+
+* CodeMirror upgrade for Amber and Helios.
+* Cleaned of all (as far as findable) uses of deprecated code.
+* Recompile using `grunt` in Windows now does not add cr characters.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.13.0...0.13.2
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+10th Oct 2014 - Release 0.13.1
+===================================
+
+Highlights:
+
+* Reworked cleaner DNU handling in core.
+* `amber init` fully embraced as the way to create new project.
+* Helios IDE is extracted and is now a project on its own.
+  * It is included as dev-dependency in any new project by default.
+* Movable data out of index.html:
+  * list of production packages in deploy.js;
+  * list of development packages in devel.js;
+  * project amd mappings in local.amd.json;
+  * libraries' amd mappings in lib_directory.amd.json.
+* 'Batteries included' deployment via `grunt deploy`.
+* 0.13.1 because of technical issues w/ 0.13.0 release process.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.6...0.13.0
+Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclosed+milestone%3A0.13.0
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+1st July 2014 - Release 0.12.6
 ===================================
 
 Highlights:

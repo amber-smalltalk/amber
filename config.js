@@ -1,66 +1,47 @@
 /* DO NOT EDIT! This file is generated. */
 
 var require;
-(function (config) {
-if (require) require.config(config); else require = config;
-})({
+if (!require) require = {config: function (x) {require = x;}};
+require.config({
   "paths": {
+    "require-css": "bower_components/require-css",
+    "jquery": "bower_components/jquery/jquery",
+    "jquery-ui": "bower_components/jquery-ui/jquery-ui",
+    "amber_lib/es5-shim": "bower_components/es5-shim",
+    "codemirror": "bower_components/codemirror",
+    "helios/showdown": "my/helios/bower_components/showdown/src/showdown",
+    "requireJS": "node_modules/requirejs/require",
+    "bootstrap2.3.2": "my/helios/bower_components/bootstrap2.3.2/bootstrap",
     "amber": "support",
     "amber_vm": "support/deprecated-vm-files",
     "amber_vm/_st": "support/deprecated-vm-files/as-receiver",
     "amber_css": "support/resources",
     "amber_core": "src",
-    "amber_cli": "external/amber-cli/src",
-    "helios": "support/helios/src",
-    "helios/set": "support/helios/set",
-    "helios/resources": "support/helios/resources",
-    "helios/index": "support/helios/index",
-    "amber_lib/codemirror": "bower_components/codemirror",
-    "amber_lib/es5-shim": "bower_components/es5-shim",
-    "amber_lib/jquery-tabby": "bower_components/jquery-tabby",
-    "jquery-ui": [
-      "bower_components/jquery-ui/jquery-ui.min",
-      "bower_components/jquery-ui/ui/minified/jquery-ui.min",
-      "bower_components/jquery-ui/jquery-ui.min",
-      "bower_components/jquery-ui/ui/minified/jquery-ui.min"
-    ],
-    "jquery": [
-      "bower_components/jquery/dist/jquery.min",
-      "bower_components/jquery/jquery.min"
-    ],
-    "require-css": "bower_components/require-css",
-    "bootstrap2.3.2": "bower_components/bootstrap2.3.2/bootstrap",
-    "amber_lib/showdown": "bower_components/showdown"
+    "helios": "my/helios/src",
+    "helios/resources": "my/helios/resources",
+    "helios/index": "my/helios/index",
+    "amber_cli": "external/amber-cli/src"
+  },
+  "map": {
+    "*": {
+      "css": "require-css/css"
+    }
   },
   "shim": {
-    "ensure-console": {
-      "exports": "console"
-    },
-    "amber_lib/codemirror/lib/codemirror": {
-      "deps": [
-        "css!amber_lib/codemirror/lib/codemirror"
-      ]
-    },
-    "amber_lib/codemirror/mode/smalltalk/smalltalk": {
-      "deps": [
-        "../../lib/codemirror"
-      ]
-    },
-    "amber_lib/codemirror/addon/hint/show-hint": {
-      "deps": [
-        "../../lib/codemirror"
-      ]
-    },
-    "amber_lib/jquery-tabby/jquery.textarea": {
-      "deps": [
-        "jquery",
-        "jquery"
-      ]
-    },
     "jquery-ui": {
       "deps": [
         "jquery",
+        "jquery",
+        "jquery",
         "jquery"
+      ]
+    },
+    "codemirror/lib/codemirror": {
+      "deps": [
+        "css!codemirror/lib/codemirror",
+        "css!codemirror/lib/codemirror",
+        "css!codemirror/lib/codemirror",
+        "css!codemirror/lib/codemirror"
       ]
     },
     "bootstrap2.3.2/js/bootstrap": {
@@ -68,11 +49,13 @@ if (require) require.config(config); else require = config;
         "jquery",
         "css!bootstrap2.3.2/css/bootstrap"
       ]
+    },
+    "ensure-console": {
+      "exports": "console"
     }
   },
-  "map": {
-    "*": {
-      "css": "require-css/css"
-    }
-  }
+  "rjs_comment1": "require.min should be removed",
+  "rjs_comment2": "it's backward compatibility hack if config finds",
+  "rjs_comment3": "support/requirejs before node_modules/requirejs;",
+  "rjs_comment4": "the former will go away in 0.14.0"
 });

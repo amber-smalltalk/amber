@@ -1,8 +1,0 @@
-{
-    "paths": {
-        "helios": "src",
-        "helios/set": "set",
-        "helios/resources": "resources",
-        "helios/index": "index"
-    }
-}

@@ -17,7 +17,7 @@ identityHash
 	<
 		var hash=self.identityHash;
 		if (hash) return hash;
-		hash=smalltalk.nextId();
+		hash=$core.nextId();
 		Object.defineProperty(self, 'identityHash', {value:hash});
 		return hash;
 	>
@@ -95,7 +95,7 @@ perform: aString
 !
 
 perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asSelector(), aCollection)>
+	<return $core.send(self, aString._asJavaScriptMethodName(), aCollection)>
 ! !
 
 !ProtoObject methodsFor: 'printing'!
@@ -118,15 +118,6 @@ isKindOf: aClass
 	^ (self isMemberOf: aClass)
 		ifTrue: [ true ]
 		ifFalse: [ self class inheritsFrom: aClass ]
-! !
-
-!ProtoObject class methodsFor: 'accessing'!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
 ! !
 
 !ProtoObject class methodsFor: 'initialization'!
@@ -419,13 +410,6 @@ accessorProtocolWith: aGenerator
 
 accessorsSourceCodesWith: aGenerator
 	aGenerator accessorsForObject
-!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
 !
 
 initializeProtocolWith: aGenerator
@@ -1327,12 +1311,17 @@ __note:__ When sending messages to the `undefined` JavaScript object, it will be
 !UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
+	"Kept for file-in compatibility."
 	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
-	"Kept for compatibility."
-	self deprecatedAPI.
+	"Kept for file-in compatibility."
+	^ self subclass: aString instanceVariableNames: aString2 package: aString3
+!
+
+subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
+	"Kept for file-in compatibility. ignores class variables and pools."
 	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 

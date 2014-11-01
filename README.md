@@ -1,9 +1,23 @@
-Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber)
+Amber [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/amber-smalltalk/amber?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber) [![devDependency status](https://david-dm.org/amber-smalltalk/amber/dev-status.svg?style=flat)](https://david-dm.org/amber-smalltalk/amber#info=devDependencies)
 =====
+
 
 By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/amber-smalltalk/amber/contributors)
 
 Amber is an implementation of the Smalltalk language that runs on top of the JavaScript runtime. It is designed to make client-side development faster and easier.
+
+> \o/ **Call for contributors!**  \o/
+>
+> The core project of Amber has enough resources, but:
+> - the Helios IDE (https://github.com/amber-smalltalk/helios), as well as
+> - examples (https://github.com/amber-smalltalk/amber-examples), and
+> - documentation (https://github.com/amber-smalltalk/amber-documentation)
+>
+> would need some of your care.
+>
+> Thank you very much!
+>
+> (see [CONTRIBUTING.md](CONTRIBUTING.md) for further details)
 
 Overview
 --------
@@ -21,7 +35,7 @@ Some highlights:
 Getting Amber
 -------------
 
-Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side.
+Amber is shipped as a [npm](http://npmjs.org) package for its CLI tools and as a [bower](https://github.com/bower/bower) package for the client-side. For installation to work, you need to install node, npm and git (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
 
     # Install the CLI tool `amber-cli`
     npm install -g amber-cli

@@ -209,7 +209,7 @@ selection
 !
 
 setEditorOn: aTextarea
-	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+	<self['@editor'] = self._class()._codeMirror().fromTextArea(aTextarea, {
 		theme: 'ide.codeMirrorTheme'._settingValueIfAbsent_('default'),
 		mode: 'text/x-stsrc',
 		lineNumbers: true,
@@ -327,6 +327,12 @@ renderOn: html
 	div onKeyDown: [ :e | self handleKeyDown: e ]
 ! !
 
+!SourceArea class methodsFor: 'accessing'!
+
+codeMirror
+	^ require value: 'codemirror/lib/codemirror'
+! !
+
 !SourceArea class methodsFor: 'initialization'!
 
 initialize
@@ -335,7 +341,7 @@ initialize
 !
 
 setupCodeMirror
-	< CodeMirror.keyMap["default"].fallthrough = ["basic"] >
+	< self._codeMirror().keyMap["default"].fallthrough = ["basic"] >
 ! !
 
 Widget subclass: #TabManager
@@ -1352,13 +1358,13 @@ inspectSelectedVariable
 
 proceed
 	self close.
-	selectedContext receiver perform: selectedContext selector withArguments: selectedContext temps
+	selectedContext receiver perform: selectedContext selector withArguments: selectedContext locals
 !
 
 save
 	| protocol |
 	protocol := (selectedContext receiver class methodDictionary at: selectedContext selector) category.
-	selectedContext receiver class compile: sourceArea val category: protocol.
+	selectedContext receiver class compile: sourceArea val protocol: protocol.
 	self updateStatus
 !
 

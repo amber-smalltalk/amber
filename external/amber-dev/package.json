@@ -1,6 +1,6 @@
 {
   "name": "amber-dev",
-  "version": "0.1.4",
+  "version": "0.2.3",
   "description": "Development goodies for Amber Smalltalk",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,11 +12,11 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/amber-smalltalk/amber/issues?labels=devkit"
+    "url": "https://github.com/amber-smalltalk/amber/issues?labels=in+devkit"
   },
   "dependencies": {
+    "amd-config-builder": "^0.2.0",
     "amdefine": "0.0.8",
-    "es6-promise": "~0.1.1",
-    "amd-config-builder": "~0.1.3"
+    "es6-promise": "^2.0.0"
   }
 }

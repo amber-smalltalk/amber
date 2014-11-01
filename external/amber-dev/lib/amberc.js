@@ -44,11 +44,12 @@ function createConcatenator () {
 		},
 		finish: function (realWork) {
 			this.add(
-				'define("amber/_init", ["' + this.ids.join('","') + '"], function (boot) {',
-				'boot.vm.initialize();',
+				'define("app", ["' + this.ids.join('","') + '"], function (boot) {',
+				'boot.api = boot.api || boot.vm; // backward compatibility',
+				'boot.api.initialize();',
 				realWork,
 				'});',
-				'requirejs("amber/_init");'
+				'requirejs(["app"]);'
 			);
 		},
 		toString: function () {
@@ -131,7 +132,7 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	}
 
 	// the evaluated compiler will be stored in this variable (see create_compiler)
-	configuration.vm = {};
+	configuration.core = {};
 	configuration.globals = {};
 	configuration.kernel_libraries = this.kernel_libraries;
 	configuration.compiler_libraries = this.compiler_libraries;
@@ -283,7 +284,7 @@ function resolve_kernel(configuration) {
 	)
 	.then(function(data) {
 		// boot.js and Kernel files need to be used first
-		// otherwise the global objects 'vm' and 'globals' are undefined
+		// otherwise the global objects 'core' and 'globals' are undefined
 		configuration.libraries = data.concat(configuration.libraries);
 		return configuration;
 	});
@@ -292,7 +293,7 @@ function resolve_kernel(configuration) {
 
 /**
  * Resolve .js files needed by compiler, read and eval() them.
- * The finished Compiler gets stored in configuration.{vm,globals}.
+ * The finished Compiler gets stored in configuration.{core,globals}.
  * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
@@ -366,10 +367,10 @@ function create_compiler(configuration) {
 			}
 		});
 		//backward compatibility
-		if (builder.ids.indexOf("amber_vm/boot") === -1) { console.log(builder.ids); console.log("defining amber_vm/boot"); builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
+		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
-		// store the generated smalltalk env in configuration.{vm,globals}
-		builder.finish('configuration.vm = boot.vm; configuration.globals = boot.globals;');
+		// store the generated smalltalk env in configuration.{core,globals}
+		builder.finish('configuration.core = boot.api; configuration.globals = boot.globals;');
 		loadIds.forEach(function (id) {
 			builder.add('requirejs("' + id + '");');
 		});
@@ -382,7 +383,7 @@ function create_compiler(configuration) {
 		configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
 
 		if(0 !== configuration.jsGlobals.length) {
-			var jsGlobalVariables = configuration.vm.globalJsVariables;
+			var jsGlobalVariables = configuration.core.globalJsVariables;
 			jsGlobalVariables.push.apply(jsGlobalVariables, configuration.jsGlobals);
 		}
 
@@ -566,16 +567,16 @@ function compose_js_files(configuration) {
 		//backward compatibility
 		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
-		var mainFunctionOrFile = 'var vm = boot.vm, globals = boot.globals;\n';
+		var mainFunctionOrFile = 'var $core = boot.api, $globals = boot.globals;\n';
 
 		if (undefined !== configuration.main) {
 			console.log('Adding call to: %s>>main', configuration.main);
-			mainFunctionOrFile += 'globals.' + configuration.main + '._main();';
+			mainFunctionOrFile += '$globals.' + configuration.main + '._main();';
 		}
 
 		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
 			console.log('Adding main file: ' + configuration.mainfile);
-			mainFunctionOrFile += '\nvar smalltalk = vm; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
+			mainFunctionOrFile += '\nvar smalltalk = $core, vm = $core, globals = $globals; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
 		}
 
 		builder.finish(mainFunctionOrFile);

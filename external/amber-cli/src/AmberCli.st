@@ -76,10 +76,6 @@ serve: args
 	^ (FileServer createServerWithArguments: args) start
 !
 
-tests: arguments
-	^ NodeTestRunner runTestSuite
-!
-
 version: arguments
 ! !
 
@@ -137,8 +133,16 @@ BaseFileManipulator subclass: #Configurator
 !Configurator methodsFor: 'action'!
 
 start
+	self writeConfigThenDo: [ :err | err
+		ifNotNil: [ process exit: 111 ]
+		ifNil: [ process exit ]]
+!
+
+writeConfigThenDo: aBlock
 	(require value: 'amber-dev/lib/config')
 		writeConfig: process cwd
+		toFile: 'config.js'
+		thenDo: aBlock
 ! !
 
 !Configurator methodsFor: 'initialization'!
@@ -987,9 +991,12 @@ BaseFileManipulator subclass: #Initer
 bowerInstallThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'bower'), ' install'
-		thenDo: aBlock.
-	child stdout pipe: process stdout options: #{ 'end' -> false }
+		fork: (self npmScriptForModule: 'bower' named: 'bower')
+		args: #('install').
+	child
+		on: 'error' do: aBlock;
+		on: 'close' do: [ :code |
+			aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]
 !
 
 finishMessage
@@ -1013,21 +1020,27 @@ finishMessage
 !
 
 gruntInitThenDo: aBlock
-	| child |
+	| child sanitizedTemplatePath |
+	sanitizedTemplatePath := ((path join: nmPath with: 'grunt-init-amber')
+		replace: '\\' with: '\\') replace: ':' with: '\:'.
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'grunt-init'), ' ', (((path join: nmPath with: 'grunt-init-amber') replace: '\\' with: '\\') replace: ':' with: '\:')
-		thenDo: aBlock.
-	child stdout pipe: process stdout options: #{ 'end' -> false }.
-	process stdin resume.
-	process stdin pipe: child stdin options: #{ 'end' -> false }
+		fork: (self npmScriptForModule: 'grunt-init' named: 'grunt-init')
+		args: {sanitizedTemplatePath}.
+	child
+		on: 'error' do: aBlock;
+		on: 'close' do: [ :code |
+			aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]
 !
 
 gruntThenDo: aBlock
 	| child |
 	child := childProcess
-		exec: (path join: nmPath with: '.bin' with: 'grunt')
-		thenDo: aBlock.
-	child stdout pipe: process stdout options: #{ 'end' -> false }
+		fork: (self npmScriptForModule: 'grunt-cli' named: 'grunt')
+		args: #('default' 'devel').
+	child
+		on: 'error' do: aBlock;
+		on: 'close' do: [ :code |
+			aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]
 !
 
 npmInstallThenDo: aBlock
@@ -1042,25 +1055,25 @@ start
 	self gruntInitThenDo: [ :error | error
 	ifNotNil: [
 		console log: 'grunt-init exec error:'; log: error.
-		process exit ]
+		process exit: 101 ]
 	ifNil: [
 
 	self bowerInstallThenDo: [ :error2 | error2
 	ifNotNil: [
 		console log: 'bower install exec error:'; log: error2.
-		process exit ]
+		process exit: 102 ]
 	ifNil: [
 
 	self npmInstallThenDo: [ :error3 | error3
 	ifNotNil: [
 		console log: 'npm install exec error:'; log: error3.
-		process exit ]
+		process exit: 103 ]
 	ifNil: [
 
 	self gruntThenDo: [ :error4 | error4
 	ifNotNil: [
 		console log: 'grunt exec error:'; log: error4.
-		process exit ]
+		process exit: 104 ]
 	ifNil: [
 
 	self finishMessage.
@@ -1075,36 +1088,20 @@ initialize
 	nmPath := path join: self rootDirname with: 'node_modules'
 ! !
 
-Object subclass: #NodeTestRunner
-	instanceVariableNames: ''
-	package: 'AmberCli'!
+!Initer methodsFor: 'npm'!
 
-!NodeTestRunner class methodsFor: 'not yet classified'!
-
-runTestSuite
-	| suite worker |
-
-	suite := OrderedCollection new.
-	(TestCase allSubclasses select: [ :each | each isAbstract not ])
-		do: [ :each | suite addAll: each buildSuite ].
-
-	worker := TestSuiteRunner on: suite.
-	worker announcer on: ResultAnnouncement do:
-		[ :ann | | result |
-			result := ann result.
-			result runs = result total ifTrue: [
-				console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.
-
-				result failures isEmpty ifFalse: [
-					result failures first runCase.
-					"the line above should throw, normally, but just in case I leave the line below"
-					self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!!!!' ].
-				result errors isEmpty ifFalse: [
-					result errors first runCase.
-					"the line above should throw, normally, but just in case I leave the line below"
-					self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!!!!' ].
-	]].
-	worker run
+npmScriptForModule: aString named: anotherString
+	| modulePath packageJson binSection scriptPath |
+	modulePath := path dirname: (
+		(JSObjectProxy on: require)
+			resolve: aString, '/package.json').
+	packageJson := Smalltalk readJSObject: (
+		require value: aString, '/package.json').
+	binSection := packageJson at: 'bin'.
+	scriptPath := binSection isString
+		ifTrue: [ binSection ]
+		ifFalse: [ binSection at: anotherString ].
+	^ path join: modulePath with: scriptPath
 ! !
 
 Object subclass: #Repl

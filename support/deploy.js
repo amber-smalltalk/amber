@@ -10,4 +10,4 @@ define([
     'amber_core/Kernel-Transcript',
     'amber_core/Kernel-Announcements',
     'amber_core/Web'
-], function (smalltalk) { return smalltalk; });
+], function (amber) { return amber; });

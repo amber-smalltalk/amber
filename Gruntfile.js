@@ -10,8 +10,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-execute');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
-  grunt.registerTask('amberc:all', ['amberc:core', 'amberc:cli', 'amberc:helios']);
+  grunt.registerTask('amberc:all', ['amberc:amber', 'amberc:cli']);
   grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
+  grunt.registerTask('devel', ['amdconfig:amber']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -21,22 +22,24 @@ module.exports = function(grunt) {
     },
 
     peg: {
-      amber_parser: {
+      parser: {
         options: {
           cache: true,
-          export_var: 'globals.SmalltalkParser'
+          export_var: '$globals.SmalltalkParser'
         },
         src: 'support/parser.pegjs',
-        dest: 'support/parser.js',
+        dest: 'support/parser.js'
       }
     },
+
+    amdconfig: {amber: {dest: 'config.js'}},
 
     amberc: {
       options: {
         amber_dir: process.cwd(),
         closure_jar: ''
       },
-      core: {
+      amber: {
         output_dir : 'src',
         src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
               'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st',
@@ -47,38 +50,6 @@ module.exports = function(grunt) {
               'src/Benchfib.st', 'src/Examples.st'
               ],
         jsGlobals: ['navigator']
-      },
-      helios: {
-        output_dir : 'support/helios/src',
-        src: ['support/helios/src/Helios-Core.st', 'support/helios/src/Helios-Exceptions.st', 'support/helios/src/Helios-Announcements.st',
-              'support/helios/src/Helios-KeyBindings.st', 'support/helios/src/Helios-Layout.st',
-              'support/helios/src/Helios-Commands-Core.st', 'support/helios/src/Helios-Commands-Tools.st', 'support/helios/src/Helios-Commands-Browser.st',
-              'support/helios/src/Helios-References.st', 'support/helios/src/Helios-Inspector.st', 'support/helios/src/Helios-Browser.st',
-              'support/helios/src/Helios-Transcript.st', 'support/helios/src/Helios-Workspace.st', 'support/helios/src/Helios-Debugger.st',
-              'support/helios/src/Helios-Workspace-Tests.st'
-              ],
-        libraries: ['Web', 'SUnit'],
-        amd_namespace: 'helios',
-        jsGlobals: ['navigator']
-      },
-      amber_kernel: {
-        output_dir : 'src',
-        src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
-              'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st']
-      },
-      amber_web: {
-        output_dir : 'src',
-        src: ['src/Web.st', 'src/SUnit.st']
-      },
-      amber_IDE: {
-        output_dir : 'src',
-        src: ['src/IDE.st'],
-        libraries: ['Web']
-      },
-      amber_tests: {
-        output_dir : 'src',
-        src: ['src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st'],
-        libraries: ['SUnit']
       },
       cli: {
         output_dir: 'external/amber-cli/src',
@@ -120,7 +91,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      amber: ['src/*.js'],
+      amber: ['src/*.js', 'support/[^p]*.js'],
       cli: ['external/amber-cli/src/*.js', 'external/amber-cli/support/*.js'],
       dev: ['external/amber-dev/lib/*.js'],
       grunt: ['Gruntfile.js', 'internal/grunt-tasks/*.js', 'external/amber-dev/tasks/*.js']

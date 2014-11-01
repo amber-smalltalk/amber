@@ -91,7 +91,7 @@ Typical use cases include IDEs, remote access and restricting browsing.!
 !Environment methodsFor: 'accessing'!
 
 allSelectors
-	^ Smalltalk vm allSelectors
+	^ Smalltalk core allSelectors
 !
 
 availableClassNames
@@ -414,7 +414,7 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
+	^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)
 		ifNil: [ super doesNotUnderstand: aMessage ]
 		ifNotNil: [ :jsSelector | 
 			self 
@@ -424,7 +424,7 @@ doesNotUnderstand: aMessage
 
 forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.send(self._jsObject(), aString, anArray);
+		return $core.accessJavaScript(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -1051,24 +1051,24 @@ defaultValue
 	^ defaultValue
 !
 
-defaultValue: aSringifyableObject
-	defaultValue := aSringifyableObject
+defaultValue: anObject
+	defaultValue := anObject
 !
 
 key
 	^ key
 !
 
-key: aString
-	key := aString
+key: anObject
+	key := anObject
 !
 
 value
 	^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]
 !
 
-value: aSringifyableObject
-	^ Smalltalk settings at: self key put: aSringifyableObject
+value: aString
+	^ Smalltalk settings at: self key put: aString
 ! !
 
 !Setting class methodsFor: 'instance creation'!
@@ -1089,20 +1089,18 @@ Object subclass: #SmalltalkImage
 	package: 'Kernel-Infrastructure'!
 !SmalltalkImage commentStamp!
 I represent the Smalltalk system, wrapping
-operations of variable `smalltalk` declared in `support/boot.js`.
+operations of variable `$core` declared in `support/boot.js`.
 
 ## API
 
 I have only one instance, accessed with global variable `Smalltalk`.
-
-The `smalltalk` object holds all class and packages defined in the system.
 
 ## Classes
 
 Classes can be accessed using the following methods:
 
 - `#classes` answers the full list of Smalltalk classes in the system
-- `#at:` answers a specific class or `nil`
+- `#globals #at:` answers a specific global (usually, a class) or `nil`
 
 ## Packages
 
@@ -1124,19 +1122,17 @@ at: aString
 !
 
 at: aKey ifAbsent: aBlock
-
-	| foundOrNil |
-
-	foundOrNil := self globals at: aKey.
-
-	^ foundOrNil notNil
-		ifTrue: [ foundOrNil ]
-		ifFalse: [ aBlock value ]
+	self deprecatedAPI.
+	^ self globals at: aKey ifAbsent: aBlock
 !
 
 at: aString put: anObject
 	self deprecatedAPI.
 	^ self globals at: aString put: anObject
+!
+
+core
+	<return $core>
 !
 
 current
@@ -1146,12 +1142,11 @@ current
 !
 
 globals
-	"Future compatibility to be able to use Smalltalk globals at: ..."
-	<return globals>
+	<return $globals>
 !
 
 includesKey: aKey
-	<return smalltalk.hasOwnProperty(aKey)>
+	<return $core.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -1170,12 +1165,12 @@ pseudoVariableNames
 !
 
 readJSObject: anObject
-	<return smalltalk.readJSObject(anObject)>
+	<return $core.readJSObject(anObject)>
 !
 
 reservedWords
 	"JavaScript reserved words"
-	<return smalltalk.reservedWords>
+	<return $core.reservedWords>
 !
 
 settings
@@ -1185,18 +1180,18 @@ settings
 version
 	"Answer the version string of Amber"
 	
-	^ '0.13.0-pre'
+	^ '0.14.0-pre'
 !
 
 vm
-	"Future compatibility to be able to use Smalltalk vm ..."
-	<return smalltalk>
+	self deprecatedAPI: 'Use #core'.
+	^self core
 ! !
 
 !SmalltalkImage methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self vm at: 'amdRequire'
+	^ self core at: 'amdRequire'
 !
 
 defaultAmdNamespace
@@ -1210,7 +1205,7 @@ defaultAmdNamespace: aString
 !SmalltalkImage methodsFor: 'classes'!
 
 classes
-	<return smalltalk.classes()>
+	<return $core.classes()>
 !
 
 removeClass: aClass
@@ -1251,7 +1246,7 @@ deleteGlobalJsVariable: aString
 
 globalJsVariables
 	"Array of global JavaScript variables"
-	<return smalltalk.globalJsVariables>
+	<return $core.globalJsVariables>
 ! !
 
 !SmalltalkImage methodsFor: 'packages'!
@@ -1271,7 +1266,7 @@ createPackage: packageName
 !
 
 packageAt: packageName
-	<return smalltalk.packages[packageName]>
+	<return $core.packages[packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
@@ -1282,8 +1277,8 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		return Object.keys(smalltalk.packages).map(function(k) {
-			return smalltalk.packages[k];
+		return Object.keys($core.packages).map(function(k) {
+			return $core.packages[k];
 		})
 	>
 !
@@ -1313,7 +1308,7 @@ renamePackage: packageName to: newName
 
 basicCreatePackage: packageName
 	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
+	<return $core.addPackage(packageName)>
 !
 
 basicParse: aString
@@ -1331,14 +1326,14 @@ createPackage: packageName properties: aDict
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
-	<smalltalk.removeClass(aClass)>
+	<$core.removeClass(aClass)>
 !
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete smalltalk.packages[packageName]>
+	<delete $core.packages[packageName]>
 ! !
 
 !SmalltalkImage methodsFor: 'testing'!
@@ -1355,7 +1350,9 @@ SmalltalkImage class instanceVariableNames: 'current'!
 !SmalltalkImage class methodsFor: 'initialization'!
 
 initialize
-	globals at: 'Smalltalk' put: self current
+	| st |
+	st := self current.
+	st globals at: 'Smalltalk' put: st
 ! !
 
 !SmalltalkImage class methodsFor: 'instance creation'!
@@ -1379,37 +1376,34 @@ do: aBlock displayingProgress: aString
 
 !String methodsFor: '*Kernel-Infrastructure'!
 
+asJavaScriptPropertyName
+<return $core.st2prop(self)>
+!
+
 asJavaScriptSelector
-	"Return first keyword of the selector, without trailing colon."
-	^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+	"Cannot add next line as it breaks commit:
+	self deprecatedAPI: 'Use #asJavaScriptPropertyName'."
+
+	^ self asJavaScriptPropertyName
 !
 
 asSetting
-	"Answer aSetting dedicated to locally store a value using this string as key.
-	Nil will be the default value."
 	^ Setting at: self ifAbsent: nil
 !
 
-asSettingIfAbsent: aDefaultValue
-	"Answer aSetting dedicated to locally store a value using this string as key.
-	Make this setting to have aDefaultValue."
-	^ Setting at: self ifAbsent: aDefaultValue
+asSettingIfAbsent: aString
+	^ Setting at: self ifAbsent: aString
 !
 
 settingValue
 	^ self asSetting value
 !
 
-settingValue: aValue
-	"Sets the value of the setting that will be locally stored using this string as key.
-	Note that aValue can be any object that can be stringifyed"
-
-	^ self asSetting value: aValue
+settingValue: aString
+	^ self asSetting value: aString
 !
 
-settingValueIfAbsent: aDefaultValue
-	"Answer the value of the locally stored setting using this string as key.
-	Use aDefaultValue in case no setting is found"
-	^ (self asSettingIfAbsent: aDefaultValue) value
+settingValueIfAbsent: aString
+	^ (self asSettingIfAbsent: aString) value
 ! !
 

@@ -47,7 +47,7 @@ whileFalse
 !
 
 whileFalse: aBlock
-	<while(!!smalltalk.assert(self._value())) {aBlock._value()}>
+	<while(!!$core.assert(self._value())) {aBlock._value()}>
 !
 
 whileTrue
@@ -55,13 +55,13 @@ whileTrue
 !
 
 whileTrue: aBlock
-	<while(smalltalk.assert(self._value())) {aBlock._value()}>
+	<while($core.assert(self._value())) {aBlock._value()}>
 ! !
 
 !BlockClosure methodsFor: 'converting'!
 
 asCompiledMethod: aString
-	<return smalltalk.method({selector:aString, fn:self});>
+	<return $core.method({selector:aString, fn:self});>
 !
 
 currySelf
@@ -174,14 +174,14 @@ fork
 valueWithInterval: aNumber
 	<
 		var interval = setInterval(self, aNumber);
-		return globals.Timeout._on_(interval);
+		return $globals.Timeout._on_(interval);
 	>
 !
 
 valueWithTimeout: aNumber
 	<
 		var timeout = setTimeout(self, aNumber);
-		return globals.Timeout._on_(timeout);
+		return $globals.Timeout._on_(timeout);
 	>
 ! !
 
@@ -633,7 +633,7 @@ receiver
 selector
 	<
 		if(self.selector) {
-			return smalltalk.convertSelector(self.selector);
+			return $core.js2st(self.selector);
 		} else {
 			return nil;
 		}

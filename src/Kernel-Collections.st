@@ -371,18 +371,18 @@ ifEmpty: aBlock
 ifEmpty: aBlock ifNotEmpty: anotherBlock
 	^ self isEmpty
 		ifTrue: aBlock
-		ifFalse: anotherBlock
+		ifFalse: [ anotherBlock value: self ]
 !
 
 ifNotEmpty: aBlock
 	^ self notEmpty
-		ifTrue: aBlock
+		ifTrue: [ aBlock value: self ]
 		ifFalse: [ self ]
 !
 
 ifNotEmpty: aBlock ifEmpty: anotherBlock
 	^ self notEmpty
-		ifTrue: aBlock
+		ifTrue: [ aBlock value: self ]
 		ifFalse: anotherBlock
 !
 
@@ -958,7 +958,7 @@ indexOf: anObject ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
 		for(var i=0; i < self.length; i++) {
-			if(_st(self[i]).__eq(anObject)) {return i+1}
+			if($recv(self[i]).__eq(anObject)) {return i+1}
 		};
 		return aBlock._value();
 	>
@@ -975,7 +975,7 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
 		for(var i=start - 1; i < self.length; i++){
-			if(_st(self[i]).__eq(anObject)) {return i+1}
+			if($recv(self[i]).__eq(anObject)) {return i+1}
 		}
 		return aBlock._value();
 	>
@@ -1496,6 +1496,10 @@ asJSON
 	^ self
 !
 
+asJavaScriptMethodName
+	<return $core.st2js(self)>
+!
+
 asJavascript
 	<
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
@@ -1526,7 +1530,8 @@ asRegexp
 !
 
 asSelector
-	<return smalltalk.selector(self)>
+	self deprecatedAPI: 'Use #asJavaScriptMethodName'.
+	^ self asJavaScriptMethodName
 !
 
 asString

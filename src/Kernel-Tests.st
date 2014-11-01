@@ -141,13 +141,13 @@ testNewWithValues
 	function TestConstructor(arg1, arg2, arg3) {}
 	TestConstructor.prototype.name = 'theTestPrototype';
 
-	var wrappedConstructor = _st(TestConstructor);
+	var wrappedConstructor = $recv(TestConstructor);
 	var result = wrappedConstructor._newWithValues_([1, 2, 3 ]);
 	self._assert_(result instanceof TestConstructor);
 	self._assert_equals_(result.name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
-	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, globals.Error);
+	self._should_raise_(function () {wrappedConstructor._newWithValues_('single argument');}, $globals.Error);
 >
 !
 
@@ -596,12 +596,15 @@ testIfEmptyFamily
 
 	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
 	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+	self assert: (self collection ifNotEmpty: [ :col | col ]) equals: self collection.
 	
 	self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.
 	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.
+	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ :col | col ]) equals: self collection.
 
 	self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.
-	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42
+	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42.
+	self assert: (self collection ifNotEmpty: [ :col | col ] ifEmpty: [ 999 ]) equals: self collection.
 !
 
 testIsEmpty
@@ -1749,6 +1752,36 @@ testComparison
 
 testDNU
 	self should: [ self jsObject foo ] raise: MessageNotUnderstood
+!
+
+testDNURegression1057
+	| jsObject |
+	jsObject := #().
+	jsObject basicAt: 'allowJavaScriptCalls' put: true.
+	jsObject basicAt: 'foo' put: 3.
+	self shouldnt: [ jsObject foo ] raise: Error.
+	self assert: jsObject foo equals: 3.
+	self shouldnt: [ jsObject foo: 4 ] raise: Error.
+	self assert: jsObject foo equals: 4
+!
+
+testDNURegression1059
+	| jsObject |
+	jsObject := #().
+	jsObject basicAt: 'allowJavaScriptCalls' put: true.
+	jsObject basicAt: 'x' put: 3.
+	jsObject basicAt: 'x:' put: [ self error ].
+	self shouldnt: [ jsObject x: 4 ] raise: Error.
+	self assert: jsObject x equals: 4
+!
+
+testDNURegression1062
+	| jsObject stored |
+	jsObject := #().
+	jsObject basicAt: 'allowJavaScriptCalls' put: true.
+	jsObject basicAt: 'x' put: [ :v | stored := v ].
+	self shouldnt: [ jsObject x: 4 ] raise: Error.
+	self assert: stored equals: 4
 !
 
 testMessageSend
