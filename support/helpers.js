@@ -1,6 +1,6 @@
 define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     var globals = boot.globals,
-        exports = Object.create(globals), // backward compatibility, use {} later
+        exports = {},
         api = boot.api,
         nil = boot.nil;
 
@@ -64,7 +64,6 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
             globals.SmalltalkSettings['transport.defaultAmdNamespace'] = globals.SmalltalkSettings['transport.defaultAmdNamespace'] || exports.defaultAmdNamespace;
         }
         mixinToSettings(options || {});
-        console.warn("smalltalk.ClassName is deprecated. Please use smalltalk.globals.ClassName instead.");
         return api.initialize();
     };
 

@@ -98,7 +98,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 	var globals = {};
 	globals.SmalltalkSettings = {};
-	var api = Object.create(globals);
+	var api = {};
 	var brikz = new Brikz(api);
 
 	function RootBrik(brikz, st) {
