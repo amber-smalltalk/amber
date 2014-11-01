@@ -5854,6 +5854,40 @@ messageSends: ["assert:equals:", "asDictionary", "with:", "->"]
 }),
 $globals.DictionaryTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testSmalltalkGlobals",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Dictionary(){return globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=_st(_st($Smalltalk())._at_("Dictionary")).__eq_eq($Dictionary());
+$ctx1.sendIdx["=="]=1;
+self._assert_($1);
+$ctx1.sendIdx["assert:"]=1;
+$3=_st($Smalltalk())._at_ifAbsent_("Dictionary",(function(){
+return smalltalk.withContext(function($ctx2) {
+return (6).__plus((5));
+$ctx2.sendIdx["+"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["at:ifAbsent:"]=1;
+$2=(11).__eq($3);
+self._deny_($2);
+self._assert_(_st(_st($Smalltalk())._at_ifAbsent_("Dictionary",(function(){
+return smalltalk.withContext(function($ctx2) {
+return (6).__plus((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__eq_eq($Dictionary()));
+return self}, function($ctx1) {$ctx1.fill(self,"testSmalltalkGlobals",{},globals.DictionaryTest)})},
+args: [],
+source: "testSmalltalkGlobals\x0a\x0a\x09self assert: (Smalltalk at: 'Dictionary') == Dictionary.\x0a\x09self deny: 11 = (Smalltalk at: 'Dictionary' ifAbsent: [ 6 + 5 ]).\x0a\x09\x0a\x09self assert: (Smalltalk at: 'Dictionary' ifAbsent: [ 6 + 5 ]) == Dictionary.",
+messageSends: ["assert:", "==", "at:", "deny:", "=", "at:ifAbsent:", "+"],
+referencedClasses: ["Smalltalk", "Dictionary"]
+}),
+globals.DictionaryTest);
+
 
 $core.addMethod(
 $core.method({

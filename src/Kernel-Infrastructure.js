@@ -3899,7 +3899,7 @@ $globals.Transcript.klass);
 
 $core.addClass('Setting', $globals.Object, ['key', 'value', 'defaultValue'], 'Kernel-Infrastructure');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.Setting.comment="I represent a setting accessible via `Smalltalk settings`.\x0a\x0a## API\x0a\x0aA `Setting` value can be read using `value` and set using `value:`.\x0a\x0aSettings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: 'defaultValue'`.";
+$globals.Setting.comment="I represent a setting **stored** at `Smalltalk settings`. \x0aIn the current implementation, `Smalltalk settings` is an object persisted in the localStorage.\x0a\x0a## API\x0a\x0aA `Setting` value can be read using `value` and set using `value:`.\x0a\x0aSettings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: aDefaultValue`.\x0a\x0aTo read the value of a setting you can also use the convenience:\x0a\x0a`theValueSet :=  'any.characteristic' settingValue` \x0a\x0aor with a default using:\x0a\x0a `theEnsuredValueSet := 'any.characteristic' settingValueIfAbsent: true`\x0a";
 //>>excludeEnd("ide");
 $core.addMethod(
 $core.method({
@@ -3925,15 +3925,15 @@ $core.addMethod(
 $core.method({
 selector: "defaultValue:",
 protocol: 'accessing',
-fn: function (anObject){
+fn: function (aSringifyableObject){
 var self=this;
-self["@defaultValue"]=anObject;
+self["@defaultValue"]=aSringifyableObject;
 return self;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "defaultValue: anObject\x0a\x09defaultValue := anObject",
+args: ["aSringifyableObject"],
+source: "defaultValue: aSringifyableObject\x0a\x09defaultValue := aSringifyableObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -3964,15 +3964,15 @@ $core.addMethod(
 $core.method({
 selector: "key:",
 protocol: 'accessing',
-fn: function (anObject){
+fn: function (aString){
 var self=this;
-self["@key"]=anObject;
+self["@key"]=aString;
 return self;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "key: anObject\x0a\x09key := anObject",
+args: ["aString"],
+source: "key: aString\x0a\x09key := aString",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -4017,22 +4017,22 @@ $core.addMethod(
 $core.method({
 selector: "value:",
 protocol: 'accessing',
-fn: function (aString){
+fn: function (aSringifyableObject){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($recv($Smalltalk())._settings())._at_put_(self._key(),aString);
+$1=$recv($recv($Smalltalk())._settings())._at_put_(self._key(),aSringifyableObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},$globals.Setting)});
+}, function($ctx1) {$ctx1.fill(self,"value:",{aSringifyableObject:aSringifyableObject},$globals.Setting)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "value: aString\x0a\x09^ Smalltalk settings at: self key put: aString",
+args: ["aSringifyableObject"],
+source: "value: aSringifyableObject\x0a\x09^ Smalltalk settings at: self key put: aSringifyableObject",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "settings", "key"]
@@ -4044,7 +4044,7 @@ $core.addMethod(
 $core.method({
 selector: "at:ifAbsent:",
 protocol: 'instance creation',
-fn: function (aString,anotherString){
+fn: function (aString,aDefaultValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
@@ -4059,17 +4059,17 @@ $globals.Setting.klass.superclass.fn.prototype._new.apply($recv(self), []));
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 $recv($2)._key_(aString);
-$recv($2)._defaultValue_(anotherString);
+$recv($2)._defaultValue_(aDefaultValue);
 $3=$recv($2)._yourself();
 $1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,anotherString:anotherString},$globals.Setting.klass)});
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aDefaultValue:aDefaultValue},$globals.Setting.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anotherString"],
-source: "at: aString ifAbsent: anotherString\x0a\x09^ super new\x0a\x09\x09key: aString;\x0a\x09\x09defaultValue: anotherString;\x0a\x09\x09yourself",
+args: ["aString", "aDefaultValue"],
+source: "at: aString ifAbsent: aDefaultValue\x0a\x09\x0a\x09^ super new\x0a\x09\x09key: aString;\x0a\x09\x09defaultValue: aDefaultValue;\x0a\x09\x09yourself",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["key:", "new", "defaultValue:", "yourself"]
@@ -5297,7 +5297,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "asSetting\x0a\x09^ Setting at: self ifAbsent: nil",
+source: "asSetting\x0a\x09\x22Answer aSetting dedicated to locally store a value using this string as key.\x0a\x09Nil will be the default value.\x22\x0a\x09^ Setting at: self ifAbsent: nil",
 referencedClasses: ["Setting"],
 //>>excludeEnd("ide");
 messageSends: ["at:ifAbsent:"]
@@ -5308,22 +5308,22 @@ $core.addMethod(
 $core.method({
 selector: "asSettingIfAbsent:",
 protocol: '*Kernel-Infrastructure',
-fn: function (aString){
+fn: function (aDefaultValue){
 var self=this;
 function $Setting(){return $globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($Setting())._at_ifAbsent_(self,aString);
+$1=$recv($Setting())._at_ifAbsent_(self,aDefaultValue);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aString:aString},$globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aDefaultValue:aDefaultValue},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "asSettingIfAbsent: aString\x0a\x09^ Setting at: self ifAbsent: aString",
+args: ["aDefaultValue"],
+source: "asSettingIfAbsent: aDefaultValue\x0a\x09\x22Answer aSetting dedicated to locally store a value using this string as key.\x0a\x09Make this setting to have aDefaultValue.\x22\x0a\x09^ Setting at: self ifAbsent: aDefaultValue",
 referencedClasses: ["Setting"],
 //>>excludeEnd("ide");
 messageSends: ["at:ifAbsent:"]
@@ -5359,21 +5359,21 @@ $core.addMethod(
 $core.method({
 selector: "settingValue:",
 protocol: '*Kernel-Infrastructure',
-fn: function (aString){
+fn: function (aValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self._asSetting())._value_(aString);
+$1=$recv(self._asSetting())._value_(aValue);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aString:aString},$globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aValue:aValue},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "settingValue: aString\x0a\x09^ self asSetting value: aString",
+args: ["aValue"],
+source: "settingValue: aValue\x0a\x09\x22Sets the value of the setting that will be locally stored using this string as key.\x0a\x09Note that aValue can be any object that can be stringifyed\x22\x0a\x0a\x09^ self asSetting value: aValue",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value:", "asSetting"]
@@ -5384,21 +5384,21 @@ $core.addMethod(
 $core.method({
 selector: "settingValueIfAbsent:",
 protocol: '*Kernel-Infrastructure',
-fn: function (aString){
+fn: function (aDefaultValue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv(self._asSettingIfAbsent_(aString))._value();
+$1=$recv(self._asSettingIfAbsent_(aDefaultValue))._value();
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aString:aString},$globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aDefaultValue:aDefaultValue},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "settingValueIfAbsent: aString\x0a\x09^ (self asSettingIfAbsent: aString) value",
+args: ["aDefaultValue"],
+source: "settingValueIfAbsent: aDefaultValue\x0a\x09\x22Answer the value of the locally stored setting using this string as key.\x0a\x09Use aDefaultValue in case no setting is found\x22\x0a\x09^ (self asSettingIfAbsent: aDefaultValue) value",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["value", "asSettingIfAbsent:"]
