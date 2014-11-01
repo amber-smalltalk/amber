@@ -1051,24 +1051,24 @@ defaultValue
 	^ defaultValue
 !
 
-defaultValue: anObject
-	defaultValue := anObject
+defaultValue: aSringifyableObject
+	defaultValue := aSringifyableObject
 !
 
 key
 	^ key
 !
 
-key: anObject
-	key := anObject
+key: aString
+	key := aString
 !
 
 value
 	^ Smalltalk settings at: self key ifAbsent: [ self defaultValue ]
 !
 
-value: aString
-	^ Smalltalk settings at: self key put: aString
+value: aSringifyableObject
+	^ Smalltalk settings at: self key put: aSringifyableObject
 ! !
 
 !Setting class methodsFor: 'instance creation'!
@@ -1385,22 +1385,31 @@ asJavaScriptSelector
 !
 
 asSetting
+	"Answer aSetting dedicated to locally store a value using this string as key.
+	Nil will be the default value."
 	^ Setting at: self ifAbsent: nil
 !
 
-asSettingIfAbsent: aString
-	^ Setting at: self ifAbsent: aString
+asSettingIfAbsent: aDefaultValue
+	"Answer aSetting dedicated to locally store a value using this string as key.
+	Make this setting to have aDefaultValue."
+	^ Setting at: self ifAbsent: aDefaultValue
 !
 
 settingValue
 	^ self asSetting value
 !
 
-settingValue: aString
-	^ self asSetting value: aString
+settingValue: aValue
+	"Sets the value of the setting that will be locally stored using this string as key.
+	Note that aValue can be any object that can be stringifyed"
+
+	^ self asSetting value: aValue
 !
 
-settingValueIfAbsent: aString
-	^ (self asSettingIfAbsent: aString) value
+settingValueIfAbsent: aDefaultValue
+	"Answer the value of the locally stored setting using this string as key.
+	Use aDefaultValue in case no setting is found"
+	^ (self asSettingIfAbsent: aDefaultValue) value
 ! !
 

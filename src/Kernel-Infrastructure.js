@@ -2725,12 +2725,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultValue:",
 protocol: 'accessing',
-fn: function (anObject){
+fn: function (aSringifyableObject){
 var self=this;
-self["@defaultValue"]=anObject;
+self["@defaultValue"]=aSringifyableObject;
 return self},
-args: ["anObject"],
-source: "defaultValue: anObject\x0a\x09defaultValue := anObject",
+args: ["aSringifyableObject"],
+source: "defaultValue: aSringifyableObject\x0a\x09defaultValue := aSringifyableObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2757,12 +2757,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key:",
 protocol: 'accessing',
-fn: function (anObject){
+fn: function (aString){
 var self=this;
-self["@key"]=anObject;
+self["@key"]=aString;
 return self},
-args: ["anObject"],
-source: "key: anObject\x0a\x09key := anObject",
+args: ["aString"],
+source: "key: aString\x0a\x09key := aString",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2794,16 +2794,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "value:",
 protocol: 'accessing',
-fn: function (aString){
+fn: function (aSringifyableObject){
 var self=this;
 function $Smalltalk(){return globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($Smalltalk())._settings())._at_put_(self._key(),aString);
+$1=_st(_st($Smalltalk())._settings())._at_put_(self._key(),aSringifyableObject);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},globals.Setting)})},
-args: ["aString"],
-source: "value: aString\x0a\x09^ Smalltalk settings at: self key put: aString",
+}, function($ctx1) {$ctx1.fill(self,"value:",{aSringifyableObject:aSringifyableObject},globals.Setting)})},
+args: ["aSringifyableObject"],
+source: "value: aSringifyableObject\x0a\x09^ Smalltalk settings at: self key put: aSringifyableObject",
 messageSends: ["at:put:", "settings", "key"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -3649,7 +3649,7 @@ $1=_st($Setting())._at_ifAbsent_(self,nil);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSetting",{},globals.String)})},
 args: [],
-source: "asSetting\x0a\x09^ Setting at: self ifAbsent: nil",
+source: "asSetting\x0a\x09\x22Answer aSetting dedicated to locally store a value using this string as key.\x0a\x09Nil will be the default value.\x22\x0a\x09^ Setting at: self ifAbsent: nil",
 messageSends: ["at:ifAbsent:"],
 referencedClasses: ["Setting"]
 }),
@@ -3659,16 +3659,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "asSettingIfAbsent:",
 protocol: '*Kernel-Infrastructure',
-fn: function (aString){
+fn: function (aDefaultValue){
 var self=this;
 function $Setting(){return globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Setting())._at_ifAbsent_(self,aString);
+$1=_st($Setting())._at_ifAbsent_(self,aDefaultValue);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aString:aString},globals.String)})},
-args: ["aString"],
-source: "asSettingIfAbsent: aString\x0a\x09^ Setting at: self ifAbsent: aString",
+}, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aDefaultValue:aDefaultValue},globals.String)})},
+args: ["aDefaultValue"],
+source: "asSettingIfAbsent: aDefaultValue\x0a\x09\x22Answer aSetting dedicated to locally store a value using this string as key.\x0a\x09Make this setting to have aDefaultValue.\x22\x0a\x09^ Setting at: self ifAbsent: aDefaultValue",
 messageSends: ["at:ifAbsent:"],
 referencedClasses: ["Setting"]
 }),
@@ -3696,15 +3696,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "settingValue:",
 protocol: '*Kernel-Infrastructure',
-fn: function (aString){
+fn: function (aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._asSetting())._value_(aString);
+$1=_st(self._asSetting())._value_(aValue);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aString:aString},globals.String)})},
-args: ["aString"],
-source: "settingValue: aString\x0a\x09^ self asSetting value: aString",
+}, function($ctx1) {$ctx1.fill(self,"settingValue:",{aValue:aValue},globals.String)})},
+args: ["aValue"],
+source: "settingValue: aValue\x0a\x09\x22Sets the value of the setting that will be locally stored using this string as key.\x0a\x09Note that aValue can be any object that can be stringifyed\x22\x0a\x0a\x09^ self asSetting value: aValue",
 messageSends: ["value:", "asSetting"],
 referencedClasses: []
 }),
@@ -3714,15 +3714,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "settingValueIfAbsent:",
 protocol: '*Kernel-Infrastructure',
-fn: function (aString){
+fn: function (aDefaultValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._asSettingIfAbsent_(aString))._value();
+$1=_st(self._asSettingIfAbsent_(aDefaultValue))._value();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aString:aString},globals.String)})},
-args: ["aString"],
-source: "settingValueIfAbsent: aString\x0a\x09^ (self asSettingIfAbsent: aString) value",
+}, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aDefaultValue:aDefaultValue},globals.String)})},
+args: ["aDefaultValue"],
+source: "settingValueIfAbsent: aDefaultValue\x0a\x09\x22Answer the value of the locally stored setting using this string as key.\x0a\x09Use aDefaultValue in case no setting is found\x22\x0a\x09^ (self asSettingIfAbsent: aDefaultValue) value",
 messageSends: ["value", "asSettingIfAbsent:"],
 referencedClasses: []
 }),
