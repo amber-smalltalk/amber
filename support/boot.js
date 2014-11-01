@@ -1091,10 +1091,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			var colonPosition = stSelector.indexOf(':');
 			return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
 		};
-
-		// Backward-compatible names, deprecated.
-		st.selector = st.st2js;
-		st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
