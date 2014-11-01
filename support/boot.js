@@ -567,8 +567,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			that.selector          = spec.selector;
 			that.jsSelector        = spec.jsSelector;
 			that.args              = spec.args || {};
-			// spec.category is kept for compatibility
-			that.protocol          = spec.protocol || spec.category;
+			that.protocol          = spec.protocol;
 			that.source            = spec.source;
 			that.messageSends      = spec.messageSends || [];
 			that.referencedClasses = spec.referencedClasses || [];
