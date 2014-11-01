@@ -63,17 +63,6 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
         return api.initialize();
     };
 
-    // Backward compatibility, deprecated
-
-    Object.defineProperty(exports, "smalltalk", {
-        value: api,
-        enumerable: true, configurable: true, writable: false
-    });
-    Object.defineProperty(exports, "vm", {
-        value: api,
-        enumerable: true, configurable: true, writable: false
-    });
-
     // Exports
 
     return  exports;
