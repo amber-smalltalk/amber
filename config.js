@@ -4,28 +4,21 @@ var require;
 if (!require) require = {config: function (x) {require = x;}};
 require.config({
   "paths": {
-    "require-css": "bower_components/require-css",
-    "jquery": "bower_components/jquery/jquery",
     "jquery-ui": "bower_components/jquery-ui/jquery-ui",
-    "amber_lib/es5-shim": "bower_components/es5-shim",
+    "jquery": "bower_components/jquery/jquery",
+    "require-css": "bower_components/require-css",
     "codemirror": "bower_components/codemirror",
+    "amber_lib/es5-shim": "bower_components/es5-shim",
     "helios/showdown": "my/helios/bower_components/showdown/src/showdown",
     "requireJS": "node_modules/requirejs/require",
     "bootstrap2.3.2": "my/helios/bower_components/bootstrap2.3.2/bootstrap",
     "amber": "support",
-    "amber_vm": "support/deprecated-vm-files",
-    "amber_vm/_st": "support/deprecated-vm-files/as-receiver",
     "amber_css": "support/resources",
     "amber_core": "src",
     "helios": "my/helios/src",
     "helios/resources": "my/helios/resources",
     "helios/index": "my/helios/index",
     "amber_cli": "external/amber-cli/src"
-  },
-  "map": {
-    "*": {
-      "css": "require-css/css"
-    }
   },
   "shim": {
     "jquery-ui": {
@@ -52,6 +45,11 @@ require.config({
     },
     "ensure-console": {
       "exports": "console"
+    }
+  },
+  "map": {
+    "*": {
+      "css": "require-css/css"
     }
   },
   "rjs_comment1": "require.min should be removed",
