@@ -392,8 +392,6 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: ', function($boot){';
 		lf;
 		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
-		lf;
-		nextPutAll: 'var smalltalk=$core,_st=$recv,globals=$globals;';
 		lf
 ! !
 

@@ -1,6 +1,5 @@
 define("amber_core/Benchfib", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Benchfib');
 $core.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

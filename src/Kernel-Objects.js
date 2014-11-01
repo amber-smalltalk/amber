@@ -1,6 +1,5 @@
 define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Objects');
 $core.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
