@@ -1,18 +1,50 @@
+TL;DR: Setup your Amber clone
+====
+
+Amber repository contains more parts:
+
+1. Amber language itself (in root directory). This is released.
+1. Amber development helpers and CLI tool (in `external/` subdirectories). Not part of release.
+1. In `internal/` directory, there are development files (`index.html` and its friends).  Not part of release.
+1. A place for other modules cloned in parallel with Amber (`my`)[1]. Not part of release. Not pushed to git.
+
+To get your clone, follow this list:
+
+1. Create a fork of the repository on GitHub
+1. Clone the fork and go to its directory.
+1. Install the tools: ```npm install -g amber-cli grunt-cli bower```.
+1. Run ```npm install``` to install dependencies listed in package.json. Used by development tools. See [here](https://www.npmjs.org/doc/cli/npm-install.html) for more info.
+1. Run ```bower install``` to install dependencies listed in bower.json. Used by Amber in browser. See [here](http://bower.io/) for more info.
+1. Get your copy of Helios IDE into directory `my/helios`, depending if you have your fork or want to use stock version:
+  ```git clone git@github.com:<amber-smalltalk | your username>/helios.git my/helios```.
+1. Install Helios' dependencies: ```cd my/helios && bower install && cd ../..```.
+1. Run ```grunt devel```. Prepares some transient files.
+1. Run ```amber serve```. Starts the integrated development server.
+
+Now you should be able to start Amber devlopment page at `http://localhost:4000/internal/` and commit changes you do to disk.
+
+[1] Directory `my` is in .gitignore, so it is not present after clone,
+but because of being in .gitignore, it is "safe haven" to clone other repos into.
+Created especially for being able to have your fork of Amber in parallel with
+either you fork of Helios, to develop it in parallel, or with stock repo, just to use it.
+
 Start Contributing by talking about Amber
 =========================================
 
+* Talk to us on [the gitter.im room](https://gitter.im/amber-smalltalk/amber)
 * Join our [Mailinglist/Google Group](http://groups.google.com/group/amber-lang)
-* Talk to us on [the #amber-lang IRC channel](irc://irc.freenode.net/amber-lang)
 * Follow [@AmberSmalltalk](https://twitter.com/AmberSmalltalk) on Twitter
-* Circle Amber Smalltalk on [Google+](https://plus.google.com/u/0/107038882958653788078) 
+* Circle Amber Smalltalk on [Google+](https://plus.google.com/u/0/107038882958653788078)
+* Talk to us on [the #amber-lang IRC channel](irc://irc.freenode.net/amber-lang)
 
 
 Filing Issues
 =============
 
-If you think Amber is not working as expected, You can start by asking on IRC or the Mailinglist.
+If you think Amber is not working as expected, You can start by asking on gitter room, IRC or the Mailinglist.
 Please make sure that you have first checked the following guides:
 
+**TODO** update these
 * [Getting Started](https://github.com/amber-smalltalk/amber/wiki/Getting-started)
 * [Writing My First App](https://github.com/amber-smalltalk/amber/wiki/Writing-my-first-app)
 * [How To Load Amber](https://github.com/amber-smalltalk/amber/wiki/How-to-load-amber)
@@ -30,6 +62,7 @@ If you don't list the exact steps required to reproduce the issue we won't be ab
 Afterwards, report the issue on one of the following trackers:
 
 * [Amber Issues](https://github.com/amber-smalltalk/amber/issues)
+* [Helios IDE Issues](https://github.com/amber-smalltalk/helios/issues)
 * [Amber Examples Issues](https://github.com/amber-smalltalk/amber-examples/issues)
 * [Amber Website Issues](https://github.com/amber-smalltalk/amber-website/issues)
 
@@ -49,47 +82,11 @@ If you want to get started developing Amber itself there are a few links to get 
 If you want to get serious with Amber development you should read the [Coding Conventions](https://github.com/amber-smalltalk/amber/wiki/Coding-conventions)
 and check if you have all development dependencies installed (as indicated in [Getting Started](https://github.com/amber-smalltalk/amber/wiki/Getting-started)):
 
-* Git (to get a clone of the repository)
+* Git (to get a clone of the repository, use Git for Windows in Windows)
 * Node.js (to run the Amber development server)
 * NPM (to install required Node.js packages)
 * Bower (to install required client side libraries)
 * Grunt-Cli (to compile Amber on the commandline)
-
- 
-Setup your Amber clone
-----------------------
-
-Amber repository contains more parts:
-
-1. Amber language itself (in root directory),
-1. Amber development helpers (in `external/amber-dev`),
-1. Amber CLI tool (in `external/amber-cli`).
-1. In `internal` directory, there are files that are not part of Amber,
-  but are important to developers wanting to contribute to Amber.
-1. A place for other modules cloned in parallel with Amber (`my`).
-  Directory `my` is in .gitignore, so it is not present after clone,
-  but because of being in .gitignore, it is "safe haven"
-  to clone other repos into.
-
-To get your clone, follow this list:
-
-1. Create a fork of the repository on GitHub
-2. Clone the repository and go to its directory.
-3. Run ```npm install``` to install dependencies listed in package.json (See [here](https://www.npmjs.org/doc/cli/npm-install.html for more info) for more info)
-4. Run ```bower install``` to install dependencies listed in bower.json (See [here](http://bower.io/) for more info)
-  - requires bower to be installed via ```npm install -g bower```.
-4. Get your copy of Helios IDE into directory `my/helios`,
-  depending if you have your fork or want to use stock version:
-  ```git clone git@github.com:<amber-smalltalk | your username>/helios.git my/helios```.
-4. Install its dependencies: ```cd my/helios && bower install && cd ../..```.
-5. Install the cli tool: ```npm install -g amber-cli```.
-6. Install the grunt cli runner: ```npm install -g grunt-cli```.
-6. Run ```grunt amdconfig```.
-6. Run ```amber serve```.
-
-Now you should be able to commit changes to your computer.
-
-You should open `http://localhost:4000/internal/` to start working on Amber.
 
 Creating a Pull Request
 -----------------------
@@ -111,16 +108,10 @@ The Amber development model currently revolves around Pull Requests which are cr
 Compiling Amber with Grunt
 --------------------------
 
-Amber uses [Grunt.js](http://gruntjs.com/) as build system since version `0.10.0`.
+Amber uses [Grunt.js](http://gruntjs.com/) as build system since version `0.10.0` (in case of Windows issues check the [Grunt.js on Windows](http://gruntjs.com/frequently-asked-questions#does-grunt-work-on-windows)).
 
-To install Grunt.js v0.4.x on the commandline execute the following commands:
+If you created your clone according to the "Setting up your Amber clone", you should run
 
-    npm install -g grunt-cli
-
-Make sure that you have installed all required dependencies via `npm` and `bower`.
-Then you can finally compile Amber using the following command:
-
-    cd ${Amber_DIR}
     grunt
 
-For Windows support check the [Grunt.js on Windows](http://gruntjs.com/frequently-asked-questions#does-grunt-work-on-windows) page.
+in Amber directory to start building from CLI.
