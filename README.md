@@ -57,6 +57,19 @@ The [Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-star
 [1] For installation to work, you need to install `node`, `npm` and `git` (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
 
 
+Reporting issues
+--------------
+
+  - Report issues with the www.amber-lang.net website here: https://github.com/amber-smalltalk/amber-website/issues.
+  - Report issues with the docs.amber-lang.net website here: https://github.com/amber-smalltalk/documentation/issues.
+  - Report issues with Amber itself or `amber` / `amberc` cli tools here: https://github.com/amber-smalltalk/amber/issues.
+Issues related to questions during `amber init` and structure of project created should be reported
+to https://github.com/amber-smalltalk/grunt-init-amber/issues instead.
+  - Report issues with the Helios IDE here: https://github.com/amber-smalltalk/helios/issues.
+
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for further details.
+
+
 Developing Amber
 --------------
 
