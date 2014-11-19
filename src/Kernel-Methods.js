@@ -2718,32 +2718,6 @@ messageSends: []
 }),
 $globals.MethodContext);
 
-$core.addMethod(
-$core.method({
-selector: "temps",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=self._locals();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"temps",{},$globals.MethodContext)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "temps\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ self locals",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "locals"]
-}),
-$globals.MethodContext);
-
 
 
 $core.addClass('NativeFunction', $globals.Object, [], 'Kernel-Methods');

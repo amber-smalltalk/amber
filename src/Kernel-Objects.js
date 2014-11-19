@@ -1620,32 +1620,6 @@ $globals.Object);
 
 $core.addMethod(
 $core.method({
-selector: "try:catch:",
-protocol: 'error handling',
-fn: function (aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(aBlock)._tryCatch_(anotherBlock);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anotherBlock"],
-source: "try: aBlock catch: anotherBlock\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ aBlock tryCatch: anotherBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "tryCatch:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
 selector: "value",
 protocol: 'accessing',
 fn: function (){

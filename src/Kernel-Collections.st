@@ -352,12 +352,6 @@ putOn: aStream
 
 !Collection methodsFor: 'testing'!
 
-contains: aBlock
-	self deprecatedAPI.
-
-	^ self anySatisfy: aBlock
-!
-
 ifEmpty: aBlock
 	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. 
 	Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: 
@@ -1527,11 +1521,6 @@ asNumber
 
 asRegexp
 	^ RegularExpression fromString: self
-!
-
-asSelector
-	self deprecatedAPI: 'Use #asJavaScriptMethodName'.
-	^ self asJavaScriptMethodName
 !
 
 asString
