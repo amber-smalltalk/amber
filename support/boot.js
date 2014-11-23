@@ -986,7 +986,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
 			if(method) {
-				return method.apply(receiver, args);
+				return method.apply(receiver, args || []);
 			} else {
 				return messageNotUnderstood(receiver, st.js2st(jsSelector), args);
 			}
@@ -1028,7 +1028,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		function accessJavaScript(receiver, propertyName, args) {
 			var propertyValue = receiver[propertyName];
 			if (typeof propertyValue === "function" && !/^[A-Z]/.test(propertyName)) {
-				return propertyValue.apply(receiver, args);
+				return propertyValue.apply(receiver, args || []);
 			} else if (args.length > 0) {
 				receiver[propertyName] = args[0];
 				return nil;
