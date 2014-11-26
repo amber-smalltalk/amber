@@ -700,7 +700,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		brikz.ensure("classInit");
 		brikz.ensure("classes");
-		var nil = brikz.ensure("root").nil;
 
 		var initialized = false;
 
