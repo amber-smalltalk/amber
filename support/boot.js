@@ -606,12 +606,16 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 		}
 
-		/* Add/remove a method to/from a class */
-
-		st.addMethod = function (method, klass) {
+		function ensureJsSelector(method) {
 			if (!(method.jsSelector)) {
 				method.jsSelector = st.st2js(method.selector);
 			}
+		}
+
+		/* Add/remove a method to/from a class */
+
+		st.addMethod = function (method, klass) {
+			ensureJsSelector(method);
 			manip.installMethod(method, klass);
 			klass.methods[method.selector] = method;
 			method.methodClass = klass;
@@ -661,7 +665,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 						klass.className);
 			}
 
-			delete klass.fn.prototype[st.st2js(method.selector)];
+			ensureJsSelector(method);
+			delete klass.fn.prototype[method.jsSelector];
 			delete klass.methods[method.selector];
 
 			st.initClass(klass);
