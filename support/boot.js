@@ -250,6 +250,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 		};
 
+		st.initMethodInClass = function(klass, method) {
+			if(klass.wrapped) {
+				copySuperclass(klass);
+				dnu.installHandlers(klass);
+			}
+		};
+
 		function copySuperclass(klass, superclass) {
 			var inheritedMethods = Object.create(null);
 			deinstallAllMethods(klass);
@@ -625,7 +632,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// Therefore we populate the organizer here too
 			org.addOrganizationElement(klass, method.protocol);
 
-			propagateMethodChange(klass);
+			propagateMethodChange(klass, method);
 
 			var usedSelectors = method.messageSends;
 			var dnuHandlers = [];
@@ -643,7 +650,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 		};
 
-		function propagateMethodChange(klass) {
+		function propagateMethodChange(klass, method) {
 			// If already initialized (else it will be done later anyway),
 			// re-initialize all subclasses to ensure the method change
 			// propagation (for wrapped classes, not using the prototype
@@ -652,7 +659,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			//TODO: optimize, only one method need to be updated, not all of them
 			if (stInit.initialized()) {
 				st.allSubclasses(klass).forEach(function (subclass) {
-					st.initClass(subclass);
+					st.initMethodInClass(subclass, method);
 				});
 			}
 		}
@@ -670,8 +677,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			delete klass.fn.prototype[method.jsSelector];
 			delete klass.methods[method.selector];
 
-			st.initClass(klass);
-			propagateMethodChange(klass);
+			st.initMethodInClass(klass, method);
+			propagateMethodChange(klass, method);
 
 			// Do *not* delete protocols from here.
 			// This is handled by #removeCompiledMethod
