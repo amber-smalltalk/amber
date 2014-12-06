@@ -237,18 +237,20 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 metaclasses. */
 
 		st.init = function(klass) {
-			st.initClass(klass);
+			initClass(klass);
 			if(klass.klass && !klass.meta) {
-				st.initClass(klass.klass);
+				initClass(klass.klass);
 			}
 		};
 
-		st.initClass = function(klass) {
+		function initClass(klass) {
 			if(klass.wrapped) {
 				copySuperclass(klass);
 				dnu.installHandlers(klass);
 			}
-		};
+		}
+
+		this.initClass = initClass;
 
 		function copySuperclass(klass, superclass) {
 			var inheritedMethods = Object.create(null);
@@ -315,7 +317,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		var org = brikz.ensure("organize");
 		var root = brikz.ensure("root");
-		brikz.ensure("classInit");
+		var classInit = brikz.ensure("classInit");
 		var nil = root.nil;
 		var rootAsClass = root.rootAsClass;
 		var SmalltalkObject = root.Object;
@@ -536,7 +538,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// The fn property changed. We need to add back the klass property to the prototype
 			wireKlass(klass);
 
-			st.initClass(klass);
+			classInit.initClass(klass);
 		};
 
 		/* Create an alias for an existing class */

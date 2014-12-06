@@ -2770,7 +2770,6 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aCompiledMethod)._protocol_(aString);
 $recv(aBehavior)._addCompiledMethod_(aCompiledMethod);
-self._setupClass_(aBehavior);
 return aCompiledMethod;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"installMethod:forClass:protocol:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString},$globals.ClassBuilder)});
@@ -2778,10 +2777,10 @@ return aCompiledMethod;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCompiledMethod", "aBehavior", "aString"],
-source: "installMethod: aCompiledMethod forClass: aBehavior protocol: aString\x0a\x09aCompiledMethod protocol: aString.\x0a\x09aBehavior addCompiledMethod: aCompiledMethod.\x0a\x09self setupClass: aBehavior.\x0a\x09^ aCompiledMethod",
+source: "installMethod: aCompiledMethod forClass: aBehavior protocol: aString\x0a\x09aCompiledMethod protocol: aString.\x0a\x09aBehavior addCompiledMethod: aCompiledMethod.\x0a\x09^ aCompiledMethod",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["protocol:", "addCompiledMethod:", "setupClass:"]
+messageSends: ["protocol:", "addCompiledMethod:"]
 }),
 $globals.ClassBuilder);
 

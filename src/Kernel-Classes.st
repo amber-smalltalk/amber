@@ -703,7 +703,6 @@ copyClass: aClass to: anotherClass
 installMethod: aCompiledMethod forClass: aBehavior protocol: aString
 	aCompiledMethod protocol: aString.
 	aBehavior addCompiledMethod: aCompiledMethod.
-	self setupClass: aBehavior.
 	^ aCompiledMethod
 ! !
 
