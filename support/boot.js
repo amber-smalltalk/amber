@@ -190,18 +190,19 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Method not implemented handlers */
 
-		var methods = [], checker = Object.create(null);
+		var methods = [], methodDict = Object.create(null), checker = Object.create(null);
 		this.selectors = [];
 
 		this.get = function (stSelector) {
-			var index = this.selectors.indexOf(stSelector);
-			if(index !== -1) {
-				return methods[index];
+			var method = methodDict[stSelector];
+			if(method) {
+				return method;
 			}
 			this.selectors.push(stSelector);
 			var jsSelector = st.st2js(stSelector);
 			checker[jsSelector] = true;
 			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
+			methodDict[stSelector] = method;
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
 			return method;
