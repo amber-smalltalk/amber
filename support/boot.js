@@ -806,6 +806,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 							'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
 							'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
 							'try', 'typeof', 'var', 'void', 'while', 'with',
+							// Amber protected words: these should not be compiled as-is when in code
+							'arguments',
 							// ES5: future use: http://es5.github.com/#x7.6.1.2
 							'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
 							// ES5: future use in strict mode
