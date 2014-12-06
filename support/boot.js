@@ -250,13 +250,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 		};
 
-		st.initMethodInClass = function(klass, method) {
-			if(klass.wrapped) {
-				copySuperclass(klass);
-				dnu.installHandlers(klass);
-			}
-		};
-
 		function copySuperclass(klass, superclass) {
 			var inheritedMethods = Object.create(null);
 			deinstallAllMethods(klass);
@@ -580,7 +573,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var SmalltalkObject = brikz.ensure("root").Object;
 		brikz.ensure("selectorConversion");
 		brikz.ensure("classes");
-		brikz.ensure("classInit");
 
 		function SmalltalkMethod() {}
 		inherits(SmalltalkMethod, SmalltalkObject);
@@ -656,11 +648,20 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// propagation (for wrapped classes, not using the prototype
 			// chain).
 
-			//TODO: optimize, only one method need to be updated, not all of them
 			if (stInit.initialized()) {
 				st.allSubclasses(klass).forEach(function (subclass) {
-					st.initMethodInClass(subclass, method);
+					initMethodInClass(subclass, method);
 				});
+			}
+		}
+
+		function initMethodInClass (klass, method) {
+			if (klass.wrapped && !klass.methods[method.selector]) {
+				var jsSelector = method.jsSelector;
+				manip.installMethod({
+					jsSelector: jsSelector,
+					fn: klass.superclass.fn.prototype[jsSelector]
+				}, klass);
 			}
 		}
 
@@ -677,7 +678,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			delete klass.fn.prototype[method.jsSelector];
 			delete klass.methods[method.selector];
 
-			st.initMethodInClass(klass, method);
+			initMethodInClass(klass, method);
 			propagateMethodChange(klass, method);
 
 			// Do *not* delete protocols from here.
