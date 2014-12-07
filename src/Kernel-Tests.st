@@ -1776,6 +1776,13 @@ testDNURegression1062
 	self assert: stored equals: 4
 !
 
+testDNUWithAllowJavaScriptCalls
+	| jsObject |
+	jsObject := #().
+	jsObject basicAt: 'allowJavaScriptCalls' put: true.
+	self should: [ jsObject foo ] raise: MessageNotUnderstood
+!
+
 testMessageSend
 
 	self assert: self jsObject a equals: 1.

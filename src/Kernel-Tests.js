@@ -9950,6 +9950,42 @@ $globals.JSObjectProxyTest);
 
 $core.addMethod(
 $core.method({
+selector: "testDNUWithAllowJavaScriptCalls",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var jsObject;
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+jsObject=[];
+$recv(jsObject)._basicAt_put_("allowJavaScriptCalls",true);
+self._should_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(jsObject)._foo();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$MessageNotUnderstood());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testDNUWithAllowJavaScriptCalls",{jsObject:jsObject},$globals.JSObjectProxyTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testDNUWithAllowJavaScriptCalls\x0a\x09| jsObject |\x0a\x09jsObject := #().\x0a\x09jsObject basicAt: 'allowJavaScriptCalls' put: true.\x0a\x09self should: [ jsObject foo ] raise: MessageNotUnderstood",
+referencedClasses: ["MessageNotUnderstood"],
+//>>excludeEnd("ide");
+messageSends: ["basicAt:put:", "should:raise:", "foo"]
+}),
+$globals.JSObjectProxyTest);
+
+$core.addMethod(
+$core.method({
 selector: "testMessageSend",
 protocol: 'tests',
 fn: function (){
