@@ -237,18 +237,20 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 metaclasses. */
 
 		st.init = function(klass) {
-			st.initClass(klass);
+			initClass(klass);
 			if(klass.klass && !klass.meta) {
-				st.initClass(klass.klass);
+				initClass(klass.klass);
 			}
 		};
 
-		st.initClass = function(klass) {
+		function initClass(klass) {
 			if(klass.wrapped) {
 				copySuperclass(klass);
 				dnu.installHandlers(klass);
 			}
-		};
+		}
+
+		this.initClass = initClass;
 
 		function copySuperclass(klass, superclass) {
 			var inheritedMethods = Object.create(null);
@@ -315,7 +317,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		var org = brikz.ensure("organize");
 		var root = brikz.ensure("root");
-		brikz.ensure("classInit");
+		var classInit = brikz.ensure("classInit");
 		var nil = root.nil;
 		var rootAsClass = root.rootAsClass;
 		var SmalltalkObject = root.Object;
@@ -536,7 +538,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// The fn property changed. We need to add back the klass property to the prototype
 			wireKlass(klass);
 
-			st.initClass(klass);
+			classInit.initClass(klass);
 		};
 
 		/* Create an alias for an existing class */
@@ -573,7 +575,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var SmalltalkObject = brikz.ensure("root").Object;
 		brikz.ensure("selectorConversion");
 		brikz.ensure("classes");
-		brikz.ensure("classInit");
 
 		function SmalltalkMethod() {}
 		inherits(SmalltalkMethod, SmalltalkObject);
@@ -625,7 +626,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// Therefore we populate the organizer here too
 			org.addOrganizationElement(klass, method.protocol);
 
-			propagateMethodChange(klass);
+			propagateMethodChange(klass, method);
 
 			var usedSelectors = method.messageSends;
 			var dnuHandlers = [];
@@ -643,17 +644,26 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			}
 		};
 
-		function propagateMethodChange(klass) {
+		function propagateMethodChange(klass, method) {
 			// If already initialized (else it will be done later anyway),
 			// re-initialize all subclasses to ensure the method change
 			// propagation (for wrapped classes, not using the prototype
 			// chain).
 
-			//TODO: optimize, only one method need to be updated, not all of them
 			if (stInit.initialized()) {
 				st.allSubclasses(klass).forEach(function (subclass) {
-					st.initClass(subclass);
+					initMethodInClass(subclass, method);
 				});
+			}
+		}
+
+		function initMethodInClass (klass, method) {
+			if (klass.wrapped && !klass.methods[method.selector]) {
+				var jsSelector = method.jsSelector;
+				manip.installMethod({
+					jsSelector: jsSelector,
+					fn: klass.superclass.fn.prototype[jsSelector]
+				}, klass);
 			}
 		}
 
@@ -670,8 +680,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			delete klass.fn.prototype[method.jsSelector];
 			delete klass.methods[method.selector];
 
-			st.initClass(klass);
-			propagateMethodChange(klass);
+			initMethodInClass(klass, method);
+			propagateMethodChange(klass, method);
 
 			// Do *not* delete protocols from here.
 			// This is handled by #removeCompiledMethod
