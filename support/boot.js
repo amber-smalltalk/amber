@@ -190,26 +190,23 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Method not implemented handlers */
 
-		var methods = [], methodDict = Object.create(null), checker = Object.create(null);
+		var methods = [], methodDict = Object.create(null);
 		this.selectors = [];
+		this.jsSelectors = [];
 
 		this.get = function (stSelector) {
 			var method = methodDict[stSelector];
 			if(method) {
 				return method;
 			}
-			this.selectors.push(stSelector);
 			var jsSelector = st.st2js(stSelector);
-			checker[jsSelector] = true;
+			this.selectors.push(stSelector);
+			this.jsSelectors.push(jsSelector);
 			method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methodDict[stSelector] = method;
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
 			return method;
-		};
-
-		this.isSelector = function (jsSelector) {
-			return checker[jsSelector];
 		};
 
 		/* Dnu handler method */
@@ -219,19 +216,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				return brikz.messageSend.messageNotUnderstood(this, stSelector, arguments);
 			};
 		}
-
-		this.installHandlers = function (klass) {
-			for(var i=0; i<methods.length; i++) {
-				manip.installMethodIfAbsent(methods[i], klass);
-			}
-		};
 	}
 
 	function ClassInitBrik(brikz, st) {
 
 		var dnu = brikz.ensure("dnu");
 		var manip = brikz.ensure("manipulation");
-		var nil = brikz.ensure("root").nil;
 
 		/* Initialize a class in its class hierarchy. Handle both classes and
 		 metaclasses. */
@@ -246,46 +236,27 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		function initClass(klass) {
 			if(klass.wrapped) {
 				copySuperclass(klass);
-				dnu.installHandlers(klass);
 			}
 		}
 
 		this.initClass = initClass;
 
-		function copySuperclass(klass, superclass) {
-			var inheritedMethods = Object.create(null);
-			deinstallAllMethods(klass);
-			for (superclass = superclass || klass.superclass;
-				 superclass && superclass !== nil;
-				 superclass = superclass.superclass) {
-				for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
-					inheritMethodIfAbsent(superclass.methods[keys[i]]);
+		function copySuperclass(klass) {
+			var superclass = klass.superclass,
+				localMethods = klass.methods,
+				protectedJsSelectors = {};
+			Object.keys(localMethods).forEach(function (each) {
+				protectedJsSelectors[localMethods[each].jsSelector] = true;
+			});
+			var superproto = superclass.fn.prototype;
+			dnu.jsSelectors.forEach(function (selector) {
+				if (!protectedJsSelectors[selector]) {
+					manip.installMethod({
+						jsSelector: selector,
+						fn: superproto[selector]
+					}, klass);
 				}
-			}
-			manip.reinstallMethods(klass);
-
-			function inheritMethodIfAbsent(method) {
-				var selector = method.selector;
-
-				//TODO: prepare klass methods into inheritedMethods to only test once
-				if(klass.methods[selector] || inheritedMethods[selector]) {
-					return;
-				}
-
-				manip.installMethod(method, klass);
-				inheritedMethods[method.selector] = true;
-			}
-
-		}
-
-		function deinstallAllMethods(klass) {
-			var proto = klass.fn.prototype;
-			for(var keys = Object.getOwnPropertyNames(proto), i=0; i<keys.length; i++) {
-				var key = keys[i];
-				if (dnu.isSelector(key)) {
-					proto[key] = null;
-				}
-			}
+			});
 		}
 	}
 
@@ -304,13 +275,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			});
 		}
 		this.installMethod = installMethod;
-
-		this.reinstallMethods = function (klass) {
-			var methods = klass.methods;
-			for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
-				installMethod(methods[keys[i]], klass);
-			}
-		};
 	}
 
 	function ClassesBrik(brikz, st) {
