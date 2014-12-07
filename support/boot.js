@@ -201,7 +201,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			this.selectors.push(stSelector);
 			var jsSelector = st.st2js(stSelector);
 			checker[jsSelector] = true;
-			var method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
+			method = {jsSelector: jsSelector, fn: createHandler(stSelector)};
 			methodDict[stSelector] = method;
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
@@ -969,7 +969,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		function pushContext(setup) {
 			var newContext = st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
-            return newContext;
+			return newContext;
 		}
 
 		function popContext(context) {
