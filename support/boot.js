@@ -277,6 +277,55 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		this.installMethod = installMethod;
 	}
 
+
+	function PackagesBrik(brikz, st) {
+
+		var org = brikz.ensure("organize");
+		var root = brikz.ensure("root");
+		var nil = root.nil;
+		var SmalltalkObject = root.Object;
+
+		function SmalltalkPackage() {}
+
+		inherits(SmalltalkPackage, SmalltalkObject);
+
+		this.__init__ = function () {
+			st.addPackage("Kernel-Infrastructure");
+			st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, globals.Object, false);
+		};
+
+		st.packages = {};
+
+		/* Smalltalk package creation. To add a Package, use smalltalk.addPackage() */
+
+		function pkg(spec) {
+			var that = new SmalltalkPackage();
+			that.pkgName = spec.pkgName;
+			org.setupPackageOrganization(that);
+			that.properties = spec.properties || {};
+			return that;
+		}
+
+		/* Add a package to the smalltalk.packages object, creating a new one if needed.
+		 If pkgName is null or empty we return nil, which is an allowed package for a class.
+		 If package already exists we still update the properties of it. */
+
+		st.addPackage = function(pkgName, properties) {
+			if(!pkgName) {return nil;}
+			if(!(st.packages[pkgName])) {
+				st.packages[pkgName] = pkg({
+					pkgName: pkgName,
+					properties: properties
+				});
+			} else {
+				if(properties) {
+					st.packages[pkgName].properties = properties;
+				}
+			}
+			return st.packages[pkgName];
+		};
+	}
+
 	function ClassesBrik(brikz, st) {
 
 		var org = brikz.ensure("organize");
@@ -287,12 +336,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		var SmalltalkObject = root.Object;
 		rootAsClass.klass = {fn: SmalltalkClass};
 
-		function SmalltalkPackage() {}
 		function SmalltalkBehavior() {}
 		function SmalltalkClass() {}
 		function SmalltalkMetaclass() {}
 
-		inherits(SmalltalkPackage, SmalltalkObject);
 		inherits(SmalltalkBehavior, SmalltalkObject);
 		inherits(SmalltalkClass, SmalltalkBehavior);
 		inherits(SmalltalkMetaclass, SmalltalkBehavior);
@@ -308,29 +355,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			// Manually bootstrap the metaclass hierarchy
 			globals.ProtoObject.klass.superclass = rootAsClass.klass = globals.Class;
 			addSubclass(globals.ProtoObject.klass);
-
-			st.addPackage("Kernel-Infrastructure");
-			st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, globals.Object, false);
 		};
 
 		/* Smalltalk classes */
 
 		var classes = [];
 		var wrappedClasses = [];
-
-		/* We hold all Packages in a separate Object */
-
-		st.packages = {};
-
-		/* Smalltalk package creation. To add a Package, use smalltalk.addPackage() */
-
-		function pkg(spec) {
-			var that = new SmalltalkPackage();
-			that.pkgName = spec.pkgName;
-			org.setupPackageOrganization(that);
-			that.properties = spec.properties || {};
-			return that;
-		}
 
 		/* Smalltalk class creation. A class is an instance of an automatically
 		 created metaclass object. Newly created classes (not their metaclass)
@@ -393,25 +423,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			});
 			wireKlass(klass);
 		}
-
-		/* Add a package to the smalltalk.packages object, creating a new one if needed.
-		 If pkgName is null or empty we return nil, which is an allowed package for a class.
-		 If package already exists we still update the properties of it. */
-
-		st.addPackage = function(pkgName, properties) {
-			if(!pkgName) {return nil;}
-			if(!(st.packages[pkgName])) {
-				st.packages[pkgName] = pkg({
-					pkgName: pkgName,
-					properties: properties
-				});
-			} else {
-				if(properties) {
-					st.packages[pkgName].properties = properties;
-				}
-			}
-			return st.packages[pkgName];
-		};
 
 		/* Add a class to the smalltalk object, creating a new one if needed.
 		 A Package is lazily created if it does not exist with given name. */
@@ -1127,6 +1138,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	brikz.selectorConversion = SelectorConversionBrik;
 	brikz.classInit = ClassInitBrik;
 	brikz.manipulation = ManipulationBrik;
+	brikz.packages = PackagesBrik;
 	brikz.classes = ClassesBrik;
 	brikz.methods = MethodsBrik;
 	brikz.stInit = SmalltalkInitBrik;
