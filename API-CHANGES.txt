@@ -3,6 +3,10 @@
 + Object >>
   + asJQuery
   + asJQueryInContext:
++ BlockClosure >>
+  + asJQuery
+  + asJQueryInContext:
+
 
 0.13.2:
 

@@ -1109,6 +1109,14 @@ appendToBrush: aTagBrush
 
 appendToJQuery: aJQuery
 	self value: (HTMLCanvas onJQuery: aJQuery)
+!
+
+asJQuery
+	^ {self} asJQuery
+!
+
+asJQueryInContext: aContext
+	^ {self} asJQueryInContext: aContext
 ! !
 
 !CharacterArray methodsFor: '*Web'!

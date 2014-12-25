@@ -5399,6 +5399,56 @@ $globals.BlockClosure);
 
 $core.addMethod(
 $core.method({
+selector: "asJQuery",
+protocol: '*Web',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv([self])._asJQuery();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},$globals.BlockClosure)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "asJQuery\x0a\x09^ {self} asJQuery",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["asJQuery"]
+}),
+$globals.BlockClosure);
+
+$core.addMethod(
+$core.method({
+selector: "asJQueryInContext:",
+protocol: '*Web',
+fn: function (aContext){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv([self])._asJQueryInContext_(aContext);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},$globals.BlockClosure)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aContext"],
+source: "asJQueryInContext: aContext\x0a\x09^ {self} asJQueryInContext: aContext",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["asJQueryInContext:"]
+}),
+$globals.BlockClosure);
+
+$core.addMethod(
+$core.method({
 selector: "asSnippet",
 protocol: '*Web',
 fn: function (){
