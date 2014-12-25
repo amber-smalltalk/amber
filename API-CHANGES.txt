@@ -1,3 +1,9 @@
+0.14.0:
+
++ Object >>
+  + asJQuery
+  + asJQueryInContext:
+
 0.13.2:
 
 + SourceArea class >>

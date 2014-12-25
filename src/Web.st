@@ -1137,6 +1137,14 @@ appendToJQuery: aJQuery
 	aJQuery append: self asString
 !
 
+asJQuery
+	<return jQuery(self)>
+!
+
+asJQueryInContext: aContext
+	<return jQuery(self, aContext)>
+!
+
 postMessageTo: aFrame
 ^ self postMessageTo: aFrame origin: '*'
 !

@@ -5521,6 +5521,54 @@ $globals.Object);
 
 $core.addMethod(
 $core.method({
+selector: "asJQuery",
+protocol: '*Web',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+return jQuery(self);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},$globals.Object)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "asJQuery\x0a\x09<return jQuery(self)>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Object);
+
+$core.addMethod(
+$core.method({
+selector: "asJQueryInContext:",
+protocol: '*Web',
+fn: function (aContext){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) { 
+//>>excludeEnd("ctx");
+return jQuery(self, aContext);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"asJQueryInContext:",{aContext:aContext},$globals.Object)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aContext"],
+source: "asJQueryInContext: aContext\x0a\x09<return jQuery(self, aContext)>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Object);
+
+$core.addMethod(
+$core.method({
 selector: "postMessageTo:",
 protocol: '*Web',
 fn: function (aFrame){
