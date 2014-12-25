@@ -54,7 +54,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self._deprecatedAPI();
@@ -80,7 +80,7 @@ protocol: 'accessing',
 fn: function (aValuable){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI();
 self._valuable_(aValuable);
@@ -105,7 +105,7 @@ protocol: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._handlesAnnouncement_(anAnnouncement);
@@ -134,7 +134,7 @@ fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$receiver;
 $3=$recv($Smalltalk())._globals();
@@ -177,7 +177,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._valuable())._receiver();
@@ -325,7 +325,7 @@ protocol: 'evaluating',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._valuable())._value();
@@ -350,7 +350,7 @@ protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(self._valuable())._value_(anObject);
@@ -381,7 +381,7 @@ protocol: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(self["@subscriptions"])._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -414,7 +414,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -446,7 +446,7 @@ protocol: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._on_do_for_(aClass,aBlock,nil);
 return self;
@@ -472,7 +472,7 @@ var self=this;
 function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $AnnouncementValuable(){return $globals.AnnouncementValuable||(typeof AnnouncementValuable=="undefined"?nil:AnnouncementValuable)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$4,$6,$7,$5,$8,$2;
 $1=self["@subscriptions"];
@@ -520,7 +520,7 @@ var self=this;
 var subscription;
 function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=$recv($AnnouncementSubscription())._new();
@@ -561,7 +561,7 @@ var self=this;
 function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$4,$6,$7,$5,$8,$2;
 $1=self["@subscriptions"];
@@ -604,7 +604,7 @@ protocol: 'subscribing',
 fn: function (anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self["@subscriptions"]=$recv(self["@subscriptions"])._reject_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -644,7 +644,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
 $2=self["@current"];
@@ -682,7 +682,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._shouldNotImplement();
 return self;
@@ -1117,7 +1117,7 @@ fn: function (){
 var self=this;
 function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$3,$4;
 $2=self._protocol();

@@ -15,7 +15,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(aVisitor)._visitIRInlinedAssignment_(self);
@@ -64,7 +64,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitIRInlinedClosure_(self);
 return self;
@@ -112,7 +112,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(aVisitor)._visitIRInlinedReturn_(self);
@@ -161,7 +161,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitInlinedSend_(self);
 return self;
@@ -229,7 +229,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitIRInlinedIfFalse_(self);
 return self;
@@ -259,7 +259,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitIRInlinedIfNilIfNotNil_(self);
 return self;
@@ -284,7 +284,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($Array())._with_(self._receiverInternalVariable());
@@ -311,7 +311,7 @@ var self=this;
 function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=$recv($IRVariable())._new();
@@ -366,7 +366,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitIRInlinedIfTrue_(self);
 return self;
@@ -396,7 +396,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitIRInlinedIfTrueIfFalse_(self);
 return self;
@@ -426,7 +426,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aVisitor)._visitIRInlinedSequence_(self);
 return self;
@@ -475,7 +475,7 @@ fn: function (){
 var self=this;
 function $IRAssignmentInliner(){return $globals.IRAssignmentInliner||(typeof IRAssignmentInliner=="undefined"?nil:IRAssignmentInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=$recv($IRAssignmentInliner())._new();
@@ -504,7 +504,7 @@ fn: function (){
 var self=this;
 function $IRReturnInliner(){return $globals.IRReturnInliner||(typeof IRReturnInliner=="undefined"?nil:IRReturnInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=$recv($IRReturnInliner())._new();
@@ -533,7 +533,7 @@ fn: function (){
 var self=this;
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=$recv($IRSendInliner())._new();
@@ -561,7 +561,7 @@ protocol: 'testing',
 fn: function (anIRAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $1=$recv($recv($recv(anIRAssignment)._isInlined())._not())._and_((function(){
@@ -614,7 +614,7 @@ protocol: 'testing',
 fn: function (anIRReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 $1=$recv($recv($recv(anIRReturn)._isInlined())._not())._and_((function(){
@@ -668,7 +668,7 @@ fn: function (anIRSend){
 var self=this;
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($recv($recv(anIRSend)._isInlined())._not())._and_((function(){
@@ -703,7 +703,7 @@ var self=this;
 var localReturn;
 function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$6,$7,$8,$9;
 $2=$recv(anIRNonLocalReturn)._scope();
@@ -769,7 +769,7 @@ protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._shouldInlineAssignment_(anIRAssignment);
@@ -806,7 +806,7 @@ protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._transformNonLocalReturn_(anIRNonLocalReturn);
@@ -831,7 +831,7 @@ protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._shouldInlineReturn_(anIRReturn);
@@ -868,7 +868,7 @@ protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=self._shouldInlineSend_(anIRSend);
@@ -911,7 +911,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedAssignment){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._visit_($recv($recv(anIRInlinedAssignment)._instructions())._last());
 return self;
@@ -935,7 +935,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedClosure){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(self._stream())._nextPutVars_($recv($recv(anIRInlinedClosure)._tempDeclarations())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -976,7 +976,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedIfFalse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 $1=self._stream();
@@ -1038,7 +1038,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedIfNilIfNotNil){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$7,$6;
 $1=self._stream();
@@ -1120,7 +1120,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedIfTrue){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 $1=self._stream();
@@ -1182,7 +1182,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedIfTrueIfFalse){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$6,$5;
 $1=self._stream();
@@ -1260,7 +1260,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._stream();
@@ -1300,7 +1300,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedReturn){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._visit_($recv($recv(anIRInlinedReturn)._instructions())._last());
 return self;
@@ -1324,7 +1324,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedSequence){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv($recv(anIRInlinedSequence)._instructions())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1371,7 +1371,7 @@ fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfFalse(){return $globals.IRInlinedIfFalse||(typeof IRInlinedIfFalse=="undefined"?nil:IRInlinedIfFalse)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_($recv($IRInlinedIfFalse())._new(),anIRInstruction);
@@ -1396,7 +1396,7 @@ protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._perform_withArguments_("ifTrue:ifFalse:",[anotherIRInstruction,anIRInstruction]);
@@ -1424,7 +1424,7 @@ function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(type
 function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$4,$5,$7,$8,$6,$9,$3,$1;
 $2=$recv($IRInlinedIfNilIfNotNil())._new();
@@ -1473,7 +1473,7 @@ fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_with_($recv($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
@@ -1501,7 +1501,7 @@ function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(type
 function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$4,$5,$7,$8,$6,$9,$3,$1;
 $2=$recv($IRInlinedIfNilIfNotNil())._new();
@@ -1550,7 +1550,7 @@ fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_with_($recv($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
@@ -1576,7 +1576,7 @@ fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfTrue(){return $globals.IRInlinedIfTrue||(typeof IRInlinedIfTrue=="undefined"?nil:IRInlinedIfTrue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_($recv($IRInlinedIfTrue())._new(),anIRInstruction);
@@ -1602,7 +1602,7 @@ fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfTrueIfFalse(){return $globals.IRInlinedIfTrueIfFalse||(typeof IRInlinedIfTrueIfFalse=="undefined"?nil:IRInlinedIfTrueIfFalse)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._inlinedSend_with_with_($recv($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
@@ -1632,7 +1632,7 @@ function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="un
 function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$5,$7,$8,$6,$9,$11,$12,$14,$16,$17,$18,$19,$15,$13,$20,$22,$24,$25,$23,$21,$26,$10,$28,$27,$31,$30,$32,$29,$33,$36,$35,$34,$37;
 inlinedClosure=self._inlinedClosure();
@@ -1847,7 +1847,7 @@ protocol: 'inlining',
 fn: function (anIRSend){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$2,$1;
 self._send_(anIRSend);
@@ -1879,7 +1879,7 @@ fn: function (){
 var self=this;
 function $IRInlinedClosure(){return $globals.IRInlinedClosure||(typeof IRInlinedClosure=="undefined"?nil:IRInlinedClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($IRInlinedClosure())._new();
@@ -1905,7 +1905,7 @@ fn: function (inlinedSend,anIRInstruction){
 var self=this;
 var inlinedClosure;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$5,$4,$3,$6,$7;
 $1=$recv(anIRInstruction)._isClosure();
@@ -1959,7 +1959,7 @@ fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
 var inlinedClosure1,inlinedClosure2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$7,$6,$5,$8,$9;
 $1=$recv(anIRInstruction)._isClosure();
@@ -2032,7 +2032,7 @@ fn: function (){
 var self=this;
 function $IRInlinedSequence(){return $globals.IRInlinedSequence||(typeof IRInlinedSequence=="undefined"?nil:IRInlinedSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($IRInlinedSequence())._new();
@@ -2058,7 +2058,7 @@ fn: function (aString){
 var self=this;
 function $InliningError(){return $globals.InliningError||(typeof InliningError=="undefined"?nil:InliningError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv($InliningError())._signal_(aString);
 return self;
@@ -2181,7 +2181,7 @@ protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 var $early={};
@@ -2271,7 +2271,7 @@ var self=this;
 var inlinedAssignment;
 function $IRInlinedAssignment(){return $globals.IRInlinedAssignment||(typeof IRInlinedAssignment=="undefined"?nil:IRInlinedAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 self._assignment_(anIRAssignment);
@@ -2315,7 +2315,7 @@ var self=this;
 var inlinedClosure,statements;
 function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$4,$3,$5,$7,$8,$6,$9;
 inlinedClosure=(
@@ -2396,7 +2396,7 @@ var self=this;
 var closure,statements;
 function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$5,$6,$7;
 closure=(
@@ -2461,7 +2461,7 @@ fn: function (anIRReturn){
 var self=this;
 var return_;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 return_=self._inlinedReturn();
@@ -2503,7 +2503,7 @@ fn: function (){
 var self=this;
 function $IRInlinedReturn(){return $globals.IRInlinedReturn||(typeof IRInlinedReturn=="undefined"?nil:IRInlinedReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($IRInlinedReturn())._new();
@@ -2535,7 +2535,7 @@ fn: function (aNode){
 var self=this;
 var ir,stream;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $recv(self._semanticAnalyzer())._visit_(aNode);
@@ -2577,7 +2577,7 @@ fn: function (){
 var self=this;
 function $IRInliner(){return $globals.IRInliner||(typeof IRInliner=="undefined"?nil:IRInliner)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($IRInliner())._new();
@@ -2603,7 +2603,7 @@ fn: function (){
 var self=this;
 function $IRInliningJSTranslator(){return $globals.IRInliningJSTranslator||(typeof IRInliningJSTranslator=="undefined"?nil:IRInliningJSTranslator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($IRInliningJSTranslator())._new();

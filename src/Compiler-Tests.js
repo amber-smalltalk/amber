@@ -13,7 +13,7 @@ fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv($recv($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
@@ -38,7 +38,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($Smalltalk())._parse_(aString);
@@ -63,7 +63,7 @@ protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
@@ -93,7 +93,7 @@ var self=this;
 function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1;
 $2=$recv($ASTPCNodeVisitor())._new();
@@ -131,7 +131,7 @@ var self=this;
 function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$4,$5,$1;
 $2=$recv($ASTPCNodeVisitor())._new();
@@ -170,7 +170,7 @@ var self=this;
 var ast,visitor;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo <consolee.log(1)>",$Object());
@@ -201,7 +201,7 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo self asString yourself. ^ self asBoolean",$Object());
@@ -232,7 +232,7 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean",$Object());
@@ -263,7 +263,7 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$5,$6;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
@@ -319,7 +319,7 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo ^ self",$Object());
@@ -350,7 +350,7 @@ var self=this;
 var ast,visitor;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 ast=self._parse_forClass_("foo <console.log(1)>",$Object());
@@ -383,7 +383,7 @@ fn: function (){
 var self=this;
 var node;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$4,$2,$1,$7,$8,$6,$5;
 node=self._parse_("yourself\x0a\x09^ self");
@@ -480,7 +480,7 @@ fn: function (){
 var self=this;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
 $2=$recv($Compiler())._new();
@@ -509,7 +509,7 @@ fn: function (){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self["@receiver"]=$recv($DoIt())._new();
 return self;
@@ -534,7 +534,7 @@ fn: function (aString,anObject,aResult){
 var self=this;
 var method,result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 self["@receiver"]=anObject;
@@ -568,7 +568,7 @@ protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
@@ -611,7 +611,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo | a | a := true ifTrue: [ 1 ]. ^ a",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -643,7 +643,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("\x5c arg ^ 4",(4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -671,7 +671,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]",[(2), (3), (4)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -703,7 +703,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ Array new add: 3; add: 4; yourself",[(3), (4)]);
 return self;
@@ -727,7 +727,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -755,7 +755,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { x. x := 2 }\x0a",[(1), (2)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -783,7 +783,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'.\x0a\x09^ #{ x->1. 'bar'->(true ifTrue: [ 2 ]) }\x0a",$globals.HashedCollection._newFromPairs_(["foo",(1),"bar",(2)]));
 return self;
@@ -808,7 +808,7 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 $2=$recv((1).__minus_gt((2))).__minus_gt((3));
@@ -839,7 +839,7 @@ fn: function (){
 var self=this;
 function $BlockClosure(){return $globals.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ eval class",$BlockClosure());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -872,7 +872,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$10;
 $2="foo".__minus_gt($Array());
@@ -945,7 +945,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo <return 2+3>",(5));
 return self;
@@ -969,7 +969,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo | a | a := 1. [ a := 2 ] value. ^ a",(2));
 return self;
@@ -993,7 +993,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1057,7 +1057,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1097,7 +1097,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 asString","1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1137,7 +1137,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6",(30));
 return self;
@@ -1161,7 +1161,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ #( 1 2 ) at: 1 put: 3; yourself",[(3), (2)]);
 return self;
@@ -1185,7 +1185,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1222,7 +1222,7 @@ fn: function (){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString",$recv($recv($Point())._x_y_((2).__at((3)),(4)))._asString());
 return self;
@@ -1246,7 +1246,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo [ ^ 1 ] value",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1283,7 +1283,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^Object",$recv($recv($Smalltalk())._globals())._at_("Object"));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1312,7 +1312,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a",[(1), (2)]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1340,7 +1340,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_receiver_return_("foo ^ super isBoolean",true,false);
 return self;
@@ -1364,7 +1364,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo | a | ^ a",nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1408,7 +1408,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ [ thisContext ] value outerContext == thisContext",true);
 return self;
@@ -1432,7 +1432,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo true ifFalse: [ ^ 1 ]",self["@receiver"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1468,7 +1468,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo true ifFalse: [ ^ 1 ] ifTrue: [ ^ 2 ]",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1504,7 +1504,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNil: [ 2 ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1540,7 +1540,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNil: [ 2 ] ifNotNil: [ 3 ]",(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1576,7 +1576,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNotNil: [ 2 ]",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1612,7 +1612,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo ^ 1 ifNotNil: [ :val | val + 2 ]",(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1656,7 +1656,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo false ifTrue: [ ^ 1 ]",self["@receiver"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1692,7 +1692,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._should_return_("foo false ifTrue: [ ^ 1 ] ifFalse: [ ^2 ]",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1732,7 +1732,7 @@ fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv($recv($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 return aNode;
@@ -1759,7 +1759,7 @@ var ctx,ast,interpreter;
 function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$6,$4,$receiver;
 interpreter=$recv($ASTInterpreter())._new();
@@ -1825,7 +1825,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($Smalltalk())._parse_(aString);
@@ -1850,7 +1850,7 @@ protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._analyze_forClass_(self._parse_(aString),aClass);
@@ -1875,7 +1875,7 @@ protocol: 'testing',
 fn: function (aString,anObject,aResult){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 self["@receiver"]=anObject;
@@ -1901,7 +1901,7 @@ protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._should_receiver_return_(aString,self["@receiver"],anObject);
@@ -1933,7 +1933,7 @@ function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?
 function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 function $ASTDebugger(){return $globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4,$6,$7,$5,$receiver;
 $1=$recv($AIContext())._new();
@@ -2034,7 +2034,7 @@ function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="un
 function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$4;
 $1=$recv($VariableNode())._new();
@@ -2075,7 +2075,7 @@ var node,scope;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=$recv($VariableNode())._new();
@@ -2112,7 +2112,7 @@ var node,pseudoVars;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 pseudoVars=["self", "super", "true", "false", "nil"];
@@ -2157,7 +2157,7 @@ var node,scope;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=$recv($VariableNode())._new();
@@ -2194,7 +2194,7 @@ var node;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
 $1=$recv($VariableNode())._new();
@@ -2231,7 +2231,7 @@ var self=this;
 function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self["@analyzer"]=$recv($SemanticAnalyzer())._on_($Object());
 return self;
@@ -2258,7 +2258,7 @@ var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $InvalidAssignmentError(){return $globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo self := 1";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2294,7 +2294,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. ^ a";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2323,7 +2323,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ [ ^ a] ]";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2352,7 +2352,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $4,$3,$2,$1;
 src="foo | a | a + 1. [ | b | b := a ]";
@@ -2392,7 +2392,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $8,$7,$6,$5,$4,$3,$2,$1;
 src="foo | a | a + 1. [ [ | b | b := a ] ]";
@@ -2448,7 +2448,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$10,$9,$8,$7,$6,$5,$4,$3;
 src="foo | a | a + 1. [ [ | b | b := a ] ]";
@@ -2514,7 +2514,7 @@ var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | b + a";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2551,7 +2551,7 @@ var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a b | [ c + 1. [ a + 1. d + 1 ]]";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2587,7 +2587,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2616,7 +2616,7 @@ var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ | a | a := 2 ]";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2652,7 +2652,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ | b | b := 2 ]";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2680,7 +2680,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2709,7 +2709,7 @@ var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]";
 ast=$recv($Smalltalk())._parse_(src);
@@ -2745,7 +2745,7 @@ var self=this;
 var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $7,$6,$5,$4,$3,$2,$1,$15,$14,$13,$12,$11,$10,$9,$16,$8,$27,$26,$25,$24,$23,$22,$21,$20,$19,$18,$17,$39,$38,$37,$36,$35,$34,$33,$32,$31,$30,$29,$42,$41,$40,$28;
 src="foo | a | a + 1. [ | b | b := a ]";
@@ -2938,7 +2938,7 @@ function $AISemanticAnalyzer(){return $globals.AISemanticAnalyzer||(typeof AISem
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$5,$3,$6;
 $1=$recv($AISemanticAnalyzer())._on_($Object());
@@ -2978,7 +2978,7 @@ var src,ast;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) { 
+return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 src="foo | a | local + a";
 ast=$recv($Smalltalk())._parse_(src);

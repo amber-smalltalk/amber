@@ -1183,7 +1183,7 @@ nextPutContextFor: aMethod during: aBlock
 	self
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);';
 		lf;
-		nextPutAll: 'return $core.withContext(function(', aMethod scope alias, ') { ';
+		nextPutAll: 'return $core.withContext(function(', aMethod scope alias, ') {';
 		lf;
 		nextPutAll: '//>>excludeEnd("ctx");';
 		lf.
