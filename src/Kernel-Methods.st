@@ -621,7 +621,7 @@ methodContext
 !
 
 outerContext
-	<return self.outerContext || self.homeContext>
+	<return self.outerContext || self.homeContext>
 !
 
 receiver

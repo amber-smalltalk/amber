@@ -2140,7 +2140,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testPseudoVar\x0a\x09| node pseudoVars |\x0a\x09pseudoVars := #('self' 'super' 'true' 'false' 'nil').\x0a\x09pseudoVars do: [:each |\x0a\x09\x09node := VariableNode new\x0a\x09\x09value: each;\x0a\x09\x09yourself.\x0a\x09\x09self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar ]",
+source: "testPseudoVar\x0a\x09| node pseudoVars |\x0a\x09pseudoVars := #('self' 'super' 'true' 'false' 'nil').\x0a\x09pseudoVars do: [:each |\x0a\x09\x09node := VariableNode new\x0a\x09\x09value: each;\x0a\x09\x09yourself.\x0a\x09\x09self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar]",
 referencedClasses: ["VariableNode", "MethodLexicalScope"],
 //>>excludeEnd("ide");
 messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bindingFor:"]
@@ -2325,7 +2325,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-src="foo | a | a + 1. [ [ ^ a] ]";
+src="foo | a | a + 1. [ [ ^ a] ]";
 ast=$recv($Smalltalk())._parse_(src);
 $recv(self["@analyzer"])._visit_(ast);
 self._assert_($recv($recv(ast)._scope())._hasNonLocalReturn());
@@ -2336,7 +2336,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope hasNonLocalReturn",
+source: "testNonLocalReturn2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ ^ a] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope hasNonLocalReturn",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"]
@@ -2395,7 +2395,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $8,$7,$6,$5,$4,$3,$2,$1;
-src="foo | a | a + 1. [ [ | b | b := a ] ]";
+src="foo | a | a + 1. [ [ | b | b := a ] ]";
 ast=$recv($Smalltalk())._parse_(src);
 $recv(self["@analyzer"])._visit_(ast);
 $8=$recv($recv($recv(ast)._nodes())._first())._nodes();
@@ -2432,7 +2432,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testScope2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.",
+source: "testScope2\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self deny: ast nodes first nodes last nodes first nodes first scope == ast scope.",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "last"]
@@ -2451,7 +2451,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
 var $2,$1,$10,$9,$8,$7,$6,$5,$4,$3;
-src="foo | a | a + 1. [ [ | b | b := a ] ]";
+src="foo | a | a + 1. [ [ | b | b := a ] ]";
 ast=$recv($Smalltalk())._parse_(src);
 $recv(self["@analyzer"])._visit_(ast);
 $2=$recv(ast)._scope();
@@ -2497,7 +2497,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel equals: 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3",
+source: "testScopeLevel\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast.\x0a\x0a\x09self assert: ast scope scopeLevel equals: 1.\x0a\x09self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"]
@@ -2682,7 +2682,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-src="foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]";
+src="foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]";
 ast=$recv($Smalltalk())._parse_(src);
 $recv(self["@analyzer"])._visit_(ast);
 return self;
@@ -2692,7 +2692,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testVariableShadowing4\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast",
+source: "testVariableShadowing4\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09analyzer visit: ast",
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "visit:"]
@@ -2711,7 +2711,7 @@ function $ShadowingVariableError(){return $globals.ShadowingVariableError||(type
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) { 
 //>>excludeEnd("ctx");
-src="foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]";
+src="foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]";
 ast=$recv($Smalltalk())._parse_(src);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2729,7 +2729,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testVariableShadowing5\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
+source: "testVariableShadowing5\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.\x0a\x09ast := Smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
 referencedClasses: ["Smalltalk", "ShadowingVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["parse:", "should:raise:", "visit:"]

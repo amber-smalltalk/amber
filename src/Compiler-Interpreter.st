@@ -672,7 +672,7 @@ eval: aString
 		str
 			nextPutAll: '){ return (function() {';
 			nextPutAll: aString;
-			nextPutAll: '})() })' ].
+			nextPutAll: '})()})' ].
 			
 	function := Compiler new eval: source.
 	

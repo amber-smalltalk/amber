@@ -627,7 +627,7 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 
 	[ self copyClass: oldClass to: newClass ]
 		on: Error
-		do: [ :exception |
+		do: [ :exception |
 			self
 				basicSwapClassNames: oldClass with: newClass;
 				basicRemoveClass: newClass.

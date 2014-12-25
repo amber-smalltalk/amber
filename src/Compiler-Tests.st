@@ -592,7 +592,7 @@ testPseudoVar
 		node := VariableNode new
 		value: each;
 		yourself.
-		self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar ]
+		self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar]
 !
 
 testTempVar
@@ -646,7 +646,7 @@ testNonLocalReturn
 testNonLocalReturn2
 	| src ast |
 
-	src := 'foo | a | a + 1. [ [ ^ a] ]'.
+	src := 'foo | a | a + 1. [ [ ^ a] ]'.
 	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
@@ -666,7 +666,7 @@ testScope
 testScope2
 	| src ast |
 
-	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
+	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
 	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
@@ -676,7 +676,7 @@ testScope2
 testScopeLevel
 	| src ast |
 
-	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
+	src := 'foo | a | a + 1. [ [ | b | b := a ] ]'.
 	ast := Smalltalk parse: src.
 	analyzer visit: ast.
 
@@ -725,14 +725,14 @@ testVariableShadowing3
 
 testVariableShadowing4
 	| src ast |
-	src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.
+	src := 'foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]'.
 	ast := Smalltalk parse: src.
 	analyzer visit: ast
 !
 
 testVariableShadowing5
 	| src ast |
-	src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.
+	src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.
 	ast := Smalltalk parse: src.
 	self should: [analyzer visit: ast] raise: ShadowingVariableError
 !
