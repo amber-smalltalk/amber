@@ -1,6 +1,6 @@
 {
   "name": "amber-dev",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Development goodies for Amber Smalltalk",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
