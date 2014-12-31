@@ -650,12 +650,6 @@ sendIndexes
 
 supercall
 	<return self.supercall == true>
-!
-
-temps
-	self deprecatedAPI.
-	
-	^ self locals
 ! !
 
 !MethodContext methodsFor: 'converting'!

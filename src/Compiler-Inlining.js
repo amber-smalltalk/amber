@@ -1,6 +1,5 @@
 define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Inlining');
 $core.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

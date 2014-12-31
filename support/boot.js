@@ -98,7 +98,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 	var globals = {};
 	globals.SmalltalkSettings = {};
-	var api = Object.create(globals);
+	var api = {};
 	var brikz = new Brikz(api);
 
 	function RootBrik(brikz, st) {
@@ -567,8 +567,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			that.selector          = spec.selector;
 			that.jsSelector        = spec.jsSelector;
 			that.args              = spec.args || {};
-			// spec.category is kept for compatibility
-			that.protocol          = spec.protocol || spec.category;
+			that.protocol          = spec.protocol;
 			that.source            = spec.source;
 			that.messageSends      = spec.messageSends || [];
 			that.referencedClasses = spec.referencedClasses || [];
@@ -1092,10 +1091,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			var colonPosition = stSelector.indexOf(':');
 			return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
 		};
-
-		// Backward-compatible names, deprecated.
-		st.selector = st.st2js;
-		st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
@@ -1158,5 +1153,5 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.rebuild();
 	}
 
-	return { api: api, /*deprecated:*/vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
+	return { api: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });

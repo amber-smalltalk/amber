@@ -16,20 +16,6 @@ announcementClass: aClass
 	announcementClass := aClass
 !
 
-block
-	"Use #valuable instead"
-	
-	self deprecatedAPI.
-	^ self valuable
-!
-
-block: aValuable
-	"Use #valuable instead"
-	
-	self deprecatedAPI.
-	self valuable: aValuable
-!
-
 receiver
 	^ self valuable receiver
 !

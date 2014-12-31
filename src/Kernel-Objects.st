@@ -283,12 +283,6 @@ subclassResponsibility
 
 throw: anObject
 	< throw anObject >
-!
-
-try: aBlock catch: anotherBlock
-	self deprecatedAPI.
-	
-	^ aBlock tryCatch: anotherBlock
 ! !
 
 !Object methodsFor: 'inspecting'!

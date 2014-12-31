@@ -1,6 +1,5 @@
 define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Infrastructure');
 $core.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -4196,84 +4195,6 @@ $globals.SmalltalkImage);
 
 $core.addMethod(
 $core.method({
-selector: "at:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(self._globals())._at_(aString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "at: aString\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "at:", "globals"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "at:ifAbsent:",
-protocol: 'accessing',
-fn: function (aKey,aBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(self._globals())._at_ifAbsent_(aKey,aBlock);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "at:put:",
-protocol: 'accessing',
-fn: function (aString,anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(self._globals())._at_put_(aString,anObject);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anObject"],
-source: "at: aString put: anObject\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString put: anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "at:put:", "globals"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
 selector: "basicCreatePackage:",
 protocol: 'private',
 fn: function (packageName){
@@ -4401,60 +4322,6 @@ source: "createPackage: packageName\x0a\x09| package announcement |\x0a\x09\x0a\
 referencedClasses: ["PackageAdded", "SystemAnnouncer"],
 //>>excludeEnd("ide");
 messageSends: ["basicCreatePackage:", "package:", "new", "yourself", "announce:", "current"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "createPackage:properties:",
-protocol: 'private',
-fn: function (packageName,aDict){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2;
-self._deprecatedAPI();
-$1=$recv(aDict)._isEmpty();
-if(!$core.assert($1)){
-self._error_("createPackage:properties: called with nonempty properties");
-};
-$2=self._createPackage_(packageName);
-return $2;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["packageName", "aDict"],
-source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "ifFalse:", "isEmpty", "error:", "createPackage:"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "current",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._deprecatedAPI();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"current",{},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "current\x0a\x09\x22Backward compatibility for Smalltalk current ...\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI"]
 }),
 $globals.SmalltalkImage);
 
@@ -5075,41 +4942,15 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.13.3";
+return "0.14.0-0";
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.13.3'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.14.0-0'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "vm",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI_("Use #core");
-$1=self._core();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"vm",{},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "vm\x0a\x09self deprecatedAPI: 'Use #core'.\x0a\x09^self core",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI:", "core"]
 }),
 $globals.SmalltalkImage);
 
@@ -5250,31 +5091,6 @@ source: "asJavaScriptPropertyName\x0a<return $core.st2prop(self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.String);
-
-$core.addMethod(
-$core.method({
-selector: "asJavaScriptSelector",
-protocol: '*Kernel-Infrastructure',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=self._asJavaScriptPropertyName();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},$globals.String)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "asJavaScriptSelector\x0a\x09\x22Cannot add next line as it breaks commit:\x0a\x09self deprecatedAPI: 'Use #asJavaScriptPropertyName'.\x22\x0a\x09^ self asJavaScriptPropertyName",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["asJavaScriptPropertyName"]
 }),
 $globals.String);
 

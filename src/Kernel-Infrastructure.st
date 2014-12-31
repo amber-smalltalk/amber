@@ -1126,29 +1126,8 @@ It requires the `Compiler` package and the `support/parser.js` parser file in or
 
 !SmalltalkImage methodsFor: 'accessing'!
 
-at: aString
-	self deprecatedAPI.
-	^ self globals at: aString
-!
-
-at: aKey ifAbsent: aBlock
-	self deprecatedAPI.
-	^ self globals at: aKey ifAbsent: aBlock
-!
-
-at: aString put: anObject
-	self deprecatedAPI.
-	^ self globals at: aString put: anObject
-!
-
 core
 	<return $core>
-!
-
-current
-	"Backward compatibility for Smalltalk current ..."
-	self deprecatedAPI.
-	^ self
 !
 
 globals
@@ -1190,7 +1169,7 @@ settings
 version
 	"Answer the version string of Amber"
 	
-	^ '0.13.3'
+	^ '0.14.0-0'
 !
 
 vm
@@ -1325,14 +1304,6 @@ basicParse: aString
 	^ SmalltalkParser parse: aString
 !
 
-createPackage: packageName properties: aDict
-	"Needed to import .st files: they begin with this call."
-	self deprecatedAPI.
-	
-	aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
-	^ self createPackage: packageName
-!
-
 deleteClass: aClass
 	"Deletes a class by deleting its binding only. Use #removeClass instead"
 	
@@ -1388,12 +1359,6 @@ do: aBlock displayingProgress: aString
 
 asJavaScriptPropertyName
 <return $core.st2prop(self)>
-!
-
-asJavaScriptSelector
-	"Cannot add next line as it breaks commit:
-	self deprecatedAPI: 'Use #asJavaScriptPropertyName'."
-	^ self asJavaScriptPropertyName
 !
 
 asSetting

@@ -38,14 +38,12 @@ function createConcatenator () {
 		start: function () {
 			this.add(
 				'var define = (' + require('amdefine') + ')(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;',
-				'define("amber_vm/browser-compatibility", [], {});',
 				'define("amber/browser-compatibility", [], {});'
 			);
 		},
 		finish: function (realWork) {
 			this.add(
 				'define("app", ["' + this.ids.join('","') + '"], function (boot) {',
-				'boot.api = boot.api || boot.vm; // backward compatibility',
 				'boot.api.initialize();',
 				realWork,
 				'});',
@@ -74,7 +72,7 @@ function AmberCompiler(amber_dir) {
 
 	this.amber_dir = amber_dir;
 	// Important: in next list, boot MUST be first
-	this.kernel_libraries = ['boot', 'smalltalk', 'globals', 'nil', '_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
 	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Kernel-ImportExport', 'Compiler-Exceptions',
@@ -123,7 +121,6 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	if (undefined !== configuration.jsLibraryDirs) {
 		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'src'));
 		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
-		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support', 'deprecated-vm-files'));
 	}
 
 	console.ambercLog = console.log;
@@ -366,8 +363,6 @@ function create_compiler(configuration) {
 				loadIds.push(match[1]);
 			}
 		});
-		//backward compatibility
-		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
 		// store the generated smalltalk env in configuration.{core,globals}
 		builder.finish('configuration.core = boot.api; configuration.globals = boot.globals;');
@@ -564,8 +559,6 @@ function compose_js_files(configuration) {
 				reject(Error('Can not find file ' + file));
 			}
 		});
-		//backward compatibility
-		if (builder.ids.indexOf("amber_vm/boot") === -1) { builder.add('define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });'); }
 
 		var mainFunctionOrFile = 'var $core = boot.api, $globals = boot.globals;\n';
 
@@ -576,7 +569,6 @@ function compose_js_files(configuration) {
 
 		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
 			console.log('Adding main file: ' + configuration.mainfile);
-			mainFunctionOrFile += '\nvar smalltalk = $core, vm = $core, globals = $globals; // backward compatibility\n' + fs.readFileSync(configuration.mainfile);
 		}
 
 		builder.finish(mainFunctionOrFile);

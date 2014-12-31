@@ -1,6 +1,5 @@
 define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Core');
 $core.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 

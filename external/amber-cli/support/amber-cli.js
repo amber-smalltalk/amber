@@ -276,7 +276,6 @@ var define = (function amdefine(module, requireFn) {
 
     return define;
 })(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;
-define("amber_vm/browser-compatibility", [], {});
 define("amber/browser-compatibility", [], {});
 /* ====================================================================
  |
@@ -378,7 +377,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 	var globals = {};
 	globals.SmalltalkSettings = {};
-	var api = Object.create(globals);
+	var api = {};
 	var brikz = new Brikz(api);
 
 	function RootBrik(brikz, st) {
@@ -847,8 +846,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			that.selector          = spec.selector;
 			that.jsSelector        = spec.jsSelector;
 			that.args              = spec.args || {};
-			// spec.category is kept for compatibility
-			that.protocol          = spec.protocol || spec.category;
+			that.protocol          = spec.protocol;
 			that.source            = spec.source;
 			that.messageSends      = spec.messageSends || [];
 			that.referencedClasses = spec.referencedClasses || [];
@@ -1372,10 +1370,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			var colonPosition = stSelector.indexOf(':');
 			return colonPosition === -1 ? stSelector : stSelector.slice(0, colonPosition);
 		};
-
-		// Backward-compatible names, deprecated.
-		st.selector = st.st2js;
-		st.convertSelector = st.js2st;
 	}
 
 	/* Adds AMD and requirejs related methods to the smalltalk object */
@@ -1438,29 +1432,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		brikz.rebuild();
 	}
 
-	return { api: api, /*deprecated:*/vm: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
-});
-
-define("amber_vm/smalltalk", ["./boot"], function (boot) {
-    return boot.vm;
-});
-
-
-define("amber_vm/globals", ["./boot"], function (boot) {
-    return boot.globals;
-});
-
-define("amber_vm/nil", ["./boot"], function (boot) {
-    return boot.nil;
-});
-
-define("amber_vm/_st", ["./boot"], function (boot) {
-    return boot.asReceiver;
+	return { api: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver };
 });
 
 define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Objects');
 $core.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -3076,32 +3052,6 @@ source: "throw: anObject\x0a\x09< throw anObject >",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "try:catch:",
-protocol: 'error handling',
-fn: function (aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(aBlock)._tryCatch_(anotherBlock);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anotherBlock"],
-source: "try: aBlock catch: anotherBlock\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ aBlock tryCatch: anotherBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "tryCatch:"]
 }),
 $globals.Object);
 
@@ -7513,7 +7463,6 @@ $globals.UndefinedObject.klass);
 
 define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Classes');
 $core.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -11070,7 +11019,6 @@ $globals.ClassSorterNode.klass);
 
 define("amber_core/Kernel-Methods", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Methods');
 $core.packages["Kernel-Methods"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -13789,32 +13737,6 @@ messageSends: []
 }),
 $globals.MethodContext);
 
-$core.addMethod(
-$core.method({
-selector: "temps",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=self._locals();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"temps",{},$globals.MethodContext)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "temps\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09^ self locals",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "locals"]
-}),
-$globals.MethodContext);
-
 
 
 $core.addClass('NativeFunction', $globals.Object, [], 'Kernel-Methods');
@@ -14067,7 +13989,6 @@ $globals.Timeout.klass);
 
 define("amber_core/Kernel-Collections", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Collections');
 $core.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -14846,32 +14767,6 @@ source: "collect: aBlock\x0a\x09| stream |\x0a\x09stream := self class new write
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeStream", "new", "class", "do:", "nextPut:", "value:", "contents"]
-}),
-$globals.Collection);
-
-$core.addMethod(
-$core.method({
-selector: "contains:",
-protocol: 'testing',
-fn: function (aBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=self._anySatisfy_(aBlock);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"contains:",{aBlock:aBlock},$globals.Collection)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "contains: aBlock\x0a\x09self deprecatedAPI.\x0a\x0a\x09^ self anySatisfy: aBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "anySatisfy:"]
 }),
 $globals.Collection);
 
@@ -20376,32 +20271,6 @@ $globals.String);
 
 $core.addMethod(
 $core.method({
-selector: "asSelector",
-protocol: 'converting',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI_("Use #asJavaScriptMethodName");
-$1=self._asJavaScriptMethodName();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asSelector",{},$globals.String)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "asSelector\x0a\x09self deprecatedAPI: 'Use #asJavaScriptMethodName'.\x0a\x09^ self asJavaScriptMethodName",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI:", "asJavaScriptMethodName"]
-}),
-$globals.String);
-
-$core.addMethod(
-$core.method({
 selector: "asString",
 protocol: 'converting',
 fn: function (){
@@ -24108,7 +23977,6 @@ $globals.StringStream);
 
 define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Infrastructure');
 $core.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -28304,84 +28172,6 @@ $globals.SmalltalkImage);
 
 $core.addMethod(
 $core.method({
-selector: "at:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(self._globals())._at_(aString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "at: aString\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "at:", "globals"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "at:ifAbsent:",
-protocol: 'accessing',
-fn: function (aKey,aBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(self._globals())._at_ifAbsent_(aKey,aBlock);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aKey ifAbsent: aBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "at:ifAbsent:", "globals"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "at:put:",
-protocol: 'accessing',
-fn: function (aString,anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=$recv(self._globals())._at_put_(aString,anObject);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anObject"],
-source: "at: aString put: anObject\x0a\x09self deprecatedAPI.\x0a\x09^ self globals at: aString put: anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "at:put:", "globals"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
 selector: "basicCreatePackage:",
 protocol: 'private',
 fn: function (packageName){
@@ -28509,60 +28299,6 @@ source: "createPackage: packageName\x0a\x09| package announcement |\x0a\x09\x0a\
 referencedClasses: ["PackageAdded", "SystemAnnouncer"],
 //>>excludeEnd("ide");
 messageSends: ["basicCreatePackage:", "package:", "new", "yourself", "announce:", "current"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "createPackage:properties:",
-protocol: 'private',
-fn: function (packageName,aDict){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2;
-self._deprecatedAPI();
-$1=$recv(aDict)._isEmpty();
-if(!$core.assert($1)){
-self._error_("createPackage:properties: called with nonempty properties");
-};
-$2=self._createPackage_(packageName);
-return $2;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["packageName", "aDict"],
-source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "ifFalse:", "isEmpty", "error:", "createPackage:"]
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "current",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._deprecatedAPI();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"current",{},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "current\x0a\x09\x22Backward compatibility for Smalltalk current ...\x22\x0a\x09self deprecatedAPI.\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI"]
 }),
 $globals.SmalltalkImage);
 
@@ -29183,41 +28919,15 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.14.0-pre";
+return "0.14.0-0";
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.14.0-pre'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.14.0-0'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.SmalltalkImage);
-
-$core.addMethod(
-$core.method({
-selector: "vm",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI_("Use #core");
-$1=self._core();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"vm",{},$globals.SmalltalkImage)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "vm\x0a\x09self deprecatedAPI: 'Use #core'.\x0a\x09^self core",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI:", "core"]
 }),
 $globals.SmalltalkImage);
 
@@ -29363,31 +29073,6 @@ $globals.String);
 
 $core.addMethod(
 $core.method({
-selector: "asJavaScriptSelector",
-protocol: '*Kernel-Infrastructure',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=self._asJavaScriptPropertyName();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},$globals.String)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "asJavaScriptSelector\x0a\x09\x22Cannot add next line as it breaks commit:\x0a\x09self deprecatedAPI: 'Use #asJavaScriptPropertyName'.\x22\x0a\x09^ self asJavaScriptPropertyName",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["asJavaScriptPropertyName"]
-}),
-$globals.String);
-
-$core.addMethod(
-$core.method({
 selector: "asSetting",
 protocol: '*Kernel-Infrastructure',
 fn: function (){
@@ -29517,7 +29202,6 @@ $globals.String);
 
 define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Exceptions');
 $core.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -30359,7 +30043,6 @@ $globals.PackageCommitError.comment="I get signaled when an attempt to commit a 
 
 define("amber_core/Kernel-Transcript", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Transcript');
 $core.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -30475,7 +30158,6 @@ $globals.ConsoleTranscript.klass);
 
 define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Announcements');
 $core.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -30519,57 +30201,6 @@ source: "announcementClass: aClass\x0a\x09announcementClass := aClass",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.AnnouncementSubscription);
-
-$core.addMethod(
-$core.method({
-selector: "block",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=self._valuable();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"block",{},$globals.AnnouncementSubscription)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "block\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09^ self valuable",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "valuable"]
-}),
-$globals.AnnouncementSubscription);
-
-$core.addMethod(
-$core.method({
-selector: "block:",
-protocol: 'accessing',
-fn: function (aValuable){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._deprecatedAPI();
-self._valuable_(aValuable);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},$globals.AnnouncementSubscription)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aValuable"],
-source: "block: aValuable\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09self valuable: aValuable",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "valuable:"]
 }),
 $globals.AnnouncementSubscription);
 
@@ -31717,7 +31348,6 @@ $globals.ProtocolRemoved.comment="I am emitted when a protocol is removed from a
 
 define("amber_core/Compiler-Exceptions", ["amber/boot", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Exceptions');
 $core.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -32018,7 +31648,6 @@ $globals.RethrowErrorHandler);
 
 define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Core');
 $core.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -33571,7 +33200,6 @@ $globals.String);
 
 define("amber_core/Compiler-AST", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-AST');
 $core.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -37165,7 +36793,6 @@ $globals.Object);
 
 define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-IR');
 $core.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -43318,7 +42945,6 @@ $globals.BlockClosure);
 
 define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Inlining');
 $core.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -45944,7 +45570,6 @@ $globals.InliningCodeGenerator);
 
 define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Semantic');
 $core.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -48653,7 +48278,6 @@ $globals.SemanticAnalyzer.klass);
 
 define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Interpreter');
 $core.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -56337,7 +55961,6 @@ $globals.SmalltalkParser = (function() {
 });
 define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('SUnit');
 $core.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -58197,7 +57820,6 @@ $globals.Package);
 
 define("amber_core/Kernel-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-ImportExport');
 $core.packages["Kernel-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -60041,14 +59663,6 @@ $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 //>>excludeEnd("ctx");
 $recv(aStream)._nextPutAll_("var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=8;
-//>>excludeEnd("ctx");
-$recv(aStream)._lf();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["lf"]=2;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_("var smalltalk=$core,_st=$recv,globals=$globals;");
 $1=$recv(aStream)._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -60057,7 +59671,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function($boot){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var smalltalk=$core,_st=$recv,globals=$globals;';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function($boot){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]
@@ -62084,7 +61698,6 @@ $globals.Package.klass);
 
 define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Tests');
 $core.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -76942,7 +76555,6 @@ $globals.UndefinedTest);
 
 define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Compiler-Tests');
 $core.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -79952,7 +79564,6 @@ $globals.AISemanticAnalyzerTest);
 
 define("amber_core/SUnit-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('SUnit-Tests');
 $core.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -80915,7 +80526,6 @@ $globals.SUnitAsyncTest);
 
 define("amber_cli/AmberCli", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('AmberCli');
 $core.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
@@ -84559,9 +84169,7 @@ $globals.Repl.klass);
 
 });
 
-define("amber_vm/boot", ["amber/boot"], function (boot) { return boot; });
-define("app", ["amber/boot","amber_vm/smalltalk","amber_vm/globals","amber_vm/nil","amber_vm/_st","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Kernel-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
-boot.api = boot.api || boot.vm; // backward compatibility
+define("app", ["amber/boot","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Kernel-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
 boot.api.initialize();
 var $core = boot.api, $globals = boot.globals;
 $globals.AmberCli._main();

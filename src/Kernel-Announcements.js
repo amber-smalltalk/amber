@@ -1,6 +1,5 @@
 define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-var smalltalk=$core,_st=$recv,globals=$globals;
 $core.addPackage('Kernel-Announcements');
 $core.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -44,57 +43,6 @@ source: "announcementClass: aClass\x0a\x09announcementClass := aClass",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.AnnouncementSubscription);
-
-$core.addMethod(
-$core.method({
-selector: "block",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._deprecatedAPI();
-$1=self._valuable();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"block",{},$globals.AnnouncementSubscription)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "block\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09^ self valuable",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "valuable"]
-}),
-$globals.AnnouncementSubscription);
-
-$core.addMethod(
-$core.method({
-selector: "block:",
-protocol: 'accessing',
-fn: function (aValuable){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._deprecatedAPI();
-self._valuable_(aValuable);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},$globals.AnnouncementSubscription)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aValuable"],
-source: "block: aValuable\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09self valuable: aValuable",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["deprecatedAPI", "valuable:"]
 }),
 $globals.AnnouncementSubscription);
 
