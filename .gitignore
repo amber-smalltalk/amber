@@ -15,3 +15,6 @@ bower_components/
 
 # Ignoring place dedicated to hand-cloned user modules
 /my/
+
+# Other generated or transient files
+config.js
