@@ -4,14 +4,15 @@
 Highlights:
 
 * Removed deprecated stuff and backward compatibility support code.
+* You can wrap any object using #asJQuery.
 
-Commits: https://github.com/amber-smalltalk/amber/compare/0.13.0...0.14.0
+Commits: https://github.com/amber-smalltalk/amber/compare/0.13.2...0.14.0
 Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclosed+milestone%3A0.14.0
 
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-18th Dec 2014 - Release 0.13.3
+31th Dec 2014 - Release 0.13.3
 ===================================
 
 This is a planned maintenance release.
