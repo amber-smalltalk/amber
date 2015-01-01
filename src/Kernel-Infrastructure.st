@@ -1170,11 +1170,6 @@ version
 	"Answer the version string of Amber"
 	
 	^ '0.14.0-0'
-!
-
-vm
-	self deprecatedAPI: 'Use #core'.
-	^self core
 ! !
 
 !SmalltalkImage methodsFor: 'accessing amd'!
