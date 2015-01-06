@@ -211,11 +211,11 @@ superclass
 !
 
 theMetaClass
-	^ self class
+	self subclassResponsibility
 !
 
 theNonMetaClass
-	^ self
+	self subclassResponsibility
 !
 
 withAllSubclasses
@@ -417,6 +417,14 @@ rename: aString
 
 subclasses
 	<return self.subclasses._copy()>
+!
+
+theMetaClass
+	^ self class
+!
+
+theNonMetaClass
+	^ self
 ! !
 
 !Class methodsFor: 'browsing'!

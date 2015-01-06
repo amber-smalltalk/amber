@@ -1556,19 +1556,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._class();
-return $1;
+self._subclassResponsibility();
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},$globals.Behavior)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "theMetaClass\x0a\x09^ self class",
+source: "theMetaClass\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["class"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Behavior);
 
@@ -1578,15 +1577,21 @@ selector: "theNonMetaClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._subclassResponsibility();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"theNonMetaClass",{},$globals.Behavior)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "theNonMetaClass\x0a\x09^ self",
+source: "theNonMetaClass\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Behavior);
 
@@ -2092,6 +2097,49 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "subclasses\x0a\x09<return self.subclasses._copy()>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Class);
+
+$core.addMethod(
+$core.method({
+selector: "theMetaClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._class();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},$globals.Class)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "theMetaClass\x0a\x09^ self class",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["class"]
+}),
+$globals.Class);
+
+$core.addMethod(
+$core.method({
+selector: "theNonMetaClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "theNonMetaClass\x0a\x09^ self",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
