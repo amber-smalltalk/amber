@@ -1126,6 +1126,16 @@ It requires the `Compiler` package and the `support/parser.js` parser file in or
 
 !SmalltalkImage methodsFor: 'accessing'!
 
+cancelOptOut: anObject
+	"A Smalltalk object has a 'klass' property.
+	If this property is shadowed for anObject by optOut:,
+	the object is treated as plain JS object.
+	This removes the shadow and anObject is Smalltalk object
+	again if it was before."
+	
+	<delete anObject.klass>
+!
+
 core
 	<return $core>
 !
@@ -1136,6 +1146,14 @@ globals
 
 includesKey: aKey
 	<return $core.hasOwnProperty(aKey)>
+!
+
+optOut: anObject
+	"A Smalltalk object has a 'klass' property.
+	This shadows the property for anObject.
+	The object is treated as plain JS object following this."
+	
+	<anObject.klass = null>
 !
 
 parse: aString

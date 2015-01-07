@@ -26,6 +26,9 @@
   + methodOf:this:value:value:
   + methodOf:this:value:value:value:
   + methodOf:this:valueWithArgs:
++ SmalltalkImage >>
+  + optOut:
+  + cancelOptOut:
 
 
 0.14.0:

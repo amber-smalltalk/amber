@@ -4245,6 +4245,30 @@ $globals.SmalltalkImage);
 
 $core.addMethod(
 $core.method({
+selector: "cancelOptOut:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+delete anObject.klass;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"cancelOptOut:",{anObject:anObject},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "cancelOptOut: anObject\x0a\x09\x22A Smalltalk object has a 'klass' property.\x0a\x09If this property is shadowed for anObject by optOut:,\x0a\x09the object is treated as plain JS object.\x0a\x09This removes the shadow and anObject is Smalltalk object\x0a\x09again if it was before.\x22\x0a\x09\x0a\x09<delete anObject.klass>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
 selector: "classes",
 protocol: 'classes',
 fn: function (){
@@ -4538,6 +4562,30 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "isSmalltalkObject: anObject\x0a\x09\x22Consider anObject a Smalltalk object if it has a 'klass' property.\x0a\x09Note that this may be unaccurate\x22\x0a\x09\x0a\x09<return typeof anObject.klass !== 'undefined'>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
+selector: "optOut:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+anObject.klass = null;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"optOut:",{anObject:anObject},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "optOut: anObject\x0a\x09\x22A Smalltalk object has a 'klass' property.\x0a\x09This shadows the property for anObject.\x0a\x09The object is treated as plain JS object following this.\x22\x0a\x09\x0a\x09<anObject.klass = null>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
