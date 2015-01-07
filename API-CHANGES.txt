@@ -33,6 +33,26 @@
   + asJQuery
   + asJQueryInContext:
 
+- AnnouncementSubscription >>
+  - block
+  - block:
+- Collection >>
+  - contains:
+- String >>
+  - asSelector
+  - asJavaScriptSelector
+- SmalltalkImage >>
+  - at:
+  - at:ifAbsent:
+  - at:put:
+  - current
+  - vm
+  - createPackage:properties:
+- MethodContext >>
+  - temps
+- Object >>
+  - try:catch:
+
 
 0.13.2:
 
