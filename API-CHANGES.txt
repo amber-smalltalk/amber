@@ -7,6 +7,10 @@
   + constructorNamed:value:
   + constructorNamed:value:value:
   + constructorNamed:value:value:value:
+  + constructorOf:
+  + constructorOf:value:
+  + constructorOf:value:value:
+  + constructorOf:value:value:value:
   + functionNamed:
   + functionNamed:value:
   + functionNamed:value:value:
