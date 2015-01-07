@@ -555,7 +555,7 @@ initialize
 	"Allow JS method calls for the jQuery object.
 	See boot.js DNU handling."
 	
-	jQuery basicAt: 'allowJavaScriptCalls' put: true
+	Smalltalk optOut: jQuery
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!

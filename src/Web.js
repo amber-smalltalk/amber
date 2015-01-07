@@ -3057,10 +3057,11 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(jQuery)._basicAt_put_("allowJavaScriptCalls",true);
+$recv($Smalltalk())._optOut_(jQuery);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.HTMLCanvas.klass)});
@@ -3068,10 +3069,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09\x22Allow JS method calls for the jQuery object.\x0a\x09See boot.js DNU handling.\x22\x0a\x09\x0a\x09jQuery basicAt: 'allowJavaScriptCalls' put: true",
-referencedClasses: [],
+source: "initialize\x0a\x09\x22Allow JS method calls for the jQuery object.\x0a\x09See boot.js DNU handling.\x22\x0a\x09\x0a\x09Smalltalk optOut: jQuery",
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
-messageSends: ["basicAt:put:"]
+messageSends: ["optOut:"]
 }),
 $globals.HTMLCanvas.klass);
 
