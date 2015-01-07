@@ -2735,6 +2735,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc();
 	;
@@ -2745,7 +2746,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "constructor: aString\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc();\x0a\x09>",
+source: "constructor: aString\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc();\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -2762,6 +2763,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:value:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject);
 	;
@@ -2772,7 +2774,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
-source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
+source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:value:\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -2789,6 +2791,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:value:value:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject,anObject2);
 	;
@@ -2799,7 +2802,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "anObject2"],
-source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
+source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:value:value:\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -2816,6 +2819,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:value:value:value");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject,anObject2, anObject3);
 	;
@@ -2826,7 +2830,219 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "anObject2", "anObject3"],
-source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:value:value:value\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:",
+protocol: 'instance creation',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:",{aString:aString},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "constructorNamed: aString\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:value:",
+protocol: 'instance creation',
+fn: function (aString,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:value:",{aString:aString,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject"],
+source: "constructorNamed: aString value: anObject\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:value:value:",
+protocol: 'instance creation',
+fn: function (aString,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2"],
+source: "constructorNamed: aString value: anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:value:value:value:",
+protocol: 'instance creation',
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2", "anObject3"],
+source: "constructorNamed: aString value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:",
+protocol: 'instance creation',
+fn: function (nativeFunc){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:",{nativeFunc:nativeFunc},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc"],
+source: "constructorOf: nativeFunc\x0a\x09<\x0a\x09\x09return new nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:value:",
+protocol: 'instance creation',
+fn: function (nativeFunc,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:value:",{nativeFunc:nativeFunc,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject"],
+source: "constructorOf: nativeFunc value: anObject\x0a\x09<\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:value:value:",
+protocol: 'instance creation',
+fn: function (nativeFunc,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2"],
+source: "constructorOf: nativeFunc value: anObject value: anObject2\x0a\x09<\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:value:value:value:",
+protocol: 'instance creation',
+fn: function (nativeFunc,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:value:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2", "anObject3"],
+source: "constructorOf: nativeFunc value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -2856,6 +3072,401 @@ source: "exists: aString\x0a\x09^ PlatformInterface existsGlobal: aString",
 referencedClasses: ["PlatformInterface"],
 //>>excludeEnd("ide");
 messageSends: ["existsGlobal:"]
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:",
+protocol: 'function calling',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:",{aString:aString},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "functionNamed: aString\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:value:",
+protocol: 'function calling',
+fn: function (aString,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:value:",{aString:aString,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject"],
+source: "functionNamed: aString value: anObject\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:value:value:",
+protocol: 'function calling',
+fn: function (aString,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2"],
+source: "functionNamed: aString value: anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:value:value:value:",
+protocol: 'function calling',
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2", "anObject3"],
+source: "functionNamed: aString value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:valueWithArgs:",
+protocol: 'function calling',
+fn: function (aString,args){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return Function.prototype.apply.call(nativeFunc, null, args);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:valueWithArgs:",{aString:aString,args:args},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "args"],
+source: "functionNamed: aString valueWithArgs: args\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return Function.prototype.apply.call(nativeFunc, null, args);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:",
+protocol: 'function calling',
+fn: function (nativeFunc){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:",{nativeFunc:nativeFunc},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc"],
+source: "functionOf: nativeFunc\x0a\x09<\x0a\x09\x09return nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:value:",
+protocol: 'function calling',
+fn: function (nativeFunc,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:value:",{nativeFunc:nativeFunc,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject"],
+source: "functionOf: nativeFunc value: anObject\x0a\x09<\x0a\x09\x09return nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:value:value:",
+protocol: 'function calling',
+fn: function (nativeFunc,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2"],
+source: "functionOf: nativeFunc value: anObject value: anObject2\x0a\x09<\x0a\x09\x09return nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:value:value:value:",
+protocol: 'function calling',
+fn: function (nativeFunc,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:value:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2", "anObject3"],
+source: "functionOf: nativeFunc value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09return nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:valueWithArgs:",
+protocol: 'function calling',
+fn: function (nativeFunc,args){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.apply.call(nativeFunc, null, args);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:valueWithArgs:",{nativeFunc:nativeFunc,args:args},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "args"],
+source: "functionOf: nativeFunc valueWithArgs: args\x0a\x09<\x0a\x09\x09return Function.prototype.apply.call(nativeFunc, null, args);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:",{nativeFunc:nativeFunc,thisObject:thisObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject"],
+source: "methodOf: nativeFunc this: thisObject\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:value:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject, anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:value:",{nativeFunc:nativeFunc,thisObject:thisObject,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "anObject"],
+source: "methodOf: nativeFunc this: thisObject value: anObject\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject, anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:value:value:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:value:value:",{nativeFunc:nativeFunc,thisObject:thisObject,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "anObject", "anObject2"],
+source: "methodOf: nativeFunc this: thisObject value: anObject value: anObject2\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:value:value:value:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:value:value:value:",{nativeFunc:nativeFunc,thisObject:thisObject,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "anObject", "anObject2", "anObject3"],
+source: "methodOf: nativeFunc this: thisObject value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:valueWithArgs:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,args){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.apply.call(nativeFunc, thisObject, args);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:valueWithArgs:",{nativeFunc:nativeFunc,thisObject:thisObject,args:args},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "args"],
+source: "methodOf: nativeFunc this: thisObject valueWithArgs: args\x0a\x09<\x0a\x09\x09return Function.prototype.apply.call(nativeFunc, thisObject, args);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
 $globals.NativeFunction.klass);
 

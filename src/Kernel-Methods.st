@@ -702,10 +702,78 @@ Created instances will most probably be instance of `JSObjectProxy`.
 	ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.
 	ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]!
 
+!NativeFunction class methodsFor: 'function calling'!
+
+functionNamed: aString
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc();
+	>
+!
+
+functionNamed: aString value: anObject
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject);
+	>
+!
+
+functionNamed: aString value: anObject value: anObject2
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject,anObject2);
+	>
+!
+
+functionNamed: aString value: anObject value: anObject2 value: anObject3
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject,anObject2, anObject3);
+	>
+!
+
+functionNamed: aString valueWithArgs: args
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return Function.prototype.apply.call(nativeFunc, null, args);
+	>
+!
+
+functionOf: nativeFunc
+	<
+		return nativeFunc();
+	>
+!
+
+functionOf: nativeFunc value: anObject
+	<
+		return nativeFunc(anObject);
+	>
+!
+
+functionOf: nativeFunc value: anObject value: anObject2
+	<
+		return nativeFunc(anObject,anObject2);
+	>
+!
+
+functionOf: nativeFunc value: anObject value: anObject2 value: anObject3
+	<
+		return nativeFunc(anObject,anObject2, anObject3);
+	>
+!
+
+functionOf: nativeFunc valueWithArgs: args
+	<
+		return Function.prototype.apply.call(nativeFunc, null, args);
+	>
+! !
+
 !NativeFunction class methodsFor: 'instance creation'!
 
 constructor: aString
 	<
+		self._deprecatedAPI_("Use constructorNamed:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc();
 	>
@@ -713,6 +781,7 @@ constructor: aString
 
 constructor: aString value:anObject
 	<
+		self._deprecatedAPI_("Use constructorNamed:value:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject);
 	>
@@ -720,6 +789,7 @@ constructor: aString value:anObject
 
 constructor: aString value:anObject value: anObject2
 	<
+		self._deprecatedAPI_("Use constructorNamed:value:value:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject,anObject2);
 	>
@@ -727,8 +797,93 @@ constructor: aString value:anObject value: anObject2
 
 constructor: aString value:anObject value: anObject2 value:anObject3
 	<
+		self._deprecatedAPI_("Use constructorNamed:value:value:value");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject,anObject2, anObject3);
+	>
+!
+
+constructorNamed: aString
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc();
+	>
+!
+
+constructorNamed: aString value: anObject
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject);
+	>
+!
+
+constructorNamed: aString value: anObject value: anObject2
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject,anObject2);
+	>
+!
+
+constructorNamed: aString value: anObject value: anObject2 value: anObject3
+	<
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject,anObject2, anObject3);
+	>
+!
+
+constructorOf: nativeFunc
+	<
+		return new nativeFunc();
+	>
+!
+
+constructorOf: nativeFunc value: anObject
+	<
+		return new nativeFunc(anObject);
+	>
+!
+
+constructorOf: nativeFunc value: anObject value: anObject2
+	<
+		return new nativeFunc(anObject,anObject2);
+	>
+!
+
+constructorOf: nativeFunc value: anObject value: anObject2 value: anObject3
+	<
+		return new nativeFunc(anObject,anObject2, anObject3);
+	>
+! !
+
+!NativeFunction class methodsFor: 'method calling'!
+
+methodOf: nativeFunc this: thisObject
+	<
+		return Function.prototype.call.call(nativeFunc, thisObject);
+	>
+!
+
+methodOf: nativeFunc this: thisObject value: anObject
+	<
+		return Function.prototype.call.call(nativeFunc, thisObject, anObject);
+	>
+!
+
+methodOf: nativeFunc this: thisObject value: anObject value: anObject2
+	<
+		return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2);
+	>
+!
+
+methodOf: nativeFunc this: thisObject value: anObject value: anObject2 value: anObject3
+	<
+		return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2, anObject3);
+	>
+!
+
+methodOf: nativeFunc this: thisObject valueWithArgs: args
+	<
+		return Function.prototype.apply.call(nativeFunc, thisObject, args);
 	>
 ! !
 

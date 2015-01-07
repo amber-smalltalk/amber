@@ -1,3 +1,34 @@
+0.14.1:
+
+* NativeFunction class >> constructor:[value:...] deprecated
+
++ NativeFunction class >>
+  + constructorNamed:
+  + constructorNamed:value:
+  + constructorNamed:value:value:
+  + constructorNamed:value:value:value:
+  + functionNamed:
+  + functionNamed:value:
+  + functionNamed:value:value:
+  + functionNamed:value:value:value:
+  + functionNamed:valueWithArgs:
+  + functionOf:
+  + functionOf:value:
+  + functionOf:value:value:
+  + functionOf:value:value:value:
+  + functionOf:valueWithArgs:
+  + methodNamed:this:
+  + methodNamed:this:value:
+  + methodNamed:this:value:value:
+  + methodNamed:this:value:value:value:
+  + methodNamed:this:valueWithArgs:
+  + methodOf:this:
+  + methodOf:this:value:
+  + methodOf:this:value:value:
+  + methodOf:this:value:value:value:
+  + methodOf:this:valueWithArgs:
+
+
 0.14.0:
 
 + Object >>
