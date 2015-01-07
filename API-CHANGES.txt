@@ -17,11 +17,6 @@
   + functionOf:value:value:
   + functionOf:value:value:value:
   + functionOf:valueWithArgs:
-  + methodNamed:this:
-  + methodNamed:this:value:
-  + methodNamed:this:value:value:
-  + methodNamed:this:value:value:value:
-  + methodNamed:this:valueWithArgs:
   + methodOf:this:
   + methodOf:this:value:
   + methodOf:this:value:value:
