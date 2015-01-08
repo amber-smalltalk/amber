@@ -1,7 +1,7 @@
-define("amber_core/Examples", ["amber/boot", "amber_core/Web"], function($boot){
+define("amber-attic/Examples", ["amber/boot", "amber_core/Web"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Examples');
-$core.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$core.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber-attic"};
 
 $core.addClass('Counter', $globals.Widget, ['count', 'header'], 'Examples');
 //>>excludeStart("ide", pragmas.excludeIdeData);
