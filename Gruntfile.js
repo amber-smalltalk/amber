@@ -50,12 +50,6 @@ module.exports = function(grunt) {
               ],
         jsGlobals: ['navigator']
       },
-      attic: {
-        output_dir : 'support/attic/src',
-        src: ['support/attic/src/Benchfib.st', 'support/attic/src/Examples.st', 'support/attic/src/IDE.st'],
-        libraries: ['Web'],
-        amd_namespace: 'amber-attic'
-      },
       cli: {
         output_dir: 'external/amber-cli/src',
         src: ['external/amber-cli/src/AmberCli.st'],

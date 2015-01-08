@@ -5,8 +5,5 @@ define([
     'amber_core/SUnit',
     'amber_core/Compiler-Tests',
     'amber_core/Kernel-Tests',
-    'amber_core/SUnit-Tests',
-	'amber-attic/IDE',
-	'amber-attic/Examples',
-	'amber-attic/Benchfib'
+    'amber_core/SUnit-Tests'
 ], function (amber) { return amber; });
