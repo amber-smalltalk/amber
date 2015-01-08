@@ -18,6 +18,8 @@ To get your clone, follow this list:
 1. Get your copy of Helios IDE into directory `my/helios`, depending if you have your fork or want to use stock version:
   ```git clone git@github.com:<amber-smalltalk | your username>/helios.git my/helios```.
 1. Install Helios' dependencies: ```cd my/helios && bower install && cd ../..```.
+1. Get your copy of legacy IDE into directory `my/amber-attic`:
+  ```git clone git@github.com:amber-smalltalk/amber-attic.git my/amber-attic```.
 1. Run ```grunt devel```. Prepares some transient files.
 1. Run ```amber serve```. Starts the integrated development server.
 
