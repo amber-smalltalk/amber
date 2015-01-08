@@ -1,7 +1,6 @@
 {
     "paths": {
         "amber": "support",
-        "amber_css": "support/resources",
         "amber_core": "src"
     },
     "shim": {
