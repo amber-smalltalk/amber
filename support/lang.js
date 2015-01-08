@@ -9,9 +9,5 @@ define([
 	'amber_core/Compiler-Semantic',
 	'amber_core/Compiler-IR',
 	'amber_core/Compiler-Inlining',
-	'amber_core/Compiler-Interpreter',
-	'amber_core/SUnit',
-	'amber_core/Compiler-Tests',
-	'amber_core/Kernel-Tests',
-	'amber_core/SUnit-Tests'
+	'amber_core/Compiler-Interpreter'
 ], function (amber) { return amber; });
