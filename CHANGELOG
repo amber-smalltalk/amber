@@ -1,3 +1,14 @@
+8th Jan 2015 - Release 0.14.1
+===================================
+
+Highlights:
+
+* Slimmed core - legacy IDE, Examples and Benchfib in own repo.
+* Smalltalk optOut: used instead allowJavaScriptCalls to make jQuery work.
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
 1st Jan 2015 - Release 0.14.0
 ===================================
 
