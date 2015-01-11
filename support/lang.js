@@ -1,7 +1,8 @@
 define([
 	'./helpers', // pre-fetch, dep of ./deploy
 	'./deploy',
-	'amber/parser',
+	'./parser',
+	// --- packages for the Amber reflection begin here ---
 	'amber_core/Kernel-ImportExport',
 	'amber_core/Compiler-Exceptions',
 	'amber_core/Compiler-Core',
@@ -10,4 +11,5 @@ define([
 	'amber_core/Compiler-IR',
 	'amber_core/Compiler-Inlining',
 	'amber_core/Compiler-Interpreter'
+	// --- packages for the Amber reflection end here ---
 ], function (amber) { return amber; });

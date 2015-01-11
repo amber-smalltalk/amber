@@ -1,6 +1,7 @@
 define([
     './helpers',
     'jquery',
+    // --- packages of the core Amber begin here ---
     'amber_core/Kernel-Objects',
     'amber_core/Kernel-Classes',
     'amber_core/Kernel-Methods',
@@ -10,4 +11,5 @@ define([
     'amber_core/Kernel-Transcript',
     'amber_core/Kernel-Announcements',
     'amber_core/Web'
+    // --- packages of the core Amber end here ---
 ], function (amber) { return amber; });
