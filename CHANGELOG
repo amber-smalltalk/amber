@@ -1,3 +1,13 @@
+11th Jan 2015 - Release 0.14.2
+===================================
+
+Highlights:
+
+* Slimmed core - es5-shim and IE8 compatibilty tweaks in amber-compat-* repos.
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
 8th Jan 2015 - Release 0.14.1
 ===================================
 
