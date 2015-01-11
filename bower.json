@@ -15,8 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": ">=1.7.0",
-    "es5-shim": "^4.0.3"
+    "jquery": ">=1.7.0"
   },
   "devDependencies": {
     "jquery": ">=1.7.0 <2.1.0"
