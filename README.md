@@ -42,12 +42,16 @@ and as a library to be used by projects in a [bower](https://github.com/bower/bo
 
 Do this [1] to create an Amber project of your own and start working in it:
 
-    # Install the CLI tool `amber-cli`
-    npm install -g amber-cli
-    
+    # Install the CLI tool `amber-cli` and supporting tools
+    npm install -g amber-cli bower grunt-cli
+
     # Initialize your project (directory must be empty)
     cd /path/to/myproject
     amber init
+
+    # (optional) Install backward compatibility
+    bower install amber-compat-es5 --save   # be loadable in older browsers
+    bower install amber-compat-ie8 --save   # additional tweaks to load in IE8
 
     # Serve amber on localhost:4000
     amber serve
