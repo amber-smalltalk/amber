@@ -1,4 +1,4 @@
-11th Jan 2015 - Release 0.14.2
+11 January 2015 - Release 0.14.2
 ===================================
 
 Highlights:
@@ -8,7 +8,7 @@ Highlights:
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-8th Jan 2015 - Release 0.14.1
+8 January 2015 - Release 0.14.1
 ===================================
 
 Highlights:
@@ -19,7 +19,7 @@ Highlights:
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-1st Jan 2015 - Release 0.14.0
+1 January 2015 - Release 0.14.0
 ===================================
 
 Highlights:
@@ -33,7 +33,7 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclose
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-31th Dec 2014 - Release 0.13.3
+31 December 2014 - Release 0.13.3
 ===================================
 
 This is a planned maintenance release.
@@ -42,7 +42,7 @@ but it retains all the backwards compatibility stuff,
 which is going to be removed in 0.14.0.
 
 
-22th Oct 2014 - Release 0.13.2
+22 October 2014 - Release 0.13.2
 ===================================
 
 This is maintenance release to upgrade CodeMirror
@@ -59,7 +59,7 @@ Commits: https://github.com/amber-smalltalk/amber/compare/0.13.0...0.13.2
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-10th Oct 2014 - Release 0.13.1
+10 October 2014 - Release 0.13.1
 ===================================
 
 Highlights:
@@ -82,7 +82,7 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?q=is%3Aissue+is%3Aclose
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-1st July 2014 - Release 0.12.6
+1 July 2014 - Release 0.12.6
 ===================================
 
 Highlights:
@@ -105,7 +105,7 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=13&state=clos
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-11th April 2014 - Release 0.12.4
+11 April 2014 - Release 0.12.4
 ===================================
 
 Highlights:
@@ -124,7 +124,7 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=12&state=clos
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-22nd Jan 2014 - Release 0.12.3
+22 January 2014 - Release 0.12.3
 ===================================
 
 Highlights:
@@ -142,7 +142,7 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=11&state=clos
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-03rd December 2013 - Release 0.12.2
+3 December 2013 - Release 0.12.2
 ===================================
 
 Highlights:
@@ -159,7 +159,7 @@ Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=10&state=clos
 For the most important API related changes see the file API-CHANGES.txt.
 
 
-14th November 2013 - Release 0.12.1
+14 November 2013 - Release 0.12.1
 ===================================
 
 Fixes a bug in Helios preventing class definitions from being compiled
@@ -168,7 +168,7 @@ Commits: https://github.com/amber-smalltalk/amber/compare/0.12.0...0.12.1
 Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=9&state=closed
 
 
-11th November 2013 - Release 0.12.0
+11 November 2013 - Release 0.12.0
 ===================================
 
 After 3 months of work we are pleased to announce the 0.12.0 release of Amber.
@@ -270,7 +270,7 @@ comes handy when integrating; ask on the mailing list if problems arise.
 [4] https://github.com/amber-smalltalk/amber/wiki/How-to-load-amber
 
 
-09th July 2013 - Release 0.11.0
+9 July 2013 - Release 0.11.0
 ===============================
 
 Three months have passed and we are happy to announce the release
@@ -323,7 +323,7 @@ recompiling is needed in order to get contexts working:
 For API related changes see the file API-CHANGES.txt.
 
 
-13th March 2013 - Release 0.10.0
+13 March 2013 - Release 0.10.0
 ================================
 
 Here's a summary of change since the 0.9.1 release:
@@ -354,7 +354,7 @@ Here's a summary of change since the 0.9.1 release:
 
 
 
-16th January 2012 - Release 0.9.1
+16 January 2012 - Release 0.9.1
 =================================
 
 Here's a summary of changes since the 0.9 release:
@@ -376,7 +376,7 @@ Here's a summary of changes since the 0.9 release:
 - Improved JSObjectProxy for seamless JavaScript objects access from Amber
 - No more jQuery binding. Amber is fully capable of sending messages to JavaScript objects
 
-13th September 2011 - Release 0.9
+13 September 2011 - Release 0.9
 =================================
 Amber has been evolving furiously since the presentation at ESUG 2011 in Edinburgh less than 3 weeks ago.
 
