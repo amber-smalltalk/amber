@@ -374,8 +374,8 @@ $globals.Error);
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "exception";
@@ -383,7 +383,7 @@ return "exception";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'exception'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'exception'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

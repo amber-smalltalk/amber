@@ -160,6 +160,14 @@ buildSuite
 	^ self allTestSelectors collect: [ :each | self selector: each ]
 !
 
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
+	^ 'test'
+!
+
 lookupHierarchyRoot
 	^ TestCase
 !
@@ -172,12 +180,6 @@ selector: aSelector
 
 testSelectors
 	^ self methodDictionary keys select: [ :each | each match: '^test' ]
-! !
-
-!TestCase class methodsFor: 'helios'!
-
-heliosClass
-	^ 'test'
 ! !
 
 !TestCase class methodsFor: 'testing'!

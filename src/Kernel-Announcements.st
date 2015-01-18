@@ -189,9 +189,13 @@ Object subclass: #SystemAnnouncement
 !SystemAnnouncement commentStamp!
 I am the superclass of all system announcements!
 
-!SystemAnnouncement class methodsFor: 'helios'!
+!SystemAnnouncement class methodsFor: 'accessing'!
 
-heliosClass
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
 	^ 'announcement'
 ! !
 
