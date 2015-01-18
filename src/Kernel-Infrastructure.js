@@ -4245,6 +4245,30 @@ $globals.SmalltalkImage);
 
 $core.addMethod(
 $core.method({
+selector: "basicRegisterPackage:",
+protocol: 'private',
+fn: function (aPackage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$core.packages[aPackage.pkgName]=aPackage;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"basicRegisterPackage:",{aPackage:aPackage},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage"],
+source: "basicRegisterPackage: aPackage\x0a\x09\x22Put aPackage in $core.packages object.\x22\x0a\x09<$core.packages[aPackage.pkgName]=aPackage>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
 selector: "cancelOptOut:",
 protocol: 'accessing',
 fn: function (anObject){
@@ -4924,8 +4948,8 @@ $2;
 } else {
 self._error_("Already exists a package called: ".__comma(newName));
 };
-$recv(self._at_("packages"))._at_put_(newName,pkg);
 $recv(pkg)._name_(newName);
+self._basicRegisterPackage_(pkg);
 self._deletePackage_(packageName);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4934,10 +4958,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["packageName", "newName"],
-source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].\x0a\x09(self at: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
+source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].\x0a\x09pkg name: newName.\x0a\x09self basicRegisterPackage: pkg.\x0a\x09self deletePackage: packageName.",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"]
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "name:", "basicRegisterPackage:", "deletePackage:"]
 }),
 $globals.SmalltalkImage);
 

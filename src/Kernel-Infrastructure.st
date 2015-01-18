@@ -1301,8 +1301,8 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].
 	(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].
-	(self at: 'packages') at: newName put: pkg.
 	pkg name: newName.
+	self basicRegisterPackage: pkg.
 	self deletePackage: packageName.
 ! !
 
@@ -1315,6 +1315,11 @@ basicCreatePackage: packageName
 
 basicParse: aString
 	^ SmalltalkParser parse: aString
+!
+
+basicRegisterPackage: aPackage
+	"Put aPackage in $core.packages object."
+	<$core.packages[aPackage.pkgName]=aPackage>
 !
 
 deleteClass: aClass
