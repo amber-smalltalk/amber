@@ -1493,9 +1493,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$recv(aStream)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
-$1=$recv(aStream)._lf();
+self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
@@ -1503,10 +1501,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
+source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutAll:", "lf"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Exporter);
 
@@ -1519,9 +1517,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$recv(aStream)._nextPutAll_("(function(smalltalk,nil,_st){");
-$1=$recv(aStream)._lf();
+self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
@@ -1529,10 +1525,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutAll:", "lf"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Exporter);
 
@@ -2650,16 +2646,21 @@ selector: "exporterClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Exporter(){return $globals.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
-return $Exporter();
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._subclassResponsibility();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exporterClass",{},$globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "exporterClass\x0a\x09^ Exporter",
-referencedClasses: ["Exporter"],
+source: "exporterClass\x0a\x09self subclassResponsibility",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["subclassResponsibility"]
 }),
 $globals.PackageHandler);
 
@@ -3328,9 +3329,11 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+function $PackageTransport(){return $globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
+var $1;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -3339,8 +3342,13 @@ $globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply($recv(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
+$1=self.__eq_eq($PackageTransport());
+if($core.assert($1)){
 self["@registry"]=$globals.HashedCollection._newFromPairs_([]);
+self["@registry"];
+} else {
 self._register();
+};
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.PackageTransport.klass)});
@@ -3348,10 +3356,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09registry := #{}.\x0a\x09self register",
-referencedClasses: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self == PackageTransport\x0a\x09\x09ifTrue: [ registry := #{} ]\x0a\x09\x09ifFalse: [ self register ]",
+referencedClasses: ["PackageTransport"],
 //>>excludeEnd("ide");
-messageSends: ["initialize", "register"]
+messageSends: ["initialize", "ifTrue:ifFalse:", "==", "register"]
 }),
 $globals.PackageTransport.klass);
 

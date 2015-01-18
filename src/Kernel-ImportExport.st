@@ -346,15 +346,11 @@ exportPackageDefinitionOf: aPackage on: aStream
 !
 
 exportPackageEpilogueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
-		lf
+	self subclassResponsibility
 !
 
 exportPackagePrologueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '(function(smalltalk,nil,_st){';
-		lf
+	self subclassResponsibility
 !
 
 exportPackageTransportOf: aPackage on: aStream
@@ -580,7 +576,7 @@ contentsFor: aPackage
 !
 
 exporterClass
-	^ Exporter
+	self subclassResponsibility
 ! !
 
 !PackageHandler methodsFor: 'committing'!
@@ -809,8 +805,9 @@ type
 
 initialize
 	super initialize.
-	registry := #{}.
-	self register
+	self == PackageTransport
+		ifTrue: [ registry := #{} ]
+		ifFalse: [ self register ]
 ! !
 
 !PackageTransport class methodsFor: 'instance creation'!
