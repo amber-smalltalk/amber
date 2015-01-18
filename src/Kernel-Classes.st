@@ -184,6 +184,19 @@ ownProtocols
 		each match: '^\*' ]
 !
 
+packageOfProtocol: aString
+	"Answer the package the method of receiver belongs to:
+	- if it is an extension method, answer the corresponding package
+	- else answer the receiver's package"
+	
+	(aString beginsWith: '*') ifFalse: [
+		^ self package ].
+		
+	^ Package 
+		named: aString allButFirst
+		ifAbsent: [ nil ]
+!
+
 protocols
 	^ self organization elements sorted
 !

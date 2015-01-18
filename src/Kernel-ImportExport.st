@@ -321,6 +321,7 @@ exportPackage: aPackage on: aStream
 	self 
 		exportPackagePrologueOf: aPackage on: aStream;
 		exportPackageDefinitionOf: aPackage on: aStream;
+		exportPackageContextOf: aPackage on: aStream;
 		exportPackageTransportOf: aPackage on: aStream.
 	
 	aPackage sortedClasses do: [ :each |
@@ -336,6 +337,16 @@ exportPackage: aPackage on: aStream
 		self exportMethod: each on: aStream ].
 		
 	self exportPackageEpilogueOf: aPackage on: aStream
+!
+
+exportPackageContextOf: aPackage on: aStream
+	aStream
+		nextPutAll: '$core.packages[';
+		nextPutAll: aPackage name asJavascript;
+		nextPutAll: '].innerEval = ';
+		nextPutAll: 'function (expr) { return eval(expr); }';
+		nextPutAll: ';';
+		lf
 !
 
 exportPackageDefinitionOf: aPackage on: aStream

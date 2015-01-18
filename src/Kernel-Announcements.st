@@ -386,13 +386,8 @@ I am the abstract superclass of protocol-related announcements.!
 !ProtocolAnnouncement methodsFor: 'accessing'!
 
 package
-
-	(self protocol beginsWith: '*') ifFalse: [
-		^ self theClass package ].
-		
-	^ Package 
-		named: self protocol allButFirst
-		ifAbsent: [ nil ]
+	
+	^ self theClass ifNotNil: [ :class | class packageOfProtocol: self protocol ]
 !
 
 protocol

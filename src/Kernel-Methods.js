@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Methods", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Methods');
+$core.packages["Kernel-Methods"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Methods"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('BlockClosure', $globals.Object, [], 'Kernel-Methods');
@@ -1002,44 +1003,29 @@ selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$3,$2,$4,$5,$receiver;
-$1=self._methodClass();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["methodClass"]=1;
-//>>excludeEnd("ctx");
-if(($receiver = $1) == null || $receiver.isNil){
-return nil;
+var $2,$1,$receiver;
+$2=self._methodClass();
+if(($receiver = $2) == null || $receiver.isNil){
+$1=$2;
 } else {
-$1;
+var class_;
+class_=$receiver;
+$1=$recv(class_)._packageOfProtocol_(self._protocol());
 };
-$3=self._protocol();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["protocol"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._beginsWith_("*");
-if(!$core.assert($2)){
-$4=$recv(self._methodClass())._package();
-return $4;
-};
-$5=$recv($Package())._named_ifAbsent_($recv(self._protocol())._allButFirst(),(function(){
-return nil;
-
-}));
-return $5;
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.CompiledMethod)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09self methodClass ifNil: [ ^ nil ].\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
-referencedClasses: ["Package"],
+source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09^ self methodClass ifNotNil: [ :class | class packageOfProtocol: self protocol ]",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "methodClass", "ifFalse:", "beginsWith:", "protocol", "package", "named:ifAbsent:", "allButFirst"]
+messageSends: ["ifNotNil:", "methodClass", "packageOfProtocol:", "protocol"]
 }),
 $globals.CompiledMethod);
 

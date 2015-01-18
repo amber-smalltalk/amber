@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Classes');
+$core.packages["Kernel-Classes"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Behavior', $globals.Object, [], 'Kernel-Classes');
@@ -1268,6 +1269,40 @@ source: "ownProtocols\x0a\x09\x22Answer the protocols of the receiver that are n
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["reject:", "protocols", "match:"]
+}),
+$globals.Behavior);
+
+$core.addMethod(
+$core.method({
+selector: "packageOfProtocol:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3;
+$1=$recv(aString)._beginsWith_("*");
+if(!$core.assert($1)){
+$2=self._package();
+return $2;
+};
+$3=$recv($Package())._named_ifAbsent_($recv(aString)._allButFirst(),(function(){
+return nil;
+
+}));
+return $3;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"packageOfProtocol:",{aString:aString},$globals.Behavior)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "packageOfProtocol: aString\x0a\x09\x22Answer the package the method of receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the receiver's package\x22\x0a\x09\x0a\x09(aString beginsWith: '*') ifFalse: [\x0a\x09\x09^ self package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: aString allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
+referencedClasses: ["Package"],
+//>>excludeEnd("ide");
+messageSends: ["ifFalse:", "beginsWith:", "package", "named:ifAbsent:", "allButFirst"]
 }),
 $globals.Behavior);
 

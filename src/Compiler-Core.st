@@ -158,6 +158,12 @@ eval: aString
 	<return eval(aString)>
 !
 
+eval: aString forPackage: aPackage
+	<return aPackage && aPackage.innerEval
+		? aPackage.innerEval(aString)
+		: eval(aString)>
+!
+
 evaluateExpression: aString
 	"Unlike #eval: evaluate a Smalltalk expression and answer the returned object"
 	^ self evaluateExpression: aString on: DoIt new
@@ -175,8 +181,12 @@ evaluateExpression: aString on: anObject
 !
 
 install: aString forClass: aBehavior protocol: anotherString
+	| compiledMethod |
+	compiledMethod := self
+		eval: (self compile: aString forClass: aBehavior)
+		forPackage: (aBehavior packageOfProtocol: anotherString).
 	^ ClassBuilder new
-		installMethod: (self eval: (self compile: aString forClass: aBehavior))
+		installMethod: compiledMethod
 		forClass: aBehavior
 		protocol: anotherString
 !

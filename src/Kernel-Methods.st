@@ -239,14 +239,7 @@ package
 	- if it is an extension method, answer the corresponding package
 	- else answer the `methodClass` package"
 	
-	self methodClass ifNil: [ ^ nil ].
-	
-	(self protocol beginsWith: '*') ifFalse: [
-		^ self methodClass package ].
-		
-	^ Package 
-		named: self protocol allButFirst
-		ifAbsent: [ nil ]
+	^ self methodClass ifNotNil: [ :class | class packageOfProtocol: self protocol ]
 !
 
 protocol
