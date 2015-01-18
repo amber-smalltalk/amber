@@ -1,4 +1,4 @@
-define("amber/parser", ["./boot"], function($boot) {
+define(["amber/boot"], function($boot) {
 var $globals = $boot.globals, nil = $boot.nil;
 $globals.SmalltalkParser = (function() {
   /*
