@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Exceptions');
+$core.packages["Kernel-Exceptions"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');

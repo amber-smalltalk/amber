@@ -1,6 +1,7 @@
 define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Semantic');
+$core.packages["Compiler-Semantic"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('LexicalScope', $globals.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');

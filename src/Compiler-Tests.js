@@ -1,6 +1,7 @@
 define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Tests');
+$core.packages["Compiler-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ASTParsingTest', $globals.TestCase, [], 'Compiler-Tests');

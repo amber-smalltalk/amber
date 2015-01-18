@@ -1,6 +1,7 @@
 define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('SUnit');
+$core.packages["SUnit"].innerEval = function (expr) { return eval(expr); };
 $core.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ResultAnnouncement', $globals.Object, ['result'], 'SUnit');

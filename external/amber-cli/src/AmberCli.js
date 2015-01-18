@@ -1,6 +1,7 @@
 define("amber_cli/AmberCli", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('AmberCli');
+$core.packages["AmberCli"].innerEval = function (expr) { return eval(expr); };
 $core.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
 $core.addClass('AmberCli', $globals.Object, [], 'AmberCli');

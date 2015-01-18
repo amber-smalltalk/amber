@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Tests');
+$core.packages["Kernel-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('AnnouncementSubscriptionTest', $globals.TestCase, [], 'Kernel-Tests');

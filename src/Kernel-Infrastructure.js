@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Infrastructure');
+$core.packages["Kernel-Infrastructure"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ConsoleErrorHandler', $globals.Object, [], 'Kernel-Infrastructure');

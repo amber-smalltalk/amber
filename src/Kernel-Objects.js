@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Objects');
+$core.packages["Kernel-Objects"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ProtoObject', null, [], 'Kernel-Objects');

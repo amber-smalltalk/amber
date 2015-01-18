@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Transcript", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Transcript');
+$core.packages["Kernel-Transcript"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Kernel-Transcript');

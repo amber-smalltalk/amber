@@ -1,6 +1,7 @@
 define("amber_core/SUnit-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('SUnit-Tests');
+$core.packages["SUnit-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ExampleSetTest', $globals.TestCase, ['empty', 'full'], 'SUnit-Tests');

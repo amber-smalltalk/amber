@@ -1,6 +1,7 @@
 define("amber_core/Kernel-Collections", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Collections');
+$core.packages["Kernel-Collections"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Association', $globals.Object, ['key', 'value'], 'Kernel-Collections');
