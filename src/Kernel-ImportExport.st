@@ -431,9 +431,9 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: '/'; 
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
-		nextPutAll: (namedImports, #('amber/boot'), anonImports, loadDependencies) asJavascript;
+		nextPutAll: (#('amber/boot'), namedImports, anonImports, loadDependencies) asJavascript;
 		nextPutAll: ', function(';
-		nextPutAll: (importVarNames, #('$boot') join: ',');
+		nextPutAll: (#('$boot'), importVarNames join: ',');
 		nextPutAll: '){';
 		lf;
 		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';

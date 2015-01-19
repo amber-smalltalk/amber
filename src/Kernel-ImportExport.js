@@ -2004,7 +2004,7 @@ $recv(aStream)._nextPutAll_("\x22, ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=5;
 //>>excludeEnd("ctx");
-$5=$recv(namedImports).__comma(["amber/boot"]);
+$5=["amber/boot"].__comma(namedImports);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
 //>>excludeEnd("ctx");
@@ -2025,7 +2025,7 @@ $recv(aStream)._nextPutAll_(", function(");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
 //>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_($recv($recv(importVarNames).__comma(["$boot"]))._join_(","));
+$recv(aStream)._nextPutAll_($recv(["$boot"].__comma(importVarNames))._join_(","));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=8;
 //>>excludeEnd("ctx");
@@ -2046,7 +2046,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| namedImports anonImports importVarNames loadDependencies |\x0a\x09namedImports := #().\x0a\x09anonImports := #().\x0a\x09importVarNames := #().\x0a\x09aPackage imports do: [ :each | each isString\x0a\x09\x09ifTrue: [ anonImports add: each ]\x0a\x09\x09ifFalse: [ namedImports add: each value.\x0a\x09\x09\x09importVarNames add: each key ]].\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (namedImports, #('amber/boot'), anonImports, loadDependencies) asJavascript;\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (importVarNames, #('$boot') join: ',');\x0a\x09\x09nextPutAll: '){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| namedImports anonImports importVarNames loadDependencies |\x0a\x09namedImports := #().\x0a\x09anonImports := #().\x0a\x09importVarNames := #().\x0a\x09aPackage imports do: [ :each | each isString\x0a\x09\x09ifTrue: [ anonImports add: each ]\x0a\x09\x09ifFalse: [ namedImports add: each value.\x0a\x09\x09\x09importVarNames add: each key ]].\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), namedImports, anonImports, loadDependencies) asJavascript;\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (#('$boot'), importVarNames join: ',');\x0a\x09\x09nextPutAll: '){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["do:", "imports", "ifTrue:ifFalse:", "isString", "add:", "value", "key", "amdNamesOfPackages:", "loadDependencies", "nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "join:", "lf"]
