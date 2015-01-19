@@ -1,4 +1,5 @@
 Smalltalk createPackage: 'Web'!
+(Smalltalk packageAt: 'Web') imports: {'jQuery' -> 'jquery'}!
 Object subclass: #BrowserInterface
 	instanceVariableNames: ''
 	package: 'Web'!
