@@ -172,7 +172,9 @@ exportMethod: aMethod on: aStream
 
 exportPackage: aPackage on: aStream
 
-	self exportPackageDefinitionOf: aPackage on: aStream.
+	self
+		exportPackageDefinitionOf: aPackage on: aStream;
+		exportPackageImportsOf: aPackage on: aStream.
 	
 	aPackage sortedClasses do: [ :each |
 		self exportDefinitionOf: each on: aStream.
@@ -196,6 +198,17 @@ exportPackageDefinitionOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'Smalltalk createPackage: ''', aPackage name, '''!!';
 		lf
+!
+
+exportPackageImportsOf: aPackage on: aStream
+	aPackage imports ifNotEmpty: [ :imports |
+		aStream
+			nextPutAll: '(Smalltalk packageAt: ''';
+			nextPutAll: aPackage name;
+			nextPutAll: ''') imports: ';
+			nextPutAll: aPackage importsDefinition;
+			nextPutAll: '!!';
+			lf ]
 !
 
 exportProtocol: aProtocol on: aStream

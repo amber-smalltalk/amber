@@ -609,7 +609,7 @@ imports: anArray
 importsDefinition
 	^ String streamContents: [ :stream |
 		stream nextPutAll: '{'.
-		self imports
+		self sortedImportsAsArray
 			do: [ :each | stream nextPutAll: each importsString ]
 			separatedBy: [ stream nextPutAll: '. ' ].
 		stream nextPutAll: '}' ]
