@@ -1,7 +1,8 @@
-define("amber_core/Web", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot){
+define("amber_core/Web", ["jquery", "amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(jQuery,$boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Web');
 $core.packages["Web"].innerEval = function (expr) { return eval(expr); };
+$core.packages["Web"].imports = ["jQuery=jquery"];
 $core.packages["Web"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('BrowserInterface', $globals.Object, [], 'Web');
