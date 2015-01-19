@@ -5,6 +5,9 @@ Highlights:
 
 * Package can specify external dependencies and import them as package-global vars.
 
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.2...0.14.3
+Issues: https://github.com/amber-smalltalk/amber/issues?q=milestone%3A0.14.3+is%3Aclosed
+
 For the most important API related changes see the file API-CHANGES.txt.
 
 
@@ -14,6 +17,8 @@ For the most important API related changes see the file API-CHANGES.txt.
 Highlights:
 
 * Slimmed core - es5-shim and IE8 compatibilty tweaks in amber-compat-* repos.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.1...0.14.2
 
 For the most important API related changes see the file API-CHANGES.txt.
 
@@ -25,6 +30,8 @@ Highlights:
 
 * Slimmed core - legacy IDE, Examples and Benchfib in own repo.
 * Smalltalk optOut: used instead allowJavaScriptCalls to make jQuery work.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.0...0.14.1
 
 For the most important API related changes see the file API-CHANGES.txt.
 
