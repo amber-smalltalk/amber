@@ -10,31 +10,6 @@ $globals.AbstractExporter.comment="I am an abstract exporter for Amber source co
 //>>excludeEnd("ide");
 $core.addMethod(
 $core.method({
-selector: "chunkEscape:",
-protocol: 'convenience',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv(aString)._replace_with_("!","!!"))._trimBoth();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},$globals.AbstractExporter)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^ (aString replace: '!' with: '!!') trimBoth",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["trimBoth", "replace:with:"]
-}),
-$globals.AbstractExporter);
-
-$core.addMethod(
-$core.method({
 selector: "classNameFor:",
 protocol: 'convenience',
 fn: function (aClass){
@@ -209,6 +184,31 @@ $core.addClass('ChunkExporter', $globals.AbstractExporter, [], 'Kernel-ImportExp
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
 //>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "chunkEscape:",
+protocol: 'convenience',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv(aString)._replace_with_("!","!!"))._trimBoth();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},$globals.ChunkExporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^ (aString replace: '!' with: '!!') trimBoth",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["trimBoth", "replace:with:"]
+}),
+$globals.ChunkExporter);
+
 $core.addMethod(
 $core.method({
 selector: "exportCategoryEpilogueOf:on:",

@@ -44,12 +44,6 @@ extensionProtocolsOfPackage: aPackage
 
 !AbstractExporter methodsFor: 'convenience'!
 
-chunkEscape: aString
-	"Replace all occurrences of !! with !!!! and trim at both ends."
-
-	^ (aString replace: '!!' with: '!!!!') trimBoth
-!
-
 classNameFor: aClass
 	^ aClass isMetaclass
 		ifTrue: [ aClass instanceClass name, ' class' ]
@@ -115,6 +109,14 @@ ownMethodProtocolsOfClass: aClass
 	
 	^ aClass ownProtocols collect: [ :each |
 		ExportMethodProtocol name: each theClass: aClass ]
+! !
+
+!ChunkExporter methodsFor: 'convenience'!
+
+chunkEscape: aString
+	"Replace all occurrences of !! with !!!! and trim at both ends."
+
+	^ (aString replace: '!!' with: '!!!!') trimBoth
 ! !
 
 !ChunkExporter methodsFor: 'output'!
