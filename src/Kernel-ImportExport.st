@@ -322,6 +322,7 @@ exportPackage: aPackage on: aStream
 		exportPackagePrologueOf: aPackage on: aStream;
 		exportPackageDefinitionOf: aPackage on: aStream;
 		exportPackageContextOf: aPackage on: aStream;
+		exportPackageImportsOf: aPackage on: aStream;
 		exportPackageTransportOf: aPackage on: aStream.
 	
 	aPackage sortedClasses do: [ :each |
@@ -360,6 +361,17 @@ exportPackageEpilogueOf: aPackage on: aStream
 	self subclassResponsibility
 !
 
+exportPackageImportsOf: aPackage on: aStream
+	aPackage importsAsJson ifNotEmpty: [ :imports |
+		aStream
+			nextPutAll: '$core.packages[';
+			nextPutAll: aPackage name asJavascript;
+			nextPutAll: '].imports = ';
+			nextPutAll: imports asJavascript;
+			nextPutAll: ';';
+			lf ]
+!
+
 exportPackagePrologueOf: aPackage on: aStream
 	self subclassResponsibility
 !
@@ -389,14 +401,25 @@ exportPackageEpilogueOf: aPackage on: aStream
 !
 
 exportPackagePrologueOf: aPackage on: aStream
+	| namedImports anonImports importVarNames loadDependencies |
+	namedImports := #().
+	anonImports := #().
+	importVarNames := #().
+	aPackage imports do: [ :each | each isString
+		ifTrue: [ anonImports add: each ]
+		ifFalse: [ namedImports add: each value.
+			importVarNames add: each key ]].
+	loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.
 	aStream
 		nextPutAll: 'define("';
 		nextPutAll: (self amdNamespaceOfPackage: aPackage);
-		nextPutAll: '/';
+		nextPutAll: '/'; 
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
-		nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
-		nextPutAll: ', function($boot){';
+		nextPutAll: (namedImports, #('amber/boot'), anonImports, loadDependencies) asJavascript;
+		nextPutAll: ', function(';
+		nextPutAll: (importVarNames, #('$boot') join: ',');
+		nextPutAll: '){';
 		lf;
 		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
 		lf
