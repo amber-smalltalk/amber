@@ -17,7 +17,7 @@
   + sortedImportsAsArray
   + validateImports:
 + Package class >>
-  + named:imports:named:
+  + named:imports:transport:
 + Association >>
   + importsString
 + String >>
