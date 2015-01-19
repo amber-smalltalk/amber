@@ -1,3 +1,29 @@
+0.14.3:
+
++ Compiler >>
+  + eval:forPackage:
++ Behavior >>
+  + packageOfProtocol:
++ Exporter >>
+  + exportPackageContextOf:on:
+  + exportPackageImportsOf:on:
++ Package >>
+  + basicImports
+  + imports
+  + imports:
+  + importsDefinition
+  + importsFromJson:
+  + importsAsJson
+  + sortedImportsAsArray
+  + validateImports:
++ Package class >>
+  + named:imports:named:
++ Association >>
+  + importsString
++ String >>
+  + importsString
+
+
 0.14.1:
 
 * NativeFunction class >> constructor:[value:...] deprecated
