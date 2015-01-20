@@ -138,6 +138,14 @@ isKindOf: aClass
 	^ (self isMemberOf: aClass)
 		ifTrue: [ true ]
 		ifFalse: [ self class inheritsFrom: aClass ]
+!
+
+isNil
+	^ false
+!
+
+notNil
+	^ self isNil not
 ! !
 
 !ProtoObject class methodsFor: 'initialization'!
@@ -364,10 +372,6 @@ isMetaclass
 	^ false
 !
 
-isNil
-	^ false
-!
-
 isNumber
 	^ false
 !
@@ -386,10 +390,6 @@ isString
 
 isSymbol
 	^ false
-!
-
-notNil
-	^ self isNil not
 !
 
 respondsTo: aSelector

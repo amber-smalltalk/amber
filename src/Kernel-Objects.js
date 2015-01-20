@@ -429,6 +429,49 @@ $globals.ProtoObject);
 
 $core.addMethod(
 $core.method({
+selector: "isNil",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return false;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isNil\x0a\x09^ false",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "notNil",
+protocol: 'testing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._isNil())._not();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"notNil",{},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "notNil\x0a\x09^ self isNil not",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["not", "isNil"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
 selector: "perform:",
 protocol: 'message handling',
 fn: function (aString){
@@ -1293,24 +1336,6 @@ $globals.Object);
 
 $core.addMethod(
 $core.method({
-selector: "isNil",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return false;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "isNil\x0a\x09^ false",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
 selector: "isNumber",
 protocol: 'testing',
 fn: function (){
@@ -1396,31 +1421,6 @@ source: "isSymbol\x0a\x09^ false",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "notNil",
-protocol: 'testing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._isNil())._not();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"notNil",{},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "notNil\x0a\x09^ self isNil not",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["not", "isNil"]
 }),
 $globals.Object);
 
