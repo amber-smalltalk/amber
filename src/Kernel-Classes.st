@@ -378,6 +378,14 @@ category
 	^ self package ifNil: [ 'Unclassified' ] ifNotNil: [ self package name ]
 !
 
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
+	^ 'class'
+!
+
 definition
 	^ String streamContents: [ :stream |
 		stream
@@ -394,13 +402,6 @@ definition
 			nextPutAll: 'package: ''';
 			nextPutAll: self category;
 			nextPutAll: '''' ]
-!
-
-heliosClass
-	"Should be an Helios extension. Unfortunately, since helios can browse remote
-	environments, we can't extend base classes"
-	
-	^ 'class'
 !
 
 package

@@ -392,9 +392,13 @@ notEmpty
 	^ self isEmpty not
 ! !
 
-!Collection class methodsFor: 'helios'!
+!Collection class methodsFor: 'accessing'!
 
-heliosClass
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
 	^ 'collection'
 ! !
 

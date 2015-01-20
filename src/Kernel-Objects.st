@@ -712,9 +712,13 @@ printOn: aStream
 	aStream nextPutAll: self asString
 ! !
 
-!Date class methodsFor: 'helios'!
+!Date class methodsFor: 'accessing'!
 
-heliosClass
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
 	^ 'magnitude'
 ! !
 
@@ -1094,9 +1098,13 @@ positive
 	^ self >= 0
 ! !
 
-!Number class methodsFor: 'helios'!
+!Number class methodsFor: 'accessing'!
 
-heliosClass
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
 	^ 'magnitude'
 ! !
 
@@ -1233,9 +1241,13 @@ translateBy: delta
 	^ (delta x + x) @ (delta y + y)
 ! !
 
-!Point class methodsFor: 'helios'!
+!Point class methodsFor: 'accessing'!
 
-heliosClass
+classTag
+	"Returns a tag or general category for this class.
+	Typically used to help tools do some reflection.
+	Helios, for example, uses this to decide what icon the class should display."
+	
 	^ 'magnitude'
 ! !
 

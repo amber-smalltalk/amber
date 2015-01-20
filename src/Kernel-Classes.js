@@ -1750,6 +1750,24 @@ $globals.Class);
 
 $core.addMethod(
 $core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "class";
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'class'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Class);
+
+$core.addMethod(
+$core.method({
 selector: "definition",
 protocol: 'accessing',
 fn: function (){
@@ -1852,24 +1870,6 @@ source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09strea
 referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["streamContents:", "nextPutAll:", "asString", "superclass", "name", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category"]
-}),
-$globals.Class);
-
-$core.addMethod(
-$core.method({
-selector: "heliosClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "class";
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.Class);
 

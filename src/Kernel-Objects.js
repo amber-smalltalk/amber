@@ -3040,6 +3040,24 @@ $globals.Date);
 
 $core.addMethod(
 $core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "magnitude";
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'magnitude'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Date.klass);
+
+$core.addMethod(
+$core.method({
 selector: "fromMilliseconds:",
 protocol: 'instance creation',
 fn: function (aNumber){
@@ -3110,24 +3128,6 @@ source: "fromString: aString\x0a\x09\x22Example: Date fromString('2011/04/15 00:
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["new:"]
-}),
-$globals.Date.klass);
-
-$core.addMethod(
-$core.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "magnitude";
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "heliosClass\x0a\x09^ 'magnitude'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.Date.klass);
 
@@ -4870,6 +4870,24 @@ $globals.Number);
 
 $core.addMethod(
 $core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "magnitude";
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'magnitude'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Number.klass);
+
+$core.addMethod(
+$core.method({
 selector: "e",
 protocol: 'instance creation',
 fn: function (){
@@ -4886,24 +4904,6 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "e\x0a\x09<return Math.E;>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Number.klass);
-
-$core.addMethod(
-$core.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "magnitude";
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "heliosClass\x0a\x09^ 'magnitude'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -5555,8 +5555,8 @@ $globals.Point);
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "magnitude";
@@ -5564,7 +5564,7 @@ return "magnitude";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'magnitude'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'magnitude'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
