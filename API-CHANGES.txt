@@ -24,6 +24,21 @@
   + importsString
 + String >>
   + importsString
++ ProtoObject >>
+  + ifNil:
+  + ifNil:ifNotNil:
+  + ifNotNil:
+  + ifNotNil:ifNil:
+  + isNil
+  + notNil
+
+- Object >>
+  - ifNil:
+  - ifNil:ifNotNil:
+  - ifNotNil:
+  - ifNotNil:ifNil:
+  - isNil
+  - notNil
 
 
 0.14.1:
