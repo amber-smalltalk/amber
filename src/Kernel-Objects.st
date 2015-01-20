@@ -114,6 +114,26 @@ printString
 
 !ProtoObject methodsFor: 'testing'!
 
+ifNil: aBlock
+	"inlined in the Compiler"
+	^ self
+!
+
+ifNil: aBlock ifNotNil: anotherBlock
+	"inlined in the Compiler"
+	^ anotherBlock value: self
+!
+
+ifNotNil: aBlock
+	"inlined in the Compiler"
+	^ aBlock value: self
+!
+
+ifNotNil: aBlock ifNil: anotherBlock
+	"inlined in the Compiler"
+	^ aBlock value: self
+!
+
 isKindOf: aClass
 	^ (self isMemberOf: aClass)
 		ifTrue: [ true ]
@@ -315,26 +335,6 @@ putOn: aStream
 ! !
 
 !Object methodsFor: 'testing'!
-
-ifNil: aBlock
-	"inlined in the Compiler"
-	^ self
-!
-
-ifNil: aBlock ifNotNil: anotherBlock
-	"inlined in the Compiler"
-	^ anotherBlock value: self
-!
-
-ifNotNil: aBlock
-	"inlined in the Compiler"
-	^ aBlock value: self
-!
-
-ifNotNil: aBlock ifNil: anotherBlock
-	"inlined in the Compiler"
-	^ aBlock value: self
-!
 
 isBehavior
 	^ false

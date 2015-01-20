@@ -197,6 +197,99 @@ $globals.ProtoObject);
 
 $core.addMethod(
 $core.method({
+selector: "ifNil:",
+protocol: 'testing',
+fn: function (aBlock){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "ifNil:ifNotNil:",
+protocol: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(anotherBlock)._value_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anotherBlock"],
+source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ anotherBlock value: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "ifNotNil:",
+protocol: 'testing',
+fn: function (aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aBlock)._value_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "ifNotNil:ifNil:",
+protocol: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aBlock)._value_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anotherBlock"],
+source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1020,99 +1113,6 @@ source: "halt\x0a\x09Halt signal",
 referencedClasses: ["Halt"],
 //>>excludeEnd("ide");
 messageSends: ["signal"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNil:",
-protocol: 'testing',
-fn: function (aBlock){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNil:ifNotNil:",
-protocol: 'testing',
-fn: function (aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(anotherBlock)._value_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anotherBlock"],
-source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ anotherBlock value: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["value:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNotNil:",
-protocol: 'testing',
-fn: function (aBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(aBlock)._value_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["value:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNotNil:ifNil:",
-protocol: 'testing',
-fn: function (aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(aBlock)._value_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anotherBlock"],
-source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["value:"]
 }),
 $globals.Object);
 
