@@ -37,7 +37,7 @@ function createConcatenator () {
 		},
 		start: function () {
 			this.add(
-				'var define = (' + require('amdefine') + ')(null, function (id) { console.log("WARNING: Dependency not found: " +  id); }), requirejs = define.require;',
+				'var define = (' + require('amdefine') + ')(null, function (id) { console.log("Skipping dependency: " +  id); }), requirejs = define.require;',
 				'define("amber/browser-compatibility", [], {});'
 			);
 		},
