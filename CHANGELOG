@@ -1,3 +1,13 @@
+21 January 2015 - Release 0.14.4
+===================================
+
+Highlights:
+
+* Adds removeAll:  removeAllFoundIn: and removeAllSuchThat: to the collection API
+* Adds one test for each of those methods.
+* Upgrades dependency on amber-dev to 0.3.1
+
+
 20 January 2015 - Release 0.14.3
 ===================================
 

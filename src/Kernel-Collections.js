@@ -1543,6 +1543,115 @@ $globals.Collection);
 
 $core.addMethod(
 $core.method({
+selector: "removeAll:",
+protocol: 'adding/removing',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
+$1=$recv(aCollection).__eq_eq(self);
+if($core.assert($1)){
+$2=self._removeAll();
+return $2;
+};
+$recv(aCollection)._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._remove_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+return aCollection;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"removeAll:",{aCollection:aCollection},$globals.Collection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "removeAll: aCollection \x0a\x09\x22Remove each element of aCollection from the receiver. If successful for \x0a\x09each, answer aCollection. \x0a\x09Raises an error when an element is not found.\x22\x0a\x0a\x09aCollection == self ifTrue: [ ^self removeAll ].\x0a\x09aCollection do: [ :each | self remove: each ].\x0a\x09^ aCollection",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifTrue:", "==", "removeAll", "do:", "remove:"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
+selector: "removeAllFoundIn:",
+protocol: 'adding/removing',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aCollection)._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._remove_ifAbsent_(each,(function(){
+return nil;
+
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return aCollection;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"removeAllFoundIn:",{aCollection:aCollection},$globals.Collection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "removeAllFoundIn: aCollection \x0a    \x22Remove from the receiver each element of aCollection that is also found in the receiver. \x0a\x09No error is raised if an element isn't found.\x0a\x09Answer aCollection.\x22\x0a\x0a    aCollection do: [ :each | self remove: each ifAbsent: [ nil ] ].\x0a    ^ aCollection",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "remove:ifAbsent:"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
+selector: "removeAllSuchThat:",
+protocol: 'adding/removing',
+fn: function (aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$recv(self._copy())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv(aBlock)._value_(each);
+if($core.assert($1)){
+return self._remove_(each);
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"removeAllSuchThat:",{aBlock:aBlock},$globals.Collection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "removeAllSuchThat: aBlock \x0a\x09\x22Evaluate aBlock for each element and remove all the elements from\x0a\x09the receiver for which aBlock evaluates to true.  Use a copy to enumerate \x0a\x09collections whose order changes when an element is removed (i.e. Sets).\x22\x0a\x0a\x09self copy do: [ :each | (aBlock value: each) ifTrue: [ self remove: each ] ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "copy", "ifTrue:", "value:", "remove:"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
 selector: "select:",
 protocol: 'enumerating',
 fn: function (aBlock){

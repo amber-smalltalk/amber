@@ -3687,6 +3687,37 @@ $globals.CollectionTest);
 
 $core.addMethod(
 $core.method({
+selector: "testRemoveSome",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var original,part;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
+original=[(1), (2), (3), (4), (5), (6), (7), (8), (9)];
+part=[(2), (4), (6)];
+$1=self._collection();
+$recv($1)._removeAll();
+$2=$recv($1)._yourself();
+self._assert_equals_($2,$recv(self._collectionClass())._new());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testRemoveSome",{original:original,part:part},$globals.CollectionTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testRemoveSome\x0a\x0a\x09| original part |\x0a\x09\x0a\x09original := #( 1 2 3 4 5 6 7 8 9 ).\x0a\x09part := #( 2 4 6 ).\x0a\x09\x0a\x09\x0a\x09self assert: (self collection removeAll; yourself) equals: self collectionClass new",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:equals:", "removeAll", "collection", "yourself", "new", "collectionClass"]
+}),
+$globals.CollectionTest);
+
+$core.addMethod(
+$core.method({
 selector: "testSelect",
 protocol: 'tests',
 fn: function (){
@@ -6694,6 +6725,179 @@ source: "testLastN\x0a\x09self \x0a\x09\x09assert: (self collection last: 2) \x0
 referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "last:", "collection", "collectionLastTwo", "new", "collectionClass", "collectionSize", "should:raise:"]
+}),
+$globals.SequenceableCollectionTest);
+
+$core.addMethod(
+$core.method({
+selector: "testRemoveAllFound",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var original,part;
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+original=[(1), (2), (3), (4), (5), (6), (7), (8), (9)];
+part=[(2), (4), (6)];
+$recv(original)._removeAllFoundIn_(part);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["removeAllFoundIn:"]=1;
+//>>excludeEnd("ctx");
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._assert_($recv(part)._allSatisfy_((function(e){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv($recv(original)._includes_(e))._not();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,2)});
+//>>excludeEnd("ctx");
+})));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$Error());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["shouldnt:raise:"]=1;
+//>>excludeEnd("ctx");
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(original)._removeAllFoundIn_([(11), (12)]);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+//>>excludeEnd("ctx");
+}),$Error());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAllFound",{original:original,part:part},$globals.SequenceableCollectionTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testRemoveAllFound\x0a\x0a\x09| original part |\x0a\x09\x0a\x09original := #( 1 2 3 4 5 6 7 8 9 ).\x0a\x09part := #( 2 4 6 ).\x0a\x09\x0a\x09original removeAllFoundIn: part.\x0a\x0a\x09self shouldnt: [ self assert: (part allSatisfy: [ :e | (original includes: e) not ]) ] raise: Error.\x0a\x09self shouldnt: [ original removeAllFoundIn: #( 11 12 ) ] raise: Error",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["removeAllFoundIn:", "shouldnt:raise:", "assert:", "allSatisfy:", "not", "includes:"]
+}),
+$globals.SequenceableCollectionTest);
+
+$core.addMethod(
+$core.method({
+selector: "testRemoveAllSuch",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var original,part;
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+original=[(1), (2), (3), (4), (5), (6), (7), (8), (9)];
+part=[(2), (4), (6)];
+$recv(original)._removeAllSuchThat_((function(e){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(part)._includes_(e);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["includes:"]=1;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._assert_($recv(part)._allSatisfy_((function(e){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv($recv(original)._includes_(e))._not();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,3)});
+//>>excludeEnd("ctx");
+})));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
+}),$Error());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAllSuch",{original:original,part:part},$globals.SequenceableCollectionTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testRemoveAllSuch\x0a\x0a\x09| original part |\x0a\x09\x0a\x09original := #( 1 2 3 4 5 6 7 8 9 ).\x0a\x09part := #( 2 4 6 ).\x0a\x09\x0a\x09original removeAllSuchThat: [ :e | part includes: e ].\x0a\x0a\x09self shouldnt: [ self assert: (part allSatisfy: [ :e | (original includes: e) not ]) ] raise: Error.",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["removeAllSuchThat:", "includes:", "shouldnt:raise:", "assert:", "allSatisfy:", "not"]
+}),
+$globals.SequenceableCollectionTest);
+
+$core.addMethod(
+$core.method({
+selector: "testRemoveAllUsingSome",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var original,part;
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+original=[(1), (2), (3), (4), (5), (6), (7), (8), (9)];
+part=[(2), (4), (6)];
+$recv(original)._removeAll_(part);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["removeAll:"]=1;
+//>>excludeEnd("ctx");
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._assert_($recv(part)._allSatisfy_((function(e){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv($recv(original)._includes_(e))._not();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,2)});
+//>>excludeEnd("ctx");
+})));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$Error());
+self._should_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(original)._removeAll_([(11), (12)]);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+//>>excludeEnd("ctx");
+}),$Error());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testRemoveAllUsingSome",{original:original,part:part},$globals.SequenceableCollectionTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testRemoveAllUsingSome\x0a\x0a\x09| original part |\x0a\x09\x0a\x09original := #( 1 2 3 4 5 6 7 8 9 ).\x0a\x09part := #( 2 4 6 ).\x0a\x09\x0a\x09original removeAll: part.\x0a\x0a\x09self shouldnt: [ self assert: (part allSatisfy: [ :e | (original includes: e) not ]) ] raise: Error.\x0a\x09self should: [ original removeAll: #( 11 12 ) ] raise: Error",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["removeAll:", "shouldnt:raise:", "assert:", "allSatisfy:", "not", "includes:", "should:raise:"]
 }),
 $globals.SequenceableCollectionTest);
 

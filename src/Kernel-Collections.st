@@ -192,6 +192,33 @@ remove: anObject ifAbsent: aBlock
 
 removeAll
 	self subclassResponsibility
+!
+
+removeAll: aCollection 
+	"Remove each element of aCollection from the receiver. If successful for 
+	each, answer aCollection. 
+	Raises an error when an element is not found."
+
+	aCollection == self ifTrue: [ ^self removeAll ].
+	aCollection do: [ :each | self remove: each ].
+	^ aCollection
+!
+
+removeAllFoundIn: aCollection 
+    "Remove from the receiver each element of aCollection that is also found in the receiver. 
+	No error is raised if an element isn't found.
+	Answer aCollection."
+
+    aCollection do: [ :each | self remove: each ifAbsent: [ nil ] ].
+    ^ aCollection
+!
+
+removeAllSuchThat: aBlock 
+	"Evaluate aBlock for each element and remove all the elements from
+	the receiver for which aBlock evaluates to true.  Use a copy to enumerate 
+	collections whose order changes when an element is removed (i.e. Sets)."
+
+	self copy do: [ :each | (aBlock value: each) ifTrue: [ self remove: each ] ]
 ! !
 
 !Collection methodsFor: 'converting'!
