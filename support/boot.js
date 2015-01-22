@@ -869,17 +869,17 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 Use smalltalk.getThisContext() instead which will answer a safe copy of
 		 the current context */
 
-		st.thisContext = undefined;
+		var thisContext = null;
 
 		st.withContext = function(worker, setup) {
-			if(st.thisContext) {
+			if(thisContext) {
 				return inContext(worker, setup);
 			} else {
 				try {
 					return inContext(worker, setup);
 				} catch(error) {
 					handleError(error);
-					st.thisContext = null;
+					thisContext = null;
 					// Rethrow the error in any case.
 					error.amberHandled = true;
 					throw error;
@@ -943,21 +943,20 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handle thisContext pseudo variable */
 
 		st.getThisContext = function() {
-			if(st.thisContext) {
-				st.thisContext.init();
-				return st.thisContext;
+			if(thisContext) {
+				thisContext.init();
+				return thisContext;
 			} else {
 				return nil;
 			}
 		};
 
 		function pushContext(setup) {
-			var newContext = st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
-			return newContext;
+			return thisContext = new SmalltalkMethodContext(thisContext, setup);
 		}
 
 		function popContext(context) {
-			st.thisContext = context.homeContext;
+			thisContext = context.homeContext;
 		}
 
 	}
