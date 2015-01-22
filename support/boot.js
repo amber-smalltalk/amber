@@ -194,11 +194,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		this.selectors = [];
 		this.jsSelectors = [];
 
-		this.get = function (stSelector) {
+		this.make = function (stSelector, targetClasses) {
 			var method = methodDict[stSelector];
-			if(method) {
-				return method;
-			}
+			if(method) return;
 			var jsSelector = st.st2js(stSelector);
 			this.selectors.push(stSelector);
 			this.jsSelectors.push(jsSelector);
@@ -206,6 +204,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			methodDict[stSelector] = method;
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
+            targetClasses.forEach(function (target) {
+                manip.installMethod(method, target);
+            });
 			return method;
 		};
 
@@ -261,20 +262,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	}
 
 	function ManipulationBrik(brikz, st) {
-
-		this.installMethodIfAbsent = function (handler, klass) {
-			if(!klass.fn.prototype[handler.jsSelector]) {
-				installMethod(handler, klass);
-			}
-		};
-
-		function installMethod (method, klass) {
+        this.installMethod = function (method, klass) {
 			Object.defineProperty(klass.fn.prototype, method.jsSelector, {
 				value: method.fn,
 				enumerable: false, configurable: true, writable: true
 			});
 		}
-		this.installMethod = installMethod;
 	}
 
 
@@ -575,13 +568,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return that;
 		};
 
-		function installNewDnuHandler(newHandler) {
-			var wrappedClasses = st.wrappedClasses();
-			for(var i = 0; i < wrappedClasses.length; i++) {
-				manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
-			}
-		}
-
 		function ensureJsSelector(method) {
 			if (!(method.jsSelector)) {
 				method.jsSelector = st.st2js(method.selector);
@@ -602,19 +588,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 			propagateMethodChange(klass, method);
 
-			var usedSelectors = method.messageSends;
-			var dnuHandlers = [];
+			var usedSelectors = method.messageSends,
+                targetClasses = stInit.initialized() ? st.wrappedClasses() : [];
 
-			dnuHandlers.push(dnu.get(method.selector));
+			dnu.make(method.selector, targetClasses);
 
 			for(var i=0; i<usedSelectors.length; i++) {
-				dnuHandlers.push(dnu.get(usedSelectors[i]));
-			}
-
-			if(stInit.initialized()) {
-				dnuHandlers.forEach(function(each) {
-					installNewDnuHandler(each);
-				});
+				dnu.make(usedSelectors[i], targetClasses);
 			}
 		};
 
