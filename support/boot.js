@@ -1103,6 +1103,10 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			if (typeof o === "object") {
 				return o.klass != null ? o : globals.JSObjectProxy._on_(o);
 			}
+			// IMPORTANT: This optimization (return o if typeof !== "object")
+			// assumes all primitive types are wrapped by some Smalltalk class
+			// so they can be returned as-is, without boxing and looking for .klass.
+			// KEEP THE primitives-are-wrapped INVARIANT!
 			return o;
 		};
 	}
