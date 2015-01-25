@@ -752,7 +752,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Boolean assertion */
 		st.assert = function(shouldBeBoolean) {
 			// jshint -W041
-			if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === globals.Boolean) {
+            if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
+			else if (shouldBeBoolean != null && typeof shouldBeBoolean === "object" && shouldBeBoolean.klass === globals.Boolean) {
 				return shouldBeBoolean == true;
 			} else {
 				globals.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
@@ -1097,9 +1098,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 * otherwise unchanged
 		 */
 		this.asReceiver = function (o) {
-			if (o == null) { return nil; }
-			if (o.klass) { return o; }
-			return globals.JSObjectProxy._on_(o);
+            if (o == null) return nil;
+            if (typeof o === "object") {
+                return o.klass != null ? o : globals.JSObjectProxy._on_(o);
+            }
+            return o;
 		};
 	}
 
