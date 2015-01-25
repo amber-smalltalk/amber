@@ -204,9 +204,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			methodDict[stSelector] = method;
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
-            targetClasses.forEach(function (target) {
-                manip.installMethod(method, target);
-            });
+			targetClasses.forEach(function (target) {
+				manip.installMethod(method, target);
+			});
 			return method;
 		};
 
@@ -262,12 +262,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	}
 
 	function ManipulationBrik(brikz, st) {
-        this.installMethod = function (method, klass) {
+		this.installMethod = function (method, klass) {
 			Object.defineProperty(klass.fn.prototype, method.jsSelector, {
 				value: method.fn,
 				enumerable: false, configurable: true, writable: true
 			});
-		}
+		};
 	}
 
 
@@ -589,7 +589,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			propagateMethodChange(klass, method);
 
 			var usedSelectors = method.messageSends,
-                targetClasses = stInit.initialized() ? st.wrappedClasses() : [];
+				targetClasses = stInit.initialized() ? st.wrappedClasses() : [];
 
 			dnu.make(method.selector, targetClasses);
 
@@ -752,7 +752,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Boolean assertion */
 		st.assert = function(shouldBeBoolean) {
 			// jshint -W041
-            if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
+			if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
 			else if (shouldBeBoolean != null && typeof shouldBeBoolean === "object" && shouldBeBoolean.klass === globals.Boolean) {
 				return shouldBeBoolean == true;
 			} else {
@@ -933,7 +933,8 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		};
 
 		function pushContext(setup) {
-			return thisContext = new SmalltalkMethodContext(thisContext, setup);
+			thisContext = new SmalltalkMethodContext(thisContext, setup);
+			return thisContext;
 		}
 
 		function popContext(context) {
@@ -1098,11 +1099,11 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 * otherwise unchanged
 		 */
 		this.asReceiver = function (o) {
-            if (o == null) return nil;
-            if (typeof o === "object") {
-                return o.klass != null ? o : globals.JSObjectProxy._on_(o);
-            }
-            return o;
+			if (o == null) return nil;
+			if (typeof o === "object") {
+				return o.klass != null ? o : globals.JSObjectProxy._on_(o);
+			}
+			return o;
 		};
 	}
 
