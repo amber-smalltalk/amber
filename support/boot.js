@@ -751,12 +751,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Boolean assertion */
 		st.assert = function(shouldBeBoolean) {
+			// jshint -W041
 			if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
-			else if (shouldBeBoolean != null && typeof shouldBeBoolean === "object") {
-				shouldBeBoolean = shouldBeBoolean.valueOf();
-				if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
+			else if (shouldBeBoolean != null && typeof shouldBeBoolean === "object" && shouldBeBoolean.klass === globals.Boolean) {
+				return shouldBeBoolean == true;
+			} else {
+				globals.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 			}
-			globals.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 		};
 
 		/* List of all reserved words in JavaScript. They may not be used as variables
