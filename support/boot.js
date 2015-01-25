@@ -1100,7 +1100,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 */
 		this.asReceiver = function (o) {
 			if (o == null) return nil;
-			if (typeof o === "object") {
+			if (typeof o === "object" || typeof o === "function") {
 				return o.klass != null ? o : globals.JSObjectProxy._on_(o);
 			}
 			// IMPORTANT: This optimization (return o if typeof !== "object")
