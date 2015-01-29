@@ -1,5 +1,6 @@
-define("amber_core/Web", ["amber/boot", "jquery", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot,jQuery){
+define("amber_core/Web", ["amber/boot", "./Web%Imports", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot,$imports){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+var jQuery=$imports.jQuery;
 $core.addPackage('Web');
 $core.packages["Web"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Web"].imports = ["jQuery=jquery"];
