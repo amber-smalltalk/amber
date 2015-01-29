@@ -2668,6 +2668,52 @@ $globals.PackageHandler);
 
 $core.addMethod(
 $core.method({
+selector: "commitFiles:toPathPrefix:onSuccess:onError:",
+protocol: 'committing',
+fn: function (aDictionary,aString,aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aDictionary)._ifEmpty_ifNotEmpty_(aBlock,(function(){
+var ext,contents;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+ext=$recv($recv(aDictionary)._keys())._anyOne();
+ext;
+contents=$recv(aDictionary)._at_(ext);
+contents;
+return self._ajaxPutAt_data_onSuccess_onError_($recv(aString).__comma(ext),contents,(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+$recv(aDictionary)._removeKey_(ext);
+return self._commitFiles_toPathPrefix_onSuccess_onError_(aDictionary,aString,aBlock,anotherBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+//>>excludeEnd("ctx");
+}),anotherBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({ext:ext,contents:contents},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitFiles:toPathPrefix:onSuccess:onError:",{aDictionary:aDictionary,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},$globals.PackageHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aDictionary", "aString", "aBlock", "anotherBlock"],
+source: "commitFiles: aDictionary toPathPrefix: aString onSuccess: aBlock onError: anotherBlock\x0a\x09aDictionary ifEmpty: aBlock ifNotEmpty: [\x0a\x09\x09| ext contents |\x0a\x09\x09ext := aDictionary keys anyOne.\x0a\x09\x09contents := aDictionary at: ext.\x0a\x09\x09self \x0a\x09\x09\x09ajaxPutAt: aString, ext\x0a\x09\x09\x09\x09data: contents\x0a\x09\x09\x09\x09onSuccess: [\x0a\x09\x09\x09\x09\x09aDictionary removeKey: ext.\x0a\x09\x09\x09\x09\x09self\x0a\x09\x09\x09\x09\x09\x09commitFiles: aDictionary\x0a\x09\x09\x09\x09\x09\x09toPathPrefix: aString\x0a\x09\x09\x09\x09\x09\x09onSuccess: aBlock\x0a\x09\x09\x09\x09\x09\x09onError: anotherBlock ]\x0a\x09\x09\x09\x09onError: anotherBlock ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifEmpty:ifNotEmpty:", "anyOne", "keys", "at:", "ajaxPutAt:data:onSuccess:onError:", ",", "removeKey:", "commitFiles:toPathPrefix:onSuccess:onError:"]
+}),
+$globals.PackageHandler);
+
+$core.addMethod(
+$core.method({
 selector: "commitJsFileFor:onSuccess:onError:",
 protocol: 'committing',
 fn: function (aPackage,aBlock,anotherBlock){
@@ -2675,16 +2721,13 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1;
+var $1,$2;
+$1=self._contentsFor_(aPackage);
 $2=$recv($recv(self._commitPathJsFor_(aPackage)).__comma("/")).__comma($recv(aPackage)._name());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=2;
-//>>excludeEnd("ctx");
-$1=$recv($2).__comma(".js");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-self._ajaxPutAt_data_onSuccess_onError_($1,self._contentsFor_(aPackage),aBlock,anotherBlock);
+self._commitFiles_toPathPrefix_onSuccess_onError_($1,$2,aBlock,anotherBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commitJsFileFor:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},$globals.PackageHandler)});
@@ -2692,10 +2735,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aBlock", "anotherBlock"],
-source: "commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self \x0a\x09\x09ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'\x0a\x09\x09data: (self contentsFor: aPackage)\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+source: "commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09self\x0a\x09\x09commitFiles: (self contentsFor: aPackage)\x0a\x09\x09toPathPrefix: (self commitPathJsFor: aPackage), '/', aPackage name\x0a\x09\x09onSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ajaxPutAt:data:onSuccess:onError:", ",", "commitPathJsFor:", "name", "contentsFor:"]
+messageSends: ["commitFiles:toPathPrefix:onSuccess:onError:", "contentsFor:", ",", "commitPathJsFor:", "name"]
 }),
 $globals.PackageHandler);
 
@@ -2786,12 +2829,14 @@ selector: "contentsFor:",
 protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($String())._streamContents_((function(str){
+var $2,$3,$1;
+$2=$recv($Dictionary())._new();
+$recv($2)._at_put_(".js",$recv($String())._streamContents_((function(str){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -2799,7 +2844,9 @@ return $recv(self._exporter())._exportPackage_on_(aPackage,str);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
 //>>excludeEnd("ctx");
-}));
+})));
+$3=$recv($2)._yourself();
+$1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"contentsFor:",{aPackage:aPackage},$globals.PackageHandler)});
@@ -2807,10 +2854,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage"],
-source: "contentsFor: aPackage\x0a\x09^ String streamContents: [ :str |\x0a\x09\x09self exporter exportPackage: aPackage on: str ]",
-referencedClasses: ["String"],
+source: "contentsFor: aPackage\x0a\x09^ Dictionary new\x0a\x09\x09at: '.js' put: (String streamContents: [ :str |\x0a\x09\x09\x09self exporter exportPackage: aPackage on: str ]);\x0a\x09\x09yourself",
+referencedClasses: ["Dictionary", "String"],
 //>>excludeEnd("ide");
-messageSends: ["streamContents:", "exportPackage:on:", "exporter"]
+messageSends: ["at:put:", "new", "streamContents:", "exportPackage:on:", "exporter", "yourself"]
 }),
 $globals.PackageHandler);
 

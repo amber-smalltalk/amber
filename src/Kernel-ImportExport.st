@@ -620,8 +620,10 @@ commitPathStFor: aPackage
 !
 
 contentsFor: aPackage
-	^ String streamContents: [ :str |
-		self exporter exportPackage: aPackage on: str ]
+	^ Dictionary new
+		at: '.js' put: (String streamContents: [ :str |
+			self exporter exportPackage: aPackage on: str ]);
+		yourself
 !
 
 exporterClass
@@ -651,10 +653,28 @@ commit: aPackage onSuccess: aBlock onError: anotherBlock
 		onError: anotherBlock
 !
 
+commitFiles: aDictionary toPathPrefix: aString onSuccess: aBlock onError: anotherBlock
+	aDictionary ifEmpty: aBlock ifNotEmpty: [
+		| ext contents |
+		ext := aDictionary keys anyOne.
+		contents := aDictionary at: ext.
+		self 
+			ajaxPutAt: aString, ext
+				data: contents
+				onSuccess: [
+					aDictionary removeKey: ext.
+					self
+						commitFiles: aDictionary
+						toPathPrefix: aString
+						onSuccess: aBlock
+						onError: anotherBlock ]
+				onError: anotherBlock ]
+!
+
 commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock
-	self 
-		ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'
-		data: (self contentsFor: aPackage)
+	self
+		commitFiles: (self contentsFor: aPackage)
+		toPathPrefix: (self commitPathJsFor: aPackage), '/', aPackage name
 		onSuccess: aBlock
 		onError: anotherBlock
 !
