@@ -1,4 +1,12 @@
-define("amber_core/Web", ["amber/boot", "jquery", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot,jQuery){
+define("amber_core/Web", ["amber/boot"
+//>>excludeStart("imports", pragmas.excludeImports);
+, "jquery"
+//>>excludeEnd("imports");
+, "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot
+//>>excludeStart("imports", pragmas.excludeImports);
+,jQuery
+//>>excludeEnd("imports");
+){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Web');
 $core.packages["Web"].innerEval = function (expr) { return eval(expr); };
