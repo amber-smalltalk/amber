@@ -304,7 +304,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 If package already exists we still update the properties of it. */
 
 		st.addPackage = function(pkgName, properties) {
-			if(!pkgName) {return nil;}
+			if(!pkgName || pkgName.match(/[\x00-\x1f\x80-\x9f*?:<>|/\\#!@%]/)) {return nil;}
 			if(!(st.packages[pkgName])) {
 				st.packages[pkgName] = pkg({
 					pkgName: pkgName,
