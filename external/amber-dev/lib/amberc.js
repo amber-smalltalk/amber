@@ -361,6 +361,7 @@ function create_compiler(configuration) {
 			var match = ('' + data).match(/^define\("([^"]*)"/);
 			if (match) {
 				loadIds.push(match[1]);
+				builder.add('define("'+match[1]+'%Imports", {});\n');
 			}
 		});
 
@@ -560,6 +561,7 @@ function compose_js_files(configuration) {
 				var match = buffer.toString().match(/(^|\n)define\("([^"]*)"/);
 				if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
 					builder.addId(match[2]);
+					builder.add('define("'+match[2]+'%Imports", {});\n'); //TODO here, actual Imports file should be
 				}
 				builder.add(buffer);
 			} else {
