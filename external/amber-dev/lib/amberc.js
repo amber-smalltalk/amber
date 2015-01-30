@@ -450,19 +450,27 @@ function category_export(configuration) {
 				if (undefined === jsFilePath) {
 					jsFilePath = path.dirname(stFile);
 				}
-				var jsFile = category + configuration.suffix_used + '.js';
-				jsFile = path.join(jsFilePath, jsFile);
-				configuration.compiled.push(jsFile);
+				var filePrefix = category + configuration.suffix_used;
 				var smalltalkGlobals = configuration.globals;
 				var packageObject = smalltalkGlobals.Package._named_(category);
 				packageObject._transport()._namespace_(configuration.amd_namespace);
-				fs.writeFile(jsFile, smalltalkGlobals.String._streamContents_(function (stream) {
-					smalltalkGlobals.AmdExporter._new()._exportPackage_on_(packageObject, stream);
-				}), function(err) {
-					if (err)
-						reject(err);
-					else
-						resolve(true);
+				var contents = smalltalkGlobals.AmdPackageHandler._new()._contentsFor_(packageObject);
+				if (typeof contents === "string") contents = {".js": contents};
+				else contents = contents._asHashedCollection();
+				var exts = Object.keys(contents);
+				var counter = exts.length;
+				exts.forEach(function (ext) {
+					var jsFile = filePrefix + ext;
+					jsFile = path.join(jsFilePath, jsFile);
+					fs.writeFile(jsFile, contents[ext], function(err) {
+						if (err)
+							reject(err);
+						else {
+							configuration.compiled.push(jsFile);
+							--counter;
+							if (!counter) resolve(true);
+						}
+					});
 				});
 			});
 		})
