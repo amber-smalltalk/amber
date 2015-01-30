@@ -376,6 +376,10 @@ exportPackageEpilogueOf: aPackage on: aStream
 	self subclassResponsibility
 !
 
+exportPackageImportsFileOf: aPackage on: aStream
+	"do nothing"
+!
+
 exportPackageImportsOf: aPackage on: aStream
 	aPackage importsAsJson ifNotEmpty: [ :imports |
 		aStream
@@ -415,29 +419,70 @@ exportPackageEpilogueOf: aPackage on: aStream
 		lf
 !
 
+exportPackageImportsFileOf: aPackage on: aStream
+	aPackage imports ifNotEmpty: [
+		| namedImports anonImports importVarNames |
+		namedImports := #().
+		anonImports := #().
+		importVarNames := #().
+		aPackage sortedImportsAsArray do: [ :each | each isString
+			ifTrue: [ anonImports add: each ]
+			ifFalse: [ namedImports add: each value.
+				importVarNames add: each key ]].
+		aStream
+			nextPutAll: 'define("';
+			nextPutAll: (self amdNamespaceOfPackage: aPackage);
+			nextPutAll: '/'; 
+			nextPutAll: aPackage name;
+			nextPutAll: '%Imports", ';
+			nextPutAll: (namedImports, anonImports) asJavascript;
+			nextPutAll: ', function(';
+			nextPutAll: (importVarNames join: ',');
+			nextPutAll: '){';
+			lf;
+			nextPutAll: 'return {';
+			lf.
+		importVarNames
+			do: [ :each | aStream
+				tab;
+				nextPutAll: each;
+				nextPutAll: ': ';
+				nextPutAll: each ]
+			separatedBy: [ aStream nextPutAll: ','; lf ].
+		aStream
+			lf;
+			nextPutAll: '};';
+			lf;
+			nextPutAll: '});';
+			lf ]
+!
+
 exportPackagePrologueOf: aPackage on: aStream
-	| namedImports anonImports importVarNames loadDependencies |
-	namedImports := #().
-	anonImports := #().
-	importVarNames := #().
-	aPackage imports do: [ :each | each isString
-		ifTrue: [ anonImports add: each ]
-		ifFalse: [ namedImports add: each value.
-			importVarNames add: each key ]].
+	| importVarNames loadDependencies useImports |
+	importVarNames := (aPackage sortedImportsAsArray reject: #isString) collect: #key.
 	loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.
+	useImports := aPackage imports notEmpty.
 	aStream
 		nextPutAll: 'define("';
 		nextPutAll: (self amdNamespaceOfPackage: aPackage);
 		nextPutAll: '/'; 
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
-		nextPutAll: (#('amber/boot'), namedImports, anonImports, loadDependencies) asJavascript;
-		nextPutAll: ', function(';
-		nextPutAll: (#('$boot'), importVarNames join: ',');
-		nextPutAll: '){';
+		nextPutAll: (#('amber/boot'),
+			(useImports ifTrue: [{'./', aPackage name, '%Imports'}] ifFalse: [#()]),
+			loadDependencies) asJavascript;
+		nextPutAll: ', function($boot',
+			(useImports ifTrue: [',$imports'] ifFalse: ['']),
+			'){';
 		lf;
 		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
-		lf
+		lf.
+	importVarNames ifNotEmpty: [
+		aStream nextPutAll: 'var '.
+		importVarNames
+			do: [ :each | aStream nextPutAll: each; nextPutAll: '=$imports.'; nextPutAll: each ]
+			separatedBy: [ aStream nextPutAll: ',' ].
+		aStream nextPutAll: ';'; lf ]
 ! !
 
 !AmdExporter methodsFor: 'private'!
@@ -620,8 +665,15 @@ commitPathStFor: aPackage
 !
 
 contentsFor: aPackage
-	^ String streamContents: [ :str |
-		self exporter exportPackage: aPackage on: str ]
+	| files contents |
+	files := Dictionary new.
+	contents := String streamContents: [ :str |
+		self exporter exportPackage: aPackage on: str ].
+	files at: '.js' put: contents.
+	contents := String streamContents: [ :str |
+		self exporter exportPackageImportsFileOf: aPackage on: str ].
+	contents ifNotEmpty: [ files at: '%Imports.js' put: contents ].
+	^ files
 !
 
 exporterClass
@@ -651,10 +703,28 @@ commit: aPackage onSuccess: aBlock onError: anotherBlock
 		onError: anotherBlock
 !
 
+commitFiles: aDictionary toPathPrefix: aString onSuccess: aBlock onError: anotherBlock
+	aDictionary ifEmpty: aBlock ifNotEmpty: [
+		| ext contents |
+		ext := aDictionary keys anyOne.
+		contents := aDictionary at: ext.
+		self 
+			ajaxPutAt: aString, ext
+				data: contents
+				onSuccess: [
+					aDictionary removeKey: ext.
+					self
+						commitFiles: aDictionary
+						toPathPrefix: aString
+						onSuccess: aBlock
+						onError: anotherBlock ]
+				onError: anotherBlock ]
+!
+
 commitJsFileFor: aPackage onSuccess: aBlock onError: anotherBlock
-	self 
-		ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'
-		data: (self contentsFor: aPackage)
+	self
+		commitFiles: (self contentsFor: aPackage)
+		toPathPrefix: (self commitPathJsFor: aPackage), '/', aPackage name
 		onSuccess: aBlock
 		onError: anotherBlock
 !
