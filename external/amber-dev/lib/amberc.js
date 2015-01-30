@@ -288,6 +288,20 @@ function resolve_kernel(configuration) {
 }
 
 
+function withImportsExcluded(data) {
+	var srcLines = data.split(/\r\n|\r|\n/), dstLines = [], doCopy = true;
+	srcLines.forEach(function (line) {
+		if (line.replace(/\s/g, '') === '//>>excludeStart("imports",pragmas.excludeImports);') {
+			doCopy = false;
+		} else if (line.replace(/\s/g, '') === '//>>excludeEnd("imports");') {
+			doCopy = true;
+		} else if (doCopy) {
+			dstLines.push(line);
+		}
+	});
+	return dstLines.join('\n');
+}
+
 /**
  * Resolve .js files needed by compiler, read and eval() them.
  * The finished Compiler gets stored in configuration.{core,globals}.
@@ -355,13 +369,14 @@ function create_compiler(configuration) {
 	.then(function(files) {
 		var loadIds = [];
 		files.forEach(function(data) {
-			// data is an array where index 0 is the error code and index 1 contains the data
-			builder.add(data);
+			data = data + '';
 			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-			var match = ('' + data).match(/^define\("([^"]*)"/);
+			var match = data.match(/^define\("([^"]*)"/);
 			if (match) {
 				loadIds.push(match[1]);
+				data = withImportsExcluded(data);
 			}
+			builder.add(data);
 		});
 
 		// store the generated smalltalk env in configuration.{core,globals}
