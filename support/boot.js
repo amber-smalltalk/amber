@@ -778,7 +778,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 							'implements', 'interface', 'let', 'package', 'private', 'protected',
 							'public', 'static', 'yield'];
 
-		st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+		st.globalJsVariables = ['window', 'document', 'process', 'global'];
 
 	}
 

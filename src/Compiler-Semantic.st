@@ -450,7 +450,7 @@ errorShadowingVariable: aString
 errorUnknownVariable: aNode
 	"Throw an error if the variable is undeclared in the global JS scope (i.e. window).
 	We allow all variables listed by Smalltalk>>#globalJsVariables.
-	This list includes: `jQuery`, `window`, `document`,  `process` and `global`
+	This list includes: `window`, `document`,  `process` and `global`
 	for nodejs and browser environments.
 	
 	This is only to make sure compilation works on both browser-based and nodejs environments.
