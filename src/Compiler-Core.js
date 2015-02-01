@@ -421,38 +421,6 @@ $globals.Compiler);
 
 $core.addMethod(
 $core.method({
-selector: "compileExpression:",
-protocol: 'compiling',
-fn: function (aString){
-var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2;
-self._currentClass_($DoIt());
-$1=$recv("doIt ^ [ ".__comma(aString)).__comma(" ] value");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-self._source_($1);
-$2=self._compileNode_(self._parse_(self._source()));
-return $2;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},$globals.Compiler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
-referencedClasses: ["DoIt"],
-//>>excludeEnd("ide");
-messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"]
-}),
-$globals.Compiler);
-
-$core.addMethod(
-$core.method({
 selector: "compileExpression:on:",
 protocol: 'compiling',
 fn: function (aString,anObject){

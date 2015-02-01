@@ -131,12 +131,6 @@ compile: aString forClass: aClass
 	^ self compile: aString
 !
 
-compileExpression: aString
-	self currentClass: DoIt.
-	self source: 'doIt ^ [ ', aString, ' ] value'.
-	^ self compileNode: (self parse: self source)
-!
-
 compileExpression: aString on: anObject
 	self currentClass: anObject class.
 	self source: 'xxxDoIt ^ [ ', aString, ' ] value'.

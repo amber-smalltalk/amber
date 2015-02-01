@@ -545,31 +545,6 @@ $globals.Behavior);
 
 $core.addMethod(
 $core.method({
-selector: "compile:",
-protocol: 'compiling',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=self._compile_protocol_(aString,"");
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},$globals.Behavior)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compile: aString\x0a\x09^ self compile: aString protocol: ''",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["compile:protocol:"]
-}),
-$globals.Behavior);
-
-$core.addMethod(
-$core.method({
 selector: "compile:protocol:",
 protocol: 'compiling',
 fn: function (aString,anotherString){

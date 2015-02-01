@@ -268,10 +268,6 @@ addCompiledMethod: aMethod
 				announce: announcement
 !
 
-compile: aString
-	^ self compile: aString protocol: ''
-!
-
 compile: aString protocol: anotherString
 	^ Compiler new
 		install: aString
