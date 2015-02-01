@@ -313,7 +313,7 @@ $globals.CodeGenerator);
 
 
 
-$core.addClass('Compiler', $globals.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
+$core.addClass('Compiler', $globals.Object, ['currentClass', 'currentPackage', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Compiler.comment="I provide the public interface for compiling Amber source code into JavaScript.\x0a\x0aThe code generator used to produce JavaScript can be plugged with `#codeGeneratorClass`.\x0aThe default code generator is an instance of `InlinedCodeGenerator`";
 //>>excludeEnd("ide");
@@ -369,53 +369,28 @@ $globals.Compiler);
 
 $core.addMethod(
 $core.method({
-selector: "compile:",
+selector: "compile:forClass:protocol:",
 protocol: 'compiling',
-fn: function (aString){
+fn: function (aString,aClass,anotherString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._compileNode_(self._parse_(aString));
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},$globals.Compiler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compile: aString\x0a\x09^ self compileNode: (self parse: aString)",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["compileNode:", "parse:"]
-}),
-$globals.Compiler);
-
-$core.addMethod(
-$core.method({
-selector: "compile:forClass:",
-protocol: 'compiling',
-fn: function (aString,aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._currentClass_(aClass);
+var $2,$1;
 self._source_(aString);
-$1=self._compile_(aString);
+$2=self._compileNode_forClass_package_(self._parse_(aString),aClass,$recv(aClass)._packageOfProtocol_(anotherString));
+$1=$2;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass},$globals.Compiler)});
+}, function($ctx1) {$ctx1.fill(self,"compile:forClass:protocol:",{aString:aString,aClass:aClass,anotherString:anotherString},$globals.Compiler)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "aClass"],
-source: "compile: aString forClass: aClass\x0a\x09self currentClass: aClass.\x0a\x09self source: aString.\x0a\x09^ self compile: aString",
+args: ["aString", "aClass", "anotherString"],
+source: "compile: aString forClass: aClass protocol: anotherString\x0a\x09^ self\x0a\x09\x09source: aString;\x0a\x09\x09compileNode: (self parse: aString)\x0a\x09\x09forClass: aClass\x0a\x09\x09package: (aClass packageOfProtocol: anotherString)",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["currentClass:", "source:", "compile:"]
+messageSends: ["source:", "compileNode:forClass:package:", "parse:", "packageOfProtocol:"]
 }),
 $globals.Compiler);
 
@@ -428,25 +403,23 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
-self._currentClass_($recv(anObject)._class());
-$1=$recv("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
+var $2,$1;
+$2=$recv("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-self._source_($1);
-$2=self._compileNode_(self._parse_(self._source()));
-return $2;
+$1=self._compile_forClass_protocol_($2,$recv(anObject)._class(),"**xxxDoIt");
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},$globals.Compiler)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
-source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
+source: "compileExpression: aString on: anObject\x0a\x09^ self\x0a\x09\x09compile: 'xxxDoIt ^ [ ', aString, ' ] value'\x0a\x09\x09forClass: anObject class\x0a\x09\x09protocol: '**xxxDoIt'",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"]
+messageSends: ["compile:forClass:protocol:", ",", "class"]
 }),
 $globals.Compiler);
 
@@ -484,6 +457,34 @@ $globals.Compiler);
 
 $core.addMethod(
 $core.method({
+selector: "compileNode:forClass:package:",
+protocol: 'compiling',
+fn: function (aNode,aClass,aPackage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1;
+self._currentClass_(aClass);
+self._currentPackage_(aPackage);
+$2=self._compileNode_(aNode);
+$1=$2;
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compileNode:forClass:package:",{aNode:aNode,aClass:aClass,aPackage:aPackage},$globals.Compiler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode", "aClass", "aPackage"],
+source: "compileNode: aNode forClass: aClass package: aPackage\x0a\x09^ self\x0a\x09\x09currentClass: aClass;\x0a\x09\x09currentPackage: aPackage;\x0a\x09\x09compileNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["currentClass:", "currentPackage:", "compileNode:"]
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
 selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
@@ -515,6 +516,45 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@currentPackage"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "currentPackage\x0a\x09^ currentPackage",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@currentPackage"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "currentPackage: anObject\x0a\x09currentPackage := anObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -644,7 +684,7 @@ function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="un
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-compiledMethod=self._eval_forPackage_(self._compile_forClass_(aString,aBehavior),$recv(aBehavior)._packageOfProtocol_(anotherString));
+compiledMethod=self._eval_forPackage_(self._compile_forClass_protocol_(aString,aBehavior,anotherString),$recv(aBehavior)._packageOfProtocol_(anotherString));
 $1=$recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(compiledMethod,aBehavior,anotherString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -653,10 +693,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aBehavior", "anotherString"],
-source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09| compiledMethod |\x0a\x09compiledMethod := self\x0a\x09\x09eval: (self compile: aString forClass: aBehavior)\x0a\x09\x09forPackage: (aBehavior packageOfProtocol: anotherString).\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: compiledMethod\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
+source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09| compiledMethod |\x0a\x09compiledMethod := self\x0a\x09\x09eval: (self compile: aString forClass: aBehavior protocol: anotherString)\x0a\x09\x09forPackage: (aBehavior packageOfProtocol: anotherString).\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: compiledMethod\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
 referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
-messageSends: ["eval:forPackage:", "compile:forClass:", "packageOfProtocol:", "installMethod:forClass:protocol:", "new"]
+messageSends: ["eval:forPackage:", "compile:forClass:protocol:", "packageOfProtocol:", "installMethod:forClass:protocol:", "new"]
 }),
 $globals.Compiler);
 

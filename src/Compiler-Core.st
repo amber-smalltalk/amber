@@ -77,7 +77,7 @@ translator
 ! !
 
 Object subclass: #Compiler
-	instanceVariableNames: 'currentClass source unknownVariables codeGeneratorClass'
+	instanceVariableNames: 'currentClass currentPackage source unknownVariables codeGeneratorClass'
 	package: 'Compiler-Core'!
 !Compiler commentStamp!
 I provide the public interface for compiling Amber source code into JavaScript.
@@ -103,6 +103,14 @@ currentClass: aClass
 	currentClass := aClass
 !
 
+currentPackage
+	^ currentPackage
+!
+
+currentPackage: anObject
+	currentPackage := anObject
+!
+
 source
 	^ source ifNil: [ '' ]
 !
@@ -121,20 +129,19 @@ unknownVariables: aCollection
 
 !Compiler methodsFor: 'compiling'!
 
-compile: aString
-	^ self compileNode: (self parse: aString)
-!
-
-compile: aString forClass: aClass
-	self currentClass: aClass.
-	self source: aString.
-	^ self compile: aString
+compile: aString forClass: aClass protocol: anotherString
+	^ self
+		source: aString;
+		compileNode: (self parse: aString)
+		forClass: aClass
+		package: (aClass packageOfProtocol: anotherString)
 !
 
 compileExpression: aString on: anObject
-	self currentClass: anObject class.
-	self source: 'xxxDoIt ^ [ ', aString, ' ] value'.
-	^ self compileNode: (self parse: self source)
+	^ self
+		compile: 'xxxDoIt ^ [ ', aString, ' ] value'
+		forClass: anObject class
+		protocol: '**xxxDoIt'
 !
 
 compileNode: aNode
@@ -146,6 +153,13 @@ compileNode: aNode
 	result := generator compileNode: aNode.
 	self unknownVariables: #().
 	^ result
+!
+
+compileNode: aNode forClass: aClass package: aPackage
+	^ self
+		currentClass: aClass;
+		currentPackage: aPackage;
+		compileNode: aNode
 !
 
 eval: aString
@@ -177,7 +191,7 @@ evaluateExpression: aString on: anObject
 install: aString forClass: aBehavior protocol: anotherString
 	| compiledMethod |
 	compiledMethod := self
-		eval: (self compile: aString forClass: aBehavior)
+		eval: (self compile: aString forClass: aBehavior protocol: anotherString)
 		forPackage: (aBehavior packageOfProtocol: anotherString).
 	^ ClassBuilder new
 		installMethod: compiledMethod
