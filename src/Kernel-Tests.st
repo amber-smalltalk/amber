@@ -623,6 +623,17 @@ testRemoveAll
 	self assert: (self collection removeAll; yourself) equals: self collectionClass new
 !
 
+testRemoveSome
+
+	| original part |
+	
+	original := #( 1 2 3 4 5 6 7 8 9 ).
+	part := #( 2 4 6 ).
+	
+	
+	self assert: (self collection removeAll; yourself) equals: self collectionClass new
+!
+
 testSelect
 	self assert: (self collection select: [ false ]) equals: self collectionClass new.
 	self assert: (self collection select: [ true ]) equals: self collection.
@@ -1165,6 +1176,44 @@ testLastN
 		equals: self collection.
 
 	self should: [ self collection last: 33 ] raise: Error
+!
+
+testRemoveAllFound
+
+	| original part |
+	
+	original := #( 1 2 3 4 5 6 7 8 9 ).
+	part := #( 2 4 6 ).
+	
+	original removeAllFoundIn: part.
+
+	self shouldnt: [ self assert: (part allSatisfy: [ :e | (original includes: e) not ]) ] raise: Error.
+	self shouldnt: [ original removeAllFoundIn: #( 11 12 ) ] raise: Error
+!
+
+testRemoveAllSuch
+
+	| original part |
+	
+	original := #( 1 2 3 4 5 6 7 8 9 ).
+	part := #( 2 4 6 ).
+	
+	original removeAllSuchThat: [ :e | part includes: e ].
+
+	self shouldnt: [ self assert: (part allSatisfy: [ :e | (original includes: e) not ]) ] raise: Error.
+!
+
+testRemoveAllUsingSome
+
+	| original part |
+	
+	original := #( 1 2 3 4 5 6 7 8 9 ).
+	part := #( 2 4 6 ).
+	
+	original removeAll: part.
+
+	self shouldnt: [ self assert: (part allSatisfy: [ :e | (original includes: e) not ]) ] raise: Error.
+	self should: [ original removeAll: #( 11 12 ) ] raise: Error
 !
 
 testSecond
