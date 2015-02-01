@@ -4,7 +4,7 @@ $core.addPackage('Compiler-Core');
 $core.packages["Compiler-Core"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$core.addClass('AbstractCodeGenerator', $globals.Object, ['currentClass', 'source'], 'Compiler-Core');
+$core.addClass('AbstractCodeGenerator', $globals.Object, ['currentClass', 'currentPackage', 'source'], 'Compiler-Core');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API.";
 //>>excludeEnd("ide");
@@ -104,6 +104,45 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.AbstractCodeGenerator);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@currentPackage"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "currentPackage\x0a\x09^ currentPackage",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.AbstractCodeGenerator);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@currentPackage"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "currentPackage: anObject\x0a\x09currentPackage := anObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -265,8 +304,11 @@ function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticA
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($SemanticAnalyzer())._on_(self._currentClass());
+var $2,$3,$1;
+$2=$recv($SemanticAnalyzer())._on_(self._currentClass());
+$recv($2)._thePackage_(self._currentPackage());
+$3=$recv($2)._yourself();
+$1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},$globals.CodeGenerator)});
@@ -274,10 +316,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "semanticAnalyzer\x0a\x09^ SemanticAnalyzer on: self currentClass",
+source: "semanticAnalyzer\x0a\x09^ (SemanticAnalyzer on: self currentClass)\x0a\x09\x09thePackage: self currentPackage;\x0a\x09\x09yourself",
 referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
-messageSends: ["on:", "currentClass"]
+messageSends: ["thePackage:", "on:", "currentClass", "currentPackage", "yourself"]
 }),
 $globals.CodeGenerator);
 
@@ -437,7 +479,8 @@ var $1,$2,$3;
 generator=$recv(self._codeGeneratorClass())._new();
 $1=generator;
 $recv($1)._source_(self._source());
-$2=$recv($1)._currentClass_(self._currentClass());
+$recv($1)._currentClass_(self._currentClass());
+$2=$recv($1)._currentPackage_(self._currentPackage());
 result=$recv(generator)._compileNode_(aNode);
 self._unknownVariables_([]);
 $3=result;
@@ -448,10 +491,10 @@ return $3;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
+source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass;\x0a\x09\x09currentPackage: self currentPackage.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"]
+messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "currentPackage:", "currentPackage", "compileNode:", "unknownVariables:"]
 }),
 $globals.Compiler);
 

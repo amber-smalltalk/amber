@@ -404,7 +404,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope blockIndex theClass classReferences messageSends superSends'
+	instanceVariableNames: 'currentScope blockIndex thePackage theClass classReferences messageSends superSends'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -429,6 +429,14 @@ theClass
 
 theClass: aClass
 	theClass := aClass
+!
+
+thePackage
+	^ thePackage
+!
+
+thePackage: aPackage
+	thePackage := aPackage
 ! !
 
 !SemanticAnalyzer methodsFor: 'error handling'!
@@ -452,7 +460,7 @@ errorUnknownVariable: aNode
 	identifier := aNode value.
 	
 	((Smalltalk globalJsVariables includes: identifier) not
-		and: [ self isVariableGloballyUndefined: identifier ])
+		and: [ self isVariableUndefined: identifier inPackage: self thePackage ])
 			ifTrue: [
 				UnknownVariableError new
 					variableName: aNode value;
@@ -507,8 +515,10 @@ validateVariableScope: aString
 
 !SemanticAnalyzer methodsFor: 'testing'!
 
-isVariableGloballyUndefined: aString
-	<return eval('typeof ' + aString + ' == "undefined"')>
+isVariableUndefined: aString inPackage: aPackage
+	^ Compiler new
+		eval: 'typeof ', aString, ' == "undefined"'
+		forPackage: aPackage
 ! !
 
 !SemanticAnalyzer methodsFor: 'visiting'!

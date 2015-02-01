@@ -1759,7 +1759,7 @@ $globals.UnknownVar);
 
 
 
-$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 //>>excludeEnd("ide");
@@ -1844,7 +1844,7 @@ $1=$recv($recv($recv($recv($Smalltalk())._globalJsVariables())._includes_(identi
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._isVariableGloballyUndefined_(identifier);
+return self._isVariableUndefined_inPackage_(identifier,self._thePackage());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -1869,34 +1869,41 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow all variables listed by Smalltalk>>#globalJsVariables.\x0a\x09This list includes: `jQuery`, `window`, `document`,  `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((Smalltalk globalJsVariables includes: identifier) not\x0a\x09\x09and: [ self isVariableGloballyUndefined: identifier ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow all variables listed by Smalltalk>>#globalJsVariables.\x0a\x09This list includes: `jQuery`, `window`, `document`,  `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((Smalltalk globalJsVariables includes: identifier) not\x0a\x09\x09and: [ self isVariableUndefined: identifier inPackage: self thePackage ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
 referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
-messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJsVariables", "isVariableGloballyUndefined:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope"]
+messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJsVariables", "isVariableUndefined:inPackage:", "thePackage", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope"]
 }),
 $globals.SemanticAnalyzer);
 
 $core.addMethod(
 $core.method({
-selector: "isVariableGloballyUndefined:",
+selector: "isVariableUndefined:inPackage:",
 protocol: 'testing',
-fn: function (aString){
+fn: function (aString,aPackage){
 var self=this;
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return eval('typeof ' + aString + ' == "undefined"');
-return self;
+var $2,$3,$1;
+$2=$recv($Compiler())._new();
+$3=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isVariableGloballyUndefined:",{aString:aString},$globals.SemanticAnalyzer)});
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2)._eval_forPackage_($3,aPackage);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"isVariableUndefined:inPackage:",{aString:aString,aPackage:aPackage},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "isVariableGloballyUndefined: aString\x0a\x09<return eval('typeof ' + aString + ' == \x22undefined\x22')>",
-referencedClasses: [],
+args: ["aString", "aPackage"],
+source: "isVariableUndefined: aString inPackage: aPackage\x0a\x09^ Compiler new\x0a\x09\x09eval: 'typeof ', aString, ' == \x22undefined\x22'\x0a\x09\x09forPackage: aPackage",
+referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["eval:forPackage:", "new", ","]
 }),
 $globals.SemanticAnalyzer);
 
@@ -2166,6 +2173,45 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
+selector: "thePackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@thePackage"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "thePackage\x0a\x09^ thePackage",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
+selector: "thePackage:",
+protocol: 'accessing',
+fn: function (aPackage){
+var self=this;
+self["@thePackage"]=aPackage;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage"],
+source: "thePackage: aPackage\x0a\x09thePackage := aPackage",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

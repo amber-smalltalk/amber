@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'Compiler-Core'!
 Object subclass: #AbstractCodeGenerator
-	instanceVariableNames: 'currentClass source'
+	instanceVariableNames: 'currentClass currentPackage source'
 	package: 'Compiler-Core'!
 !AbstractCodeGenerator commentStamp!
 I am the abstract super class of all code generators and provide their common API.!
@@ -22,6 +22,14 @@ currentClass
 
 currentClass: aClass
 	currentClass := aClass
+!
+
+currentPackage
+	^ currentPackage
+!
+
+currentPackage: anObject
+	currentPackage := anObject
 !
 
 pseudoVariables
@@ -66,7 +74,9 @@ irTranslator
 !
 
 semanticAnalyzer
-	^ SemanticAnalyzer on: self currentClass
+	^ (SemanticAnalyzer on: self currentClass)
+		thePackage: self currentPackage;
+		yourself
 !
 
 translator
@@ -149,7 +159,8 @@ compileNode: aNode
 	generator := self codeGeneratorClass new.
 	generator
 		source: self source;
-		currentClass: self currentClass.
+		currentClass: self currentClass;
+		currentPackage: self currentPackage.
 	result := generator compileNode: aNode.
 	self unknownVariables: #().
 	^ result
