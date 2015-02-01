@@ -416,24 +416,27 @@ exportPackageEpilogueOf: aPackage on: aStream
 !
 
 exportPackagePrologueOf: aPackage on: aStream
-	| namedImports anonImports importVarNames loadDependencies |
-	namedImports := #().
-	anonImports := #().
-	importVarNames := #().
-	aPackage imports do: [ :each | each isString
-		ifTrue: [ anonImports add: each ]
-		ifFalse: [ namedImports add: each value.
-			importVarNames add: each key ]].
+	| importsForOutput loadDependencies pragmaStart pragmaEnd |
+	pragmaStart := ''.
+	pragmaEnd := ''.
+	importsForOutput := self importsForOutput: aPackage.
 	loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.
+	importsForOutput value ifNotEmpty: [
+		pragmaStart := String lf, '//>>excludeStart("imports", pragmas.excludeImports);', String lf.
+		pragmaEnd := String lf, '//>>excludeEnd("imports");', String lf ].
 	aStream
 		nextPutAll: 'define("';
 		nextPutAll: (self amdNamespaceOfPackage: aPackage);
 		nextPutAll: '/'; 
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
-		nextPutAll: (#('amber/boot'), namedImports, anonImports, loadDependencies) asJavascript;
+		nextPutAll: (((
+			(#('amber/boot' ':1:'), importsForOutput value, #(':2:'), loadDependencies) asJavascript)
+			replace: ',\s*["'']:1:["'']' with: pragmaStart) replace: ',\s*["'']:2:["'']' with: pragmaEnd);
 		nextPutAll: ', function(';
-		nextPutAll: (#('$boot'), importVarNames join: ',');
+		nextPutAll: (((
+			(#('$boot' ':1:'), importsForOutput key, #(':2:')) join: ',')
+			replace: ',\s*:1:' with: pragmaStart) replace: ',\s*:2:' with: pragmaEnd);
 		nextPutAll: '){';
 		lf;
 		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
@@ -452,6 +455,24 @@ amdNamespaceOfPackage: aPackage
 	^ (aPackage transport type = 'amd')
 		ifTrue: [ aPackage transport namespace ]
 		ifFalse: [ nil ]
+!
+
+importsForOutput: aPackage
+	"Returns an association where key is list of import variables
+	and value is list of external dependencies, with ones imported as variables
+	put at the beginning with same order as is in key.
+	
+	For example imports:{'jQuery'->'jquery'. 'bootstrap'} would yield
+	#('jQuery') -> #('jquery' 'bootstrap')"
+	| namedImports anonImports importVarNames |
+	namedImports := #().
+	anonImports := #().
+	importVarNames := #().
+	aPackage imports do: [ :each | each isString
+		ifTrue: [ anonImports add: each ]
+		ifFalse: [ namedImports add: each value.
+			importVarNames add: each key ]].
+	^ importVarNames -> (namedImports, anonImports)
 ! !
 
 Object subclass: #ChunkParser

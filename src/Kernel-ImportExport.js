@@ -1954,11 +1954,160 @@ selector: "exportPackagePrologueOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
-var namedImports,anonImports,importVarNames,loadDependencies;
+var importsForOutput,loadDependencies,pragmaStart,pragmaEnd;
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$5,$4,$3,$2,$6;
+var $1,$3,$2,$4,$6,$5,$7,$13,$12,$11,$10,$9,$8,$17,$16,$15,$14,$18;
+pragmaStart="";
+pragmaEnd="";
+importsForOutput=self._importsForOutput_(aPackage);
+loadDependencies=self._amdNamesOfPackages_($recv(aPackage)._loadDependencies());
+$1=$recv(importsForOutput)._value();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["value"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._ifNotEmpty_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$3=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3).__comma("//>>excludeStart(\x22imports\x22, pragmas.excludeImports);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+$4=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
+pragmaStart=$recv($2).__comma($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+pragmaStart;
+$6=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=3;
+//>>excludeEnd("ctx");
+$5=$recv($6).__comma("//>>excludeEnd(\x22imports\x22);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=4;
+//>>excludeEnd("ctx");
+$7=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=4;
+//>>excludeEnd("ctx");
+pragmaEnd=$recv($5).__comma($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=3;
+//>>excludeEnd("ctx");
+return pragmaEnd;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+$recv(aStream)._nextPutAll_("define(\x22");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_(self._amdNamespaceOfPackage_(aPackage));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("/");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($recv(aPackage)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("\x22, ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=5;
+//>>excludeEnd("ctx");
+$13=["amber/boot", ":1:"].__comma($recv(importsForOutput)._value());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=7;
+//>>excludeEnd("ctx");
+$12=$recv($13).__comma([":2:"]);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=6;
+//>>excludeEnd("ctx");
+$11=$recv($12).__comma(loadDependencies);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=5;
+//>>excludeEnd("ctx");
+$10=$recv($11)._asJavascript();
+$9=$recv($10)._replace_with_(",\x5cs*[\x22']:1:[\x22']",pragmaStart);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["replace:with:"]=2;
+//>>excludeEnd("ctx");
+$8=$recv($9)._replace_with_(",\x5cs*[\x22']:2:[\x22']",pragmaEnd);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["replace:with:"]=1;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=6;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_(", function(");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=7;
+//>>excludeEnd("ctx");
+$17=$recv(["$boot", ":1:"].__comma($recv(importsForOutput)._key())).__comma([":2:"]);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=8;
+//>>excludeEnd("ctx");
+$16=$recv($17)._join_(",");
+$15=$recv($16)._replace_with_(",\x5cs*:1:",pragmaStart);
+$14=$recv($15)._replace_with_(",\x5cs*:2:",pragmaEnd);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["replace:with:"]=3;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($14);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=8;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("){");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=9;
+//>>excludeEnd("ctx");
+$recv(aStream)._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["lf"]=5;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;");
+$18=$recv(aStream)._lf();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream,importsForOutput:importsForOutput,loadDependencies:loadDependencies,pragmaStart:pragmaStart,pragmaEnd:pragmaEnd},$globals.AmdExporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| importsForOutput loadDependencies pragmaStart pragmaEnd |\x0a\x09pragmaStart := ''.\x0a\x09pragmaEnd := ''.\x0a\x09importsForOutput := self importsForOutput: aPackage.\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09importsForOutput value ifNotEmpty: [\x0a\x09\x09pragmaStart := String lf, '//>>excludeStart(\x22imports\x22, pragmas.excludeImports);', String lf.\x0a\x09\x09pragmaEnd := String lf, '//>>excludeEnd(\x22imports\x22);', String lf ].\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('amber/boot' ':1:'), importsForOutput value, #(':2:'), loadDependencies) asJavascript)\x0a\x09\x09\x09replace: ',\x5cs*[\x22'']:1:[\x22'']' with: pragmaStart) replace: ',\x5cs*[\x22'']:2:[\x22'']' with: pragmaEnd);\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('$boot' ':1:'), importsForOutput key, #(':2:')) join: ',')\x0a\x09\x09\x09replace: ',\x5cs*:1:' with: pragmaStart) replace: ',\x5cs*:2:' with: pragmaEnd);\x0a\x09\x09nextPutAll: '){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
+referencedClasses: ["String"],
+//>>excludeEnd("ide");
+messageSends: ["importsForOutput:", "amdNamesOfPackages:", "loadDependencies", "ifNotEmpty:", "value", ",", "lf", "nextPutAll:", "amdNamespaceOfPackage:", "name", "replace:with:", "asJavascript", "join:", "key"]
+}),
+$globals.AmdExporter);
+
+$core.addMethod(
+$core.method({
+selector: "importsForOutput:",
+protocol: 'private',
+fn: function (aPackage){
+var self=this;
+var namedImports,anonImports,importVarNames;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
 namedImports=[];
 anonImports=[];
 importVarNames=[];
@@ -1983,73 +2132,18 @@ return $recv(importVarNames)._add_($recv(each)._key());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-loadDependencies=self._amdNamesOfPackages_($recv(aPackage)._loadDependencies());
-$recv(aStream)._nextPutAll_("define(\x22");
+$2=$recv(importVarNames).__minus_gt($recv(namedImports).__comma(anonImports));
+return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=1;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_(self._amdNamespaceOfPackage_(aPackage));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=2;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_("/");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=3;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_($recv(aPackage)._name());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=4;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_("\x22, ");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=5;
-//>>excludeEnd("ctx");
-$5=["amber/boot"].__comma(namedImports);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=3;
-//>>excludeEnd("ctx");
-$4=$recv($5).__comma(anonImports);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=2;
-//>>excludeEnd("ctx");
-$3=$recv($4).__comma(loadDependencies);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._asJavascript();
-$recv(aStream)._nextPutAll_($2);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=6;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_(", function(");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=7;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_($recv(["$boot"].__comma(importVarNames))._join_(","));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=8;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_("){");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nextPutAll:"]=9;
-//>>excludeEnd("ctx");
-$recv(aStream)._lf();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["lf"]=1;
-//>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_("var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;");
-$6=$recv(aStream)._lf();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream,namedImports:namedImports,anonImports:anonImports,importVarNames:importVarNames,loadDependencies:loadDependencies},$globals.AmdExporter)});
+}, function($ctx1) {$ctx1.fill(self,"importsForOutput:",{aPackage:aPackage,namedImports:namedImports,anonImports:anonImports,importVarNames:importVarNames},$globals.AmdExporter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| namedImports anonImports importVarNames loadDependencies |\x0a\x09namedImports := #().\x0a\x09anonImports := #().\x0a\x09importVarNames := #().\x0a\x09aPackage imports do: [ :each | each isString\x0a\x09\x09ifTrue: [ anonImports add: each ]\x0a\x09\x09ifFalse: [ namedImports add: each value.\x0a\x09\x09\x09importVarNames add: each key ]].\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), namedImports, anonImports, loadDependencies) asJavascript;\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (#('$boot'), importVarNames join: ',');\x0a\x09\x09nextPutAll: '){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
+args: ["aPackage"],
+source: "importsForOutput: aPackage\x0a\x09\x22Returns an association where key is list of import variables\x0a\x09and value is list of external dependencies, with ones imported as variables\x0a\x09put at the beginning with same order as is in key.\x0a\x09\x0a\x09For example imports:{'jQuery'->'jquery'. 'bootstrap'} would yield\x0a\x09#('jQuery') -> #('jquery' 'bootstrap')\x22\x0a\x09| namedImports anonImports importVarNames |\x0a\x09namedImports := #().\x0a\x09anonImports := #().\x0a\x09importVarNames := #().\x0a\x09aPackage imports do: [ :each | each isString\x0a\x09\x09ifTrue: [ anonImports add: each ]\x0a\x09\x09ifFalse: [ namedImports add: each value.\x0a\x09\x09\x09importVarNames add: each key ]].\x0a\x09^ importVarNames -> (namedImports, anonImports)",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["do:", "imports", "ifTrue:ifFalse:", "isString", "add:", "value", "key", "amdNamesOfPackages:", "loadDependencies", "nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "join:", "lf"]
+messageSends: ["do:", "imports", "ifTrue:ifFalse:", "isString", "add:", "value", "key", "->", ","]
 }),
 $globals.AmdExporter);
 
