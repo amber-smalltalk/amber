@@ -1,3 +1,30 @@
+0.14.4:
+
++ AmdExporter >>
+  + importsForOutput:
++ AbstractCodeGenerator >>
+  + currentPackage
+  + currentPackage:
++ Compiler >>
+  + currentPackage
+  + currentPackage:
+  + compile:forClass:protocol:
+  + compileNode:forClass:package:
++ SemanticAnalyzer >>
+  + thePackage
+  + thePackage:
+  + isVariableUndefined:inPackage:
+
+- Compiler >>
+  - compile:
+  - compile:forClass:
+  - compileExpression:
+- SemanticAnalyzer >>
+  - isVariableGloabllyUndefined:
+- Behavior >>
+  - compile:
+
+
 0.14.3:
 
 * #heliosClass is now #classTag

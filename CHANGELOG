@@ -1,3 +1,14 @@
+1 February 2015 - Release 0.14.4
+===================================
+
+Highlights:
+
+* Compiler now allows the "import them as package-global vars" of 0.14.3.
+* Some core speedups.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.3...0.14.4
+
+
 20 January 2015 - Release 0.14.3
 ===================================
 
