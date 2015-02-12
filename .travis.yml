@@ -2,8 +2,6 @@ language: node_js
 node_js:
   - "0.10"
   - "0.12"
-before_install:
-  - npm -g install npm@1.x.x
 install:
   - npm install -g grunt-cli mocha
   - npm install
