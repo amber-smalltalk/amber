@@ -632,7 +632,7 @@ $recv(aStream)._nextPutAll_("') imports: ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_($recv(aPackage)._importsDefinition());
+$recv(aStream)._nextPutAll_(self._chunkEscape_($recv(aPackage)._importsDefinition()));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
 //>>excludeEnd("ctx");
@@ -650,10 +650,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackageImportsOf: aPackage on: aStream\x0a\x09aPackage imports ifNotEmpty: [ :imports |\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '(Smalltalk packageAt: ''';\x0a\x09\x09\x09nextPutAll: aPackage name;\x0a\x09\x09\x09nextPutAll: ''') imports: ';\x0a\x09\x09\x09nextPutAll: aPackage importsDefinition;\x0a\x09\x09\x09nextPutAll: '!';\x0a\x09\x09\x09lf ]",
+source: "exportPackageImportsOf: aPackage on: aStream\x0a\x09aPackage imports ifNotEmpty: [ :imports |\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '(Smalltalk packageAt: ''';\x0a\x09\x09\x09nextPutAll: aPackage name;\x0a\x09\x09\x09nextPutAll: ''') imports: ';\x0a\x09\x09\x09nextPutAll: (self chunkEscape: aPackage importsDefinition);\x0a\x09\x09\x09nextPutAll: '!';\x0a\x09\x09\x09lf ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNotEmpty:", "imports", "nextPutAll:", "name", "importsDefinition", "lf"]
+messageSends: ["ifNotEmpty:", "imports", "nextPutAll:", "name", "chunkEscape:", "importsDefinition", "lf"]
 }),
 $globals.ChunkExporter);
 

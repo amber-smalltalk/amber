@@ -206,7 +206,7 @@ exportPackageImportsOf: aPackage on: aStream
 			nextPutAll: '(Smalltalk packageAt: ''';
 			nextPutAll: aPackage name;
 			nextPutAll: ''') imports: ';
-			nextPutAll: aPackage importsDefinition;
+			nextPutAll: (self chunkEscape: aPackage importsDefinition);
 			nextPutAll: '!!';
 			lf ]
 !
