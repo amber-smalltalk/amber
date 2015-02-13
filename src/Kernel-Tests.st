@@ -90,6 +90,18 @@ TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!BlockClosureTest methodsFor: 'fixture'!
+
+localReturnOnDoCatch
+    [ ^ 2 ] on: Error do: [].
+    ^ 3
+!
+
+localReturnOnDoMiss
+    [ ^ 2 ] on: Class do: [].
+    ^ 3
+! !
+
 !BlockClosureTest methodsFor: 'tests'!
 
 testCanClearInterval
@@ -134,6 +146,14 @@ testExceptionSemantics
 			self finished.
 		] on: Error do: [ :ex | self finished ]
 	]) valueWithTimeout: 0
+!
+
+testLocalReturnOnDoCatch
+	self assert: self localReturnOnDoCatch equals: 2
+!
+
+testLocalReturnOnDoMiss
+	self assert: self localReturnOnDoMiss equals: 2
 !
 
 testNewWithValues

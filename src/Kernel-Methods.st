@@ -97,6 +97,8 @@ tryCatch: aBlock
 		try {
 			return self._value();
 		} catch(error) {
+			// pass non-local returns undetected
+			if (Array.isArray(error) && error.length === 1) throw error;
 			return aBlock._value_(error);
 		}
 	>

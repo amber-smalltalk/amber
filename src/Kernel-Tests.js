@@ -321,6 +321,74 @@ $globals.AnnouncerTest);
 $core.addClass('BlockClosureTest', $globals.TestCase, [], 'Kernel-Tests');
 $core.addMethod(
 $core.method({
+selector: "localReturnOnDoCatch",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $early={};
+try {
+$recv((function(){
+throw $early=[(2)];
+
+}))._on_do_($Error(),(function(){
+
+}));
+return (3);
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"localReturnOnDoCatch",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "localReturnOnDoCatch\x0a    [ ^ 2 ] on: Error do: [].\x0a    ^ 3",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["on:do:"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
+selector: "localReturnOnDoMiss",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+function $Class(){return $globals.Class||(typeof Class=="undefined"?nil:Class)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $early={};
+try {
+$recv((function(){
+throw $early=[(2)];
+
+}))._on_do_($Class(),(function(){
+
+}));
+return (3);
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"localReturnOnDoMiss",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "localReturnOnDoMiss\x0a    [ ^ 2 ] on: Class do: [].\x0a    ^ 3",
+referencedClasses: ["Class"],
+//>>excludeEnd("ide");
+messageSends: ["on:do:"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
 selector: "testCanClearInterval",
 protocol: 'tests',
 fn: function (){
@@ -614,6 +682,54 @@ source: "testExceptionSemantics\x0a\x09\x22See https://github.com/NicolasPetton/
 referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "assert:", "signal", "deny:", "finished"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
+selector: "testLocalReturnOnDoCatch",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._assert_equals_(self._localReturnOnDoCatch(),(2));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testLocalReturnOnDoCatch",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testLocalReturnOnDoCatch\x0a\x09self assert: self localReturnOnDoCatch equals: 2",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:equals:", "localReturnOnDoCatch"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
+selector: "testLocalReturnOnDoMiss",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._assert_equals_(self._localReturnOnDoMiss(),(2));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testLocalReturnOnDoMiss",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testLocalReturnOnDoMiss\x0a\x09self assert: self localReturnOnDoMiss equals: 2",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:equals:", "localReturnOnDoMiss"]
 }),
 $globals.BlockClosureTest);
 
