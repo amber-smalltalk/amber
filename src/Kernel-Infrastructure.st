@@ -249,7 +249,7 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 	aBlock tryCatch: [ :exception | 
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
- 			ifFalse: [ exception signal ] ]
+ 			ifFalse: [ exception resignal ] ]
 ! !
 
 !Environment methodsFor: 'evaluating'!

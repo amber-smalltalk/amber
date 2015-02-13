@@ -610,7 +610,7 @@ import: aStream
 									lastEmpty := false.
 									result scanFrom: parser ]] ].
 	lastSection := 'n/a, finished'
-	] on: Error do: [:e | lastChunk := parser last. e signal ].
+	] on: Error do: [:e | lastChunk := parser last. e resignal ].
 ! !
 
 InterfacingObject subclass: #PackageHandler

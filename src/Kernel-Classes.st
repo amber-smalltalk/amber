@@ -649,7 +649,7 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 			self
 				basicSwapClassNames: oldClass with: newClass;
 				basicRemoveClass: newClass.
-			exception signal ].
+				exception resignal ].
 
 	self
 		rawRenameClass: oldClass to: tmp;
