@@ -1,51 +1,5 @@
 Smalltalk createPackage: 'Web'!
-(Smalltalk packageAt: 'Web') imports: {'jQuery' -> 'jquery'}!
-Object subclass: #BrowserInterface
-	instanceVariableNames: ''
-	package: 'Web'!
-!BrowserInterface commentStamp!
-I am platform interface class that tries to use window and jQuery; that is, one for browser environment.
-
-## API
-
-    self isAvailable. "true if window and jQuery exist".
-
-    self alert: 'Hey, there is a problem'.
-    self confirm: 'Affirmative?'.
-    self prompt: 'Your name:'.
-
-    self ajax: #{
-        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
-    }.!
-
-!BrowserInterface methodsFor: 'actions'!
-
-ajax: anObject
-	^ jQuery ajax: anObject
-!
-
-alert: aString
-	^ window alert: aString
-!
-
-confirm: aString
-	^ window confirm: aString
-!
-
-prompt: aString
-	^ window prompt: aString
-!
-
-prompt: aString default: defaultString
-	^ window prompt: aString default: defaultString
-! !
-
-!BrowserInterface methodsFor: 'testing'!
-
-isAvailable
-<return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
-! !
-
+(Smalltalk packageAt: 'Web') imports: {'amber_core/Wrappers-JQuery'}!
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Web'!
@@ -548,15 +502,6 @@ ul: anObject
 
 video
 	^ self tag: 'video'
-! !
-
-!HTMLCanvas class methodsFor: 'initialization'!
-
-initialize
-	"Allow JS method calls for the jQuery object.
-	See boot.js DNU handling."
-	
-	Smalltalk optOut: jQuery
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -1114,30 +1059,12 @@ appendToBrush: aTagBrush
 
 appendToJQuery: aJQuery
 	self value: (HTMLCanvas onJQuery: aJQuery)
-!
-
-asJQuery
-	^ {self} asJQuery
-!
-
-asJQueryInContext: aContext
-	^ {self} asJQueryInContext: aContext
 ! !
 
 !CharacterArray methodsFor: '*Web'!
 
 asSnippet
 	^ HTMLSnippet current snippetAt: self asString
-! !
-
-!JSObjectProxy methodsFor: '*Web'!
-
-asJQuery
-	<return jQuery(self['@jsObject'])>
-!
-
-asJQueryInContext: aContext
-	<return jQuery(self['@jsObject'], aContext)>
 ! !
 
 !Object methodsFor: '*Web'!
@@ -1148,14 +1075,6 @@ appendToBrush: aTagBrush
 
 appendToJQuery: aJQuery
 	aJQuery append: self asString
-!
-
-asJQuery
-	<return jQuery(self)>
-!
-
-asJQueryInContext: aContext
-	<return jQuery(self, aContext)>
 !
 
 postMessageTo: aFrame
@@ -1174,13 +1093,5 @@ appendToBrush: aTagBrush
 
 appendToJQuery: aJQuery
 	aJQuery append: self
-!
-
-asJQuery
-	<return jQuery(String(self))>
-!
-
-asJQueryInContext: aContext
-	<return jQuery(String(self), aContext)>
 ! !
 
