@@ -1,3 +1,20 @@
+0.14.5:
+
++ JSObjectProxy class >>
+  + addObjectVariablesTo:ofProxy:
+  + compareJSObjectOfProxy:withProxy:
+  + forwardMessage:withArguments:ofProxy:
+  + jsObject:ofProxy:
+  + lookupProperty:ofProxy:
+
+- JSObjectProxy >>
+  - jsObject:
+  - lookupProperty:
+  - compareJSObjectWith:
+  - addObjectVariablesTo:
+  - forwardMessage:withArguments:
+
+
 0.14.4:
 
 + AmdExporter >>

@@ -345,24 +345,13 @@ at: aString put: anObject
 
 jsObject
 	^ jsObject
-!
-
-jsObject: aJSObject
-	jsObject := aJSObject
-!
-
-lookupProperty: aString
-	"Looks up a property in JS object.
-	Answer the property if it is present, or nil if it is not present."
-	
-	<return aString in self._jsObject() ? aString : nil>
 ! !
 
 !JSObjectProxy methodsFor: 'comparing'!
 
 = anObject
 	anObject class == self class ifFalse: [ ^ false ].
-	^ self compareJSObjectWith: anObject jsObject
+	^ JSObjectProxy compareJSObjectOfProxy: self withProxy: anObject
 ! !
 
 !JSObjectProxy methodsFor: 'enumerating'!
@@ -397,35 +386,16 @@ printString
 	>
 ! !
 
-!JSObjectProxy methodsFor: 'private'!
-
-compareJSObjectWith: aJSObject
- 	<return self["@jsObject"] === aJSObject>
-! !
-
 !JSObjectProxy methodsFor: 'proxy'!
 
-addObjectVariablesTo: aDictionary
-	<
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, self['@jsObject'][i]);
-		}
-	>
-!
-
 doesNotUnderstand: aMessage
-	^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)
+	^ (JSObjectProxy lookupProperty: aMessage selector asJavaScriptPropertyName ofProxy: self)
 		ifNil: [ super doesNotUnderstand: aMessage ]
 		ifNotNil: [ :jsSelector | 
-			self 
+			JSObjectProxy 
 				forwardMessage: jsSelector 
-				withArguments: aMessage arguments ]
-!
-
-forwardMessage: aString withArguments: anArray
-	<
-		return $core.accessJavaScript(self._jsObject(), aString, anArray);
-	>
+				withArguments: aMessage arguments
+				ofProxy: self ]
 !
 
 inspectOn: anInspector
@@ -433,16 +403,52 @@ inspectOn: anInspector
 	variables := Dictionary new.
 	variables at: '#self' put: self jsObject.
 	anInspector setLabel: self printString.
-	self addObjectVariablesTo: variables.
+	JSObjectProxy addObjectVariablesTo: variables ofProxy: self.
 	anInspector setVariables: variables
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
 
 on: aJSObject
-	^ self new
-		jsObject: aJSObject;
-		yourself
+	| instance |
+	instance := self new.
+	self jsObject: aJSObject ofProxy: instance.
+	^ instance
+! !
+
+!JSObjectProxy class methodsFor: 'proxy'!
+
+addObjectVariablesTo: aDictionary ofProxy: aProxy
+	<
+		var jsObject = aProxy['@jsObject'];
+		for(var i in jsObject) {
+			aDictionary._at_put_(i, jsObject[i]);
+		}
+	>
+!
+
+compareJSObjectOfProxy: aProxy withProxy: anotherProxy
+<
+	var anotherJSObject = anotherProxy.klass ? anotherProxy["@jsObject"] : anotherProxy;
+	return aProxy["@jsObject"] === anotherJSObject
+>
+!
+
+forwardMessage: aString withArguments: anArray ofProxy: aProxy
+	<
+		return $core.accessJavaScript(aProxy._jsObject(), aString, anArray);
+	>
+!
+
+jsObject: aJSObject ofProxy: aProxy
+	<aProxy['@jsObject'] = aJSObject>
+!
+
+lookupProperty: aString ofProxy: aProxy
+	"Looks up a property in JS object.
+	Answer the property if it is present, or nil if it is not present."
+	
+	<return aString in aProxy._jsObject() ? aString : nil>
 ! !
 
 Object subclass: #NullProgressHandler

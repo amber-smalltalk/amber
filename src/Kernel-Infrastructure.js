@@ -1314,6 +1314,7 @@ selector: "=",
 protocol: 'comparing',
 fn: function (anObject){
 var self=this;
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1326,7 +1327,7 @@ $1=$recv($2).__eq_eq(self._class());
 if(!$core.assert($1)){
 return false;
 };
-$3=self._compareJSObjectWith_($recv(anObject)._jsObject());
+$3=$recv($JSObjectProxy())._compareJSObjectOfProxy_withProxy_(self,anObject);
 return $3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},$globals.JSObjectProxy)});
@@ -1334,38 +1335,10 @@ return $3;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "= anObject\x0a\x09anObject class == self class ifFalse: [ ^ false ].\x0a\x09^ self compareJSObjectWith: anObject jsObject",
-referencedClasses: [],
+source: "= anObject\x0a\x09anObject class == self class ifFalse: [ ^ false ].\x0a\x09^ JSObjectProxy compareJSObjectOfProxy: self withProxy: anObject",
+referencedClasses: ["JSObjectProxy"],
 //>>excludeEnd("ide");
-messageSends: ["ifFalse:", "==", "class", "compareJSObjectWith:", "jsObject"]
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "addObjectVariablesTo:",
-protocol: 'proxy',
-fn: function (aDictionary){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, self['@jsObject'][i]);
-		}
-	;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aDictionary"],
-source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
+messageSends: ["ifFalse:", "==", "class", "compareJSObjectOfProxy:withProxy:"]
 }),
 $globals.JSObjectProxy);
 
@@ -1520,39 +1493,16 @@ $globals.JSObjectProxy);
 
 $core.addMethod(
 $core.method({
-selector: "compareJSObjectWith:",
-protocol: 'private',
-fn: function (aJSObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return self["@jsObject"] === aJSObject;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aJSObject"],
-source: "compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
 selector: "doesNotUnderstand:",
 protocol: 'proxy',
 fn: function (aMessage){
 var self=this;
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
-$2=self._lookupProperty_($recv($recv(aMessage)._selector())._asJavaScriptPropertyName());
+$2=$recv($JSObjectProxy())._lookupProperty_ofProxy_($recv($recv(aMessage)._selector())._asJavaScriptPropertyName(),self);
 if(($receiver = $2) == null || $receiver.isNil){
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1565,7 +1515,7 @@ $ctx1.supercall = false;
 } else {
 var jsSelector;
 jsSelector=$receiver;
-$1=self._forwardMessage_withArguments_(jsSelector,$recv(aMessage)._arguments());
+$1=$recv($JSObjectProxy())._forwardMessage_withArguments_ofProxy_(jsSelector,$recv(aMessage)._arguments(),self);
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1574,36 +1524,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-referencedClasses: [],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (JSObjectProxy lookupProperty: aMessage selector asJavaScriptPropertyName ofProxy: self)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09JSObjectProxy \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments\x0a\x09\x09\x09\x09ofProxy: self ]",
+referencedClasses: ["JSObjectProxy"],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"]
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "forwardMessage:withArguments:",
-protocol: 'proxy',
-fn: function (aString,anArray){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-
-		return $core.accessJavaScript(self._jsObject(), aString, anArray);
-	;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return $core.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:ofProxy:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:ofProxy:", "arguments"]
 }),
 $globals.JSObjectProxy);
 
@@ -1615,13 +1539,14 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self._jsObject());
 $recv(anInspector)._setLabel_(self._printString());
-self._addObjectVariablesTo_(variables);
+$recv($JSObjectProxy())._addObjectVariablesTo_ofProxy_(variables,self);
 $recv(anInspector)._setVariables_(variables);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1630,10 +1555,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
-referencedClasses: ["Dictionary"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09JSObjectProxy addObjectVariablesTo: variables ofProxy: self.\x0a\x09anInspector setVariables: variables",
+referencedClasses: ["Dictionary", "JSObjectProxy"],
 //>>excludeEnd("ide");
-messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:", "setVariables:"]
+messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:ofProxy:", "setVariables:"]
 }),
 $globals.JSObjectProxy);
 
@@ -1651,25 +1576,6 @@ return $1;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "jsObject\x0a\x09^ jsObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "jsObject:",
-protocol: 'accessing',
-fn: function (aJSObject){
-var self=this;
-self["@jsObject"]=aJSObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aJSObject"],
-source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1699,30 +1605,6 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "lookupProperty:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return aString in self._jsObject() ? aString : nil;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -1785,29 +1667,158 @@ $globals.JSObjectProxy);
 
 $core.addMethod(
 $core.method({
-selector: "on:",
-protocol: 'instance creation',
-fn: function (aJSObject){
+selector: "addObjectVariablesTo:ofProxy:",
+protocol: 'proxy',
+fn: function (aDictionary,aProxy){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._jsObject_(aJSObject);
-$3=$recv($2)._yourself();
-$1=$3;
+
+		var jsObject = aProxy['@jsObject'];
+		for(var i in jsObject) {
+			aDictionary._at_put_(i, jsObject[i]);
+		}
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:ofProxy:",{aDictionary:aDictionary,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aDictionary", "aProxy"],
+source: "addObjectVariablesTo: aDictionary ofProxy: aProxy\x0a\x09<\x0a\x09\x09var jsObject = aProxy['@jsObject'];\x0a\x09\x09for(var i in jsObject) {\x0a\x09\x09\x09aDictionary._at_put_(i, jsObject[i]);\x0a\x09\x09}\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "compareJSObjectOfProxy:withProxy:",
+protocol: 'proxy',
+fn: function (aProxy,anotherProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+	var anotherJSObject = anotherProxy.klass ? anotherProxy["@jsObject"] : anotherProxy;
+	return aProxy["@jsObject"] === anotherJSObject;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compareJSObjectOfProxy:withProxy:",{aProxy:aProxy,anotherProxy:anotherProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aProxy", "anotherProxy"],
+source: "compareJSObjectOfProxy: aProxy withProxy: anotherProxy\x0a<\x0a\x09var anotherJSObject = anotherProxy.klass ? anotherProxy[\x22@jsObject\x22] : anotherProxy;\x0a\x09return aProxy[\x22@jsObject\x22] === anotherJSObject\x0a>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "forwardMessage:withArguments:ofProxy:",
+protocol: 'proxy',
+fn: function (aString,anArray,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return $core.accessJavaScript(aProxy._jsObject(), aString, anArray);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:ofProxy:",{aString:aString,anArray:anArray,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anArray", "aProxy"],
+source: "forwardMessage: aString withArguments: anArray ofProxy: aProxy\x0a\x09<\x0a\x09\x09return $core.accessJavaScript(aProxy._jsObject(), aString, anArray);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "jsObject:ofProxy:",
+protocol: 'proxy',
+fn: function (aJSObject,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+aProxy['@jsObject'] = aJSObject;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"jsObject:ofProxy:",{aJSObject:aJSObject,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aJSObject", "aProxy"],
+source: "jsObject: aJSObject ofProxy: aProxy\x0a\x09<aProxy['@jsObject'] = aJSObject>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "lookupProperty:ofProxy:",
+protocol: 'proxy',
+fn: function (aString,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return aString in aProxy._jsObject() ? aString : nil;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"lookupProperty:ofProxy:",{aString:aString,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aProxy"],
+source: "lookupProperty: aString ofProxy: aProxy\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in aProxy._jsObject() ? aString : nil>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (aJSObject){
+var self=this;
+var instance;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+instance=self._new();
+self._jsObject_ofProxy_(aJSObject,instance);
+$1=instance;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject},$globals.JSObjectProxy.klass)});
+}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject,instance:instance},$globals.JSObjectProxy.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aJSObject"],
-source: "on: aJSObject\x0a\x09^ self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
+source: "on: aJSObject\x0a\x09| instance |\x0a\x09instance := self new.\x0a\x09self jsObject: aJSObject ofProxy: instance.\x0a\x09^ instance",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["jsObject:", "new", "yourself"]
+messageSends: ["new", "jsObject:ofProxy:"]
 }),
 $globals.JSObjectProxy.klass);
 
