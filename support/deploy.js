@@ -1,6 +1,5 @@
 define([
     './helpers',
-    'jquery',
     // --- packages of the core Amber begin here ---
     'amber_core/Kernel-Objects',
     'amber_core/Kernel-Classes',
