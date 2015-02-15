@@ -1,7 +1,7 @@
-Smalltalk createPackage: 'Kernel-ImportExport'!
+Smalltalk createPackage: 'Platform-ImportExport'!
 Object subclass: #AbstractExporter
 	instanceVariableNames: ''
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !AbstractExporter commentStamp!
 I am an abstract exporter for Amber source code.
 
@@ -61,7 +61,7 @@ exportPackage: aPackage on: aStream
 
 AbstractExporter subclass: #ChunkExporter
 	instanceVariableNames: ''
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !ChunkExporter commentStamp!
 I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.
 
@@ -235,7 +235,7 @@ exportProtocols: aCollection on: aStream
 
 AbstractExporter subclass: #Exporter
 	instanceVariableNames: ''
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !Exporter commentStamp!
 I am responsible for outputting Amber code into a JavaScript string.
 
@@ -403,7 +403,7 @@ exportPackageTransportOf: aPackage on: aStream
 
 Exporter subclass: #AmdExporter
 	instanceVariableNames: 'namespace'
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !AmdExporter commentStamp!
 I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.!
 
@@ -477,7 +477,7 @@ importsForOutput: aPackage
 
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream last'
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !ChunkParser commentStamp!
 I am responsible for parsing aStream contents in the chunk format.
 
@@ -530,7 +530,7 @@ on: aStream
 
 Object subclass: #ExportMethodProtocol
 	instanceVariableNames: 'name theClass'
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !ExportMethodProtocol commentStamp!
 I am an abstraction for a method protocol in a class / metaclass.
 
@@ -571,7 +571,7 @@ name: aString theClass: aClass
 
 Object subclass: #Importer
 	instanceVariableNames: 'lastSection lastChunk'
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !Importer commentStamp!
 I can import Amber code from a string in the chunk format.
 
@@ -615,7 +615,7 @@ import: aStream
 
 InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !PackageHandler commentStamp!
 I am responsible for handling package loading and committing.
 
@@ -728,7 +728,7 @@ ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock
 
 PackageHandler subclass: #AmdPackageHandler
 	instanceVariableNames: ''
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !AmdPackageHandler commentStamp!
 I am responsible for handling package loading and committing.
 
@@ -789,7 +789,7 @@ defaultNamespace: aString
 
 Object subclass: #PackageTransport
 	instanceVariableNames: 'package'
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !PackageTransport commentStamp!
 I represent the transport mechanism used to commit a package.
 
@@ -907,7 +907,7 @@ register: aClass
 
 PackageTransport subclass: #AmdPackageTransport
 	instanceVariableNames: 'namespace'
-	package: 'Kernel-ImportExport'!
+	package: 'Platform-ImportExport'!
 !AmdPackageTransport commentStamp!
 I am the default transport for committing packages.
 
@@ -991,7 +991,7 @@ namespace: aString
 		yourself
 ! !
 
-!Package methodsFor: '*Kernel-ImportExport'!
+!Package methodsFor: '*Platform-ImportExport'!
 
 commit
 	^ self transport commit
@@ -1007,7 +1007,7 @@ loadFromNamespace: aString
 		load
 ! !
 
-!Package class methodsFor: '*Kernel-ImportExport'!
+!Package class methodsFor: '*Platform-ImportExport'!
 
 load: aPackageName
 	(self named: aPackageName) load

@@ -1,10 +1,10 @@
-define("amber_core/Kernel-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function($boot){
+define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-$core.addPackage('Kernel-ImportExport');
-$core.packages["Kernel-ImportExport"].innerEval = function (expr) { return eval(expr); };
-$core.packages["Kernel-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$core.addPackage('Platform-ImportExport');
+$core.packages["Platform-ImportExport"].innerEval = function (expr) { return eval(expr); };
+$core.packages["Platform-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$core.addClass('AbstractExporter', $globals.Object, [], 'Kernel-ImportExport');
+$core.addClass('AbstractExporter', $globals.Object, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AbstractExporter.comment="I am an abstract exporter for Amber source code.\x0a\x0a## API\x0a\x0aUse `#exportPackage:on:` to export a given package on a Stream.";
 //>>excludeEnd("ide");
@@ -180,7 +180,7 @@ $globals.AbstractExporter);
 
 
 
-$core.addClass('ChunkExporter', $globals.AbstractExporter, [], 'Kernel-ImportExport');
+$core.addClass('ChunkExporter', $globals.AbstractExporter, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
 //>>excludeEnd("ide");
@@ -994,7 +994,7 @@ $globals.ChunkExporter);
 
 
 
-$core.addClass('Exporter', $globals.AbstractExporter, [], 'Kernel-ImportExport');
+$core.addClass('Exporter', $globals.AbstractExporter, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).";
 //>>excludeEnd("ide");
@@ -1835,7 +1835,7 @@ $globals.Exporter);
 
 
 
-$core.addClass('AmdExporter', $globals.Exporter, ['namespace'], 'Kernel-ImportExport');
+$core.addClass('AmdExporter', $globals.Exporter, ['namespace'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmdExporter.comment="I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.";
 //>>excludeEnd("ide");
@@ -2149,7 +2149,7 @@ $globals.AmdExporter);
 
 
 
-$core.addClass('ChunkParser', $globals.Object, ['stream', 'last'], 'Kernel-ImportExport');
+$core.addClass('ChunkParser', $globals.Object, ['stream', 'last'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk";
 //>>excludeEnd("ide");
@@ -2287,7 +2287,7 @@ messageSends: ["stream:", "new"]
 $globals.ChunkParser.klass);
 
 
-$core.addClass('ExportMethodProtocol', $globals.Object, ['name', 'theClass'], 'Kernel-ImportExport');
+$core.addClass('ExportMethodProtocol', $globals.Object, ['name', 'theClass'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ExportMethodProtocol.comment="I am an abstraction for a method protocol in a class / metaclass.\x0a\x0aI know of my class, name and methods.\x0aI am used when exporting a package.";
 //>>excludeEnd("ide");
@@ -2437,7 +2437,7 @@ messageSends: ["name:", "new", "theClass:", "yourself"]
 $globals.ExportMethodProtocol.klass);
 
 
-$core.addClass('Importer', $globals.Object, ['lastSection', 'lastChunk'], 'Kernel-ImportExport');
+$core.addClass('Importer', $globals.Object, ['lastSection', 'lastChunk'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Importer.comment="I can import Amber code from a string in the chunk format.\x0a\x0a## API\x0a\x0a    Importer new import: aString";
 //>>excludeEnd("ide");
@@ -2569,7 +2569,7 @@ $globals.Importer);
 
 
 
-$core.addClass('PackageHandler', $globals.InterfacingObject, [], 'Kernel-ImportExport');
+$core.addClass('PackageHandler', $globals.InterfacingObject, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 //>>excludeEnd("ide");
@@ -3016,7 +3016,7 @@ $globals.PackageHandler);
 
 
 
-$core.addClass('AmdPackageHandler', $globals.PackageHandler, [], 'Kernel-ImportExport');
+$core.addClass('AmdPackageHandler', $globals.PackageHandler, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmdPackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 //>>excludeEnd("ide");
@@ -3251,7 +3251,7 @@ messageSends: ["defaultAmdNamespace:"]
 $globals.AmdPackageHandler.klass);
 
 
-$core.addClass('PackageTransport', $globals.Object, ['package'], 'Kernel-ImportExport');
+$core.addClass('PackageTransport', $globals.Object, ['package'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.PackageTransport.comment="I represent the transport mechanism used to commit a package.\x0a\x0aMy concrete subclasses have a `#handler` to which committing is delegated.";
 //>>excludeEnd("ide");
@@ -3733,7 +3733,7 @@ messageSends: []
 $globals.PackageTransport.klass);
 
 
-$core.addClass('AmdPackageTransport', $globals.PackageTransport, ['namespace'], 'Kernel-ImportExport');
+$core.addClass('AmdPackageTransport', $globals.PackageTransport, ['namespace'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmdPackageTransport.comment="I am the default transport for committing packages.\x0a\x0aSee `AmdExporter` and `AmdPackageHandler`.";
 //>>excludeEnd("ide");
@@ -4052,7 +4052,7 @@ $globals.AmdPackageTransport.klass);
 $core.addMethod(
 $core.method({
 selector: "commit",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4077,7 +4077,7 @@ $globals.Package);
 $core.addMethod(
 $core.method({
 selector: "load",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4102,7 +4102,7 @@ $globals.Package);
 $core.addMethod(
 $core.method({
 selector: "loadFromNamespace:",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4130,7 +4130,7 @@ $globals.Package);
 $core.addMethod(
 $core.method({
 selector: "load:",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (aPackageName){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4154,7 +4154,7 @@ $globals.Package.klass);
 $core.addMethod(
 $core.method({
 selector: "load:fromNamespace:",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (aPackageName,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
