@@ -516,9 +516,14 @@ validateVariableScope: aString
 !SemanticAnalyzer methodsFor: 'testing'!
 
 isVariableUndefined: aString inPackage: aPackage
+	aPackage ifNotNil: [
+		| packageKnownVars |
+		packageKnownVars := (aPackage imports
+			reject: #isString)
+			collect: #key.
+		(packageKnownVars includes: aString) ifTrue: [ ^ false ]].
 	^ Compiler new
 		eval: 'typeof ', aString, ' == "undefined"'
-		forPackage: aPackage
 ! !
 
 !SemanticAnalyzer methodsFor: 'visiting'!

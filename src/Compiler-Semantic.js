@@ -1886,24 +1886,35 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Compiler())._new();
-$3=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
+var $1,$3,$4,$2,$receiver;
+if(($receiver = aPackage) == null || $receiver.isNil){
+aPackage;
+} else {
+var packageKnownVars;
+packageKnownVars=$recv($recv($recv(aPackage)._imports())._reject_("isString"))._collect_("key");
+packageKnownVars;
+$1=$recv(packageKnownVars)._includes_(aString);
+if($core.assert($1)){
+return false;
+};
+};
+$3=$recv($Compiler())._new();
+$4=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-$1=$recv($2)._eval_forPackage_($3,aPackage);
-return $1;
+$2=$recv($3)._eval_($4);
+return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isVariableUndefined:inPackage:",{aString:aString,aPackage:aPackage},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aPackage"],
-source: "isVariableUndefined: aString inPackage: aPackage\x0a\x09^ Compiler new\x0a\x09\x09eval: 'typeof ', aString, ' == \x22undefined\x22'\x0a\x09\x09forPackage: aPackage",
+source: "isVariableUndefined: aString inPackage: aPackage\x0a\x09aPackage ifNotNil: [\x0a\x09\x09| packageKnownVars |\x0a\x09\x09packageKnownVars := (aPackage imports\x0a\x09\x09\x09reject: #isString)\x0a\x09\x09\x09collect: #key.\x0a\x09\x09(packageKnownVars includes: aString) ifTrue: [ ^ false ]].\x0a\x09^ Compiler new\x0a\x09\x09eval: 'typeof ', aString, ' == \x22undefined\x22'",
 referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
-messageSends: ["eval:forPackage:", "new", ","]
+messageSends: ["ifNotNil:", "collect:", "reject:", "imports", "ifTrue:", "includes:", "eval:", "new", ","]
 }),
 $globals.SemanticAnalyzer);
 
