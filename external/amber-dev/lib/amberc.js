@@ -73,9 +73,9 @@ function AmberCompiler(amber_dir) {
 	this.amber_dir = amber_dir;
 	// Important: in next list, boot MUST be first
 	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
-							'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Kernel-ImportExport', 'Compiler-Exceptions',
+							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Announcements',
+							'Platform-Services'];
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Platform-ImportExport', 'Compiler-Exceptions',
 							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 

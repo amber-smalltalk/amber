@@ -42,10 +42,11 @@ module.exports = function(grunt) {
       amber: {
         output_dir : 'src',
         src: ['src/Kernel-Objects.st', 'src/Kernel-Classes.st', 'src/Kernel-Methods.st', 'src/Kernel-Collections.st',
-              'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Transcript.st', 'src/Kernel-Announcements.st',
-              'src/Kernel-ImportExport.st', 'src/Compiler-Exceptions.st', 'src/Compiler-Core.st', 'src/Compiler-AST.st',
+              'src/Kernel-Infrastructure.st', 'src/Kernel-Exceptions.st', 'src/Kernel-Announcements.st',
+              'src/Platform-Services.st', 'src/Platform-ImportExport.st', 'src/Platform-Browser.st',
+              'src/Compiler-Exceptions.st', 'src/Compiler-Core.st', 'src/Compiler-AST.st',
               'src/Compiler-IR.st', 'src/Compiler-Inlining.st', 'src/Compiler-Semantic.st', 'src/Compiler-Interpreter.st',
-              'src/Web.st', 'src/SUnit.st',
+              'src/SUnit.st',
               'src/Kernel-Tests.st', 'src/Compiler-Tests.st', 'src/SUnit-Tests.st'
               ],
         jsGlobals: ['navigator']
@@ -56,7 +57,7 @@ module.exports = function(grunt) {
         libraries: [
           'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
           'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-          'SUnit', 'Kernel-ImportExport',
+          'SUnit', 'Platform-ImportExport',
           'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'
         ],
         main_class: 'AmberCli',
@@ -72,7 +73,7 @@ module.exports = function(grunt) {
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-        'SUnit', 'Kernel-ImportExport',
+        'SUnit', 'Platform-ImportExport',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         main_class: 'NodeTestRunner',
         output_name: 'test_runner'

@@ -2,7 +2,7 @@ define("amber-contrib-web/Web", ["amber/boot"
 //>>excludeStart("imports", pragmas.excludeImports);
 , "amber-contrib-jquery/Wrappers-JQuery"
 //>>excludeEnd("imports");
-, "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot
+, "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot
 //>>excludeStart("imports", pragmas.excludeImports);
 
 //>>excludeEnd("imports");
