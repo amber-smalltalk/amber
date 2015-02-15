@@ -952,7 +952,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		st.send = function(receiver, jsSelector, args, klass) {
 			var method;
-			if(receiver === null) {
+			if(receiver == null) {
 				receiver = nil;
 			}
 			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
@@ -975,7 +975,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 if the receiver has no klass, we consider it a JS object (outside of the
 		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
 		function messageNotUnderstood(receiver, stSelector, args) {
-			if (receiver.klass !== undefined && !receiver.allowJavaScriptCalls) {
+			if (receiver.klass != null && !receiver.allowJavaScriptCalls) {
 				return invokeDnuMethod(receiver, stSelector, args);
 			}
 			/* Call a method of a JS object, or answer a property if it exists.
