@@ -7,5 +7,11 @@
         "ensure-console": {
             "exports": "console"
         }
+    },
+    "map": {
+        "*": {
+            "00comment": "These are backward compatibility pointers.",
+            "amber_core/Web": "amber-contrib-web/Web"
+        }
     }
 }

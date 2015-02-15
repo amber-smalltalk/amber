@@ -1,0 +1,6 @@
+{
+    "paths": {
+        "amber-contrib-web": "src",
+        "amber-contrib-jquery": "src"
+    }
+}

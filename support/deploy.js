@@ -9,6 +9,6 @@ define([
     'amber_core/Kernel-Exceptions',
     'amber_core/Kernel-Transcript',
     'amber_core/Kernel-Announcements',
-    'amber_core/Web'
+    'amber-contrib-web/Web'
     // --- packages of the core Amber end here ---
 ], function (amber) { return amber; });

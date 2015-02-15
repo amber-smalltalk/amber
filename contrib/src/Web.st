@@ -1,5 +1,5 @@
 Smalltalk createPackage: 'Web'!
-(Smalltalk packageAt: 'Web') imports: {'amber_core/Wrappers-JQuery'}!
+(Smalltalk packageAt: 'Web') imports: {'amber-contrib-jquery/Wrappers-JQuery'}!
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Web'!
