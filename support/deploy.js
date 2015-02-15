@@ -7,8 +7,8 @@ define([
     'amber_core/Kernel-Collections',
     'amber_core/Kernel-Infrastructure',
     'amber_core/Kernel-Exceptions',
-    'amber_core/Kernel-Transcript',
     'amber_core/Kernel-Announcements',
+    'amber_core/Platform-Services',
     'amber_core/Platform-Browser',
     'amber-contrib-web/Web'
     // --- packages of the core Amber end here ---
