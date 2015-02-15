@@ -855,22 +855,27 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			if(thisContext) {
 				return inContext(worker, setup);
 			} else {
-				try {
-					return inContext(worker, setup);
-				} catch(error) {
-					handleError(error);
-					thisContext = null;
-					// Rethrow the error in any case.
-					error.amberHandled = true;
-					throw error;
-				}
+				return inContextWithErrorHandling(worker, setup);
 			}
 		};
 
+		function inContextWithErrorHandling(worker, setup) {
+			try {
+				return inContext(worker, setup);
+			} catch (error) {
+				handleError(error);
+				thisContext = null;
+				// Rethrow the error in any case.
+				error.amberHandled = true;
+				throw error;
+			}
+		}
+
 		function inContext(worker, setup) {
-			var context = pushContext(setup);
-			var result = worker(context);
-			popContext(context);
+			var oldContext = thisContext;
+			thisContext = new SmalltalkMethodContext(thisContext, setup);
+			var result = worker(thisContext);
+			thisContext = oldContext;
 			return result;
 		}
 
@@ -930,16 +935,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 				return nil;
 			}
 		};
-
-		function pushContext(setup) {
-			thisContext = new SmalltalkMethodContext(thisContext, setup);
-			return thisContext;
-		}
-
-		function popContext(context) {
-			thisContext = context.homeContext;
-		}
-
 	}
 
 	function MessageSendBrik(brikz, st) {
