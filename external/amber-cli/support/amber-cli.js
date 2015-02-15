@@ -275,7 +275,7 @@ var define = (function amdefine(module, requireFn) {
     define.amd = {};
 
     return define;
-})(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;
+})(null, function (id) { console.log("Skipping dependency: " +  id); }), requirejs = define.require;
 define("amber/browser-compatibility", [], {});
 /* ====================================================================
  |
@@ -473,11 +473,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		this.selectors = [];
 		this.jsSelectors = [];
 
-		this.get = function (stSelector) {
+		this.make = function (stSelector, targetClasses) {
 			var method = methodDict[stSelector];
-			if(method) {
-				return method;
-			}
+			if(method) return;
 			var jsSelector = st.st2js(stSelector);
 			this.selectors.push(stSelector);
 			this.jsSelectors.push(jsSelector);
@@ -485,6 +483,9 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			methodDict[stSelector] = method;
 			methods.push(method);
 			manip.installMethod(method, rootAsClass);
+			targetClasses.forEach(function (target) {
+				manip.installMethod(method, target);
+			});
 			return method;
 		};
 
@@ -540,20 +541,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 	}
 
 	function ManipulationBrik(brikz, st) {
-
-		this.installMethodIfAbsent = function (handler, klass) {
-			if(!klass.fn.prototype[handler.jsSelector]) {
-				installMethod(handler, klass);
-			}
-		};
-
-		function installMethod (method, klass) {
+		this.installMethod = function (method, klass) {
 			Object.defineProperty(klass.fn.prototype, method.jsSelector, {
 				value: method.fn,
 				enumerable: false, configurable: true, writable: true
 			});
-		}
-		this.installMethod = installMethod;
+		};
 	}
 
 
@@ -854,13 +847,6 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 			return that;
 		};
 
-		function installNewDnuHandler(newHandler) {
-			var wrappedClasses = st.wrappedClasses();
-			for(var i = 0; i < wrappedClasses.length; i++) {
-				manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
-			}
-		}
-
 		function ensureJsSelector(method) {
 			if (!(method.jsSelector)) {
 				method.jsSelector = st.st2js(method.selector);
@@ -881,19 +867,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 			propagateMethodChange(klass, method);
 
-			var usedSelectors = method.messageSends;
-			var dnuHandlers = [];
+			var usedSelectors = method.messageSends,
+				targetClasses = stInit.initialized() ? st.wrappedClasses() : [];
 
-			dnuHandlers.push(dnu.get(method.selector));
+			dnu.make(method.selector, targetClasses);
 
 			for(var i=0; i<usedSelectors.length; i++) {
-				dnuHandlers.push(dnu.get(usedSelectors[i]));
-			}
-
-			if(stInit.initialized()) {
-				dnuHandlers.forEach(function(each) {
-					installNewDnuHandler(each);
-				});
+				dnu.make(usedSelectors[i], targetClasses);
 			}
 		};
 
@@ -1050,12 +1030,12 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		/* Boolean assertion */
 		st.assert = function(shouldBeBoolean) {
-			// jshint -W041
-			if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === globals.Boolean) {
-				return shouldBeBoolean == true;
-			} else {
-				globals.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+			if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
+			else if (shouldBeBoolean != null && typeof shouldBeBoolean === "object") {
+				shouldBeBoolean = shouldBeBoolean.valueOf();
+				if (typeof shouldBeBoolean === "boolean") return shouldBeBoolean;
 			}
+			globals.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 		};
 
 		/* List of all reserved words in JavaScript. They may not be used as variables
@@ -1077,7 +1057,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 							'implements', 'interface', 'let', 'package', 'private', 'protected',
 							'public', 'static', 'yield'];
 
-		st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+		st.globalJsVariables = ['window', 'document', 'process', 'global'];
 
 	}
 
@@ -1148,28 +1128,33 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 Use smalltalk.getThisContext() instead which will answer a safe copy of
 		 the current context */
 
-		st.thisContext = undefined;
+		var thisContext = null;
 
 		st.withContext = function(worker, setup) {
-			if(st.thisContext) {
+			if(thisContext) {
 				return inContext(worker, setup);
 			} else {
-				try {
-					return inContext(worker, setup);
-				} catch(error) {
-					handleError(error);
-					st.thisContext = null;
-					// Rethrow the error in any case.
-					error.amberHandled = true;
-					throw error;
-				}
+				return inContextWithErrorHandling(worker, setup);
 			}
 		};
 
+		function inContextWithErrorHandling(worker, setup) {
+			try {
+				return inContext(worker, setup);
+			} catch (error) {
+				handleError(error);
+				thisContext = null;
+				// Rethrow the error in any case.
+				error.amberHandled = true;
+				throw error;
+			}
+		}
+
 		function inContext(worker, setup) {
-			var context = pushContext(setup);
-			var result = worker(context);
-			popContext(context);
+			var oldContext = thisContext;
+			thisContext = new SmalltalkMethodContext(thisContext, setup);
+			var result = worker(thisContext);
+			thisContext = oldContext;
 			return result;
 		}
 
@@ -1222,23 +1207,13 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		/* Handle thisContext pseudo variable */
 
 		st.getThisContext = function() {
-			if(st.thisContext) {
-				st.thisContext.init();
-				return st.thisContext;
+			if(thisContext) {
+				thisContext.init();
+				return thisContext;
 			} else {
 				return nil;
 			}
 		};
-
-		function pushContext(setup) {
-			var newContext = st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
-			return newContext;
-		}
-
-		function popContext(context) {
-			st.thisContext = context.homeContext;
-		}
-
 	}
 
 	function MessageSendBrik(brikz, st) {
@@ -1251,7 +1226,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 
 		st.send = function(receiver, jsSelector, args, klass) {
 			var method;
-			if(receiver === null) {
+			if(receiver == null) {
 				receiver = nil;
 			}
 			method = klass ? klass.fn.prototype[jsSelector] : receiver.klass && receiver[jsSelector];
@@ -1274,7 +1249,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 if the receiver has no klass, we consider it a JS object (outside of the
 		 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
 		function messageNotUnderstood(receiver, stSelector, args) {
-			if (receiver.klass !== undefined && !receiver.allowJavaScriptCalls) {
+			if (receiver.klass != null && !receiver.allowJavaScriptCalls) {
 				return invokeDnuMethod(receiver, stSelector, args);
 			}
 			/* Call a method of a JS object, or answer a property if it exists.
@@ -1397,9 +1372,15 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		 * otherwise unchanged
 		 */
 		this.asReceiver = function (o) {
-			if (o == null) { return nil; }
-			if (o.klass) { return o; }
-			return globals.JSObjectProxy._on_(o);
+			if (o == null) return nil;
+			if (typeof o === "object" || typeof o === "function") {
+				return o.klass != null ? o : globals.JSObjectProxy._on_(o);
+			}
+			// IMPORTANT: This optimization (return o if typeof !== "object")
+			// assumes all primitive types are wrapped by some Smalltalk class
+			// so they can be returned as-is, without boxing and looking for .klass.
+			// KEEP THE primitives-are-wrapped INVARIANT!
+			return o;
 		};
 	}
 
@@ -1438,6 +1419,7 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Objects');
+$core.packages["Kernel-Objects"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ProtoObject', null, [], 'Kernel-Objects');
@@ -1633,6 +1615,99 @@ $globals.ProtoObject);
 
 $core.addMethod(
 $core.method({
+selector: "ifNil:",
+protocol: 'testing',
+fn: function (aBlock){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "ifNil:ifNotNil:",
+protocol: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(anotherBlock)._value_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anotherBlock"],
+source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ anotherBlock value: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "ifNotNil:",
+protocol: 'testing',
+fn: function (aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aBlock)._value_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "ifNotNil:ifNil:",
+protocol: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aBlock)._value_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anotherBlock"],
+source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
 selector: "initialize",
 protocol: 'initialization',
 fn: function (){
@@ -1767,6 +1842,49 @@ source: "isKindOf: aClass\x0a\x09^ (self isMemberOf: aClass)\x0a\x09\x09ifTrue: 
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "isMemberOf:", "inheritsFrom:", "class"]
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "isNil",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return false;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isNil\x0a\x09^ false",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "notNil",
+protocol: 'testing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._isNil())._not();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"notNil",{},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "notNil\x0a\x09^ self isNil not",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["not", "isNil"]
 }),
 $globals.ProtoObject);
 
@@ -2461,99 +2579,6 @@ $globals.Object);
 
 $core.addMethod(
 $core.method({
-selector: "ifNil:",
-protocol: 'testing',
-fn: function (aBlock){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "ifNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNil:ifNotNil:",
-protocol: 'testing',
-fn: function (aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(anotherBlock)._value_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anotherBlock"],
-source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ anotherBlock value: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["value:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNotNil:",
-protocol: 'testing',
-fn: function (aBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(aBlock)._value_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["value:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "ifNotNil:ifNil:",
-protocol: 'testing',
-fn: function (aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(aBlock)._value_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anotherBlock"],
-source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^ aBlock value: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["value:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
 selector: "inspectOn:",
 protocol: 'inspecting',
 fn: function (anInspector){
@@ -2729,24 +2754,6 @@ $globals.Object);
 
 $core.addMethod(
 $core.method({
-selector: "isNil",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return false;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "isNil\x0a\x09^ false",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
 selector: "isNumber",
 protocol: 'testing',
 fn: function (){
@@ -2832,31 +2839,6 @@ source: "isSymbol\x0a\x09^ false",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "notNil",
-protocol: 'testing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._isNil())._not();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"notNil",{},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "notNil\x0a\x09^ self isNil not",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["not", "isNil"]
 }),
 $globals.Object);
 
@@ -4476,6 +4458,24 @@ $globals.Date);
 
 $core.addMethod(
 $core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "magnitude";
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'magnitude'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Date.klass);
+
+$core.addMethod(
+$core.method({
 selector: "fromMilliseconds:",
 protocol: 'instance creation',
 fn: function (aNumber){
@@ -4546,24 +4546,6 @@ source: "fromString: aString\x0a\x09\x22Example: Date fromString('2011/04/15 00:
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["new:"]
-}),
-$globals.Date.klass);
-
-$core.addMethod(
-$core.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "magnitude";
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "heliosClass\x0a\x09^ 'magnitude'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.Date.klass);
 
@@ -6306,6 +6288,24 @@ $globals.Number);
 
 $core.addMethod(
 $core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "magnitude";
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'magnitude'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Number.klass);
+
+$core.addMethod(
+$core.method({
 selector: "e",
 protocol: 'instance creation',
 fn: function (){
@@ -6322,24 +6322,6 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "e\x0a\x09<return Math.E;>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Number.klass);
-
-$core.addMethod(
-$core.method({
-selector: "heliosClass",
-protocol: 'helios',
-fn: function (){
-var self=this;
-return "magnitude";
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "heliosClass\x0a\x09^ 'magnitude'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -6991,8 +6973,8 @@ $globals.Point);
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "magnitude";
@@ -7000,7 +6982,7 @@ return "magnitude";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'magnitude'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'magnitude'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -7464,6 +7446,7 @@ $globals.UndefinedObject.klass);
 define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Classes');
+$core.packages["Kernel-Classes"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Behavior', $globals.Object, [], 'Kernel-Classes');
@@ -8002,31 +7985,6 @@ source: "commentStamp: aStamp prior: prior\x0a\x09\x09^ self commentStamp",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["commentStamp"]
-}),
-$globals.Behavior);
-
-$core.addMethod(
-$core.method({
-selector: "compile:",
-protocol: 'compiling',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=self._compile_protocol_(aString,"");
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},$globals.Behavior)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compile: aString\x0a\x09^ self compile: aString protocol: ''",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["compile:protocol:"]
 }),
 $globals.Behavior);
 
@@ -8736,6 +8694,40 @@ $globals.Behavior);
 
 $core.addMethod(
 $core.method({
+selector: "packageOfProtocol:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3;
+$1=$recv(aString)._beginsWith_("*");
+if(!$core.assert($1)){
+$2=self._package();
+return $2;
+};
+$3=$recv($Package())._named_ifAbsent_($recv(aString)._allButFirst(),(function(){
+return nil;
+
+}));
+return $3;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"packageOfProtocol:",{aString:aString},$globals.Behavior)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "packageOfProtocol: aString\x0a\x09\x22Answer the package the method of receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the receiver's package\x22\x0a\x09\x0a\x09(aString beginsWith: '*') ifFalse: [\x0a\x09\x09^ self package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: aString allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
+referencedClasses: ["Package"],
+//>>excludeEnd("ide");
+messageSends: ["ifFalse:", "beginsWith:", "package", "named:ifAbsent:", "allButFirst"]
+}),
+$globals.Behavior);
+
+$core.addMethod(
+$core.method({
 selector: "protocols",
 protocol: 'accessing',
 fn: function (){
@@ -9019,19 +9011,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._class();
-return $1;
+self._subclassResponsibility();
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},$globals.Behavior)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "theMetaClass\x0a\x09^ self class",
+source: "theMetaClass\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["class"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Behavior);
 
@@ -9041,15 +9032,21 @@ selector: "theNonMetaClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._subclassResponsibility();
 return self;
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"theNonMetaClass",{},$globals.Behavior)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "theNonMetaClass\x0a\x09^ self",
+source: "theNonMetaClass\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Behavior);
 
@@ -9173,6 +9170,24 @@ $globals.Class);
 
 $core.addMethod(
 $core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "class";
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'class'",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Class);
+
+$core.addMethod(
+$core.method({
 selector: "definition",
 protocol: 'accessing',
 fn: function (){
@@ -9275,24 +9290,6 @@ source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09strea
 referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["streamContents:", "nextPutAll:", "asString", "superclass", "name", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category"]
-}),
-$globals.Class);
-
-$core.addMethod(
-$core.method({
-selector: "heliosClass",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "class";
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.Class);
 
@@ -9555,6 +9552,49 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "subclasses\x0a\x09<return self.subclasses._copy()>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Class);
+
+$core.addMethod(
+$core.method({
+selector: "theMetaClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._class();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},$globals.Class)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "theMetaClass\x0a\x09^ self class",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["class"]
+}),
+$globals.Class);
+
+$core.addMethod(
+$core.method({
+selector: "theNonMetaClass",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "theNonMetaClass\x0a\x09^ self",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -10348,7 +10388,7 @@ $1=self._basicRemoveClass_(newClass);
 $ctx2.sendIdx["basicRemoveClass:"]=1;
 //>>excludeEnd("ctx");
 $1;
-return $recv(exception)._signal();
+return $recv(exception)._resignal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -10381,10 +10421,10 @@ return $5;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["className", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk globals at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ].\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^ newClass",
+source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk globals at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09\x09exception resignal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ].\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^ newClass",
 referencedClasses: ["Smalltalk", "Error", "SystemAnnouncer", "ClassMigrated"],
 //>>excludeEnd("ide");
-messageSends: [",", "at:", "globals", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "copyClass:to:", "basicRemoveClass:", "signal", "rawRenameClass:to:", "do:", "subclasses", "migrateClass:superclass:", "announce:", "current", "theClass:", "new", "oldClass:", "yourself"]
+messageSends: [",", "at:", "globals", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "copyClass:to:", "basicRemoveClass:", "resignal", "rawRenameClass:to:", "do:", "subclasses", "migrateClass:superclass:", "announce:", "current", "theClass:", "new", "oldClass:", "yourself"]
 }),
 $globals.ClassBuilder);
 
@@ -11020,6 +11060,7 @@ $globals.ClassSorterNode.klass);
 define("amber_core/Kernel-Methods", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Methods');
+$core.packages["Kernel-Methods"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Methods"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('BlockClosure', $globals.Object, [], 'Kernel-Methods');
@@ -11427,6 +11468,8 @@ return $core.withContext(function($ctx1) {
 		try {
 			return self._value();
 		} catch(error) {
+			// pass non-local returns undetected
+			if (Array.isArray(error) && error.length === 1) throw error;
 			return aBlock._value_(error);
 		}
 	;
@@ -11437,7 +11480,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "tryCatch: aBlock\x0a\x09<\x0a\x09\x09try {\x0a\x09\x09\x09return self._value();\x0a\x09\x09} catch(error) {\x0a\x09\x09\x09return aBlock._value_(error);\x0a\x09\x09}\x0a\x09>",
+source: "tryCatch: aBlock\x0a\x09<\x0a\x09\x09try {\x0a\x09\x09\x09return self._value();\x0a\x09\x09} catch(error) {\x0a\x09\x09\x09// pass non-local returns undetected\x0a\x09\x09\x09if (Array.isArray(error) && error.length === 1) throw error;\x0a\x09\x09\x09return aBlock._value_(error);\x0a\x09\x09}\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -12021,44 +12064,29 @@ selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$3,$2,$4,$5,$receiver;
-$1=self._methodClass();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["methodClass"]=1;
-//>>excludeEnd("ctx");
-if(($receiver = $1) == null || $receiver.isNil){
-return nil;
+var $2,$1,$receiver;
+$2=self._methodClass();
+if(($receiver = $2) == null || $receiver.isNil){
+$1=$2;
 } else {
-$1;
+var class_;
+class_=$receiver;
+$1=$recv(class_)._packageOfProtocol_(self._protocol());
 };
-$3=self._protocol();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["protocol"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._beginsWith_("*");
-if(!$core.assert($2)){
-$4=$recv(self._methodClass())._package();
-return $4;
-};
-$5=$recv($Package())._named_ifAbsent_($recv(self._protocol())._allButFirst(),(function(){
-return nil;
-
-}));
-return $5;
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.CompiledMethod)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09self methodClass ifNil: [ ^ nil ].\x0a\x09\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self methodClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
-referencedClasses: ["Package"],
+source: "package\x0a\x09\x22Answer the package the receiver belongs to:\x0a\x09- if it is an extension method, answer the corresponding package\x0a\x09- else answer the `methodClass` package\x22\x0a\x09\x0a\x09^ self methodClass ifNotNil: [ :class | class packageOfProtocol: self protocol ]",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "methodClass", "ifFalse:", "beginsWith:", "protocol", "package", "named:ifAbsent:", "allButFirst"]
+messageSends: ["ifNotNil:", "methodClass", "packageOfProtocol:", "protocol"]
 }),
 $globals.CompiledMethod);
 
@@ -13754,6 +13782,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc();
 	;
@@ -13764,7 +13793,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "constructor: aString\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc();\x0a\x09>",
+source: "constructor: aString\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc();\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -13781,6 +13810,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:value:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject);
 	;
@@ -13791,7 +13821,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
-source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
+source: "constructor: aString value:anObject\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:value:\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -13808,6 +13838,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:value:value:");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject,anObject2);
 	;
@@ -13818,7 +13849,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "anObject2"],
-source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
+source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:value:value:\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -13835,6 +13866,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
+		self._deprecatedAPI_("Use constructorNamed:value:value:value");
 		var nativeFunc=eval(aString);
 		return new nativeFunc(anObject,anObject2, anObject3);
 	;
@@ -13845,7 +13877,219 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "anObject2", "anObject3"],
-source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a\x09\x09self._deprecatedAPI_(\x22Use constructorNamed:value:value:value\x22);\x0a\x09\x09var nativeFunc=eval(aString);\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:",
+protocol: 'instance creation',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:",{aString:aString},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "constructorNamed: aString\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:value:",
+protocol: 'instance creation',
+fn: function (aString,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:value:",{aString:aString,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject"],
+source: "constructorNamed: aString value: anObject\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:value:value:",
+protocol: 'instance creation',
+fn: function (aString,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2"],
+source: "constructorNamed: aString value: anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorNamed:value:value:value:",
+protocol: 'instance creation',
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return new nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorNamed:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2", "anObject3"],
+source: "constructorNamed: aString value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:",
+protocol: 'instance creation',
+fn: function (nativeFunc){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:",{nativeFunc:nativeFunc},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc"],
+source: "constructorOf: nativeFunc\x0a\x09<\x0a\x09\x09return new nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:value:",
+protocol: 'instance creation',
+fn: function (nativeFunc,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:value:",{nativeFunc:nativeFunc,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject"],
+source: "constructorOf: nativeFunc value: anObject\x0a\x09<\x0a\x09\x09return new nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:value:value:",
+protocol: 'instance creation',
+fn: function (nativeFunc,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2"],
+source: "constructorOf: nativeFunc value: anObject value: anObject2\x0a\x09<\x0a\x09\x09return new nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "constructorOf:value:value:value:",
+protocol: 'instance creation',
+fn: function (nativeFunc,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return new nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"constructorOf:value:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2", "anObject3"],
+source: "constructorOf: nativeFunc value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09return new nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -13875,6 +14119,401 @@ source: "exists: aString\x0a\x09^ PlatformInterface existsGlobal: aString",
 referencedClasses: ["PlatformInterface"],
 //>>excludeEnd("ide");
 messageSends: ["existsGlobal:"]
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:",
+protocol: 'function calling',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:",{aString:aString},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "functionNamed: aString\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:value:",
+protocol: 'function calling',
+fn: function (aString,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:value:",{aString:aString,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject"],
+source: "functionNamed: aString value: anObject\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:value:value:",
+protocol: 'function calling',
+fn: function (aString,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2"],
+source: "functionNamed: aString value: anObject value: anObject2\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:value:value:value:",
+protocol: 'function calling',
+fn: function (aString,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anObject2", "anObject3"],
+source: "functionNamed: aString value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionNamed:valueWithArgs:",
+protocol: 'function calling',
+fn: function (aString,args){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var nativeFunc=(new Function('return this'))()[aString];
+		return Function.prototype.apply.call(nativeFunc, null, args);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionNamed:valueWithArgs:",{aString:aString,args:args},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "args"],
+source: "functionNamed: aString valueWithArgs: args\x0a\x09<\x0a\x09\x09var nativeFunc=(new Function('return this'))()[aString];\x0a\x09\x09return Function.prototype.apply.call(nativeFunc, null, args);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:",
+protocol: 'function calling',
+fn: function (nativeFunc){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc();
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:",{nativeFunc:nativeFunc},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc"],
+source: "functionOf: nativeFunc\x0a\x09<\x0a\x09\x09return nativeFunc();\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:value:",
+protocol: 'function calling',
+fn: function (nativeFunc,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc(anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:value:",{nativeFunc:nativeFunc,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject"],
+source: "functionOf: nativeFunc value: anObject\x0a\x09<\x0a\x09\x09return nativeFunc(anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:value:value:",
+protocol: 'function calling',
+fn: function (nativeFunc,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc(anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2"],
+source: "functionOf: nativeFunc value: anObject value: anObject2\x0a\x09<\x0a\x09\x09return nativeFunc(anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:value:value:value:",
+protocol: 'function calling',
+fn: function (nativeFunc,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return nativeFunc(anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:value:value:value:",{nativeFunc:nativeFunc,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "anObject", "anObject2", "anObject3"],
+source: "functionOf: nativeFunc value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09return nativeFunc(anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "functionOf:valueWithArgs:",
+protocol: 'function calling',
+fn: function (nativeFunc,args){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.apply.call(nativeFunc, null, args);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"functionOf:valueWithArgs:",{nativeFunc:nativeFunc,args:args},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "args"],
+source: "functionOf: nativeFunc valueWithArgs: args\x0a\x09<\x0a\x09\x09return Function.prototype.apply.call(nativeFunc, null, args);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:",{nativeFunc:nativeFunc,thisObject:thisObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject"],
+source: "methodOf: nativeFunc this: thisObject\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:value:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject, anObject);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:value:",{nativeFunc:nativeFunc,thisObject:thisObject,anObject:anObject},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "anObject"],
+source: "methodOf: nativeFunc this: thisObject value: anObject\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject, anObject);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:value:value:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,anObject,anObject2){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:value:value:",{nativeFunc:nativeFunc,thisObject:thisObject,anObject:anObject,anObject2:anObject2},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "anObject", "anObject2"],
+source: "methodOf: nativeFunc this: thisObject value: anObject value: anObject2\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:value:value:value:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,anObject,anObject2,anObject3){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2, anObject3);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:value:value:value:",{nativeFunc:nativeFunc,thisObject:thisObject,anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "anObject", "anObject2", "anObject3"],
+source: "methodOf: nativeFunc this: thisObject value: anObject value: anObject2 value: anObject3\x0a\x09<\x0a\x09\x09return Function.prototype.call.call(nativeFunc, thisObject,anObject,anObject2, anObject3);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.NativeFunction.klass);
+
+$core.addMethod(
+$core.method({
+selector: "methodOf:this:valueWithArgs:",
+protocol: 'method calling',
+fn: function (nativeFunc,thisObject,args){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return Function.prototype.apply.call(nativeFunc, thisObject, args);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"methodOf:this:valueWithArgs:",{nativeFunc:nativeFunc,thisObject:thisObject,args:args},$globals.NativeFunction.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["nativeFunc", "thisObject", "args"],
+source: "methodOf: nativeFunc this: thisObject valueWithArgs: args\x0a\x09<\x0a\x09\x09return Function.prototype.apply.call(nativeFunc, thisObject, args);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
 $globals.NativeFunction.klass);
 
@@ -13990,6 +14629,7 @@ $globals.Timeout.klass);
 define("amber_core/Kernel-Collections", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Collections');
+$core.packages["Kernel-Collections"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Association', $globals.Object, ['key', 'value'], 'Kernel-Collections');
@@ -15637,8 +16277,8 @@ $globals.Collection);
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "collection";
@@ -15646,7 +16286,7 @@ return "collection";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'collection'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'collection'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -23978,1307 +24618,8 @@ $globals.StringStream);
 define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Infrastructure');
+$core.packages["Kernel-Infrastructure"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
-
-$core.addClass('ConsoleErrorHandler', $globals.Object, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.ConsoleErrorHandler.comment="I am manage Smalltalk errors, displaying the stack in the console.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "handleError:",
-protocol: 'error handling',
-fn: function (anError){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-$1=$recv(anError)._context();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["context"]=1;
-//>>excludeEnd("ctx");
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-self._logErrorContext_($recv(anError)._context());
-};
-self._logError_(anError);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},$globals.ConsoleErrorHandler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anError"],
-source: "handleError: anError\x0a\x09anError context ifNotNil: [ self logErrorContext: anError context ].\x0a\x09self logError: anError",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"]
-}),
-$globals.ConsoleErrorHandler);
-
-$core.addMethod(
-$core.method({
-selector: "log:",
-protocol: 'private',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(console)._log_(aString);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString},$globals.ConsoleErrorHandler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "log: aString\x0a\x09console log: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["log:"]
-}),
-$globals.ConsoleErrorHandler);
-
-$core.addMethod(
-$core.method({
-selector: "logContext:",
-protocol: 'private',
-fn: function (aContext){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-$1=$recv(aContext)._home();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["home"]=1;
-//>>excludeEnd("ctx");
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-self._logContext_($recv(aContext)._home());
-};
-self._log_($recv(aContext)._asString());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},$globals.ConsoleErrorHandler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aContext"],
-source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home ].\x0a\x09self log: aContext asString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"]
-}),
-$globals.ConsoleErrorHandler);
-
-$core.addMethod(
-$core.method({
-selector: "logError:",
-protocol: 'private',
-fn: function (anError){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._log_($recv(anError)._messageText());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError},$globals.ConsoleErrorHandler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anError"],
-source: "logError: anError\x0a\x09self log: anError messageText",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["log:", "messageText"]
-}),
-$globals.ConsoleErrorHandler);
-
-$core.addMethod(
-$core.method({
-selector: "logErrorContext:",
-protocol: 'private',
-fn: function (aContext){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-if(($receiver = aContext) == null || $receiver.isNil){
-aContext;
-} else {
-$1=$recv(aContext)._home();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["home"]=1;
-//>>excludeEnd("ctx");
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-self._logContext_($recv(aContext)._home());
-};
-};
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},$globals.ConsoleErrorHandler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aContext"],
-source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home ]]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "home", "logContext:"]
-}),
-$globals.ConsoleErrorHandler);
-
-
-$globals.ConsoleErrorHandler.klass.iVarNames = ['current'];
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($ErrorHandler())._registerIfNone_(self._new());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleErrorHandler.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09ErrorHandler registerIfNone: self new",
-referencedClasses: ["ErrorHandler"],
-//>>excludeEnd("ide");
-messageSends: ["registerIfNone:", "new"]
-}),
-$globals.ConsoleErrorHandler.klass);
-
-
-$core.addClass('InterfacingObject', $globals.Object, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.InterfacingObject.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "ajax:",
-protocol: 'actions',
-fn: function (anObject){
-var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($PlatformInterface())._ajax_(anObject);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.InterfacingObject)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "ajax: anObject\x0a\x09^ PlatformInterface ajax: anObject",
-referencedClasses: ["PlatformInterface"],
-//>>excludeEnd("ide");
-messageSends: ["ajax:"]
-}),
-$globals.InterfacingObject);
-
-$core.addMethod(
-$core.method({
-selector: "alert:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($PlatformInterface())._alert_(aString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.InterfacingObject)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "alert: aString\x0a\x09^ PlatformInterface alert: aString",
-referencedClasses: ["PlatformInterface"],
-//>>excludeEnd("ide");
-messageSends: ["alert:"]
-}),
-$globals.InterfacingObject);
-
-$core.addMethod(
-$core.method({
-selector: "confirm:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($PlatformInterface())._confirm_(aString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.InterfacingObject)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "confirm: aString\x0a\x09^ PlatformInterface confirm: aString",
-referencedClasses: ["PlatformInterface"],
-//>>excludeEnd("ide");
-messageSends: ["confirm:"]
-}),
-$globals.InterfacingObject);
-
-$core.addMethod(
-$core.method({
-selector: "prompt:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($PlatformInterface())._prompt_(aString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.InterfacingObject)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "prompt: aString\x0a\x09^ PlatformInterface prompt: aString",
-referencedClasses: ["PlatformInterface"],
-//>>excludeEnd("ide");
-messageSends: ["prompt:"]
-}),
-$globals.InterfacingObject);
-
-$core.addMethod(
-$core.method({
-selector: "prompt:default:",
-protocol: 'actions',
-fn: function (aString,defaultString){
-var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($PlatformInterface())._prompt_default_(aString,defaultString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.InterfacingObject)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "defaultString"],
-source: "prompt: aString default: defaultString\x0a\x09^ PlatformInterface prompt: aString default: defaultString",
-referencedClasses: ["PlatformInterface"],
-//>>excludeEnd("ide");
-messageSends: ["prompt:default:"]
-}),
-$globals.InterfacingObject);
-
-
-
-$core.addClass('Environment', $globals.InterfacingObject, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.Environment.comment="I provide an unified entry point to manipulate Amber packages, classes and methods.\x0a\x0aTypical use cases include IDEs, remote access and restricting browsing.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "addInstVarNamed:to:",
-protocol: 'compiling',
-fn: function (aString,aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5;
-$1=self._classBuilder();
-$2=$recv(aClass)._superclass();
-$3=$recv(aClass)._name();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["name"]=1;
-//>>excludeEnd("ctx");
-$4=$recv($recv(aClass)._instanceVariableNames())._copy();
-$recv($4)._add_(aString);
-$5=$recv($4)._yourself();
-$recv($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$5,$recv($recv(aClass)._package())._name());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "aClass"],
-source: "addInstVarNamed: aString to: aClass\x0a\x09self classBuilder\x0a\x09\x09addSubclassOf: aClass superclass \x0a\x09\x09named: aClass name \x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "classBuilder", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "allSelectors",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($Smalltalk())._core())._allSelectors();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "allSelectors\x0a\x09^ Smalltalk core allSelectors",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["allSelectors", "core"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "availableClassNames",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($Smalltalk())._classes())._collect_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(each)._name();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "availableClassNames\x0a\x09^ Smalltalk classes \x0a\x09\x09collect: [ :each | each name ]",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["collect:", "classes", "name"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "availablePackageNames",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($Smalltalk())._packages())._collect_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(each)._name();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "availablePackageNames\x0a\x09^ Smalltalk packages \x0a\x09\x09collect: [ :each | each name ]",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["collect:", "packages", "name"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "availableProtocolsFor:",
-protocol: 'accessing',
-fn: function (aClass){
-var self=this;
-var protocols;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2,$receiver;
-protocols=$recv(aClass)._protocols();
-$1=$recv(aClass)._superclass();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["superclass"]=1;
-//>>excludeEnd("ctx");
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-$recv(protocols)._addAll_(self._availableProtocolsFor_($recv(aClass)._superclass()));
-};
-$2=$recv($recv($recv(protocols)._asSet())._asArray())._sort();
-return $2;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass"],
-source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray sort",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "sort", "asArray", "asSet"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "classBuilder",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($ClassBuilder())._new();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"classBuilder",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "classBuilder\x0a\x09^ ClassBuilder new",
-referencedClasses: ["ClassBuilder"],
-//>>excludeEnd("ide");
-messageSends: ["new"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "classNamed:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=$recv($recv($Smalltalk())._globals())._at_($recv(aString)._asSymbol());
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("Invalid class name");
-} else {
-$1=$2;
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "classNamed: aString\x0a\x09^ (Smalltalk globals at: aString asSymbol)\x0a\x09\x09ifNil: [ self error: 'Invalid class name' ]",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["ifNil:", "at:", "globals", "asSymbol", "error:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "classes",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($Smalltalk())._classes();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"classes",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "classes\x0a\x09^ Smalltalk classes",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["classes"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "commitPackage:onSuccess:onError:",
-protocol: 'actions',
-fn: function (aPackage,aBlock,anotherBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($recv(aPackage)._transport())._commitOnSuccess_onError_(aBlock,anotherBlock);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"commitPackage:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aPackage", "aBlock", "anotherBlock"],
-source: "commitPackage: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09aPackage transport\x0a\x09\x09commitOnSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["commitOnSuccess:onError:", "transport"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "compileClassComment:for:",
-protocol: 'compiling',
-fn: function (aString,aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(aClass)._comment_(aString);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileClassComment:for:",{aString:aString,aClass:aClass},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "aClass"],
-source: "compileClassComment: aString for: aClass\x0a\x09aClass comment: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["comment:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "compileClassDefinition:",
-protocol: 'compiling',
-fn: function (aString){
-var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._evaluate_for_(aString,$recv($DoIt())._new());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
-//>>excludeEnd("ctx");
-}))._on_do_($Error(),(function(error){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._alert_($recv(error)._messageText());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
-//>>excludeEnd("ctx");
-}));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compileClassDefinition: aString\x0a\x09[ self evaluate: aString for: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
-referencedClasses: ["DoIt", "Error"],
-//>>excludeEnd("ide");
-messageSends: ["on:do:", "evaluate:for:", "new", "alert:", "messageText"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "compileMethod:for:protocol:",
-protocol: 'compiling',
-fn: function (sourceCode,class_,protocol){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(class_)._compile_protocol_(sourceCode,protocol);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["sourceCode", "class", "protocol"],
-source: "compileMethod: sourceCode for: class protocol: protocol\x0a\x09^ class\x0a\x09\x09compile: sourceCode\x0a\x09\x09protocol: protocol",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["compile:protocol:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "copyClass:to:",
-protocol: 'actions',
-fn: function (aClass,aClassName){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2,$receiver;
-$1=$recv($recv($Smalltalk())._globals())._at_(aClassName);
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-$2=$recv("A class named ".__comma(aClassName)).__comma(" already exists");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-self._error_($2);
-};
-$recv($recv($ClassBuilder())._new())._copyClass_named_(aClass,aClassName);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass", "aClassName"],
-source: "copyClass: aClass to: aClassName\x0a\x09(Smalltalk globals at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new copyClass: aClass named: aClassName",
-referencedClasses: ["Smalltalk", "ClassBuilder"],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "at:", "globals", "error:", ",", "copyClass:named:", "new"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "doItReceiver",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($DoIt())._new();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "doItReceiver\x0a\x09^ DoIt new",
-referencedClasses: ["DoIt"],
-//>>excludeEnd("ide");
-messageSends: ["new"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "evaluate:for:",
-protocol: 'evaluating',
-fn: function (aString,anObject){
-var self=this;
-function $Evaluator(){return $globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($Evaluator())._evaluate_for_(aString,anObject);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anObject"],
-source: "evaluate: aString for: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
-referencedClasses: ["Evaluator"],
-//>>excludeEnd("ide");
-messageSends: ["evaluate:for:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "evaluate:on:do:",
-protocol: 'error handling',
-fn: function (aBlock,anErrorClass,exceptionBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$recv(aBlock)._tryCatch_((function(exception){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-$1=$recv(exception)._isKindOf_(self._classNamed_($recv(anErrorClass)._name()));
-if($core.assert($1)){
-return $recv(exceptionBlock)._value_(exception);
-} else {
-return $recv(exception)._signal();
-};
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "anErrorClass", "exceptionBlock"],
-source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09aBlock tryCatch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["tryCatch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "signal"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "inspect:",
-protocol: 'actions',
-fn: function (anObject){
-var self=this;
-function $Inspector(){return $globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($Inspector())._inspect_(anObject);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "inspect: anObject\x0a\x09Inspector inspect: anObject",
-referencedClasses: ["Inspector"],
-//>>excludeEnd("ide");
-messageSends: ["inspect:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "moveClass:toPackage:",
-protocol: 'actions',
-fn: function (aClass,aPackageName){
-var self=this;
-var package_;
-function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2,$receiver;
-package_=$recv($Package())._named_(aPackageName);
-$1=package_;
-if(($receiver = $1) == null || $receiver.isNil){
-self._error_("Invalid package name");
-} else {
-$1;
-};
-$2=$recv(package_).__eq_eq($recv(aClass)._package());
-if($core.assert($2)){
-return self;
-};
-$recv(aClass)._package_(package_);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass", "aPackageName"],
-source: "moveClass: aClass toPackage: aPackageName\x0a\x09| package |\x0a\x09\x0a\x09package := Package named: aPackageName.\x0a\x09package ifNil: [ self error: 'Invalid package name' ].\x0a\x09package == aClass package ifTrue: [ ^ self ].\x0a\x09\x0a\x09aClass package: package",
-referencedClasses: ["Package"],
-//>>excludeEnd("ide");
-messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "package:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "moveMethod:toClass:",
-protocol: 'actions',
-fn: function (aMethod,aClassName){
-var self=this;
-var destinationClass;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$3,$1,$5,$4;
-destinationClass=self._classNamed_(aClassName);
-$2=destinationClass;
-$3=$recv(aMethod)._methodClass();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["methodClass"]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2).__eq_eq($3);
-if($core.assert($1)){
-return self;
-};
-$5=$recv(aMethod)._methodClass();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["methodClass"]=2;
-//>>excludeEnd("ctx");
-$4=$recv($5)._isMetaclass();
-if($core.assert($4)){
-destinationClass=$recv(destinationClass)._class();
-destinationClass;
-};
-$recv(destinationClass)._compile_protocol_($recv(aMethod)._source(),$recv(aMethod)._protocol());
-$recv($recv(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aMethod", "aClassName"],
-source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09aMethod methodClass isMetaclass ifTrue: [ \x0a\x09\x09destinationClass := destinationClass class ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "isMetaclass", "class", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "moveMethod:toProtocol:",
-protocol: 'actions',
-fn: function (aMethod,aProtocol){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(aMethod)._protocol_(aProtocol);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aMethod", "aProtocol"],
-source: "moveMethod: aMethod toProtocol: aProtocol\x0a\x09aMethod protocol: aProtocol",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["protocol:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "packages",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($Smalltalk())._packages();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"packages",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "packages\x0a\x09^ Smalltalk packages",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["packages"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "registerErrorHandler:",
-protocol: 'services',
-fn: function (anErrorHandler){
-var self=this;
-function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($ErrorHandler())._register_(anErrorHandler);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anErrorHandler"],
-source: "registerErrorHandler: anErrorHandler\x0a\x09ErrorHandler register: anErrorHandler",
-referencedClasses: ["ErrorHandler"],
-//>>excludeEnd("ide");
-messageSends: ["register:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "registerFinder:",
-protocol: 'services',
-fn: function (aFinder){
-var self=this;
-function $Finder(){return $globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($Finder())._register_(aFinder);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"registerFinder:",{aFinder:aFinder},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aFinder"],
-source: "registerFinder: aFinder\x0a\x09Finder register: aFinder",
-referencedClasses: ["Finder"],
-//>>excludeEnd("ide");
-messageSends: ["register:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "registerInspector:",
-protocol: 'services',
-fn: function (anInspector){
-var self=this;
-function $Inspector(){return $globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($Inspector())._register_(anInspector);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anInspector"],
-source: "registerInspector: anInspector\x0a\x09Inspector register: anInspector",
-referencedClasses: ["Inspector"],
-//>>excludeEnd("ide");
-messageSends: ["register:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "registerProgressHandler:",
-protocol: 'services',
-fn: function (aProgressHandler){
-var self=this;
-function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($ProgressHandler())._register_(aProgressHandler);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aProgressHandler"],
-source: "registerProgressHandler: aProgressHandler\x0a\x09ProgressHandler register: aProgressHandler",
-referencedClasses: ["ProgressHandler"],
-//>>excludeEnd("ide");
-messageSends: ["register:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "registerTranscript:",
-protocol: 'services',
-fn: function (aTranscript){
-var self=this;
-function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($Transcript())._register_(aTranscript);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"registerTranscript:",{aTranscript:aTranscript},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aTranscript"],
-source: "registerTranscript: aTranscript\x0a\x09Transcript register: aTranscript",
-referencedClasses: ["Transcript"],
-//>>excludeEnd("ide");
-messageSends: ["register:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "removeClass:",
-protocol: 'actions',
-fn: function (aClass){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($Smalltalk())._removeClass_(aClass);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass"],
-source: "removeClass: aClass\x0a\x09Smalltalk removeClass: aClass",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["removeClass:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "removeMethod:",
-protocol: 'actions',
-fn: function (aMethod){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($recv(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aMethod"],
-source: "removeMethod: aMethod\x0a\x09aMethod methodClass removeCompiledMethod: aMethod",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["removeCompiledMethod:", "methodClass"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "removeProtocol:from:",
-protocol: 'actions',
-fn: function (aString,aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($recv(aClass)._methodsInProtocol_(aString))._do_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(aClass)._removeCompiledMethod_(each);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "aClass"],
-source: "removeProtocol: aString from: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["do:", "methodsInProtocol:", "removeCompiledMethod:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "renameClass:to:",
-protocol: 'actions',
-fn: function (aClass,aClassName){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2,$receiver;
-$1=$recv($recv($Smalltalk())._globals())._at_(aClassName);
-if(($receiver = $1) == null || $receiver.isNil){
-$1;
-} else {
-$2=$recv("A class named ".__comma(aClassName)).__comma(" already exists");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-self._error_($2);
-};
-$recv($recv($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass", "aClassName"],
-source: "renameClass: aClass to: aClassName\x0a\x09(Smalltalk globals at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new renameClass: aClass to: aClassName",
-referencedClasses: ["Smalltalk", "ClassBuilder"],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "at:", "globals", "error:", ",", "renameClass:to:", "new"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "renameProtocol:to:in:",
-protocol: 'actions',
-fn: function (aString,anotherString,aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($recv(aClass)._methodsInProtocol_(aString))._do_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(each)._protocol_(anotherString);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anotherString", "aClass"],
-source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["do:", "methodsInProtocol:", "protocol:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "setClassCommentOf:to:",
-protocol: 'actions',
-fn: function (aClass,aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(aClass)._comment_(aString);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"setClassCommentOf:to:",{aClass:aClass,aString:aString},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass", "aString"],
-source: "setClassCommentOf: aClass to: aString\x0a\x09aClass comment: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["comment:"]
-}),
-$globals.Environment);
-
-$core.addMethod(
-$core.method({
-selector: "systemAnnouncer",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($recv($Smalltalk())._globals())._at_("SystemAnnouncer"))._current();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},$globals.Environment)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "systemAnnouncer\x0a\x09^ (Smalltalk globals at: #SystemAnnouncer) current",
-referencedClasses: ["Smalltalk"],
-//>>excludeEnd("ide");
-messageSends: ["current", "at:", "globals"]
-}),
-$globals.Environment);
-
-
 
 $core.addClass('JSObjectProxy', $globals.ProtoObject, ['jsObject'], 'Kernel-Infrastructure');
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -25290,6 +24631,7 @@ selector: "=",
 protocol: 'comparing',
 fn: function (anObject){
 var self=this;
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -25302,7 +24644,7 @@ $1=$recv($2).__eq_eq(self._class());
 if(!$core.assert($1)){
 return false;
 };
-$3=self._compareJSObjectWith_($recv(anObject)._jsObject());
+$3=$recv($JSObjectProxy())._compareJSObjectOfProxy_withProxy_(self,anObject);
 return $3;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},$globals.JSObjectProxy)});
@@ -25310,38 +24652,10 @@ return $3;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "= anObject\x0a\x09anObject class == self class ifFalse: [ ^ false ].\x0a\x09^ self compareJSObjectWith: anObject jsObject",
-referencedClasses: [],
+source: "= anObject\x0a\x09anObject class == self class ifFalse: [ ^ false ].\x0a\x09^ JSObjectProxy compareJSObjectOfProxy: self withProxy: anObject",
+referencedClasses: ["JSObjectProxy"],
 //>>excludeEnd("ide");
-messageSends: ["ifFalse:", "==", "class", "compareJSObjectWith:", "jsObject"]
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "addObjectVariablesTo:",
-protocol: 'proxy',
-fn: function (aDictionary){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, self['@jsObject'][i]);
-		}
-	;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aDictionary"],
-source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
+messageSends: ["ifFalse:", "==", "class", "compareJSObjectOfProxy:withProxy:"]
 }),
 $globals.JSObjectProxy);
 
@@ -25496,39 +24810,16 @@ $globals.JSObjectProxy);
 
 $core.addMethod(
 $core.method({
-selector: "compareJSObjectWith:",
-protocol: 'private',
-fn: function (aJSObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return self["@jsObject"] === aJSObject;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compareJSObjectWith:",{aJSObject:aJSObject},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aJSObject"],
-source: "compareJSObjectWith: aJSObject\x0a \x09<return self[\x22@jsObject\x22] === aJSObject>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
 selector: "doesNotUnderstand:",
 protocol: 'proxy',
 fn: function (aMessage){
 var self=this;
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
-$2=self._lookupProperty_($recv($recv(aMessage)._selector())._asJavaScriptPropertyName());
+$2=$recv($JSObjectProxy())._lookupProperty_ofProxy_($recv($recv(aMessage)._selector())._asJavaScriptPropertyName(),self);
 if(($receiver = $2) == null || $receiver.isNil){
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -25541,7 +24832,7 @@ $ctx1.supercall = false;
 } else {
 var jsSelector;
 jsSelector=$receiver;
-$1=self._forwardMessage_withArguments_(jsSelector,$recv(aMessage)._arguments());
+$1=$recv($JSObjectProxy())._forwardMessage_withArguments_ofProxy_(jsSelector,$recv(aMessage)._arguments(),self);
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -25550,36 +24841,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptPropertyName)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-referencedClasses: [],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (JSObjectProxy lookupProperty: aMessage selector asJavaScriptPropertyName ofProxy: self)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09JSObjectProxy \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments\x0a\x09\x09\x09\x09ofProxy: self ]",
+referencedClasses: ["JSObjectProxy"],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"]
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "forwardMessage:withArguments:",
-protocol: 'proxy',
-fn: function (aString,anArray){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-
-		return $core.accessJavaScript(self._jsObject(), aString, anArray);
-	;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return $core.accessJavaScript(self._jsObject(), aString, anArray);\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:ofProxy:", "asJavaScriptPropertyName", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:ofProxy:", "arguments"]
 }),
 $globals.JSObjectProxy);
 
@@ -25591,13 +24856,14 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self._jsObject());
 $recv(anInspector)._setLabel_(self._printString());
-self._addObjectVariablesTo_(variables);
+$recv($JSObjectProxy())._addObjectVariablesTo_ofProxy_(variables,self);
 $recv(anInspector)._setVariables_(variables);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -25606,10 +24872,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
-referencedClasses: ["Dictionary"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09JSObjectProxy addObjectVariablesTo: variables ofProxy: self.\x0a\x09anInspector setVariables: variables",
+referencedClasses: ["Dictionary", "JSObjectProxy"],
 //>>excludeEnd("ide");
-messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:", "setVariables:"]
+messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:ofProxy:", "setVariables:"]
 }),
 $globals.JSObjectProxy);
 
@@ -25627,25 +24893,6 @@ return $1;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "jsObject\x0a\x09^ jsObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "jsObject:",
-protocol: 'accessing',
-fn: function (aJSObject){
-var self=this;
-self["@jsObject"]=aJSObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aJSObject"],
-source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -25675,30 +24922,6 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
-selector: "lookupProperty:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return aString in self._jsObject() ? aString : nil;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -25761,87 +24984,160 @@ $globals.JSObjectProxy);
 
 $core.addMethod(
 $core.method({
+selector: "addObjectVariablesTo:ofProxy:",
+protocol: 'proxy',
+fn: function (aDictionary,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		var jsObject = aProxy['@jsObject'];
+		for(var i in jsObject) {
+			aDictionary._at_put_(i, jsObject[i]);
+		}
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:ofProxy:",{aDictionary:aDictionary,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aDictionary", "aProxy"],
+source: "addObjectVariablesTo: aDictionary ofProxy: aProxy\x0a\x09<\x0a\x09\x09var jsObject = aProxy['@jsObject'];\x0a\x09\x09for(var i in jsObject) {\x0a\x09\x09\x09aDictionary._at_put_(i, jsObject[i]);\x0a\x09\x09}\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "compareJSObjectOfProxy:withProxy:",
+protocol: 'proxy',
+fn: function (aProxy,anotherProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+	var anotherJSObject = anotherProxy.klass ? anotherProxy["@jsObject"] : anotherProxy;
+	return aProxy["@jsObject"] === anotherJSObject;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compareJSObjectOfProxy:withProxy:",{aProxy:aProxy,anotherProxy:anotherProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aProxy", "anotherProxy"],
+source: "compareJSObjectOfProxy: aProxy withProxy: anotherProxy\x0a<\x0a\x09var anotherJSObject = anotherProxy.klass ? anotherProxy[\x22@jsObject\x22] : anotherProxy;\x0a\x09return aProxy[\x22@jsObject\x22] === anotherJSObject\x0a>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "forwardMessage:withArguments:ofProxy:",
+protocol: 'proxy',
+fn: function (aString,anArray,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		return $core.accessJavaScript(aProxy._jsObject(), aString, anArray);
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:ofProxy:",{aString:aString,anArray:anArray,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anArray", "aProxy"],
+source: "forwardMessage: aString withArguments: anArray ofProxy: aProxy\x0a\x09<\x0a\x09\x09return $core.accessJavaScript(aProxy._jsObject(), aString, anArray);\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "jsObject:ofProxy:",
+protocol: 'proxy',
+fn: function (aJSObject,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+aProxy['@jsObject'] = aJSObject;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"jsObject:ofProxy:",{aJSObject:aJSObject,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aJSObject", "aProxy"],
+source: "jsObject: aJSObject ofProxy: aProxy\x0a\x09<aProxy['@jsObject'] = aJSObject>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
+selector: "lookupProperty:ofProxy:",
+protocol: 'proxy',
+fn: function (aString,aProxy){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return aString in aProxy._jsObject() ? aString : nil;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"lookupProperty:ofProxy:",{aString:aString,aProxy:aProxy},$globals.JSObjectProxy.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aProxy"],
+source: "lookupProperty: aString ofProxy: aProxy\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in aProxy._jsObject() ? aString : nil>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy.klass);
+
+$core.addMethod(
+$core.method({
 selector: "on:",
 protocol: 'instance creation',
 fn: function (aJSObject){
 var self=this;
+var instance;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._jsObject_(aJSObject);
-$3=$recv($2)._yourself();
-$1=$3;
+var $1;
+instance=self._new();
+self._jsObject_ofProxy_(aJSObject,instance);
+$1=instance;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject},$globals.JSObjectProxy.klass)});
+}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject,instance:instance},$globals.JSObjectProxy.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aJSObject"],
-source: "on: aJSObject\x0a\x09^ self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
+source: "on: aJSObject\x0a\x09| instance |\x0a\x09instance := self new.\x0a\x09self jsObject: aJSObject ofProxy: instance.\x0a\x09^ instance",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["jsObject:", "new", "yourself"]
+messageSends: ["new", "jsObject:ofProxy:"]
 }),
 $globals.JSObjectProxy.klass);
-
-
-$core.addClass('NullProgressHandler', $globals.Object, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.NullProgressHandler.comment="I am the default progress handler. I do not display any progress, and simply iterate over the collection.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "do:on:displaying:",
-protocol: 'progress handling',
-fn: function (aBlock,aCollection,aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(aCollection)._do_(aBlock);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},$globals.NullProgressHandler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "aCollection", "aString"],
-source: "do: aBlock on: aCollection displaying: aString\x0a\x09aCollection do: aBlock",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["do:"]
-}),
-$globals.NullProgressHandler);
-
-
-$globals.NullProgressHandler.klass.iVarNames = ['current'];
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($ProgressHandler())._registerIfNone_(self._new());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.NullProgressHandler.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09ProgressHandler registerIfNone: self new",
-referencedClasses: ["ProgressHandler"],
-//>>excludeEnd("ide");
-messageSends: ["registerIfNone:", "new"]
-}),
-$globals.NullProgressHandler.klass);
 
 
 $core.addClass('Organizer', $globals.Object, [], 'Kernel-Infrastructure');
@@ -26037,10 +25333,34 @@ $globals.PackageOrganizer.comment="I am an organizer specific to packages. I hol
 //>>excludeEnd("ide");
 
 
-$core.addClass('Package', $globals.Object, ['transport', 'dirty'], 'Kernel-Infrastructure');
+$core.addClass('Package', $globals.Object, ['transport', 'imports', 'dirty'], 'Kernel-Infrastructure');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
 //>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "basicImports",
+protocol: 'private',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return self.imports || [];
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"basicImports",{},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "basicImports\x0a\x09\x22Answer the imports literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.imports || []>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Package);
+
 $core.addMethod(
 $core.method({
 selector: "basicName:",
@@ -26266,7 +25586,7 @@ function $String(){return $globals.String||(typeof String=="undefined"?nil:Strin
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$4,$5,$3,$7,$6,$8,$9,$1;
+var $2,$4,$5,$3,$7,$6,$9,$10,$8,$11,$12,$1;
 $1=$recv($String())._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -26295,7 +25615,7 @@ $recv(stream)._nextPutAll_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=2;
 //>>excludeEnd("ctx");
-$recv(stream)._nextPutAll_(" named: ");
+$recv(stream)._nextPutAll_("named: ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=3;
 //>>excludeEnd("ctx");
@@ -26311,7 +25631,15 @@ $recv(stream)._nextPutAll_($6);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=4;
 //>>excludeEnd("ctx");
-$8=$recv($recv($String())._lf()).__comma($recv($String())._tab());
+$9=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
+$10=$recv($String())._tab();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["tab"]=2;
+//>>excludeEnd("ctx");
+$8=$recv($9).__comma($10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=4;
 //>>excludeEnd("ctx");
@@ -26319,12 +25647,28 @@ $recv(stream)._nextPutAll_($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=5;
 //>>excludeEnd("ctx");
-$recv(stream)._nextPutAll_(" transport: (");
+$recv(stream)._nextPutAll_("imports: ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
-$9=$recv(stream)._nextPutAll_($recv($recv(self._transport())._definition()).__comma(")"));
-return $9;
+$recv(stream)._nextPutAll_(self._importsDefinition());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=7;
+//>>excludeEnd("ctx");
+$11=$recv($recv($String())._lf()).__comma($recv($String())._tab());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=5;
+//>>excludeEnd("ctx");
+$recv(stream)._nextPutAll_($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=8;
+//>>excludeEnd("ctx");
+$recv(stream)._nextPutAll_("transport: (");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=9;
+//>>excludeEnd("ctx");
+$12=$recv(stream)._nextPutAll_($recv($recv(self._transport())._definition()).__comma(")"));
+return $12;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -26336,10 +25680,215 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: ' named: ';\x0a\x09\x09\x09nextPutAll: '''', self name, '''';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll:  ' transport: (';\x0a\x09\x09\x09nextPutAll: self transport definition, ')' ]",
+source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'named: ';\x0a\x09\x09\x09nextPutAll: '''', self name, '''';\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'imports: ';\x0a\x09\x09\x09nextPutAll: self importsDefinition;\x0a\x09\x09\x09nextPutAll: String lf, String tab;\x0a\x09\x09\x09nextPutAll: 'transport: (';\x0a\x09\x09\x09nextPutAll: self transport definition, ')' ]",
 referencedClasses: ["String"],
 //>>excludeEnd("ide");
-messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "lf", "tab", "definition", "transport"]
+messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "lf", "tab", "importsDefinition", "definition", "transport"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
+selector: "imports",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@imports"];
+if(($receiver = $2) == null || $receiver.isNil){
+var parsed;
+parsed=self._importsFromJson_(self._basicImports());
+parsed;
+self._imports_(parsed);
+$1=self["@imports"];
+} else {
+$1=$2;
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"imports",{},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "imports\x0a\x09^ imports ifNil: [\x0a\x09\x09| parsed |\x0a\x09\x09parsed := self importsFromJson: self basicImports.\x0a\x09\x09self imports: parsed.\x0a\x09\x09imports ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNil:", "importsFromJson:", "basicImports", "imports:"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
+selector: "imports:",
+protocol: 'accessing',
+fn: function (anArray){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._validateImports_(anArray);
+self["@imports"]=$recv(anArray)._asSet();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"imports:",{anArray:anArray},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anArray"],
+source: "imports: anArray\x0a\x09self validateImports: anArray.\x0a\x09imports := anArray asSet",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["validateImports:", "asSet"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
+selector: "importsAsJson",
+protocol: 'converting',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1;
+$1=$recv(self._sortedImportsAsArray())._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$2=$recv(each)._isString();
+if($core.assert($2)){
+return each;
+} else {
+return $recv($recv($recv(each)._key()).__comma("=")).__comma($recv(each)._value());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"importsAsJson",{},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "importsAsJson\x0a\x0a\x09^ self sortedImportsAsArray collect: [ :each |\x0a\x09\x09each isString\x0a\x09\x09\x09ifTrue: [ each ]\x0a\x09\x09\x09ifFalse: [ each key, '=', each value ]]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["collect:", "sortedImportsAsArray", "ifTrue:ifFalse:", "isString", ",", "key", "value"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
+selector: "importsDefinition",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($String())._streamContents_((function(stream){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(stream)._nextPutAll_("{");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
+$recv(self._sortedImportsAsArray())._do_separatedBy_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv(stream)._nextPutAll_($recv(each)._importsString());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx3.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)});
+//>>excludeEnd("ctx");
+}),(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv(stream)._nextPutAll_(". ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx3.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
+//>>excludeEnd("ctx");
+}));
+return $recv(stream)._nextPutAll_("}");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"importsDefinition",{},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "importsDefinition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream nextPutAll: '{'.\x0a\x09\x09self sortedImportsAsArray\x0a\x09\x09\x09do: [ :each | stream nextPutAll: each importsString ]\x0a\x09\x09\x09separatedBy: [ stream nextPutAll: '. ' ].\x0a\x09\x09stream nextPutAll: '}' ]",
+referencedClasses: ["String"],
+//>>excludeEnd("ide");
+messageSends: ["streamContents:", "nextPutAll:", "do:separatedBy:", "sortedImportsAsArray", "importsString"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
+selector: "importsFromJson:",
+protocol: 'converting',
+fn: function (anArray){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1;
+$1=$recv(anArray)._collect_((function(each){
+var split;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+split=$recv(each)._tokenize_("=");
+split;
+$2=$recv($recv(split)._size()).__eq((1));
+if($core.assert($2)){
+return $recv(split)._first();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["first"]=1;
+//>>excludeEnd("ctx");
+} else {
+return $recv($recv(split)._first()).__minus_gt($recv(split)._second());
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each,split:split},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"importsFromJson:",{anArray:anArray},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anArray"],
+source: "importsFromJson: anArray\x0a\x09\x22Parses array of string, eg. #('asdf' 'qwer=tyuo')\x0a\x09into array of Strings and Associations,\x0a\x09eg. {'asdf'. 'qwer'->'tyuo'}\x22\x0a\x0a\x09^ anArray collect: [ :each |\x0a\x09\x09| split |\x0a\x09\x09split := each tokenize: '='.\x0a\x09\x09split size = 1\x0a\x09\x09\x09ifTrue: [ split first ]\x0a\x09\x09\x09ifFalse: [ split first -> split second ]]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["collect:", "tokenize:", "ifTrue:ifFalse:", "=", "size", "first", "->", "second"]
 }),
 $globals.Package);
 
@@ -26683,6 +26232,74 @@ $globals.Package);
 
 $core.addMethod(
 $core.method({
+selector: "sortedImportsAsArray",
+protocol: 'private',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $4,$3,$5,$2,$7,$6,$8,$1;
+$1=$recv($recv(self._imports())._asArray())._sorted_((function(a,b){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$4=$recv(a)._isString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["isString"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4)._not();
+$5=$recv(b)._isString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["isString"]=2;
+//>>excludeEnd("ctx");
+$2=$recv($3).__and($5);
+return $recv($2)._or_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+$7=$recv(a)._isString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx3.sendIdx["isString"]=3;
+//>>excludeEnd("ctx");
+$6=$recv($7).__eq($recv(b)._isString());
+return $recv($6)._and_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx4) {
+//>>excludeEnd("ctx");
+$8=$recv(a)._value();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx4.sendIdx["value"]=1;
+//>>excludeEnd("ctx");
+return $recv($8).__lt_eq($recv(b)._value());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+//>>excludeEnd("ctx");
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"sortedImportsAsArray",{},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "sortedImportsAsArray\x0a\x09\x22Answer imports sorted first by type (associations first),\x0a\x09then by value\x22\x0a\x0a\x09^ self imports asArray\x0a\x09\x09sorted: [ :a :b |\x0a\x09\x09\x09a isString not & b isString or: [\x0a\x09\x09\x09\x09a isString = b isString and: [\x0a\x09\x09\x09\x09\x09a value <= b value ]]]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["sorted:", "asArray", "imports", "or:", "&", "not", "isString", "and:", "=", "<=", "value"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
 selector: "transport",
 protocol: 'accessing',
 fn: function (){
@@ -26738,6 +26355,70 @@ source: "transport: aPackageTransport\x0a\x09transport := aPackageTransport.\x0a
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["package:"]
+}),
+$globals.Package);
+
+$core.addMethod(
+$core.method({
+selector: "validateImports:",
+protocol: 'validation',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$5,$4,$3,$6;
+$recv(aCollection)._do_((function(import_){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv(import_)._isString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["isString"]=1;
+//>>excludeEnd("ctx");
+if(!$core.assert($1)){
+$2=$recv(import_)._respondsTo_("key");
+if(!$core.assert($2)){
+self._error_("Imports must be Strings or Associations");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["error:"]=1;
+//>>excludeEnd("ctx");
+};
+$5=$recv(import_)._key();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["key"]=1;
+//>>excludeEnd("ctx");
+$4=$recv($5)._isString();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["isString"]=2;
+//>>excludeEnd("ctx");
+$3=$recv($4).__and($recv($recv(import_)._value())._isString());
+if(!$core.assert($3)){
+self._error_("Key and value must be Strings");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["error:"]=2;
+//>>excludeEnd("ctx");
+};
+$6=$recv($recv(import_)._key())._match_("^[a-zA-Z][a-zA-Z0-9]*$");
+if(!$core.assert($6)){
+return self._error_("Keys must be identifiers");
+};
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({import_:import_},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"validateImports:",{aCollection:aCollection},$globals.Package)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "validateImports: aCollection\x0a\x0a\x09aCollection do: [ :import |\x0a\x09\x09import isString ifFalse: [\x0a\x09\x09\x09(import respondsTo: #key) ifFalse: [\x0a\x09\x09\x09\x09self error: 'Imports must be Strings or Associations' ].\x0a\x09\x09\x09import key isString & import value isString ifFalse: [\x0a\x09\x09\x09\x09self error: 'Key and value must be Strings' ].\x0a\x09\x09\x09(import key match: '^[a-zA-Z][a-zA-Z0-9]*$') ifFalse: [\x0a\x09\x09\x09\x09self error: 'Keys must be identifiers' ]]]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "ifFalse:", "isString", "respondsTo:", "error:", "&", "key", "value", "match:"]
 }),
 $globals.Package);
 
@@ -26800,6 +26481,35 @@ source: "named: aPackageName ifAbsent: aBlock\x0a\x09^ Smalltalk packageAt: aPac
 referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["packageAt:ifAbsent:"]
+}),
+$globals.Package.klass);
+
+$core.addMethod(
+$core.method({
+selector: "named:imports:transport:",
+protocol: 'accessing',
+fn: function (aPackageName,anArray,aTransport){
+var self=this;
+var package_;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+package_=self._named_(aPackageName);
+$recv(package_)._imports_(anArray);
+$recv(package_)._transport_(aTransport);
+$1=package_;
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"named:imports:transport:",{aPackageName:aPackageName,anArray:anArray,aTransport:aTransport,package_:package_},$globals.Package.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackageName", "anArray", "aTransport"],
+source: "named: aPackageName imports: anArray transport: aTransport\x0a\x09| package |\x0a\x09\x0a\x09package := self named: aPackageName.\x0a\x09package imports: anArray.\x0a\x09package transport: aTransport.\x0a\x09\x0a\x09^ package",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["named:", "imports:", "transport:"]
 }),
 $globals.Package.klass);
 
@@ -27168,711 +26878,6 @@ messageSends: ["observeSystem", "current"]
 $globals.PackageStateObserver.klass);
 
 
-$core.addClass('PlatformInterface', $globals.Object, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
-//>>excludeEnd("ide");
-
-$globals.PlatformInterface.klass.iVarNames = ['worker'];
-$core.addMethod(
-$core.method({
-selector: "ajax:",
-protocol: 'actions',
-fn: function (anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("ajax: not available");
-} else {
-$1=$recv(self["@worker"])._ajax_(anObject);
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "ajax: anObject\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'ajax: not available' ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "ajax:", "error:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "alert:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("alert: not available");
-} else {
-$1=$recv(self["@worker"])._alert_(aString);
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "alert: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker alert: aString ]\x0a\x09\x09ifNil: [ self error: 'alert: not available' ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "alert:", "error:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "confirm:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("confirm: not available");
-} else {
-$1=$recv(self["@worker"])._confirm_(aString);
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "confirm: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker confirm: aString ]\x0a\x09\x09ifNil: [ self error: 'confirm: not available' ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "confirm:", "error:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "existsGlobal:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
-return true;
-
-}),(function(){
-return false;
-
-}));
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "existsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
-referencedClasses: ["PlatformInterface"],
-//>>excludeEnd("ide");
-messageSends: ["at:ifPresent:ifAbsent:", "globals"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "globals",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return (new Function('return this'))();;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "globals\x0a\x09<return (new Function('return this'))();>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var candidate;
-function $BrowserInterface(){return $globals.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-(
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
-//>>excludeEnd("ctx");
-$globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply($recv(self), []));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = false;
-//>>excludeEnd("ctx");;
-if(($receiver = $BrowserInterface()) == null || $receiver.isNil){
-$BrowserInterface();
-} else {
-candidate=$recv($BrowserInterface())._new();
-candidate;
-$1=$recv(candidate)._isAvailable();
-if($core.assert($1)){
-self._setWorker_(candidate);
-return self;
-};
-};
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09BrowserInterface ifNotNil: [\x0a\x09\x09candidate := BrowserInterface new.\x0a\x09\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^ self ]\x0a\x09]",
-referencedClasses: ["BrowserInterface"],
-//>>excludeEnd("ide");
-messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "isAvailable", "setWorker:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "prompt:",
-protocol: 'actions',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("prompt: not available");
-} else {
-$1=$recv(self["@worker"])._prompt_(aString);
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "prompt: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "prompt:", "error:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "prompt:default:",
-protocol: 'actions',
-fn: function (aString,defaultString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("prompt: not available");
-} else {
-$1=$recv(self["@worker"])._prompt_default_(aString,defaultString);
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "defaultString"],
-source: "prompt: aString default: defaultString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString default: defaultString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "prompt:default:", "error:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "setWorker:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@worker"]=anObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "setWorker: anObject\x0a\x09worker := anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.PlatformInterface.klass);
-
-
-$core.addClass('Service', $globals.Object, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.Service.comment="I implement the basic behavior for class registration to a service.\x0a\x0aSee the `Transcript` class for a concrete service.\x0a\x0a## API\x0a\x0aUse class-side methods `#register:` and `#registerIfNone:` to register classes to a specific service.";
-//>>excludeEnd("ide");
-
-$globals.Service.klass.iVarNames = ['current'];
-$core.addMethod(
-$core.method({
-selector: "current",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@current"];
-return $1;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "current\x0a\x09^ current",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Service.klass);
-
-$core.addMethod(
-$core.method({
-selector: "new",
-protocol: 'instance creation',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._shouldNotImplement();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"new",{},$globals.Service.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "new\x0a\x09self shouldNotImplement",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["shouldNotImplement"]
-}),
-$globals.Service.klass);
-
-$core.addMethod(
-$core.method({
-selector: "register:",
-protocol: 'registration',
-fn: function (anObject){
-var self=this;
-self["@current"]=anObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "register: anObject\x0a\x09current := anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Service.klass);
-
-$core.addMethod(
-$core.method({
-selector: "registerIfNone:",
-protocol: 'registration',
-fn: function (anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-$1=self._current();
-if(($receiver = $1) == null || $receiver.isNil){
-self._register_(anObject);
-} else {
-$1;
-};
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"registerIfNone:",{anObject:anObject},$globals.Service.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "registerIfNone: anObject\x0a\x09self current ifNil: [ self register: anObject ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNil:", "current", "register:"]
-}),
-$globals.Service.klass);
-
-
-$core.addClass('ErrorHandler', $globals.Service, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.ErrorHandler.comment="I am the service used to handle Smalltalk errors.\x0aSee `boot.js` `handleError()` function.\x0a\x0aRegistered service instances must implement `#handleError:` to perform an action on the thrown exception.";
-//>>excludeEnd("ide");
-
-$core.addMethod(
-$core.method({
-selector: "handleError:",
-protocol: 'error handling',
-fn: function (anError){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._handleUnhandledError_(anError);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},$globals.ErrorHandler.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anError"],
-source: "handleError: anError\x0a\x09self handleUnhandledError: anError",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["handleUnhandledError:"]
-}),
-$globals.ErrorHandler.klass);
-
-$core.addMethod(
-$core.method({
-selector: "handleUnhandledError:",
-protocol: 'error handling',
-fn: function (anError){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2;
-$1=$recv(anError)._wasHandled();
-if($core.assert($1)){
-return self;
-};
-$2=$recv(self._current())._handleError_(anError);
-return $2;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},$globals.ErrorHandler.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anError"],
-source: "handleUnhandledError: anError\x0a\x09anError wasHandled ifTrue: [ ^ self ].\x0a\x09\x0a\x09^ self current handleError: anError",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifTrue:", "wasHandled", "handleError:", "current"]
-}),
-$globals.ErrorHandler.klass);
-
-
-$core.addClass('Finder', $globals.Service, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.Finder.comment="I am the service responsible for finding classes/methods.\x0a__There is no default finder.__\x0a\x0a## API\x0a\x0aUse `#browse` on an object to find it.";
-//>>excludeEnd("ide");
-
-$core.addMethod(
-$core.method({
-selector: "findClass:",
-protocol: 'finding',
-fn: function (aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._current())._findClass_(aClass);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},$globals.Finder.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass"],
-source: "findClass: aClass\x0a\x09^ self current findClass: aClass",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["findClass:", "current"]
-}),
-$globals.Finder.klass);
-
-$core.addMethod(
-$core.method({
-selector: "findMethod:",
-protocol: 'finding',
-fn: function (aCompiledMethod){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._current())._findMethod_(aCompiledMethod);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},$globals.Finder.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aCompiledMethod"],
-source: "findMethod: aCompiledMethod\x0a\x09^ self current findMethod: aCompiledMethod",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["findMethod:", "current"]
-}),
-$globals.Finder.klass);
-
-$core.addMethod(
-$core.method({
-selector: "findString:",
-protocol: 'finding',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._current())._findString_(aString);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString},$globals.Finder.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "findString: aString\x0a\x09^ self current findString: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["findString:", "current"]
-}),
-$globals.Finder.klass);
-
-
-$core.addClass('Inspector', $globals.Service, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.Inspector.comment="I am the service responsible for inspecting objects.\x0a\x0aThe default inspector object is the transcript.";
-//>>excludeEnd("ide");
-
-$core.addMethod(
-$core.method({
-selector: "inspect:",
-protocol: 'inspecting',
-fn: function (anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._current())._inspect_(anObject);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Inspector.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "inspect: anObject\x0a\x09^ self current inspect: anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["inspect:", "current"]
-}),
-$globals.Inspector.klass);
-
-
-$core.addClass('ProgressHandler', $globals.Service, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.ProgressHandler.comment="I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.\x0a\x0aRegistered instances must implement `#do:on:displaying:`.\x0a\x0aThe default behavior is to simply iterate over the collection, using `NullProgressHandler`.";
-//>>excludeEnd("ide");
-
-$core.addMethod(
-$core.method({
-selector: "do:on:displaying:",
-protocol: 'progress handling',
-fn: function (aBlock,aCollection,aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self._current())._do_on_displaying_(aBlock,aCollection,aString);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},$globals.ProgressHandler.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "aCollection", "aString"],
-source: "do: aBlock on: aCollection displaying: aString\x0a\x09self current do: aBlock on: aCollection displaying: aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["do:on:displaying:", "current"]
-}),
-$globals.ProgressHandler.klass);
-
-
-$core.addClass('Transcript', $globals.Service, [], 'Kernel-Infrastructure');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.Transcript.comment="I am a facade for Transcript actions.\x0a\x0aI delegate actions to the currently registered transcript.\x0a\x0a## API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.";
-//>>excludeEnd("ide");
-
-$core.addMethod(
-$core.method({
-selector: "clear",
-protocol: 'printing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self._current())._clear();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"clear",{},$globals.Transcript.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "clear\x0a\x09self current clear",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["clear", "current"]
-}),
-$globals.Transcript.klass);
-
-$core.addMethod(
-$core.method({
-selector: "cr",
-protocol: 'printing',
-fn: function (){
-var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self._current())._show_($recv($String())._cr());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"cr",{},$globals.Transcript.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "cr\x0a\x09self current show: String cr",
-referencedClasses: ["String"],
-//>>excludeEnd("ide");
-messageSends: ["show:", "current", "cr"]
-}),
-$globals.Transcript.klass);
-
-$core.addMethod(
-$core.method({
-selector: "inspect:",
-protocol: 'printing',
-fn: function (anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._show_(anObject);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Transcript.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "inspect: anObject\x0a\x09self show: anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["show:"]
-}),
-$globals.Transcript.klass);
-
-$core.addMethod(
-$core.method({
-selector: "open",
-protocol: 'instance creation',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self._current())._open();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"open",{},$globals.Transcript.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "open\x0a\x09self current open",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["open", "current"]
-}),
-$globals.Transcript.klass);
-
-$core.addMethod(
-$core.method({
-selector: "show:",
-protocol: 'printing',
-fn: function (anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self._current())._show_(anObject);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},$globals.Transcript.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "show: anObject\x0a\x09self current show: anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["show:", "current"]
-}),
-$globals.Transcript.klass);
-
-
 $core.addClass('Setting', $globals.Object, ['key', 'value', 'defaultValue'], 'Kernel-Infrastructure');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Setting.comment="I represent a setting **stored** at `Smalltalk settings`. \x0aIn the current implementation, `Smalltalk settings` is an object persisted in the localStorage.\x0a\x0a## API\x0a\x0aA `Setting` value can be read using `value` and set using `value:`.\x0a\x0aSettings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: aDefaultValue`.\x0a\x0aTo read the value of a setting you can also use the convenience:\x0a\x0a`theValueSet :=  'any.characteristic' settingValue` \x0a\x0aor with a default using:\x0a\x0a `theEnsuredValueSet := 'any.characteristic' settingValueIfAbsent: true`";
@@ -28222,6 +27227,54 @@ $globals.SmalltalkImage);
 
 $core.addMethod(
 $core.method({
+selector: "basicRegisterPackage:",
+protocol: 'private',
+fn: function (aPackage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$core.packages[aPackage.pkgName]=aPackage;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"basicRegisterPackage:",{aPackage:aPackage},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage"],
+source: "basicRegisterPackage: aPackage\x0a\x09\x22Put aPackage in $core.packages object.\x22\x0a\x09<$core.packages[aPackage.pkgName]=aPackage>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
+selector: "cancelOptOut:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+delete anObject.klass;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"cancelOptOut:",{anObject:anObject},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "cancelOptOut: anObject\x0a\x09\x22A Smalltalk object has a 'klass' property.\x0a\x09If this property is shadowed for anObject by optOut:,\x0a\x09the object is treated as plain JS object.\x0a\x09This removes the shadow and anObject is Smalltalk object\x0a\x09again if it was before.\x22\x0a\x09\x0a\x09<delete anObject.klass>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
 selector: "classes",
 protocol: 'classes',
 fn: function (){
@@ -28515,6 +27568,30 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
 source: "isSmalltalkObject: anObject\x0a\x09\x22Consider anObject a Smalltalk object if it has a 'klass' property.\x0a\x09Note that this may be unaccurate\x22\x0a\x09\x0a\x09<return typeof anObject.klass !== 'undefined'>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
+selector: "optOut:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+anObject.klass = null;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"optOut:",{anObject:anObject},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "optOut: anObject\x0a\x09\x22A Smalltalk object has a 'klass' property.\x0a\x09This shadows the property for anObject.\x0a\x09The object is treated as plain JS object following this.\x22\x0a\x09\x0a\x09<anObject.klass = null>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -28853,8 +27930,8 @@ $2;
 } else {
 self._error_("Already exists a package called: ".__comma(newName));
 };
-$recv(self._at_("packages"))._at_put_(newName,pkg);
 $recv(pkg)._name_(newName);
+self._basicRegisterPackage_(pkg);
 self._deletePackage_(packageName);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -28863,10 +27940,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["packageName", "newName"],
-source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].\x0a\x09(self at: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
+source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].\x0a\x09(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].\x0a\x09pkg name: newName.\x0a\x09self basicRegisterPackage: pkg.\x0a\x09self deletePackage: packageName.",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"]
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "name:", "basicRegisterPackage:", "deletePackage:"]
 }),
 $globals.SmalltalkImage);
 
@@ -28919,12 +27996,12 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.14.0";
+return "0.15.0-pre";
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.14.0'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.15.0-pre'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -29024,28 +28101,36 @@ $globals.SmalltalkImage.klass);
 
 $core.addMethod(
 $core.method({
-selector: "do:displayingProgress:",
+selector: "importsString",
 protocol: '*Kernel-Infrastructure',
-fn: function (aBlock,aString){
+fn: function (){
 var self=this;
-function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ProgressHandler())._do_on_displaying_(aBlock,self,aString);
-return self;
+var $3,$2,$1;
+$3=$recv(self._key())._importsString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},$globals.SequenceableCollection)});
+$ctx1.sendIdx["importsString"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3).__comma(" -> ");
+$1=$recv($2).__comma($recv(self._value())._importsString());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"importsString",{},$globals.Association)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock", "aString"],
-source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler \x0a\x09\x09do: aBlock \x0a\x09\x09on: self \x0a\x09\x09displaying: aString",
-referencedClasses: ["ProgressHandler"],
+args: [],
+source: "importsString\x0a\x09\x22This is for use by package exporter.\x0a\x09It can fail for non-string keys and values.\x22\x0a\x0a\x09^ self key importsString, ' -> ', self value importsString",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["do:on:displaying:"]
+messageSends: [",", "importsString", "key", "value"]
 }),
-$globals.SequenceableCollection);
+$globals.Association);
 
 $core.addMethod(
 $core.method({
@@ -29120,6 +28205,34 @@ source: "asSettingIfAbsent: aDefaultValue\x0a\x09\x22Answer aSetting dedicated t
 referencedClasses: ["Setting"],
 //>>excludeEnd("ide");
 messageSends: ["at:ifAbsent:"]
+}),
+$globals.String);
+
+$core.addMethod(
+$core.method({
+selector: "importsString",
+protocol: '*Kernel-Infrastructure',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv("'".__comma(self._replace_with_("'","''"))).__comma("'");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"importsString",{},$globals.String)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "importsString\x0a\x09\x22Answer receiver as Smalltalk expression\x22\x0a\x09^ '''', (self replace: '''' with: ''''''), ''''",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: [",", "replace:with:"]
 }),
 $globals.String);
 
@@ -29203,6 +28316,7 @@ $globals.String);
 define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Exceptions');
+$core.packages["Kernel-Exceptions"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');
@@ -29575,8 +28689,8 @@ $globals.Error);
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "exception";
@@ -29584,7 +28698,7 @@ return "exception";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'exception'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'exception'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -30041,124 +29155,10 @@ $globals.PackageCommitError.comment="I get signaled when an attempt to commit a 
 
 });
 
-define("amber_core/Kernel-Transcript", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
-var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-$core.addPackage('Kernel-Transcript');
-$core.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
-
-$core.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Kernel-Transcript');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "clear",
-protocol: 'printing',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "clear\x0a\x09\x22no op\x22",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ConsoleTranscript);
-
-$core.addMethod(
-$core.method({
-selector: "cr",
-protocol: 'printing',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "cr\x0a\x09\x22no op\x22",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ConsoleTranscript);
-
-$core.addMethod(
-$core.method({
-selector: "open",
-protocol: 'actions',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "open",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ConsoleTranscript);
-
-$core.addMethod(
-$core.method({
-selector: "show:",
-protocol: 'printing',
-fn: function (anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-console.log(String($recv(anObject)._asString()));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},$globals.ConsoleTranscript)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String($recv(anObject)._asString()))>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ConsoleTranscript);
-
-
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($Transcript())._registerIfNone_(self._new());
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleTranscript.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09Transcript registerIfNone: self new",
-referencedClasses: ["Transcript"],
-//>>excludeEnd("ide");
-messageSends: ["registerIfNone:", "new"]
-}),
-$globals.ConsoleTranscript.klass);
-
-});
-
 define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Announcements');
+$core.packages["Kernel-Announcements"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('AnnouncementSubscription', $globals.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
@@ -30813,8 +29813,8 @@ $globals.SystemAnnouncement.comment="I am the superclass of all system announcem
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "announcement";
@@ -30822,7 +29822,7 @@ return "announcement";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'announcement'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'announcement'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -31221,35 +30221,29 @@ selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$3,$4;
-$2=self._protocol();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["protocol"]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2)._beginsWith_("*");
-if(!$core.assert($1)){
-$3=$recv(self._theClass())._package();
-return $3;
+var $2,$1,$receiver;
+$2=self._theClass();
+if(($receiver = $2) == null || $receiver.isNil){
+$1=$2;
+} else {
+var class_;
+class_=$receiver;
+$1=$recv(class_)._packageOfProtocol_(self._protocol());
 };
-$4=$recv($Package())._named_ifAbsent_($recv(self._protocol())._allButFirst(),(function(){
-return nil;
-
-}));
-return $4;
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.ProtocolAnnouncement)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "package\x0a\x0a\x09(self protocol beginsWith: '*') ifFalse: [\x0a\x09\x09^ self theClass package ].\x0a\x09\x09\x0a\x09^ Package \x0a\x09\x09named: self protocol allButFirst\x0a\x09\x09ifAbsent: [ nil ]",
-referencedClasses: ["Package"],
+source: "package\x0a\x09\x0a\x09^ self theClass ifNotNil: [ :class | class packageOfProtocol: self protocol ]",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifFalse:", "beginsWith:", "protocol", "package", "theClass", "named:ifAbsent:", "allButFirst"]
+messageSends: ["ifNotNil:", "theClass", "packageOfProtocol:", "protocol"]
 }),
 $globals.ProtocolAnnouncement);
 
@@ -31346,9 +30340,2212 @@ $globals.ProtocolRemoved.comment="I am emitted when a protocol is removed from a
 
 });
 
+define("amber_core/Platform-Services", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+$core.addPackage('Platform-Services');
+$core.packages["Platform-Services"].innerEval = function (expr) { return eval(expr); };
+$core.packages["Platform-Services"].transport = {"type":"amd","amdNamespace":"amber_core"};
+
+$core.addClass('ConsoleErrorHandler', $globals.Object, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ConsoleErrorHandler.comment="I am manage Smalltalk errors, displaying the stack in the console.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+$1=$recv(anError)._context();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["context"]=1;
+//>>excludeEnd("ctx");
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+self._logErrorContext_($recv(anError)._context());
+};
+self._logError_(anError);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},$globals.ConsoleErrorHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anError"],
+source: "handleError: anError\x0a\x09anError context ifNotNil: [ self logErrorContext: anError context ].\x0a\x09self logError: anError",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"]
+}),
+$globals.ConsoleErrorHandler);
+
+$core.addMethod(
+$core.method({
+selector: "log:",
+protocol: 'private',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(console)._log_(aString);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"log:",{aString:aString},$globals.ConsoleErrorHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "log: aString\x0a\x09console log: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["log:"]
+}),
+$globals.ConsoleErrorHandler);
+
+$core.addMethod(
+$core.method({
+selector: "logContext:",
+protocol: 'private',
+fn: function (aContext){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+$1=$recv(aContext)._home();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["home"]=1;
+//>>excludeEnd("ctx");
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+self._logContext_($recv(aContext)._home());
+};
+self._log_($recv(aContext)._asString());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},$globals.ConsoleErrorHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aContext"],
+source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home ].\x0a\x09self log: aContext asString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"]
+}),
+$globals.ConsoleErrorHandler);
+
+$core.addMethod(
+$core.method({
+selector: "logError:",
+protocol: 'private',
+fn: function (anError){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._log_($recv(anError)._messageText());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError},$globals.ConsoleErrorHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anError"],
+source: "logError: anError\x0a\x09self log: anError messageText",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["log:", "messageText"]
+}),
+$globals.ConsoleErrorHandler);
+
+$core.addMethod(
+$core.method({
+selector: "logErrorContext:",
+protocol: 'private',
+fn: function (aContext){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+if(($receiver = aContext) == null || $receiver.isNil){
+aContext;
+} else {
+$1=$recv(aContext)._home();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["home"]=1;
+//>>excludeEnd("ctx");
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+self._logContext_($recv(aContext)._home());
+};
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},$globals.ConsoleErrorHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aContext"],
+source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home ]]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "home", "logContext:"]
+}),
+$globals.ConsoleErrorHandler);
+
+
+$globals.ConsoleErrorHandler.klass.iVarNames = ['current'];
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($ErrorHandler())._registerIfNone_(self._new());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleErrorHandler.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09ErrorHandler registerIfNone: self new",
+referencedClasses: ["ErrorHandler"],
+//>>excludeEnd("ide");
+messageSends: ["registerIfNone:", "new"]
+}),
+$globals.ConsoleErrorHandler.klass);
+
+
+$core.addClass('ConsoleTranscript', $globals.Object, ['textarea'], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "clear",
+protocol: 'printing',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "clear\x0a\x09\x22no op\x22",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ConsoleTranscript);
+
+$core.addMethod(
+$core.method({
+selector: "cr",
+protocol: 'printing',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "cr\x0a\x09\x22no op\x22",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ConsoleTranscript);
+
+$core.addMethod(
+$core.method({
+selector: "open",
+protocol: 'actions',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "open",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ConsoleTranscript);
+
+$core.addMethod(
+$core.method({
+selector: "show:",
+protocol: 'printing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+console.log(String($recv(anObject)._asString()));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},$globals.ConsoleTranscript)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String($recv(anObject)._asString()))>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ConsoleTranscript);
+
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($Transcript())._registerIfNone_(self._new());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleTranscript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09Transcript registerIfNone: self new",
+referencedClasses: ["Transcript"],
+//>>excludeEnd("ide");
+messageSends: ["registerIfNone:", "new"]
+}),
+$globals.ConsoleTranscript.klass);
+
+
+$core.addClass('InterfacingObject', $globals.Object, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.InterfacingObject.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "ajax:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($PlatformInterface())._ajax_(anObject);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.InterfacingObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "ajax: anObject\x0a\x09^ PlatformInterface ajax: anObject",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["ajax:"]
+}),
+$globals.InterfacingObject);
+
+$core.addMethod(
+$core.method({
+selector: "alert:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($PlatformInterface())._alert_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.InterfacingObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "alert: aString\x0a\x09^ PlatformInterface alert: aString",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["alert:"]
+}),
+$globals.InterfacingObject);
+
+$core.addMethod(
+$core.method({
+selector: "confirm:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($PlatformInterface())._confirm_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.InterfacingObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "confirm: aString\x0a\x09^ PlatformInterface confirm: aString",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["confirm:"]
+}),
+$globals.InterfacingObject);
+
+$core.addMethod(
+$core.method({
+selector: "prompt:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($PlatformInterface())._prompt_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.InterfacingObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "prompt: aString\x0a\x09^ PlatformInterface prompt: aString",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["prompt:"]
+}),
+$globals.InterfacingObject);
+
+$core.addMethod(
+$core.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($PlatformInterface())._prompt_default_(aString,defaultString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.InterfacingObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ PlatformInterface prompt: aString default: defaultString",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["prompt:default:"]
+}),
+$globals.InterfacingObject);
+
+
+
+$core.addClass('Environment', $globals.InterfacingObject, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Environment.comment="I provide an unified entry point to manipulate Amber packages, classes and methods.\x0a\x0aTypical use cases include IDEs, remote access and restricting browsing.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "addInstVarNamed:to:",
+protocol: 'compiling',
+fn: function (aString,aClass){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3,$4,$5;
+$1=self._classBuilder();
+$2=$recv(aClass)._superclass();
+$3=$recv(aClass)._name();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["name"]=1;
+//>>excludeEnd("ctx");
+$4=$recv($recv(aClass)._instanceVariableNames())._copy();
+$recv($4)._add_(aString);
+$5=$recv($4)._yourself();
+$recv($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$5,$recv($recv(aClass)._package())._name());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aClass"],
+source: "addInstVarNamed: aString to: aClass\x0a\x09self classBuilder\x0a\x09\x09addSubclassOf: aClass superclass \x0a\x09\x09named: aClass name \x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "classBuilder", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "allSelectors",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv($Smalltalk())._core())._allSelectors();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "allSelectors\x0a\x09^ Smalltalk core allSelectors",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["allSelectors", "core"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "availableClassNames",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv($Smalltalk())._classes())._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(each)._name();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "availableClassNames\x0a\x09^ Smalltalk classes \x0a\x09\x09collect: [ :each | each name ]",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["collect:", "classes", "name"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "availablePackageNames",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv($Smalltalk())._packages())._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(each)._name();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "availablePackageNames\x0a\x09^ Smalltalk packages \x0a\x09\x09collect: [ :each | each name ]",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["collect:", "packages", "name"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "availableProtocolsFor:",
+protocol: 'accessing',
+fn: function (aClass){
+var self=this;
+var protocols;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$receiver;
+protocols=$recv(aClass)._protocols();
+$1=$recv(aClass)._superclass();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["superclass"]=1;
+//>>excludeEnd("ctx");
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+$recv(protocols)._addAll_(self._availableProtocolsFor_($recv(aClass)._superclass()));
+};
+$2=$recv($recv($recv(protocols)._asSet())._asArray())._sort();
+return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass"],
+source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray sort",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "sort", "asArray", "asSet"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "classBuilder",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($ClassBuilder())._new();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"classBuilder",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classBuilder\x0a\x09^ ClassBuilder new",
+referencedClasses: ["ClassBuilder"],
+//>>excludeEnd("ide");
+messageSends: ["new"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "classNamed:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=$recv($recv($Smalltalk())._globals())._at_($recv(aString)._asSymbol());
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("Invalid class name");
+} else {
+$1=$2;
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "classNamed: aString\x0a\x09^ (Smalltalk globals at: aString asSymbol)\x0a\x09\x09ifNil: [ self error: 'Invalid class name' ]",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["ifNil:", "at:", "globals", "asSymbol", "error:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "classes",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($Smalltalk())._classes();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"classes",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "classes\x0a\x09^ Smalltalk classes",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["classes"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "commitPackage:onSuccess:onError:",
+protocol: 'actions',
+fn: function (aPackage,aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv(aPackage)._transport())._commitOnSuccess_onError_(aBlock,anotherBlock);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"commitPackage:onSuccess:onError:",{aPackage:aPackage,aBlock:aBlock,anotherBlock:anotherBlock},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage", "aBlock", "anotherBlock"],
+source: "commitPackage: aPackage onSuccess: aBlock onError: anotherBlock\x0a\x09aPackage transport\x0a\x09\x09commitOnSuccess: aBlock\x0a\x09\x09onError: anotherBlock",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["commitOnSuccess:onError:", "transport"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "compileClassComment:for:",
+protocol: 'compiling',
+fn: function (aString,aClass){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aClass)._comment_(aString);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compileClassComment:for:",{aString:aString,aClass:aClass},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aClass"],
+source: "compileClassComment: aString for: aClass\x0a\x09aClass comment: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["comment:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "compileClassDefinition:",
+protocol: 'compiling',
+fn: function (aString){
+var self=this;
+function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._evaluate_for_(aString,$recv($DoIt())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._on_do_($Error(),(function(error){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._alert_($recv(error)._messageText());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "compileClassDefinition: aString\x0a\x09[ self evaluate: aString for: DoIt new ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :error | self alert: error messageText ]",
+referencedClasses: ["DoIt", "Error"],
+//>>excludeEnd("ide");
+messageSends: ["on:do:", "evaluate:for:", "new", "alert:", "messageText"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "compileMethod:for:protocol:",
+protocol: 'compiling',
+fn: function (sourceCode,class_,protocol){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(class_)._compile_protocol_(sourceCode,protocol);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["sourceCode", "class", "protocol"],
+source: "compileMethod: sourceCode for: class protocol: protocol\x0a\x09^ class\x0a\x09\x09compile: sourceCode\x0a\x09\x09protocol: protocol",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["compile:protocol:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "copyClass:to:",
+protocol: 'actions',
+fn: function (aClass,aClassName){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$receiver;
+$1=$recv($recv($Smalltalk())._globals())._at_(aClassName);
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+$2=$recv("A class named ".__comma(aClassName)).__comma(" already exists");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+self._error_($2);
+};
+$recv($recv($ClassBuilder())._new())._copyClass_named_(aClass,aClassName);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass", "aClassName"],
+source: "copyClass: aClass to: aClassName\x0a\x09(Smalltalk globals at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new copyClass: aClass named: aClassName",
+referencedClasses: ["Smalltalk", "ClassBuilder"],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "at:", "globals", "error:", ",", "copyClass:named:", "new"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "doItReceiver",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($DoIt())._new();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "doItReceiver\x0a\x09^ DoIt new",
+referencedClasses: ["DoIt"],
+//>>excludeEnd("ide");
+messageSends: ["new"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "evaluate:for:",
+protocol: 'evaluating',
+fn: function (aString,anObject){
+var self=this;
+function $Evaluator(){return $globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($Evaluator())._evaluate_for_(aString,anObject);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject"],
+source: "evaluate: aString for: anObject\x0a\x09^ Evaluator evaluate: aString for: anObject",
+referencedClasses: ["Evaluator"],
+//>>excludeEnd("ide");
+messageSends: ["evaluate:for:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "evaluate:on:do:",
+protocol: 'error handling',
+fn: function (aBlock,anErrorClass,exceptionBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$recv(aBlock)._tryCatch_((function(exception){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv(exception)._isKindOf_(self._classNamed_($recv(anErrorClass)._name()));
+if($core.assert($1)){
+return $recv(exceptionBlock)._value_(exception);
+} else {
+return $recv(exception)._resignal();
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anErrorClass", "exceptionBlock"],
+source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09aBlock tryCatch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception resignal ] ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["tryCatch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "resignal"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "inspect:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+function $Inspector(){return $globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($Inspector())._inspect_(anObject);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09Inspector inspect: anObject",
+referencedClasses: ["Inspector"],
+//>>excludeEnd("ide");
+messageSends: ["inspect:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "moveClass:toPackage:",
+protocol: 'actions',
+fn: function (aClass,aPackageName){
+var self=this;
+var package_;
+function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$receiver;
+package_=$recv($Package())._named_(aPackageName);
+$1=package_;
+if(($receiver = $1) == null || $receiver.isNil){
+self._error_("Invalid package name");
+} else {
+$1;
+};
+$2=$recv(package_).__eq_eq($recv(aClass)._package());
+if($core.assert($2)){
+return self;
+};
+$recv(aClass)._package_(package_);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass", "aPackageName"],
+source: "moveClass: aClass toPackage: aPackageName\x0a\x09| package |\x0a\x09\x0a\x09package := Package named: aPackageName.\x0a\x09package ifNil: [ self error: 'Invalid package name' ].\x0a\x09package == aClass package ifTrue: [ ^ self ].\x0a\x09\x0a\x09aClass package: package",
+referencedClasses: ["Package"],
+//>>excludeEnd("ide");
+messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "package:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "moveMethod:toClass:",
+protocol: 'actions',
+fn: function (aMethod,aClassName){
+var self=this;
+var destinationClass;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$3,$1,$5,$4;
+destinationClass=self._classNamed_(aClassName);
+$2=destinationClass;
+$3=$recv(aMethod)._methodClass();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["methodClass"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2).__eq_eq($3);
+if($core.assert($1)){
+return self;
+};
+$5=$recv(aMethod)._methodClass();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["methodClass"]=2;
+//>>excludeEnd("ctx");
+$4=$recv($5)._isMetaclass();
+if($core.assert($4)){
+destinationClass=$recv(destinationClass)._class();
+destinationClass;
+};
+$recv(destinationClass)._compile_protocol_($recv(aMethod)._source(),$recv(aMethod)._protocol());
+$recv($recv(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aMethod", "aClassName"],
+source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := self classNamed: aClassName.\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09aMethod methodClass isMetaclass ifTrue: [ \x0a\x09\x09destinationClass := destinationClass class ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["classNamed:", "ifTrue:", "==", "methodClass", "isMetaclass", "class", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "moveMethod:toProtocol:",
+protocol: 'actions',
+fn: function (aMethod,aProtocol){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aMethod)._protocol_(aProtocol);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aMethod", "aProtocol"],
+source: "moveMethod: aMethod toProtocol: aProtocol\x0a\x09aMethod protocol: aProtocol",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["protocol:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "packages",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($Smalltalk())._packages();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"packages",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "packages\x0a\x09^ Smalltalk packages",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["packages"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "registerErrorHandler:",
+protocol: 'services',
+fn: function (anErrorHandler){
+var self=this;
+function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($ErrorHandler())._register_(anErrorHandler);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anErrorHandler"],
+source: "registerErrorHandler: anErrorHandler\x0a\x09ErrorHandler register: anErrorHandler",
+referencedClasses: ["ErrorHandler"],
+//>>excludeEnd("ide");
+messageSends: ["register:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "registerFinder:",
+protocol: 'services',
+fn: function (aFinder){
+var self=this;
+function $Finder(){return $globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($Finder())._register_(aFinder);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"registerFinder:",{aFinder:aFinder},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aFinder"],
+source: "registerFinder: aFinder\x0a\x09Finder register: aFinder",
+referencedClasses: ["Finder"],
+//>>excludeEnd("ide");
+messageSends: ["register:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "registerInspector:",
+protocol: 'services',
+fn: function (anInspector){
+var self=this;
+function $Inspector(){return $globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($Inspector())._register_(anInspector);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anInspector"],
+source: "registerInspector: anInspector\x0a\x09Inspector register: anInspector",
+referencedClasses: ["Inspector"],
+//>>excludeEnd("ide");
+messageSends: ["register:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "registerProgressHandler:",
+protocol: 'services',
+fn: function (aProgressHandler){
+var self=this;
+function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($ProgressHandler())._register_(aProgressHandler);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aProgressHandler"],
+source: "registerProgressHandler: aProgressHandler\x0a\x09ProgressHandler register: aProgressHandler",
+referencedClasses: ["ProgressHandler"],
+//>>excludeEnd("ide");
+messageSends: ["register:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "registerTranscript:",
+protocol: 'services',
+fn: function (aTranscript){
+var self=this;
+function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($Transcript())._register_(aTranscript);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"registerTranscript:",{aTranscript:aTranscript},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aTranscript"],
+source: "registerTranscript: aTranscript\x0a\x09Transcript register: aTranscript",
+referencedClasses: ["Transcript"],
+//>>excludeEnd("ide");
+messageSends: ["register:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "removeClass:",
+protocol: 'actions',
+fn: function (aClass){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($Smalltalk())._removeClass_(aClass);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass"],
+source: "removeClass: aClass\x0a\x09Smalltalk removeClass: aClass",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["removeClass:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "removeMethod:",
+protocol: 'actions',
+fn: function (aMethod){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aMethod"],
+source: "removeMethod: aMethod\x0a\x09aMethod methodClass removeCompiledMethod: aMethod",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["removeCompiledMethod:", "methodClass"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "removeProtocol:from:",
+protocol: 'actions',
+fn: function (aString,aClass){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv(aClass)._methodsInProtocol_(aString))._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(aClass)._removeCompiledMethod_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aClass"],
+source: "removeProtocol: aString from: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "methodsInProtocol:", "removeCompiledMethod:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "renameClass:to:",
+protocol: 'actions',
+fn: function (aClass,aClassName){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$receiver;
+$1=$recv($recv($Smalltalk())._globals())._at_(aClassName);
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+$2=$recv("A class named ".__comma(aClassName)).__comma(" already exists");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+self._error_($2);
+};
+$recv($recv($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass", "aClassName"],
+source: "renameClass: aClass to: aClassName\x0a\x09(Smalltalk globals at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new renameClass: aClass to: aClassName",
+referencedClasses: ["Smalltalk", "ClassBuilder"],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "at:", "globals", "error:", ",", "renameClass:to:", "new"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "renameProtocol:to:in:",
+protocol: 'actions',
+fn: function (aString,anotherString,aClass){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv(aClass)._methodsInProtocol_(aString))._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(each)._protocol_(anotherString);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anotherString", "aClass"],
+source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methodsInProtocol: aString)\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "methodsInProtocol:", "protocol:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "setClassCommentOf:to:",
+protocol: 'actions',
+fn: function (aClass,aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aClass)._comment_(aString);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"setClassCommentOf:to:",{aClass:aClass,aString:aString},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass", "aString"],
+source: "setClassCommentOf: aClass to: aString\x0a\x09aClass comment: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["comment:"]
+}),
+$globals.Environment);
+
+$core.addMethod(
+$core.method({
+selector: "systemAnnouncer",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv($recv($Smalltalk())._globals())._at_("SystemAnnouncer"))._current();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},$globals.Environment)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "systemAnnouncer\x0a\x09^ (Smalltalk globals at: #SystemAnnouncer) current",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["current", "at:", "globals"]
+}),
+$globals.Environment);
+
+
+
+$core.addClass('NullProgressHandler', $globals.Object, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.NullProgressHandler.comment="I am the default progress handler. I do not display any progress, and simply iterate over the collection.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "do:on:displaying:",
+protocol: 'progress handling',
+fn: function (aBlock,aCollection,aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aCollection)._do_(aBlock);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},$globals.NullProgressHandler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "aCollection", "aString"],
+source: "do: aBlock on: aCollection displaying: aString\x0a\x09aCollection do: aBlock",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:"]
+}),
+$globals.NullProgressHandler);
+
+
+$globals.NullProgressHandler.klass.iVarNames = ['current'];
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($ProgressHandler())._registerIfNone_(self._new());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.NullProgressHandler.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09ProgressHandler registerIfNone: self new",
+referencedClasses: ["ProgressHandler"],
+//>>excludeEnd("ide");
+messageSends: ["registerIfNone:", "new"]
+}),
+$globals.NullProgressHandler.klass);
+
+
+$core.addClass('PlatformInterface', $globals.Object, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
+//>>excludeEnd("ide");
+
+$globals.PlatformInterface.klass.iVarNames = ['worker'];
+$core.addMethod(
+$core.method({
+selector: "ajax:",
+protocol: 'actions',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("ajax: not available");
+} else {
+$1=$recv(self["@worker"])._ajax_(anObject);
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "ajax: anObject\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'ajax: not available' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "ajax:", "error:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "alert:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("alert: not available");
+} else {
+$1=$recv(self["@worker"])._alert_(aString);
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "alert: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker alert: aString ]\x0a\x09\x09ifNil: [ self error: 'alert: not available' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "alert:", "error:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "confirm:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("confirm: not available");
+} else {
+$1=$recv(self["@worker"])._confirm_(aString);
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "confirm: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker confirm: aString ]\x0a\x09\x09ifNil: [ self error: 'confirm: not available' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "confirm:", "error:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "existsGlobal:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return true;
+
+}),(function(){
+return false;
+
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "existsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["at:ifPresent:ifAbsent:", "globals"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "globals",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return (new Function('return this'))();;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "globals\x0a\x09<return (new Function('return this'))();>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+var candidate;
+function $BrowserInterface(){return $globals.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+$globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply($recv(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+if(($receiver = $BrowserInterface()) == null || $receiver.isNil){
+$BrowserInterface();
+} else {
+candidate=$recv($BrowserInterface())._new();
+candidate;
+$1=$recv(candidate)._isAvailable();
+if($core.assert($1)){
+self._setWorker_(candidate);
+return self;
+};
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09BrowserInterface ifNotNil: [\x0a\x09\x09candidate := BrowserInterface new.\x0a\x09\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^ self ]\x0a\x09]",
+referencedClasses: ["BrowserInterface"],
+//>>excludeEnd("ide");
+messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "isAvailable", "setWorker:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "prompt:",
+protocol: 'actions',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("prompt: not available");
+} else {
+$1=$recv(self["@worker"])._prompt_(aString);
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "prompt: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "prompt:", "error:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "prompt:default:",
+protocol: 'actions',
+fn: function (aString,defaultString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("prompt: not available");
+} else {
+$1=$recv(self["@worker"])._prompt_default_(aString,defaultString);
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString default: defaultString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "prompt:default:", "error:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "setWorker:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@worker"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "setWorker: anObject\x0a\x09worker := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.PlatformInterface.klass);
+
+
+$core.addClass('Service', $globals.Object, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Service.comment="I implement the basic behavior for class registration to a service.\x0a\x0aSee the `Transcript` class for a concrete service.\x0a\x0a## API\x0a\x0aUse class-side methods `#register:` and `#registerIfNone:` to register classes to a specific service.";
+//>>excludeEnd("ide");
+
+$globals.Service.klass.iVarNames = ['current'];
+$core.addMethod(
+$core.method({
+selector: "current",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@current"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "current\x0a\x09^ current",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Service.klass);
+
+$core.addMethod(
+$core.method({
+selector: "new",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._shouldNotImplement();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"new",{},$globals.Service.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "new\x0a\x09self shouldNotImplement",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["shouldNotImplement"]
+}),
+$globals.Service.klass);
+
+$core.addMethod(
+$core.method({
+selector: "register:",
+protocol: 'registration',
+fn: function (anObject){
+var self=this;
+self["@current"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "register: anObject\x0a\x09current := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Service.klass);
+
+$core.addMethod(
+$core.method({
+selector: "registerIfNone:",
+protocol: 'registration',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+$1=self._current();
+if(($receiver = $1) == null || $receiver.isNil){
+self._register_(anObject);
+} else {
+$1;
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"registerIfNone:",{anObject:anObject},$globals.Service.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "registerIfNone: anObject\x0a\x09self current ifNil: [ self register: anObject ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNil:", "current", "register:"]
+}),
+$globals.Service.klass);
+
+
+$core.addClass('ErrorHandler', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ErrorHandler.comment="I am the service used to handle Smalltalk errors.\x0aSee `boot.js` `handleError()` function.\x0a\x0aRegistered service instances must implement `#handleError:` to perform an action on the thrown exception.";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._handleUnhandledError_(anError);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},$globals.ErrorHandler.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anError"],
+source: "handleError: anError\x0a\x09self handleUnhandledError: anError",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["handleUnhandledError:"]
+}),
+$globals.ErrorHandler.klass);
+
+$core.addMethod(
+$core.method({
+selector: "handleUnhandledError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
+$1=$recv(anError)._wasHandled();
+if($core.assert($1)){
+return self;
+};
+$2=$recv(self._current())._handleError_(anError);
+return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},$globals.ErrorHandler.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anError"],
+source: "handleUnhandledError: anError\x0a\x09anError wasHandled ifTrue: [ ^ self ].\x0a\x09\x0a\x09^ self current handleError: anError",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifTrue:", "wasHandled", "handleError:", "current"]
+}),
+$globals.ErrorHandler.klass);
+
+
+$core.addClass('Finder', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Finder.comment="I am the service responsible for finding classes/methods.\x0a__There is no default finder.__\x0a\x0a## API\x0a\x0aUse `#browse` on an object to find it.";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "findClass:",
+protocol: 'finding',
+fn: function (aClass){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._findClass_(aClass);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},$globals.Finder.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass"],
+source: "findClass: aClass\x0a\x09^ self current findClass: aClass",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["findClass:", "current"]
+}),
+$globals.Finder.klass);
+
+$core.addMethod(
+$core.method({
+selector: "findMethod:",
+protocol: 'finding',
+fn: function (aCompiledMethod){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._findMethod_(aCompiledMethod);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},$globals.Finder.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCompiledMethod"],
+source: "findMethod: aCompiledMethod\x0a\x09^ self current findMethod: aCompiledMethod",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["findMethod:", "current"]
+}),
+$globals.Finder.klass);
+
+$core.addMethod(
+$core.method({
+selector: "findString:",
+protocol: 'finding',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._findString_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString},$globals.Finder.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "findString: aString\x0a\x09^ self current findString: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["findString:", "current"]
+}),
+$globals.Finder.klass);
+
+
+$core.addClass('Inspector', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Inspector.comment="I am the service responsible for inspecting objects.\x0a\x0aThe default inspector object is the transcript.";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "inspect:",
+protocol: 'inspecting',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._inspect_(anObject);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Inspector.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09^ self current inspect: anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["inspect:", "current"]
+}),
+$globals.Inspector.klass);
+
+
+$core.addClass('ProgressHandler', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ProgressHandler.comment="I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.\x0a\x0aRegistered instances must implement `#do:on:displaying:`.\x0a\x0aThe default behavior is to simply iterate over the collection, using `NullProgressHandler`.";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "do:on:displaying:",
+protocol: 'progress handling',
+fn: function (aBlock,aCollection,aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._current())._do_on_displaying_(aBlock,aCollection,aString);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},$globals.ProgressHandler.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "aCollection", "aString"],
+source: "do: aBlock on: aCollection displaying: aString\x0a\x09self current do: aBlock on: aCollection displaying: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:on:displaying:", "current"]
+}),
+$globals.ProgressHandler.klass);
+
+
+$core.addClass('Transcript', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Transcript.comment="I am a facade for Transcript actions.\x0a\x0aI delegate actions to the currently registered transcript.\x0a\x0a## API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "clear",
+protocol: 'printing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._current())._clear();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"clear",{},$globals.Transcript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "clear\x0a\x09self current clear",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["clear", "current"]
+}),
+$globals.Transcript.klass);
+
+$core.addMethod(
+$core.method({
+selector: "cr",
+protocol: 'printing',
+fn: function (){
+var self=this;
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._current())._show_($recv($String())._cr());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"cr",{},$globals.Transcript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "cr\x0a\x09self current show: String cr",
+referencedClasses: ["String"],
+//>>excludeEnd("ide");
+messageSends: ["show:", "current", "cr"]
+}),
+$globals.Transcript.klass);
+
+$core.addMethod(
+$core.method({
+selector: "inspect:",
+protocol: 'printing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._show_(anObject);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Transcript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09self show: anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["show:"]
+}),
+$globals.Transcript.klass);
+
+$core.addMethod(
+$core.method({
+selector: "open",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._current())._open();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"open",{},$globals.Transcript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "open\x0a\x09self current open",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["open", "current"]
+}),
+$globals.Transcript.klass);
+
+$core.addMethod(
+$core.method({
+selector: "show:",
+protocol: 'printing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(self._current())._show_(anObject);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},$globals.Transcript.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "show: anObject\x0a\x09self current show: anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["show:", "current"]
+}),
+$globals.Transcript.klass);
+
+$core.addMethod(
+$core.method({
+selector: "do:displayingProgress:",
+protocol: '*Platform-Services',
+fn: function (aBlock,aString){
+var self=this;
+function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($ProgressHandler())._do_on_displaying_(aBlock,self,aString);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},$globals.SequenceableCollection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "aString"],
+source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler \x0a\x09\x09do: aBlock \x0a\x09\x09on: self \x0a\x09\x09displaying: aString",
+referencedClasses: ["ProgressHandler"],
+//>>excludeEnd("ide");
+messageSends: ["do:on:displaying:"]
+}),
+$globals.SequenceableCollection);
+
+});
+
 define("amber_core/Compiler-Exceptions", ["amber/boot", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Exceptions');
+$core.packages["Compiler-Exceptions"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('CompilerError', $globals.Error, [], 'Compiler-Exceptions');
@@ -31646,12 +32843,13 @@ $globals.RethrowErrorHandler);
 
 });
 
-define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Collections"], function($boot){
+define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Core');
+$core.packages["Compiler-Core"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$core.addClass('AbstractCodeGenerator', $globals.Object, ['currentClass', 'source'], 'Compiler-Core');
+$core.addClass('AbstractCodeGenerator', $globals.Object, ['currentClass', 'currentPackage', 'source'], 'Compiler-Core');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API.";
 //>>excludeEnd("ide");
@@ -31751,6 +32949,45 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "currentClass: aClass\x0a\x09currentClass := aClass",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.AbstractCodeGenerator);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@currentPackage"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "currentPackage\x0a\x09^ currentPackage",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.AbstractCodeGenerator);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@currentPackage"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "currentPackage: anObject\x0a\x09currentPackage := anObject",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -31912,8 +33149,11 @@ function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticA
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($SemanticAnalyzer())._on_(self._currentClass());
+var $2,$3,$1;
+$2=$recv($SemanticAnalyzer())._on_(self._currentClass());
+$recv($2)._thePackage_(self._currentPackage());
+$3=$recv($2)._yourself();
+$1=$3;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},$globals.CodeGenerator)});
@@ -31921,10 +33161,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "semanticAnalyzer\x0a\x09^ SemanticAnalyzer on: self currentClass",
+source: "semanticAnalyzer\x0a\x09^ (SemanticAnalyzer on: self currentClass)\x0a\x09\x09thePackage: self currentPackage;\x0a\x09\x09yourself",
 referencedClasses: ["SemanticAnalyzer"],
 //>>excludeEnd("ide");
-messageSends: ["on:", "currentClass"]
+messageSends: ["thePackage:", "on:", "currentClass", "currentPackage", "yourself"]
 }),
 $globals.CodeGenerator);
 
@@ -31960,7 +33200,7 @@ $globals.CodeGenerator);
 
 
 
-$core.addClass('Compiler', $globals.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
+$core.addClass('Compiler', $globals.Object, ['currentClass', 'currentPackage', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Compiler.comment="I provide the public interface for compiling Amber source code into JavaScript.\x0a\x0aThe code generator used to produce JavaScript can be plugged with `#codeGeneratorClass`.\x0aThe default code generator is an instance of `InlinedCodeGenerator`";
 //>>excludeEnd("ide");
@@ -32016,85 +33256,28 @@ $globals.Compiler);
 
 $core.addMethod(
 $core.method({
-selector: "compile:",
+selector: "compile:forClass:protocol:",
 protocol: 'compiling',
-fn: function (aString){
+fn: function (aString,aClass,anotherString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._compileNode_(self._parse_(aString));
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},$globals.Compiler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compile: aString\x0a\x09^ self compileNode: (self parse: aString)",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["compileNode:", "parse:"]
-}),
-$globals.Compiler);
-
-$core.addMethod(
-$core.method({
-selector: "compile:forClass:",
-protocol: 'compiling',
-fn: function (aString,aClass){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-self._currentClass_(aClass);
+var $2,$1;
 self._source_(aString);
-$1=self._compile_(aString);
+$2=self._compileNode_forClass_package_(self._parse_(aString),aClass,$recv(aClass)._packageOfProtocol_(anotherString));
+$1=$2;
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass},$globals.Compiler)});
+}, function($ctx1) {$ctx1.fill(self,"compile:forClass:protocol:",{aString:aString,aClass:aClass,anotherString:anotherString},$globals.Compiler)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "aClass"],
-source: "compile: aString forClass: aClass\x0a\x09self currentClass: aClass.\x0a\x09self source: aString.\x0a\x09^ self compile: aString",
+args: ["aString", "aClass", "anotherString"],
+source: "compile: aString forClass: aClass protocol: anotherString\x0a\x09^ self\x0a\x09\x09source: aString;\x0a\x09\x09compileNode: (self parse: aString)\x0a\x09\x09forClass: aClass\x0a\x09\x09package: (aClass packageOfProtocol: anotherString)",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["currentClass:", "source:", "compile:"]
-}),
-$globals.Compiler);
-
-$core.addMethod(
-$core.method({
-selector: "compileExpression:",
-protocol: 'compiling',
-fn: function (aString){
-var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2;
-self._currentClass_($DoIt());
-$1=$recv("doIt ^ [ ".__comma(aString)).__comma(" ] value");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx[","]=1;
-//>>excludeEnd("ctx");
-self._source_($1);
-$2=self._compileNode_(self._parse_(self._source()));
-return $2;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},$globals.Compiler)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
-referencedClasses: ["DoIt"],
-//>>excludeEnd("ide");
-messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"]
+messageSends: ["source:", "compileNode:forClass:package:", "parse:", "packageOfProtocol:"]
 }),
 $globals.Compiler);
 
@@ -32107,25 +33290,23 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
-self._currentClass_($recv(anObject)._class());
-$1=$recv("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
+var $2,$1;
+$2=$recv("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-self._source_($1);
-$2=self._compileNode_(self._parse_(self._source()));
-return $2;
+$1=self._compile_forClass_protocol_($2,$recv(anObject)._class(),"**xxxDoIt");
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},$globals.Compiler)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject"],
-source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
+source: "compileExpression: aString on: anObject\x0a\x09^ self\x0a\x09\x09compile: 'xxxDoIt ^ [ ', aString, ' ] value'\x0a\x09\x09forClass: anObject class\x0a\x09\x09protocol: '**xxxDoIt'",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"]
+messageSends: ["compile:forClass:protocol:", ",", "class"]
 }),
 $globals.Compiler);
 
@@ -32143,7 +33324,8 @@ var $1,$2,$3;
 generator=$recv(self._codeGeneratorClass())._new();
 $1=generator;
 $recv($1)._source_(self._source());
-$2=$recv($1)._currentClass_(self._currentClass());
+$recv($1)._currentClass_(self._currentClass());
+$2=$recv($1)._currentPackage_(self._currentPackage());
 result=$recv(generator)._compileNode_(aNode);
 self._unknownVariables_([]);
 $3=result;
@@ -32154,10 +33336,38 @@ return $3;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
+source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass;\x0a\x09\x09currentPackage: self currentPackage.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"]
+messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "currentPackage:", "currentPackage", "compileNode:", "unknownVariables:"]
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
+selector: "compileNode:forClass:package:",
+protocol: 'compiling',
+fn: function (aNode,aClass,aPackage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1;
+self._currentClass_(aClass);
+self._currentPackage_(aPackage);
+$2=self._compileNode_(aNode);
+$1=$2;
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compileNode:forClass:package:",{aNode:aNode,aClass:aClass,aPackage:aPackage},$globals.Compiler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode", "aClass", "aPackage"],
+source: "compileNode: aNode forClass: aClass package: aPackage\x0a\x09^ self\x0a\x09\x09currentClass: aClass;\x0a\x09\x09currentPackage: aPackage;\x0a\x09\x09compileNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["currentClass:", "currentPackage:", "compileNode:"]
 }),
 $globals.Compiler);
 
@@ -32202,6 +33412,45 @@ $globals.Compiler);
 
 $core.addMethod(
 $core.method({
+selector: "currentPackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@currentPackage"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "currentPackage\x0a\x09^ currentPackage",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
+selector: "currentPackage:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@currentPackage"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "currentPackage: anObject\x0a\x09currentPackage := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
 selector: "eval:",
 protocol: 'compiling',
 fn: function (aString){
@@ -32218,6 +33467,32 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "eval: aString\x0a\x09<return eval(aString)>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Compiler);
+
+$core.addMethod(
+$core.method({
+selector: "eval:forPackage:",
+protocol: 'compiling',
+fn: function (aString,aPackage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return aPackage && aPackage.innerEval
+		? aPackage.innerEval(aString)
+		: eval(aString);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"eval:forPackage:",{aString:aString,aPackage:aPackage},$globals.Compiler)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "aPackage"],
+source: "eval: aString forPackage: aPackage\x0a\x09<return aPackage && aPackage.innerEval\x0a\x09\x09? aPackage.innerEval(aString)\x0a\x09\x09: eval(aString)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -32291,23 +33566,25 @@ selector: "install:forClass:protocol:",
 protocol: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
+var compiledMethod;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(self._eval_(self._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
+compiledMethod=self._eval_forPackage_(self._compile_forClass_protocol_(aString,aBehavior,anotherString),$recv(aBehavior)._packageOfProtocol_(anotherString));
+$1=$recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(compiledMethod,aBehavior,anotherString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},$globals.Compiler)});
+}, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString,compiledMethod:compiledMethod},$globals.Compiler)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "aBehavior", "anotherString"],
-source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
+source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09| compiledMethod |\x0a\x09compiledMethod := self\x0a\x09\x09eval: (self compile: aString forClass: aBehavior protocol: anotherString)\x0a\x09\x09forPackage: (aBehavior packageOfProtocol: anotherString).\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: compiledMethod\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
 referencedClasses: ["ClassBuilder"],
 //>>excludeEnd("ide");
-messageSends: ["installMethod:forClass:protocol:", "new", "eval:", "compile:forClass:"]
+messageSends: ["eval:forPackage:", "compile:forClass:protocol:", "packageOfProtocol:", "installMethod:forClass:protocol:", "new"]
 }),
 $globals.Compiler);
 
@@ -33201,6 +34478,7 @@ $globals.String);
 define("amber_core/Compiler-AST", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-AST');
+$core.packages["Compiler-AST"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('Node', $globals.Object, ['parent', 'position', 'source', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
@@ -36794,6 +38072,7 @@ $globals.Object);
 define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-IR');
+$core.packages["Compiler-IR"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('IRASTTranslator', $globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
@@ -42946,6 +44225,7 @@ $globals.BlockClosure);
 define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Inlining');
+$core.packages["Compiler-Inlining"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('IRInlinedAssignment', $globals.IRAssignment, [], 'Compiler-Inlining');
@@ -45571,6 +46851,7 @@ $globals.InliningCodeGenerator);
 define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Semantic');
+$core.packages["Compiler-Semantic"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('LexicalScope', $globals.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
@@ -47328,7 +48609,7 @@ $globals.UnknownVar);
 
 
 
-$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 //>>excludeEnd("ide");
@@ -47413,7 +48694,7 @@ $1=$recv($recv($recv($recv($Smalltalk())._globalJsVariables())._includes_(identi
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._isVariableGloballyUndefined_(identifier);
+return self._isVariableUndefined_inPackage_(identifier,self._thePackage());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -47438,34 +48719,52 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow all variables listed by Smalltalk>>#globalJsVariables.\x0a\x09This list includes: `jQuery`, `window`, `document`,  `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((Smalltalk globalJsVariables includes: identifier) not\x0a\x09\x09and: [ self isVariableGloballyUndefined: identifier ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow all variables listed by Smalltalk>>#globalJsVariables.\x0a\x09This list includes: `window`, `document`,  `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((Smalltalk globalJsVariables includes: identifier) not\x0a\x09\x09and: [ self isVariableUndefined: identifier inPackage: self thePackage ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
 referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
-messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJsVariables", "isVariableGloballyUndefined:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope"]
+messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJsVariables", "isVariableUndefined:inPackage:", "thePackage", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope"]
 }),
 $globals.SemanticAnalyzer);
 
 $core.addMethod(
 $core.method({
-selector: "isVariableGloballyUndefined:",
+selector: "isVariableUndefined:inPackage:",
 protocol: 'testing',
-fn: function (aString){
+fn: function (aString,aPackage){
 var self=this;
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return eval('typeof ' + aString + ' == "undefined"');
-return self;
+var $1,$3,$4,$2,$receiver;
+if(($receiver = aPackage) == null || $receiver.isNil){
+aPackage;
+} else {
+var packageKnownVars;
+packageKnownVars=$recv($recv($recv(aPackage)._imports())._reject_("isString"))._collect_("key");
+packageKnownVars;
+$1=$recv(packageKnownVars)._includes_(aString);
+if($core.assert($1)){
+return false;
+};
+};
+$3=$recv($Compiler())._new();
+$4=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"isVariableGloballyUndefined:",{aString:aString},$globals.SemanticAnalyzer)});
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3)._eval_($4);
+return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"isVariableUndefined:inPackage:",{aString:aString,aPackage:aPackage},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "isVariableGloballyUndefined: aString\x0a\x09<return eval('typeof ' + aString + ' == \x22undefined\x22')>",
-referencedClasses: [],
+args: ["aString", "aPackage"],
+source: "isVariableUndefined: aString inPackage: aPackage\x0a\x09aPackage ifNotNil: [\x0a\x09\x09| packageKnownVars |\x0a\x09\x09packageKnownVars := (aPackage imports\x0a\x09\x09\x09reject: #isString)\x0a\x09\x09\x09collect: #key.\x0a\x09\x09(packageKnownVars includes: aString) ifTrue: [ ^ false ]].\x0a\x09^ Compiler new\x0a\x09\x09eval: 'typeof ', aString, ' == \x22undefined\x22'",
+referencedClasses: ["Compiler"],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["ifNotNil:", "collect:", "reject:", "imports", "ifTrue:", "includes:", "eval:", "new", ","]
 }),
 $globals.SemanticAnalyzer);
 
@@ -47735,6 +49034,45 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
+selector: "thePackage",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@thePackage"];
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "thePackage\x0a\x09^ thePackage",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
+selector: "thePackage:",
+protocol: 'accessing',
+fn: function (aPackage){
+var self=this;
+self["@thePackage"]=aPackage;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage"],
+source: "thePackage: aPackage\x0a\x09thePackage := aPackage",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -48279,6 +49617,7 @@ $globals.SemanticAnalyzer.klass);
 define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Interpreter');
+$core.packages["Compiler-Interpreter"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('AIBlockClosure', $globals.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
@@ -55962,6 +57301,7 @@ $globals.SmalltalkParser = (function() {
 define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('SUnit');
+$core.packages["SUnit"].innerEval = function (expr) { return eval(expr); };
 $core.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ResultAnnouncement', $globals.Object, ['result'], 'SUnit');
@@ -56618,8 +57958,8 @@ $globals.TestCase.klass);
 
 $core.addMethod(
 $core.method({
-selector: "heliosClass",
-protocol: 'helios',
+selector: "classTag",
+protocol: 'accessing',
 fn: function (){
 var self=this;
 return "test";
@@ -56627,7 +57967,7 @@ return "test";
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "heliosClass\x0a\x09^ 'test'",
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'test'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -57818,40 +59158,16 @@ $globals.Package);
 
 });
 
-define("amber_core/Kernel-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function($boot){
+define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-$core.addPackage('Kernel-ImportExport');
-$core.packages["Kernel-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$core.addPackage('Platform-ImportExport');
+$core.packages["Platform-ImportExport"].innerEval = function (expr) { return eval(expr); };
+$core.packages["Platform-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$core.addClass('AbstractExporter', $globals.Object, [], 'Kernel-ImportExport');
+$core.addClass('AbstractExporter', $globals.Object, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AbstractExporter.comment="I am an abstract exporter for Amber source code.\x0a\x0a## API\x0a\x0aUse `#exportPackage:on:` to export a given package on a Stream.";
 //>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "chunkEscape:",
-protocol: 'convenience',
-fn: function (aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv(aString)._replace_with_("!","!!"))._trimBoth();
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},$globals.AbstractExporter)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^ (aString replace: '!' with: '!!') trimBoth",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["trimBoth", "replace:with:"]
-}),
-$globals.AbstractExporter);
-
 $core.addMethod(
 $core.method({
 selector: "classNameFor:",
@@ -58024,10 +59340,35 @@ $globals.AbstractExporter);
 
 
 
-$core.addClass('ChunkExporter', $globals.AbstractExporter, [], 'Kernel-ImportExport');
+$core.addClass('ChunkExporter', $globals.AbstractExporter, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
 //>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "chunkEscape:",
+protocol: 'convenience',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv(aString)._replace_with_("!","!!"))._trimBoth();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},$globals.ChunkExporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^ (aString replace: '!' with: '!!') trimBoth",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["trimBoth", "replace:with:"]
+}),
+$globals.ChunkExporter);
+
 $core.addMethod(
 $core.method({
 selector: "exportCategoryEpilogueOf:on:",
@@ -58355,18 +59696,19 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $1,$2;
 self._exportPackageDefinitionOf_on_(aPackage,aStream);
+$1=self._exportPackageImportsOf_on_(aPackage,aStream);
 $recv($recv(aPackage)._sortedClasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self._exportDefinitionOf_on_(each,aStream);
-$1=self._ownMethodProtocolsOfClass_(each);
+$2=self._ownMethodProtocolsOfClass_(each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["ownMethodProtocolsOfClass:"]=1;
 //>>excludeEnd("ctx");
-self._exportProtocols_on_($1,aStream);
+self._exportProtocols_on_($2,aStream);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["exportProtocols:on:"]=1;
 //>>excludeEnd("ctx");
@@ -58387,10 +59729,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackage: aPackage on: aStream\x0a\x0a\x09self exportPackageDefinitionOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each)\x0a\x09\x09\x09on: aStream.\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each class)\x0a\x09\x09\x09on: aStream ].\x0a\x09\x09\x09\x0a\x09self \x0a\x09\x09exportProtocols: (self extensionProtocolsOfPackage: aPackage)\x0a\x09\x09on: aStream",
+source: "exportPackage: aPackage on: aStream\x0a\x0a\x09self\x0a\x09\x09exportPackageDefinitionOf: aPackage on: aStream;\x0a\x09\x09exportPackageImportsOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each)\x0a\x09\x09\x09on: aStream.\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09\x0a\x09\x09self \x0a\x09\x09\x09exportProtocols: (self ownMethodProtocolsOfClass: each class)\x0a\x09\x09\x09on: aStream ].\x0a\x09\x09\x09\x0a\x09self \x0a\x09\x09exportProtocols: (self extensionProtocolsOfPackage: aPackage)\x0a\x09\x09on: aStream",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["exportPackageDefinitionOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "exportProtocols:on:", "ownMethodProtocolsOfClass:", "exportMetaDefinitionOf:on:", "class", "extensionProtocolsOfPackage:"]
+messageSends: ["exportPackageDefinitionOf:on:", "exportPackageImportsOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "exportProtocols:on:", "ownMethodProtocolsOfClass:", "exportMetaDefinitionOf:on:", "class", "extensionProtocolsOfPackage:"]
 }),
 $globals.ChunkExporter);
 
@@ -58421,6 +59763,57 @@ source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["nextPutAll:", ",", "name", "lf"]
+}),
+$globals.ChunkExporter);
+
+$core.addMethod(
+$core.method({
+selector: "exportPackageImportsOf:on:",
+protocol: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$recv($recv(aPackage)._imports())._ifNotEmpty_((function(imports){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("(Smalltalk packageAt: '");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($recv(aPackage)._name());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("') imports: ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_(self._chunkEscape_($recv(aPackage)._importsDefinition()));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("!");
+$1=$recv(aStream)._lf();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({imports:imports},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageImportsOf:on:",{aPackage:aPackage,aStream:aStream},$globals.ChunkExporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage", "aStream"],
+source: "exportPackageImportsOf: aPackage on: aStream\x0a\x09aPackage imports ifNotEmpty: [ :imports |\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '(Smalltalk packageAt: ''';\x0a\x09\x09\x09nextPutAll: aPackage name;\x0a\x09\x09\x09nextPutAll: ''') imports: ';\x0a\x09\x09\x09nextPutAll: (self chunkEscape: aPackage importsDefinition);\x0a\x09\x09\x09nextPutAll: '!';\x0a\x09\x09\x09lf ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotEmpty:", "imports", "nextPutAll:", "name", "chunkEscape:", "importsDefinition", "lf"]
 }),
 $globals.ChunkExporter);
 
@@ -58761,7 +60154,7 @@ $globals.ChunkExporter);
 
 
 
-$core.addClass('Exporter', $globals.AbstractExporter, [], 'Kernel-ImportExport');
+$core.addClass('Exporter', $globals.AbstractExporter, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).";
 //>>excludeEnd("ide");
@@ -59198,6 +60591,8 @@ return $core.withContext(function($ctx1) {
 var $1,$2;
 self._exportPackagePrologueOf_on_(aPackage,aStream);
 self._exportPackageDefinitionOf_on_(aPackage,aStream);
+self._exportPackageContextOf_on_(aPackage,aStream);
+self._exportPackageImportsOf_on_(aPackage,aStream);
 $1=self._exportPackageTransportOf_on_(aPackage,aStream);
 $recv($recv(aPackage)._sortedClasses())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -59263,10 +60658,52 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackage: aPackage on: aStream\x0a\x09\x0a\x09self \x0a\x09\x09exportPackagePrologueOf: aPackage on: aStream;\x0a\x09\x09exportPackageDefinitionOf: aPackage on: aStream;\x0a\x09\x09exportPackageTransportOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09each ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ].\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09each class ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ] ].\x0a\x09\x09\x09\x0a\x09(self extensionMethodsOfPackage: aPackage) do: [ :each |\x0a\x09\x09self exportMethod: each on: aStream ].\x0a\x09\x09\x0a\x09self exportPackageEpilogueOf: aPackage on: aStream",
+source: "exportPackage: aPackage on: aStream\x0a\x09\x0a\x09self \x0a\x09\x09exportPackagePrologueOf: aPackage on: aStream;\x0a\x09\x09exportPackageDefinitionOf: aPackage on: aStream;\x0a\x09\x09exportPackageContextOf: aPackage on: aStream;\x0a\x09\x09exportPackageImportsOf: aPackage on: aStream;\x0a\x09\x09exportPackageTransportOf: aPackage on: aStream.\x0a\x09\x0a\x09aPackage sortedClasses do: [ :each |\x0a\x09\x09self exportDefinitionOf: each on: aStream.\x0a\x09\x09each ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ].\x0a\x09\x09\x09\x0a\x09\x09self exportMetaDefinitionOf: each on: aStream.\x0a\x09\x09each class ownMethods do: [ :method |\x0a\x09\x09\x09self exportMethod: method on: aStream ] ].\x0a\x09\x09\x09\x0a\x09(self extensionMethodsOfPackage: aPackage) do: [ :each |\x0a\x09\x09self exportMethod: each on: aStream ].\x0a\x09\x09\x0a\x09self exportPackageEpilogueOf: aPackage on: aStream",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["exportPackagePrologueOf:on:", "exportPackageDefinitionOf:on:", "exportPackageTransportOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "ownMethods", "exportMethod:on:", "exportMetaDefinitionOf:on:", "class", "extensionMethodsOfPackage:", "exportPackageEpilogueOf:on:"]
+messageSends: ["exportPackagePrologueOf:on:", "exportPackageDefinitionOf:on:", "exportPackageContextOf:on:", "exportPackageImportsOf:on:", "exportPackageTransportOf:on:", "do:", "sortedClasses", "exportDefinitionOf:on:", "ownMethods", "exportMethod:on:", "exportMetaDefinitionOf:on:", "class", "extensionMethodsOfPackage:", "exportPackageEpilogueOf:on:"]
+}),
+$globals.Exporter);
+
+$core.addMethod(
+$core.method({
+selector: "exportPackageContextOf:on:",
+protocol: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$recv(aStream)._nextPutAll_("$core.packages[");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($recv($recv(aPackage)._name())._asJavascript());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("].innerEval = ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("function (expr) { return eval(expr); }");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_(";");
+$1=$recv(aStream)._lf();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageContextOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage", "aStream"],
+source: "exportPackageContextOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '$core.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].innerEval = ';\x0a\x09\x09nextPutAll: 'function (expr) { return eval(expr); }';\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["nextPutAll:", "asJavascript", "name", "lf"]
 }),
 $globals.Exporter);
 
@@ -59313,9 +60750,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$recv(aStream)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
-$1=$recv(aStream)._lf();
+self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
@@ -59323,10 +60758,65 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
+source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutAll:", "lf"]
+messageSends: ["subclassResponsibility"]
+}),
+$globals.Exporter);
+
+$core.addMethod(
+$core.method({
+selector: "exportPackageImportsOf:on:",
+protocol: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
+$recv($recv(aPackage)._importsAsJson())._ifNotEmpty_((function(imports){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("$core.packages[");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($recv(aPackage)._name())._asJavascript();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["asJavascript"]=1;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=2;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("].imports = ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=3;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($recv(imports)._asJavascript());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["nextPutAll:"]=4;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_(";");
+$2=$recv(aStream)._lf();
+return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({imports:imports},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exportPackageImportsOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage", "aStream"],
+source: "exportPackageImportsOf: aPackage on: aStream\x0a\x09aPackage importsAsJson ifNotEmpty: [ :imports |\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '$core.packages[';\x0a\x09\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09\x09nextPutAll: '].imports = ';\x0a\x09\x09\x09nextPutAll: imports asJavascript;\x0a\x09\x09\x09nextPutAll: ';';\x0a\x09\x09\x09lf ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotEmpty:", "importsAsJson", "nextPutAll:", "asJavascript", "name", "lf"]
 }),
 $globals.Exporter);
 
@@ -59339,9 +60829,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$recv(aStream)._nextPutAll_("(function(smalltalk,nil,_st){");
-$1=$recv(aStream)._lf();
+self._subclassResponsibility();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
@@ -59349,10 +60837,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutAll:", "lf"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.Exporter);
 
@@ -59507,7 +60995,7 @@ $globals.Exporter);
 
 
 
-$core.addClass('AmdExporter', $globals.Exporter, ['namespace'], 'Kernel-ImportExport');
+$core.addClass('AmdExporter', $globals.Exporter, ['namespace'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmdExporter.comment="I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.";
 //>>excludeEnd("ide");
@@ -59626,10 +61114,62 @@ selector: "exportPackagePrologueOf:on:",
 protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
+var importsForOutput,loadDependencies,pragmaStart,pragmaEnd;
+function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $1,$3,$2,$4,$6,$5,$7,$13,$12,$11,$10,$9,$8,$17,$16,$15,$14,$18;
+pragmaStart="";
+pragmaEnd="";
+importsForOutput=self._importsForOutput_(aPackage);
+loadDependencies=self._amdNamesOfPackages_($recv(aPackage)._loadDependencies());
+$1=$recv(importsForOutput)._value();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["value"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._ifNotEmpty_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$3=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3).__comma("//>>excludeStart(\x22imports\x22, pragmas.excludeImports);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+$4=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=2;
+//>>excludeEnd("ctx");
+pragmaStart=$recv($2).__comma($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+pragmaStart;
+$6=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=3;
+//>>excludeEnd("ctx");
+$5=$recv($6).__comma("//>>excludeEnd(\x22imports\x22);");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=4;
+//>>excludeEnd("ctx");
+$7=$recv($String())._lf();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["lf"]=4;
+//>>excludeEnd("ctx");
+pragmaEnd=$recv($5).__comma($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=3;
+//>>excludeEnd("ctx");
+return pragmaEnd;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
 $recv(aStream)._nextPutAll_("define(\x22");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -59650,37 +61190,126 @@ $recv(aStream)._nextPutAll_("\x22, ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=5;
 //>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_($recv(["amber/boot"].__comma(self._amdNamesOfPackages_($recv(aPackage)._loadDependencies())))._asJavascript());
+$13=["amber/boot", ":1:"].__comma($recv(importsForOutput)._value());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=7;
+//>>excludeEnd("ctx");
+$12=$recv($13).__comma([":2:"]);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=6;
+//>>excludeEnd("ctx");
+$11=$recv($12).__comma(loadDependencies);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=5;
+//>>excludeEnd("ctx");
+$10=$recv($11)._asJavascript();
+$9=$recv($10)._replace_with_(",\x5cs*[\x22']:1:[\x22']",pragmaStart);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["replace:with:"]=2;
+//>>excludeEnd("ctx");
+$8=$recv($9)._replace_with_(",\x5cs*[\x22']:2:[\x22']",pragmaEnd);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["replace:with:"]=1;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=6;
 //>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_(", function($boot){");
+$recv(aStream)._nextPutAll_(", function(");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=7;
 //>>excludeEnd("ctx");
+$17=$recv(["$boot", ":1:"].__comma($recv(importsForOutput)._key())).__comma([":2:"]);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=8;
+//>>excludeEnd("ctx");
+$16=$recv($17)._join_(",");
+$15=$recv($16)._replace_with_(",\x5cs*:1:",pragmaStart);
+$14=$recv($15)._replace_with_(",\x5cs*:2:",pragmaEnd);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["replace:with:"]=3;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_($14);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=8;
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutAll_("){");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nextPutAll:"]=9;
+//>>excludeEnd("ctx");
 $recv(aStream)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["lf"]=1;
+$ctx1.sendIdx["lf"]=5;
 //>>excludeEnd("ctx");
 $recv(aStream)._nextPutAll_("var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;");
-$1=$recv(aStream)._lf();
+$18=$recv(aStream)._lf();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},$globals.AmdExporter)});
+}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream,importsForOutput:importsForOutput,loadDependencies:loadDependencies,pragmaStart:pragmaStart,pragmaEnd:pragmaEnd},$globals.AmdExporter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber/boot'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function($boot){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| importsForOutput loadDependencies pragmaStart pragmaEnd |\x0a\x09pragmaStart := ''.\x0a\x09pragmaEnd := ''.\x0a\x09importsForOutput := self importsForOutput: aPackage.\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09importsForOutput value ifNotEmpty: [\x0a\x09\x09pragmaStart := String lf, '//>>excludeStart(\x22imports\x22, pragmas.excludeImports);', String lf.\x0a\x09\x09pragmaEnd := String lf, '//>>excludeEnd(\x22imports\x22);', String lf ].\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('amber/boot' ':1:'), importsForOutput value, #(':2:'), loadDependencies) asJavascript)\x0a\x09\x09\x09replace: ',\x5cs*[\x22'']:1:[\x22'']' with: pragmaStart) replace: ',\x5cs*[\x22'']:2:[\x22'']' with: pragmaEnd);\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('$boot' ':1:'), importsForOutput key, #(':2:')) join: ',')\x0a\x09\x09\x09replace: ',\x5cs*:1:' with: pragmaStart) replace: ',\x5cs*:2:' with: pragmaEnd);\x0a\x09\x09nextPutAll: '){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
+referencedClasses: ["String"],
+//>>excludeEnd("ide");
+messageSends: ["importsForOutput:", "amdNamesOfPackages:", "loadDependencies", "ifNotEmpty:", "value", ",", "lf", "nextPutAll:", "amdNamespaceOfPackage:", "name", "replace:with:", "asJavascript", "join:", "key"]
+}),
+$globals.AmdExporter);
+
+$core.addMethod(
+$core.method({
+selector: "importsForOutput:",
+protocol: 'private',
+fn: function (aPackage){
+var self=this;
+var namedImports,anonImports,importVarNames;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
+namedImports=[];
+anonImports=[];
+importVarNames=[];
+$recv($recv(aPackage)._imports())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv(each)._isString();
+if($core.assert($1)){
+return $recv(anonImports)._add_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["add:"]=1;
+//>>excludeEnd("ctx");
+} else {
+$recv(namedImports)._add_($recv(each)._value());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["add:"]=2;
+//>>excludeEnd("ctx");
+return $recv(importVarNames)._add_($recv(each)._key());
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+$2=$recv(importVarNames).__minus_gt($recv(namedImports).__comma(anonImports));
+return $2;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"importsForOutput:",{aPackage:aPackage,namedImports:namedImports,anonImports:anonImports,importVarNames:importVarNames},$globals.AmdExporter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aPackage"],
+source: "importsForOutput: aPackage\x0a\x09\x22Returns an association where key is list of import variables\x0a\x09and value is list of external dependencies, with ones imported as variables\x0a\x09put at the beginning with same order as is in key.\x0a\x09\x0a\x09For example imports:{'jQuery'->'jquery'. 'bootstrap'} would yield\x0a\x09#('jQuery') -> #('jquery' 'bootstrap')\x22\x0a\x09| namedImports anonImports importVarNames |\x0a\x09namedImports := #().\x0a\x09anonImports := #().\x0a\x09importVarNames := #().\x0a\x09aPackage imports do: [ :each | each isString\x0a\x09\x09ifTrue: [ anonImports add: each ]\x0a\x09\x09ifFalse: [ namedImports add: each value.\x0a\x09\x09\x09importVarNames add: each key ]].\x0a\x09^ importVarNames -> (namedImports, anonImports)",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutAll:", "amdNamespaceOfPackage:", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]
+messageSends: ["do:", "imports", "ifTrue:ifFalse:", "isString", "add:", "value", "key", "->", ","]
 }),
 $globals.AmdExporter);
 
 
 
-$core.addClass('ChunkParser', $globals.Object, ['stream', 'last'], 'Kernel-ImportExport');
+$core.addClass('ChunkParser', $globals.Object, ['stream', 'last'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk";
 //>>excludeEnd("ide");
@@ -59818,7 +61447,7 @@ messageSends: ["stream:", "new"]
 $globals.ChunkParser.klass);
 
 
-$core.addClass('ExportMethodProtocol', $globals.Object, ['name', 'theClass'], 'Kernel-ImportExport');
+$core.addClass('ExportMethodProtocol', $globals.Object, ['name', 'theClass'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ExportMethodProtocol.comment="I am an abstraction for a method protocol in a class / metaclass.\x0a\x0aI know of my class, name and methods.\x0aI am used when exporting a package.";
 //>>excludeEnd("ide");
@@ -59968,7 +61597,7 @@ messageSends: ["name:", "new", "theClass:", "yourself"]
 $globals.ExportMethodProtocol.klass);
 
 
-$core.addClass('Importer', $globals.Object, ['lastSection', 'lastChunk'], 'Kernel-ImportExport');
+$core.addClass('Importer', $globals.Object, ['lastSection', 'lastChunk'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.Importer.comment="I can import Amber code from a string in the chunk format.\x0a\x0a## API\x0a\x0a    Importer new import: aString";
 //>>excludeEnd("ide");
@@ -60039,7 +61668,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 self["@lastChunk"]=$recv(parser)._last();
 self["@lastChunk"];
-return $recv(e)._signal();
+return $recv(e)._resignal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,7)});
 //>>excludeEnd("ctx");
@@ -60051,10 +61680,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aStream"],
-source: "import: aStream\x0a\x09| chunk result parser lastEmpty |\x0a\x09parser := ChunkParser on: aStream.\x0a\x09lastEmpty := false.\x0a\x09lastSection := 'n/a, not started'.\x0a\x09lastChunk := nil.\x0a\x09[\x0a\x09[ chunk := parser nextChunk.\x0a\x09chunk isNil ] whileFalse: [\x0a\x09\x09chunk isEmpty\x0a\x09\x09\x09ifTrue: [ lastEmpty := true ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09lastSection := chunk.\x0a\x09\x09\x09\x09result := Compiler new evaluateExpression: chunk.\x0a\x09\x09\x09\x09lastEmpty\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09lastEmpty := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09result scanFrom: parser ]] ].\x0a\x09lastSection := 'n/a, finished'\x0a\x09] on: Error do: [:e | lastChunk := parser last. e signal ].",
+source: "import: aStream\x0a\x09| chunk result parser lastEmpty |\x0a\x09parser := ChunkParser on: aStream.\x0a\x09lastEmpty := false.\x0a\x09lastSection := 'n/a, not started'.\x0a\x09lastChunk := nil.\x0a\x09[\x0a\x09[ chunk := parser nextChunk.\x0a\x09chunk isNil ] whileFalse: [\x0a\x09\x09chunk isEmpty\x0a\x09\x09\x09ifTrue: [ lastEmpty := true ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09lastSection := chunk.\x0a\x09\x09\x09\x09result := Compiler new evaluateExpression: chunk.\x0a\x09\x09\x09\x09lastEmpty\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09lastEmpty := false.\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09result scanFrom: parser ]] ].\x0a\x09lastSection := 'n/a, finished'\x0a\x09] on: Error do: [:e | lastChunk := parser last. e resignal ].",
 referencedClasses: ["ChunkParser", "Compiler", "Error"],
 //>>excludeEnd("ide");
-messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "signal"]
+messageSends: ["on:", "on:do:", "whileFalse:", "nextChunk", "isNil", "ifTrue:ifFalse:", "isEmpty", "evaluateExpression:", "new", "ifTrue:", "scanFrom:", "last", "resignal"]
 }),
 $globals.Importer);
 
@@ -60100,7 +61729,7 @@ $globals.Importer);
 
 
 
-$core.addClass('PackageHandler', $globals.InterfacingObject, [], 'Kernel-ImportExport');
+$core.addClass('PackageHandler', $globals.InterfacingObject, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 //>>excludeEnd("ide");
@@ -60470,16 +62099,21 @@ selector: "exporterClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Exporter(){return $globals.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
-return $Exporter();
-
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._subclassResponsibility();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"exporterClass",{},$globals.PackageHandler)});
+//>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "exporterClass\x0a\x09^ Exporter",
-referencedClasses: ["Exporter"],
+source: "exporterClass\x0a\x09self subclassResponsibility",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["subclassResponsibility"]
 }),
 $globals.PackageHandler);
 
@@ -60542,7 +62176,7 @@ $globals.PackageHandler);
 
 
 
-$core.addClass('AmdPackageHandler', $globals.PackageHandler, [], 'Kernel-ImportExport');
+$core.addClass('AmdPackageHandler', $globals.PackageHandler, [], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmdPackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 //>>excludeEnd("ide");
@@ -60777,7 +62411,7 @@ messageSends: ["defaultAmdNamespace:"]
 $globals.AmdPackageHandler.klass);
 
 
-$core.addClass('PackageTransport', $globals.Object, ['package'], 'Kernel-ImportExport');
+$core.addClass('PackageTransport', $globals.Object, ['package'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.PackageTransport.comment="I represent the transport mechanism used to commit a package.\x0a\x0aMy concrete subclasses have a `#handler` to which committing is delegated.";
 //>>excludeEnd("ide");
@@ -61148,9 +62782,11 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
+function $PackageTransport(){return $globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
+var $1;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -61159,8 +62795,13 @@ $globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply($recv(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
+$1=self.__eq_eq($PackageTransport());
+if($core.assert($1)){
 self["@registry"]=$globals.HashedCollection._newFromPairs_([]);
+self["@registry"];
+} else {
 self._register();
+};
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.PackageTransport.klass)});
@@ -61168,10 +62809,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09registry := #{}.\x0a\x09self register",
-referencedClasses: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self == PackageTransport\x0a\x09\x09ifTrue: [ registry := #{} ]\x0a\x09\x09ifFalse: [ self register ]",
+referencedClasses: ["PackageTransport"],
 //>>excludeEnd("ide");
-messageSends: ["initialize", "register"]
+messageSends: ["initialize", "ifTrue:ifFalse:", "==", "register"]
 }),
 $globals.PackageTransport.klass);
 
@@ -61252,7 +62893,7 @@ messageSends: []
 $globals.PackageTransport.klass);
 
 
-$core.addClass('AmdPackageTransport', $globals.PackageTransport, ['namespace'], 'Kernel-ImportExport');
+$core.addClass('AmdPackageTransport', $globals.PackageTransport, ['namespace'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.AmdPackageTransport.comment="I am the default transport for committing packages.\x0a\x0aSee `AmdExporter` and `AmdPackageHandler`.";
 //>>excludeEnd("ide");
@@ -61571,7 +63212,7 @@ $globals.AmdPackageTransport.klass);
 $core.addMethod(
 $core.method({
 selector: "commit",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -61596,7 +63237,7 @@ $globals.Package);
 $core.addMethod(
 $core.method({
 selector: "load",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -61621,7 +63262,7 @@ $globals.Package);
 $core.addMethod(
 $core.method({
 selector: "loadFromNamespace:",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -61649,7 +63290,7 @@ $globals.Package);
 $core.addMethod(
 $core.method({
 selector: "load:",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (aPackageName){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -61673,7 +63314,7 @@ $globals.Package.klass);
 $core.addMethod(
 $core.method({
 selector: "load:fromNamespace:",
-protocol: '*Kernel-ImportExport',
+protocol: '*Platform-ImportExport',
 fn: function (aPackageName,aString){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -61699,6 +63340,7 @@ $globals.Package.klass);
 define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Tests');
+$core.packages["Kernel-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('AnnouncementSubscriptionTest', $globals.TestCase, [], 'Kernel-Tests');
@@ -62018,6 +63660,74 @@ $globals.AnnouncerTest);
 $core.addClass('BlockClosureTest', $globals.TestCase, [], 'Kernel-Tests');
 $core.addMethod(
 $core.method({
+selector: "localReturnOnDoCatch",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $early={};
+try {
+$recv((function(){
+throw $early=[(2)];
+
+}))._on_do_($Error(),(function(){
+
+}));
+return (3);
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"localReturnOnDoCatch",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "localReturnOnDoCatch\x0a    [ ^ 2 ] on: Error do: [].\x0a    ^ 3",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["on:do:"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
+selector: "localReturnOnDoMiss",
+protocol: 'fixture',
+fn: function (){
+var self=this;
+function $Class(){return $globals.Class||(typeof Class=="undefined"?nil:Class)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $early={};
+try {
+$recv((function(){
+throw $early=[(2)];
+
+}))._on_do_($Class(),(function(){
+
+}));
+return (3);
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"localReturnOnDoMiss",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "localReturnOnDoMiss\x0a    [ ^ 2 ] on: Class do: [].\x0a    ^ 3",
+referencedClasses: ["Class"],
+//>>excludeEnd("ide");
+messageSends: ["on:do:"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
 selector: "testCanClearInterval",
 protocol: 'tests',
 fn: function (){
@@ -62311,6 +64021,54 @@ source: "testExceptionSemantics\x0a\x09\x22See https://github.com/NicolasPetton/
 referencedClasses: ["Error"],
 //>>excludeEnd("ide");
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "assert:", "signal", "deny:", "finished"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
+selector: "testLocalReturnOnDoCatch",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._assert_equals_(self._localReturnOnDoCatch(),(2));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testLocalReturnOnDoCatch",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testLocalReturnOnDoCatch\x0a\x09self assert: self localReturnOnDoCatch equals: 2",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:equals:", "localReturnOnDoCatch"]
+}),
+$globals.BlockClosureTest);
+
+$core.addMethod(
+$core.method({
+selector: "testLocalReturnOnDoMiss",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._assert_equals_(self._localReturnOnDoMiss(),(2));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testLocalReturnOnDoMiss",{},$globals.BlockClosureTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testLocalReturnOnDoMiss\x0a\x09self assert: self localReturnOnDoMiss equals: 2",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:equals:", "localReturnOnDoMiss"]
 }),
 $globals.BlockClosureTest);
 
@@ -76556,6 +78314,7 @@ $globals.UndefinedTest);
 define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Tests');
+$core.packages["Compiler-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ASTParsingTest', $globals.TestCase, [], 'Compiler-Tests');
@@ -79565,6 +81324,7 @@ $globals.AISemanticAnalyzerTest);
 define("amber_core/SUnit-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('SUnit-Tests');
+$core.packages["SUnit-Tests"].innerEval = function (expr) { return eval(expr); };
 $core.packages["SUnit-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('ExampleSetTest', $globals.TestCase, ['empty', 'full'], 'SUnit-Tests');
@@ -80527,6 +82287,7 @@ $globals.SUnitAsyncTest);
 define("amber_cli/AmberCli", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('AmberCli');
+$core.packages["AmberCli"].innerEval = function (expr) { return eval(expr); };
 $core.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
 $core.addClass('AmberCli', $globals.Object, [], 'AmberCli');
@@ -84169,7 +85930,7 @@ $globals.Repl.klass);
 
 });
 
-define("app", ["amber/boot","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Kernel-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
+define("app", ["amber/boot","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Announcements","amber_core/Platform-Services","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber/parser","amber_core/SUnit","amber_core/Platform-ImportExport","amber_core/Kernel-Tests","amber_core/Compiler-Tests","amber_core/SUnit-Tests","amber_cli/AmberCli"], function (boot) {
 boot.api.initialize();
 var $core = boot.api, $globals = boot.globals;
 $globals.AmberCli._main();
