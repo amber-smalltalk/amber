@@ -5303,55 +5303,6 @@ $globals.Object);
 
 $core.addMethod(
 $core.method({
-selector: "postMessageTo:",
-protocol: '*Web',
-fn: function (aFrame){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=self._postMessageTo_origin_(aFrame,"*");
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aFrame"],
-source: "postMessageTo: aFrame\x0a^ self postMessageTo: aFrame origin: '*'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["postMessageTo:origin:"]
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
-selector: "postMessageTo:origin:",
-protocol: '*Web',
-fn: function (aFrame,aString){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return aFrame.postMessage(self, aString);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"postMessageTo:origin:",{aFrame:aFrame,aString:aString},$globals.Object)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aFrame", "aString"],
-source: "postMessageTo: aFrame origin: aString\x0a<return aFrame.postMessage(self, aString)>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Object);
-
-$core.addMethod(
-$core.method({
 selector: "appendToBrush:",
 protocol: '*Web',
 fn: function (aTagBrush){

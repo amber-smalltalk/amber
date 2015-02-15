@@ -1075,14 +1075,6 @@ appendToBrush: aTagBrush
 
 appendToJQuery: aJQuery
 	aJQuery append: self asString
-!
-
-postMessageTo: aFrame
-^ self postMessageTo: aFrame origin: '*'
-!
-
-postMessageTo: aFrame origin: aString
-<return aFrame.postMessage(self, aString)>
 ! !
 
 !String methodsFor: '*Web'!
