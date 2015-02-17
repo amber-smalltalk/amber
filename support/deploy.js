@@ -9,7 +9,6 @@ define([
     'amber_core/Kernel-Exceptions',
     'amber_core/Kernel-Announcements',
     'amber_core/Platform-Services',
-    'amber_core/Platform-Browser',
-    'amber-contrib-web/Web'
+    'amber_core/Platform-Browser'
     // --- packages of the core Amber end here ---
 ], function (amber) { return amber; });
