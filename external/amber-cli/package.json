@@ -1,6 +1,6 @@
 {
   "name": "amber-cli",
-  "version": "0.14.10-0",
+  "version": "0.14.10",
   "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
   "homepage": "http://amber-lang.net",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git://github.com/amber-smalltalk/amber.git"
   },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=0.10.0"
   },
   "bugs": {
     "url": "https://github.com/amber-smalltalk/amber/issues?labels=in+cli"
@@ -36,11 +36,11 @@
     "test": "mocha"
   },
   "dependencies": {
-    "amber": "^0.14.10-0",
-    "grunt-init-amber": "^0.14.10-0",
+    "amber": "^0.14.10",
+    "grunt-init-amber": "^0.14.10",
     "grunt-init": "^0.3.1",
     "bower": "^1.3.9",
-    "amber-dev": "^0.4.0-0",
+    "amber-dev": "^0.4.0",
     "grunt-cli": "^0.1.13"
   },
   "devDependencies": {
