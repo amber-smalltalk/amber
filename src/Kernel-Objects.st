@@ -209,10 +209,6 @@ basicDelete: aString
 
 size
 	self error: 'Object not indexable'
-!
-
-value
-	<return self.valueOf()>
 ! !
 
 !Object methodsFor: 'browsing'!
@@ -311,6 +307,16 @@ subclassResponsibility
 
 throw: anObject
 	< throw anObject >
+! !
+
+!Object methodsFor: 'evaluating'!
+
+in: aValuable
+	^ aValuable value: self
+!
+
+value
+	<return self.valueOf()>
 ! !
 
 !Object methodsFor: 'inspecting'!

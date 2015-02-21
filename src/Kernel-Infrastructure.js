@@ -233,6 +233,31 @@ $globals.JSObjectProxy);
 
 $core.addMethod(
 $core.method({
+selector: "in:",
+protocol: 'accessing',
+fn: function (aValuable){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aValuable)._value_(self["@jsObject"]);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"in:",{aValuable:aValuable},$globals.JSObjectProxy)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aValuable"],
+source: "in: aValuable\x0a\x09^ aValuable value: jsObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["value:"]
+}),
+$globals.JSObjectProxy);
+
+$core.addMethod(
+$core.method({
 selector: "inspectOn:",
 protocol: 'proxy',
 fn: function (anInspector){

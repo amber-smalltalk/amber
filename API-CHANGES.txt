@@ -1,3 +1,11 @@
+0.14.11:
+
++ Object >>
+  + in:
++ JSObjectProxy >>
+  + in:
+
+
 0.14.10:
 
 + JSObjectProxy class >>

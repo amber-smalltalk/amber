@@ -62,6 +62,10 @@ at: aString put: anObject
 	<return self['@jsObject'][aString] = anObject>
 !
 
+in: aValuable
+	^ aValuable value: jsObject
+!
+
 jsObject
 	^ jsObject
 ! !
