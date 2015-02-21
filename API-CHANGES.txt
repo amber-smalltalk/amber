@@ -1,5 +1,7 @@
 0.14.11:
 
+* Basic streaming protocol extracted from Stream to ProtoStream
+
 + Object >>
   + in:
 + JSObjectProxy >>

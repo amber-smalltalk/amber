@@ -2037,6 +2037,288 @@ includes: anObject
 		ifNotNil: [ :primitiveBucket | self includes: bucket first in: primitiveBucket ]
 ! !
 
+Object subclass: #ProtoStream
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!ProtoStream commentStamp!
+I am the abstract base for different accessor for a sequence of objects. This sequence is referred to as my "contents".
+My instances are read/write streams modifying the contents.!
+
+!ProtoStream methodsFor: 'accessing'!
+
+contents
+	self subclassResponsibility
+! !
+
+!ProtoStream methodsFor: 'actions'!
+
+reset
+	self subclassResponsibility
+!
+
+resetContents
+	self subclassResponsibility
+! !
+
+!ProtoStream methodsFor: 'enumerating'!
+
+do: aBlock
+	[ self atEnd ] whileFalse: [ aBlock value: self next ]
+! !
+
+!ProtoStream methodsFor: 'positioning'!
+
+setToEnd
+	self subclassResponsibility
+!
+
+setToStart
+	self reset
+! !
+
+!ProtoStream methodsFor: 'reading'!
+
+next
+	^ self atEnd
+		ifTrue: [ nil ]
+		ifFalse: [ self subclassResponsibility ]
+!
+
+peek
+	^ self atEnd
+		ifTrue: [ nil ]
+		ifFalse: [ self subclassResponsibility ]
+! !
+
+!ProtoStream methodsFor: 'testing'!
+
+atEnd
+	self subclassResponsibility
+!
+
+atStart
+	self subclassResponsibility
+!
+
+isEmpty
+	^ self atStart and: [ self atEnd ]
+! !
+
+!ProtoStream methodsFor: 'writing'!
+
+<< anObject
+	self write: anObject
+!
+
+nextPut: anObject
+	self subclassResponsibility
+!
+
+nextPutAll: aCollection
+	aCollection do: [ :each |
+		self nextPut: each ]
+!
+
+nextPutString: aString
+	self nextPut: aString
+!
+
+write: anObject
+	anObject putOn: self
+! !
+
+!ProtoStream class methodsFor: 'instance creation'!
+
+on: aCollection
+		^ self new
+		setCollection: aCollection;
+		setStreamSize: aCollection size;
+		yourself
+! !
+
+ProtoStream subclass: #Stream
+	instanceVariableNames: 'collection position streamSize'
+	package: 'Kernel-Collections'!
+!Stream commentStamp!
+I represent an accessor for a sequence of objects. This sequence is referred to as my "contents".
+My instances are read/write streams to the contents sequence collection.!
+
+!Stream methodsFor: 'accessing'!
+
+collection
+	^ collection
+!
+
+contents
+	^ self collection
+		copyFrom: 1
+		to: self streamSize
+!
+
+position
+	^ position ifNil: [ position := 0 ]
+!
+
+position: anInteger
+	position := anInteger
+!
+
+setCollection: aCollection
+	collection := aCollection
+!
+
+setStreamSize: anInteger
+	streamSize := anInteger
+!
+
+size
+	^ self streamSize
+!
+
+streamSize
+	^ streamSize
+! !
+
+!Stream methodsFor: 'actions'!
+
+close
+!
+
+flush
+!
+
+reset
+	self position: 0
+!
+
+resetContents
+	self reset.
+	self setStreamSize: 0
+! !
+
+!Stream methodsFor: 'positioning'!
+
+setToEnd
+	self position: self size
+!
+
+skip: anInteger
+	self position: ((self position + anInteger) min: self size max: 0)
+! !
+
+!Stream methodsFor: 'reading'!
+
+next
+	^ self atEnd
+		ifTrue: [ nil ]
+		ifFalse: [
+			self position: self position + 1.
+			collection at: self position ]
+!
+
+next: anInteger
+	| tempCollection |
+	tempCollection := self collection class new.
+	anInteger timesRepeat: [
+		self atEnd ifFalse: [
+		tempCollection add: self next ]].
+	^ tempCollection
+!
+
+peek
+	^ self atEnd ifFalse: [
+		self collection at: self position + 1 ]
+! !
+
+!Stream methodsFor: 'testing'!
+
+atEnd
+	^ self position = self size
+!
+
+atStart
+	^ self position = 0
+!
+
+isEmpty
+	^ self size = 0
+! !
+
+!Stream methodsFor: 'writing'!
+
+nextPut: anObject
+	self position: self position + 1.
+	self collection at: self position put: anObject.
+	self setStreamSize: (self streamSize max: self position)
+! !
+
+!Stream class methodsFor: 'instance creation'!
+
+on: aCollection
+		^ self new
+		setCollection: aCollection;
+		setStreamSize: aCollection size;
+		yourself
+! !
+
+Stream subclass: #StringStream
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!StringStream commentStamp!
+I am a Stream specific to `String` objects.!
+
+!StringStream methodsFor: 'reading'!
+
+next: anInteger
+	| tempCollection |
+	tempCollection := self collection class new.
+	anInteger timesRepeat: [
+		self atEnd ifFalse: [
+		tempCollection := tempCollection, self next ]].
+	^ tempCollection
+! !
+
+!StringStream methodsFor: 'writing'!
+
+cr
+	^ self nextPutAll: String cr
+!
+
+crlf
+	^ self nextPutAll: String crlf
+!
+
+lf
+	^ self nextPutAll: String lf
+!
+
+nextPut: aString
+	self nextPutAll: aString
+!
+
+nextPutAll: aString
+	| pre post |
+	self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [
+		pre := self collection copyFrom: 1 to: self position.
+		post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.
+		self setCollection: pre, aString, post
+	].
+	self position: self position + aString size.
+	self setStreamSize: (self streamSize max: self position)
+!
+
+nextPutString: aString
+	self nextPutAll: aString
+!
+
+space
+	self nextPut: ' '
+!
+
+tab
+	^ self nextPutAll: String tab
+! !
+
 Object subclass: #Queue
 	instanceVariableNames: 'read readIndex write'
 	package: 'Kernel-Collections'!
@@ -2120,211 +2402,5 @@ fromString: aString
 
 fromString: aString flag: anotherString
 	<return new RegExp(aString, anotherString)>
-! !
-
-Object subclass: #Stream
-	instanceVariableNames: 'collection position streamSize'
-	package: 'Kernel-Collections'!
-!Stream commentStamp!
-I represent an accessor for a sequence of objects. This sequence is referred to as my "contents".
-My instances are read/write streams to the contents sequence collection.!
-
-!Stream methodsFor: 'accessing'!
-
-collection
-	^ collection
-!
-
-contents
-	^ self collection
-		copyFrom: 1
-		to: self streamSize
-!
-
-position
-	^ position ifNil: [ position := 0 ]
-!
-
-position: anInteger
-	position := anInteger
-!
-
-setCollection: aCollection
-	collection := aCollection
-!
-
-setStreamSize: anInteger
-	streamSize := anInteger
-!
-
-size
-	^ self streamSize
-!
-
-streamSize
-	^ streamSize
-! !
-
-!Stream methodsFor: 'actions'!
-
-close
-!
-
-flush
-!
-
-reset
-	self position: 0
-!
-
-resetContents
-	self reset.
-	self setStreamSize: 0
-! !
-
-!Stream methodsFor: 'enumerating'!
-
-do: aBlock
-	[ self atEnd ] whileFalse: [ aBlock value: self next ]
-! !
-
-!Stream methodsFor: 'positioning'!
-
-setToEnd
-	self position: self size
-!
-
-skip: anInteger
-	self position: ((self position + anInteger) min: self size max: 0)
-! !
-
-!Stream methodsFor: 'reading'!
-
-next
-	^ self atEnd
-		ifTrue: [ nil ]
-		ifFalse: [
-			self position: self position + 1.
-			collection at: self position ]
-!
-
-next: anInteger
-	| tempCollection |
-	tempCollection := self collection class new.
-	anInteger timesRepeat: [
-		self atEnd ifFalse: [
-		tempCollection add: self next ]].
-	^ tempCollection
-!
-
-peek
-	^ self atEnd ifFalse: [
-		self collection at: self position + 1 ]
-! !
-
-!Stream methodsFor: 'testing'!
-
-atEnd
-	^ self position = self size
-!
-
-atStart
-	^ self position = 0
-!
-
-isEmpty
-	^ self size = 0
-! !
-
-!Stream methodsFor: 'writing'!
-
-<< anObject
-	self write: anObject
-!
-
-nextPut: anObject
-	self position: self position + 1.
-	self collection at: self position put: anObject.
-	self setStreamSize: (self streamSize max: self position)
-!
-
-nextPutAll: aCollection
-	aCollection do: [ :each |
-		self nextPut: each ]
-!
-
-nextPutString: aString
-	self nextPut: aString
-!
-
-write: anObject
-	anObject putOn: self
-! !
-
-!Stream class methodsFor: 'instance creation'!
-
-on: aCollection
-		^ self new
-		setCollection: aCollection;
-		setStreamSize: aCollection size;
-		yourself
-! !
-
-Stream subclass: #StringStream
-	instanceVariableNames: ''
-	package: 'Kernel-Collections'!
-!StringStream commentStamp!
-I am a Stream specific to `String` objects.!
-
-!StringStream methodsFor: 'reading'!
-
-next: anInteger
-	| tempCollection |
-	tempCollection := self collection class new.
-	anInteger timesRepeat: [
-		self atEnd ifFalse: [
-		tempCollection := tempCollection, self next ]].
-	^ tempCollection
-! !
-
-!StringStream methodsFor: 'writing'!
-
-cr
-	^ self nextPutAll: String cr
-!
-
-crlf
-	^ self nextPutAll: String crlf
-!
-
-lf
-	^ self nextPutAll: String lf
-!
-
-nextPut: aString
-	self nextPutAll: aString
-!
-
-nextPutAll: aString
-	| pre post |
-	self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [
-		pre := self collection copyFrom: 1 to: self position.
-		post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.
-		self setCollection: pre, aString, post
-	].
-	self position: self position + aString size.
-	self setStreamSize: (self streamSize max: self position)
-!
-
-nextPutString: aString
-	self nextPutAll: aString
-!
-
-space
-	self nextPut: ' '
-!
-
-tab
-	^ self nextPutAll: String tab
 ! !
 
