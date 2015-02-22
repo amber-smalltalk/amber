@@ -1,3 +1,11 @@
+0.14.12:
+
++ JSObjectProxy >>
+  + putOn:
++ ProtoStream >>
+  + nextPutJSObject:
+
+
 0.14.11:
 
 * Basic streaming protocol extracted from Stream to ProtoStream

@@ -389,6 +389,30 @@ messageSends: []
 }),
 $globals.JSObjectProxy);
 
+$core.addMethod(
+$core.method({
+selector: "putOn:",
+protocol: 'accessing',
+fn: function (aStream){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv(aStream)._nextPutJSObject_(self["@jsObject"]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},$globals.JSObjectProxy)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aStream"],
+source: "putOn: aStream\x0a\x09aStream nextPutJSObject: jsObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["nextPutJSObject:"]
+}),
+$globals.JSObjectProxy);
+
 
 $core.addMethod(
 $core.method({

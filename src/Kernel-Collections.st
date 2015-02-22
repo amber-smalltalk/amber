@@ -2119,6 +2119,10 @@ nextPutAll: aCollection
 		self nextPut: each ]
 !
 
+nextPutJSObject: aJSObject
+	self nextPut: aJSObject
+!
+
 nextPutString: aString
 	self nextPut: aString
 !

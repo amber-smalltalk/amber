@@ -68,6 +68,10 @@ in: aValuable
 
 jsObject
 	^ jsObject
+!
+
+putOn: aStream
+	aStream nextPutJSObject: jsObject
 ! !
 
 !JSObjectProxy methodsFor: 'comparing'!
