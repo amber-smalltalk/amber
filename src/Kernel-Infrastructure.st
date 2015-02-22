@@ -68,10 +68,6 @@ in: aValuable
 
 jsObject
 	^ jsObject
-!
-
-putOn: aStream
-	aStream nextPutJSObject: jsObject
 ! !
 
 !JSObjectProxy methodsFor: 'comparing'!
@@ -132,6 +128,12 @@ inspectOn: anInspector
 	anInspector setLabel: self printString.
 	JSObjectProxy addObjectVariablesTo: variables ofProxy: self.
 	anInspector setVariables: variables
+! !
+
+!JSObjectProxy methodsFor: 'streaming'!
+
+putOn: aStream
+	aStream nextPutJSObject: jsObject
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!

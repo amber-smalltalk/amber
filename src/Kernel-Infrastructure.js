@@ -392,7 +392,7 @@ $globals.JSObjectProxy);
 $core.addMethod(
 $core.method({
 selector: "putOn:",
-protocol: 'accessing',
+protocol: 'streaming',
 fn: function (aStream){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
