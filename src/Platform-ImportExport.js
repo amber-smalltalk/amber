@@ -1,4 +1,4 @@
-define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
+define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-ImportExport');
 $core.packages["Platform-ImportExport"].innerEval = function (expr) { return eval(expr); };
@@ -2287,133 +2287,6 @@ messageSends: ["stream:", "new"]
 $globals.ChunkParser.klass);
 
 
-$core.addClass('ClassCategoryReader', $globals.Object, ['class', 'category'], 'Platform-ImportExport');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.ClassCategoryReader.comment="I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "class:category:",
-protocol: 'accessing',
-fn: function (aClass,aString){
-var self=this;
-self["@class"]=aClass;
-self["@category"]=aString;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aClass", "aString"],
-source: "class: aClass category: aString\x0a\x09class := aClass.\x0a\x09category := aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ClassCategoryReader);
-
-$core.addMethod(
-$core.method({
-selector: "compileMethod:",
-protocol: 'private',
-fn: function (aString){
-var self=this;
-function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($recv($Compiler())._new())._install_forClass_protocol_(aString,self["@class"],self["@category"]);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"compileMethod:",{aString:aString},$globals.ClassCategoryReader)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString"],
-source: "compileMethod: aString\x0a\x09Compiler new install: aString forClass: class protocol: category",
-referencedClasses: ["Compiler"],
-//>>excludeEnd("ide");
-messageSends: ["install:forClass:protocol:", "new"]
-}),
-$globals.ClassCategoryReader);
-
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-(
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
-//>>excludeEnd("ctx");
-$globals.ClassCategoryReader.superclass.fn.prototype._initialize.apply($recv(self), []));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = false;
-//>>excludeEnd("ctx");;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ClassCategoryReader)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09super initialize.",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["initialize"]
-}),
-$globals.ClassCategoryReader);
-
-$core.addMethod(
-$core.method({
-selector: "scanFrom:",
-protocol: 'fileIn',
-fn: function (aChunkParser){
-var self=this;
-var chunk;
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-chunk=$recv(aChunkParser)._nextChunk();
-chunk;
-return $recv(chunk)._isEmpty();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
-//>>excludeEnd("ctx");
-}))._whileFalse_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._compileMethod_(chunk);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-//>>excludeEnd("ctx");
-}));
-$recv($recv($ClassBuilder())._new())._setupClass_(self["@class"]);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"scanFrom:",{aChunkParser:aChunkParser,chunk:chunk},$globals.ClassCategoryReader)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aChunkParser"],
-source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09[ chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty ] whileFalse: [\x0a\x09\x09self compileMethod: chunk ].\x0a\x09ClassBuilder new setupClass: class",
-referencedClasses: ["ClassBuilder"],
-//>>excludeEnd("ide");
-messageSends: ["whileFalse:", "nextChunk", "isEmpty", "compileMethod:", "setupClass:", "new"]
-}),
-$globals.ClassCategoryReader);
-
-
-
 $core.addClass('ClassCommentReader', $globals.Object, ['class'], 'Platform-ImportExport');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ClassCommentReader.comment="I provide a mechanism for retrieving class comments stored on a file.\x0a\x0aSee also `ClassCategoryReader`.";
@@ -2521,6 +2394,133 @@ referencedClasses: [],
 messageSends: ["comment:"]
 }),
 $globals.ClassCommentReader);
+
+
+
+$core.addClass('ClassProtocolReader', $globals.Object, ['class', 'category'], 'Platform-ImportExport');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ClassProtocolReader.comment="I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "class:category:",
+protocol: 'accessing',
+fn: function (aClass,aString){
+var self=this;
+self["@class"]=aClass;
+self["@category"]=aString;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aClass", "aString"],
+source: "class: aClass category: aString\x0a\x09class := aClass.\x0a\x09category := aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ClassProtocolReader);
+
+$core.addMethod(
+$core.method({
+selector: "compileMethod:",
+protocol: 'private',
+fn: function (aString){
+var self=this;
+function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv($Compiler())._new())._install_forClass_protocol_(aString,self["@class"],self["@category"]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"compileMethod:",{aString:aString},$globals.ClassProtocolReader)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "compileMethod: aString\x0a\x09Compiler new install: aString forClass: class protocol: category",
+referencedClasses: ["Compiler"],
+//>>excludeEnd("ide");
+messageSends: ["install:forClass:protocol:", "new"]
+}),
+$globals.ClassProtocolReader);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+$globals.ClassProtocolReader.superclass.fn.prototype._initialize.apply($recv(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ClassProtocolReader)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["initialize"]
+}),
+$globals.ClassProtocolReader);
+
+$core.addMethod(
+$core.method({
+selector: "scanFrom:",
+protocol: 'fileIn',
+fn: function (aChunkParser){
+var self=this;
+var chunk;
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+chunk=$recv(aChunkParser)._nextChunk();
+chunk;
+return $recv(chunk)._isEmpty();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._whileFalse_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._compileMethod_(chunk);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+$recv($recv($ClassBuilder())._new())._setupClass_(self["@class"]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"scanFrom:",{aChunkParser:aChunkParser,chunk:chunk},$globals.ClassProtocolReader)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aChunkParser"],
+source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09[ chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty ] whileFalse: [\x0a\x09\x09self compileMethod: chunk ].\x0a\x09ClassBuilder new setupClass: class",
+referencedClasses: ["ClassBuilder"],
+//>>excludeEnd("ide");
+messageSends: ["whileFalse:", "nextChunk", "isEmpty", "compileMethod:", "setupClass:", "new"]
+}),
+$globals.ClassProtocolReader);
 
 
 
@@ -4352,12 +4352,12 @@ selector: "methodsFor:",
 protocol: '*Platform-ImportExport',
 fn: function (aString){
 var self=this;
-function $ClassCategoryReader(){return $globals.ClassCategoryReader||(typeof ClassCategoryReader=="undefined"?nil:ClassCategoryReader)}
+function $ClassProtocolReader(){return $globals.ClassProtocolReader||(typeof ClassProtocolReader=="undefined"?nil:ClassProtocolReader)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1;
-$2=$recv($ClassCategoryReader())._new();
+$2=$recv($ClassProtocolReader())._new();
 $recv($2)._class_category_(self,aString);
 $3=$recv($2)._yourself();
 $1=$3;
@@ -4368,8 +4368,8 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "methodsFor: aString\x0a\x09^ ClassCategoryReader new\x0a\x09\x09class: self category: aString;\x0a\x09\x09yourself",
-referencedClasses: ["ClassCategoryReader"],
+source: "methodsFor: aString\x0a\x09^ ClassProtocolReader new\x0a\x09\x09class: self category: aString;\x0a\x09\x09yourself",
+referencedClasses: ["ClassProtocolReader"],
 //>>excludeEnd("ide");
 messageSends: ["class:category:", "new", "yourself"]
 }),

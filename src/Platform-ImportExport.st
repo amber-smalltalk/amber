@@ -528,41 +528,6 @@ on: aStream
 	^ self new stream: aStream
 ! !
 
-Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class category'
-	package: 'Platform-ImportExport'!
-!ClassCategoryReader commentStamp!
-I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.!
-
-!ClassCategoryReader methodsFor: 'accessing'!
-
-class: aClass category: aString
-	class := aClass.
-	category := aString
-! !
-
-!ClassCategoryReader methodsFor: 'fileIn'!
-
-scanFrom: aChunkParser
-	| chunk |
-	[ chunk := aChunkParser nextChunk.
-	chunk isEmpty ] whileFalse: [
-		self compileMethod: chunk ].
-	ClassBuilder new setupClass: class
-! !
-
-!ClassCategoryReader methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-! !
-
-!ClassCategoryReader methodsFor: 'private'!
-
-compileMethod: aString
-	Compiler new install: aString forClass: class protocol: category
-! !
-
 Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class'
 	package: 'Platform-ImportExport'!
@@ -596,6 +561,41 @@ initialize
 
 setComment: aString
 	class comment: aString
+! !
+
+Object subclass: #ClassProtocolReader
+	instanceVariableNames: 'class category'
+	package: 'Platform-ImportExport'!
+!ClassProtocolReader commentStamp!
+I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.!
+
+!ClassProtocolReader methodsFor: 'accessing'!
+
+class: aClass category: aString
+	class := aClass.
+	category := aString
+! !
+
+!ClassProtocolReader methodsFor: 'fileIn'!
+
+scanFrom: aChunkParser
+	| chunk |
+	[ chunk := aChunkParser nextChunk.
+	chunk isEmpty ] whileFalse: [
+		self compileMethod: chunk ].
+	ClassBuilder new setupClass: class
+! !
+
+!ClassProtocolReader methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+! !
+
+!ClassProtocolReader methodsFor: 'private'!
+
+compileMethod: aString
+	Compiler new install: aString forClass: class protocol: category
 ! !
 
 Object subclass: #ExportMethodProtocol
@@ -1080,7 +1080,7 @@ commentStamp: aStamp prior: prior
 !
 
 methodsFor: aString
-	^ ClassCategoryReader new
+	^ ClassProtocolReader new
 		class: self category: aString;
 		yourself
 !
