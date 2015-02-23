@@ -67,16 +67,6 @@ comment: aString
 			yourself)
 !
 
-commentStamp
-	^ ClassCommentReader new
-	class: self;
-	yourself
-!
-
-commentStamp: aStamp prior: prior
-		^ self commentStamp
-!
-
 definition
 	^ ''
 !
@@ -143,17 +133,6 @@ methodTemplate
 
 methods
 	^ self methodDictionary values
-!
-
-methodsFor: aString
-	^ ClassCategoryReader new
-		class: self category: aString;
-		yourself
-!
-
-methodsFor: aString stamp: aStamp
-	"Added for file-in compatibility, ignores stamp."
-	^ self methodsFor: aString
 !
 
 methodsInProtocol: aString
@@ -773,76 +752,6 @@ rawRenameClass: aClass to: aString
 
 setupClass: aClass
 	<$core.init(aClass);>
-! !
-
-Object subclass: #ClassCategoryReader
-	instanceVariableNames: 'class category'
-	package: 'Kernel-Classes'!
-!ClassCategoryReader commentStamp!
-I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.!
-
-!ClassCategoryReader methodsFor: 'accessing'!
-
-class: aClass category: aString
-	class := aClass.
-	category := aString
-! !
-
-!ClassCategoryReader methodsFor: 'fileIn'!
-
-scanFrom: aChunkParser
-	| chunk |
-	[ chunk := aChunkParser nextChunk.
-	chunk isEmpty ] whileFalse: [
-		self compileMethod: chunk ].
-	ClassBuilder new setupClass: class
-! !
-
-!ClassCategoryReader methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-! !
-
-!ClassCategoryReader methodsFor: 'private'!
-
-compileMethod: aString
-	Compiler new install: aString forClass: class protocol: category
-! !
-
-Object subclass: #ClassCommentReader
-	instanceVariableNames: 'class'
-	package: 'Kernel-Classes'!
-!ClassCommentReader commentStamp!
-I provide a mechanism for retrieving class comments stored on a file.
-
-See also `ClassCategoryReader`.!
-
-!ClassCommentReader methodsFor: 'accessing'!
-
-class: aClass
-	class := aClass
-! !
-
-!ClassCommentReader methodsFor: 'fileIn'!
-
-scanFrom: aChunkParser
-	| chunk |
-	chunk := aChunkParser nextChunk.
-	chunk isEmpty ifFalse: [
-		self setComment: chunk ].
-! !
-
-!ClassCommentReader methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-! !
-
-!ClassCommentReader methodsFor: 'private'!
-
-setComment: aString
-	class comment: aString
 ! !
 
 Object subclass: #ClassSorterNode
