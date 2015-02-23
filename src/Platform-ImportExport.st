@@ -683,6 +683,12 @@ import: aStream
 	] on: Error do: [:e | lastChunk := parser last. e resignal ].
 ! !
 
+Error subclass: #PackageCommitError
+	instanceVariableNames: ''
+	package: 'Platform-ImportExport'!
+!PackageCommitError commentStamp!
+I get signaled when an attempt to commit a package has failed.!
+
 InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Platform-ImportExport'!

@@ -1,4 +1,4 @@
-define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
+define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-ImportExport');
 $core.packages["Platform-ImportExport"].innerEval = function (expr) { return eval(expr); };
@@ -2804,6 +2804,12 @@ messageSends: []
 }),
 $globals.Importer);
 
+
+
+$core.addClass('PackageCommitError', $globals.Error, [], 'Platform-ImportExport');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.PackageCommitError.comment="I get signaled when an attempt to commit a package has failed.";
+//>>excludeEnd("ide");
 
 
 $core.addClass('PackageHandler', $globals.InterfacingObject, [], 'Platform-ImportExport');

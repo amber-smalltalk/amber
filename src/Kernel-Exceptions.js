@@ -832,10 +832,4 @@ messageSends: []
 $globals.NonBooleanReceiver);
 
 
-
-$core.addClass('PackageCommitError', $globals.Error, [], 'Kernel-Exceptions');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.PackageCommitError.comment="I get signaled when an attempt to commit a package has failed.";
-//>>excludeEnd("ide");
-
 });
