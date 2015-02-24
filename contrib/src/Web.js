@@ -5101,7 +5101,15 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._appendToJQuery_($recv(aTagBrush)._asJQuery());
+$recv((function(html){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._renderOn_(html);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._appendToBrush_(aTagBrush);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"appendToBrush:",{aTagBrush:aTagBrush},$globals.Widget)});
@@ -5109,10 +5117,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aTagBrush"],
-source: "appendToBrush: aTagBrush\x0a\x09self appendToJQuery: aTagBrush asJQuery",
+source: "appendToBrush: aTagBrush\x0a\x09[ :html | self renderOn: html ] appendToBrush: aTagBrush",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["appendToJQuery:", "asJQuery"]
+messageSends: ["appendToBrush:", "renderOn:"]
 }),
 $globals.Widget);
 

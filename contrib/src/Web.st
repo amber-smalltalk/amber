@@ -1028,7 +1028,7 @@ Exemple:
 !Widget methodsFor: 'adding'!
 
 appendToBrush: aTagBrush
-	self appendToJQuery: aTagBrush asJQuery
+	[ :html | self renderOn: html ] appendToBrush: aTagBrush
 !
 
 appendToJQuery: aJQuery
