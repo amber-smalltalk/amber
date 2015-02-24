@@ -913,7 +913,7 @@ isSmalltalkObject: anObject
 	"Consider anObject a Smalltalk object if it has a 'klass' property.
 	Note that this may be unaccurate"
 	
-	<return typeof anObject.klass !!== 'undefined'>
+	<return anObject.klass !!= null>
 ! !
 
 SmalltalkImage class instanceVariableNames: 'current'!

@@ -2012,7 +2012,7 @@ classNameOf: anObject
 	"Answer the class name of `anObject`, or `undefined` 
 	if `anObject` is not an Smalltalk object"
 	
-	<return anObject.klass && anObject.klass.className>
+	<return anObject.klass !!= null && anObject.klass.className>
 !
 
 includes: anObject in: anotherObject
