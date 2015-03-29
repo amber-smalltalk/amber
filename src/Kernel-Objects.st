@@ -319,19 +319,6 @@ value
 	<return self.valueOf()>
 ! !
 
-!Object methodsFor: 'inspecting'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	self class allInstanceVariableNames do: [ :each |
-		variables at: each put: (self instVarAt: each) ].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
 !Object methodsFor: 'message handling'!
 
 basicPerform: aString
