@@ -1,6 +1,6 @@
-define("amber-contrib-web/Web", ["amber/boot"
+define("amber/web/Web", ["amber/boot"
 //>>excludeStart("imports", pragmas.excludeImports);
-, "amber-contrib-jquery/Wrappers-JQuery"
+, "amber/jquery/Wrappers-JQuery"
 //>>excludeEnd("imports");
 , "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function($boot
 //>>excludeStart("imports", pragmas.excludeImports);
@@ -10,8 +10,8 @@ define("amber-contrib-web/Web", ["amber/boot"
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Web');
 $core.packages["Web"].innerEval = function (expr) { return eval(expr); };
-$core.packages["Web"].imports = ["amber-contrib-jquery/Wrappers-JQuery"];
-$core.packages["Web"].transport = {"type":"amd","amdNamespace":"amber-contrib-web"};
+$core.packages["Web"].imports = ["amber/jquery/Wrappers-JQuery"];
+$core.packages["Web"].transport = {"type":"amd","amdNamespace":"amber/web"};
 
 $core.addClass('HTMLCanvas', $globals.Object, ['root'], 'Web');
 //>>excludeStart("ide", pragmas.excludeIdeData);

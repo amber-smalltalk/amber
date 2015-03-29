@@ -1,6 +1,15 @@
 {
     "paths": {
-        "amber-contrib-web": "src",
-        "amber-contrib-jquery": "src"
+        "amber/web": "src",
+        "amber/jquery": "src"
+    },
+  "map": {
+    "*": {
+      "00comment": "These are backward compatibility pointers.",
+      "amber-contrib-jquery/Wrappers-JQuery": "amber/jquery/Wrappers-JQuery",
+      "amber-contrib-web/Web": "amber/web/Web",
+      "amber_core/Web": "amber/web/Web",
+      "amber_core/Canvas": "amber/web/Web"
     }
+  }
 }

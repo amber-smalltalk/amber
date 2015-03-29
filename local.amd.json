@@ -11,9 +11,7 @@
     "map": {
         "*": {
             "00comment": "These are backward compatibility pointers.",
-            "amber_core/Kernel-ImportExport": "amber_core/Platform-ImportExport",
-            "amber_core/Web": "amber-contrib-web/Web",
-            "amber_core/Canvas": "amber-contrib-web/Web"
+            "amber_core/Kernel-ImportExport": "amber_core/Platform-ImportExport"
         }
     }
 }

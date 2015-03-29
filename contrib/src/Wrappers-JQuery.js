@@ -1,4 +1,4 @@
-define("amber-contrib-jquery/Wrappers-JQuery", ["amber/boot"
+define("amber/jquery/Wrappers-JQuery", ["amber/boot"
 //>>excludeStart("imports", pragmas.excludeImports);
 , "jquery"
 //>>excludeEnd("imports");
@@ -11,7 +11,7 @@ var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Wrappers-JQuery');
 $core.packages["Wrappers-JQuery"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Wrappers-JQuery"].imports = ["jQuery=jquery"];
-$core.packages["Wrappers-JQuery"].transport = {"type":"amd","amdNamespace":"amber-contrib-jquery"};
+$core.packages["Wrappers-JQuery"].transport = {"type":"amd","amdNamespace":"amber/jquery"};
 
 $core.addClass('JQuery', $globals.Object, [], 'Wrappers-JQuery');
 
