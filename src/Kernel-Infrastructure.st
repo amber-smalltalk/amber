@@ -119,15 +119,6 @@ doesNotUnderstand: aMessage
 				forwardMessage: jsSelector 
 				withArguments: aMessage arguments
 				ofProxy: self ]
-!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self jsObject.
-	anInspector setLabel: self printString.
-	JSObjectProxy addObjectVariablesTo: variables ofProxy: self.
-	anInspector setVariables: variables
 ! !
 
 !JSObjectProxy methodsFor: 'streaming'!

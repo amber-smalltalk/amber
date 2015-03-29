@@ -258,37 +258,6 @@ $globals.JSObjectProxy);
 
 $core.addMethod(
 $core.method({
-selector: "inspectOn:",
-protocol: 'proxy',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
-$recv(variables)._at_put_("#self",self._jsObject());
-$recv(anInspector)._setLabel_(self._printString());
-$recv($JSObjectProxy())._addObjectVariablesTo_ofProxy_(variables,self);
-$recv(anInspector)._setVariables_(variables);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09JSObjectProxy addObjectVariablesTo: variables ofProxy: self.\x0a\x09anInspector setVariables: variables",
-referencedClasses: ["Dictionary", "JSObjectProxy"],
-//>>excludeEnd("ide");
-messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:ofProxy:", "setVariables:"]
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
 selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
