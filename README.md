@@ -34,16 +34,33 @@ Some highlights:
 -    You can inline Javascript code and there are many ways to interact between Amber and Javascript
 
 
-Getting Amber
+Prerequisites
 -------------
 
 Amber is shipped as a cli tool to create new projects and assist with development tasks in a [npm](http://npmjs.org) package  `amber-cli`
 and as a library to be used by projects in a [bower](https://github.com/bower/bower) package `amber`.
 
-Do this [1] to create an Amber project of your own and start working in it:
+For the installation to work, you need to have installed `node`, `npm` and `git` (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
+
+For UNIX-based OS (Linux distibutions, FreeBSD, ...) do
+
+    npm config set prefix=~/npm
+    export PATH="$PATH:$HOME/npm/bin"
+   
+to have the installation in a local subdirectory in order to avoid the otherwise necessary ``sudo`` installation of Amber. The export line needs to be added to the ~/.profile file as well so that after a new login the path is set.
+
+
+
+Getting Amber and setting up an initial project
+-----------------------------------------------
+
+Do this to install Amber
 
     # Install the CLI tool `amber-cli` and supporting tools
     npm install -g amber-cli bower grunt-cli
+
+
+Use ``amber init``  to create a project of your own
 
     # Initialize your project (directory must be empty)
     cd /path/to/myproject
@@ -53,12 +70,12 @@ Do this [1] to create an Amber project of your own and start working in it:
     bower install amber-compat-es5 --save   # be loadable in older browsers
     bower install amber-compat-ie8 --save   # additional tweaks to load in IE8
 
+
+Start developing in Amber Smalltalk
+
     # Serve amber on localhost:4000
     amber serve
 
-The [Getting started](https://github.com/amber-smalltalk/amber/wiki/Getting-started) page shows more details on ways to obtain Amber and start a project.
-
-[1] For installation to work, you need to install `node`, `npm` and `git` (in Windows, use Git for Windows and select "Run Git from Windows Command Prompt" and "Checkout Windows-style, commit Unix-style" installation options).
 
 
 Reporting issues
