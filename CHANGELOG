@@ -4,7 +4,8 @@
 Highlights:
 
 * Extraction of `Web` and `Wrappers-JQuery` to own repos.
-* Amber core itself with no production dependencies.
+* Amber core itself formally with no production dependencies, but
+ `PlatformInterface >> ajax:` still needs jQuery wrapper loaded to work.
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.14.13...0.14.14
 

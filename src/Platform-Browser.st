@@ -1,5 +1,4 @@
 Smalltalk createPackage: 'Platform-Browser'!
-(Smalltalk packageAt: 'Platform-Browser') imports: {'amber-contrib-jquery/Wrappers-JQuery'}!
 Object subclass: #BrowserInterface
 	instanceVariableNames: ''
 	package: 'Platform-Browser'!
@@ -21,7 +20,9 @@ I am platform interface class that tries to use window and jQuery; that is, one 
 !BrowserInterface methodsFor: 'actions'!
 
 ajax: anObject
-	^ JQuery current ajax: anObject
+	^ JQuery
+		ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]
+		ifNotNil: [ JQuery current ajax: anObject ]
 !
 
 alert: aString

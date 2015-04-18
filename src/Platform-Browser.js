@@ -1,16 +1,7 @@
-define("amber_core/Platform-Browser", ["amber/boot"
-//>>excludeStart("imports", pragmas.excludeImports);
-, "amber-contrib-jquery/Wrappers-JQuery"
-//>>excludeEnd("imports");
-, "amber_core/Kernel-Objects"], function($boot
-//>>excludeStart("imports", pragmas.excludeImports);
-
-//>>excludeEnd("imports");
-){
+define("amber_core/Platform-Browser", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-Browser');
 $core.packages["Platform-Browser"].innerEval = function (expr) { return eval(expr); };
-$core.packages["Platform-Browser"].imports = ["amber-contrib-jquery/Wrappers-JQuery"];
 $core.packages["Platform-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 $core.addClass('BrowserInterface', $globals.Object, [], 'Platform-Browser');
@@ -27,8 +18,12 @@ function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuer
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $1,$receiver;
+if(($receiver = $JQuery()) == null || $receiver.isNil){
+$1=self._error_("JQuery wrapper not loaded, cannot do AJAX.");
+} else {
 $1=$recv($recv($JQuery())._current())._ajax_(anObject);
+};
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.BrowserInterface)});
@@ -36,10 +31,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "ajax: anObject\x0a\x09^ JQuery current ajax: anObject",
+source: "ajax: anObject\x0a\x09^ JQuery\x0a\x09\x09ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]\x0a\x09\x09ifNotNil: [ JQuery current ajax: anObject ]",
 referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["ajax:", "current"]
+messageSends: ["ifNil:ifNotNil:", "error:", "ajax:", "current"]
 }),
 $globals.BrowserInterface);
 
