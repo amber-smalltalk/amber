@@ -1,5 +1,0 @@
-{
-    "paths": {
-        "jquery": ["dist/jquery", "jquery"]
-    }
-}
