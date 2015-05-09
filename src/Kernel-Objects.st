@@ -433,17 +433,8 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 
 !Boolean methodsFor: 'comparing'!
 
-= aBoolean
-	<
-		return aBoolean !!= null &&
-			typeof aBoolean._isBoolean === "function" &&
-			aBoolean._isBoolean() &&
-			Boolean(self == true) == aBoolean
-	>
-!
-
 == aBoolean
-	^ self = aBoolean
+<return aBoolean !!= null && self.valueOf() === (typeof aBoolean === "boolean" ? aBoolean : aBoolean.valueOf())>
 ! !
 
 !Boolean methodsFor: 'controlling'!
@@ -772,12 +763,6 @@ My instances can also be used to evaluate a block a fixed number of times:
 	
 	1 to: 10 by: 2 do: [ :aNumber| Transcript show: aNumber asString; cr ].!
 
-!Number methodsFor: 'accessing'!
-
-identityHash
-	^ self asString, 'n'
-! !
-
 !Number methodsFor: 'arithmetic'!
 
 * aNumber
@@ -836,13 +821,8 @@ negated
 	<return self <= aNumber>
 !
 
-= aNumber
-	<
-		return aNumber !!= null &&
-			typeof aNumber._isNumber === "function" &&
-			aNumber._isNumber() &&
-			Number(self) == aNumber
-	>
+== aNumber
+<return aNumber !!= null && Number(self) === (typeof aNumber === "number" ? aNumber : aNumber.valueOf())>
 !
 
 > aNumber

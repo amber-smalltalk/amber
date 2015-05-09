@@ -1802,35 +1802,6 @@ $globals.Boolean);
 
 $core.addMethod(
 $core.method({
-selector: "=",
-protocol: 'comparing',
-fn: function (aBoolean){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-
-		return aBoolean != null &&
-			typeof aBoolean._isBoolean === "function" &&
-			aBoolean._isBoolean() &&
-			Boolean(self == true) == aBoolean
-	;
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"=",{aBoolean:aBoolean},$globals.Boolean)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBoolean"],
-source: "= aBoolean\x0a\x09<\x0a\x09\x09return aBoolean != null &&\x0a\x09\x09\x09typeof aBoolean._isBoolean === \x22function\x22 &&\x0a\x09\x09\x09aBoolean._isBoolean() &&\x0a\x09\x09\x09Boolean(self == true) == aBoolean\x0a\x09>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Boolean);
-
-$core.addMethod(
-$core.method({
 selector: "==",
 protocol: 'comparing',
 fn: function (aBoolean){
@@ -1838,19 +1809,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self.__eq(aBoolean);
-return $1;
+return aBoolean != null && self.valueOf() === (typeof aBoolean === "boolean" ? aBoolean : aBoolean.valueOf());
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"==",{aBoolean:aBoolean},$globals.Boolean)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
-source: "== aBoolean\x0a\x09^ self = aBoolean",
+source: "== aBoolean\x0a<return aBoolean != null && self.valueOf() === (typeof aBoolean === \x22boolean\x22 ? aBoolean : aBoolean.valueOf())>",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["="]
+messageSends: []
 }),
 $globals.Boolean);
 
@@ -3469,27 +3439,22 @@ $globals.Number);
 
 $core.addMethod(
 $core.method({
-selector: "=",
+selector: "==",
 protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-
-		return aNumber != null &&
-			typeof aNumber._isNumber === "function" &&
-			aNumber._isNumber() &&
-			Number(self) == aNumber
-	;
+return aNumber != null && Number(self) === (typeof aNumber === "number" ? aNumber : aNumber.valueOf());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"=",{aNumber:aNumber},$globals.Number)});
+}, function($ctx1) {$ctx1.fill(self,"==",{aNumber:aNumber},$globals.Number)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
-source: "= aNumber\x0a\x09<\x0a\x09\x09return aNumber != null &&\x0a\x09\x09\x09typeof aNumber._isNumber === \x22function\x22 &&\x0a\x09\x09\x09aNumber._isNumber() &&\x0a\x09\x09\x09Number(self) == aNumber\x0a\x09>",
+source: "== aNumber\x0a<return aNumber != null && Number(self) === (typeof aNumber === \x22number\x22 ? aNumber : aNumber.valueOf())>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -3967,31 +3932,6 @@ source: "floor\x0a\x09<return Math.floor(self);>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.Number);
-
-$core.addMethod(
-$core.method({
-selector: "identityHash",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._asString()).__comma("n");
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"identityHash",{},$globals.Number)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "identityHash\x0a\x09^ self asString, 'n'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: [",", "asString"]
 }),
 $globals.Number);
 

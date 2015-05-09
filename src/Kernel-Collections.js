@@ -6014,23 +6014,19 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-
-		return aString != null &&
-			typeof aString._isString === "function" &&
-			aString._isString() &&
-			String(self) === String(aString)
-	;
-return self;
+var $1;
+$1=self.__eq_eq(aString);
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "= aString\x0a\x09<\x0a\x09\x09return aString != null &&\x0a\x09\x09\x09typeof aString._isString === \x22function\x22 &&\x0a\x09\x09\x09aString._isString() &&\x0a\x09\x09\x09String(self) === String(aString)\x0a\x09>",
+source: "= aString\x0a\x09^ self == aString",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["=="]
 }),
 $globals.String);
 
@@ -6043,19 +6039,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self.__eq(aString);
-return $1;
+return aString != null && String(self) === (typeof aString === "string" ? aString : aString.valueOf());
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"==",{aString:aString},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "== aString\x0a\x09^ self = aString",
+source: "== aString\x0a<return aString != null && String(self) === (typeof aString === \x22string\x22 ? aString : aString.valueOf())>",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["="]
+messageSends: []
 }),
 $globals.String);
 
@@ -6566,31 +6561,6 @@ source: "escaped\x0a\x09<return escape(self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
-}),
-$globals.String);
-
-$core.addMethod(
-$core.method({
-selector: "identityHash",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=self.__comma("s");
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"identityHash",{},$globals.String)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "identityHash\x0a\x09^ self, 's'",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: [","]
 }),
 $globals.String);
 

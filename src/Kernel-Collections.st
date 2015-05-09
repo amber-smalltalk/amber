@@ -1449,10 +1449,6 @@ charCodeAt: anInteger
 	<return self.charCodeAt(anInteger - 1)>
 !
 
-identityHash
-	^ self, 's'
-!
-
 size
 	<return self.length>
 ! !
@@ -1468,16 +1464,11 @@ size
 !
 
 = aString
-	<
-		return aString !!= null &&
-			typeof aString._isString === "function" &&
-			aString._isString() &&
-			String(self) === String(aString)
-	>
+	^ self == aString
 !
 
 == aString
-	^ self = aString
+<return aString !!= null && String(self) === (typeof aString === "string" ? aString : aString.valueOf())>
 !
 
 > aString

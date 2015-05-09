@@ -1478,11 +1478,6 @@ testIdentity
 	self deny: '' == 0
 !
 
-testIdentityHash
-	self assert: 'foo' identityHash equals: 'foo' identityHash.
-	self deny: ('foo' identityHash = 'bar' identityHash)
-!
-
 testIncludesSubString
 	self assert: ('amber' includesSubString: 'ber').
 	self deny: ('amber' includesSubString: 'zork').

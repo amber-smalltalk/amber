@@ -8272,45 +8272,6 @@ $globals.StringTest);
 
 $core.addMethod(
 $core.method({
-selector: "testIdentityHash",
-protocol: 'tests',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2,$4,$3;
-$1="foo"._identityHash();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["identityHash"]=1;
-//>>excludeEnd("ctx");
-$2="foo"._identityHash();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["identityHash"]=2;
-//>>excludeEnd("ctx");
-self._assert_equals_($1,$2);
-$4="foo"._identityHash();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["identityHash"]=3;
-//>>excludeEnd("ctx");
-$3=$recv($4).__eq("bar"._identityHash());
-self._deny_($3);
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},$globals.StringTest)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "testIdentityHash\x0a\x09self assert: 'foo' identityHash equals: 'foo' identityHash.\x0a\x09self deny: ('foo' identityHash = 'bar' identityHash)",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["assert:equals:", "identityHash", "deny:", "="]
-}),
-$globals.StringTest);
-
-$core.addMethod(
-$core.method({
 selector: "testIncludesSubString",
 protocol: 'tests',
 fn: function (){
