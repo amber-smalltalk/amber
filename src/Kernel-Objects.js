@@ -42,23 +42,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1;
-$2=self._identityHash();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["identityHash"]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2).__eq($recv(anObject)._identityHash());
-return $1;
+return self._class() === $recv(anObject)._class() && self._isSameInstanceAs_(anObject);
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"==",{anObject:anObject},$globals.ProtoObject)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "== anObject\x0a\x09^ self identityHash = anObject identityHash",
+source: "== anObject\x0a<return self._class() === $recv(anObject)._class() && self._isSameInstanceAs_(anObject)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["=", "identityHash"]
+messageSends: []
 }),
 $globals.ProtoObject);
 
@@ -442,6 +437,35 @@ source: "isNil\x0a\x09^ false",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
+}),
+$globals.ProtoObject);
+
+$core.addMethod(
+$core.method({
+selector: "isSameInstanceAs:",
+protocol: 'comparing',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1;
+$2=self._identityHash();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["identityHash"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2).__eq($recv(anObject)._identityHash());
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"isSameInstanceAs:",{anObject:anObject},$globals.ProtoObject)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "isSameInstanceAs: anObject\x0a\x09^ self identityHash = anObject identityHash",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["=", "identityHash"]
 }),
 $globals.ProtoObject);
 

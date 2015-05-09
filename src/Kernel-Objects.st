@@ -42,6 +42,10 @@ yourself
 !
 
 == anObject
+<return self._class() === $recv(anObject)._class() && self._isSameInstanceAs_(anObject)>
+!
+
+isSameInstanceAs: anObject
 	^ self identityHash = anObject identityHash
 !
 
