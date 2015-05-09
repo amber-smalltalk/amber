@@ -1,4 +1,4 @@
-define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
+define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-ImportExport');
 $core.packages["Platform-ImportExport"].innerEval = function (expr) { return eval(expr); };
@@ -2073,7 +2073,7 @@ $recv(aStream)._nextPutAll_($14);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=8;
 //>>excludeEnd("ctx");
-$recv(aStream)._nextPutAll_("){");
+$recv(aStream)._nextPutAll_("){\x22use strict\x22;");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=9;
 //>>excludeEnd("ctx");
@@ -2090,7 +2090,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| importsForOutput loadDependencies pragmaStart pragmaEnd |\x0a\x09pragmaStart := ''.\x0a\x09pragmaEnd := ''.\x0a\x09importsForOutput := self importsForOutput: aPackage.\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09importsForOutput value ifNotEmpty: [\x0a\x09\x09pragmaStart := String lf, '//>>excludeStart(\x22imports\x22, pragmas.excludeImports);', String lf.\x0a\x09\x09pragmaEnd := String lf, '//>>excludeEnd(\x22imports\x22);', String lf ].\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('amber/boot' ':1:'), importsForOutput value, #(':2:'), loadDependencies) asJavascript)\x0a\x09\x09\x09replace: ',\x5cs*[\x22'']:1:[\x22'']' with: pragmaStart) replace: ',\x5cs*[\x22'']:2:[\x22'']' with: pragmaEnd);\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('$boot' ':1:'), importsForOutput key, #(':2:')) join: ',')\x0a\x09\x09\x09replace: ',\x5cs*:1:' with: pragmaStart) replace: ',\x5cs*:2:' with: pragmaEnd);\x0a\x09\x09nextPutAll: '){';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09| importsForOutput loadDependencies pragmaStart pragmaEnd |\x0a\x09pragmaStart := ''.\x0a\x09pragmaEnd := ''.\x0a\x09importsForOutput := self importsForOutput: aPackage.\x0a\x09loadDependencies := self amdNamesOfPackages: aPackage loadDependencies.\x0a\x09importsForOutput value ifNotEmpty: [\x0a\x09\x09pragmaStart := String lf, '//>>excludeStart(\x22imports\x22, pragmas.excludeImports);', String lf.\x0a\x09\x09pragmaEnd := String lf, '//>>excludeEnd(\x22imports\x22);', String lf ].\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (self amdNamespaceOfPackage: aPackage);\x0a\x09\x09nextPutAll: '/'; \x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('amber/boot' ':1:'), importsForOutput value, #(':2:'), loadDependencies) asJavascript)\x0a\x09\x09\x09replace: ',\x5cs*[\x22'']:1:[\x22'']' with: pragmaStart) replace: ',\x5cs*[\x22'']:2:[\x22'']' with: pragmaEnd);\x0a\x09\x09nextPutAll: ', function(';\x0a\x09\x09nextPutAll: (((\x0a\x09\x09\x09(#('$boot' ':1:'), importsForOutput key, #(':2:')) join: ',')\x0a\x09\x09\x09replace: ',\x5cs*:1:' with: pragmaStart) replace: ',\x5cs*:2:' with: pragmaEnd);\x0a\x09\x09nextPutAll: '){\x22use strict\x22;';\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';\x0a\x09\x09lf",
 referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["importsForOutput:", "amdNamesOfPackages:", "loadDependencies", "ifNotEmpty:", "value", ",", "lf", "nextPutAll:", "amdNamespaceOfPackage:", "name", "replace:with:", "asJavascript", "join:", "key"]

@@ -437,7 +437,7 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (((
 			(#('$boot' ':1:'), importsForOutput key, #(':2:')) join: ',')
 			replace: ',\s*:1:' with: pragmaStart) replace: ',\s*:2:' with: pragmaEnd);
-		nextPutAll: '){';
+		nextPutAll: '){"use strict";';
 		lf;
 		nextPutAll: 'var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;';
 		lf

@@ -1,4 +1,4 @@
-define("amber_core/Platform-Services", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods", "amber_core/Kernel-Infrastructure"], function($boot){
+define("amber_core/Platform-Services", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods", "amber_core/Kernel-Infrastructure"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-Services');
 $core.packages["Platform-Services"].innerEval = function (expr) { return eval(expr); };
