@@ -2822,22 +2822,52 @@ selector: "ajaxPutAt:data:onSuccess:onError:",
 protocol: 'private',
 fn: function (aURL,aString,aBlock,anotherBlock){
 var self=this;
+var xhr;
 function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($PlatformInterface())._ajax_($globals.HashedCollection._newFromPairs_(["url",aURL,"type","PUT","data",aString,"contentType","text/plain;charset=UTF-8","success",aBlock,"error",anotherBlock]));
+var $1,$4,$3,$2;
+xhr=$recv($PlatformInterface())._newXhr();
+$recv(xhr)._open_url_async_("PUT",aURL,true);
+$recv(xhr)._onreadystatechange_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$1=$recv($recv(xhr)._readyState()).__eq((4));
+if($core.assert($1)){
+$4=$recv(xhr)._status();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["status"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4).__gt_eq((200));
+$2=$recv($3)._and_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+return $recv($recv(xhr)._status()).__lt((300));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
+//>>excludeEnd("ctx");
+}));
+return $recv($2)._ifTrue_ifFalse_(aBlock,anotherBlock);
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+$recv(xhr)._send_(aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},$globals.PackageHandler)});
+}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:onSuccess:onError:",{aURL:aURL,aString:aString,aBlock:aBlock,anotherBlock:anotherBlock,xhr:xhr},$globals.PackageHandler)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aURL", "aString", "aBlock", "anotherBlock"],
-source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09PlatformInterface\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'success' -> aBlock.\x0a\x09\x09\x09'error' -> anotherBlock\x0a\x09\x09}",
+source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09| xhr |\x0a\x09xhr := PlatformInterface newXhr.\x0a\x09xhr open: 'PUT' url: aURL async: true.\x0a\x09xhr onreadystatechange: [\x0a\x09\x09xhr readyState = 4 ifTrue: [\x0a\x09\x09\x09(xhr status >= 200 and: [ xhr status < 300 ])\x0a\x09\x09\x09\x09ifTrue: aBlock\x0a\x09\x09\x09\x09ifFalse: anotherBlock ]].\x0a\x09xhr send: aString",
 referencedClasses: ["PlatformInterface"],
 //>>excludeEnd("ide");
-messageSends: ["ajax:"]
+messageSends: ["newXhr", "open:url:async:", "onreadystatechange:", "ifTrue:", "=", "readyState", "ifTrue:ifFalse:", "and:", ">=", "status", "<", "send:"]
 }),
 $globals.PackageHandler);
 

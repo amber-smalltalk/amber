@@ -791,15 +791,15 @@ load: aPackage
 !PackageHandler methodsFor: 'private'!
 
 ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock
-	PlatformInterface
-		ajax: #{
-			'url' -> aURL.
-			'type' -> 'PUT'.
-			'data' -> aString.
-			'contentType' -> 'text/plain;charset=UTF-8'.
-			'success' -> aBlock.
-			'error' -> anotherBlock
-		}
+	| xhr |
+	xhr := PlatformInterface newXhr.
+	xhr open: 'PUT' url: aURL async: true.
+	xhr onreadystatechange: [
+		xhr readyState = 4 ifTrue: [
+			(xhr status >= 200 and: [ xhr status < 300 ])
+				ifTrue: aBlock
+				ifFalse: anotherBlock ]].
+	xhr send: aString
 ! !
 
 PackageHandler subclass: #AmdPackageHandler
