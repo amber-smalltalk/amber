@@ -114,6 +114,32 @@ $globals.BrowserInterface);
 
 $core.addMethod(
 $core.method({
+selector: "newXhr",
+protocol: 'actions',
+fn: function (){
+var self=this;
+function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($XMLHttpRequest())._new();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.BrowserInterface)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "newXhr\x0a\x09^ XMLHttpRequest new",
+referencedClasses: ["XMLHttpRequest"],
+//>>excludeEnd("ide");
+messageSends: ["new"]
+}),
+$globals.BrowserInterface);
+
+$core.addMethod(
+$core.method({
 selector: "prompt:",
 protocol: 'actions',
 fn: function (aString){

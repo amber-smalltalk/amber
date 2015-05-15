@@ -33,6 +33,10 @@ confirm: aString
 	^ window confirm: aString
 !
 
+newXhr
+	^ XMLHttpRequest new
+!
+
 prompt: aString
 	^ window prompt: aString
 !

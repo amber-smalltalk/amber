@@ -313,6 +313,7 @@ function $PlatformInterface(){return $globals.PlatformInterface||(typeof Platfor
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
+self._deprecatedAPI();
 $1=$recv($PlatformInterface())._ajax_(anObject);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -321,10 +322,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "ajax: anObject\x0a\x09^ PlatformInterface ajax: anObject",
+source: "ajax: anObject\x0a\x09self deprecatedAPI.\x0a\x09^ PlatformInterface ajax: anObject",
 referencedClasses: ["PlatformInterface"],
 //>>excludeEnd("ide");
-messageSends: ["ajax:"]
+messageSends: ["deprecatedAPI", "ajax:"]
 }),
 $globals.InterfacingObject);
 
@@ -1699,6 +1700,36 @@ source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x0
 referencedClasses: ["BrowserInterface"],
 //>>excludeEnd("ide");
 messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "isAvailable", "setWorker:"]
+}),
+$globals.PlatformInterface.klass);
+
+$core.addMethod(
+$core.method({
+selector: "newXhr",
+protocol: 'actions',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self["@worker"];
+if(($receiver = $2) == null || $receiver.isNil){
+$1=self._error_("newXhr: not available");
+} else {
+$1=$recv(self["@worker"])._newXhr();
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.PlatformInterface.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "newXhr\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker newXhr ]\x0a\x09\x09ifNil: [ self error: 'newXhr: not available' ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "newXhr", "error:"]
 }),
 $globals.PlatformInterface.klass);
 

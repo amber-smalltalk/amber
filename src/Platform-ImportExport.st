@@ -791,7 +791,7 @@ load: aPackage
 !PackageHandler methodsFor: 'private'!
 
 ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock
-	self
+	PlatformInterface
 		ajax: #{
 			'url' -> aURL.
 			'type' -> 'PUT'.

@@ -95,6 +95,7 @@ I am superclass of all object that interface with user or environment. `Widget` 
 !InterfacingObject methodsFor: 'actions'!
 
 ajax: anObject
+	self deprecatedAPI.
 	^ PlatformInterface ajax: anObject
 !
 
@@ -395,6 +396,12 @@ existsGlobal: aString
 		at: aString 
 		ifPresent: [ true ] 
 		ifAbsent: [ false ]
+!
+
+newXhr
+	^ worker
+		ifNotNil: [ worker newXhr ]
+		ifNil: [ self error: 'newXhr: not available' ]
 !
 
 prompt: aString

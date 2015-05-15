@@ -1,7 +1,13 @@
 0.14.14:
 
-+ Environment
+* InterfacingObject >> ajax: deprecated
+
++ Environment >>
   + renamePackage:to:
++ BrowserInterface >>
+  + newXhr
++ PlatformInterface class >>
+  + newXhr
 
 
 0.14.12:
