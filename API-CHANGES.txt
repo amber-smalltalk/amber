@@ -1,6 +1,8 @@
 0.14.14:
 
 * InterfacingObject >> ajax: deprecated
+* BrowserInterface >> ajax: deprecated
+* PlatformInterface class >> ajax: deprecated
 
 + Environment >>
   + renamePackage:to:

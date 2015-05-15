@@ -19,6 +19,7 @@ function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuer
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
+self._deprecatedAPI_("Use newXhr or dedicated library.");
 if(($receiver = $JQuery()) == null || $receiver.isNil){
 $1=self._error_("JQuery wrapper not loaded, cannot do AJAX.");
 } else {
@@ -31,10 +32,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "ajax: anObject\x0a\x09^ JQuery\x0a\x09\x09ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]\x0a\x09\x09ifNotNil: [ JQuery current ajax: anObject ]",
+source: "ajax: anObject\x0a\x09self deprecatedAPI: 'Use newXhr or dedicated library.'.\x0a\x09^ JQuery\x0a\x09\x09ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]\x0a\x09\x09ifNotNil: [ JQuery current ajax: anObject ]",
 referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:ifNotNil:", "error:", "ajax:", "current"]
+messageSends: ["deprecatedAPI:", "ifNil:ifNotNil:", "error:", "ajax:", "current"]
 }),
 $globals.BrowserInterface);
 

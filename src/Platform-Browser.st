@@ -20,6 +20,7 @@ I am platform interface class that tries to use window and jQuery; that is, one 
 !BrowserInterface methodsFor: 'actions'!
 
 ajax: anObject
+	self deprecatedAPI: 'Use newXhr or dedicated library.'.
 	^ JQuery
 		ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]
 		ifNotNil: [ JQuery current ajax: anObject ]

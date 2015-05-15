@@ -374,6 +374,7 @@ setWorker: anObject
 !PlatformInterface class methodsFor: 'actions'!
 
 ajax: anObject
+	self deprecatedAPI: 'Use newXhr or dedicated library.'.
 	^ worker
 		ifNotNil: [ worker ajax: anObject ]
 		ifNil: [ self error: 'ajax: not available' ]

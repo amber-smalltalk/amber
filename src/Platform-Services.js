@@ -1522,6 +1522,7 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$receiver;
+self._deprecatedAPI_("Use newXhr or dedicated library.");
 $2=self["@worker"];
 if(($receiver = $2) == null || $receiver.isNil){
 $1=self._error_("ajax: not available");
@@ -1535,10 +1536,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "ajax: anObject\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'ajax: not available' ]",
+source: "ajax: anObject\x0a\x09self deprecatedAPI: 'Use newXhr or dedicated library.'.\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'ajax: not available' ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "ajax:", "error:"]
+messageSends: ["deprecatedAPI:", "ifNotNil:ifNil:", "ajax:", "error:"]
 }),
 $globals.PlatformInterface.klass);
 
