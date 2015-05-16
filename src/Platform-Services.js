@@ -1511,7 +1511,6 @@ $core.addClass('PlatformInterface', $globals.Object, [], 'Platform-Services');
 $globals.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 //>>excludeEnd("ide");
 
-$globals.PlatformInterface.klass.iVarNames = ['worker'];
 $core.addMethod(
 $core.method({
 selector: "ajax:",

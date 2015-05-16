@@ -359,8 +359,6 @@ My `initialize` tries several options (for now, browser environment only) to set
         'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
     }.!
 
-PlatformInterface class instanceVariableNames: 'worker'!
-
 !PlatformInterface class methodsFor: 'accessing'!
 
 globals

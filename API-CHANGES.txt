@@ -1,8 +1,10 @@
 0.14.14:
 
 * InterfacingObject >> ajax: deprecated
-* BrowserInterface >> ajax: deprecated
 * PlatformInterface class >> ajax: deprecated
+* PlatformInterface class >> alert:/confirm:/prompt:[default:] deprecated
+* Class BrowserInterface removed
+* Class Terminal, BrowserTerminal added
 
 + Environment >>
   + renamePackage:to:
@@ -10,6 +12,15 @@
   + newXhr
 + PlatformInterface class >>
   + newXhr
++ Terminal >>
+  + alert:
+  + confirm:
+  + prompt:
+  + prompt:default:
+
+- PlatformInterface class >>
+  - initialize
+  - setWorker:
 
 
 0.14.12:
