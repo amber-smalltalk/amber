@@ -335,12 +335,12 @@ selector: "alert:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($PlatformInterface())._alert_(aString);
+$1=$recv($Terminal())._alert_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.InterfacingObject)});
@@ -348,8 +348,8 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "alert: aString\x0a\x09^ PlatformInterface alert: aString",
-referencedClasses: ["PlatformInterface"],
+source: "alert: aString\x0a\x09^ Terminal alert: aString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
 messageSends: ["alert:"]
 }),
@@ -361,12 +361,12 @@ selector: "confirm:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($PlatformInterface())._confirm_(aString);
+$1=$recv($Terminal())._confirm_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.InterfacingObject)});
@@ -374,8 +374,8 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "confirm: aString\x0a\x09^ PlatformInterface confirm: aString",
-referencedClasses: ["PlatformInterface"],
+source: "confirm: aString\x0a\x09^ Terminal confirm: aString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
 messageSends: ["confirm:"]
 }),
@@ -387,12 +387,12 @@ selector: "prompt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($PlatformInterface())._prompt_(aString);
+$1=$recv($Terminal())._prompt_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.InterfacingObject)});
@@ -400,8 +400,8 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "prompt: aString\x0a\x09^ PlatformInterface prompt: aString",
-referencedClasses: ["PlatformInterface"],
+source: "prompt: aString\x0a\x09^ Terminal prompt: aString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
 messageSends: ["prompt:"]
 }),
@@ -413,12 +413,12 @@ selector: "prompt:default:",
 protocol: 'actions',
 fn: function (aString,defaultString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($PlatformInterface())._prompt_default_(aString,defaultString);
+$1=$recv($Terminal())._prompt_default_(aString,defaultString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.InterfacingObject)});
@@ -426,8 +426,8 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "defaultString"],
-source: "prompt: aString default: defaultString\x0a\x09^ PlatformInterface prompt: aString default: defaultString",
-referencedClasses: ["PlatformInterface"],
+source: "prompt: aString default: defaultString\x0a\x09^ Terminal prompt: aString default: defaultString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
 messageSends: ["prompt:default:"]
 }),
@@ -1549,16 +1549,13 @@ selector: "alert:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("alert: not available");
-} else {
-$1=$recv(self["@worker"])._alert_(aString);
-};
+var $1;
+self._deprecatedAPI_("Use Terminal alert:");
+$1=$recv($Terminal())._alert_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.PlatformInterface.klass)});
@@ -1566,10 +1563,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "alert: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker alert: aString ]\x0a\x09\x09ifNil: [ self error: 'alert: not available' ]",
-referencedClasses: [],
+source: "alert: aString\x0a\x09self deprecatedAPI: 'Use Terminal alert:'.\x0a\x09^ Terminal alert: aString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "alert:", "error:"]
+messageSends: ["deprecatedAPI:", "alert:"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -1579,16 +1576,13 @@ selector: "confirm:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("confirm: not available");
-} else {
-$1=$recv(self["@worker"])._confirm_(aString);
-};
+var $1;
+self._deprecatedAPI_("Use Terminal confirm:");
+$1=$recv($Terminal())._confirm_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.PlatformInterface.klass)});
@@ -1596,10 +1590,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "confirm: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker confirm: aString ]\x0a\x09\x09ifNil: [ self error: 'confirm: not available' ]",
-referencedClasses: [],
+source: "confirm: aString\x0a\x09self deprecatedAPI: 'Use Terminal confirm:'.\x0a\x09^ Terminal confirm: aString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "confirm:", "error:"]
+messageSends: ["deprecatedAPI:", "confirm:"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -1740,16 +1734,13 @@ selector: "prompt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("prompt: not available");
-} else {
-$1=$recv(self["@worker"])._prompt_(aString);
-};
+var $1;
+self._deprecatedAPI_("Use Terminal prompt:");
+$1=$recv($Terminal())._prompt_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.PlatformInterface.klass)});
@@ -1757,10 +1748,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "prompt: aString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
-referencedClasses: [],
+source: "prompt: aString\x0a\x09self deprecatedAPI: 'Use Terminal prompt:'.\x0a\x09^ Terminal prompt: aString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "prompt:", "error:"]
+messageSends: ["deprecatedAPI:", "prompt:"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -1770,16 +1761,13 @@ selector: "prompt:default:",
 protocol: 'actions',
 fn: function (aString,defaultString){
 var self=this;
+function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("prompt: not available");
-} else {
-$1=$recv(self["@worker"])._prompt_default_(aString,defaultString);
-};
+var $1;
+self._deprecatedAPI_("Use Terminal prompt:default:");
+$1=$recv($Terminal())._prompt_default_(aString,defaultString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.PlatformInterface.klass)});
@@ -1787,10 +1775,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "defaultString"],
-source: "prompt: aString default: defaultString\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker prompt: aString default: defaultString ]\x0a\x09\x09ifNil: [ self error: 'prompt: not available' ]",
-referencedClasses: [],
+source: "prompt: aString default: defaultString\x0a\x09self deprecatedAPI: 'Use Terminal prompt:default:'.\x0a\x09^ Terminal prompt: aString default: defaultString",
+referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "prompt:default:", "error:"]
+messageSends: ["deprecatedAPI:", "prompt:default:"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -2113,6 +2101,112 @@ referencedClasses: [],
 messageSends: ["do:on:displaying:", "current"]
 }),
 $globals.ProgressHandler.klass);
+
+
+$core.addClass('Terminal', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Terminal.comment="I am UI interface service.\x0a\x0a## API\x0a\x0a    Terminal alert: 'Hey, there is a problem'.\x0a    Terminal confirm: 'Affirmative?'.\x0a    Terminal prompt: 'Your name:'.";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "alert:",
+protocol: 'dialogs',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._alert_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.Terminal.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "alert: aString\x0a\x09^ self current alert: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["alert:", "current"]
+}),
+$globals.Terminal.klass);
+
+$core.addMethod(
+$core.method({
+selector: "confirm:",
+protocol: 'dialogs',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._confirm_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.Terminal.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "confirm: aString\x0a\x09^ self current confirm: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["confirm:", "current"]
+}),
+$globals.Terminal.klass);
+
+$core.addMethod(
+$core.method({
+selector: "prompt:",
+protocol: 'dialogs',
+fn: function (aString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._prompt_(aString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.Terminal.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "prompt: aString\x0a\x09^ self current prompt: aString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["prompt:", "current"]
+}),
+$globals.Terminal.klass);
+
+$core.addMethod(
+$core.method({
+selector: "prompt:default:",
+protocol: 'dialogs',
+fn: function (aString,defaultString){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._prompt_default_(aString,defaultString);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.Terminal.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "defaultString"],
+source: "prompt: aString default: defaultString\x0a\x09^ self current prompt: aString default: defaultString",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["prompt:default:", "current"]
+}),
+$globals.Terminal.klass);
 
 
 $core.addClass('Transcript', $globals.Service, [], 'Platform-Services');

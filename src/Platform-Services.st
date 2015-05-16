@@ -100,19 +100,19 @@ ajax: anObject
 !
 
 alert: aString
-	^ PlatformInterface alert: aString
+	^ Terminal alert: aString
 !
 
 confirm: aString
-	^ PlatformInterface confirm: aString
+	^ Terminal confirm: aString
 !
 
 prompt: aString
-	^ PlatformInterface prompt: aString
+	^ Terminal prompt: aString
 !
 
 prompt: aString default: defaultString
-	^ PlatformInterface prompt: aString default: defaultString
+	^ Terminal prompt: aString default: defaultString
 ! !
 
 InterfacingObject subclass: #Environment
@@ -381,15 +381,13 @@ ajax: anObject
 !
 
 alert: aString
-	^ worker
-		ifNotNil: [ worker alert: aString ]
-		ifNil: [ self error: 'alert: not available' ]
+	self deprecatedAPI: 'Use Terminal alert:'.
+	^ Terminal alert: aString
 !
 
 confirm: aString
-	^ worker
-		ifNotNil: [ worker confirm: aString ]
-		ifNil: [ self error: 'confirm: not available' ]
+	self deprecatedAPI: 'Use Terminal confirm:'.
+	^ Terminal confirm: aString
 !
 
 existsGlobal: aString
@@ -406,15 +404,13 @@ newXhr
 !
 
 prompt: aString
-	^ worker
-		ifNotNil: [ worker prompt: aString ]
-		ifNil: [ self error: 'prompt: not available' ]
+	self deprecatedAPI: 'Use Terminal prompt:'.
+	^ Terminal prompt: aString
 !
 
 prompt: aString default: defaultString
-	^ worker
-		ifNotNil: [ worker prompt: aString default: defaultString ]
-		ifNil: [ self error: 'prompt: not available' ]
+	self deprecatedAPI: 'Use Terminal prompt:default:'.
+	^ Terminal prompt: aString default: defaultString
 ! !
 
 !PlatformInterface class methodsFor: 'initialization'!
@@ -540,6 +536,36 @@ The default behavior is to simply iterate over the collection, using `NullProgre
 
 do: aBlock on: aCollection displaying: aString
 	self current do: aBlock on: aCollection displaying: aString
+! !
+
+Service subclass: #Terminal
+	instanceVariableNames: ''
+	package: 'Platform-Services'!
+!Terminal commentStamp!
+I am UI interface service.
+
+## API
+
+    Terminal alert: 'Hey, there is a problem'.
+    Terminal confirm: 'Affirmative?'.
+    Terminal prompt: 'Your name:'.!
+
+!Terminal class methodsFor: 'dialogs'!
+
+alert: aString
+	^ self current alert: aString
+!
+
+confirm: aString
+	^ self current confirm: aString
+!
+
+prompt: aString
+	^ self current prompt: aString
+!
+
+prompt: aString default: defaultString
+	^ self current prompt: aString default: defaultString
 ! !
 
 Service subclass: #Transcript
