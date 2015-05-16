@@ -1,11 +1,11 @@
-?? April 2015 - Release 0.14.14
+?? May 2015 - Release 0.14.14
 ===================================
 
 Highlights:
 
 * Extraction of `Web` and `Wrappers-JQuery` to own repos.
-* Amber core itself formally with no production dependencies, but
- `PlatformInterface >> ajax:` still needs jQuery wrapper loaded to work.
+* Amber core itself formally with no production dependencies.
+* Packages with 'use strict'.
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.14.13...0.14.14
 
