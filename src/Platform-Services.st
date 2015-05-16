@@ -365,19 +365,15 @@ PlatformInterface class instanceVariableNames: 'worker'!
 
 globals
 	<return (new Function('return this'))();>
-!
-
-setWorker: anObject
-	worker := anObject
 ! !
 
 !PlatformInterface class methodsFor: 'actions'!
 
 ajax: anObject
 	self deprecatedAPI: 'Use newXhr or dedicated library.'.
-	^ worker
-		ifNotNil: [ worker ajax: anObject ]
-		ifNil: [ self error: 'ajax: not available' ]
+	^ JQuery
+		ifNotNil: [ JQuery current ajax: anObject ]
+		ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]
 !
 
 alert: aString
@@ -398,9 +394,9 @@ existsGlobal: aString
 !
 
 newXhr
-	^ worker
-		ifNotNil: [ worker newXhr ]
-		ifNil: [ self error: 'newXhr: not available' ]
+	XMLHttpRequest
+		ifNotNil: [ ^ XMLHttpRequest new ]
+		ifNil: [ self error: 'XMLHttpRequest not available.' ]
 !
 
 prompt: aString
@@ -411,19 +407,6 @@ prompt: aString
 prompt: aString default: defaultString
 	self deprecatedAPI: 'Use Terminal prompt:default:'.
 	^ Terminal prompt: aString default: defaultString
-! !
-
-!PlatformInterface class methodsFor: 'initialization'!
-
-initialize
-	| candidate |
-	
-	super initialize.
-	
-	BrowserInterface ifNotNil: [
-		candidate := BrowserInterface new.
-		candidate isAvailable ifTrue: [ self setWorker: candidate. ^ self ]
-	]
 ! !
 
 Object subclass: #Service

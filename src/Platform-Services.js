@@ -1518,16 +1518,16 @@ selector: "ajax:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
+function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
+var $1,$receiver;
 self._deprecatedAPI_("Use newXhr or dedicated library.");
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("ajax: not available");
+if(($receiver = $JQuery()) == null || $receiver.isNil){
+$1=self._error_("JQuery wrapper not loaded, cannot do AJAX.");
 } else {
-$1=$recv(self["@worker"])._ajax_(anObject);
+$1=$recv($recv($JQuery())._current())._ajax_(anObject);
 };
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1536,10 +1536,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "ajax: anObject\x0a\x09self deprecatedAPI: 'Use newXhr or dedicated library.'.\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'ajax: not available' ]",
-referencedClasses: [],
+source: "ajax: anObject\x0a\x09self deprecatedAPI: 'Use newXhr or dedicated library.'.\x0a\x09^ JQuery\x0a\x09\x09ifNotNil: [ JQuery current ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]",
+referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
-messageSends: ["deprecatedAPI:", "ifNotNil:ifNil:", "ajax:", "error:"]
+messageSends: ["deprecatedAPI:", "ifNotNil:ifNil:", "ajax:", "current", "error:"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -1655,76 +1655,32 @@ $globals.PlatformInterface.klass);
 
 $core.addMethod(
 $core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-var candidate;
-function $BrowserInterface(){return $globals.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-(
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
-//>>excludeEnd("ctx");
-$globals.PlatformInterface.klass.superclass.fn.prototype._initialize.apply($recv(self), []));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = false;
-//>>excludeEnd("ctx");;
-if(($receiver = $BrowserInterface()) == null || $receiver.isNil){
-$BrowserInterface();
-} else {
-candidate=$recv($BrowserInterface())._new();
-candidate;
-$1=$recv(candidate)._isAvailable();
-if($core.assert($1)){
-self._setWorker_(candidate);
-return self;
-};
-};
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},$globals.PlatformInterface.klass)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09BrowserInterface ifNotNil: [\x0a\x09\x09candidate := BrowserInterface new.\x0a\x09\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^ self ]\x0a\x09]",
-referencedClasses: ["BrowserInterface"],
-//>>excludeEnd("ide");
-messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "isAvailable", "setWorker:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
 selector: "newXhr",
 protocol: 'actions',
 fn: function (){
 var self=this;
+function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@worker"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("newXhr: not available");
+var $1,$receiver;
+if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
+self._error_("XMLHttpRequest not available.");
 } else {
-$1=$recv(self["@worker"])._newXhr();
-};
+$1=$recv($XMLHttpRequest())._new();
 return $1;
+};
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "newXhr\x0a\x09^ worker\x0a\x09\x09ifNotNil: [ worker newXhr ]\x0a\x09\x09ifNil: [ self error: 'newXhr: not available' ]",
-referencedClasses: [],
+source: "newXhr\x0a\x09XMLHttpRequest\x0a\x09\x09ifNotNil: [ ^ XMLHttpRequest new ]\x0a\x09\x09ifNil: [ self error: 'XMLHttpRequest not available.' ]",
+referencedClasses: ["XMLHttpRequest"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "newXhr", "error:"]
+messageSends: ["ifNotNil:ifNil:", "new", "error:"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -1779,25 +1735,6 @@ source: "prompt: aString default: defaultString\x0a\x09self deprecatedAPI: 'Use 
 referencedClasses: ["Terminal"],
 //>>excludeEnd("ide");
 messageSends: ["deprecatedAPI:", "prompt:default:"]
-}),
-$globals.PlatformInterface.klass);
-
-$core.addMethod(
-$core.method({
-selector: "setWorker:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@worker"]=anObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "setWorker: anObject\x0a\x09worker := anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.PlatformInterface.klass);
 
