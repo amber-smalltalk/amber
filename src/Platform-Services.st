@@ -346,18 +346,14 @@ Object subclass: #PlatformInterface
 	instanceVariableNames: ''
 	package: 'Platform-Services'!
 !PlatformInterface commentStamp!
-I am single entry point to UI and environment interface.
-My `initialize` tries several options (for now, browser environment only) to set myself up.
+I am single entry point to underlying platform.
 
 ## API
 
-    PlatformInterface alert: 'Hey, there is a problem'.
-    PlatformInterface confirm: 'Affirmative?'.
-    PlatformInterface prompt: 'Your name:'.
+- `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.
 
-    PlatformInterface ajax: #{
-        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
-    }.!
+- `PlatformInterface globals` returns JS global object.
+- `PlatformInterface existsGlobal: aString` tests is a global named `aString` exists.!
 
 !PlatformInterface class methodsFor: 'accessing'!
 

@@ -1508,7 +1508,7 @@ $globals.NullProgressHandler.klass);
 
 $core.addClass('PlatformInterface', $globals.Object, [], 'Platform-Services');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
+$globals.PlatformInterface.comment="I am single entry point to underlying platform.\x0a\x0a## API\x0a\x0a- `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.\x0a\x0a- `PlatformInterface globals` returns JS global object.\x0a- `PlatformInterface existsGlobal: aString` tests is a global named `aString` exists.";
 //>>excludeEnd("ide");
 
 $core.addMethod(
