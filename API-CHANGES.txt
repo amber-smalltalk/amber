@@ -10,7 +10,7 @@
   + renamePackage:to:
 + PlatformInterface class >>
   + newXhr
-+ Terminal >>
++ Terminal class >>
   + alert:
   + confirm:
   + prompt:
