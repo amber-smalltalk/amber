@@ -3043,12 +3043,12 @@ selector: "exists:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($PlatformInterface())._existsGlobal_(aString);
+$1=$recv($Smalltalk())._existsJsGlobal_(aString);
 return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},$globals.NativeFunction.klass)});
@@ -3056,10 +3056,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "exists: aString\x0a\x09^ PlatformInterface existsGlobal: aString",
-referencedClasses: ["PlatformInterface"],
+source: "exists: aString\x0a\x09^ Smalltalk existsJsGlobal: aString",
+referencedClasses: ["Smalltalk"],
 //>>excludeEnd("ide");
-messageSends: ["existsGlobal:"]
+messageSends: ["existsJsGlobal:"]
 }),
 $globals.NativeFunction.klass);
 

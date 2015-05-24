@@ -1508,7 +1508,7 @@ $globals.NullProgressHandler.klass);
 
 $core.addClass('PlatformInterface', $globals.Object, [], 'Platform-Services');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.PlatformInterface.comment="I am single entry point to underlying platform.\x0a\x0a## API\x0a\x0a- `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.\x0a\x0a- `PlatformInterface globals` returns JS global object.\x0a- `PlatformInterface existsGlobal: aString` tests is a global named `aString` exists.";
+$globals.PlatformInterface.comment="I am single entry point to underlying platform.\x0a\x0a## API\x0a\x0a- `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.\x0a\x0a- `PlatformInterface globals` returns JS global object.";
 //>>excludeEnd("ide");
 
 $core.addMethod(
@@ -1607,6 +1607,7 @@ function $PlatformInterface(){return $globals.PlatformInterface||(typeof Platfor
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
+self._deprecatedAPI_("Use Smalltalk existsJsGlobal:");
 $1=$recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
 return true;
 
@@ -1621,10 +1622,10 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "existsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
+source: "existsGlobal: aString\x0a\x09self deprecatedAPI: 'Use Smalltalk existsJsGlobal:'.\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
 referencedClasses: ["PlatformInterface"],
 //>>excludeEnd("ide");
-messageSends: ["at:ifPresent:ifAbsent:", "globals"]
+messageSends: ["deprecatedAPI:", "at:ifPresent:ifAbsent:", "globals"]
 }),
 $globals.PlatformInterface.klass);
 

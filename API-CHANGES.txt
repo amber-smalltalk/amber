@@ -3,6 +3,7 @@
 * InterfacingObject >> ajax: deprecated
 * PlatformInterface class >> ajax: deprecated
 * PlatformInterface class >> alert:/confirm:/prompt:[default:] deprecated
+* PlatformInterface class >> existsGlobal: deprecated
 * Class BrowserInterface removed
 * Class Terminal, BrowserTerminal added
 
@@ -15,6 +16,8 @@
   + confirm:
   + prompt:
   + prompt:default:
+SmalltalkImage >>
+  + existsJsGlobal:
 
 - PlatformInterface class >>
   - initialize

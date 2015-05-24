@@ -885,7 +885,7 @@ methodOf: nativeFunc this: thisObject valueWithArgs: args
 !NativeFunction class methodsFor: 'testing'!
 
 exists: aString
-	^ PlatformInterface existsGlobal: aString
+	^ Smalltalk existsJsGlobal: aString
 ! !
 
 Object subclass: #Timeout

@@ -900,6 +900,13 @@ deletePackage: packageName
 
 !SmalltalkImage methodsFor: 'testing'!
 
+existsJsGlobal: aString
+	^ PlatformInterface globals 
+		at: aString 
+		ifPresent: [ true ] 
+		ifAbsent: [ false ]
+!
+
 isSmalltalkObject: anObject
 	"Consider anObject a Smalltalk object if it has a 'klass' property.
 	Note that this may be unaccurate"

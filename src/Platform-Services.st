@@ -352,8 +352,7 @@ I am single entry point to underlying platform.
 
 - `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.
 
-- `PlatformInterface globals` returns JS global object.
-- `PlatformInterface existsGlobal: aString` tests is a global named `aString` exists.!
+- `PlatformInterface globals` returns JS global object.!
 
 !PlatformInterface class methodsFor: 'accessing'!
 
@@ -381,6 +380,7 @@ confirm: aString
 !
 
 existsGlobal: aString
+	self deprecatedAPI: 'Use Smalltalk existsJsGlobal:'.
 	^ PlatformInterface globals 
 		at: aString 
 		ifPresent: [ true ] 

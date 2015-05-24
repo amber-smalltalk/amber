@@ -2881,6 +2881,38 @@ $globals.SmalltalkImage);
 
 $core.addMethod(
 $core.method({
+selector: "existsJsGlobal:",
+protocol: 'testing',
+fn: function (aString){
+var self=this;
+function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return true;
+
+}),(function(){
+return false;
+
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"existsJsGlobal:",{aString:aString},$globals.SmalltalkImage)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString"],
+source: "existsJsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
+referencedClasses: ["PlatformInterface"],
+//>>excludeEnd("ide");
+messageSends: ["at:ifPresent:ifAbsent:", "globals"]
+}),
+$globals.SmalltalkImage);
+
+$core.addMethod(
+$core.method({
 selector: "globalJsVariables",
 protocol: 'globals',
 fn: function (){
