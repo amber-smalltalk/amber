@@ -346,24 +346,19 @@ Object subclass: #PlatformInterface
 	instanceVariableNames: ''
 	package: 'Platform-Services'!
 !PlatformInterface commentStamp!
-I am single entry point to underlying platform.
-
-## API
-
-- `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.
-
-- `PlatformInterface globals` returns JS global object.!
+Deprecated. Use `Platform` or `Terminal`.!
 
 !PlatformInterface class methodsFor: 'accessing'!
 
 globals
-	<return (new Function('return this'))();>
+	self deprecatedAPI: 'Use Platform globals'.
+	^ Platform globals
 ! !
 
 !PlatformInterface class methodsFor: 'actions'!
 
 ajax: anObject
-	self deprecatedAPI: 'Use newXhr or dedicated library.'.
+	self deprecatedAPI: 'Use Platform newXhr or dedicated library.'.
 	^ JQuery
 		ifNotNil: [ JQuery current ajax: anObject ]
 		ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]
@@ -388,9 +383,8 @@ existsGlobal: aString
 !
 
 newXhr
-	XMLHttpRequest
-		ifNotNil: [ ^ XMLHttpRequest new ]
-		ifNil: [ self error: 'XMLHttpRequest not available.' ]
+	self deprecatedAPI: 'Use Platform newXhr'.
+	^ Platform newXhr
 !
 
 prompt: aString
@@ -497,6 +491,27 @@ The default inspector object is the transcript.!
 
 inspect: anObject
 	^ self current inspect: anObject
+! !
+
+Service subclass: #Platform
+	instanceVariableNames: ''
+	package: 'Platform-Services'!
+!Platform commentStamp!
+I am bridge to JS environment.
+
+## API
+
+    Platform globals. "JS global object"
+    Platform newXHR "new XMLHttpRequest() or its shim"!
+
+!Platform class methodsFor: 'accessing'!
+
+globals
+	^ self current globals
+!
+
+newXhr
+	^ self current newXhr
 ! !
 
 Service subclass: #ProgressHandler

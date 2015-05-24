@@ -901,7 +901,7 @@ deletePackage: packageName
 !SmalltalkImage methodsFor: 'testing'!
 
 existsJsGlobal: aString
-	^ PlatformInterface globals 
+	^ Platform globals 
 		at: aString 
 		ifPresent: [ true ] 
 		ifAbsent: [ false ]

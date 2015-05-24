@@ -849,7 +849,7 @@ visitValueNode: aNode
 
 visitVariableNode: aNode
 	aNode binding isUnknownVar ifTrue: [
-		^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].
+		^ self push: (Platform globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].
 		
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
@@ -860,7 +860,7 @@ visitVariableNode: aNode
 					ifTrue: [
 						Smalltalk globals 
 							at: aNode value 
-							ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])
+							ifAbsent: [ Platform globals at: aNode value ] ] ] ])
 ! !
 
 Error subclass: #ASTInterpreterError

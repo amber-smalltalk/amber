@@ -4,6 +4,116 @@ $core.addPackage('Platform-Browser');
 $core.packages["Platform-Browser"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Platform-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+$core.addClass('BrowserPlatform', $globals.Object, [], 'Platform-Browser');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.BrowserPlatform.comment="I am `Platform` service implementation for browser.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "globals",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=window;
+return $1;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "globals\x0a\x09^ window",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.BrowserPlatform);
+
+$core.addMethod(
+$core.method({
+selector: "newXhr",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
+self._error_("XMLHttpRequest not available.");
+} else {
+$1=$recv($XMLHttpRequest())._new();
+return $1;
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.BrowserPlatform)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "newXhr\x0a\x09XMLHttpRequest\x0a\x09\x09ifNotNil: [ ^ XMLHttpRequest new ]\x0a\x09\x09ifNil: [ self error: 'XMLHttpRequest not available.' ]",
+referencedClasses: ["XMLHttpRequest"],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:ifNil:", "new", "error:"]
+}),
+$globals.BrowserPlatform);
+
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'testing',
+fn: function (){
+var self=this;
+function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._isFeasible();
+if($core.assert($1)){
+$recv($Platform())._registerIfNone_(self._new());
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.BrowserPlatform.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09self isFeasible ifTrue: [ Platform registerIfNone: self new ]",
+referencedClasses: ["Platform"],
+//>>excludeEnd("ide");
+messageSends: ["ifTrue:", "isFeasible", "registerIfNone:", "new"]
+}),
+$globals.BrowserPlatform.klass);
+
+$core.addMethod(
+$core.method({
+selector: "isFeasible",
+protocol: 'testing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return typeof window !== "undefined";
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"isFeasible",{},$globals.BrowserPlatform.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isFeasible\x0a<return typeof window !== \x22undefined\x22>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.BrowserPlatform.klass);
+
+
 $core.addClass('BrowserTerminal', $globals.Object, [], 'Platform-Browser');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.BrowserTerminal.comment="I am `Terminal` service implementation for browser.";

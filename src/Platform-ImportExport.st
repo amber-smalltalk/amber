@@ -792,7 +792,7 @@ load: aPackage
 
 ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock
 	| xhr |
-	xhr := PlatformInterface newXhr.
+	xhr := Platform newXhr.
 	xhr open: 'PUT' url: aURL async: true.
 	xhr onreadystatechange: [
 		xhr readyState = 4 ifTrue: [

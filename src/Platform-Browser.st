@@ -1,4 +1,32 @@
 Smalltalk createPackage: 'Platform-Browser'!
+Object subclass: #BrowserPlatform
+	instanceVariableNames: ''
+	package: 'Platform-Browser'!
+!BrowserPlatform commentStamp!
+I am `Platform` service implementation for browser.!
+
+!BrowserPlatform methodsFor: 'accessing'!
+
+globals
+	^ window
+!
+
+newXhr
+	XMLHttpRequest
+		ifNotNil: [ ^ XMLHttpRequest new ]
+		ifNil: [ self error: 'XMLHttpRequest not available.' ]
+! !
+
+!BrowserPlatform class methodsFor: 'testing'!
+
+initialize
+	self isFeasible ifTrue: [ Platform registerIfNone: self new ]
+!
+
+isFeasible
+<return typeof window !!== "undefined">
+! !
+
 Object subclass: #BrowserTerminal
 	instanceVariableNames: ''
 	package: 'Platform-Browser'!

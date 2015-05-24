@@ -1508,7 +1508,7 @@ $globals.NullProgressHandler.klass);
 
 $core.addClass('PlatformInterface', $globals.Object, [], 'Platform-Services');
 //>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.PlatformInterface.comment="I am single entry point to underlying platform.\x0a\x0a## API\x0a\x0a- `PlatformInterface newXhr` returns new instance of `XMLHttpRequest`. This should be polyfilled for platforms where it does not exists, so it is always present.\x0a\x0a- `PlatformInterface globals` returns JS global object.";
+$globals.PlatformInterface.comment="Deprecated. Use `Platform` or `Terminal`.";
 //>>excludeEnd("ide");
 
 $core.addMethod(
@@ -1522,7 +1522,7 @@ function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuer
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
-self._deprecatedAPI_("Use newXhr or dedicated library.");
+self._deprecatedAPI_("Use Platform newXhr or dedicated library.");
 if(($receiver = $JQuery()) == null || $receiver.isNil){
 $1=self._error_("JQuery wrapper not loaded, cannot do AJAX.");
 } else {
@@ -1535,7 +1535,7 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "ajax: anObject\x0a\x09self deprecatedAPI: 'Use newXhr or dedicated library.'.\x0a\x09^ JQuery\x0a\x09\x09ifNotNil: [ JQuery current ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]",
+source: "ajax: anObject\x0a\x09self deprecatedAPI: 'Use Platform newXhr or dedicated library.'.\x0a\x09^ JQuery\x0a\x09\x09ifNotNil: [ JQuery current ajax: anObject ]\x0a\x09\x09ifNil: [ self error: 'JQuery wrapper not loaded, cannot do AJAX.' ]",
 referencedClasses: ["JQuery"],
 //>>excludeEnd("ide");
 messageSends: ["deprecatedAPI:", "ifNotNil:ifNil:", "ajax:", "current", "error:"]
@@ -1635,21 +1635,24 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
+function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return (new Function('return this'))();;
-return self;
+var $1;
+self._deprecatedAPI_("Use Platform globals");
+$1=$recv($Platform())._globals();
+return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "globals\x0a\x09<return (new Function('return this'))();>",
-referencedClasses: [],
+source: "globals\x0a\x09self deprecatedAPI: 'Use Platform globals'.\x0a\x09^ Platform globals",
+referencedClasses: ["Platform"],
 //>>excludeEnd("ide");
-messageSends: []
+messageSends: ["deprecatedAPI:", "globals"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -1659,28 +1662,24 @@ selector: "newXhr",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
+function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$receiver;
-if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
-self._error_("XMLHttpRequest not available.");
-} else {
-$1=$recv($XMLHttpRequest())._new();
+var $1;
+self._deprecatedAPI_("Use Platform newXhr");
+$1=$recv($Platform())._newXhr();
 return $1;
-};
-return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "newXhr\x0a\x09XMLHttpRequest\x0a\x09\x09ifNotNil: [ ^ XMLHttpRequest new ]\x0a\x09\x09ifNil: [ self error: 'XMLHttpRequest not available.' ]",
-referencedClasses: ["XMLHttpRequest"],
+source: "newXhr\x0a\x09self deprecatedAPI: 'Use Platform newXhr'.\x0a\x09^ Platform newXhr",
+referencedClasses: ["Platform"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "new", "error:"]
+messageSends: ["deprecatedAPI:", "newXhr"]
 }),
 $globals.PlatformInterface.klass);
 
@@ -2008,6 +2007,62 @@ referencedClasses: [],
 messageSends: ["inspect:", "current"]
 }),
 $globals.Inspector.klass);
+
+
+$core.addClass('Platform', $globals.Service, [], 'Platform-Services');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.Platform.comment="I am bridge to JS environment.\x0a\x0a## API\x0a\x0a    Platform globals. \x22JS global object\x22\x0a    Platform newXHR \x22new XMLHttpRequest() or its shim\x22";
+//>>excludeEnd("ide");
+
+$core.addMethod(
+$core.method({
+selector: "globals",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._globals();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.Platform.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "globals\x0a\x09^ self current globals",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["globals", "current"]
+}),
+$globals.Platform.klass);
+
+$core.addMethod(
+$core.method({
+selector: "newXhr",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(self._current())._newXhr();
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.Platform.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "newXhr\x0a\x09^ self current newXhr",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["newXhr", "current"]
+}),
+$globals.Platform.klass);
 
 
 $core.addClass('ProgressHandler', $globals.Service, [], 'Platform-Services');

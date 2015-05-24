@@ -2823,12 +2823,12 @@ protocol: 'private',
 fn: function (aURL,aString,aBlock,anotherBlock){
 var self=this;
 var xhr;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$4,$3,$2;
-xhr=$recv($PlatformInterface())._newXhr();
+xhr=$recv($Platform())._newXhr();
 $recv(xhr)._open_url_async_("PUT",aURL,true);
 $recv(xhr)._onreadystatechange_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2864,8 +2864,8 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aURL", "aString", "aBlock", "anotherBlock"],
-source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09| xhr |\x0a\x09xhr := PlatformInterface newXhr.\x0a\x09xhr open: 'PUT' url: aURL async: true.\x0a\x09xhr onreadystatechange: [\x0a\x09\x09xhr readyState = 4 ifTrue: [\x0a\x09\x09\x09(xhr status >= 200 and: [ xhr status < 300 ])\x0a\x09\x09\x09\x09ifTrue: aBlock\x0a\x09\x09\x09\x09ifFalse: anotherBlock ]].\x0a\x09xhr send: aString",
-referencedClasses: ["PlatformInterface"],
+source: "ajaxPutAt: aURL data: aString onSuccess: aBlock onError: anotherBlock\x0a\x09| xhr |\x0a\x09xhr := Platform newXhr.\x0a\x09xhr open: 'PUT' url: aURL async: true.\x0a\x09xhr onreadystatechange: [\x0a\x09\x09xhr readyState = 4 ifTrue: [\x0a\x09\x09\x09(xhr status >= 200 and: [ xhr status < 300 ])\x0a\x09\x09\x09\x09ifTrue: aBlock\x0a\x09\x09\x09\x09ifFalse: anotherBlock ]].\x0a\x09xhr send: aString",
+referencedClasses: ["Platform"],
 //>>excludeEnd("ide");
 messageSends: ["newXhr", "open:url:async:", "onreadystatechange:", "ifTrue:", "=", "readyState", "ifTrue:ifFalse:", "and:", ">=", "status", "<", "send:"]
 }),

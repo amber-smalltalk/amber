@@ -2885,12 +2885,12 @@ selector: "existsJsGlobal:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+$1=$recv($recv($Platform())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
 return true;
 
 }),(function(){
@@ -2904,8 +2904,8 @@ return $1;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "existsJsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
-referencedClasses: ["PlatformInterface"],
+source: "existsJsGlobal: aString\x0a\x09^ Platform globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
+referencedClasses: ["Platform"],
 //>>excludeEnd("ide");
 messageSends: ["at:ifPresent:ifAbsent:", "globals"]
 }),
