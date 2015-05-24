@@ -1,4 +1,4 @@
-?? May 2015 - Release 0.14.14
+24 May 2015 - Release 0.14.14
 ===================================
 
 Highlights:
@@ -6,6 +6,7 @@ Highlights:
 * Extraction of `Web` and `Wrappers-JQuery` to own repos.
 * Amber core itself formally with no production dependencies.
 * Packages with 'use strict'.
+* `PlatformInterface` replaced by services `Terminal` and `Platform`.
 
 Commits: https://github.com/amber-smalltalk/amber/compare/0.14.13...0.14.14
 
