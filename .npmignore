@@ -2,7 +2,7 @@
 .DS_Store
 
 # Ignoring test runner
-test_runner.js
+/test_runner.js
 
 # In case amber is also saved in a local Subversion
 .svn
@@ -13,12 +13,13 @@ node_modules/
 # Ignoring local bower modules
 bower_components/
 
-# Exclude the externals and internals
-/external/
-/internal/
-
 # Ignoring place dedicated to hand-cloned user modules
 /my/
 
 # Other generated or transient files
-config.js
+/config.js
+
+# Exclude the externals and internals
+/external/
+/internal/
+
