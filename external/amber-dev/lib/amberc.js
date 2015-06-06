@@ -565,7 +565,7 @@ function compose_js_files(configuration) {
 				var buffer = fs.readFileSync(file);
 				// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
 				var match = buffer.toString().match(/(^|\n)define\("([^"]*)"/);
-				if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
+				if (match) {
 					builder.addId(match[2]);
 				}
 				builder.add(buffer);
