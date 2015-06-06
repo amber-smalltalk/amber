@@ -69,7 +69,7 @@ module.exports = function(grunt) {
         src: ['external/amber-dev/lib/Test.st']
       },
       test_runner: {
-        src: ['node_modules/amber-dev/lib/Test.st'],
+        src: ['external/amber-dev/lib/Test.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
