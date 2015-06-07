@@ -15,8 +15,10 @@ To get your clone, follow this list:
 1. Install the tools: ```npm install -g amber-cli grunt-cli bower```.
 1. Run ```npm install``` to install dependencies listed in package.json. Used by development tools. See [here](https://www.npmjs.org/doc/cli/npm-install.html) for more info.
 1. Run ```bower install``` to install dependencies listed in bower.json. Used by Amber in browser. See [here](http://bower.io/) for more info.
+1. Run ```cd external/amber-dev && npm install && cd ../..``` to install dependencies of `amber-dev` component.
 1. Get your copy of Helios IDE into directory `my/helios`, choosing among using your own fork / using the stock version:
-  ```git clone git@github.com:<your username>/helios.git my/helios``` / ```git clone git@github.com:amber-smalltalk/helios.git my/helios```.
+    - ```git clone git@github.com:<your username>/helios.git my/helios``` to use your own fork, or
+    - ```git clone git@github.com:amber-smalltalk/helios.git my/helios``` to use stock version.
 1. Install Helios' dependencies: ```cd my/helios && bower install && cd ../..```.
 1. Get your copy of legacy IDE into directory `my/amber-contrib-legacy`:
   ```git clone git@github.com:amber-smalltalk/amber-contrib-legacy.git my/amber-contrib-legacy```.
