@@ -1,17 +1,19 @@
 var path = require('path');
 
 module.exports = function (grunt) {
+    var helpers = require('./external/amber-dev/lib/helpers');
 
     grunt.loadTasks('./internal/grunt-tasks');
     grunt.loadTasks('./external/amber-dev/tasks');
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-execute');
 
     grunt.registerTask('default', ['peg', 'amberc:all']);
     grunt.registerTask('amberc:all', ['amberc:amber', 'amberc:cli', 'amberc:dev']);
-    grunt.registerTask('test', ['amberc:test_runner', 'execute:test_runner', 'clean:test_runner']);
+    grunt.registerTask('test', ['requirejs:test_runner', 'execute:test_runner', 'clean:test_runner']);
     grunt.registerTask('devel', ['amdconfig:amber']);
 
     grunt.initConfig({
@@ -68,17 +70,30 @@ module.exports = function (grunt) {
                 output_dir: 'external/amber-dev/lib',
                 src: ['external/amber-dev/lib/NodeTestRunner.st'],
                 amd_namespace: 'amber_devkit'
-            },
+            }
+        },
+
+        requirejs: {
             test_runner: {
-                src: ['external/amber-dev/lib/NodeTestRunner.st'],
-                libraries: [
-                    'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-                    'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-                    'SUnit', 'Platform-ImportExport',
-                    'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
-                main_class: 'NodeTestRunner',
-                amd_namespace: 'amber_devkit',
-                output_name: 'test_runner'
+                options: {
+                    mainConfigFile: "config.js",
+                    rawText: {
+                        "app": "(" + function () {
+                            define("app", ["amber/devel", "amber_devkit/NodeTestRunner"], function (amber) {
+                                amber.initialize();
+                                amber.globals.NodeTestRunner._main();
+                            });
+                        } + "());"
+                    },
+                    paths: {"amber_devkit": helpers.libPath},
+                    pragmas: {
+                        // none, amber tests test contexts as well as eg. class copying which needs sources
+                    },
+                    include: ['config-node', 'app'],
+                    optimize: "none",
+                    wrap: helpers.nodeWrap('app'),
+                    out: "test_runner.js"
+                }
             }
         },
 
