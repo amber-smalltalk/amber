@@ -44,6 +44,6 @@
     "grunt-cli": "^0.1.13"
   },
   "devDependencies": {
-    "shelljs":"^0.3.0"
+    "shelljs": "^0.3.0"
   }
 }
