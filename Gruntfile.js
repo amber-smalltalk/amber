@@ -66,7 +66,7 @@ module.exports = function(grunt) {
       },
       dev: {
         output_dir: 'external/amber-dev/lib',
-        src: ['external/amber-dev/lib/Test.st']
+        src: ['external/amber-dev/lib/NodeTestRunner.st']
       },
       test_runner: {
         src: ['external/amber-dev/lib/Test.st'],

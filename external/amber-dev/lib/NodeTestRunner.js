@@ -1,10 +1,10 @@
-define("amber_core/Test", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/NodeTestRunner", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-$core.addPackage('Test');
-$core.packages["Test"].innerEval = function (expr) { return eval(expr); };
-$core.packages["Test"].transport = {"type":"amd","amdNamespace":"amber_core"};
+$core.addPackage('NodeTestRunner');
+$core.packages["NodeTestRunner"].innerEval = function (expr) { return eval(expr); };
+$core.packages["NodeTestRunner"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$core.addClass('NodeTestRunner', $globals.Object, [], 'Test');
+$core.addClass('NodeTestRunner', $globals.Object, [], 'NodeTestRunner');
 
 $core.addMethod(
 $core.method({
