@@ -66,16 +66,18 @@ module.exports = function(grunt) {
       },
       dev: {
         output_dir: 'external/amber-dev/lib',
-        src: ['external/amber-dev/lib/NodeTestRunner.st']
+        src: ['external/amber-dev/lib/NodeTestRunner.st'],
+        amd_namespace: 'amber_devkit'
       },
       test_runner: {
-        src: ['external/amber-dev/lib/Test.st'],
+        src: ['external/amber-dev/lib/NodeTestRunner.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
         'SUnit', 'Platform-ImportExport',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         main_class: 'NodeTestRunner',
+        amd_namespace: 'amber_devkit',
         output_name: 'test_runner'
       }
     },

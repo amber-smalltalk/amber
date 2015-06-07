@@ -1,4 +1,4 @@
-exports.testRunnerPath = require.resolve('./NodeTestRunner').replace(/\.js$/, "");
+exports.libPath = __dirname;
 
 exports.nodeWrap = function (id) {
     var wrapSource = JSON.stringify('_wrap_' + id),
