@@ -7,6 +7,8 @@ install:
   - npm install
   - cd external/amber-cli
   - npm install
+  - cd ../amber-dev
+  - npm install
   - cd ../..
 script:
   - npm test

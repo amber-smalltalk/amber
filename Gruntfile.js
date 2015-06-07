@@ -3,7 +3,7 @@ var path = require('path');
 module.exports = function(grunt) {
 
   grunt.loadTasks('./internal/grunt-tasks');
-  grunt.loadNpmTasks('amber-dev');
+  grunt.loadTasks('./external/amber-dev/tasks');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
