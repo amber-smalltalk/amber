@@ -79,7 +79,7 @@ module.exports = function (grunt) {
                     mainConfigFile: "config.js",
                     rawText: {
                         "app": "(" + function () {
-                            define("app", ["amber/devel", "amber_devkit/NodeTestRunner"], function (amber) {
+                            define(["amber/devel", "amber_devkit/NodeTestRunner"], function (amber) {
                                 amber.initialize();
                                 amber.globals.NodeTestRunner._main();
                             });
