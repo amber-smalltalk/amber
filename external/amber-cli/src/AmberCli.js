@@ -2268,7 +2268,7 @@ function $String(){return $globals.String||(typeof String=="undefined"?nil:Strin
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(console)._log_([" ", "The project should now be set up.", " ", " ", "To manage project from cli (run tests, recompile),", "the `grunt` command-line tool needs to be installed.", "If not present, it can be installed with:", "  (sudo) npm install -g grunt-cli", " ", "To manage project dependencies,", "the `bower` command-line tool needs to be installed.", "If not present, it can be installed with:", "  (sudo) npm install -g bower", " "]._join_($recv($String())._lf()));
+$recv(console)._log_([" ", "The project should now be set up.", " ", " "]._join_($recv($String())._lf()));
 $recv((function(){
 
 }))._valueWithTimeout_((600));
@@ -2279,7 +2279,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "finishMessage\x0a\x09console log: (#(\x0a\x09\x09' '\x0a\x09\x09'The project should now be set up.'\x0a\x09\x09' '\x0a\x09\x09' '\x0a\x09\x09'To manage project from cli (run tests, recompile),'\x0a\x09\x09'the `grunt` command-line tool needs to be installed.'\x0a\x09\x09'If not present, it can be installed with:'\x0a\x09\x09'  (sudo) npm install -g grunt-cli'\x0a\x09\x09' '\x0a\x09\x09'To manage project dependencies,'\x0a\x09\x09'the `bower` command-line tool needs to be installed.'\x0a\x09\x09'If not present, it can be installed with:'\x0a\x09\x09'  (sudo) npm install -g bower'\x0a\x09\x09' '\x0a\x09) join: String lf).\x0a\x09[] valueWithTimeout: 600",
+source: "finishMessage\x0a\x09console log: (#(\x0a\x09\x09' '\x0a\x09\x09'The project should now be set up.'\x0a\x09\x09' '\x0a\x09\x09' '\x0a\x09) join: String lf).\x0a\x09[] valueWithTimeout: 600",
 referencedClasses: ["String"],
 //>>excludeEnd("ide");
 messageSends: ["log:", "join:", "lf", "valueWithTimeout:"]

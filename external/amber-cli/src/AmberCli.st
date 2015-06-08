@@ -1005,16 +1005,6 @@ finishMessage
 		'The project should now be set up.'
 		' '
 		' '
-		'To manage project from cli (run tests, recompile),'
-		'the `grunt` command-line tool needs to be installed.'
-		'If not present, it can be installed with:'
-		'  (sudo) npm install -g grunt-cli'
-		' '
-		'To manage project dependencies,'
-		'the `bower` command-line tool needs to be installed.'
-		'If not present, it can be installed with:'
-		'  (sudo) npm install -g bower'
-		' '
 	) join: String lf).
 	[] valueWithTimeout: 600
 !
