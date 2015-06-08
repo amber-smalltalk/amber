@@ -12,7 +12,7 @@ To get your clone, follow this list:
 
 1. Create a fork of the repository on GitHub
 1. Clone the fork and go to its directory.
-1. Install the tools: ```npm install -g amber-cli grunt-cli bower```.
+1. Install the tools: ```npm install -g amber-cli```.
 1. Run ```npm install``` to install dependencies listed in package.json. Used by development tools. See [here](https://www.npmjs.org/doc/cli/npm-install.html) for more info.
 1. Run ```bower install``` to install dependencies listed in bower.json. Used by Amber in browser. See [here](http://bower.io/) for more info.
 1. Run ```cd external/amber-dev && npm install && cd ../..``` to install dependencies of `amber-dev` component.
