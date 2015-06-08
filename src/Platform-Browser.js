@@ -35,6 +35,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
+function $NativeFunction(){return $globals.NativeFunction||(typeof NativeFunction=="undefined"?nil:NativeFunction)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -42,7 +43,7 @@ var $1,$receiver;
 if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
 self._error_("XMLHttpRequest not available.");
 } else {
-$1=$recv($XMLHttpRequest())._new();
+$1=$recv($NativeFunction())._constructorOf_($XMLHttpRequest());
 return $1;
 };
 return self;
@@ -52,10 +53,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "newXhr\x0a\x09XMLHttpRequest\x0a\x09\x09ifNotNil: [ ^ XMLHttpRequest new ]\x0a\x09\x09ifNil: [ self error: 'XMLHttpRequest not available.' ]",
-referencedClasses: ["XMLHttpRequest"],
+source: "newXhr\x0a\x09XMLHttpRequest\x0a\x09\x09ifNotNil: [ ^ NativeFunction constructorOf: XMLHttpRequest ]\x0a\x09\x09ifNil: [ self error: 'XMLHttpRequest not available.' ]",
+referencedClasses: ["XMLHttpRequest", "NativeFunction"],
 //>>excludeEnd("ide");
-messageSends: ["ifNotNil:ifNil:", "new", "error:"]
+messageSends: ["ifNotNil:ifNil:", "constructorOf:", "error:"]
 }),
 $globals.BrowserPlatform);
 

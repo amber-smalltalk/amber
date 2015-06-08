@@ -13,7 +13,7 @@ globals
 
 newXhr
 	XMLHttpRequest
-		ifNotNil: [ ^ XMLHttpRequest new ]
+		ifNotNil: [ ^ NativeFunction constructorOf: XMLHttpRequest ]
 		ifNil: [ self error: 'XMLHttpRequest not available.' ]
 ! !
 
