@@ -12,13 +12,15 @@ exports.nodeWrapWithoutShebang = function (id) {
     var wrapSource = JSON.stringify('_wrap_' + id),
         idSource = JSON.stringify(id);
     return {
-        start: "(function(define){\n" +
-        "define(" + wrapSource + ", function (require) {\n",
+        start: "(function(define, require){\n" +
+        "define(" + wrapSource + ", function (requirejs) {\n" +
+        "requirejs.resolve = require.resolve;\n" +
+        "require = requirejs;\n",
         end: "require(" + idSource + ");\n" +
         "});\n" +
         "define.require(" + wrapSource + ");\n" +
-        "}(" +
+        "}((" +
         require("amdefine") +
-        "(module)));"
+        "(module)), require));"
     };
 };
