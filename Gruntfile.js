@@ -11,8 +11,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-execute');
 
-    grunt.registerTask('default', ['peg', 'amberc:all']);
-    grunt.registerTask('amberc:all', ['amberc:amber', 'amberc:cli', 'amberc:dev']);
+    grunt.registerTask('default', ['peg', 'build:all']);
+    grunt.registerTask('build:all', ['amberc:amber', 'build:cli', 'amberc:dev']);
+    grunt.registerTask('build:cli', ['amberc:cli', 'requirejs:cli']);
     grunt.registerTask('test', ['amdconfig:amber', 'requirejs:test_runner', 'execute:test_runner', 'clean:test_runner']);
     grunt.registerTask('devel', ['amdconfig:amber']);
 
@@ -62,8 +63,6 @@ module.exports = function (grunt) {
                     'SUnit', 'Platform-ImportExport',
                     'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'
                 ],
-                main_class: 'AmberCli',
-                output_name: '../support/amber-cli',
                 amd_namespace: 'amber_cli'
             },
             dev: {
@@ -74,6 +73,26 @@ module.exports = function (grunt) {
         },
 
         requirejs: {
+            cli: {
+                options: {
+                    mainConfigFile: "config.js",
+                    rawText: {
+                        "app": "(" + function () {
+                            define(["amber/devel", "amber_cli/AmberCli"], function (amber) {
+                                amber.initialize();
+                                amber.globals.AmberCli._main();
+                            });
+                        } + "());"
+                    },
+                    pragmas: {
+                        // none, for repl to have all info
+                    },
+                    include: ['config-node', 'app'],
+                    optimize: "none",
+                    wrap: helpers.nodeWrap('app'),
+                    out: "external/amber-cli/support/amber-cli.js"
+                }
+            },
             test_runner: {
                 options: {
                     mainConfigFile: "config.js",
