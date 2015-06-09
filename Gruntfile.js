@@ -88,8 +88,9 @@ module.exports = function (grunt) {
                         // none, for repl to have all info
                     },
                     include: ['config-node', 'app'],
+                    insertRequire: ['app'],
                     optimize: "none",
-                    wrap: helpers.nodeWrap('app'),
+                    wrap: helpers.nodeWrapperWithShebang,
                     out: "external/amber-cli/support/amber-cli.js"
                 }
             },
@@ -109,8 +110,9 @@ module.exports = function (grunt) {
                         // none, amber tests test contexts as well as eg. class copying which needs sources
                     },
                     include: ['config-node', 'app'],
+                    insertRequire: ['app'],
                     optimize: "none",
-                    wrap: helpers.nodeWrap('app'),
+                    wrap: helpers.nodeWrapperWithShebang,
                     out: "test_runner.js"
                 }
             }

@@ -1,26 +1,26 @@
-exports.libPath = __dirname;
-
-exports.nodeShebang = "#!/usr/bin/env node";
-
-exports.nodeWrap = function (id) {
-    var wrap = exports.nodeWrapWithoutShebang(id);
-    wrap.start = exports.nodeShebang + "\n" + wrap.start;
-    return wrap;
-};
-
-exports.nodeWrapWithoutShebang = function (id) {
-    var wrapSource = JSON.stringify('_wrap_' + id),
-        idSource = JSON.stringify(id);
+function nodeWrapper() {
     return {
         start: "(function(define, require){\n" +
-        "define(" + wrapSource + ", function (requirejs) {\n" +
+        "define('__wrap__', function (requirejs) {\n" +
         "requirejs.resolve = require.resolve;\n" +
         "require = requirejs;\n",
-        end: "require(" + idSource + ");\n" +
-        "});\n" +
-        "define.require(" + wrapSource + ");\n" +
+        end: "});\n" +
+        "define.require('__wrap__');\n" +
         "}((" +
         require("amdefine") +
         "(module)), require));"
     };
+}
+
+var SHEBANG = "#!/usr/bin/env node",
+    WRAPPER = nodeWrapper(),
+    WRAPPER_WITH_SHEBANG = nodeWrapper();
+
+WRAPPER_WITH_SHEBANG.start = SHEBANG + "\n" + WRAPPER_WITH_SHEBANG.start;
+
+module.exports = {
+    libPath: __dirname,
+    nodeShebang: SHEBANG,
+    nodeWrapper: WRAPPER,
+    nodeWrapperWithShebang: WRAPPER_WITH_SHEBANG
 };
