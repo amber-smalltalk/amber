@@ -1,3 +1,11 @@
+9 June 2015 - Release 0.14.15
+===================================
+
+Bugfix release - in some browsers, package commit failed.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.13...0.14.14
+
+
 24 May 2015 - Release 0.14.14
 ===================================
 
