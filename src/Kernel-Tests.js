@@ -9396,6 +9396,167 @@ $globals.ConsoleTranscriptTest);
 
 
 
+$core.addClass('DateTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
+selector: "testEquality",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var now;
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$3,$4,$2,$6,$7,$5,$9,$11,$10,$8;
+now=$recv($Date())._new();
+$1=$recv(now).__eq(now);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=1;
+//>>excludeEnd("ctx");
+self._assert_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$3=now;
+$4=$recv($Date())._fromMilliseconds_((0));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3).__eq($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=2;
+//>>excludeEnd("ctx");
+self._deny_($2);
+$6=$recv($Date())._fromMilliseconds_((12345678));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=2;
+//>>excludeEnd("ctx");
+$7=$recv($Date())._fromMilliseconds_((12345678));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=3;
+//>>excludeEnd("ctx");
+$5=$recv($6).__eq($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=3;
+//>>excludeEnd("ctx");
+self._assert_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+$9=now;
+$11=$recv(now)._asMilliseconds();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asMilliseconds"]=1;
+//>>excludeEnd("ctx");
+$10=$recv($Date())._fromMilliseconds_($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=4;
+//>>excludeEnd("ctx");
+$8=$recv($9).__eq($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["="]=4;
+//>>excludeEnd("ctx");
+self._assert_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+self._assert_($recv($recv($Date())._fromMilliseconds_($recv(now)._asMilliseconds())).__eq(now));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{now:now},$globals.DateTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testEquality\x0a\x09| now |\x0a\x09now := Date new.\x0a\x0a\x09self assert: now = now.\x0a\x0a\x09self deny: now = (Date fromMilliseconds: 0).\x0a\x0a\x09self assert: (Date fromMilliseconds: 12345678) = (Date fromMilliseconds: 12345678).\x0a\x09self assert: now = (Date fromMilliseconds: now asMilliseconds).\x0a\x09self assert: (Date fromMilliseconds: now asMilliseconds) = now",
+referencedClasses: ["Date"],
+//>>excludeEnd("ide");
+messageSends: ["new", "assert:", "=", "deny:", "fromMilliseconds:", "asMilliseconds"]
+}),
+$globals.DateTest);
+
+$core.addMethod(
+$core.method({
+selector: "testIdentity",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var now;
+function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$3,$4,$2,$6,$7,$5,$9,$11,$10,$8;
+now=$recv($Date())._new();
+$1=$recv(now).__eq_eq(now);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=1;
+//>>excludeEnd("ctx");
+self._assert_($1);
+$3=now;
+$4=$recv($Date())._fromMilliseconds_((0));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3).__eq_eq($4);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=2;
+//>>excludeEnd("ctx");
+self._deny_($2);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=1;
+//>>excludeEnd("ctx");
+$6=$recv($Date())._fromMilliseconds_((12345678));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=2;
+//>>excludeEnd("ctx");
+$7=$recv($Date())._fromMilliseconds_((12345678));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=3;
+//>>excludeEnd("ctx");
+$5=$recv($6).__eq_eq($7);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=3;
+//>>excludeEnd("ctx");
+self._deny_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=2;
+//>>excludeEnd("ctx");
+$9=now;
+$11=$recv(now)._asMilliseconds();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["asMilliseconds"]=1;
+//>>excludeEnd("ctx");
+$10=$recv($Date())._fromMilliseconds_($11);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["fromMilliseconds:"]=4;
+//>>excludeEnd("ctx");
+$8=$recv($9).__eq_eq($10);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=4;
+//>>excludeEnd("ctx");
+self._deny_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["deny:"]=3;
+//>>excludeEnd("ctx");
+self._deny_($recv($recv($Date())._fromMilliseconds_($recv(now)._asMilliseconds())).__eq_eq(now));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testIdentity",{now:now},$globals.DateTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testIdentity\x0a\x09| now |\x0a\x09now := Date new.\x0a\x0a\x09self assert: now == now.\x0a\x0a\x09self deny: now == (Date fromMilliseconds: 0).\x0a\x0a\x09self deny: (Date fromMilliseconds: 12345678) == (Date fromMilliseconds: 12345678).\x0a\x09self deny: now == (Date fromMilliseconds: now asMilliseconds).\x0a\x09self deny: (Date fromMilliseconds: now asMilliseconds) == now",
+referencedClasses: ["Date"],
+//>>excludeEnd("ide");
+messageSends: ["new", "assert:", "==", "deny:", "fromMilliseconds:", "asMilliseconds"]
+}),
+$globals.DateTest);
+
+
+
 $core.addClass('JSObjectProxyTest', $globals.TestCase, [], 'Kernel-Tests');
 $core.addMethod(
 $core.method({

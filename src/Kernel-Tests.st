@@ -1692,6 +1692,38 @@ self shouldnt: [ Transcript show: console ] raise: Error.
 Transcript register: originalTranscript.
 ! !
 
+TestCase subclass: #DateTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!DateTest methodsFor: 'tests'!
+
+testEquality
+	| now |
+	now := Date new.
+
+	self assert: now = now.
+
+	self deny: now = (Date fromMilliseconds: 0).
+
+	self assert: (Date fromMilliseconds: 12345678) = (Date fromMilliseconds: 12345678).
+	self assert: now = (Date fromMilliseconds: now asMilliseconds).
+	self assert: (Date fromMilliseconds: now asMilliseconds) = now
+!
+
+testIdentity
+	| now |
+	now := Date new.
+
+	self assert: now == now.
+
+	self deny: now == (Date fromMilliseconds: 0).
+
+	self deny: (Date fromMilliseconds: 12345678) == (Date fromMilliseconds: 12345678).
+	self deny: now == (Date fromMilliseconds: now asMilliseconds).
+	self deny: (Date fromMilliseconds: now asMilliseconds) == now
+! !
+
 TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

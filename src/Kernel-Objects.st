@@ -660,6 +660,10 @@ year: aNumber
 	<return self <= aDate>
 !
 
+= aDate
+	^ (aDate class == self class) and: [ self asMilliseconds == aDate asMilliseconds ]
+!
+
 > aDate
 	<return self >> aDate>
 !

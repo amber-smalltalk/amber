@@ -2317,6 +2317,51 @@ $globals.Date);
 
 $core.addMethod(
 $core.method({
+selector: "=",
+protocol: 'comparing',
+fn: function (aDate){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $3,$2,$4,$1;
+$3=$recv(aDate)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3).__eq_eq(self._class());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2)._and_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$4=self._asMilliseconds();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["asMilliseconds"]=1;
+//>>excludeEnd("ctx");
+return $recv($4).__eq_eq($recv(aDate)._asMilliseconds());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"=",{aDate:aDate},$globals.Date)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aDate"],
+source: "= aDate\x0a\x09^ (aDate class == self class) and: [ self asMilliseconds == aDate asMilliseconds ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["and:", "==", "class", "asMilliseconds"]
+}),
+$globals.Date);
+
+$core.addMethod(
+$core.method({
 selector: ">",
 protocol: 'comparing',
 fn: function (aDate){
