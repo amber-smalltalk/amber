@@ -427,6 +427,48 @@ testInstanceVariableNames
 	self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')
 ! !
 
+TestCase subclass: #ClassTest
+	instanceVariableNames: 'builder theClass'
+	package: 'Kernel-Tests'!
+
+!ClassTest methodsFor: 'running'!
+
+jsConstructor
+	<
+		function Foo(){}
+		Foo.prototype.valueOf = function () {return 4;};
+		return Foo;
+	>
+!
+
+setUp
+	builder := ClassBuilder new
+!
+
+tearDown
+	theClass ifNotNil: [ Smalltalk removeClass: theClass. theClass := nil ]
+! !
+
+!ClassTest methodsFor: 'tests'!
+
+testSetJavaScriptConstructor
+	| instance |
+	theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
+	theClass javascriptConstructor: self jsConstructor.
+	"part took from copy class test"
+	self assert: theClass superclass == ObjectMock superclass.
+	self assert: theClass instanceVariableNames == ObjectMock instanceVariableNames.
+	self assert: theClass name equals: 'ObjectMock2'.
+	self assert: theClass package == ObjectMock package.
+	self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys.
+	"testing specific to late-wrapped class"
+	instance := theClass new.
+	self assert: instance class == theClass.
+	self assert: instance value equals: 4.
+	self shouldnt: [ instance foo: 9 ] raise: Error.
+	self assert: instance foo equals: 9
+! !
+
 TestCase subclass: #CollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

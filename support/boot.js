@@ -245,17 +245,21 @@ define("amber/boot", [ 'require', './browser-compatibility' ], function (require
 		function copySuperclass(klass) {
 			var superclass = klass.superclass,
 				localMethods = klass.methods,
-				protectedJsSelectors = {};
+				localMethodsByJsSelector = {};
 			Object.keys(localMethods).forEach(function (each) {
-				protectedJsSelectors[localMethods[each].jsSelector] = true;
+				var localMethod = localMethods[each];
+                localMethodsByJsSelector[localMethod.jsSelector] = localMethod;
 			});
-			var superproto = superclass.fn.prototype;
+			var myproto = klass.fn.prototype,
+				superproto = superclass.fn.prototype;
 			dnu.jsSelectors.forEach(function (selector) {
-				if (!protectedJsSelectors[selector]) {
+				if (!localMethodsByJsSelector[selector]) {
 					manip.installMethod({
 						jsSelector: selector,
 						fn: superproto[selector]
 					}, klass);
+				} else if (!myproto[selector]) {
+					manip.installMethod(localMethodsByJsSelector[selector], klass);
 				}
 			});
 		}

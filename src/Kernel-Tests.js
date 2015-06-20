@@ -2273,6 +2273,192 @@ $globals.ClassBuilderTest);
 
 
 
+$core.addClass('ClassTest', $globals.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
+$core.addMethod(
+$core.method({
+selector: "jsConstructor",
+protocol: 'running',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+		function Foo(){}
+		Foo.prototype.valueOf = function () {return 4;};
+		return Foo;
+	;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"jsConstructor",{},$globals.ClassTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "jsConstructor\x0a\x09<\x0a\x09\x09function Foo(){}\x0a\x09\x09Foo.prototype.valueOf = function () {return 4;};\x0a\x09\x09return Foo;\x0a\x09>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ClassTest);
+
+$core.addMethod(
+$core.method({
+selector: "setUp",
+protocol: 'running',
+fn: function (){
+var self=this;
+function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self["@builder"]=$recv($ClassBuilder())._new();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.ClassTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "setUp\x0a\x09builder := ClassBuilder new",
+referencedClasses: ["ClassBuilder"],
+//>>excludeEnd("ide");
+messageSends: ["new"]
+}),
+$globals.ClassTest);
+
+$core.addMethod(
+$core.method({
+selector: "tearDown",
+protocol: 'running',
+fn: function (){
+var self=this;
+function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+$1=self["@theClass"];
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
+} else {
+$recv($Smalltalk())._removeClass_(self["@theClass"]);
+self["@theClass"]=nil;
+self["@theClass"];
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"tearDown",{},$globals.ClassTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "tearDown\x0a\x09theClass ifNotNil: [ Smalltalk removeClass: theClass. theClass := nil ]",
+referencedClasses: ["Smalltalk"],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "removeClass:"]
+}),
+$globals.ClassTest);
+
+$core.addMethod(
+$core.method({
+selector: "testSetJavaScriptConstructor",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var instance;
+function $ObjectMock(){return $globals.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
+function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$4,$3,$6,$5,$8,$7;
+self["@theClass"]=$recv(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
+$recv(self["@theClass"])._javascriptConstructor_(self._jsConstructor());
+$2=$recv(self["@theClass"])._superclass();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["superclass"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2).__eq_eq($recv($ObjectMock())._superclass());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=1;
+//>>excludeEnd("ctx");
+self._assert_($1);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=1;
+//>>excludeEnd("ctx");
+$4=$recv(self["@theClass"])._instanceVariableNames();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["instanceVariableNames"]=1;
+//>>excludeEnd("ctx");
+$3=$recv($4).__eq_eq($recv($ObjectMock())._instanceVariableNames());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=2;
+//>>excludeEnd("ctx");
+self._assert_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=2;
+//>>excludeEnd("ctx");
+self._assert_equals_($recv(self["@theClass"])._name(),"ObjectMock2");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:equals:"]=1;
+//>>excludeEnd("ctx");
+$6=$recv(self["@theClass"])._package();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["package"]=1;
+//>>excludeEnd("ctx");
+$5=$recv($6).__eq_eq($recv($ObjectMock())._package());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["=="]=3;
+//>>excludeEnd("ctx");
+self._assert_($5);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:"]=3;
+//>>excludeEnd("ctx");
+$8=$recv(self["@theClass"])._methodDictionary();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["methodDictionary"]=1;
+//>>excludeEnd("ctx");
+$7=$recv($8)._keys();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["keys"]=1;
+//>>excludeEnd("ctx");
+self._assert_equals_($7,$recv($recv($ObjectMock())._methodDictionary())._keys());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:equals:"]=2;
+//>>excludeEnd("ctx");
+instance=$recv(self["@theClass"])._new();
+self._assert_($recv($recv(instance)._class()).__eq_eq(self["@theClass"]));
+self._assert_equals_($recv(instance)._value(),(4));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["assert:equals:"]=3;
+//>>excludeEnd("ctx");
+self._shouldnt_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(instance)._foo_((9));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$Error());
+self._assert_equals_($recv(instance)._foo(),(9));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testSetJavaScriptConstructor",{instance:instance},$globals.ClassTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testSetJavaScriptConstructor\x0a\x09| instance |\x0a\x09theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09theClass javascriptConstructor: self jsConstructor.\x0a\x09\x22part took from copy class test\x22\x0a\x09self assert: theClass superclass == ObjectMock superclass.\x0a\x09self assert: theClass instanceVariableNames == ObjectMock instanceVariableNames.\x0a\x09self assert: theClass name equals: 'ObjectMock2'.\x0a\x09self assert: theClass package == ObjectMock package.\x0a\x09self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys.\x0a\x09\x22testing specific to late-wrapped class\x22\x0a\x09instance := theClass new.\x0a\x09self assert: instance class == theClass.\x0a\x09self assert: instance value equals: 4.\x0a\x09self shouldnt: [ instance foo: 9 ] raise: Error.\x0a\x09self assert: instance foo equals: 9",
+referencedClasses: ["ObjectMock", "Error"],
+//>>excludeEnd("ide");
+messageSends: ["copyClass:named:", "javascriptConstructor:", "jsConstructor", "assert:", "==", "superclass", "instanceVariableNames", "assert:equals:", "name", "package", "keys", "methodDictionary", "new", "class", "value", "shouldnt:raise:", "foo:", "foo"]
+}),
+$globals.ClassTest);
+
+
+
 $core.addClass('CollectionTest', $globals.TestCase, [], 'Kernel-Tests');
 $core.addMethod(
 $core.method({
