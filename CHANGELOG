@@ -1,9 +1,17 @@
+20 June 2015 - Release 0.14.16
+===================================
+
+Bugfix release - Date >> =, Class >> javascriptConstructor:.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.15...0.14.16
+
+
 9 June 2015 - Release 0.14.15
 ===================================
 
 Bugfix release - in some browsers, package commit failed.
 
-Commits: https://github.com/amber-smalltalk/amber/compare/0.14.13...0.14.14
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.14...0.14.15
 
 
 24 May 2015 - Release 0.14.14
