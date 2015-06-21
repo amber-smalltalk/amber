@@ -90,9 +90,6 @@ var createDefaultConfiguration = function() {
 		'jsFiles': [],
 		'jsGlobals': [],
 		'amd_namespace': 'amber_core',
-		'suffix': '',
-		'loadsuffix': '',
-		'suffix_used': '',
 		'libraries': [],
 		'jsLibraryDirs': [],
 		'compile': [],
@@ -183,7 +180,7 @@ function check_configuration(configuration) {
  */
 function resolve_js(filename, configuration) {
 	var baseName = path.basename(filename, '.js');
-	var jsFile = baseName + configuration.loadsuffix + '.js';
+	var jsFile = baseName + '.js';
 	return resolve_file(jsFile, configuration.jsLibraryDirs);
 };
 
@@ -461,7 +458,7 @@ function category_export(configuration) {
 				if (undefined === jsFilePath) {
 					jsFilePath = path.dirname(stFile);
 				}
-				var jsFile = category + configuration.suffix_used + '.js';
+				var jsFile = category + '.js';
 				jsFile = path.join(jsFilePath, jsFile);
 				configuration.compiled.push(jsFile);
 				var smalltalkGlobals = configuration.globals;
