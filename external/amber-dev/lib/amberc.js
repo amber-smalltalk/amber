@@ -87,7 +87,6 @@ var createDefaultConfiguration = function() {
 	return {
 		'load': [],
 		'stFiles': [],
-		'jsFiles': [],
 		'jsGlobals': [],
 		'amd_namespace': 'amber_core',
 		'libraries': [],
@@ -131,7 +130,6 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 
 	check_configuration(configuration)
 	.then(collect_st_files)
-	.then(collect_js_files)
 	.then(resolve_kernel)
 	.then(create_compiler)
 	.then(compile)
@@ -159,8 +157,8 @@ function check_configuration(configuration) {
 			reject(Error('AmberCompiler.check_configuration_ok(): missing configuration object'));
 		}
 
-		if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.length) {
-			reject(Error('AmberCompiler.check_configuration_ok(): no files to compile/link specified in configuration object'));
+		if (0 === configuration.stFiles.length) {
+			reject(Error('AmberCompiler.check_configuration_ok(): no files to compile specified in configuration object'));
 		}
 
 		resolve(configuration);
@@ -239,23 +237,6 @@ function collect_st_files(configuration) {
 	)
 	.then(function(data) {
 		configuration.compile = configuration.compile.concat(data);
-		return configuration;
-	});
-}
-
-
-/**
- * Resolve js files given by jsFiles and add them to configuration.libraries.
- * Returns a Promise which resolves into the configuration object.
- */
-function collect_js_files(configuration) {
-	return Promise.all(
-		configuration.jsFiles.map(function(file) {
-			return resolve_js(file, configuration);
-		})
-	)
-	.then(function(data) {
-		configuration.libraries = configuration.libraries.concat(data);
 		return configuration;
 	});
 }
