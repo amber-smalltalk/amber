@@ -85,16 +85,16 @@ function AmberCompiler(amber_dir) {
  */
 var createDefaultConfiguration = function () {
     return {
-        'load': [],
-        'stFiles': [],
-        'jsGlobals': [],
-        'amdNamespace': 'amber_core',
-        'libraries': [],
-        'jsLibraryDirs': [],
-        'compile': [],
-        'compiled': [],
-        'outputDir': undefined,
-        'verbose': false
+        load: [],
+        stFiles: [],
+        jsGlobals: [],
+        amdNamespace: 'amber_core',
+        libraries: [],
+        jsLibraryDirs: [],
+        compile: [],
+        compiled: [],
+        outputDir: undefined,
+        verbose: false
     };
 };
 
