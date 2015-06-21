@@ -1,10 +1,10 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-  var path = require('path');
-  var fs = require('fs');
-  var amberc = require('../lib/amberc.js');
+    var path = require('path');
+    var fs = require('fs');
+    var amberc = require('../lib/amberc.js');
 
-  /**
+    /**
      A full example entry for a Gruntfile.js is available below.
      Please note that the verbose level is either specified globally
      or on a target specific level.
@@ -34,67 +34,67 @@ module.exports = function(grunt) {
        },
      },
 
-   */
-  grunt.registerMultiTask('amberc', 'Compile Smalltalk files with the amberc compiler', function() {
-    // mark task as async task
-    var done = this.async();
+     */
+    grunt.registerMultiTask('amberc', 'Compile Smalltalk files with the amberc compiler', function () {
+        // mark task as async task
+        var done = this.async();
 
-    var options = this.options({
-      amber_dir: undefined,
-      library_dirs: [],
-      verbose: grunt.option('verbose') || false
+        var options = this.options({
+            amber_dir: undefined,
+            library_dirs: [],
+            verbose: grunt.option('verbose') || false
+        });
+        this.data.verbose = options.verbose;
+        this.data.library_dirs = options.library_dirs;
+
+        // mark required properties
+        this.requiresConfig('amberc.options.amber_dir');
+        // raise error on missing source files
+        if (this.filesSrc.length === 0) {
+            grunt.fail.fatal('No source files to compile or link.');
+        }
+
+        // create and initialize amberc
+        var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
+
+        // generate the amberc configuration out of the given target properties
+        var configuration = generateCompilerConfiguration(this.data, this.filesSrc);
+
+        // run the compiler and call the async callback once finished
+        var self = this;
+        compiler.main(configuration, function () {
+            // signal that task has finished
+            done();
+        });
     });
-    this.data.verbose = options.verbose;
-    this.data.library_dirs = options.library_dirs;
-
-    // mark required properties
-    this.requiresConfig('amberc.options.amber_dir');
-    // raise error on missing source files
-    if (this.filesSrc.length === 0) {
-        grunt.fail.fatal('No source files to compile or link.');
-    }
-
-    // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
-
-    // generate the amberc configuration out of the given target properties
-    var configuration = generateCompilerConfiguration(this.data, this.filesSrc);
-
-    // run the compiler and call the async callback once finished
-    var self = this;
-    compiler.main(configuration, function(){
-      // signal that task has finished
-      done();
-    });
-  });
 
 
-  function generateCompilerConfiguration(data, sourceFiles) {
-    var configuration = amberc.createDefaultConfiguration();
-    var parameters = [];
+    function generateCompilerConfiguration(data, sourceFiles) {
+        var configuration = amberc.createDefaultConfiguration();
+        var parameters = [];
 
-    var libraries = data.libraries;
-    if (undefined !== libraries) {
-      configuration.load = libraries;
+        var libraries = data.libraries;
+        if (undefined !== libraries) {
+            configuration.load = libraries;
+        }
+        var library_dirs = data.library_dirs;
+        if (undefined !== library_dirs) {
+            configuration.jsLibraryDirs = library_dirs;
+        }
+        if (undefined !== sourceFiles) {
+            configuration.stFiles = sourceFiles;
+        }
+        var amdNamespace = data.amd_namespace;
+        if (undefined !== amdNamespace) {
+            configuration.amd_namespace = amdNamespace;
+        }
+        if (undefined !== data.output_dir) {
+            configuration.output_dir = data.output_dir;
+        }
+        if (undefined !== data.jsGlobals) {
+            configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);
+        }
+        configuration.verbose = data.verbose;
+        return configuration;
     }
-    var library_dirs = data.library_dirs;
-    if (undefined !== library_dirs) {
-      configuration.jsLibraryDirs = library_dirs;
-    }
-    if (undefined !== sourceFiles) {
-      configuration.stFiles = sourceFiles;
-    }
-    var amdNamespace = data.amd_namespace;
-    if (undefined !== amdNamespace) {
-      configuration.amd_namespace = amdNamespace;
-    }
-    if (undefined !== data.output_dir) {
-      configuration.output_dir = data.output_dir;
-    }
-    if (undefined !== data.jsGlobals) {
-      configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);
-    }
-    configuration.verbose = data.verbose;
-    return configuration;
-  }
 };

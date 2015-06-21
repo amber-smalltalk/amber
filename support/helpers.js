@@ -65,5 +65,5 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
 
     // Exports
 
-    return  exports;
+    return exports;
 });
