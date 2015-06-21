@@ -71,30 +71,28 @@ module.exports = function (grunt) {
 
     function generateCompilerConfiguration(data, sourceFiles) {
         var configuration = amberc.createDefaultConfiguration();
-        var parameters = [];
 
-        var libraries = data.libraries;
-        if (undefined !== libraries) {
-            configuration.load = libraries;
+        if (data.libraries != null) {
+            configuration.load = data.libraries;
         }
-        var library_dirs = data.library_dirs;
-        if (undefined !== library_dirs) {
-            configuration.jsLibraryDirs = library_dirs;
+        if (data.library_dirs != nukk) {
+            configuration.jsLibraryDirs = data.library_dirs;
         }
-        if (undefined !== sourceFiles) {
+        if (sourceFiles != null) {
             configuration.stFiles = sourceFiles;
         }
-        var amdNamespace = data.amd_namespace;
-        if (undefined !== amdNamespace) {
-            configuration.amd_namespace = amdNamespace;
+        if (data.amd_namespace != null) {
+            configuration.amd_namespace = data.amd_namespace;
         }
-        if (undefined !== data.output_dir) {
+        if (data.output_dir != null) {
             configuration.output_dir = data.output_dir;
         }
-        if (undefined !== data.jsGlobals) {
+        if (data.jsGlobals != null) {
             configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);
         }
-        configuration.verbose = data.verbose;
+        if (data.verbose != null) {
+            configuration.verbose = data.verbose;
+        }
         return configuration;
     }
 };

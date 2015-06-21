@@ -66,7 +66,7 @@ var path = require('path'),
  * amber_dir: points to the location of an amber installation
  */
 function AmberCompiler(amber_dir) {
-    if (undefined === amber_dir || !fs.existsSync(amber_dir)) {
+    if (amber_dir == null || !fs.existsSync(amber_dir)) {
         throw new Error('amber_dir needs to be a valid directory');
     }
 
@@ -111,7 +111,7 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
         configuration.amd_namespace = 'amber_core';
     }
 
-    if (undefined !== configuration.jsLibraryDirs) {
+    if (configuration.jsLibraryDirs != null) {
         configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'src'));
         configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
     }
@@ -154,7 +154,7 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
  */
 function check_configuration(configuration) {
     return new Promise(function (resolve, reject) {
-        if (undefined === configuration) {
+        if (configuration == null) {
             reject(Error('AmberCompiler.check_configuration_ok(): missing configuration object'));
         }
 
@@ -439,7 +439,7 @@ function category_export(configuration) {
             return new Promise(function (resolve, reject) {
                 var category = path.basename(stFile, '.st');
                 var jsFilePath = configuration.output_dir;
-                if (undefined === jsFilePath) {
+                if (jsFilePath == null) {
                     jsFilePath = path.dirname(stFile);
                 }
                 var jsFile = category + '.js';

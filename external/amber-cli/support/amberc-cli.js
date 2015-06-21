@@ -33,7 +33,7 @@ function handle_options(optionsArray) {
     var currentItem = optionsArray.shift();
     var defaults = amberc.createDefaultConfiguration();
 
-    while (undefined !== currentItem) {
+    while (currentItem != null) {
         switch (currentItem) {
             case '-l':
                 defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
