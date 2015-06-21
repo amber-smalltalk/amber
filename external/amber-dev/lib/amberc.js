@@ -88,12 +88,12 @@ var createDefaultConfiguration = function () {
         'load': [],
         'stFiles': [],
         'jsGlobals': [],
-        'amd_namespace': 'amber_core',
+        'amdNamespace': 'amber_core',
         'libraries': [],
         'jsLibraryDirs': [],
         'compile': [],
         'compiled': [],
-        'output_dir': undefined,
+        'outputDir': undefined,
         'verbose': false
     };
 };
@@ -107,8 +107,8 @@ var createDefaultConfiguration = function () {
 AmberCompiler.prototype.main = function (configuration, finished_callback) {
     console.time('Compile Time');
 
-    if (configuration.amd_namespace.length === 0) {
-        configuration.amd_namespace = 'amber_core';
+    if (configuration.amdNamespace.length === 0) {
+        configuration.amdNamespace = 'amber_core';
     }
 
     if (configuration.jsLibraryDirs != null) {
@@ -438,7 +438,7 @@ function category_export(configuration) {
         configuration.compile.map(function (stFile) {
             return new Promise(function (resolve, reject) {
                 var category = path.basename(stFile, '.st');
-                var jsFilePath = configuration.output_dir;
+                var jsFilePath = configuration.outputDir;
                 if (jsFilePath == null) {
                     jsFilePath = path.dirname(stFile);
                 }
@@ -447,7 +447,7 @@ function category_export(configuration) {
                 configuration.compiled.push(jsFile);
                 var smalltalkGlobals = configuration.globals;
                 var packageObject = smalltalkGlobals.Package._named_(category);
-                packageObject._transport()._namespace_(configuration.amd_namespace);
+                packageObject._transport()._namespace_(configuration.amdNamespace);
                 fs.writeFile(jsFile, smalltalkGlobals.String._streamContents_(function (stream) {
                     smalltalkGlobals.AmdExporter._new()._exportPackage_on_(packageObject, stream);
                 }), function (err) {

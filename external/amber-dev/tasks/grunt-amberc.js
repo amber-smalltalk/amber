@@ -27,10 +27,10 @@ module.exports = function (grunt) {
            verbose: true
          },
          src: ['projects/HelloWorld/src/HelloWorld.st'], // REQUIRED
-         output_dir: 'projects/HelloWorld/src',  // optional
+         outputDir: 'projects/HelloWorld/src',  // optional
          libraries: 'Web',                       // optional
          jsGlobals: ['global1', 'global2'],     // optional
-         amd_namespace: 'MyNamespace',          // optional (default: 'amber')
+         amdNamespace: 'MyNamespace',          // optional (default: 'amber')
        },
      },
 
@@ -81,11 +81,11 @@ module.exports = function (grunt) {
         if (sourceFiles != null) {
             configuration.stFiles = sourceFiles;
         }
-        if (data.amd_namespace != null) {
-            configuration.amd_namespace = data.amd_namespace;
+        if (data.amdNamespace != null) {
+            configuration.amdNamespace = data.amdNamespace;
         }
-        if (data.output_dir != null) {
-            configuration.output_dir = data.output_dir;
+        if (data.outputDir != null) {
+            configuration.outputDir = data.outputDir;
         }
         if (data.jsGlobals != null) {
             configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);

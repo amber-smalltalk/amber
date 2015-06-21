@@ -45,10 +45,10 @@ function handle_options(optionsArray) {
                 defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
                 break;
             case '-n':
-                defaults.amd_namespace = optionsArray.shift();
+                defaults.amdNamespace = optionsArray.shift();
                 break;
             case '-D':
-                defaults.output_dir = optionsArray.shift();
+                defaults.outputDir = optionsArray.shift();
                 break;
             case '-d':
                 amber_dir = path.normalize(optionsArray.shift());
