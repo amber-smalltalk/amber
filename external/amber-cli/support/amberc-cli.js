@@ -44,12 +44,6 @@ function handle_options(optionsArray) {
 			case '-g':
 				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
 				break;
-			case '-m':
-				defaults.main = optionsArray.shift();
-				break;
-			case '-M':
-				defaults.mainfile = optionsArray.shift();
-				break;
 			case '-n':
 				defaults.amd_namespace = optionsArray.shift();
 				break;
@@ -59,36 +53,18 @@ function handle_options(optionsArray) {
 			case '-d':
 				amber_dir = path.normalize(optionsArray.shift());
 				break;
-			case '-s':
-				defaults.suffix = optionsArray.shift();
-				defaults.suffix_used = defaults.suffix;
-				break;
-			case '-S':
-				defaults.loadsuffix = optionsArray.shift();
-				defaults.suffix_used = defaults.suffix;
-				break;
 			case '-v':
 				defaults.verbose = true;
 				break;
 			case '-h':
 			case '--help':
 			case '?':
+			case '-?':
 				print_usage_and_exit();
 				break;
 			default:
-				var fileSuffix = path.extname(currentItem);
-				switch (fileSuffix) {
-					case '.st':
-						defaults.stFiles.push(currentItem);
-						break;
-					case '.js':
-						defaults.jsFiles.push(currentItem);
-						break;
-					default:
-						// Will end up being the last non js/st argument
-						programName.push(currentItem);
-						break;
-				}
+				defaults.stFiles.push(currentItem);
+				break;
 		}
 		currentItem = optionsArray.shift();
 	}
@@ -105,27 +81,15 @@ function handle_options(optionsArray) {
 // print available flags
 function print_usage_and_exit() {
 	var usage = [
-		'Usage: amberc [-l lib1,lib2...] [-g jsGlobal1,jsGlobla2] [-m main_class] [-M main_file]',
-		'          [-n namespace] [-D output_dir] [-v] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]',
+		'Usage: amberc [-L libdir1,libdir2...] [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
+		'          [-n namespace] [-D output_dir] [-v] file1 file2 ...',
 		'',
-		'   amberc compiles Amber files - either separately or into a complete runnable',
-		'   program. If no .st files are listed only a linking stage is performed.',
-		'   Files listed will be handled using the following rules:',
-		'',
-		'   *.js',
-		'     Files are linked (concatenated) in listed order.',
-		'     If not found we look in $AMBER/src/',
-		'',
-		'   *.st',
-		'     Files are compiled into .js files before concatenation.',
-		'     If not found we look in $AMBER/src/',
+		'   amberc compiles Amber files.',
+		'   Files are compiled into .js files before concatenation.',
+		'   If not found we look in $AMBER/src/',
 		'',
 		'     NOTE: Each .st file is currently considered to be a fileout of a single class',
 		'     category of the same name as the file!',
-		'',
-		'   If no <Program> is specified each given .st file will be compiled into',
-		'   a matching .js file. Otherwise a <Program>.js file is linked together based on',
-		'   the given options:',
 		'',
 		'  -l library1,library2',
 		'     Add listed JavaScript libraries in listed order.',
@@ -142,12 +106,6 @@ function print_usage_and_exit() {
 		'     Comma separated list of JS global variable names.',
 		'     The names are added to a list containing "window", "document" and others.',
 		'',
-		'  -m main_class',
-		'     Add a call to the class method main_class>>main at the end of <Program>.',
-		'',
-		'  -M main_file',
-		'     Add <main_file> at the end of <Program.js> acting as #main.',
-		'',
 		'  -n amd_namespace',
 		'     Export packages with <amd_namespace> as the require.js namespace.',
 		'     Default value is "amber_core".',
@@ -162,33 +120,13 @@ function print_usage_and_exit() {
 		'',
 		'  -d',
 		'     Specifies the alternate directory to look for Amber files.',
-		'     If not specified, the version embedded in CLI is used..',
-		'',
-		'  -s suffix',
-		'     Add <suffix> to compiled .js files. File.st is then compiled into',
-		'     File.<suffix>.js.',
-		'',
-		'  -S suffix',
-		'     Use <suffix> for all libraries accessed using -l. This makes it possible',
-		'     to have multiple flavors of Amber and libraries in the same place.',
-		'',
+		'     If not specified, the version embedded in CLI is used.',
 		'',
 		'     Example invocations:',
 		'',
 		'     Just compile Kernel-Objects.st to Kernel-Objects.js:',
 		'',
 		'        amberc Kernel-Objects.st',
-		'',
-		'     Compile Hello.st to Hello.js and create complete program called Program.js.',
-		'     Additionally add a call to the class method Hello>>main:',
-		'',
-		'        amberc -m Hello Hello.st Program',
-		'',
-		'     Compile Cat1.st and Cat2.st files into corresponding .js files.',
-		'     Link them with myboot.js and myKernel.js',
-		'     and merge everything into a complete program named Program.js:',
-		'',
-		'        amberc -M main.js myboot.js myKernel.js Cat1.st Cat2.st Program',
 	];
 	usage.forEach(function (line) {
 		console.log(line);
