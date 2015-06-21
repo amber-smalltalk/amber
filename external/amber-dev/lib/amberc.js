@@ -86,8 +86,6 @@ function AmberCompiler(amber_dir) {
 var createDefaultConfiguration = function() {
 	return {
 		'load': [],
-		'main': undefined,
-		'mainfile': undefined,
 		'stFiles': [],
 		'jsFiles': [],
 		'jsGlobals': [],
@@ -99,7 +97,6 @@ var createDefaultConfiguration = function() {
 		'jsLibraryDirs': [],
 		'compile': [],
 		'compiled': [],
-		'program': undefined,
 		'output_dir': undefined,
 		'verbose': false
 	};
@@ -143,7 +140,6 @@ AmberCompiler.prototype.main = function(configuration, finished_callback) {
 	.then(compile)
 	.then(category_export)
 	.then(verify)
-	.then(compose_js_files)
 	.then(function () {
 		console.timeEnd('Compile Time');
 	}, function(error) {
@@ -508,93 +504,6 @@ function verify(configuration) {
 	)
 	.then(function() {
 		return configuration;
-	});
-}
-
-
-/**
- * Synchronous function.
- * Concatenates compiled JavaScript files into one file in the correct order.
- * The name of the produced file is given by configuration.program.
- * Returns a Promise which resolves into the configuration object.
- */
-function compose_js_files(configuration) {
-	return new Promise(function(resolve, reject) {
-		var programFile = configuration.program;
-		if (undefined === programFile) {
-			resolve(configuration);
-			return;
-		}
-		if (undefined !== configuration.output_dir) {
-			programFile = path.join(configuration.output_dir, programFile);
-		}
-
-		var program_files = [];
-		if (0 !== configuration.libraries.length) {
-			console.log('Collecting libraries: ' + configuration.libraries);
-			program_files.push.apply(program_files, configuration.libraries);
-		}
-
-		if (0 !== configuration.compiled.length) {
-			var compiledFiles = configuration.compiled.slice(0);
-
-			console.log('Collecting compiled files: ' + compiledFiles);
-			program_files.push.apply(program_files, compiledFiles);
-		}
-
-		console.ambercLog('Writing program file: %s.js', programFile);
-
-		var fileStream = fs.createWriteStream(programFile + configuration.suffix_used + '.js');
-		fileStream.on('error', function(error) {
-			fileStream.end();
-			console.ambercLog(error);
-			reject(error);
-		});
-
-		fileStream.on('close', function(){
-			resolve(configuration);
-		});
-
-		var builder = createConcatenator();
-		builder.add('#!/usr/bin/env node');
-		builder.start();
-
-		program_files.forEach(function(file) {
-			if(fs.existsSync(file)) {
-				console.log('Adding : ' + file);
-				var buffer = fs.readFileSync(file);
-				// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
-				var match = buffer.toString().match(/(^|\n)define\("([^"]*)"/);
-				if (match) {
-					builder.addId(match[2]);
-				}
-				builder.add(buffer);
-			} else {
-				fileStream.end();
-				reject(Error('Can not find file ' + file));
-			}
-		});
-
-		var mainFunctionOrFile = 'var $core = boot.api, $globals = boot.globals;\n';
-
-		if (undefined !== configuration.main) {
-			console.log('Adding call to: %s>>main', configuration.main);
-			mainFunctionOrFile += '$globals.' + configuration.main + '._main();';
-		}
-
-		if (undefined !== configuration.mainfile && fs.existsSync(configuration.mainfile)) {
-			console.log('Adding main file: ' + configuration.mainfile);
-		}
-
-		builder.finish(mainFunctionOrFile);
-
-		console.log('Writing...');
-		builder.forEach(function (element) {
-			fileStream.write(element);
-			fileStream.write('\n');
-		});
-		console.log('Done.');
-		fileStream.end();
 	});
 }
 
