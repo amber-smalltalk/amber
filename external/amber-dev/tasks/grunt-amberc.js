@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         if (data.libraries != null) {
             configuration.load = data.libraries;
         }
-        if (data.library_dirs != nukk) {
+        if (data.library_dirs != null) {
             configuration.jsLibraryDirs = data.library_dirs;
         }
         if (sourceFiles != null) {
