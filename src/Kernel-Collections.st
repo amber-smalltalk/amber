@@ -1969,7 +1969,8 @@ add: anObject in: anotherObject
 	<
 		if (anObject in anotherObject.store) { return false; }
 		self['@size']++;
-		return anotherObject.store[anObject] = true;
+		anotherObject.store[anObject] = true;
+		return anObject;
 	>
 !
 

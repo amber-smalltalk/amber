@@ -8057,7 +8057,8 @@ return $core.withContext(function($ctx1) {
 
 		if (anObject in anotherObject.store) { return false; }
 		self['@size']++;
-		return anotherObject.store[anObject] = true;
+		anotherObject.store[anObject] = true;
+		return anObject;
 	;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8066,7 +8067,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject", "anotherObject"],
-source: "add: anObject in: anotherObject\x0a\x09<\x0a\x09\x09if (anObject in anotherObject.store) { return false; }\x0a\x09\x09self['@size']++;\x0a\x09\x09return anotherObject.store[anObject] = true;\x0a\x09>",
+source: "add: anObject in: anotherObject\x0a\x09<\x0a\x09\x09if (anObject in anotherObject.store) { return false; }\x0a\x09\x09self['@size']++;\x0a\x09\x09anotherObject.store[anObject] = true;\x0a\x09\x09return anObject;\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
