@@ -504,9 +504,7 @@ inlinedSelectors
 
 shouldInline: anIRInstruction
 	(self inlinedSelectors includes: anIRInstruction selector) ifFalse: [ ^ false ].
-	anIRInstruction instructions allButFirst do: [ :each |
-		each isClosure ifFalse: [ ^ false ]].
-	^ true
+	^ anIRInstruction instructions allButFirst allSatisfy: [ :each | each isClosure]
 ! !
 
 IRSendInliner subclass: #IRAssignmentInliner

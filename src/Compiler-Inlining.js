@@ -2184,37 +2184,30 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2;
-var $early={};
-try {
 $1=$recv(self._inlinedSelectors())._includes_($recv(anIRInstruction)._selector());
 if(!$core.assert($1)){
 return false;
 };
-$recv($recv($recv(anIRInstruction)._instructions())._allButFirst())._do_((function(each){
+$2=$recv($recv($recv(anIRInstruction)._instructions())._allButFirst())._allSatisfy_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=$recv(each)._isClosure();
-if(!$core.assert($2)){
-throw $early=[false];
-};
+return $recv(each)._isClosure();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-return true;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
+return $2;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"shouldInline:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
-source: "shouldInline: anIRInstruction\x0a\x09(self inlinedSelectors includes: anIRInstruction selector) ifFalse: [ ^ false ].\x0a\x09anIRInstruction instructions allButFirst do: [ :each |\x0a\x09\x09each isClosure ifFalse: [ ^ false ]].\x0a\x09^ true",
+source: "shouldInline: anIRInstruction\x0a\x09(self inlinedSelectors includes: anIRInstruction selector) ifFalse: [ ^ false ].\x0a\x09^ anIRInstruction instructions allButFirst allSatisfy: [ :each | each isClosure]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifFalse:", "includes:", "inlinedSelectors", "selector", "do:", "allButFirst", "instructions", "isClosure"]
+messageSends: ["ifFalse:", "includes:", "inlinedSelectors", "selector", "allSatisfy:", "allButFirst", "instructions", "isClosure"]
 }),
 $globals.IRSendInliner.klass);
 
