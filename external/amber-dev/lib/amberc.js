@@ -23,7 +23,7 @@ function AmberCompiler(amber_dir) {
     }
 
     this.amber_dir = amber_dir;
-    requirejs = requirejs.config({
+    this.requirejs = requirejs.config({
         context: "amberc",
         nodeRequire: require,
         paths: {
@@ -85,9 +85,9 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     // the evaluated compiler will be stored in this variable (see create_compiler)
     configuration.core = {};
     configuration.globals = {};
-    configuration.kernel_libraries = this.kernel_libraries;
     configuration.compiler_libraries = this.compiler_libraries;
     configuration.amber_dir = this.amber_dir;
+    configuration.requirejs = this.requirejs;
 
     check_configuration(configuration)
         .then(collect_st_files)
@@ -193,7 +193,7 @@ function collect_st_files(configuration) {
 function create_compiler(configuration) {
     var compiler_files = configuration.compiler_libraries;
     var include_files = configuration.load;
-    return new Promise(requirejs.bind(null, compiler_files))
+    return new Promise(configuration.requirejs.bind(null, compiler_files))
         .then(function (boot) {
             boot.api.initialize();
             configuration.core = boot.api;
@@ -201,7 +201,7 @@ function create_compiler(configuration) {
             var pluginPrefixedLibraries = include_files.map(function (each) {
                 return 'amber/without-imports!' + each;
             });
-            return new Promise(requirejs.bind(null, pluginPrefixedLibraries));
+            return new Promise(configuration.requirejs.bind(null, pluginPrefixedLibraries));
         })
         .then(function () {
             console.log('Compiler loaded');
