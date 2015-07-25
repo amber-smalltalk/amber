@@ -18,6 +18,7 @@
     "amd-config-builder": "^0.2.0",
     "amdefine": ">=0.1.1",
     "es6-promise": "^2.0.0",
-    "requirejs": "^2.1.19"
+    "requirejs": "^2.1.19",
+    "requirejs-text": "^2.0.12"
   }
 }

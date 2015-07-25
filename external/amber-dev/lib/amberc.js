@@ -28,7 +28,9 @@ function AmberCompiler(amber_dir) {
         nodeRequire: require,
         paths: {
             'amber': path.join(amber_dir, 'support'),
-            'amber_core': path.join(amber_dir, 'src')
+            'amber_core': path.join(amber_dir, 'src'),
+            'text': require.resolve('requirejs-text').replace(/\.js$/, ""),
+            'amber/without-imports': path.join(__dirname, 'without-imports')
         }
     });
     // Important: in next list, boot MUST be first
@@ -54,7 +56,6 @@ var createDefaultConfiguration = function () {
         jsGlobals: [],
         amdNamespace: 'amber_core',
         libraries: [],
-        jsLibraryDirs: [],
         compile: [],
         compiled: [],
         outputDir: undefined,
@@ -75,11 +76,6 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
         configuration.amdNamespace = 'amber_core';
     }
 
-    if (configuration.jsLibraryDirs != null) {
-        configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'src'));
-        configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
-    }
-
     console.ambercLog = console.log;
     if (false === configuration.verbose) {
         console.log = function () {
@@ -95,7 +91,6 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
 
     check_configuration(configuration)
         .then(collect_st_files)
-        .then(resolve_kernel)
         .then(create_compiler)
         .then(compile)
         .then(category_export)
@@ -128,23 +123,6 @@ function check_configuration(configuration) {
 
         resolve(configuration);
     });
-}
-
-
-/**
- * Check if the file given as parameter exists in any of the following directories:
- *  1. current local directory
- *  2. configuration.jsLibraryDirs
- *  3. $AMBER/src/
- *  3. $AMBER/support/
- *
- * @param filename name of a file without '.js' prefix
- * @param configuration the main amberc configuration object
- */
-function resolve_js(filename, configuration) {
-    var baseName = path.basename(filename, '.js');
-    var jsFile = baseName + '.js';
-    return resolve_file(jsFile, configuration.jsLibraryDirs);
 }
 
 
@@ -208,40 +186,6 @@ function collect_st_files(configuration) {
 
 
 /**
- * Resolve .js files needed by kernel.
- * Returns a Promise which resolves into the configuration object.
- */
-function resolve_kernel(configuration) {
-    var kernel_files = configuration.kernel_libraries.concat(configuration.load);
-    return Promise.all(
-        kernel_files.map(function (file) {
-            return resolve_js(file, configuration);
-        })
-    )
-        .then(function (data) {
-            // boot.js and Kernel files need to be used first
-            // otherwise the global objects 'core' and 'globals' are undefined
-            configuration.libraries = data.concat(configuration.libraries);
-            return configuration;
-        });
-}
-
-
-function withImportsExcluded(data) {
-    var srcLines = data.split(/\r\n|\r|\n/), dstLines = [], doCopy = true;
-    srcLines.forEach(function (line) {
-        if (line.replace(/\s/g, '') === '//>>excludeStart("imports",pragmas.excludeImports);') {
-            doCopy = false;
-        } else if (line.replace(/\s/g, '') === '//>>excludeEnd("imports");') {
-            doCopy = true;
-        } else if (doCopy) {
-            dstLines.push(line);
-        }
-    });
-    return dstLines.join('\n');
-}
-
-/**
  * Resolve .js files needed by compiler, read and eval() them.
  * The finished Compiler gets stored in configuration.{core,globals}.
  * Returns a Promise object which resolves into the configuration object.
@@ -249,24 +193,17 @@ function withImportsExcluded(data) {
 function create_compiler(configuration) {
     var compiler_files = configuration.compiler_libraries;
     var include_files = configuration.load;
-    return new Promise(function (resolve, reject) {
-        requirejs(compiler_files, function (boot) {
+    return new Promise(requirejs.bind(null, compiler_files))
+        .then(function (boot) {
+            boot.api.initialize();
             configuration.core = boot.api;
             configuration.globals = boot.globals;
-            resolve(configuration);
-        }, function (err) {
-            reject(err);
-        });
-    })
-        .then(function (configuration) {
-            var files = []; // TODO load -L libraries while filtering their imports
-            files.forEach(function (data) {
-                data = data + '';
-                data = withImportsExcluded(data);
-                //builder.add(data);
+            var pluginPrefixedLibraries = include_files.map(function (each) {
+                return 'amber/without-imports!' + each;
             });
-
-            configuration.core.initialize();
+            return new Promise(requirejs.bind(null, pluginPrefixedLibraries));
+        })
+        .then(function () {
             console.log('Compiler loaded');
 
             configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
