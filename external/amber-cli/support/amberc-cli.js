@@ -78,7 +78,7 @@ function handle_options(optionsArray) {
 // print available flags
 function print_usage_and_exit() {
     var usage = [
-        'Usage: amberc [-L libdir1,libdir2...] [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
+        'Usage: amberc [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
         '          [-n namespace] [-D output_dir] [-v] file1 file2 ...',
         '',
         '   amberc compiles Amber files.',
@@ -89,8 +89,8 @@ function print_usage_and_exit() {
         '     category of the same name as the file!',
         '',
         '  -l library1,library2',
-        '     Add listed JavaScript libraries in listed order.',
-        '     Libraries are not separated by spaces or end with .js.',
+        '     Load the libraries specified as comma-separate AMD module names.',
+        '     Module names are not separated by spaces or end with .js.',
         '',
         '  -g jsGlobal1,jsGlobal2',
         '     Comma separated list of JS global variable names.',
