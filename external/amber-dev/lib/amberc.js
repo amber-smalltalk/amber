@@ -8,58 +8,10 @@
  *     compiler.main(options);
  */
 
-/**
- * Helper for concatenating Amber generated AMD modules.
- * The produced output can be exported and run as an independent program.
- *
- * var concatenator = createConcatenator();
- * concatenator.start(); // write the required AMD define header
- * concatenator.add(module1);
- * concatenator.addId(module1_ID);
- * //...
- * concatenator.finish("//some last code");
- * var concatenation = concatenator.toString();
- * // The variable concatenation contains the concatenated result
- * // which can either be stored in a file or interpreted with eval().
- */
-function createConcatenator() {
-    return {
-        elements: [],
-        ids: [],
-        add: function () {
-            this.elements.push.apply(this.elements, arguments);
-        },
-        addId: function () {
-            this.ids.push.apply(this.ids, arguments);
-        },
-        forEach: function () {
-            this.elements.forEach.apply(this.elements, arguments);
-        },
-        start: function () {
-            this.add(
-                'var define = (' + require('amdefine') + ')(null, function (id) { throw new Error("Dependency not found: " +  id); }), requirejs = define.require;',
-                'define("amber/browser-compatibility", [], {});'
-            );
-        },
-        finish: function (realWork) {
-            this.add(
-                'define("app", ["' + this.ids.join('","') + '"], function (boot) {',
-                'boot.api.initialize();',
-                realWork,
-                '});',
-                'requirejs(["app"]);'
-            );
-        },
-        toString: function () {
-            return this.elements.join('\n');
-        }
-    };
-}
-
-
 var path = require('path'),
     fs = require('fs'),
-    Promise = require('es6-promise').Promise;
+    Promise = require('es6-promise').Promise,
+    requirejs = require('../node_modules/requirejs/bin/r');
 
 /**
  * AmberCompiler constructor function.
@@ -71,12 +23,24 @@ function AmberCompiler(amber_dir) {
     }
 
     this.amber_dir = amber_dir;
+    requirejs = requirejs.config({
+        context: "amberc",
+        nodeRequire: require,
+        paths: {
+            'amber': path.join(amber_dir, 'support'),
+            'amber_core': path.join(amber_dir, 'src')
+        }
+    });
     // Important: in next list, boot MUST be first
-    this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-        'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Announcements',
-        'Platform-Services', 'Platform-Node'];
-    this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Platform-ImportExport', 'Compiler-Exceptions',
-        'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
+    this.kernel_libraries = ['amber/boot',
+        'amber_core/Kernel-Objects', 'amber_core/Kernel-Classes', 'amber_core/Kernel-Methods',
+        'amber_core/Kernel-Collections', 'amber_core/Kernel-Infrastructure',
+        'amber_core/Kernel-Exceptions', 'amber_core/Kernel-Announcements',
+        'amber_core/Platform-Services', 'amber_core/Platform-Node'];
+    this.compiler_libraries = this.kernel_libraries.concat(['amber/parser',
+        'amber_core/Platform-ImportExport', 'amber_core/Compiler-Exceptions',
+        'amber_core/Compiler-Core', 'amber_core/Compiler-AST', 'amber_core/Compiler-Exceptions',
+        'amber_core/Compiler-IR', 'amber_core/Compiler-Inlining', 'amber_core/Compiler-Semantic']);
 }
 
 
@@ -285,86 +249,24 @@ function withImportsExcluded(data) {
 function create_compiler(configuration) {
     var compiler_files = configuration.compiler_libraries;
     var include_files = configuration.load;
-    var builder;
-    return Promise.all(
-        compiler_files.map(function (file) {
-            return resolve_js(file, configuration);
-        })
-    )
-        .then(function (compilerFilesArray) {
-            return Promise.all(
-                compilerFilesArray.map(function (file) {
-                    return new Promise(function (resolve, reject) {
-                        console.log('Loading file: ' + file);
-                        fs.readFile(file, function (err, data) {
-                            if (err)
-                                reject(err);
-                            else
-                                resolve(data);
-                        });
-                    });
-                })
-            )
-        })
-        .then(function (files) {
-            builder = createConcatenator();
-            builder.add('(function() {');
-            builder.start();
-
-            files.forEach(function (data) {
-                // data is an array where index 0 is the error code and index 1 contains the data
-                builder.add(data);
-                // matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-                var match = ('' + data).match(/(^|\n)define\("([^"]*)"/);
-                if (match) {
-                    builder.addId(match[2]);
-                }
-            });
-        })
-        .then(function () {
-            return Promise.all(
-                include_files.map(function (file) {
-                    return resolve_js(file, configuration);
-                })
-            );
-        })
-        .then(function (includeFilesArray) {
-            return Promise.all(
-                includeFilesArray.map(function (file) {
-                    return new Promise(function (resolve, reject) {
-                        console.log('Loading library file: ' + file);
-                        fs.readFile(file, function (err, data) {
-                            if (err)
-                                reject(err);
-                            else
-                                resolve(data);
-                        });
-                    });
-                })
-            )
-        })
-        .then(function (files) {
-            var loadIds = [];
+    return new Promise(function (resolve, reject) {
+        requirejs(compiler_files, function (boot) {
+            configuration.core = boot.api;
+            configuration.globals = boot.globals;
+            resolve(configuration);
+        }, function (err) {
+            reject(err);
+        });
+    })
+        .then(function (configuration) {
+            var files = []; // TODO load -L libraries while filtering their imports
             files.forEach(function (data) {
                 data = data + '';
-                // matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
-                var match = data.match(/^define\("([^"]*)"/);
-                if (match) {
-                    loadIds.push(match[1]);
-                    data = withImportsExcluded(data);
-                }
-                builder.add(data);
+                data = withImportsExcluded(data);
+                //builder.add(data);
             });
 
-            // store the generated smalltalk env in configuration.{core,globals}
-            builder.finish('configuration.core = boot.api; configuration.globals = boot.globals;');
-            loadIds.forEach(function (id) {
-                builder.add('requirejs("' + id + '");');
-            });
-            builder.add('})();');
-
-            eval(builder.toString());
-
+            configuration.core.initialize();
             console.log('Compiler loaded');
 
             configuration.globals.ErrorHandler._register_(configuration.globals.RethrowErrorHandler._new());
