@@ -12,7 +12,7 @@ rm Kernel-Infrastructure.st.bak
 
 # compile Kernel-Infrastructure
 cd $AMBER_BASE
-internal/local-amberc -D src -l Kernel-Objects,Kernel-Collections src/Kernel-Infrastructure.st
+internal/local-amberc -D src src/Kernel-Infrastructure.st
 # set version in all json files (bower, npm)
 for F in bower.json package.json; do
   cp $F $F.bak
