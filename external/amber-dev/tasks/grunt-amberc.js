@@ -1,8 +1,6 @@
 module.exports = function (grunt) {
 
-    var path = require('path');
-    var fs = require('fs');
-    var amberc = require('../lib/amberc.js');
+    var amberc = require('../lib/amberc');
 
     /**
      A full example entry for a Gruntfile.js is available below.
@@ -81,11 +79,11 @@ module.exports = function (grunt) {
         if (sourceFiles != null) {
             configuration.stFiles = sourceFiles;
         }
-        if (data.amdNamespace != null) {
-            configuration.amdNamespace = data.amdNamespace;
+        if (data.amd_namespace != null) {
+            configuration.amdNamespace = data.amd_namespace;
         }
-        if (data.outputDir != null) {
-            configuration.outputDir = data.outputDir;
+        if (data.output_dir != null) {
+            configuration.outputDir = data.output_dir;
         }
         if (data.jsGlobals != null) {
             configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);
