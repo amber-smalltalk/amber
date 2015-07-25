@@ -23,10 +23,10 @@ module.exports = function (grunt) {
            verbose: true
          },
          src: ['projects/HelloWorld/src/HelloWorld.st'], // REQUIRED
-         outputDir: 'projects/HelloWorld/src',  // optional
+         output_dir: 'projects/HelloWorld/src',  // optional
          libraries: 'Web',                       // optional
          jsGlobals: ['global1', 'global2'],     // optional
-         amdNamespace: 'MyNamespace',          // optional (default: 'amber')
+         amd_namespace: 'MyNamespace',          // optional (default: 'amber')
        },
      },
 
