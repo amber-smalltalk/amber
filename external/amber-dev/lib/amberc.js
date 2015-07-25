@@ -128,7 +128,7 @@ function check_configuration(configuration) {
 
         resolve(configuration);
     });
-};
+}
 
 
 /**
@@ -145,7 +145,7 @@ function resolve_js(filename, configuration) {
     var baseName = path.basename(filename, '.js');
     var jsFile = baseName + '.js';
     return resolve_file(jsFile, configuration.jsLibraryDirs);
-};
+}
 
 
 /**
@@ -158,7 +158,7 @@ function resolve_js(filename, configuration) {
  */
 function resolve_st(filename, configuration) {
     return resolve_file(filename, [configuration.amber_dir]);
-};
+}
 
 
 /**
@@ -187,7 +187,7 @@ function resolve_file(filename, searchDirectories) {
             }
         });
     });
-};
+}
 
 
 /**
