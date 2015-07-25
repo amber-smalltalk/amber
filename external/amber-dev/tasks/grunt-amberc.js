@@ -37,11 +37,9 @@ module.exports = function (grunt) {
 
         var options = this.options({
             amber_dir: undefined,
-            library_dirs: [],
             verbose: grunt.option('verbose') || false
         });
         this.data.verbose = options.verbose;
-        this.data.library_dirs = options.library_dirs;
 
         // mark required properties
         this.requiresConfig('amberc.options.amber_dir');
