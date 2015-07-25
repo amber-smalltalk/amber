@@ -57,12 +57,6 @@ module.exports = function (grunt) {
             cli: {
                 output_dir: 'external/amber-cli/src',
                 src: ['external/amber-cli/src/AmberCli.st'],
-                libraries: [
-                    'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-                    'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-                    'SUnit', 'Platform-ImportExport',
-                    'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'
-                ],
                 amd_namespace: 'amber_cli'
             },
             dev: {
