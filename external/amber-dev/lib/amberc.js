@@ -23,16 +23,6 @@ function AmberCompiler(amber_dir) {
     }
 
     this.amber_dir = amber_dir;
-    this.requirejs = requirejs.config({
-        context: "amberc",
-        nodeRequire: require,
-        paths: {
-            'amber': path.join(amber_dir, 'support'),
-            'amber_core': path.join(amber_dir, 'src'),
-            'text': require.resolve('requirejs-text').replace(/\.js$/, ""),
-            'amber/without-imports': path.join(__dirname, 'without-imports')
-        }
-    });
     // Important: in next list, boot MUST be first
     this.kernel_libraries = ['amber/boot',
         'amber_core/Kernel-Objects', 'amber_core/Kernel-Classes', 'amber_core/Kernel-Methods',
@@ -51,6 +41,7 @@ function AmberCompiler(amber_dir) {
  */
 var createDefaultConfiguration = function () {
     return {
+        mappings: {},
         load: [],
         stFiles: [],
         jsGlobals: [],
@@ -87,7 +78,16 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     configuration.globals = {};
     configuration.compiler_libraries = this.compiler_libraries;
     configuration.amber_dir = this.amber_dir;
-    configuration.requirejs = this.requirejs;
+
+    configuration.mappings['text'] = require.resolve('requirejs-text').replace(/\.js$/, "");
+    configuration.mappings['amber/without-imports'] = path.join(__dirname, 'without-imports');
+    if (!configuration.mappings.amber) configuration.mappings.amber = path.join(this.amber_dir, 'support');
+    if (!configuration.mappings.amber_core) configuration.mappings.amber_core = path.join(this.amber_dir, 'src');
+    configuration.requirejs = requirejs.config({
+        context: "amberc",
+        nodeRequire: require,
+        paths: configuration.mappings
+    });
 
     check_configuration(configuration)
         .then(collect_st_files)

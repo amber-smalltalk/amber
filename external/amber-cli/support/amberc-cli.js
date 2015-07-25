@@ -35,7 +35,13 @@ function handle_options(optionsArray) {
 
     while (currentItem != null) {
         switch (currentItem) {
-            case '-l':
+            case '-m':
+                optionsArray.shift.split(',').forEach(function (pairString) {
+                    var mapping = pairString.split(':');
+                    defaults.mappings[mapping[0]] = mapping[1];
+                });
+                break;
+           case '-l':
                 defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
                 break;
             case '-g':
@@ -78,7 +84,7 @@ function handle_options(optionsArray) {
 // print available flags
 function print_usage_and_exit() {
     var usage = [
-        'Usage: amberc [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
+        'Usage: amberc [-m mapping1,mapping2...] [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
         '          [-n namespace] [-D output_dir] [-v] file1 file2 ...',
         '',
         '   amberc compiles Amber files.',
@@ -87,6 +93,10 @@ function print_usage_and_exit() {
         '',
         '     NOTE: Each .st file is currently considered to be a fileout of a single class',
         '     category of the same name as the file!',
+        '',
+        '  -m amdpath1:realpath1,amdpath2:realpath2',
+        '     Set the amd mappings as comma-separate amd:realpath pairs.',
+        '     Mappings are not separated by spaces or end with .js.',
         '',
         '  -l library1,library2',
         '     Load the libraries specified as comma-separate AMD module names.',
