@@ -35,6 +35,9 @@ function handle_options(optionsArray) {
 
     while (currentItem != null) {
         switch (currentItem) {
+            case '-C':
+                defaults.configFile = optionsArray.shift();
+                break;
             case '-p':
                 optionsArray.shift.split(',').forEach(function (pairString) {
                     var mapping = pairString.split(':');
@@ -84,7 +87,7 @@ function handle_options(optionsArray) {
 // print available flags
 function print_usage_and_exit() {
     var usage = [
-        'Usage: amberc [-m mapping1,mapping2...] [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
+        'Usage: amberc [-C configFile | -p mapping1,mapping2...] [-l lib1,lib2...] [-g jsGlobal1,jsGlobal2]',
         '          [-n namespace] [-D output_dir] [-v] file1 file2 ...',
         '',
         '   amberc compiles Amber files.',
@@ -93,6 +96,11 @@ function print_usage_and_exit() {
         '',
         '     NOTE: Each .st file is currently considered to be a fileout of a single class',
         '     category of the same name as the file!',
+        '',
+        '  -C configFile',
+        '     Set the file with amd config. Normally, you just use config.js here.',
+        '     If used, -p options are ignored and -d is only used if configfile does not',
+        '     contain mappings for amber and/or amber_core.',
         '',
         '  -p amdpath1:realpath1,amdpath2:realpath2',
         '     Set the amd paths mapping as comma-separate amd:realpath pairs.',

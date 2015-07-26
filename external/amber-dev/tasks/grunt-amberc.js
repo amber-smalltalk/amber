@@ -37,10 +37,12 @@ module.exports = function (grunt) {
 
         var options = this.options({
             amber_dir: undefined,
+            configFile: null,
             paths: {},
             verbose: grunt.option('verbose') || false
         });
         this.data.verbose = options.verbose;
+        this.data.configFile = options.configFile;
         this.data.paths = options.paths;
 
         // mark required properties
@@ -70,6 +72,9 @@ module.exports = function (grunt) {
 
         if (data.libraries != null) {
             configuration.load = data.libraries;
+        }
+        if (data.configFile != null) {
+            configuration.configFile = data.configFile;
         }
         if (data.paths != null) {
             configuration.paths = data.paths;

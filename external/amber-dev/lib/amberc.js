@@ -42,6 +42,7 @@ function AmberCompiler(amber_dir) {
 var createDefaultConfiguration = function () {
     return {
         paths: {},
+        configFile: null,
         load: [],
         stFiles: [],
         jsGlobals: [],
@@ -79,15 +80,32 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     configuration.compiler_libraries = this.compiler_libraries;
     configuration.amber_dir = this.amber_dir;
 
-    configuration.paths['text'] = require.resolve('requirejs-text').replace(/\.js$/, "");
-    configuration.paths['amber/without-imports'] = path.join(__dirname, 'without-imports');
-    if (!configuration.paths.amber) configuration.paths.amber = path.join(this.amber_dir, 'support');
-    if (!configuration.paths.amber_core) configuration.paths.amber_core = path.join(this.amber_dir, 'src');
-    configuration.requirejs = requirejs.config({
-        context: "amberc",
-        nodeRequire: require,
-        paths: configuration.paths
-    });
+    var rjsConfig;
+    if (configuration.configFile) {
+        var configSrc = fs.readFileSync(configuration.configFile, "utf8");
+        rjsConfig = (function () {
+            var require, requirejs;
+            requirejs = require = {
+                config: function (x) {
+                    requirejs = require = x;
+                }
+            };
+            eval(configSrc);
+            return require;
+        })();
+    } else {
+        rjsConfig = {
+            paths: configuration.paths
+        };
+    }
+
+    if (!rjsConfig.paths.amber) rjsConfig.paths.amber = path.join(this.amber_dir, 'support');
+    if (!rjsConfig.paths.amber_core) rjsConfig.paths.amber_core = path.join(this.amber_dir, 'src');
+    rjsConfig.paths['text'] = require.resolve('requirejs-text').replace(/\.js$/, "");
+    rjsConfig.paths['amber/without-imports'] = path.join(__dirname, 'without-imports');
+    rjsConfig.nodeRequire = require;
+    rjsConfig.context = "amberc";
+    configuration.requirejs = requirejs.config(rjsConfig);
 
     check_configuration(configuration)
         .then(collect_st_files)
