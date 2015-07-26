@@ -11,7 +11,7 @@
 var path = require('path'),
     fs = require('fs'),
     Promise = require('es6-promise').Promise,
-    requirejs = require('../node_modules/requirejs/bin/r');
+    requirejs = require('requirejs');
 
 /**
  * AmberCompiler constructor function.
