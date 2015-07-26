@@ -47,7 +47,6 @@ var createDefaultConfiguration = function () {
         stFiles: [],
         jsGlobals: [],
         amdNamespace: 'amber_core',
-        libraries: [],
         compile: [],
         compiled: [],
         outputDir: undefined,
