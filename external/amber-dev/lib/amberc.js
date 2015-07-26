@@ -41,7 +41,7 @@ function AmberCompiler(amber_dir) {
  */
 var createDefaultConfiguration = function () {
     return {
-        mappings: {},
+        paths: {},
         load: [],
         stFiles: [],
         jsGlobals: [],
@@ -79,14 +79,14 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     configuration.compiler_libraries = this.compiler_libraries;
     configuration.amber_dir = this.amber_dir;
 
-    configuration.mappings['text'] = require.resolve('requirejs-text').replace(/\.js$/, "");
-    configuration.mappings['amber/without-imports'] = path.join(__dirname, 'without-imports');
-    if (!configuration.mappings.amber) configuration.mappings.amber = path.join(this.amber_dir, 'support');
-    if (!configuration.mappings.amber_core) configuration.mappings.amber_core = path.join(this.amber_dir, 'src');
+    configuration.paths['text'] = require.resolve('requirejs-text').replace(/\.js$/, "");
+    configuration.paths['amber/without-imports'] = path.join(__dirname, 'without-imports');
+    if (!configuration.paths.amber) configuration.paths.amber = path.join(this.amber_dir, 'support');
+    if (!configuration.paths.amber_core) configuration.paths.amber_core = path.join(this.amber_dir, 'src');
     configuration.requirejs = requirejs.config({
         context: "amberc",
         nodeRequire: require,
-        paths: configuration.mappings
+        paths: configuration.paths
     });
 
     check_configuration(configuration)

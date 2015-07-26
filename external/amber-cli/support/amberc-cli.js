@@ -35,10 +35,10 @@ function handle_options(optionsArray) {
 
     while (currentItem != null) {
         switch (currentItem) {
-            case '-m':
+            case '-p':
                 optionsArray.shift.split(',').forEach(function (pairString) {
                     var mapping = pairString.split(':');
-                    defaults.mappings[mapping[0]] = mapping[1];
+                    defaults.paths[mapping[0]] = mapping[1];
                 });
                 break;
            case '-l':
@@ -94,9 +94,9 @@ function print_usage_and_exit() {
         '     NOTE: Each .st file is currently considered to be a fileout of a single class',
         '     category of the same name as the file!',
         '',
-        '  -m amdpath1:realpath1,amdpath2:realpath2',
-        '     Set the amd mappings as comma-separate amd:realpath pairs.',
-        '     Mappings are not separated by spaces or end with .js.',
+        '  -p amdpath1:realpath1,amdpath2:realpath2',
+        '     Set the amd paths mapping as comma-separate amd:realpath pairs.',
+        '     Mapping elements are not separated by spaces or end with .js.',
         '',
         '  -l library1,library2',
         '     Load the libraries specified as comma-separate AMD module names.',

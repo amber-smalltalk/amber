@@ -37,11 +37,11 @@ module.exports = function (grunt) {
 
         var options = this.options({
             amber_dir: undefined,
-            mappings: {},
+            paths: {},
             verbose: grunt.option('verbose') || false
         });
         this.data.verbose = options.verbose;
-        this.data.mappings = options.mappings;
+        this.data.paths = options.paths;
 
         // mark required properties
         this.requiresConfig('amberc.options.amber_dir');
@@ -71,8 +71,8 @@ module.exports = function (grunt) {
         if (data.libraries != null) {
             configuration.load = data.libraries;
         }
-        if (data.mappings != null) {
-            configuration.mappings = data.mappings;
+        if (data.paths != null) {
+            configuration.paths = data.paths;
         }
         if (sourceFiles != null) {
             configuration.stFiles = sourceFiles;
