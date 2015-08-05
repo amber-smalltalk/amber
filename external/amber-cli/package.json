@@ -38,7 +38,8 @@
   "dependencies": {
     "amber": "^0.14.16",
     "amber-dev": "^0.7.0",
-    "grunt-init-amber": "^0.14.17"
+    "grunt-init-amber": "^0.14.17",
+    "latest-version": "^1.0.1"
   },
   "peerDependencies": {
     "grunt-init": "^0.3.1",
