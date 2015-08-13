@@ -67,6 +67,9 @@ module.exports = function (grunt) {
         },
 
         requirejs: {
+            options: {
+                useStrict: true
+            },
             cli: {
                 options: {
                     mainConfigFile: "config.js",
