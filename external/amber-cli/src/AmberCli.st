@@ -1026,7 +1026,7 @@ gruntThenDo: aBlock
 	| child |
 	child := childProcess
 		fork: (self npmScriptForModule: 'grunt-cli' named: 'grunt')
-		args: #('amdconfig' 'default' 'devel').
+		args: #('default' 'devel').
 	child
 		on: 'error' do: aBlock;
 		on: 'close' do: [ :code |
