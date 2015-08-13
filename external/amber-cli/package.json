@@ -1,6 +1,6 @@
 {
   "name": "amber-cli",
-  "version": "0.14.14",
+  "version": "0.14.15",
   "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
   "homepage": "http://amber-lang.net",
   "keywords": [
