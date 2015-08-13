@@ -1282,7 +1282,7 @@ define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
     return exports;
 });
 
-define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){"use strict";
+define("amber_core/Kernel-Objects", ["amber/boot"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Objects');
 $core.packages["Kernel-Objects"].innerEval = function (expr) { return eval(expr); };
@@ -5857,7 +5857,7 @@ $globals.UndefinedObject.klass);
 
 });
 
-define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Kernel-Classes", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Classes');
 $core.packages["Kernel-Classes"].innerEval = function (expr) { return eval(expr); };
@@ -8274,7 +8274,7 @@ $globals.ClassSorterNode.klass);
 
 });
 
-define("amber_core/Kernel-Methods", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Kernel-Methods", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Methods');
 $core.packages["Kernel-Methods"].innerEval = function (expr) { return eval(expr); };
@@ -11011,7 +11011,7 @@ $globals.Timeout.klass);
 
 });
 
-define("amber_core/Kernel-Collections", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Kernel-Collections", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Collections');
 $core.packages["Kernel-Collections"].innerEval = function (expr) { return eval(expr); };
@@ -18715,7 +18715,7 @@ $globals.RegularExpression.klass);
 
 });
 
-define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){"use strict";
+define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Infrastructure');
 $core.packages["Kernel-Infrastructure"].innerEval = function (expr) { return eval(expr); };
@@ -21499,7 +21499,7 @@ $globals.String);
 
 });
 
-define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Exceptions');
 $core.packages["Kernel-Exceptions"].innerEval = function (expr) { return eval(expr); };
@@ -22149,7 +22149,7 @@ $globals.NonBooleanReceiver);
 
 });
 
-define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Kernel-Announcements", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Announcements');
 $core.packages["Kernel-Announcements"].innerEval = function (expr) { return eval(expr); };
@@ -23102,7 +23102,7 @@ $globals.ProtocolRemoved.comment="I am emitted when a protocol is removed from a
 
 });
 
-define("amber_core/Platform-Services", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods", "amber_core/Kernel-Infrastructure"], function($boot){"use strict";
+define("amber_core/Platform-Services", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods", "amber_core/Kernel-Infrastructure"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-Services');
 $core.packages["Platform-Services"].innerEval = function (expr) { return eval(expr); };
@@ -25168,7 +25168,7 @@ $globals.String);
 
 });
 
-define("amber_core/Platform-Node", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Platform-Node", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-Node');
 $core.packages["Platform-Node"].innerEval = function (expr) { return eval(expr); };
@@ -29098,7 +29098,7 @@ $globals.SmalltalkParser = (function() {
   };
 })();
 });
-define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){"use strict";
+define("amber_core/Platform-ImportExport", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Platform-Services", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Platform-ImportExport');
 $core.packages["Platform-ImportExport"].innerEval = function (expr) { return eval(expr); };
@@ -32339,7 +32339,7 @@ $globals.Package.klass);
 
 });
 
-define("amber_core/Compiler-Exceptions", ["amber/boot", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Compiler-Exceptions", ["amber/boot", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Exceptions');
 $core.packages["Compiler-Exceptions"].innerEval = function (expr) { return eval(expr); };
@@ -32578,7 +32578,7 @@ $globals.RethrowErrorHandler);
 
 });
 
-define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Collections"], function($boot){"use strict";
+define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Collections"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Core');
 $core.packages["Compiler-Core"].innerEval = function (expr) { return eval(expr); };
@@ -33852,7 +33852,7 @@ $globals.String);
 
 });
 
-define("amber_core/Compiler-AST", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){"use strict";
+define("amber_core/Compiler-AST", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-AST');
 $core.packages["Compiler-AST"].innerEval = function (expr) { return eval(expr); };
@@ -36734,7 +36734,7 @@ $globals.Object);
 
 });
 
-define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){"use strict";
+define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Semantic');
 $core.packages["Compiler-Semantic"].innerEval = function (expr) { return eval(expr); };
@@ -38896,7 +38896,7 @@ $globals.SemanticAnalyzer.klass);
 
 });
 
-define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){"use strict";
+define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-IR');
 $core.packages["Compiler-IR"].innerEval = function (expr) { return eval(expr); };
@@ -43417,7 +43417,7 @@ $globals.BlockClosure);
 
 });
 
-define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){"use strict";
+define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Inlining');
 $core.packages["Compiler-Inlining"].innerEval = function (expr) { return eval(expr); };
@@ -45292,7 +45292,7 @@ $globals.InliningCodeGenerator);
 
 });
 
-define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function($boot){"use strict";
+define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Interpreter');
 $core.packages["Compiler-Interpreter"].innerEval = function (expr) { return eval(expr); };
@@ -48290,7 +48290,7 @@ define('amber/lang',[
 	// --- packages for the Amber reflection end here ---
 ], function (amber) { return amber; });
 
-define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){"use strict";
+define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('SUnit');
 $core.packages["SUnit"].innerEval = function (expr) { return eval(expr); };
@@ -49704,7 +49704,7 @@ $globals.Package);
 
 });
 
-define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){"use strict";
+define("amber_core/Compiler-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Tests');
 $core.packages["Compiler-Tests"].innerEval = function (expr) { return eval(expr); };
@@ -51870,7 +51870,7 @@ $globals.AISemanticAnalyzerTest);
 
 });
 
-define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_core/Kernel-Tests", ["amber/boot", "amber_core/SUnit", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Tests');
 $core.packages["Kernel-Tests"].innerEval = function (expr) { return eval(expr); };
@@ -62228,7 +62228,7 @@ $globals.UndefinedTest);
 
 });
 
-define("amber_core/SUnit-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){"use strict";
+define("amber_core/SUnit-Tests", ["amber/boot", "amber_core/SUnit"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('SUnit-Tests');
 $core.packages["SUnit-Tests"].innerEval = function (expr) { return eval(expr); };
@@ -62909,7 +62909,7 @@ define('amber/devel',[
     // --- packages of the development only Amber end here ---
 ], function (amber) { return amber; });
 
-define("amber_cli/AmberCli", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+define("amber_cli/AmberCli", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('AmberCli');
 $core.packages["AmberCli"].innerEval = function (expr) { return eval(expr); };
@@ -64646,7 +64646,7 @@ var self=this;
 var child;
 return $core.withContext(function($ctx1) {
 var $1,$4,$3,$2;
-child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-cli","grunt"),["amdconfig", "default", "devel"]);
+child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-cli","grunt"),["default", "devel"]);
 $1=child;
 $recv($1)._on_do_("error",aBlock);
 $ctx1.sendIdx["on:do:"]=1;
@@ -64665,7 +64665,7 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"gruntThenDo:",{aBlock:aBlock,child:child},$globals.Initer)});
 },
 args: ["aBlock"],
-source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09fork: (self npmScriptForModule: 'grunt-cli' named: 'grunt')\x0a\x09\x09args: #('amdconfig' 'default' 'devel').\x0a\x09child\x0a\x09\x09on: 'error' do: aBlock;\x0a\x09\x09on: 'close' do: [ :code |\x0a\x09\x09\x09aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]",
+source: "gruntThenDo: aBlock\x0a\x09| child |\x0a\x09child := childProcess\x0a\x09\x09fork: (self npmScriptForModule: 'grunt-cli' named: 'grunt')\x0a\x09\x09args: #('default' 'devel').\x0a\x09child\x0a\x09\x09on: 'error' do: aBlock;\x0a\x09\x09on: 'close' do: [ :code |\x0a\x09\x09\x09aBlock value: (code = 0 ifTrue: [ nil ] ifFalse: [ code ]) ]",
 referencedClasses: [],
 messageSends: ["fork:args:", "npmScriptForModule:named:", "on:do:", "value:", "ifTrue:ifFalse:", "="]
 }),
@@ -65600,7 +65600,7 @@ require(["app"]);
 });
 define.require('__wrap__');
 }((function amdefine(module, requireFn) {
-    'use strict';
+    
     var defineCache = {},
         loaderCache = {},
         alreadyCalled = false,
