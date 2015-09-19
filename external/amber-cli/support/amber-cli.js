@@ -63047,51 +63047,34 @@ selector: "main",
 protocol: 'startup',
 fn: function (){
 var self=this;
-var args,nodeMinorVersion;
+var args;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $5,$4,$3,$2,$1,$8,$7,$6,$9,$10,$11;
-$5=$recv($Smalltalk())._version();
-$ctx1.sendIdx["version"]=1;
-$4="Welcome to Amber version ".__comma($5);
-$ctx1.sendIdx[","]=4;
-$3=$recv($4).__comma(" (NodeJS ");
+var $3,$2,$1,$4,$5;
+$3=$recv("Welcome to Amber version ".__comma($recv($Smalltalk())._version())).__comma(" (NodeJS ");
 $ctx1.sendIdx[","]=3;
 $2=$recv($3).__comma($recv($recv(process)._versions())._node());
 $ctx1.sendIdx[","]=2;
 $1=$recv($2).__comma(").");
 $ctx1.sendIdx[","]=1;
 $recv($Transcript())._show_($1);
-$ctx1.sendIdx["show:"]=1;
-$8=$recv(process)._version();
-$ctx1.sendIdx["version"]=2;
-$7=$recv($8)._tokenize_(".");
-$6=$recv($7)._second();
-nodeMinorVersion=$recv($6)._asNumber();
-$9=$recv(nodeMinorVersion).__lt((8));
-if($core.assert($9)){
-$recv($Transcript())._show_("You are currently using Node.js ".__comma($recv(process)._version()));
-$ctx1.sendIdx["show:"]=2;
-$recv($Transcript())._show_("Required is at least Node.js v0.8.x or greater.");
-return (-1);
-};
 args=$recv(process)._argv();
 $recv(args)._removeFrom_to_((1),(2));
-$10=$recv(args)._isEmpty();
-if($core.assert($10)){
+$4=$recv(args)._isEmpty();
+if($core.assert($4)){
 self._help_(nil);
 } else {
-$11=self._handleArguments_(args);
-return $11;
+$5=self._handleArguments_(args);
+return $5;
 };
 return self;
-}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},$globals.AmberCli.klass)});
+}, function($ctx1) {$ctx1.fill(self,"main",{args:args},$globals.AmberCli.klass)});
 },
 args: [],
-source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09Parses commandline arguments and starts the according subprogram.\x22\x0a\x09| args nodeMinorVersion |\x0a\x09\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.\x0a\x0a\x09nodeMinorVersion := ((process version) tokenize: '.') second asNumber.\x0a\x09nodeMinorVersion < 8 ifTrue: [\x0a\x09\x09Transcript show: 'You are currently using Node.js ', (process version).\x0a\x09\x09Transcript show: 'Required is at least Node.js v0.8.x or greater.'.\x0a\x09\x09^ -1.\x0a\x09].\x0a\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 2.\x0a\x09\x0a\x09(args isEmpty)\x0a\x09\x09ifTrue: [self help: nil]\x0a\x09\x09ifFalse: [^self handleArguments: args]",
+source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09Parses commandline arguments and starts the according subprogram.\x22\x0a\x09| args |\x0a\x09\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.\x0a\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 2.\x0a\x09\x0a\x09(args isEmpty)\x0a\x09\x09ifTrue: [self help: nil]\x0a\x09\x09ifFalse: [^self handleArguments: args]",
 referencedClasses: ["Transcript", "Smalltalk"],
-messageSends: ["show:", ",", "version", "node", "versions", "asNumber", "second", "tokenize:", "ifTrue:", "<", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "isEmpty", "help:", "handleArguments:"]
+messageSends: ["show:", ",", "version", "node", "versions", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "isEmpty", "help:", "handleArguments:"]
 }),
 $globals.AmberCli.klass);
 

@@ -84,16 +84,9 @@ version: arguments
 main
 	"Main entry point for Amber applications.
 	Parses commandline arguments and starts the according subprogram."
-	| args nodeMinorVersion |
+	| args |
 	
 	Transcript show: 'Welcome to Amber version ', Smalltalk version, ' (NodeJS ', process versions node, ').'.
-
-	nodeMinorVersion := ((process version) tokenize: '.') second asNumber.
-	nodeMinorVersion < 8 ifTrue: [
-		Transcript show: 'You are currently using Node.js ', (process version).
-		Transcript show: 'Required is at least Node.js v0.8.x or greater.'.
-		^ -1.
-	].
 
 	args := process argv.
 	"Remove the first args which contain the path to the node executable and the script file."
