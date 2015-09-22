@@ -23,7 +23,7 @@
     "url": "git://github.com/amber-smalltalk/amber.git"
   },
   "engines": {
-    "node": ">=0.10.0 <0.13.0 || >=4.0.0"
+    "node": "0.10.x || 0.12.x || >=4.0.0"
   },
   "bugs": {
     "url": "https://github.com/amber-smalltalk/amber/issues?labels=in+cli"
