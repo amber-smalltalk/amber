@@ -1095,7 +1095,7 @@ define("amber/boot", ['require', './browser-compatibility'], function (require) 
          if you modify the following functions, also change st2js
          accordingly */
         st.js2st = function (selector) {
-            if (selector.match(/__/)) {
+            if (selector.match(/^__/)) {
                 return binaryJsToSt(selector);
             } else {
                 return keywordJsToSt(selector);
