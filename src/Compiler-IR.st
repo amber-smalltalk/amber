@@ -1312,13 +1312,12 @@ nextPutStatementWith: aBlock
 !
 
 nextPutVars: aCollection
-	aCollection "ifEmpty:" isEmpty ifTrue: [ ^ self ].
-	
-	stream nextPutAll: 'var '.
-	aCollection
-		do: [ :each | stream nextPutAll: each ]
-		separatedBy: [ stream nextPutAll: ',' ].
-	stream nextPutAll: ';'; lf
+	aCollection ifNotEmpty: [
+		stream nextPutAll: 'var '.
+		aCollection
+			do: [ :each | stream nextPutAll: each ]
+			separatedBy: [ stream nextPutAll: ',' ].
+		stream nextPutAll: ';'; lf ]
 ! !
 
 !BlockClosure methodsFor: '*Compiler-IR'!
