@@ -612,6 +612,24 @@ testComma
 	self assertSameContents: self sampleNewValueAsCollection, self collection as: self collectionWithNewValue
 !
 
+testCopy
+	self assert: self collectionClass new copy equals: self collectionClass new.
+	self assert: self collection copy equals: self collection.
+	self assert: self collectionWithNewValue copy equals: self collectionWithNewValue.
+	
+	self deny: self collectionClass new copy = self collection.
+	self deny: self collection copy = self collectionClass new.
+	self deny: self collection copy = self collectionWithNewValue
+!
+
+testCopySeparates
+	| original copy |
+	original := self collection.
+	copy := original copy.
+	copy addAll: self sampleNewValueAsCollection.
+	self assert: original = self collection
+!
+
 testDetect
 	self
 		shouldnt: [ self collection detect: [ true ] ]
@@ -650,6 +668,16 @@ testDo
 	self
 		assertSameContents: self collectionWithDuplicates
 		as: newCollection
+!
+
+testEquality
+	self assert: self collectionClass new equals: self collectionClass new.
+	self assert: self collection equals: self collection.
+	self assert: self collectionWithNewValue equals: self collectionWithNewValue.
+	
+	self deny: self collectionClass new = self collection.
+	self deny: self collection = self collectionClass new.
+	self deny: self collection = self collectionWithNewValue
 !
 
 testIfEmptyFamily
@@ -811,15 +839,6 @@ testAtPut
 	self assert: newCollection equals: self collection.
 	newCollection at: self sampleNewIndex put: self sampleNewValue.
 	self assert: newCollection equals: self collectionWithNewValue
-!
-
-testEquality
-	self assert: self collectionClass new equals: self collectionClass new.
-	self assert: self collection equals: self collection.
-	self assert: self collectionWithNewValue equals: self collectionWithNewValue.
-	
-	self deny: self collectionClass new = self collection.
-	self deny: self collection = self collectionClass new
 !
 
 testIndexOf
@@ -1487,6 +1506,11 @@ testCharCodeAt
 testCopyFromTo
 	self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.
 	self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.
+!
+
+testCopySeparates
+	"String instances are immutable"
+	self assert: self collection copy == self collection
 !
 
 testCopyWithoutAll

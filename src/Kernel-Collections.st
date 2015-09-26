@@ -233,6 +233,14 @@ copyWithoutAll: aCollection
 	equal to those in aCollection."
 
 	^ self reject: [ :each | aCollection includes: each ]
+!
+
+deepCopy
+	^ self collect: [ :each | each deepCopy ]
+!
+
+shallowCopy
+	^ self collect: [ :each | each ]
 ! !
 
 !Collection methodsFor: 'enumerating'!
@@ -1029,28 +1037,7 @@ reversed
 !SequenceableCollection methodsFor: 'copying'!
 
 copyFrom: anIndex to: anotherIndex
-	| range newCollection |
-	range := anIndex to: anotherIndex.
-	newCollection := self class new: range size.
-	range withIndexDo: [ :each :i |
-		newCollection at: i put: (self at: each) ].
-	^ newCollection
-!
-
-deepCopy
-	| newCollection |
-	newCollection := self class new: self size.
-	self withIndexDo: [ :each :index |
-		newCollection at: index put: each deepCopy ].
-	^ newCollection
-!
-
-shallowCopy
-	| newCollection |
-	newCollection := self class new: self size.
-	self withIndexDo: [ :each :index |
-		newCollection at: index put: each ].
-	^ newCollection
+	self subclassResponsibility
 ! !
 
 !SequenceableCollection methodsFor: 'enumerating'!
@@ -1206,6 +1193,14 @@ add: anObject
 	<self.push(anObject); return anObject;>
 !
 
+addAll: aCollection
+<
+	if (Array.isArray(aCollection) && aCollection.length < 65000) self.push.apply(self, aCollection);
+	else $globals.Array.superclass.fn.prototype._addAll_.call(self, aCollection);
+	return aCollection;
+>
+!
+
 addFirst: anObject
 	<self.unshift(anObject); return anObject;>
 !
@@ -1241,7 +1236,25 @@ asJavascript
 !
 
 reversed
-	<return self._copy().reverse()>
+	<return self.slice().reverse()>
+! !
+
+!Array methodsFor: 'copying'!
+
+copyFrom: anIndex to: anotherIndex
+<
+	if (anIndex >>= 1 && anotherIndex <= self.length) {
+		return self.slice(anIndex - 1, anotherIndex);
+	} else {
+		self._at_(anIndex);
+		self._at_(self.length + 1);
+		throw new Error("Incorrect indexes in #copyFrom:to: not caught by #at:");
+	}
+>
+!
+
+shallowCopy
+	<return self.slice()>
 ! !
 
 !Array methodsFor: 'enumerating'!
@@ -1259,15 +1272,7 @@ join: aString
 select: aBlock
 	"Optimized version"
 	
-	<
-		var result = self.klass._new();
-		for(var i=0; i<self.length; i++) {
-			if(aBlock._value_(self[i])) {
-				result.push(self[i]);
-			}
-		}
-		return result;
-	>
+	<return self.filter(function(each) {return aBlock._value_(each)})>
 !
 
 sort
@@ -1583,7 +1588,7 @@ deepCopy
 !
 
 shallowCopy
-	^ self class fromString: self
+	^ self
 ! !
 
 !String methodsFor: 'evaluating'!

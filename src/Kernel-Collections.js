@@ -873,6 +873,39 @@ $globals.Collection);
 
 $core.addMethod(
 $core.method({
+selector: "deepCopy",
+protocol: 'copying',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(each)._deepCopy();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},$globals.Collection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "deepCopy\x0a\x09^ self collect: [ :each | each deepCopy ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["collect:", "deepCopy"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
 selector: "detect:",
 protocol: 'enumerating',
 fn: function (aBlock){
@@ -1619,6 +1652,34 @@ source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
+selector: "shallowCopy",
+protocol: 'copying',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._collect_((function(each){
+return each;
+
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.Collection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "shallowCopy\x0a\x09^ self collect: [ :each | each ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["collect:"]
 }),
 $globals.Collection);
 
@@ -4010,70 +4071,21 @@ selector: "copyFrom:to:",
 protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
-var range,newCollection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-range=$recv(anIndex)._to_(anotherIndex);
-newCollection=$recv(self._class())._new_($recv(range)._size());
-$recv(range)._withIndexDo_((function(each,i){
+self._subclassResponsibility();
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(newCollection)._at_put_(i,self._at_(each));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-$1=newCollection;
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex,range:range,newCollection:newCollection},$globals.SequenceableCollection)});
+}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},$globals.SequenceableCollection)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIndex", "anotherIndex"],
-source: "copyFrom: anIndex to: anotherIndex\x0a\x09| range newCollection |\x0a\x09range := anIndex to: anotherIndex.\x0a\x09newCollection := self class new: range size.\x0a\x09range withIndexDo: [ :each :i |\x0a\x09\x09newCollection at: i put: (self at: each) ].\x0a\x09^ newCollection",
+source: "copyFrom: anIndex to: anotherIndex\x0a\x09self subclassResponsibility",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"]
-}),
-$globals.SequenceableCollection);
-
-$core.addMethod(
-$core.method({
-selector: "deepCopy",
-protocol: 'copying',
-fn: function (){
-var self=this;
-var newCollection;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-newCollection=$recv(self._class())._new_(self._size());
-self._withIndexDo_((function(each,index){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(newCollection)._at_put_(index,$recv(each)._deepCopy());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-$1=newCollection;
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{newCollection:newCollection},$globals.SequenceableCollection)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "deepCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each deepCopy ].\x0a\x09^ newCollection",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:", "deepCopy"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.SequenceableCollection);
 
@@ -4582,42 +4594,6 @@ $globals.SequenceableCollection);
 
 $core.addMethod(
 $core.method({
-selector: "shallowCopy",
-protocol: 'copying',
-fn: function (){
-var self=this;
-var newCollection;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-newCollection=$recv(self._class())._new_(self._size());
-self._withIndexDo_((function(each,index){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(newCollection)._at_put_(index,each);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-$1=newCollection;
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{newCollection:newCollection},$globals.SequenceableCollection)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "shallowCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each ].\x0a\x09^ newCollection",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:"]
-}),
-$globals.SequenceableCollection);
-
-$core.addMethod(
-$core.method({
 selector: "stream",
 protocol: 'streaming',
 fn: function (){
@@ -4854,6 +4830,33 @@ $globals.Array);
 
 $core.addMethod(
 $core.method({
+selector: "addAll:",
+protocol: 'adding/removing',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+	if (Array.isArray(aCollection) && aCollection.length < 65000) self.push.apply(self, aCollection);
+	else $globals.Array.superclass.fn.prototype._addAll_.call(self, aCollection);
+	return aCollection;;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"addAll:",{aCollection:aCollection},$globals.Array)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "addAll: aCollection\x0a<\x0a\x09if (Array.isArray(aCollection) && aCollection.length < 65000) self.push.apply(self, aCollection);\x0a\x09else $globals.Array.superclass.fn.prototype._addAll_.call(self, aCollection);\x0a\x09return aCollection;\x0a>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Array);
+
+$core.addMethod(
+$core.method({
 selector: "addFirst:",
 protocol: 'adding/removing',
 fn: function (anObject){
@@ -5010,6 +5013,37 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Array);
+
+$core.addMethod(
+$core.method({
+selector: "copyFrom:to:",
+protocol: 'copying',
+fn: function (anIndex,anotherIndex){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+
+	if (anIndex >= 1 && anotherIndex <= self.length) {
+		return self.slice(anIndex - 1, anotherIndex);
+	} else {
+		self._at_(anIndex);
+		self._at_(self.length + 1);
+		throw new Error("Incorrect indexes in #copyFrom:to: not caught by #at:");
+	};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},$globals.Array)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anIndex", "anotherIndex"],
+source: "copyFrom: anIndex to: anotherIndex\x0a<\x0a\x09if (anIndex >>= 1 && anotherIndex <= self.length) {\x0a\x09\x09return self.slice(anIndex - 1, anotherIndex);\x0a\x09} else {\x0a\x09\x09self._at_(anIndex);\x0a\x09\x09self._at_(self.length + 1);\x0a\x09\x09throw new Error(\x22Incorrect indexes in #copyFrom:to: not caught by #at:\x22);\x0a\x09}\x0a>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -5258,7 +5292,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._copy().reverse();
+return self.slice().reverse();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"reversed",{},$globals.Array)});
@@ -5266,7 +5300,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "reversed\x0a\x09<return self._copy().reverse()>",
+source: "reversed\x0a\x09<return self.slice().reverse()>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -5282,15 +5316,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-
-		var result = self.klass._new();
-		for(var i=0; i<self.length; i++) {
-			if(aBlock._value_(self[i])) {
-				result.push(self[i]);
-			}
-		}
-		return result;
-	;
+return self.filter(function(each) {return aBlock._value_(each)});
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock},$globals.Array)});
@@ -5298,7 +5324,31 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<\x0a\x09\x09var result = self.klass._new();\x0a\x09\x09for(var i=0; i<self.length; i++) {\x0a\x09\x09\x09if(aBlock._value_(self[i])) {\x0a\x09\x09\x09\x09result.push(self[i]);\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09return result;\x0a\x09>",
+source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return self.filter(function(each) {return aBlock._value_(each)})>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Array);
+
+$core.addMethod(
+$core.method({
+selector: "shallowCopy",
+protocol: 'copying',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return self.slice();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.Array)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "shallowCopy\x0a\x09<return self.slice()>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -7231,22 +7281,15 @@ selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._class())._fromString_(self);
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.String)});
-//>>excludeEnd("ctx");
+return self;
+
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "shallowCopy\x0a\x09^ self class fromString: self",
+source: "shallowCopy\x0a\x09^ self",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["fromString:", "class"]
+messageSends: []
 }),
 $globals.String);
 
