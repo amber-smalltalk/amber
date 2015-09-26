@@ -6071,13 +6071,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
-var $early={};
-try {
-$recv(aCollection)._ifEmpty_((function(){
-throw $early=[self];
-
-}));
+var $1,$2,$3;
+$1=$recv(aCollection)._isEmpty();
+if($core.assert($1)){
+return self;
+};
 $recv(self["@stream"])._nextPutAll_("var ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -6105,22 +6103,20 @@ $ctx2.sendIdx["nextPutAll:"]=3;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-$1=self["@stream"];
-$recv($1)._nextPutAll_(";");
-$2=$recv($1)._lf();
+$2=self["@stream"];
+$recv($2)._nextPutAll_(";");
+$3=$recv($2)._lf();
 return self;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"nextPutVars:",{aCollection:aCollection},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
-source: "nextPutVars: aCollection\x0a\x09aCollection ifEmpty: [ ^ self ].\x0a\x09\x0a\x09stream nextPutAll: 'var '.\x0a\x09aCollection\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: ';'; lf",
+source: "nextPutVars: aCollection\x0a\x09aCollection \x22ifEmpty:\x22 isEmpty ifTrue: [ ^ self ].\x0a\x09\x0a\x09stream nextPutAll: 'var '.\x0a\x09aCollection\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: ';'; lf",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]
+messageSends: ["ifTrue:", "isEmpty", "nextPutAll:", "do:separatedBy:", "lf"]
 }),
 $globals.JSStream);
 

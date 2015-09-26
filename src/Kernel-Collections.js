@@ -6064,19 +6064,18 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self.__eq_eq(aString);
-return $1;
+return aString != null && String(self) === (typeof aString === "string" ? aString : aString.valueOf());
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "= aString\x0a\x09^ self == aString",
+source: "= aString\x0a<return aString != null && String(self) === (typeof aString === \x22string\x22 ? aString : aString.valueOf())>",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["=="]
+messageSends: []
 }),
 $globals.String);
 
@@ -7009,34 +7008,24 @@ selector: "lines",
 protocol: 'split join',
 fn: function (){
 var self=this;
-var lines;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-lines=$recv($Array())._new();
-self._linesDo_((function(aLine){
+
+	var result = self.split(/\r\n|\r|\n/);
+	if (!result[result.length-1]) result.pop();
+	return result;;
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(lines)._add_(aLine);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({aLine:aLine},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-$1=lines;
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"lines",{lines:lines},$globals.String)});
+}, function($ctx1) {$ctx1.fill(self,"lines",{},$globals.String)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "lines\x0a\x09\x22Answer an array of lines composing this receiver without the line ending delimiters.\x22\x0a\x0a\x09| lines |\x0a\x09lines := Array new.\x0a\x09self linesDo: [ :aLine | lines add: aLine ].\x0a\x09^ lines",
-referencedClasses: ["Array"],
+source: "lines\x0a\x09\x22Answer an array of lines composing this receiver without the line ending delimiters.\x22\x0a<\x0a\x09var result = self.split(/\x5cr\x5cn|\x5cr|\x5cn/);\x0a\x09if (!result[result.length-1]) result.pop();\x0a\x09return result;\x0a>",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["new", "linesDo:", "add:"]
+messageSends: []
 }),
 $globals.String);
 
@@ -7049,15 +7038,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(aBlock)._value_(self._copyFrom_to_(start,endWithoutDelimiters));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
+$recv(self._lines())._do_(aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"linesDo:",{aBlock:aBlock},$globals.String)});
@@ -7065,10 +7046,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lineIndicesDo: [ :start :endWithoutDelimiters :end |\x0a\x09\x09aBlock value: (self copyFrom: start to: endWithoutDelimiters) ]",
+source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lines do: aBlock",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"]
+messageSends: ["do:", "lines"]
 }),
 $globals.String);
 

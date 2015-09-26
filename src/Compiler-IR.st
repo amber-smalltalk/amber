@@ -1312,7 +1312,7 @@ nextPutStatementWith: aBlock
 !
 
 nextPutVars: aCollection
-	aCollection ifEmpty: [ ^ self ].
+	aCollection "ifEmpty:" isEmpty ifTrue: [ ^ self ].
 	
 	stream nextPutAll: 'var '.
 	aCollection

@@ -1469,7 +1469,7 @@ size
 !
 
 = aString
-	^ self == aString
+<return aString !!= null && String(self) === (typeof aString === "string" ? aString : aString.valueOf())>
 !
 
 == aString
@@ -1714,19 +1714,18 @@ lineNumber: anIndex
 
 lines
 	"Answer an array of lines composing this receiver without the line ending delimiters."
-
-	| lines |
-	lines := Array new.
-	self linesDo: [ :aLine | lines add: aLine ].
-	^ lines
+<
+	var result = self.split(/\r\n|\r|\n/);
+	if (!!result[result.length-1]) result.pop();
+	return result;
+>
 !
 
 linesDo: aBlock
 	"Execute aBlock with each line in this string. The terminating line
 	delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock"
 
-	self lineIndicesDo: [ :start :endWithoutDelimiters :end |
-		aBlock value: (self copyFrom: start to: endWithoutDelimiters) ]
+	self lines do: aBlock
 !
 
 subStrings: aString
