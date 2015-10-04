@@ -6,7 +6,10 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="author" content="Nicolas Petton"/>
     <script>
-        var require = {baseUrl: ".."};
+        var require = {
+            baseUrl: "..",
+            map: {"*": {"amber/Platform": "amber_core/Platform-Browser"}}
+        };
     </script>
     <script type='text/javascript' src='../node_modules/requirejs/require.js'></script>
     <script type='text/javascript' src='../config.js'></script>
@@ -14,7 +17,6 @@
 
 <body>
 <script type='text/javascript'>
-//    require.config({baseUrl: '..'});
     require(
         ["amber/devel", "amber/legacy/IDE", "amber/web/Web", "amber/legacy/Benchfib", "helios/all", "amber_cli/AmberCli"],
         function (amber) {

@@ -24,15 +24,7 @@ function AmberCompiler(amber_dir) {
 
     this.amber_dir = amber_dir;
     // Important: in next list, boot MUST be first
-    this.kernel_libraries = ['amber/boot',
-        'amber_core/Kernel-Objects', 'amber_core/Kernel-Classes', 'amber_core/Kernel-Methods',
-        'amber_core/Kernel-Collections', 'amber_core/Kernel-Infrastructure',
-        'amber_core/Kernel-Exceptions', 'amber_core/Kernel-Announcements',
-        'amber_core/Platform-Services', 'amber_core/Platform-Node'];
-    this.compiler_libraries = this.kernel_libraries.concat(['amber/parser',
-        'amber_core/Platform-ImportExport', 'amber_core/Compiler-Exceptions',
-        'amber_core/Compiler-Core', 'amber_core/Compiler-AST', 'amber_core/Compiler-Exceptions',
-        'amber_core/Compiler-IR', 'amber_core/Compiler-Inlining', 'amber_core/Compiler-Semantic']);
+    this.compiler_libraries = ['amber/lang'];
 }
 
 
@@ -102,6 +94,9 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     if (!rjsConfig.paths.amber_core) rjsConfig.paths.amber_core = path.join(this.amber_dir, 'src');
     rjsConfig.paths['text'] = require.resolve('requirejs-text').replace(/\.js$/, "");
     rjsConfig.paths['amber/without-imports'] = path.join(__dirname, 'without-imports');
+    rjsConfig.map = rjsConfig.map || {};
+    rjsConfig.map["*"] = rjsConfig.map["*"] || {};
+    rjsConfig.map["*"]["amber/Platform"] = "amber_core/Platform-Node";
     rjsConfig.nodeRequire = require;
     rjsConfig.context = "amberc";
     configuration.requirejs = requirejs.config(rjsConfig);
