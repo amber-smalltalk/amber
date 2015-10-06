@@ -632,3 +632,9 @@ irTranslator
 	^ IRInliningJSTranslator new
 ! !
 
+SemanticError subclass: #InliningError
+	instanceVariableNames: ''
+	package: 'Compiler-Inlining'!
+!InliningError commentStamp!
+Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.!
+

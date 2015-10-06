@@ -48,33 +48,6 @@ navigationNodeAt: aPoint ifAbsent: aBlock
 		(b positionStart dist: aPoint) ]) first
 !
 
-nextChild
-	"Answer the next node after aNode.
-	Recurse into the possible children of the receiver to answer the next node to be evaluated"
-	
-	^ self nodes isEmpty
-		ifTrue: [ self ]
-		ifFalse: [ self nodes first nextChild ]
-!
-
-nextNode
-	^ self parent ifNotNil: [ :node |
-		node nextNode: self ]
-!
-
-nextNode: aNode
-	"Answer the next node after aNode.
-	Recurse into the possible children of the next node to answer the next node to be evaluated"
-	
-	| next |
-	
-	next := self nodes 
-		at: (self nodes indexOf: aNode) + 1
-		ifAbsent: [ ^ self ].
-	
-	^ next nextChild
-!
-
 nodes
 	^ nodes ifNil: [ nodes := Array new ]
 !
@@ -233,10 +206,6 @@ requiresSmalltalkContext
 		ifNone: [ nil ]) notNil
 !
 
-stopOnStepping
-	^ false
-!
-
 subtreeNeedsAliasing
 	^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [
 		self nodes anySatisfy: [ :each | each subtreeNeedsAliasing ] ]
@@ -301,18 +270,6 @@ Node subclass: #BlockNode
 I represent an block closure node.!
 
 !BlockNode methodsFor: 'accessing'!
-
-nextChild
-	"Answer the receiver as we want to avoid eager evaluation"
-	
-	^ self
-!
-
-nextNode: aNode
-	"Answer the receiver as we want to avoid eager evaluation"
-	
-	^ self
-!
 
 parameters
 	^ parameters ifNil: [ parameters := Array new ]
@@ -612,7 +569,9 @@ superSend
 
 superSend: aBoolean
 	superSend := aBoolean
-!
+! !
+
+!SendNode methodsFor: 'building'!
 
 valueForReceiver: anObject
 	^ SendNode new
@@ -656,10 +615,6 @@ shouldBeAliased
 		self isReferenced and: [
 			(sends > 1 and: [ self index < sends ])
 				or: [ self superSend ] ] ])
-!
-
-stopOnStepping
-	^ true
 ! !
 
 !SendNode methodsFor: 'visiting'!
@@ -692,7 +647,7 @@ temps: aCollection
 	temps := aCollection
 ! !
 
-!SequenceNode methodsFor: 'converting'!
+!SequenceNode methodsFor: 'building'!
 
 asBlockSequenceNode
 	^ BlockSequenceNode new
@@ -824,6 +779,78 @@ isVariableNode
 
 accept: aVisitor
 	^ aVisitor visitVariableNode: self
+! !
+
+Object subclass: #NodeVisitor
+	instanceVariableNames: ''
+	package: 'Compiler-AST'!
+!NodeVisitor commentStamp!
+I am the abstract super class of all AST node visitors.!
+
+!NodeVisitor methodsFor: 'visiting'!
+
+visit: aNode
+	^ aNode accept: self
+!
+
+visitAll: aCollection
+	^ aCollection collect: [ :each | self visit: each ]
+!
+
+visitAssignmentNode: aNode
+	^ self visitNode: aNode
+!
+
+visitBlockNode: aNode
+	^ self visitNode: aNode
+!
+
+visitBlockSequenceNode: aNode
+	^ self visitSequenceNode: aNode
+!
+
+visitCascadeNode: aNode
+	^ self visitNode: aNode
+!
+
+visitDynamicArrayNode: aNode
+	^ self visitNode: aNode
+!
+
+visitDynamicDictionaryNode: aNode
+	^ self visitNode: aNode
+!
+
+visitJSStatementNode: aNode
+	^ self visitNode: aNode
+!
+
+visitMethodNode: aNode
+	^ self visitNode: aNode
+!
+
+visitNode: aNode
+	^ self visitAll: aNode nodes
+!
+
+visitReturnNode: aNode
+	^ self visitNode: aNode
+!
+
+visitSendNode: aNode
+	^ self visitNode: aNode
+!
+
+visitSequenceNode: aNode
+	^ self visitNode: aNode
+!
+
+visitValueNode: aNode
+	^ self visitNode: aNode
+!
+
+visitVariableNode: aNode
+	^ self visitNode: aNode
 ! !
 
 !CompiledMethod methodsFor: '*Compiler-AST'!

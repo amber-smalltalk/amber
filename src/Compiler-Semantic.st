@@ -638,3 +638,74 @@ on: aClass
 		yourself
 ! !
 
+CompilerError subclass: #SemanticError
+	instanceVariableNames: ''
+	package: 'Compiler-Semantic'!
+!SemanticError commentStamp!
+I represent an abstract semantic error thrown by the SemanticAnalyzer.
+Semantic errors can be unknown variable errors, etc.
+See my subclasses for concrete errors.
+
+The IDE should catch instances of Semantic error to deal with them when compiling!
+
+SemanticError subclass: #InvalidAssignmentError
+	instanceVariableNames: 'variableName'
+	package: 'Compiler-Semantic'!
+!InvalidAssignmentError commentStamp!
+I get signaled when a pseudo variable gets assigned.!
+
+!InvalidAssignmentError methodsFor: 'accessing'!
+
+messageText
+	^ ' Invalid assignment to variable: ', self variableName
+!
+
+variableName
+	^ variableName
+!
+
+variableName: aString
+	variableName := aString
+! !
+
+SemanticError subclass: #ShadowingVariableError
+	instanceVariableNames: 'variableName'
+	package: 'Compiler-Semantic'!
+!ShadowingVariableError commentStamp!
+I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.!
+
+!ShadowingVariableError methodsFor: 'accessing'!
+
+messageText
+	^ 'Variable shadowing error: ', self variableName, ' is already defined'
+!
+
+variableName
+	^ variableName
+!
+
+variableName: aString
+	variableName := aString
+! !
+
+SemanticError subclass: #UnknownVariableError
+	instanceVariableNames: 'variableName'
+	package: 'Compiler-Semantic'!
+!UnknownVariableError commentStamp!
+I get signaled when a variable is not defined.
+The default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.!
+
+!UnknownVariableError methodsFor: 'accessing'!
+
+messageText
+	^ 'Unknown Variable error: ', self variableName, ' is not defined'
+!
+
+variableName
+	^ variableName
+!
+
+variableName: aString
+	variableName := aString
+! !
+

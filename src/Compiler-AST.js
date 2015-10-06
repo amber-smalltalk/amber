@@ -536,110 +536,6 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "nextChild",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $3,$2,$1;
-$3=self._nodes();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nodes"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._isEmpty();
-if($core.assert($2)){
-$1=self;
-} else {
-$1=$recv($recv(self._nodes())._first())._nextChild();
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextChild",{},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self._parent();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
-} else {
-var node;
-node=$receiver;
-$1=$recv(node)._nextNode_(self);
-};
-return $1;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextNode",{},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "parent", "nextNode:"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
-protocol: 'accessing',
-fn: function (aNode){
-var self=this;
-var next;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$2;
-var $early={};
-try {
-$1=self._nodes();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nodes"]=1;
-//>>excludeEnd("ctx");
-next=$recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
-throw $early=[self];
-
-}));
-$2=$recv(next)._nextChild();
-return $2;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
@@ -1116,24 +1012,6 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "stopOnStepping",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return false;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "stopOnStepping\x0a\x09^ false",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
 selector: "subtreeNeedsAliasing",
 protocol: 'testing',
 fn: function (){
@@ -1433,42 +1311,6 @@ return true;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
 source: "isBlockNode\x0a\x09^ true",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.BlockNode);
-
-$core.addMethod(
-$core.method({
-selector: "nextChild",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.BlockNode);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
-protocol: 'accessing',
-fn: function (aNode){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -2813,24 +2655,6 @@ $globals.SendNode);
 
 $core.addMethod(
 $core.method({
-selector: "stopOnStepping",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "stopOnStepping\x0a\x09^ true",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.SendNode);
-
-$core.addMethod(
-$core.method({
 selector: "superSend",
 protocol: 'accessing',
 fn: function (){
@@ -2881,7 +2705,7 @@ $globals.SendNode);
 $core.addMethod(
 $core.method({
 selector: "valueForReceiver:",
-protocol: 'accessing',
+protocol: 'building',
 fn: function (anObject){
 var self=this;
 function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
@@ -2955,7 +2779,7 @@ $globals.SequenceNode);
 $core.addMethod(
 $core.method({
 selector: "asBlockSequenceNode",
-protocol: 'converting',
+protocol: 'building',
 fn: function (){
 var self=this;
 function $BlockSequenceNode(){return $globals.BlockSequenceNode||(typeof BlockSequenceNode=="undefined"?nil:BlockSequenceNode)}
@@ -3531,6 +3355,420 @@ referencedClasses: [],
 messageSends: ["value"]
 }),
 $globals.VariableNode);
+
+
+
+$core.addClass('NodeVisitor', $globals.Object, [], 'Compiler-AST');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.NodeVisitor.comment="I am the abstract super class of all AST node visitors.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "visit:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aNode)._accept_(self);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visit: aNode\x0a\x09^ aNode accept: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["accept:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitAll:",
+protocol: 'visiting',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv(aCollection)._collect_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._visit_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "visitAll: aCollection\x0a\x09^ aCollection collect: [ :each | self visit: each ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["collect:", "visit:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitAssignmentNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitAssignmentNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitBlockNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitBlockNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitBlockSequenceNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitSequenceNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitSequenceNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitCascadeNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitCascadeNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitDynamicArrayNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitDynamicArrayNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitDynamicDictionaryNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitJSStatementNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitJSStatementNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitMethodNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitMethodNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitAll_($recv(aNode)._nodes());
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitAll:", "nodes"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitReturnNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitReturnNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitSendNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitSendNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitSequenceNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitSequenceNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitValueNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitValueNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitVariableNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitVariableNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
 
 
 $core.addMethod(

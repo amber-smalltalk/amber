@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function($boot){"use strict";
+define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-AST", "amber_core/Kernel-Exceptions"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Interpreter');
 $core.packages["Compiler-Interpreter"].innerEval = function (expr) { return eval(expr); };
@@ -3772,6 +3772,42 @@ $globals.BlockNode);
 
 $core.addMethod(
 $core.method({
+selector: "nextChild",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.BlockNode);
+
+$core.addMethod(
+$core.method({
+selector: "nextNode:",
+protocol: '*Compiler-Interpreter',
+fn: function (aNode){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.BlockNode);
+
+$core.addMethod(
+$core.method({
 selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
@@ -3839,6 +3875,110 @@ source: "isSteppingNode\x0a\x09^ false",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
+selector: "nextChild",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $3,$2,$1;
+$3=self._nodes();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nodes"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3)._isEmpty();
+if($core.assert($2)){
+$1=self;
+} else {
+$1=$recv($recv(self._nodes())._first())._nextChild();
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nextChild",{},$globals.Node)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
+selector: "nextNode",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $2,$1,$receiver;
+$2=self._parent();
+if(($receiver = $2) == null || $receiver.isNil){
+$1=$2;
+} else {
+var node;
+node=$receiver;
+$1=$recv(node)._nextNode_(self);
+};
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nextNode",{},$globals.Node)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNotNil:", "parent", "nextNode:"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
+selector: "nextNode:",
+protocol: '*Compiler-Interpreter',
+fn: function (aNode){
+var self=this;
+var next;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2;
+var $early={};
+try {
+$1=self._nodes();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nodes"]=1;
+//>>excludeEnd("ctx");
+next=$recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+throw $early=[self];
+
+}));
+$2=$recv(next)._nextChild();
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},$globals.Node)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
 }),
 $globals.Node);
 

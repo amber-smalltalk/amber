@@ -4,7 +4,6 @@ define([
 	'./parser',
 	// --- packages for the Amber reflection begin here ---
 	'amber_core/Platform-ImportExport',
-	'amber_core/Compiler-Exceptions',
 	'amber_core/Compiler-Core',
 	'amber_core/Compiler-AST',
 	'amber_core/Compiler-Semantic',

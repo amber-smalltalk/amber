@@ -941,6 +941,18 @@ isSteppingNode
 
 isSteppingNode
 	^ true
+!
+
+nextChild
+	"Answer the receiver as we want to avoid eager evaluation"
+	
+	^ self
+!
+
+nextNode: aNode
+	"Answer the receiver as we want to avoid eager evaluation"
+	
+	^ self
 ! !
 
 !DynamicArrayNode methodsFor: '*Compiler-Interpreter'!
@@ -965,6 +977,33 @@ isSteppingNode
 
 isSteppingNode
 	^ false
+!
+
+nextChild
+	"Answer the next node after aNode.
+	Recurse into the possible children of the receiver to answer the next node to be evaluated"
+	
+	^ self nodes isEmpty
+		ifTrue: [ self ]
+		ifFalse: [ self nodes first nextChild ]
+!
+
+nextNode
+	^ self parent ifNotNil: [ :node |
+		node nextNode: self ]
+!
+
+nextNode: aNode
+	"Answer the next node after aNode.
+	Recurse into the possible children of the next node to answer the next node to be evaluated"
+	
+	| next |
+	
+	next := self nodes 
+		at: (self nodes indexOf: aNode) + 1
+		ifAbsent: [ ^ self ].
+	
+	^ next nextChild
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!

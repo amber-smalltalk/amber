@@ -1,4 +1,4 @@
-define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){"use strict";
+define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-AST", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-IR');
 $core.packages["Compiler-IR"].innerEval = function (expr) { return eval(expr); };

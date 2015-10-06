@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){"use strict";
+define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Compiler-Semantic"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Inlining');
 $core.packages["Compiler-Inlining"].innerEval = function (expr) { return eval(expr); };
@@ -2614,5 +2614,11 @@ messageSends: ["new"]
 }),
 $globals.InliningCodeGenerator);
 
+
+
+$core.addClass('InliningError', $globals.SemanticError, [], 'Compiler-Inlining');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.InliningError.comment="Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.";
+//>>excludeEnd("ide");
 
 });

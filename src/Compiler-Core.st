@@ -246,6 +246,12 @@ recompileAll
 		self recompile: each ]
 ! !
 
+Error subclass: #CompilerError
+	instanceVariableNames: ''
+	package: 'Compiler-Core'!
+!CompilerError commentStamp!
+I am the common superclass of all compiling errors.!
+
 Object subclass: #DoIt
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!
@@ -298,78 +304,6 @@ evaluate: aString receiver: anObject
 
 evaluate: aString for: anObject
 	^ self new evaluate: aString for: anObject
-! !
-
-Object subclass: #NodeVisitor
-	instanceVariableNames: ''
-	package: 'Compiler-Core'!
-!NodeVisitor commentStamp!
-I am the abstract super class of all AST node visitors.!
-
-!NodeVisitor methodsFor: 'visiting'!
-
-visit: aNode
-	^ aNode accept: self
-!
-
-visitAll: aCollection
-	^ aCollection collect: [ :each | self visit: each ]
-!
-
-visitAssignmentNode: aNode
-	^ self visitNode: aNode
-!
-
-visitBlockNode: aNode
-	^ self visitNode: aNode
-!
-
-visitBlockSequenceNode: aNode
-	^ self visitSequenceNode: aNode
-!
-
-visitCascadeNode: aNode
-	^ self visitNode: aNode
-!
-
-visitDynamicArrayNode: aNode
-	^ self visitNode: aNode
-!
-
-visitDynamicDictionaryNode: aNode
-	^ self visitNode: aNode
-!
-
-visitJSStatementNode: aNode
-	^ self visitNode: aNode
-!
-
-visitMethodNode: aNode
-	^ self visitNode: aNode
-!
-
-visitNode: aNode
-	^ self visitAll: aNode nodes
-!
-
-visitReturnNode: aNode
-	^ self visitNode: aNode
-!
-
-visitSendNode: aNode
-	^ self visitNode: aNode
-!
-
-visitSequenceNode: aNode
-	^ self visitNode: aNode
-!
-
-visitValueNode: aNode
-	^ self visitNode: aNode
-!
-
-visitVariableNode: aNode
-	^ self visitNode: aNode
 ! !
 
 !String methodsFor: '*Compiler-Core'!

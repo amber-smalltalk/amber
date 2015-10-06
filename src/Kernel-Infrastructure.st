@@ -596,6 +596,31 @@ initialize
 	self current observeSystem
 ! !
 
+Error subclass: #ParseError
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!ParseError commentStamp!
+Instance of ParseError are signaled on any parsing error.
+See `Smalltalk >> #parse:`!
+
+Object subclass: #RethrowErrorHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Infrastructure'!
+!RethrowErrorHandler commentStamp!
+This class is used in the commandline version of the compiler.
+It uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.
+As a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted.!
+
+!RethrowErrorHandler methodsFor: 'error handling'!
+
+basicSignal: anError
+        <throw anError>
+!
+
+handleError: anError
+        self basicSignal: anError
+! !
+
 Object subclass: #Setting
 	instanceVariableNames: 'key value defaultValue'
 	package: 'Kernel-Infrastructure'!
