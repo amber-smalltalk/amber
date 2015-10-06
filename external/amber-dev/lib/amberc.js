@@ -23,8 +23,6 @@ function AmberCompiler(amber_dir) {
     }
 
     this.amber_dir = amber_dir;
-    // Important: in next list, boot MUST be first
-    this.compiler_libraries = ['amber/lang'];
 }
 
 
@@ -68,7 +66,6 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     // the evaluated compiler will be stored in this variable (see create_compiler)
     configuration.core = {};
     configuration.globals = {};
-    configuration.compiler_libraries = this.compiler_libraries;
     configuration.amber_dir = this.amber_dir;
 
     var rjsConfig;
@@ -203,9 +200,8 @@ function collect_st_files(configuration) {
  * Returns a Promise object which resolves into the configuration object.
  */
 function create_compiler(configuration) {
-    var compiler_files = configuration.compiler_libraries;
     var include_files = configuration.load;
-    return new Promise(configuration.requirejs.bind(null, compiler_files))
+    return new Promise(configuration.requirejs.bind(null, ["amber/lang"]))
         .then(function (boot) {
             boot.api.initialize();
             configuration.core = boot.api;
