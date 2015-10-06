@@ -1,3 +1,14 @@
+6 October 2015 - Release 0.14.17
+===================================
+
+Maintenance release.
+Some fixes, optimizations and moving things around.
+Using virtual module "amber/Platform". This needs to be mapped
+to either "amber_core/Platform-Browser" or "amber_core/Platform-Node".
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.16...0.14.17
+
+
 20 June 2015 - Release 0.14.16
 ===================================
 
