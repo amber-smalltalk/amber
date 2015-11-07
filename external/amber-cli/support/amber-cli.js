@@ -7,7 +7,7 @@ require = requirejs;
 // when building an app to run in node.js.
 // Free to edit. You can break tests (cli test runner uses
 // this to build itself - it is a node executable).
-define("amber_core/Platform-Browser", ["amber_core/Platform-Node"], {});
+define("amber/Platform", ["amber_core/Platform-Node"], {});
 define("amber/browser-compatibility", {});
 define("jquery", {});
 
@@ -1110,7 +1110,7 @@ define("amber/boot", ['require', './browser-compatibility'], function (require) 
          if you modify the following functions, also change st2js
          accordingly */
         st.js2st = function (selector) {
-            if (selector.match(/__/)) {
+            if (selector.match(/^__/)) {
                 return binaryJsToSt(selector);
             } else {
                 return keywordJsToSt(selector);
@@ -11676,6 +11676,29 @@ $globals.Collection);
 
 $core.addMethod(
 $core.method({
+selector: "deepCopy",
+protocol: 'copying',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._collect_((function(each){
+return $core.withContext(function($ctx2) {
+return $recv(each)._deepCopy();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},$globals.Collection)});
+},
+args: [],
+source: "deepCopy\x0a\x09^ self collect: [ :each | each deepCopy ]",
+referencedClasses: [],
+messageSends: ["collect:", "deepCopy"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
 selector: "detect:",
 protocol: 'enumerating',
 fn: function (aBlock){
@@ -12220,6 +12243,28 @@ args: ["selectBlock", "collectBlock"],
 source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [ :each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each) ] ].\x0a\x09^ stream contents",
 referencedClasses: [],
 messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
+selector: "shallowCopy",
+protocol: 'copying',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._collect_((function(each){
+return each;
+
+}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.Collection)});
+},
+args: [],
+source: "shallowCopy\x0a\x09^ self collect: [ :each | each ]",
+referencedClasses: [],
+messageSends: ["collect:"]
 }),
 $globals.Collection);
 
@@ -13987,50 +14032,15 @@ selector: "copyFrom:to:",
 protocol: 'copying',
 fn: function (anIndex,anotherIndex){
 var self=this;
-var range,newCollection;
 return $core.withContext(function($ctx1) {
-var $1;
-range=$recv(anIndex)._to_(anotherIndex);
-newCollection=$recv(self._class())._new_($recv(range)._size());
-$recv(range)._withIndexDo_((function(each,i){
-return $core.withContext(function($ctx2) {
-return $recv(newCollection)._at_put_(i,self._at_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)});
-}));
-$1=newCollection;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex,range:range,newCollection:newCollection},$globals.SequenceableCollection)});
+self._subclassResponsibility();
+return self;
+}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},$globals.SequenceableCollection)});
 },
 args: ["anIndex", "anotherIndex"],
-source: "copyFrom: anIndex to: anotherIndex\x0a\x09| range newCollection |\x0a\x09range := anIndex to: anotherIndex.\x0a\x09newCollection := self class new: range size.\x0a\x09range withIndexDo: [ :each :i |\x0a\x09\x09newCollection at: i put: (self at: each) ].\x0a\x09^ newCollection",
+source: "copyFrom: anIndex to: anotherIndex\x0a\x09self subclassResponsibility",
 referencedClasses: [],
-messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"]
-}),
-$globals.SequenceableCollection);
-
-$core.addMethod(
-$core.method({
-selector: "deepCopy",
-protocol: 'copying',
-fn: function (){
-var self=this;
-var newCollection;
-return $core.withContext(function($ctx1) {
-var $1;
-newCollection=$recv(self._class())._new_(self._size());
-self._withIndexDo_((function(each,index){
-return $core.withContext(function($ctx2) {
-return $recv(newCollection)._at_put_(index,$recv(each)._deepCopy());
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)});
-}));
-$1=newCollection;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{newCollection:newCollection},$globals.SequenceableCollection)});
-},
-args: [],
-source: "deepCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each deepCopy ].\x0a\x09^ newCollection",
-referencedClasses: [],
-messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:", "deepCopy"]
+messageSends: ["subclassResponsibility"]
 }),
 $globals.SequenceableCollection);
 
@@ -14423,32 +14433,6 @@ $globals.SequenceableCollection);
 
 $core.addMethod(
 $core.method({
-selector: "shallowCopy",
-protocol: 'copying',
-fn: function (){
-var self=this;
-var newCollection;
-return $core.withContext(function($ctx1) {
-var $1;
-newCollection=$recv(self._class())._new_(self._size());
-self._withIndexDo_((function(each,index){
-return $core.withContext(function($ctx2) {
-return $recv(newCollection)._at_put_(index,each);
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)});
-}));
-$1=newCollection;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{newCollection:newCollection},$globals.SequenceableCollection)});
-},
-args: [],
-source: "shallowCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each ].\x0a\x09^ newCollection",
-referencedClasses: [],
-messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:"]
-}),
-$globals.SequenceableCollection);
-
-$core.addMethod(
-$core.method({
 selector: "stream",
 protocol: 'streaming',
 fn: function (){
@@ -14633,6 +14617,27 @@ $globals.Array);
 
 $core.addMethod(
 $core.method({
+selector: "addAll:",
+protocol: 'adding/removing',
+fn: function (aCollection){
+var self=this;
+return $core.withContext(function($ctx1) {
+
+	if (Array.isArray(aCollection) && aCollection.length < 65000) self.push.apply(self, aCollection);
+	else $globals.Array.superclass.fn.prototype._addAll_.call(self, aCollection);
+	return aCollection;;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"addAll:",{aCollection:aCollection},$globals.Array)});
+},
+args: ["aCollection"],
+source: "addAll: aCollection\x0a<\x0a\x09if (Array.isArray(aCollection) && aCollection.length < 65000) self.push.apply(self, aCollection);\x0a\x09else $globals.Array.superclass.fn.prototype._addAll_.call(self, aCollection);\x0a\x09return aCollection;\x0a>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Array);
+
+$core.addMethod(
+$core.method({
 selector: "addFirst:",
 protocol: 'adding/removing',
 fn: function (anObject){
@@ -14748,6 +14753,31 @@ return self;
 },
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Array);
+
+$core.addMethod(
+$core.method({
+selector: "copyFrom:to:",
+protocol: 'copying',
+fn: function (anIndex,anotherIndex){
+var self=this;
+return $core.withContext(function($ctx1) {
+
+	if (anIndex >= 1 && anotherIndex <= self.length) {
+		return self.slice(anIndex - 1, anotherIndex);
+	} else {
+		self._at_(anIndex);
+		self._at_(self.length + 1);
+		throw new Error("Incorrect indexes in #copyFrom:to: not caught by #at:");
+	};
+return self;
+}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},$globals.Array)});
+},
+args: ["anIndex", "anotherIndex"],
+source: "copyFrom: anIndex to: anotherIndex\x0a<\x0a\x09if (anIndex >>= 1 && anotherIndex <= self.length) {\x0a\x09\x09return self.slice(anIndex - 1, anotherIndex);\x0a\x09} else {\x0a\x09\x09self._at_(anIndex);\x0a\x09\x09self._at_(self.length + 1);\x0a\x09\x09throw new Error(\x22Incorrect indexes in #copyFrom:to: not caught by #at:\x22);\x0a\x09}\x0a>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -14931,12 +14961,12 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-return self._copy().reverse();
+return self.slice().reverse();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"reversed",{},$globals.Array)});
 },
 args: [],
-source: "reversed\x0a\x09<return self._copy().reverse()>",
+source: "reversed\x0a\x09<return self.slice().reverse()>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -14949,20 +14979,30 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-
-		var result = self.klass._new();
-		for(var i=0; i<self.length; i++) {
-			if(aBlock._value_(self[i])) {
-				result.push(self[i]);
-			}
-		}
-		return result;
-	;
+return self.filter(function(each) {return aBlock._value_(each)});
 return self;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock},$globals.Array)});
 },
 args: ["aBlock"],
-source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<\x0a\x09\x09var result = self.klass._new();\x0a\x09\x09for(var i=0; i<self.length; i++) {\x0a\x09\x09\x09if(aBlock._value_(self[i])) {\x0a\x09\x09\x09\x09result.push(self[i]);\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09return result;\x0a\x09>",
+source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<return self.filter(function(each) {return aBlock._value_(each)})>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Array);
+
+$core.addMethod(
+$core.method({
+selector: "shallowCopy",
+protocol: 'copying',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return self.slice();
+return self;
+}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.Array)});
+},
+args: [],
+source: "shallowCopy\x0a\x09<return self.slice()>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -15499,15 +15539,14 @@ protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__eq_eq(aString);
-return $1;
+return aString != null && String(self) === (typeof aString === "string" ? aString : aString.valueOf());
+return self;
 }, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},$globals.String)});
 },
 args: ["aString"],
-source: "= aString\x0a\x09^ self == aString",
+source: "= aString\x0a<return aString != null && String(self) === (typeof aString === \x22string\x22 ? aString : aString.valueOf())>",
 referencedClasses: [],
-messageSends: ["=="]
+messageSends: []
 }),
 $globals.String);
 
@@ -16200,24 +16239,18 @@ selector: "lines",
 protocol: 'split join',
 fn: function (){
 var self=this;
-var lines;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1;
-lines=$recv($Array())._new();
-self._linesDo_((function(aLine){
-return $core.withContext(function($ctx2) {
-return $recv(lines)._add_(aLine);
-}, function($ctx2) {$ctx2.fillBlock({aLine:aLine},$ctx1,1)});
-}));
-$1=lines;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"lines",{lines:lines},$globals.String)});
+
+	var result = self.split(/\r\n|\r|\n/);
+	if (!result[result.length-1]) result.pop();
+	return result;;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"lines",{},$globals.String)});
 },
 args: [],
-source: "lines\x0a\x09\x22Answer an array of lines composing this receiver without the line ending delimiters.\x22\x0a\x0a\x09| lines |\x0a\x09lines := Array new.\x0a\x09self linesDo: [ :aLine | lines add: aLine ].\x0a\x09^ lines",
-referencedClasses: ["Array"],
-messageSends: ["new", "linesDo:", "add:"]
+source: "lines\x0a\x09\x22Answer an array of lines composing this receiver without the line ending delimiters.\x22\x0a<\x0a\x09var result = self.split(/\x5cr\x5cn|\x5cr|\x5cn/);\x0a\x09if (!result[result.length-1]) result.pop();\x0a\x09return result;\x0a>",
+referencedClasses: [],
+messageSends: []
 }),
 $globals.String);
 
@@ -16228,18 +16261,14 @@ protocol: 'split join',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
-return $core.withContext(function($ctx2) {
-return $recv(aBlock)._value_(self._copyFrom_to_(start,endWithoutDelimiters));
-}, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)});
-}));
+$recv(self._lines())._do_(aBlock);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"linesDo:",{aBlock:aBlock},$globals.String)});
 },
 args: ["aBlock"],
-source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lineIndicesDo: [ :start :endWithoutDelimiters :end |\x0a\x09\x09aBlock value: (self copyFrom: start to: endWithoutDelimiters) ]",
+source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lines do: aBlock",
 referencedClasses: [],
-messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"]
+messageSends: ["do:", "lines"]
 }),
 $globals.String);
 
@@ -16400,16 +16429,13 @@ selector: "shallowCopy",
 protocol: 'copying',
 fn: function (){
 var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._fromString_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.String)});
+return self;
+
 },
 args: [],
-source: "shallowCopy\x0a\x09^ self class fromString: self",
+source: "shallowCopy\x0a\x09^ self",
 referencedClasses: [],
-messageSends: ["fromString:", "class"]
+messageSends: []
 }),
 $globals.String);
 
@@ -18717,7 +18743,657 @@ $globals.RegularExpression.klass);
 
 });
 
-define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function($boot){"use strict";
+define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
+var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
+$core.addPackage('Kernel-Exceptions');
+$core.packages["Kernel-Exceptions"].innerEval = function (expr) { return eval(expr); };
+$core.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
+
+$core.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');
+$globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
+$core.addMethod(
+$core.method({
+selector: "beHandled",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+self.amberHandled = true;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"beHandled",{},$globals.Error)});
+},
+args: [],
+source: "beHandled\x0a\x09<self.amberHandled = true>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "beUnhandled",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+self.amberHandled = false;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"beUnhandled",{},$globals.Error)});
+},
+args: [],
+source: "beUnhandled\x0a\x09<self.amberHandled = false>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "context",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return self.context;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"context",{},$globals.Error)});
+},
+args: [],
+source: "context\x0a\x09<return self.context>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+self._messageText_("Errorclass: ".__comma($recv(self._class())._name()));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Error)});
+},
+args: [],
+source: "initialize\x0a\x09self messageText: 'Errorclass: ', (self class name).",
+referencedClasses: [],
+messageSends: ["messageText:", ",", "name", "class"]
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "isSmalltalkError",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return self.smalltalkError === true;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},$globals.Error)});
+},
+args: [],
+source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "jsStack",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return self.stack;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"jsStack",{},$globals.Error)});
+},
+args: [],
+source: "jsStack\x0a\x09<return self.stack>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@messageText"];
+return $1;
+
+},
+args: [],
+source: "messageText\x0a\x09^ messageText",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "messageText:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@messageText"]=aString;
+return self;
+
+},
+args: ["aString"],
+source: "messageText: aString\x0a\x09messageText := aString",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "resignal",
+protocol: 'signaling',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+
+		self.amberHandled = false;
+		throw(self);
+	;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"resignal",{},$globals.Error)});
+},
+args: [],
+source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09throw(self);\x0a\x09>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "signal",
+protocol: 'signaling',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+
+		self.amberHandled = false;
+		self.context = $core.getThisContext(); 
+		self.smalltalkError = true;
+		throw self;
+	;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error)});
+},
+args: [],
+source: "signal\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09self.context = $core.getThisContext(); \x0a\x09\x09self.smalltalkError = true;\x0a\x09\x09throw self;\x0a\x09>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "signal:",
+protocol: 'signaling',
+fn: function (aString){
+var self=this;
+return $core.withContext(function($ctx1) {
+self._messageText_(aString);
+self._signal();
+return self;
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error)});
+},
+args: ["aString"],
+source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
+referencedClasses: [],
+messageSends: ["messageText:", "signal"]
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "signalerContext",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._signalerContextFrom_(self._context());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContext",{},$globals.Error)});
+},
+args: [],
+source: "signalerContext\x0a\x09^ self signalerContextFrom: self context",
+referencedClasses: [],
+messageSends: ["signalerContextFrom:", "context"]
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "signalerContextFrom:",
+protocol: 'accessing',
+fn: function (aContext){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $4,$3,$2,$1;
+$1=$recv(aContext)._findContextSuchThat_((function(context){
+return $core.withContext(function($ctx2) {
+$4=$recv(context)._receiver();
+$ctx2.sendIdx["receiver"]=1;
+$3=$recv($4).__eq_eq(self);
+$ctx2.sendIdx["=="]=1;
+$2=$recv($3)._or_((function(){
+return $core.withContext(function($ctx3) {
+return $recv($recv(context)._receiver()).__eq_eq(self._class());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+}));
+return $recv($2)._not();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
+}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Error)});
+},
+args: ["aContext"],
+source: "signalerContextFrom: aContext\x0a\x09\x22Find the first sender of signal(:), the first context which is neither \x0a\x09for an instance method nor for a class side method of Exception (or subclass).\x0a\x09This will make sure that the same context is found for both, `Error signal` \x0a\x09and `Error new signal`\x22\x0a\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ context receiver == self class ]) not ]",
+referencedClasses: [],
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"]
+}),
+$globals.Error);
+
+$core.addMethod(
+$core.method({
+selector: "wasHandled",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return self.amberHandled || false;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"wasHandled",{},$globals.Error)});
+},
+args: [],
+source: "wasHandled\x0a\x09<return self.amberHandled || false>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error);
+
+
+$core.addMethod(
+$core.method({
+selector: "classTag",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "exception";
+
+},
+args: [],
+source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'exception'",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Error.klass);
+
+$core.addMethod(
+$core.method({
+selector: "signal",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv(self._new())._signal();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error.klass)});
+},
+args: [],
+source: "signal\x0a\x09^ self new signal",
+referencedClasses: [],
+messageSends: ["signal", "new"]
+}),
+$globals.Error.klass);
+
+$core.addMethod(
+$core.method({
+selector: "signal:",
+protocol: 'instance creation',
+fn: function (aString){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv(self._new())._signal_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error.klass)});
+},
+args: ["aString"],
+source: "signal: aString\x0a\x09^ self new\x0a\x09\x09signal: aString",
+referencedClasses: [],
+messageSends: ["signal:", "new"]
+}),
+$globals.Error.klass);
+
+
+$core.addClass('Halt', $globals.Error, [], 'Kernel-Exceptions');
+$globals.Halt.comment="I am provided to support `Object>>#halt`.";
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return "Halt encountered";
+
+},
+args: [],
+source: "messageText\x0a\x09^ 'Halt encountered'",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.Halt);
+
+$core.addMethod(
+$core.method({
+selector: "signalerContextFrom:",
+protocol: 'accessing',
+fn: function (aContext){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $4,$3,$2,$1;
+$1=$recv(aContext)._findContextSuchThat_((function(context){
+return $core.withContext(function($ctx2) {
+$4=$recv(context)._receiver();
+$ctx2.sendIdx["receiver"]=1;
+$3=$recv($4).__eq_eq(self);
+$ctx2.sendIdx["=="]=1;
+$2=$recv($3)._or_((function(){
+return $core.withContext(function($ctx3) {
+return $recv($recv($recv(context)._receiver()).__eq_eq(self._class()))._or_((function(){
+return $core.withContext(function($ctx4) {
+return $recv($recv($recv(context)._method())._selector()).__eq("halt");
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)});
+}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+}));
+$ctx2.sendIdx["or:"]=1;
+return $recv($2)._not();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
+}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Halt)});
+},
+args: ["aContext"],
+source: "signalerContextFrom: aContext\x0a\x09\x22specialized version to find the proper context to open the debugger on.\x0a\x09This will find the first context whose method is no longer on `Halt` or \x0a\x09`Halt class` nor is `#halt` method itself.\x22\x0a\x09\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ (context receiver == self class) \x0a\x09\x09or: [ context method selector = #halt ]]) not ]",
+referencedClasses: [],
+messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"]
+}),
+$globals.Halt);
+
+
+
+$core.addClass('JavaScriptException', $globals.Error, ['exception'], 'Kernel-Exceptions');
+$globals.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
+$core.addMethod(
+$core.method({
+selector: "context:",
+protocol: 'accessing',
+fn: function (aMethodContext){
+var self=this;
+return $core.withContext(function($ctx1) {
+self.context = aMethodContext;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},$globals.JavaScriptException)});
+},
+args: ["aMethodContext"],
+source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0a\x09See boot.js `inContext()` exception handling\x22\x0a\x09\x0a\x09<self.context = aMethodContext>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.JavaScriptException);
+
+$core.addMethod(
+$core.method({
+selector: "exception",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@exception"];
+return $1;
+
+},
+args: [],
+source: "exception\x0a\x09^ exception",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.JavaScriptException);
+
+$core.addMethod(
+$core.method({
+selector: "exception:",
+protocol: 'accessing',
+fn: function (anException){
+var self=this;
+self["@exception"]=anException;
+return self;
+
+},
+args: ["anException"],
+source: "exception: anException\x0a\x09exception := anException",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.JavaScriptException);
+
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return 'JavaScript exception: ' + self["@exception"].toString();
+return self;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.JavaScriptException)});
+},
+args: [],
+source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.JavaScriptException);
+
+
+$core.addMethod(
+$core.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (anException){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $2,$3,$1;
+$2=self._new();
+$recv($2)._exception_(anException);
+$3=$recv($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},$globals.JavaScriptException.klass)});
+},
+args: ["anException"],
+source: "on: anException\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09yourself",
+referencedClasses: [],
+messageSends: ["exception:", "new", "yourself"]
+}),
+$globals.JavaScriptException.klass);
+
+$core.addMethod(
+$core.method({
+selector: "on:context:",
+protocol: 'instance creation',
+fn: function (anException,aMethodContext){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $2,$3,$1;
+$2=self._new();
+$recv($2)._exception_(anException);
+$recv($2)._context_(aMethodContext);
+$3=$recv($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},$globals.JavaScriptException.klass)});
+},
+args: ["anException", "aMethodContext"],
+source: "on: anException context: aMethodContext\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09context: aMethodContext;\x0a\x09\x09yourself",
+referencedClasses: [],
+messageSends: ["exception:", "new", "context:", "yourself"]
+}),
+$globals.JavaScriptException.klass);
+
+
+$core.addClass('MessageNotUnderstood', $globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
+$globals.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
+$core.addMethod(
+$core.method({
+selector: "message",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@message"];
+return $1;
+
+},
+args: [],
+source: "message\x0a\x09^ message",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.MessageNotUnderstood);
+
+$core.addMethod(
+$core.method({
+selector: "message:",
+protocol: 'accessing',
+fn: function (aMessage){
+var self=this;
+self["@message"]=aMessage;
+return self;
+
+},
+args: ["aMessage"],
+source: "message: aMessage\x0a\x09message := aMessage",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.MessageNotUnderstood);
+
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv($recv($recv(self._receiver())._asString()).__comma(" does not understand #")).__comma($recv(self._message())._selector());
+$ctx1.sendIdx[","]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.MessageNotUnderstood)});
+},
+args: [],
+source: "messageText\x0a\x09^ self receiver asString, ' does not understand #', self message selector",
+referencedClasses: [],
+messageSends: [",", "asString", "receiver", "selector", "message"]
+}),
+$globals.MessageNotUnderstood);
+
+$core.addMethod(
+$core.method({
+selector: "receiver",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@receiver"];
+return $1;
+
+},
+args: [],
+source: "receiver\x0a\x09^ receiver",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.MessageNotUnderstood);
+
+$core.addMethod(
+$core.method({
+selector: "receiver:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@receiver"]=anObject;
+return self;
+
+},
+args: ["anObject"],
+source: "receiver: anObject\x0a\x09receiver := anObject",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.MessageNotUnderstood);
+
+
+
+$core.addClass('NonBooleanReceiver', $globals.Error, ['object'], 'Kernel-Exceptions');
+$globals.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
+$core.addMethod(
+$core.method({
+selector: "object",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@object"];
+return $1;
+
+},
+args: [],
+source: "object\x0a\x09^ object",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.NonBooleanReceiver);
+
+$core.addMethod(
+$core.method({
+selector: "object:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@object"]=anObject;
+return self;
+
+},
+args: ["anObject"],
+source: "object: anObject\x0a\x09object := anObject",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.NonBooleanReceiver);
+
+
+});
+
+define("amber_core/Kernel-Infrastructure", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Collections"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Kernel-Infrastructure');
 $core.packages["Kernel-Infrastructure"].innerEval = function (expr) { return eval(expr); };
@@ -20386,6 +21062,50 @@ messageSends: ["observeSystem", "current"]
 $globals.PackageStateObserver.klass);
 
 
+$core.addClass('ParseError', $globals.Error, [], 'Kernel-Infrastructure');
+$globals.ParseError.comment="Instance of ParseError are signaled on any parsing error.\x0aSee `Smalltalk >> #parse:`";
+
+
+$core.addClass('RethrowErrorHandler', $globals.Object, [], 'Kernel-Infrastructure');
+$globals.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted.";
+$core.addMethod(
+$core.method({
+selector: "basicSignal:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return $core.withContext(function($ctx1) {
+throw anError;
+return self;
+}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},$globals.RethrowErrorHandler)});
+},
+args: ["anError"],
+source: "basicSignal: anError\x0a        <throw anError>",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.RethrowErrorHandler);
+
+$core.addMethod(
+$core.method({
+selector: "handleError:",
+protocol: 'error handling',
+fn: function (anError){
+var self=this;
+return $core.withContext(function($ctx1) {
+self._basicSignal_(anError);
+return self;
+}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},$globals.RethrowErrorHandler)});
+},
+args: ["anError"],
+source: "handleError: anError\x0a        self basicSignal: anError",
+referencedClasses: [],
+messageSends: ["basicSignal:"]
+}),
+$globals.RethrowErrorHandler);
+
+
+
 $core.addClass('Setting', $globals.Object, ['key', 'value', 'defaultValue'], 'Kernel-Infrastructure');
 $globals.Setting.comment="I represent a setting **stored** at `Smalltalk settings`. \x0aIn the current implementation, `Smalltalk settings` is an object persisted in the localStorage.\x0a\x0a## API\x0a\x0aA `Setting` value can be read using `value` and set using `value:`.\x0a\x0aSettings are accessed with `'key' asSetting` or `'key' asSettingIfAbsent: aDefaultValue`.\x0a\x0aTo read the value of a setting you can also use the convenience:\x0a\x0a`theValueSet :=  'any.characteristic' settingValue` \x0a\x0aor with a default using:\x0a\x0a `theEnsuredValueSet := 'any.characteristic' settingValueIfAbsent: true`";
 $core.addMethod(
@@ -21498,656 +22218,6 @@ referencedClasses: [],
 messageSends: ["value", "asSettingIfAbsent:"]
 }),
 $globals.String);
-
-});
-
-define("amber_core/Kernel-Exceptions", ["amber/boot", "amber_core/Kernel-Objects"], function($boot){"use strict";
-var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-$core.addPackage('Kernel-Exceptions');
-$core.packages["Kernel-Exceptions"].innerEval = function (expr) { return eval(expr); };
-$core.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
-
-$core.addClass('Error', $globals.Object, ['messageText'], 'Kernel-Exceptions');
-$globals.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
-$core.addMethod(
-$core.method({
-selector: "beHandled",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-self.amberHandled = true;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"beHandled",{},$globals.Error)});
-},
-args: [],
-source: "beHandled\x0a\x09<self.amberHandled = true>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "beUnhandled",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-self.amberHandled = false;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"beUnhandled",{},$globals.Error)});
-},
-args: [],
-source: "beUnhandled\x0a\x09<self.amberHandled = false>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "context",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-return self.context;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"context",{},$globals.Error)});
-},
-args: [],
-source: "context\x0a\x09<return self.context>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "initialize",
-protocol: 'initialization',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-self._messageText_("Errorclass: ".__comma($recv(self._class())._name()));
-return self;
-}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Error)});
-},
-args: [],
-source: "initialize\x0a\x09self messageText: 'Errorclass: ', (self class name).",
-referencedClasses: [],
-messageSends: ["messageText:", ",", "name", "class"]
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "isSmalltalkError",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-return self.smalltalkError === true;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"isSmalltalkError",{},$globals.Error)});
-},
-args: [],
-source: "isSmalltalkError\x0a\x09<return self.smalltalkError === true>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "jsStack",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-return self.stack;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"jsStack",{},$globals.Error)});
-},
-args: [],
-source: "jsStack\x0a\x09<return self.stack>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@messageText"];
-return $1;
-
-},
-args: [],
-source: "messageText\x0a\x09^ messageText",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "messageText:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@messageText"]=aString;
-return self;
-
-},
-args: ["aString"],
-source: "messageText: aString\x0a\x09messageText := aString",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "resignal",
-protocol: 'signaling',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-
-		self.amberHandled = false;
-		throw(self);
-	;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"resignal",{},$globals.Error)});
-},
-args: [],
-source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09throw(self);\x0a\x09>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "signal",
-protocol: 'signaling',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-
-		self.amberHandled = false;
-		self.context = $core.getThisContext(); 
-		self.smalltalkError = true;
-		throw self;
-	;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error)});
-},
-args: [],
-source: "signal\x0a\x09<\x0a\x09\x09self.amberHandled = false;\x0a\x09\x09self.context = $core.getThisContext(); \x0a\x09\x09self.smalltalkError = true;\x0a\x09\x09throw self;\x0a\x09>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "signal:",
-protocol: 'signaling',
-fn: function (aString){
-var self=this;
-return $core.withContext(function($ctx1) {
-self._messageText_(aString);
-self._signal();
-return self;
-}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error)});
-},
-args: ["aString"],
-source: "signal: aString\x0a\x09self messageText: aString.\x0a\x09self signal",
-referencedClasses: [],
-messageSends: ["messageText:", "signal"]
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "signalerContext",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._signalerContextFrom_(self._context());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"signalerContext",{},$globals.Error)});
-},
-args: [],
-source: "signalerContext\x0a\x09^ self signalerContextFrom: self context",
-referencedClasses: [],
-messageSends: ["signalerContextFrom:", "context"]
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "signalerContextFrom:",
-protocol: 'accessing',
-fn: function (aContext){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $4,$3,$2,$1;
-$1=$recv(aContext)._findContextSuchThat_((function(context){
-return $core.withContext(function($ctx2) {
-$4=$recv(context)._receiver();
-$ctx2.sendIdx["receiver"]=1;
-$3=$recv($4).__eq_eq(self);
-$ctx2.sendIdx["=="]=1;
-$2=$recv($3)._or_((function(){
-return $core.withContext(function($ctx3) {
-return $recv($recv(context)._receiver()).__eq_eq(self._class());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
-}));
-return $recv($2)._not();
-}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
-}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Error)});
-},
-args: ["aContext"],
-source: "signalerContextFrom: aContext\x0a\x09\x22Find the first sender of signal(:), the first context which is neither \x0a\x09for an instance method nor for a class side method of Exception (or subclass).\x0a\x09This will make sure that the same context is found for both, `Error signal` \x0a\x09and `Error new signal`\x22\x0a\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ context receiver == self class ]) not ]",
-referencedClasses: [],
-messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class"]
-}),
-$globals.Error);
-
-$core.addMethod(
-$core.method({
-selector: "wasHandled",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-return self.amberHandled || false;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"wasHandled",{},$globals.Error)});
-},
-args: [],
-source: "wasHandled\x0a\x09<return self.amberHandled || false>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error);
-
-
-$core.addMethod(
-$core.method({
-selector: "classTag",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "exception";
-
-},
-args: [],
-source: "classTag\x0a\x09\x22Returns a tag or general category for this class.\x0a\x09Typically used to help tools do some reflection.\x0a\x09Helios, for example, uses this to decide what icon the class should display.\x22\x0a\x09\x0a\x09^ 'exception'",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Error.klass);
-
-$core.addMethod(
-$core.method({
-selector: "signal",
-protocol: 'instance creation',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._new())._signal();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error.klass)});
-},
-args: [],
-source: "signal\x0a\x09^ self new signal",
-referencedClasses: [],
-messageSends: ["signal", "new"]
-}),
-$globals.Error.klass);
-
-$core.addMethod(
-$core.method({
-selector: "signal:",
-protocol: 'instance creation',
-fn: function (aString){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._new())._signal_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error.klass)});
-},
-args: ["aString"],
-source: "signal: aString\x0a\x09^ self new\x0a\x09\x09signal: aString",
-referencedClasses: [],
-messageSends: ["signal:", "new"]
-}),
-$globals.Error.klass);
-
-
-$core.addClass('Halt', $globals.Error, [], 'Kernel-Exceptions');
-$globals.Halt.comment="I am provided to support `Object>>#halt`.";
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return "Halt encountered";
-
-},
-args: [],
-source: "messageText\x0a\x09^ 'Halt encountered'",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Halt);
-
-$core.addMethod(
-$core.method({
-selector: "signalerContextFrom:",
-protocol: 'accessing',
-fn: function (aContext){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $4,$3,$2,$1;
-$1=$recv(aContext)._findContextSuchThat_((function(context){
-return $core.withContext(function($ctx2) {
-$4=$recv(context)._receiver();
-$ctx2.sendIdx["receiver"]=1;
-$3=$recv($4).__eq_eq(self);
-$ctx2.sendIdx["=="]=1;
-$2=$recv($3)._or_((function(){
-return $core.withContext(function($ctx3) {
-return $recv($recv($recv(context)._receiver()).__eq_eq(self._class()))._or_((function(){
-return $core.withContext(function($ctx4) {
-return $recv($recv($recv(context)._method())._selector()).__eq("halt");
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)});
-}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
-}));
-$ctx2.sendIdx["or:"]=1;
-return $recv($2)._not();
-}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
-}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Halt)});
-},
-args: ["aContext"],
-source: "signalerContextFrom: aContext\x0a\x09\x22specialized version to find the proper context to open the debugger on.\x0a\x09This will find the first context whose method is no longer on `Halt` or \x0a\x09`Halt class` nor is `#halt` method itself.\x22\x0a\x09\x0a\x09^ aContext findContextSuchThat: [ :context |\x0a\x09\x09(context receiver == self \x0a\x09\x09or: [ (context receiver == self class) \x0a\x09\x09or: [ context method selector = #halt ]]) not ]",
-referencedClasses: [],
-messageSends: ["findContextSuchThat:", "not", "or:", "==", "receiver", "class", "=", "selector", "method"]
-}),
-$globals.Halt);
-
-
-
-$core.addClass('JavaScriptException', $globals.Error, ['exception'], 'Kernel-Exceptions');
-$globals.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`";
-$core.addMethod(
-$core.method({
-selector: "context:",
-protocol: 'accessing',
-fn: function (aMethodContext){
-var self=this;
-return $core.withContext(function($ctx1) {
-self.context = aMethodContext;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},$globals.JavaScriptException)});
-},
-args: ["aMethodContext"],
-source: "context: aMethodContext\x0a\x09\x22Set the context from the outside.\x0a\x09See boot.js `inContext()` exception handling\x22\x0a\x09\x0a\x09<self.context = aMethodContext>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.JavaScriptException);
-
-$core.addMethod(
-$core.method({
-selector: "exception",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@exception"];
-return $1;
-
-},
-args: [],
-source: "exception\x0a\x09^ exception",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.JavaScriptException);
-
-$core.addMethod(
-$core.method({
-selector: "exception:",
-protocol: 'accessing',
-fn: function (anException){
-var self=this;
-self["@exception"]=anException;
-return self;
-
-},
-args: ["anException"],
-source: "exception: anException\x0a\x09exception := anException",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.JavaScriptException);
-
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-return 'JavaScript exception: ' + self["@exception"].toString();
-return self;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.JavaScriptException)});
-},
-args: [],
-source: "messageText\x0a\x09<return 'JavaScript exception: ' + self[\x22@exception\x22].toString()>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.JavaScriptException);
-
-
-$core.addMethod(
-$core.method({
-selector: "on:",
-protocol: 'instance creation',
-fn: function (anException){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._exception_(anException);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},$globals.JavaScriptException.klass)});
-},
-args: ["anException"],
-source: "on: anException\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09yourself",
-referencedClasses: [],
-messageSends: ["exception:", "new", "yourself"]
-}),
-$globals.JavaScriptException.klass);
-
-$core.addMethod(
-$core.method({
-selector: "on:context:",
-protocol: 'instance creation',
-fn: function (anException,aMethodContext){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._exception_(anException);
-$recv($2)._context_(aMethodContext);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},$globals.JavaScriptException.klass)});
-},
-args: ["anException", "aMethodContext"],
-source: "on: anException context: aMethodContext\x0a\x09^ self new\x0a\x09\x09exception: anException;\x0a\x09\x09context: aMethodContext;\x0a\x09\x09yourself",
-referencedClasses: [],
-messageSends: ["exception:", "new", "context:", "yourself"]
-}),
-$globals.JavaScriptException.klass);
-
-
-$core.addClass('MessageNotUnderstood', $globals.Error, ['message', 'receiver'], 'Kernel-Exceptions');
-$globals.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`.";
-$core.addMethod(
-$core.method({
-selector: "message",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@message"];
-return $1;
-
-},
-args: [],
-source: "message\x0a\x09^ message",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.MessageNotUnderstood);
-
-$core.addMethod(
-$core.method({
-selector: "message:",
-protocol: 'accessing',
-fn: function (aMessage){
-var self=this;
-self["@message"]=aMessage;
-return self;
-
-},
-args: ["aMessage"],
-source: "message: aMessage\x0a\x09message := aMessage",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.MessageNotUnderstood);
-
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($recv(self._receiver())._asString()).__comma(" does not understand #")).__comma($recv(self._message())._selector());
-$ctx1.sendIdx[","]=1;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.MessageNotUnderstood)});
-},
-args: [],
-source: "messageText\x0a\x09^ self receiver asString, ' does not understand #', self message selector",
-referencedClasses: [],
-messageSends: [",", "asString", "receiver", "selector", "message"]
-}),
-$globals.MessageNotUnderstood);
-
-$core.addMethod(
-$core.method({
-selector: "receiver",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
-
-},
-args: [],
-source: "receiver\x0a\x09^ receiver",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.MessageNotUnderstood);
-
-$core.addMethod(
-$core.method({
-selector: "receiver:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@receiver"]=anObject;
-return self;
-
-},
-args: ["anObject"],
-source: "receiver: anObject\x0a\x09receiver := anObject",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.MessageNotUnderstood);
-
-
-
-$core.addClass('NonBooleanReceiver', $globals.Error, ['object'], 'Kernel-Exceptions');
-$globals.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver.";
-$core.addMethod(
-$core.method({
-selector: "object",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@object"];
-return $1;
-
-},
-args: [],
-source: "object\x0a\x09^ object",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.NonBooleanReceiver);
-
-$core.addMethod(
-$core.method({
-selector: "object:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@object"]=anObject;
-return self;
-
-},
-args: ["anObject"],
-source: "object: anObject\x0a\x09object := anObject",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.NonBooleanReceiver);
-
 
 });
 
@@ -25276,7 +25346,7 @@ define('amber/deploy',[
     'amber_core/Kernel-Exceptions',
     'amber_core/Kernel-Announcements',
     'amber_core/Platform-Services',
-    'amber_core/Platform-Browser'
+    'amber/Platform'
     // --- packages of the core Amber end here ---
 ], function (amber) { return amber; });
 
@@ -32341,246 +32411,7 @@ $globals.Package.klass);
 
 });
 
-define("amber_core/Compiler-Exceptions", ["amber/boot", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects"], function($boot){"use strict";
-var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
-$core.addPackage('Compiler-Exceptions');
-$core.packages["Compiler-Exceptions"].innerEval = function (expr) { return eval(expr); };
-$core.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
-
-$core.addClass('CompilerError', $globals.Error, [], 'Compiler-Exceptions');
-$globals.CompilerError.comment="I am the common superclass of all compiling errors.";
-
-
-$core.addClass('ParseError', $globals.CompilerError, [], 'Compiler-Exceptions');
-$globals.ParseError.comment="Instance of ParseError are signaled on any parsing error.\x0aSee `Smalltalk >> #parse:`";
-
-
-$core.addClass('SemanticError', $globals.CompilerError, [], 'Compiler-Exceptions');
-$globals.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling";
-
-
-$core.addClass('InliningError', $globals.SemanticError, [], 'Compiler-Exceptions');
-$globals.InliningError.comment="Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.";
-
-
-$core.addClass('InvalidAssignmentError', $globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
-$globals.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned.";
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=" Invalid assignment to variable: ".__comma(self._variableName());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.InvalidAssignmentError)});
-},
-args: [],
-source: "messageText\x0a\x09^ ' Invalid assignment to variable: ', self variableName",
-referencedClasses: [],
-messageSends: [",", "variableName"]
-}),
-$globals.InvalidAssignmentError);
-
-$core.addMethod(
-$core.method({
-selector: "variableName",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@variableName"];
-return $1;
-
-},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.InvalidAssignmentError);
-
-$core.addMethod(
-$core.method({
-selector: "variableName:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@variableName"]=aString;
-return self;
-
-},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.InvalidAssignmentError);
-
-
-
-$core.addClass('ShadowingVariableError', $globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
-$globals.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.";
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
-$ctx1.sendIdx[","]=1;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.ShadowingVariableError)});
-},
-args: [],
-source: "messageText\x0a\x09^ 'Variable shadowing error: ', self variableName, ' is already defined'",
-referencedClasses: [],
-messageSends: [",", "variableName"]
-}),
-$globals.ShadowingVariableError);
-
-$core.addMethod(
-$core.method({
-selector: "variableName",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@variableName"];
-return $1;
-
-},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.ShadowingVariableError);
-
-$core.addMethod(
-$core.method({
-selector: "variableName:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@variableName"]=aString;
-return self;
-
-},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.ShadowingVariableError);
-
-
-
-$core.addClass('UnknownVariableError', $globals.SemanticError, ['variableName'], 'Compiler-Exceptions');
-$globals.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.";
-$core.addMethod(
-$core.method({
-selector: "messageText",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
-$ctx1.sendIdx[","]=1;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.UnknownVariableError)});
-},
-args: [],
-source: "messageText\x0a\x09^ 'Unknown Variable error: ', self variableName, ' is not defined'",
-referencedClasses: [],
-messageSends: [",", "variableName"]
-}),
-$globals.UnknownVariableError);
-
-$core.addMethod(
-$core.method({
-selector: "variableName",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@variableName"];
-return $1;
-
-},
-args: [],
-source: "variableName\x0a\x09^ variableName",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.UnknownVariableError);
-
-$core.addMethod(
-$core.method({
-selector: "variableName:",
-protocol: 'accessing',
-fn: function (aString){
-var self=this;
-self["@variableName"]=aString;
-return self;
-
-},
-args: ["aString"],
-source: "variableName: aString\x0a\x09variableName := aString",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.UnknownVariableError);
-
-
-
-$core.addClass('RethrowErrorHandler', $globals.Object, [], 'Compiler-Exceptions');
-$globals.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted.";
-$core.addMethod(
-$core.method({
-selector: "basicSignal:",
-protocol: 'error handling',
-fn: function (anError){
-var self=this;
-return $core.withContext(function($ctx1) {
-throw anError;
-return self;
-}, function($ctx1) {$ctx1.fill(self,"basicSignal:",{anError:anError},$globals.RethrowErrorHandler)});
-},
-args: ["anError"],
-source: "basicSignal: anError\x0a        <throw anError>",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.RethrowErrorHandler);
-
-$core.addMethod(
-$core.method({
-selector: "handleError:",
-protocol: 'error handling',
-fn: function (anError){
-var self=this;
-return $core.withContext(function($ctx1) {
-self._basicSignal_(anError);
-return self;
-}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},$globals.RethrowErrorHandler)});
-},
-args: ["anError"],
-source: "handleError: anError\x0a        self basicSignal: anError",
-referencedClasses: [],
-messageSends: ["basicSignal:"]
-}),
-$globals.RethrowErrorHandler);
-
-
-});
-
-define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Platform-Services", "amber_core/Kernel-Collections"], function($boot){"use strict";
+define("amber_core/Compiler-Core", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Platform-Services", "amber_core/Kernel-Collections"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Core');
 $core.packages["Compiler-Core"].innerEval = function (expr) { return eval(expr); };
@@ -33391,6 +33222,10 @@ messageSends: ["do:", "classes", "recompile:"]
 $globals.Compiler.klass);
 
 
+$core.addClass('CompilerError', $globals.Error, [], 'Compiler-Core');
+$globals.CompilerError.comment="I am the common superclass of all compiling errors.";
+
+
 $core.addClass('DoIt', $globals.Object, [], 'Compiler-Core');
 $globals.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.";
 
@@ -33514,318 +33349,6 @@ referencedClasses: [],
 messageSends: ["evaluate:for:", "new"]
 }),
 $globals.Evaluator.klass);
-
-
-$core.addClass('NodeVisitor', $globals.Object, [], 'Compiler-Core');
-$globals.NodeVisitor.comment="I am the abstract super class of all AST node visitors.";
-$core.addMethod(
-$core.method({
-selector: "visit:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aNode)._accept_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visit: aNode\x0a\x09^ aNode accept: self",
-referencedClasses: [],
-messageSends: ["accept:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitAll:",
-protocol: 'visiting',
-fn: function (aCollection){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aCollection)._collect_((function(each){
-return $core.withContext(function($ctx2) {
-return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},$globals.NodeVisitor)});
-},
-args: ["aCollection"],
-source: "visitAll: aCollection\x0a\x09^ aCollection collect: [ :each | self visit: each ]",
-referencedClasses: [],
-messageSends: ["collect:", "visit:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitAssignmentNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitAssignmentNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitBlockNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitBlockSequenceNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitSequenceNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
-referencedClasses: [],
-messageSends: ["visitSequenceNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitCascadeNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitDynamicArrayNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitDynamicArrayNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitDynamicDictionaryNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitDynamicDictionaryNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitJSStatementNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitJSStatementNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitMethodNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitAll_($recv(aNode)._nodes());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
-referencedClasses: [],
-messageSends: ["visitAll:", "nodes"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitReturnNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitReturnNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitSendNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitSequenceNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitSequenceNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitValueNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitValueNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitVariableNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.NodeVisitor)});
-},
-args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09^ self visitNode: aNode",
-referencedClasses: [],
-messageSends: ["visitNode:"]
-}),
-$globals.NodeVisitor);
-
 
 $core.addMethod(
 $core.method({
@@ -34280,88 +33803,6 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "nextChild",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=self._nodes();
-$ctx1.sendIdx["nodes"]=1;
-$2=$recv($3)._isEmpty();
-if($core.assert($2)){
-$1=self;
-} else {
-$1=$recv($recv(self._nodes())._first())._nextChild();
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextChild",{},$globals.Node)});
-},
-args: [],
-source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
-referencedClasses: [],
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._parent();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
-} else {
-var node;
-node=$receiver;
-$1=$recv(node)._nextNode_(self);
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextNode",{},$globals.Node)});
-},
-args: [],
-source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
-referencedClasses: [],
-messageSends: ["ifNotNil:", "parent", "nextNode:"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
-protocol: 'accessing',
-fn: function (aNode){
-var self=this;
-var next;
-return $core.withContext(function($ctx1) {
-var $1,$2;
-var $early={};
-try {
-$1=self._nodes();
-$ctx1.sendIdx["nodes"]=1;
-next=$recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
-throw $early=[self];
-
-}));
-$2=$recv(next)._nextChild();
-return $2;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},$globals.Node)});
-},
-args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
-referencedClasses: [],
-messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
@@ -34736,22 +34177,6 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "stopOnStepping",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return false;
-
-},
-args: [],
-source: "stopOnStepping\x0a\x09^ false",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
 selector: "subtreeNeedsAliasing",
 protocol: 'testing',
 fn: function (){
@@ -34976,38 +34401,6 @@ return true;
 },
 args: [],
 source: "isBlockNode\x0a\x09^ true",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.BlockNode);
-
-$core.addMethod(
-$core.method({
-selector: "nextChild",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self;
-
-},
-args: [],
-source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.BlockNode);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
-protocol: 'accessing',
-fn: function (aNode){
-var self=this;
-return self;
-
-},
-args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
 referencedClasses: [],
 messageSends: []
 }),
@@ -36101,22 +35494,6 @@ $globals.SendNode);
 
 $core.addMethod(
 $core.method({
-selector: "stopOnStepping",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-
-},
-args: [],
-source: "stopOnStepping\x0a\x09^ true",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.SendNode);
-
-$core.addMethod(
-$core.method({
 selector: "superSend",
 protocol: 'accessing',
 fn: function (){
@@ -36159,7 +35536,7 @@ $globals.SendNode);
 $core.addMethod(
 $core.method({
 selector: "valueForReceiver:",
-protocol: 'accessing',
+protocol: 'building',
 fn: function (anObject){
 var self=this;
 function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
@@ -36217,7 +35594,7 @@ $globals.SequenceNode);
 $core.addMethod(
 $core.method({
 selector: "asBlockSequenceNode",
-protocol: 'converting',
+protocol: 'building',
 fn: function (){
 var self=this;
 function $BlockSequenceNode(){return $globals.BlockSequenceNode||(typeof BlockSequenceNode=="undefined"?nil:BlockSequenceNode)}
@@ -36691,6 +36068,318 @@ messageSends: ["value"]
 $globals.VariableNode);
 
 
+
+$core.addClass('NodeVisitor', $globals.Object, [], 'Compiler-AST');
+$globals.NodeVisitor.comment="I am the abstract super class of all AST node visitors.";
+$core.addMethod(
+$core.method({
+selector: "visit:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv(aNode)._accept_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visit: aNode\x0a\x09^ aNode accept: self",
+referencedClasses: [],
+messageSends: ["accept:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitAll:",
+protocol: 'visiting',
+fn: function (aCollection){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv(aCollection)._collect_((function(each){
+return $core.withContext(function($ctx2) {
+return self._visit_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},$globals.NodeVisitor)});
+},
+args: ["aCollection"],
+source: "visitAll: aCollection\x0a\x09^ aCollection collect: [ :each | self visit: each ]",
+referencedClasses: [],
+messageSends: ["collect:", "visit:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitAssignmentNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitAssignmentNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitBlockNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitBlockNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitBlockSequenceNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitSequenceNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
+referencedClasses: [],
+messageSends: ["visitSequenceNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitCascadeNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitCascadeNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitDynamicArrayNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitDynamicArrayNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitDynamicDictionaryNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitDynamicDictionaryNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitJSStatementNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitJSStatementNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitMethodNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitMethodNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitAll_($recv(aNode)._nodes());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
+referencedClasses: [],
+messageSends: ["visitAll:", "nodes"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitReturnNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitReturnNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitSendNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitSendNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitSequenceNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitSequenceNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitValueNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitValueNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitVariableNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._visitNode_(aNode);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.NodeVisitor)});
+},
+args: ["aNode"],
+source: "visitVariableNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+messageSends: ["visitNode:"]
+}),
+$globals.NodeVisitor);
+
+
 $core.addMethod(
 $core.method({
 selector: "ast",
@@ -36736,7 +36425,7 @@ $globals.Object);
 
 });
 
-define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){"use strict";
+define("amber_core/Compiler-Semantic", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Compiler-AST", "amber_core/Compiler-Core"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Semantic');
 $core.packages["Compiler-Semantic"].innerEval = function (expr) { return eval(expr); };
@@ -38896,9 +38585,189 @@ messageSends: ["theClass:", "new", "yourself"]
 }),
 $globals.SemanticAnalyzer.klass);
 
+
+$core.addClass('SemanticError', $globals.CompilerError, [], 'Compiler-Semantic');
+$globals.SemanticError.comment="I represent an abstract semantic error thrown by the SemanticAnalyzer.\x0aSemantic errors can be unknown variable errors, etc.\x0aSee my subclasses for concrete errors.\x0a\x0aThe IDE should catch instances of Semantic error to deal with them when compiling";
+
+
+$core.addClass('InvalidAssignmentError', $globals.SemanticError, ['variableName'], 'Compiler-Semantic');
+$globals.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned.";
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=" Invalid assignment to variable: ".__comma(self._variableName());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.InvalidAssignmentError)});
+},
+args: [],
+source: "messageText\x0a\x09^ ' Invalid assignment to variable: ', self variableName",
+referencedClasses: [],
+messageSends: [",", "variableName"]
+}),
+$globals.InvalidAssignmentError);
+
+$core.addMethod(
+$core.method({
+selector: "variableName",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@variableName"];
+return $1;
+
+},
+args: [],
+source: "variableName\x0a\x09^ variableName",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.InvalidAssignmentError);
+
+$core.addMethod(
+$core.method({
+selector: "variableName:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@variableName"]=aString;
+return self;
+
+},
+args: ["aString"],
+source: "variableName: aString\x0a\x09variableName := aString",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.InvalidAssignmentError);
+
+
+
+$core.addClass('ShadowingVariableError', $globals.SemanticError, ['variableName'], 'Compiler-Semantic');
+$globals.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope.";
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
+$ctx1.sendIdx[","]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.ShadowingVariableError)});
+},
+args: [],
+source: "messageText\x0a\x09^ 'Variable shadowing error: ', self variableName, ' is already defined'",
+referencedClasses: [],
+messageSends: [",", "variableName"]
+}),
+$globals.ShadowingVariableError);
+
+$core.addMethod(
+$core.method({
+selector: "variableName",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@variableName"];
+return $1;
+
+},
+args: [],
+source: "variableName\x0a\x09^ variableName",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.ShadowingVariableError);
+
+$core.addMethod(
+$core.method({
+selector: "variableName:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@variableName"]=aString;
+return self;
+
+},
+args: ["aString"],
+source: "variableName: aString\x0a\x09variableName := aString",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.ShadowingVariableError);
+
+
+
+$core.addClass('UnknownVariableError', $globals.SemanticError, ['variableName'], 'Compiler-Semantic');
+$globals.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects.";
+$core.addMethod(
+$core.method({
+selector: "messageText",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=$recv("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
+$ctx1.sendIdx[","]=1;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.UnknownVariableError)});
+},
+args: [],
+source: "messageText\x0a\x09^ 'Unknown Variable error: ', self variableName, ' is not defined'",
+referencedClasses: [],
+messageSends: [",", "variableName"]
+}),
+$globals.UnknownVariableError);
+
+$core.addMethod(
+$core.method({
+selector: "variableName",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var $1;
+$1=self["@variableName"];
+return $1;
+
+},
+args: [],
+source: "variableName\x0a\x09^ variableName",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.UnknownVariableError);
+
+$core.addMethod(
+$core.method({
+selector: "variableName:",
+protocol: 'accessing',
+fn: function (aString){
+var self=this;
+self["@variableName"]=aString;
+return self;
+
+},
+args: ["aString"],
+source: "variableName: aString\x0a\x09variableName := aString",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.UnknownVariableError);
+
+
 });
 
-define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){"use strict";
+define("amber_core/Compiler-IR", ["amber/boot", "amber_core/Compiler-AST", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-IR');
 $core.packages["Compiler-IR"].innerEval = function (expr) { return eval(expr); };
@@ -43364,37 +43233,34 @@ fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
 var $1,$2;
-var $early={};
-try {
-$recv(aCollection)._ifEmpty_((function(){
-throw $early=[self];
-
-}));
+$recv(aCollection)._ifNotEmpty_((function(){
+return $core.withContext(function($ctx2) {
 $recv(self["@stream"])._nextPutAll_("var ");
-$ctx1.sendIdx["nextPutAll:"]=1;
+$ctx2.sendIdx["nextPutAll:"]=1;
 $recv(aCollection)._do_separatedBy_((function(each){
-return $core.withContext(function($ctx2) {
+return $core.withContext(function($ctx3) {
 return $recv(self["@stream"])._nextPutAll_(each);
-$ctx2.sendIdx["nextPutAll:"]=2;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+$ctx3.sendIdx["nextPutAll:"]=2;
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)});
 }),(function(){
-return $core.withContext(function($ctx2) {
+return $core.withContext(function($ctx3) {
 return $recv(self["@stream"])._nextPutAll_(",");
-$ctx2.sendIdx["nextPutAll:"]=3;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+$ctx3.sendIdx["nextPutAll:"]=3;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 }));
 $1=self["@stream"];
 $recv($1)._nextPutAll_(";");
 $2=$recv($1)._lf();
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
 return self;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextPutVars:",{aCollection:aCollection},$globals.JSStream)});
 },
 args: ["aCollection"],
-source: "nextPutVars: aCollection\x0a\x09aCollection ifEmpty: [ ^ self ].\x0a\x09\x0a\x09stream nextPutAll: 'var '.\x0a\x09aCollection\x0a\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: ';'; lf",
+source: "nextPutVars: aCollection\x0a\x09aCollection ifNotEmpty: [\x0a\x09\x09stream nextPutAll: 'var '.\x0a\x09\x09aCollection\x0a\x09\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ stream nextPutAll: ',' ].\x0a\x09\x09stream nextPutAll: ';'; lf ]",
 referencedClasses: [],
-messageSends: ["ifEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]
+messageSends: ["ifNotEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]
 }),
 $globals.JSStream);
 
@@ -43419,7 +43285,7 @@ $globals.BlockClosure);
 
 });
 
-define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function($boot){"use strict";
+define("amber_core/Compiler-Inlining", ["amber/boot", "amber_core/Compiler-IR", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Compiler-Semantic"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Inlining');
 $core.packages["Compiler-Inlining"].innerEval = function (expr) { return eval(expr); };
@@ -45292,9 +45158,13 @@ messageSends: ["new"]
 $globals.InliningCodeGenerator);
 
 
+
+$core.addClass('InliningError', $globals.SemanticError, [], 'Compiler-Inlining');
+$globals.InliningError.comment="Instances of InliningError are signaled when using an `InliningCodeGenerator`in a `Compiler`.";
+
 });
 
-define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function($boot){"use strict";
+define("amber_core/Compiler-Interpreter", ["amber/boot", "amber_core/Kernel-Methods", "amber_core/Compiler-Semantic", "amber_core/Kernel-Objects", "amber_core/Compiler-AST", "amber_core/Kernel-Exceptions"], function($boot){"use strict";
 var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;
 $core.addPackage('Compiler-Interpreter');
 $core.packages["Compiler-Interpreter"].innerEval = function (expr) { return eval(expr); };
@@ -48196,6 +48066,38 @@ $globals.BlockNode);
 
 $core.addMethod(
 $core.method({
+selector: "nextChild",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+return self;
+
+},
+args: [],
+source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.BlockNode);
+
+$core.addMethod(
+$core.method({
+selector: "nextNode:",
+protocol: '*Compiler-Interpreter',
+fn: function (aNode){
+var self=this;
+return self;
+
+},
+args: ["aNode"],
+source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.BlockNode);
+
+$core.addMethod(
+$core.method({
 selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
@@ -48260,6 +48162,88 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
+selector: "nextChild",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $3,$2,$1;
+$3=self._nodes();
+$ctx1.sendIdx["nodes"]=1;
+$2=$recv($3)._isEmpty();
+if($core.assert($2)){
+$1=self;
+} else {
+$1=$recv($recv(self._nodes())._first())._nextChild();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextChild",{},$globals.Node)});
+},
+args: [],
+source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
+referencedClasses: [],
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
+selector: "nextNode",
+protocol: '*Compiler-Interpreter',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $2,$1,$receiver;
+$2=self._parent();
+if(($receiver = $2) == null || $receiver.isNil){
+$1=$2;
+} else {
+var node;
+node=$receiver;
+$1=$recv(node)._nextNode_(self);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextNode",{},$globals.Node)});
+},
+args: [],
+source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
+referencedClasses: [],
+messageSends: ["ifNotNil:", "parent", "nextNode:"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
+selector: "nextNode:",
+protocol: '*Compiler-Interpreter',
+fn: function (aNode){
+var self=this;
+var next;
+return $core.withContext(function($ctx1) {
+var $1,$2;
+var $early={};
+try {
+$1=self._nodes();
+$ctx1.sendIdx["nodes"]=1;
+next=$recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+throw $early=[self];
+
+}));
+$2=$recv(next)._nextChild();
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},$globals.Node)});
+},
+args: ["aNode"],
+source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
+referencedClasses: [],
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
 selector: "isSteppingNode",
 protocol: '*Compiler-Interpreter',
 fn: function (){
@@ -48282,7 +48266,6 @@ define('amber/lang',[
 	'./parser',
 	// --- packages for the Amber reflection begin here ---
 	'amber_core/Platform-ImportExport',
-	'amber_core/Compiler-Exceptions',
 	'amber_core/Compiler-Core',
 	'amber_core/Compiler-AST',
 	'amber_core/Compiler-Semantic',
@@ -54094,6 +54077,95 @@ $globals.CollectionTest);
 
 $core.addMethod(
 $core.method({
+selector: "testCopy",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $3,$2,$1,$5,$4,$7,$6,$8,$10,$9,$11,$15,$14,$13,$16,$12,$19,$18,$17;
+$3=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=1;
+$2=$recv($3)._new();
+$ctx1.sendIdx["new"]=1;
+$1=$recv($2)._copy();
+$ctx1.sendIdx["copy"]=1;
+$5=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=2;
+$4=$recv($5)._new();
+$ctx1.sendIdx["new"]=2;
+self._assert_equals_($1,$4);
+$ctx1.sendIdx["assert:equals:"]=1;
+$7=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$6=$recv($7)._copy();
+$ctx1.sendIdx["copy"]=2;
+$8=self._collection();
+$ctx1.sendIdx["collection"]=2;
+self._assert_equals_($6,$8);
+$ctx1.sendIdx["assert:equals:"]=2;
+$10=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+$9=$recv($10)._copy();
+$ctx1.sendIdx["copy"]=3;
+$11=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=2;
+self._assert_equals_($9,$11);
+$15=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=3;
+$14=$recv($15)._new();
+$ctx1.sendIdx["new"]=3;
+$13=$recv($14)._copy();
+$ctx1.sendIdx["copy"]=4;
+$16=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$12=$recv($13).__eq($16);
+$ctx1.sendIdx["="]=1;
+self._deny_($12);
+$ctx1.sendIdx["deny:"]=1;
+$19=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$18=$recv($19)._copy();
+$ctx1.sendIdx["copy"]=5;
+$17=$recv($18).__eq($recv(self._collectionClass())._new());
+$ctx1.sendIdx["="]=2;
+self._deny_($17);
+$ctx1.sendIdx["deny:"]=2;
+self._deny_($recv($recv(self._collection())._copy()).__eq(self._collectionWithNewValue()));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testCopy",{},$globals.CollectionTest)});
+},
+args: [],
+source: "testCopy\x0a\x09self assert: self collectionClass new copy equals: self collectionClass new.\x0a\x09self assert: self collection copy equals: self collection.\x0a\x09self assert: self collectionWithNewValue copy equals: self collectionWithNewValue.\x0a\x09\x0a\x09self deny: self collectionClass new copy = self collection.\x0a\x09self deny: self collection copy = self collectionClass new.\x0a\x09self deny: self collection copy = self collectionWithNewValue",
+referencedClasses: [],
+messageSends: ["assert:equals:", "copy", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="]
+}),
+$globals.CollectionTest);
+
+$core.addMethod(
+$core.method({
+selector: "testCopySeparates",
+protocol: 'tests',
+fn: function (){
+var self=this;
+var original,copy;
+return $core.withContext(function($ctx1) {
+original=self._collection();
+$ctx1.sendIdx["collection"]=1;
+copy=$recv(original)._copy();
+$recv(copy)._addAll_(self._sampleNewValueAsCollection());
+self._assert_($recv(original).__eq(self._collection()));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testCopySeparates",{original:original,copy:copy},$globals.CollectionTest)});
+},
+args: [],
+source: "testCopySeparates\x0a\x09| original copy |\x0a\x09original := self collection.\x0a\x09copy := original copy.\x0a\x09copy addAll: self sampleNewValueAsCollection.\x0a\x09self assert: original = self collection",
+referencedClasses: [],
+messageSends: ["collection", "copy", "addAll:", "sampleNewValueAsCollection", "assert:", "="]
+}),
+$globals.CollectionTest);
+
+$core.addMethod(
+$core.method({
 selector: "testDetect",
 protocol: 'tests',
 fn: function (){
@@ -54284,6 +54356,62 @@ args: [],
 source: "testDo\x0a\x09| newCollection |\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collection do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: newCollection.\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collectionWithDuplicates do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collectionWithDuplicates\x0a\x09\x09as: newCollection",
 referencedClasses: ["OrderedCollection"],
 messageSends: ["new", "do:", "collection", "add:", "assertSameContents:as:", "collectionWithDuplicates"]
+}),
+$globals.CollectionTest);
+
+$core.addMethod(
+$core.method({
+selector: "testEquality",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $2,$1,$4,$3,$5,$6,$7,$8,$11,$10,$12,$9,$14,$13;
+$2=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=1;
+$1=$recv($2)._new();
+$ctx1.sendIdx["new"]=1;
+$4=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=2;
+$3=$recv($4)._new();
+$ctx1.sendIdx["new"]=2;
+self._assert_equals_($1,$3);
+$ctx1.sendIdx["assert:equals:"]=1;
+$5=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$6=self._collection();
+$ctx1.sendIdx["collection"]=2;
+self._assert_equals_($5,$6);
+$ctx1.sendIdx["assert:equals:"]=2;
+$7=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=1;
+$8=self._collectionWithNewValue();
+$ctx1.sendIdx["collectionWithNewValue"]=2;
+self._assert_equals_($7,$8);
+$11=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=3;
+$10=$recv($11)._new();
+$ctx1.sendIdx["new"]=3;
+$12=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$9=$recv($10).__eq($12);
+$ctx1.sendIdx["="]=1;
+self._deny_($9);
+$ctx1.sendIdx["deny:"]=1;
+$14=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$13=$recv($14).__eq($recv(self._collectionClass())._new());
+$ctx1.sendIdx["="]=2;
+self._deny_($13);
+$ctx1.sendIdx["deny:"]=2;
+self._deny_($recv(self._collection()).__eq(self._collectionWithNewValue()));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.CollectionTest)});
+},
+args: [],
+source: "testEquality\x0a\x09self assert: self collectionClass new equals: self collectionClass new.\x0a\x09self assert: self collection equals: self collection.\x0a\x09self assert: self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09\x0a\x09self deny: self collectionClass new = self collection.\x0a\x09self deny: self collection = self collectionClass new.\x0a\x09self deny: self collection = self collectionWithNewValue",
+referencedClasses: [],
+messageSends: ["assert:equals:", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="]
 }),
 $globals.CollectionTest);
 
@@ -55011,54 +55139,6 @@ args: [],
 source: "testAtPut\x0a\x09| newCollection |\x0a\x09newCollection := self collection.\x0a\x09self samplesDo: [ :index :value |\x0a\x09\x09newCollection at: index put: value ].\x0a\x09self assert: newCollection equals: self collection.\x0a\x09newCollection at: self sampleNewIndex put: self sampleNewValue.\x0a\x09self assert: newCollection equals: self collectionWithNewValue",
 referencedClasses: [],
 messageSends: ["collection", "samplesDo:", "at:put:", "assert:equals:", "sampleNewIndex", "sampleNewValue", "collectionWithNewValue"]
-}),
-$globals.IndexableCollectionTest);
-
-$core.addMethod(
-$core.method({
-selector: "testEquality",
-protocol: 'tests',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $2,$1,$4,$3,$5,$6,$7,$10,$9,$11,$8;
-$2=self._collectionClass();
-$ctx1.sendIdx["collectionClass"]=1;
-$1=$recv($2)._new();
-$ctx1.sendIdx["new"]=1;
-$4=self._collectionClass();
-$ctx1.sendIdx["collectionClass"]=2;
-$3=$recv($4)._new();
-$ctx1.sendIdx["new"]=2;
-self._assert_equals_($1,$3);
-$ctx1.sendIdx["assert:equals:"]=1;
-$5=self._collection();
-$ctx1.sendIdx["collection"]=1;
-$6=self._collection();
-$ctx1.sendIdx["collection"]=2;
-self._assert_equals_($5,$6);
-$ctx1.sendIdx["assert:equals:"]=2;
-$7=self._collectionWithNewValue();
-$ctx1.sendIdx["collectionWithNewValue"]=1;
-self._assert_equals_($7,self._collectionWithNewValue());
-$10=self._collectionClass();
-$ctx1.sendIdx["collectionClass"]=3;
-$9=$recv($10)._new();
-$ctx1.sendIdx["new"]=3;
-$11=self._collection();
-$ctx1.sendIdx["collection"]=3;
-$8=$recv($9).__eq($11);
-$ctx1.sendIdx["="]=1;
-self._deny_($8);
-$ctx1.sendIdx["deny:"]=1;
-self._deny_($recv(self._collection()).__eq($recv(self._collectionClass())._new()));
-return self;
-}, function($ctx1) {$ctx1.fill(self,"testEquality",{},$globals.IndexableCollectionTest)});
-},
-args: [],
-source: "testEquality\x0a\x09self assert: self collectionClass new equals: self collectionClass new.\x0a\x09self assert: self collection equals: self collection.\x0a\x09self assert: self collectionWithNewValue equals: self collectionWithNewValue.\x0a\x09\x0a\x09self deny: self collectionClass new = self collection.\x0a\x09self deny: self collection = self collectionClass new",
-referencedClasses: [],
-messageSends: ["assert:equals:", "new", "collectionClass", "collection", "collectionWithNewValue", "deny:", "="]
 }),
 $globals.IndexableCollectionTest);
 
@@ -57555,6 +57635,29 @@ args: [],
 source: "testCopyFromTo\x0a\x09self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.\x0a\x09self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.",
 referencedClasses: [],
 messageSends: ["assert:equals:", "copyFrom:to:"]
+}),
+$globals.StringTest);
+
+$core.addMethod(
+$core.method({
+selector: "testCopySeparates",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $3,$2,$1;
+$3=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$2=$recv($3)._copy();
+$1=$recv($2).__eq_eq(self._collection());
+self._assert_($1);
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testCopySeparates",{},$globals.StringTest)});
+},
+args: [],
+source: "testCopySeparates\x0a\x09\x22String instances are immutable\x22\x0a\x09self assert: self collection copy == self collection",
+referencedClasses: [],
+messageSends: ["assert:", "==", "copy", "collection"]
 }),
 $globals.StringTest);
 
