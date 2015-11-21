@@ -19,7 +19,6 @@ var switches;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 switches=$recv($recv(self._class())._methodsInProtocol_("commands"))._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -50,8 +49,7 @@ return $recv($recv($recv(each)._allButLast())._replace_with_("([A-Z])","-$1"))._
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-$1=switches;
-return $1;
+return switches;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
@@ -194,7 +192,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$1,$4,$5;
+var $3,$2,$1,$4;
 $3=$recv("Welcome to Amber version ".__comma($recv($Smalltalk())._version())).__comma(" (NodeJS ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
@@ -214,8 +212,7 @@ $4=$recv(args)._isEmpty();
 if($core.assert($4)){
 self._help_(nil);
 } else {
-$5=self._handleArguments_(args);
-return $5;
+return self._handleArguments_(args);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -241,9 +238,7 @@ function $Repl(){return $globals.Repl||(typeof Repl=="undefined"?nil:Repl)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($Repl())._new())._createInterface();
-return $1;
+return $recv($recv($Repl())._new())._createInterface();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
@@ -267,7 +262,7 @@ var command,selector;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 $1=$recv(self._commandLineSwitches())._includes_(aSwitch);
 if($core.assert($1)){
 selector=$recv($recv(aSwitch)._replace_with_("-[a-z]",(function(each){
@@ -284,8 +279,7 @@ selector;
 selector="help:";
 selector;
 };
-$2=selector;
-return $2;
+return selector;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
@@ -309,9 +303,7 @@ function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($FileServer())._createServerWithArguments_(args))._start();
-return $1;
+return $recv($recv($FileServer())._createServerWithArguments_(args))._start();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},$globals.AmberCli.klass)});
 //>>excludeEnd("ctx");
@@ -414,9 +406,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self["@path"])._join_with_(self._dirname(),"..");
-return $1;
+return $recv(self["@path"])._join_with_(self._dirname(),"..");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"rootDirname",{},$globals.BaseFileManipulator)});
 //>>excludeEnd("ctx");
@@ -564,14 +554,13 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@basePath"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv(self._class())._defaultBasePath();
+var $1,$receiver;
+$1=self["@basePath"];
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv(self._class())._defaultBasePath();
 } else {
-$1=$2;
-};
 return $1;
+};
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"basePath",{},$globals.FileServer)});
 //>>excludeEnd("ctx");
@@ -656,9 +645,7 @@ selector: "fallbackPage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@fallbackPage"];
-return $1;
+return self["@fallbackPage"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -913,9 +900,7 @@ selector: "host",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@host"];
-return $1;
+return self["@host"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1120,9 +1105,7 @@ selector: "port",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@port"];
-return $1;
+return self["@port"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1162,9 +1145,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(require)._value_(aModuleString);
-return $1;
+return $recv(require)._value_(aModuleString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"require:",{aModuleString:aModuleString},$globals.FileServer)});
 //>>excludeEnd("ctx");
@@ -1187,10 +1168,9 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv(aResponse)._writeHead_options_((401),$globals.HashedCollection._newFromPairs_(["WWW-Authenticate","Basic realm=\x22Secured Developer Area\x22"]));
 $recv(aResponse)._write_("<html><body>Authentication needed</body></html>");
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondAuthenticationRequiredTo:",{aResponse:aResponse},$globals.FileServer)});
@@ -1214,9 +1194,8 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv(aResponse)._writeHead_options_((201),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},$globals.FileServer)});
@@ -1290,7 +1269,7 @@ var type,filename;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4;
 filename=aFilename;
 $recv(self["@fs"])._readFile_do_(filename,(function(ex,file){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1315,8 +1294,7 @@ type;
 };
 $recv(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type",type]));
 $recv(aResponse)._write_encoding_(file,"binary");
-$5=$recv(aResponse)._end();
-return $5;
+return $recv(aResponse)._end();
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,1)});
@@ -1345,10 +1323,9 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv(aResponse)._writeHead_options_((500),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
 $recv(aResponse)._write_("500 Internal server error");
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondInternalErrorTo:",{aResponse:aResponse},$globals.FileServer)});
@@ -1372,10 +1349,9 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv(aResponse)._writeHead_options_((400),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
 $recv(aResponse)._write_("File could not be created. Did you forget to create the src directory on the server?");
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},$globals.FileServer)});
@@ -1399,15 +1375,14 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$3,$4;
+var $2,$1;
 $2=self._fallbackPage();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["fallbackPage"]=1;
 //>>excludeEnd("ctx");
 $1=$recv($2)._isNil();
 if(!$core.assert($1)){
-$3=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
-return $3;
+return self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 };
 $recv(aResponse)._writeHead_options_((404),$globals.HashedCollection._newFromPairs_(["Content-Type","text/html"]));
 $recv(aResponse)._write_("<html><body><p>404 Not found</p>");
@@ -1431,7 +1406,7 @@ $recv(aResponse)._write_("<li>change the directory to be served with the \x22--b
 $ctx1.sendIdx["write:"]=5;
 //>>excludeEnd("ctx");
 $recv(aResponse)._write_("</ul></p></body></html>");
-$4=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},$globals.FileServer)});
@@ -1455,9 +1430,8 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},$globals.FileServer)});
@@ -1481,9 +1455,8 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv(aResponse)._writeHead_options_((303),$globals.HashedCollection._newFromPairs_(["Location",aString]));
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"respondRedirect:to:",{aString:aString,aResponse:aResponse},$globals.FileServer)});
@@ -1507,7 +1480,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5,$11;
+var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5;
 self._checkDirectoryLayout();
 $1=$recv(self["@http"])._createServer_((function(request,response){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1566,7 +1539,7 @@ return $recv($4)._log_($5);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-$11=$recv($1)._listen_host_(self._port(),self._host());
+$recv($1)._listen_host_(self._port(),self._host());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"start",{},$globals.FileServer)});
@@ -1700,9 +1673,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
-return $1;
+return $recv(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},$globals.FileServer)});
 //>>excludeEnd("ctx");
@@ -1752,7 +1723,6 @@ var switches;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 switches=$recv(self._methodsInProtocol_("accessing"))._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -1786,8 +1756,7 @@ $ctx2.sendIdx["replace:with:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-$1=switches;
-return $1;
+return switches;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
@@ -1812,42 +1781,40 @@ function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 var $early={};
 try {
 switches=self._commandLineSwitches();
 server=self._new();
 $recv(options)._ifEmpty_((function(){
-$1=server;
-throw $early=[$1];
+throw $early=[server];
 
 }));
-$2=$recv($recv(options)._size())._even();
-if(!$core.assert($2)){
+$1=$recv($recv(options)._size())._even();
+if(!$core.assert($1)){
 $recv(console)._log_("Using default parameters.");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["log:"]=1;
 //>>excludeEnd("ctx");
-$3=console;
-$4="Wrong commandline options or not enough arguments for: ".__comma(options);
+$2=console;
+$3="Wrong commandline options or not enough arguments for: ".__comma(options);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-$recv($3)._log_($4);
+$recv($2)._log_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["log:"]=2;
 //>>excludeEnd("ctx");
-$5=console;
-$6="Use any of the following ones: ".__comma(switches);
+$4=console;
+$5="Use any of the following ones: ".__comma(switches);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=2;
 //>>excludeEnd("ctx");
-$recv($5)._log_($6);
+$recv($4)._log_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["log:"]=3;
 //>>excludeEnd("ctx");
-$7=server;
-return $7;
+return server;
 };
 popFront=(function(args){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1880,18 +1847,18 @@ $ctx2.sendIdx["value:"]=1;
 optionName;
 optionValue=$recv(popFront)._value_(options);
 optionValue;
-$8=$recv(switches)._includes_(optionName);
-if($core.assert($8)){
+$6=$recv(switches)._includes_(optionName);
+if($core.assert($6)){
 optionName=self._selectorForCommandLineSwitch_(optionName);
 optionName;
 return $recv(server)._perform_withArguments_(optionName,$recv($Array())._with_(optionValue));
 } else {
-$9=console;
-$10=$recv(optionName).__comma(" is not a valid commandline option");
+$7=console;
+$8=$recv(optionName).__comma(" is not a valid commandline option");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=3;
 //>>excludeEnd("ctx");
-$recv($9)._log_($10);
+$recv($7)._log_($8);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["log:"]=4;
 //>>excludeEnd("ctx");
@@ -1901,8 +1868,7 @@ return $recv(console)._log_("Use any of the following ones: ".__comma(switches))
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
-$11=server;
-return $11;
+return server;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1960,9 +1926,7 @@ selector: "defaultMimeTypes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["%","application/x-trash","323","text/h323","abw","application/x-abiword","ai","application/postscript","aif","audio/x-aiff","aifc","audio/x-aiff","aiff","audio/x-aiff","alc","chemical/x-alchemy","art","image/x-jg","asc","text/plain","asf","video/x-ms-asf","asn","chemical/x-ncbi-asn1-spec","aso","chemical/x-ncbi-asn1-binary","asx","video/x-ms-asf","au","audio/basic","avi","video/x-msvideo","b","chemical/x-molconn-Z","bak","application/x-trash","bat","application/x-msdos-program","bcpio","application/x-bcpio","bib","text/x-bibtex","bin","application/octet-stream","bmp","image/x-ms-bmp","book","application/x-maker","bsd","chemical/x-crossfire","c","text/x-csrc","c++","text/x-c++src","c3d","chemical/x-chem3d","cac","chemical/x-cache","cache","chemical/x-cache","cascii","chemical/x-cactvs-binary","cat","application/vnd.ms-pki.seccat","cbin","chemical/x-cactvs-binary","cc","text/x-c++src","cdf","application/x-cdf","cdr","image/x-coreldraw","cdt","image/x-coreldrawtemplate","cdx","chemical/x-cdx","cdy","application/vnd.cinderella","cef","chemical/x-cxf","cer","chemical/x-cerius","chm","chemical/x-chemdraw","chrt","application/x-kchart","cif","chemical/x-cif","class","application/java-vm","cls","text/x-tex","cmdf","chemical/x-cmdf","cml","chemical/x-cml","cod","application/vnd.rim.cod","com","application/x-msdos-program","cpa","chemical/x-compass","cpio","application/x-cpio","cpp","text/x-c++src","cpt","image/x-corelphotopaint","crl","application/x-pkcs7-crl","crt","application/x-x509-ca-cert","csf","chemical/x-cache-csf","csh","text/x-csh","csm","chemical/x-csml","csml","chemical/x-csml","css","text/css","csv","text/comma-separated-values","ctab","chemical/x-cactvs-binary","ctx","chemical/x-ctx","cu","application/cu-seeme","cub","chemical/x-gaussian-cube","cxf","chemical/x-cxf","cxx","text/x-c++src","dat","chemical/x-mopac-input","dcr","application/x-director","deb","application/x-debian-package","dif","video/dv","diff","text/plain","dir","application/x-director","djv","image/vnd.djvu","djvu","image/vnd.djvu","dl","video/dl","dll","application/x-msdos-program","dmg","application/x-apple-diskimage","dms","application/x-dms","doc","application/msword","dot","application/msword","dv","video/dv","dvi","application/x-dvi","dx","chemical/x-jcamp-dx","dxr","application/x-director","emb","chemical/x-embl-dl-nucleotide","embl","chemical/x-embl-dl-nucleotide","ent","chemical/x-pdb","eps","application/postscript","etx","text/x-setext","exe","application/x-msdos-program","ez","application/andrew-inset","fb","application/x-maker","fbdoc","application/x-maker","fch","chemical/x-gaussian-checkpoint","fchk","chemical/x-gaussian-checkpoint","fig","application/x-xfig","flac","application/x-flac","fli","video/fli","fm","application/x-maker","frame","application/x-maker","frm","application/x-maker","gal","chemical/x-gaussian-log","gam","chemical/x-gamess-input","gamin","chemical/x-gamess-input","gau","chemical/x-gaussian-input","gcd","text/x-pcs-gcd","gcf","application/x-graphing-calculator","gcg","chemical/x-gcg8-sequence","gen","chemical/x-genbank","gf","application/x-tex-gf","gif","image/gif","gjc","chemical/x-gaussian-input","gjf","chemical/x-gaussian-input","gl","video/gl","gnumeric","application/x-gnumeric","gpt","chemical/x-mopac-graph","gsf","application/x-font","gsm","audio/x-gsm","gtar","application/x-gtar","h","text/x-chdr","h++","text/x-c++hdr","hdf","application/x-hdf","hh","text/x-c++hdr","hin","chemical/x-hin","hpp","text/x-c++hdr","hqx","application/mac-binhex40","hs","text/x-haskell","hta","application/hta","htc","text/x-component","htm","text/html","html","text/html","hxx","text/x-c++hdr","ica","application/x-ica","ice","x-conference/x-cooltalk","ico","image/x-icon","ics","text/calendar","icz","text/calendar","ief","image/ief","iges","model/iges","igs","model/iges","iii","application/x-iphone","inp","chemical/x-gamess-input","ins","application/x-internet-signup","iso","application/x-iso9660-image","isp","application/x-internet-signup","ist","chemical/x-isostar","istr","chemical/x-isostar","jad","text/vnd.sun.j2me.app-descriptor","jar","application/java-archive","java","text/x-java","jdx","chemical/x-jcamp-dx","jmz","application/x-jmol","jng","image/x-jng","jnlp","application/x-java-jnlp-file","jpe","image/jpeg","jpeg","image/jpeg","jpg","image/jpeg","js","application/javascript","kar","audio/midi","key","application/pgp-keys","kil","application/x-killustrator","kin","chemical/x-kinemage","kpr","application/x-kpresenter","kpt","application/x-kpresenter","ksp","application/x-kspread","kwd","application/x-kword","kwt","application/x-kword","latex","application/x-latex","lha","application/x-lha","lhs","text/x-literate-haskell","lsf","video/x-la-asf","lsx","video/x-la-asf","ltx","text/x-tex","lzh","application/x-lzh","lzx","application/x-lzx","m3u","audio/x-mpegurl","m4a","audio/mpeg","maker","application/x-maker","man","application/x-troff-man","mcif","chemical/x-mmcif","mcm","chemical/x-macmolecule","mdb","application/msaccess","me","application/x-troff-me","mesh","model/mesh","mid","audio/midi","midi","audio/midi","mif","application/x-mif","mm","application/x-freemind","mmd","chemical/x-macromodel-input","mmf","application/vnd.smaf","mml","text/mathml","mmod","chemical/x-macromodel-input","mng","video/x-mng","moc","text/x-moc","mol","chemical/x-mdl-molfile","mol2","chemical/x-mol2","moo","chemical/x-mopac-out","mop","chemical/x-mopac-input","mopcrt","chemical/x-mopac-input","mov","video/quicktime","movie","video/x-sgi-movie","mp2","audio/mpeg","mp3","audio/mpeg","mp4","video/mp4","mpc","chemical/x-mopac-input","mpe","video/mpeg","mpeg","video/mpeg","mpega","audio/mpeg","mpg","video/mpeg","mpga","audio/mpeg","ms","application/x-troff-ms","msh","model/mesh","msi","application/x-msi","mvb","chemical/x-mopac-vib","mxu","video/vnd.mpegurl","nb","application/mathematica","nc","application/x-netcdf","nwc","application/x-nwc","o","application/x-object","oda","application/oda","odb","application/vnd.oasis.opendocument.database","odc","application/vnd.oasis.opendocument.chart","odf","application/vnd.oasis.opendocument.formula","odg","application/vnd.oasis.opendocument.graphics","odi","application/vnd.oasis.opendocument.image","odm","application/vnd.oasis.opendocument.text-master","odp","application/vnd.oasis.opendocument.presentation","ods","application/vnd.oasis.opendocument.spreadsheet","odt","application/vnd.oasis.opendocument.text","ogg","application/ogg","old","application/x-trash","oth","application/vnd.oasis.opendocument.text-web","oza","application/x-oz-application","p","text/x-pascal","p7r","application/x-pkcs7-certreqresp","pac","application/x-ns-proxy-autoconfig","pas","text/x-pascal","pat","image/x-coreldrawpattern","pbm","image/x-portable-bitmap","pcf","application/x-font","pcf.Z","application/x-font","pcx","image/pcx","pdb","chemical/x-pdb","pdf","application/pdf","pfa","application/x-font","pfb","application/x-font","pgm","image/x-portable-graymap","pgn","application/x-chess-pgn","pgp","application/pgp-signature","pk","application/x-tex-pk","pl","text/x-perl","pls","audio/x-scpls","pm","text/x-perl","png","image/png","pnm","image/x-portable-anymap","pot","text/plain","ppm","image/x-portable-pixmap","pps","application/vnd.ms-powerpoint","ppt","application/vnd.ms-powerpoint","prf","application/pics-rules","prt","chemical/x-ncbi-asn1-ascii","ps","application/postscript","psd","image/x-photoshop","psp","text/x-psp","py","text/x-python","pyc","application/x-python-code","pyo","application/x-python-code","qt","video/quicktime","qtl","application/x-quicktimeplayer","ra","audio/x-realaudio","ram","audio/x-pn-realaudio","rar","application/rar","ras","image/x-cmu-raster","rd","chemical/x-mdl-rdfile","rdf","application/rdf+xml","rgb","image/x-rgb","rm","audio/x-pn-realaudio","roff","application/x-troff","ros","chemical/x-rosdal","rpm","application/x-redhat-package-manager","rss","application/rss+xml","rtf","text/rtf","rtx","text/richtext","rxn","chemical/x-mdl-rxnfile","sct","text/scriptlet","sd","chemical/x-mdl-sdfile","sd2","audio/x-sd2","sda","application/vnd.stardivision.draw","sdc","application/vnd.stardivision.calc","sdd","application/vnd.stardivision.impress","sdf","chemical/x-mdl-sdfile","sdp","application/vnd.stardivision.impress","sdw","application/vnd.stardivision.writer","ser","application/java-serialized-object","sgf","application/x-go-sgf","sgl","application/vnd.stardivision.writer-global","sh","text/x-sh","shar","application/x-shar","shtml","text/html","sid","audio/prs.sid","sik","application/x-trash","silo","model/mesh","sis","application/vnd.symbian.install","sit","application/x-stuffit","skd","application/x-koan","skm","application/x-koan","skp","application/x-koan","skt","application/x-koan","smf","application/vnd.stardivision.math","smi","application/smil","smil","application/smil","snd","audio/basic","spc","chemical/x-galactic-spc","spl","application/x-futuresplash","src","application/x-wais-source","stc","application/vnd.sun.xml.calc.template","std","application/vnd.sun.xml.draw.template","sti","application/vnd.sun.xml.impress.template","stl","application/vnd.ms-pki.stl","stw","application/vnd.sun.xml.writer.template","sty","text/x-tex","sv4cpio","application/x-sv4cpio","sv4crc","application/x-sv4crc","svg","image/svg+xml","svgz","image/svg+xml","sw","chemical/x-swissprot","swf","application/x-shockwave-flash","swfl","application/x-shockwave-flash","sxc","application/vnd.sun.xml.calc","sxd","application/vnd.sun.xml.draw","sxg","application/vnd.sun.xml.writer.global","sxi","application/vnd.sun.xml.impress","sxm","application/vnd.sun.xml.math","sxw","application/vnd.sun.xml.writer","t","application/x-troff","tar","application/x-tar","taz","application/x-gtar","tcl","text/x-tcl","tex","text/x-tex","texi","application/x-texinfo","texinfo","application/x-texinfo","text","text/plain","tgf","chemical/x-mdl-tgf","tgz","application/x-gtar","tif","image/tiff","tiff","image/tiff","tk","text/x-tcl","tm","text/texmacs","torrent","application/x-bittorrent","tr","application/x-troff","ts","text/texmacs","tsp","application/dsptype","tsv","text/tab-separated-values","txt","text/plain","udeb","application/x-debian-package","uls","text/iuls","ustar","application/x-ustar","val","chemical/x-ncbi-asn1-binary","vcd","application/x-cdlink","vcf","text/x-vcard","vcs","text/x-vcalendar","vmd","chemical/x-vmd","vms","chemical/x-vamas-iso14976","vor","application/vnd.stardivision.writer","vrm","x-world/x-vrml","vrml","x-world/x-vrml","vsd","application/vnd.visio","wad","application/x-doom","wav","audio/x-wav","wax","audio/x-ms-wax","wbmp","image/vnd.wap.wbmp","wbxml","application/vnd.wap.wbxml","wk","application/x-123","wm","video/x-ms-wm","wma","audio/x-ms-wma","wmd","application/x-ms-wmd","wml","text/vnd.wap.wml","wmlc","application/vnd.wap.wmlc","wmls","text/vnd.wap.wmlscript","wmlsc","application/vnd.wap.wmlscriptc","wmv","video/x-ms-wmv","wmx","video/x-ms-wmx","wmz","application/x-ms-wmz","wp5","application/wordperfect5.1","wpd","application/wordperfect","wrl","x-world/x-vrml","wsc","text/scriptlet","wvx","video/x-ms-wvx","wz","application/x-wingz","xbm","image/x-xbitmap","xcf","application/x-xcf","xht","application/xhtml+xml","xhtml","application/xhtml+xml","xlb","application/vnd.ms-excel","xls","application/vnd.ms-excel","xlt","application/vnd.ms-excel","xml","application/xml","xpi","application/x-xpinstall","xpm","image/x-xpixmap","xsl","application/xml","xtel","chemical/x-xtel","xul","application/vnd.mozilla.xul+xml","xwd","image/x-xwindowdump","xyz","chemical/x-xyz","zip","application/zip","zmt","chemical/x-mopac-input","~","application/x-trash"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["%","application/x-trash","323","text/h323","abw","application/x-abiword","ai","application/postscript","aif","audio/x-aiff","aifc","audio/x-aiff","aiff","audio/x-aiff","alc","chemical/x-alchemy","art","image/x-jg","asc","text/plain","asf","video/x-ms-asf","asn","chemical/x-ncbi-asn1-spec","aso","chemical/x-ncbi-asn1-binary","asx","video/x-ms-asf","au","audio/basic","avi","video/x-msvideo","b","chemical/x-molconn-Z","bak","application/x-trash","bat","application/x-msdos-program","bcpio","application/x-bcpio","bib","text/x-bibtex","bin","application/octet-stream","bmp","image/x-ms-bmp","book","application/x-maker","bsd","chemical/x-crossfire","c","text/x-csrc","c++","text/x-c++src","c3d","chemical/x-chem3d","cac","chemical/x-cache","cache","chemical/x-cache","cascii","chemical/x-cactvs-binary","cat","application/vnd.ms-pki.seccat","cbin","chemical/x-cactvs-binary","cc","text/x-c++src","cdf","application/x-cdf","cdr","image/x-coreldraw","cdt","image/x-coreldrawtemplate","cdx","chemical/x-cdx","cdy","application/vnd.cinderella","cef","chemical/x-cxf","cer","chemical/x-cerius","chm","chemical/x-chemdraw","chrt","application/x-kchart","cif","chemical/x-cif","class","application/java-vm","cls","text/x-tex","cmdf","chemical/x-cmdf","cml","chemical/x-cml","cod","application/vnd.rim.cod","com","application/x-msdos-program","cpa","chemical/x-compass","cpio","application/x-cpio","cpp","text/x-c++src","cpt","image/x-corelphotopaint","crl","application/x-pkcs7-crl","crt","application/x-x509-ca-cert","csf","chemical/x-cache-csf","csh","text/x-csh","csm","chemical/x-csml","csml","chemical/x-csml","css","text/css","csv","text/comma-separated-values","ctab","chemical/x-cactvs-binary","ctx","chemical/x-ctx","cu","application/cu-seeme","cub","chemical/x-gaussian-cube","cxf","chemical/x-cxf","cxx","text/x-c++src","dat","chemical/x-mopac-input","dcr","application/x-director","deb","application/x-debian-package","dif","video/dv","diff","text/plain","dir","application/x-director","djv","image/vnd.djvu","djvu","image/vnd.djvu","dl","video/dl","dll","application/x-msdos-program","dmg","application/x-apple-diskimage","dms","application/x-dms","doc","application/msword","dot","application/msword","dv","video/dv","dvi","application/x-dvi","dx","chemical/x-jcamp-dx","dxr","application/x-director","emb","chemical/x-embl-dl-nucleotide","embl","chemical/x-embl-dl-nucleotide","ent","chemical/x-pdb","eps","application/postscript","etx","text/x-setext","exe","application/x-msdos-program","ez","application/andrew-inset","fb","application/x-maker","fbdoc","application/x-maker","fch","chemical/x-gaussian-checkpoint","fchk","chemical/x-gaussian-checkpoint","fig","application/x-xfig","flac","application/x-flac","fli","video/fli","fm","application/x-maker","frame","application/x-maker","frm","application/x-maker","gal","chemical/x-gaussian-log","gam","chemical/x-gamess-input","gamin","chemical/x-gamess-input","gau","chemical/x-gaussian-input","gcd","text/x-pcs-gcd","gcf","application/x-graphing-calculator","gcg","chemical/x-gcg8-sequence","gen","chemical/x-genbank","gf","application/x-tex-gf","gif","image/gif","gjc","chemical/x-gaussian-input","gjf","chemical/x-gaussian-input","gl","video/gl","gnumeric","application/x-gnumeric","gpt","chemical/x-mopac-graph","gsf","application/x-font","gsm","audio/x-gsm","gtar","application/x-gtar","h","text/x-chdr","h++","text/x-c++hdr","hdf","application/x-hdf","hh","text/x-c++hdr","hin","chemical/x-hin","hpp","text/x-c++hdr","hqx","application/mac-binhex40","hs","text/x-haskell","hta","application/hta","htc","text/x-component","htm","text/html","html","text/html","hxx","text/x-c++hdr","ica","application/x-ica","ice","x-conference/x-cooltalk","ico","image/x-icon","ics","text/calendar","icz","text/calendar","ief","image/ief","iges","model/iges","igs","model/iges","iii","application/x-iphone","inp","chemical/x-gamess-input","ins","application/x-internet-signup","iso","application/x-iso9660-image","isp","application/x-internet-signup","ist","chemical/x-isostar","istr","chemical/x-isostar","jad","text/vnd.sun.j2me.app-descriptor","jar","application/java-archive","java","text/x-java","jdx","chemical/x-jcamp-dx","jmz","application/x-jmol","jng","image/x-jng","jnlp","application/x-java-jnlp-file","jpe","image/jpeg","jpeg","image/jpeg","jpg","image/jpeg","js","application/javascript","kar","audio/midi","key","application/pgp-keys","kil","application/x-killustrator","kin","chemical/x-kinemage","kpr","application/x-kpresenter","kpt","application/x-kpresenter","ksp","application/x-kspread","kwd","application/x-kword","kwt","application/x-kword","latex","application/x-latex","lha","application/x-lha","lhs","text/x-literate-haskell","lsf","video/x-la-asf","lsx","video/x-la-asf","ltx","text/x-tex","lzh","application/x-lzh","lzx","application/x-lzx","m3u","audio/x-mpegurl","m4a","audio/mpeg","maker","application/x-maker","man","application/x-troff-man","mcif","chemical/x-mmcif","mcm","chemical/x-macmolecule","mdb","application/msaccess","me","application/x-troff-me","mesh","model/mesh","mid","audio/midi","midi","audio/midi","mif","application/x-mif","mm","application/x-freemind","mmd","chemical/x-macromodel-input","mmf","application/vnd.smaf","mml","text/mathml","mmod","chemical/x-macromodel-input","mng","video/x-mng","moc","text/x-moc","mol","chemical/x-mdl-molfile","mol2","chemical/x-mol2","moo","chemical/x-mopac-out","mop","chemical/x-mopac-input","mopcrt","chemical/x-mopac-input","mov","video/quicktime","movie","video/x-sgi-movie","mp2","audio/mpeg","mp3","audio/mpeg","mp4","video/mp4","mpc","chemical/x-mopac-input","mpe","video/mpeg","mpeg","video/mpeg","mpega","audio/mpeg","mpg","video/mpeg","mpga","audio/mpeg","ms","application/x-troff-ms","msh","model/mesh","msi","application/x-msi","mvb","chemical/x-mopac-vib","mxu","video/vnd.mpegurl","nb","application/mathematica","nc","application/x-netcdf","nwc","application/x-nwc","o","application/x-object","oda","application/oda","odb","application/vnd.oasis.opendocument.database","odc","application/vnd.oasis.opendocument.chart","odf","application/vnd.oasis.opendocument.formula","odg","application/vnd.oasis.opendocument.graphics","odi","application/vnd.oasis.opendocument.image","odm","application/vnd.oasis.opendocument.text-master","odp","application/vnd.oasis.opendocument.presentation","ods","application/vnd.oasis.opendocument.spreadsheet","odt","application/vnd.oasis.opendocument.text","ogg","application/ogg","old","application/x-trash","oth","application/vnd.oasis.opendocument.text-web","oza","application/x-oz-application","p","text/x-pascal","p7r","application/x-pkcs7-certreqresp","pac","application/x-ns-proxy-autoconfig","pas","text/x-pascal","pat","image/x-coreldrawpattern","pbm","image/x-portable-bitmap","pcf","application/x-font","pcf.Z","application/x-font","pcx","image/pcx","pdb","chemical/x-pdb","pdf","application/pdf","pfa","application/x-font","pfb","application/x-font","pgm","image/x-portable-graymap","pgn","application/x-chess-pgn","pgp","application/pgp-signature","pk","application/x-tex-pk","pl","text/x-perl","pls","audio/x-scpls","pm","text/x-perl","png","image/png","pnm","image/x-portable-anymap","pot","text/plain","ppm","image/x-portable-pixmap","pps","application/vnd.ms-powerpoint","ppt","application/vnd.ms-powerpoint","prf","application/pics-rules","prt","chemical/x-ncbi-asn1-ascii","ps","application/postscript","psd","image/x-photoshop","psp","text/x-psp","py","text/x-python","pyc","application/x-python-code","pyo","application/x-python-code","qt","video/quicktime","qtl","application/x-quicktimeplayer","ra","audio/x-realaudio","ram","audio/x-pn-realaudio","rar","application/rar","ras","image/x-cmu-raster","rd","chemical/x-mdl-rdfile","rdf","application/rdf+xml","rgb","image/x-rgb","rm","audio/x-pn-realaudio","roff","application/x-troff","ros","chemical/x-rosdal","rpm","application/x-redhat-package-manager","rss","application/rss+xml","rtf","text/rtf","rtx","text/richtext","rxn","chemical/x-mdl-rxnfile","sct","text/scriptlet","sd","chemical/x-mdl-sdfile","sd2","audio/x-sd2","sda","application/vnd.stardivision.draw","sdc","application/vnd.stardivision.calc","sdd","application/vnd.stardivision.impress","sdf","chemical/x-mdl-sdfile","sdp","application/vnd.stardivision.impress","sdw","application/vnd.stardivision.writer","ser","application/java-serialized-object","sgf","application/x-go-sgf","sgl","application/vnd.stardivision.writer-global","sh","text/x-sh","shar","application/x-shar","shtml","text/html","sid","audio/prs.sid","sik","application/x-trash","silo","model/mesh","sis","application/vnd.symbian.install","sit","application/x-stuffit","skd","application/x-koan","skm","application/x-koan","skp","application/x-koan","skt","application/x-koan","smf","application/vnd.stardivision.math","smi","application/smil","smil","application/smil","snd","audio/basic","spc","chemical/x-galactic-spc","spl","application/x-futuresplash","src","application/x-wais-source","stc","application/vnd.sun.xml.calc.template","std","application/vnd.sun.xml.draw.template","sti","application/vnd.sun.xml.impress.template","stl","application/vnd.ms-pki.stl","stw","application/vnd.sun.xml.writer.template","sty","text/x-tex","sv4cpio","application/x-sv4cpio","sv4crc","application/x-sv4crc","svg","image/svg+xml","svgz","image/svg+xml","sw","chemical/x-swissprot","swf","application/x-shockwave-flash","swfl","application/x-shockwave-flash","sxc","application/vnd.sun.xml.calc","sxd","application/vnd.sun.xml.draw","sxg","application/vnd.sun.xml.writer.global","sxi","application/vnd.sun.xml.impress","sxm","application/vnd.sun.xml.math","sxw","application/vnd.sun.xml.writer","t","application/x-troff","tar","application/x-tar","taz","application/x-gtar","tcl","text/x-tcl","tex","text/x-tex","texi","application/x-texinfo","texinfo","application/x-texinfo","text","text/plain","tgf","chemical/x-mdl-tgf","tgz","application/x-gtar","tif","image/tiff","tiff","image/tiff","tk","text/x-tcl","tm","text/texmacs","torrent","application/x-bittorrent","tr","application/x-troff","ts","text/texmacs","tsp","application/dsptype","tsv","text/tab-separated-values","txt","text/plain","udeb","application/x-debian-package","uls","text/iuls","ustar","application/x-ustar","val","chemical/x-ncbi-asn1-binary","vcd","application/x-cdlink","vcf","text/x-vcard","vcs","text/x-vcalendar","vmd","chemical/x-vmd","vms","chemical/x-vamas-iso14976","vor","application/vnd.stardivision.writer","vrm","x-world/x-vrml","vrml","x-world/x-vrml","vsd","application/vnd.visio","wad","application/x-doom","wav","audio/x-wav","wax","audio/x-ms-wax","wbmp","image/vnd.wap.wbmp","wbxml","application/vnd.wap.wbxml","wk","application/x-123","wm","video/x-ms-wm","wma","audio/x-ms-wma","wmd","application/x-ms-wmd","wml","text/vnd.wap.wml","wmlc","application/vnd.wap.wmlc","wmls","text/vnd.wap.wmlscript","wmlsc","application/vnd.wap.wmlscriptc","wmv","video/x-ms-wmv","wmx","video/x-ms-wmx","wmz","application/x-ms-wmz","wp5","application/wordperfect5.1","wpd","application/wordperfect","wrl","x-world/x-vrml","wsc","text/scriptlet","wvx","video/x-ms-wvx","wz","application/x-wingz","xbm","image/x-xbitmap","xcf","application/x-xcf","xht","application/xhtml+xml","xhtml","application/xhtml+xml","xlb","application/vnd.ms-excel","xls","application/vnd.ms-excel","xlt","application/vnd.ms-excel","xml","application/xml","xpi","application/x-xpinstall","xpm","image/x-xpixmap","xsl","application/xml","xtel","chemical/x-xtel","xul","application/vnd.mozilla.xul+xml","xwd","image/x-xwindowdump","xyz","chemical/x-xyz","zip","application/zip","zmt","chemical/x-mopac-input","~","application/x-trash"]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2003,7 +1967,7 @@ function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 var $early={};
 try {
 args=$recv(process)._argv();
@@ -2025,8 +1989,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 fileServer=$recv($FileServer())._createServerWithArguments_(args);
 fileServer;
-$2=$recv(fileServer)._start();
-throw $early=[$2];
+throw $early=[$recv(fileServer)._start()];
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
@@ -2056,12 +2019,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._mimeTypes())._at_ifAbsent_($recv(aString)._replace_with_(".*[\x5c.]",""),(function(){
+return $recv(self._mimeTypes())._at_ifAbsent_($recv(aString)._replace_with_(".*[\x5c.]",""),(function(){
 return "text/plain";
 
 }));
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
@@ -2084,15 +2045,14 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$receiver;
-$2=self["@mimeTypes"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@mimeTypes"]=self._defaultMimeTypes();
+var $1,$receiver;
 $1=self["@mimeTypes"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@mimeTypes"]=self._defaultMimeTypes();
+return self["@mimeTypes"];
 } else {
-$1=$2;
-};
 return $1;
+};
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"mimeTypes",{},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
@@ -2155,8 +2115,8 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1;
-$2=$recv($recv(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
+var $1;
+$1=$recv($recv(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -2168,8 +2128,7 @@ return $recv($recv(each)._second())._asUppercase();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["replace:with:"]=1;
 //>>excludeEnd("ctx");
-$1=$recv($2).__comma(":");
-return $1;
+return $recv($1).__comma(":");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},$globals.FileServer.klass)});
 //>>excludeEnd("ctx");
@@ -2195,24 +2154,24 @@ var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2;
+var $1,$3,$2;
 child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("bower","bower"),["install"]);
 $1=child;
 $recv($1)._on_do_("error",aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-$2=$recv($1)._on_do_("close",(function(code){
+$recv($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv(code).__eq((0));
-if($core.assert($4)){
-$3=nil;
+$3=$recv(code).__eq((0));
+if($core.assert($3)){
+$2=nil;
 } else {
-$3=code;
+$2=code;
 };
-return $recv(aBlock)._value_($3);
+return $recv(aBlock)._value_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2269,7 +2228,7 @@ var child,sanitizedTemplatePath;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2;
+var $1,$3,$2;
 sanitizedTemplatePath=$recv($recv($recv(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["replace:with:"]=1;
@@ -2280,17 +2239,17 @@ $recv($1)._on_do_("error",aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-$2=$recv($1)._on_do_("close",(function(code){
+$recv($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv(code).__eq((0));
-if($core.assert($4)){
-$3=nil;
+$3=$recv(code).__eq((0));
+if($core.assert($3)){
+$2=nil;
 } else {
-$3=code;
+$2=code;
 };
-return $recv(aBlock)._value_($3);
+return $recv(aBlock)._value_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2319,24 +2278,24 @@ var child;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$4,$3,$2;
+var $1,$3,$2;
 child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-cli","grunt"),["default", "devel"]);
 $1=child;
 $recv($1)._on_do_("error",aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["on:do:"]=1;
 //>>excludeEnd("ctx");
-$2=$recv($1)._on_do_("close",(function(code){
+$recv($1)._on_do_("close",(function(code){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv(code).__eq((0));
-if($core.assert($4)){
-$3=nil;
+$3=$recv(code).__eq((0));
+if($core.assert($3)){
+$2=nil;
 } else {
-$3=code;
+$2=code;
 };
-return $recv(aBlock)._value_($3);
+return $recv(aBlock)._value_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -2431,7 +2390,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$3,$4,$2,$5,$6;
+var $1,$3,$4,$2,$5;
 $1=self["@path"];
 $3=$recv($JSObjectProxy())._on_(require);
 $4=$recv(aString).__comma("/package.json");
@@ -2451,8 +2410,7 @@ scriptPath=binSection;
 } else {
 scriptPath=$recv(binSection)._at_(anotherString);
 };
-$6=$recv(self["@path"])._join_with_(modulePath,scriptPath);
-return $6;
+return $recv(self["@path"])._join_with_(modulePath,scriptPath);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"npmScriptForModule:named:",{aString:aString,anotherString:anotherString,modulePath:modulePath,packageJson:packageJson,binSection:binSection,scriptPath:scriptPath},$globals.Initer)});
 //>>excludeEnd("ctx");
@@ -2475,7 +2433,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$receiver;
 self._gruntInitThenDo_((function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2504,8 +2462,7 @@ $recv($7)._log_("grunt exec error:");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx5.sendIdx["log:"]=7;
 //>>excludeEnd("ctx");
-$8=$recv($7)._log_(error4);
-$8;
+$recv($7)._log_(error4);
 return $recv(process)._exit_((104));
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2602,13 +2559,11 @@ var newClass,newObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 newClass=self._subclass_withVariable_($recv(anObject)._class(),aString);
 self._encapsulateVariable_withValue_in_(aString,anObject,newClass);
 newObject=$recv(newClass)._new();
 self._setPreviousVariablesFor_from_(newObject,anObject);
-$1=newObject;
-return $1;
+return newObject;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"addVariableNamed:to:",{aString:aString,anObject:anObject,newClass:newClass,newObject:newObject},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -2633,8 +2588,8 @@ function $ConsoleErrorHandler(){return $globals.ConsoleErrorHandler||(typeof Con
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$4,$2,$1,$receiver;
-$1=self._parseAssignment_do_(buffer,(function(name,expr){
+var $2,$3,$1,$receiver;
+return self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2651,17 +2606,17 @@ $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-$3=$recv(varName).__comma(" := ");
+$2=$recv(varName).__comma(" := ");
 if(($receiver = expr) == null || $receiver.isNil){
-$4=buffer;
+$3=buffer;
 } else {
-$4=expr;
+$3=expr;
 };
-$2=$recv($3).__comma($4);
+$1=$recv($2).__comma($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-value=self._eval_on_($2,self["@session"]);
+value=self._eval_on_($1,self["@session"]);
 return value;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
@@ -2682,7 +2637,6 @@ return $recv(aBlock)._value_value_(varName,value);
 }, function($ctx2) {$ctx2.fillBlock({name:name,expr:expr,varName:varName,value:value},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -2763,9 +2717,7 @@ selector: "commands",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@commands"];
-return $1;
+return self["@commands"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -2786,7 +2738,6 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 self["@interface"]=$recv(self["@readline"])._createInterface_stdout_($recv(process)._stdin(),$recv(process)._stdout());
 $recv(self["@interface"])._on_do_("line",(function(buffer){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2811,7 +2762,7 @@ return self._close();
 }));
 self._printWelcome();
 self._setupHotkeys();
-$1=self._setPrompt();
+self._setPrompt();
 $recv(self["@interface"])._prompt();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2887,9 +2838,7 @@ function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._eval_on_(buffer,$recv($DoIt())._new());
-return $1;
+return self._eval_on_(buffer,$recv($DoIt())._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -2914,7 +2863,7 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3;
+var $1,$2;
 $1=$recv(buffer)._isEmpty();
 if(!$core.assert($1)){
 $recv((function(){
@@ -2941,8 +2890,7 @@ return $recv($recv(process)._stdout())._write_($recv(e)._jsStack());
 //>>excludeEnd("ctx");
 }));
 };
-$3=result;
-return $3;
+return result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3045,21 +2993,20 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1,$receiver;
-$2=$recv(aClass)._superclass();
+var $1,$2,$receiver;
+$1=$recv(aClass)._superclass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["superclass"]=1;
 //>>excludeEnd("ctx");
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv(aClass)._instanceVariableNames();
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv(aClass)._instanceVariableNames();
 } else {
-$3=$recv(aClass)._instanceVariableNames();
+$2=$recv(aClass)._instanceVariableNames();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["instanceVariableNames"]=1;
 //>>excludeEnd("ctx");
-$1=$recv($3)._copyWithAll_(self._instanceVariableNamesFor_($recv(aClass)._superclass()));
+return $recv($2)._copyWithAll_(self._instanceVariableNamesFor_($recv(aClass)._superclass()));
 };
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3082,9 +3029,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
-return $1;
+return $recv(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isIdentifier:",{aString:aString},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3107,9 +3052,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._instanceVariableNamesFor_($recv(self["@session"])._class()))._includes_(aString);
-return $1;
+return $recv(self._instanceVariableNamesFor_($recv(self["@session"])._class()))._includes_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isVariableDefined:",{aString:aString},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3132,15 +3075,14 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self["@resultCount"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@resultCount"]=(1);
 } else {
 self["@resultCount"]=$recv(self["@resultCount"]).__plus((1));
 };
-$2="res".__comma($recv(self["@resultCount"])._asString());
-return $2;
+return "res".__comma($recv(self["@resultCount"])._asString());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"nextResultName",{},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3200,7 +3142,7 @@ var assignment;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$1;
+var $2,$1;
 assignment=$recv($recv(aString)._tokenize_(":="))._collect_((function(s){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -3210,28 +3152,27 @@ return $recv(s)._trimBoth();
 }, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-$2=$recv($recv($recv(assignment)._size()).__eq((2)))._and_((function(){
+$1=$recv($recv($recv(assignment)._size()).__eq((2)))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$3=$recv(assignment)._first();
+$2=$recv(assignment)._first();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["first"]=1;
 //>>excludeEnd("ctx");
-return self._isIdentifier_($3);
+return self._isIdentifier_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-if($core.assert($2)){
-$1=$recv(aBlock)._value_value_($recv(assignment)._first(),$recv(assignment)._last());
+if($core.assert($1)){
+return $recv(aBlock)._value_value_($recv(assignment)._first(),$recv(assignment)._last());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:value:"]=1;
 //>>excludeEnd("ctx");
 } else {
-$1=$recv(aBlock)._value_value_(nil,nil);
+return $recv(aBlock)._value_value_(nil,nil);
 };
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"parseAssignment:do:",{aString:aString,aBlock:aBlock,assignment:assignment},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3255,7 +3196,7 @@ function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$1,$4;
+var $3,$2,$1;
 $3=$recv($recv(varName).__comma(": ")).__comma($recv($recv(value)._class())._name());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=3;
@@ -3269,7 +3210,7 @@ $1=$recv($2).__comma($recv(value)._asString());
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 $recv($Transcript())._show_($1);
-$4=$recv($Transcript())._cr();
+$recv($Transcript())._cr();
 $recv(self["@interface"])._prompt();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3295,9 +3236,8 @@ function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 $recv($Transcript())._show_("Type :q to exit.");
-$1=$recv($Transcript())._cr();
+$recv($Transcript())._cr();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"printWelcome",{},$globals.Repl)});
@@ -3523,9 +3463,7 @@ function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,$recv(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
-return $1;
+return $recv($recv($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,$recv(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"subclass:withVariable:",{aClass:aClass,varName:varName},$globals.Repl)});
 //>>excludeEnd("ctx");
@@ -3548,35 +3486,34 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$7,$6,$5,$4,$8,$1,$receiver;
-$3=$recv(aClass)._name();
+var $2,$1,$6,$5,$4,$3,$7,$receiver;
+$2=$recv(aClass)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=1;
 //>>excludeEnd("ctx");
-$2=$recv($3)._matchesOf_("\x5cd+$");
+$1=$recv($2)._matchesOf_("\x5cd+$");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["matchesOf:"]=1;
 //>>excludeEnd("ctx");
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv($recv(aClass)._name()).__comma("2");
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv($recv(aClass)._name()).__comma("2");
 } else {
 var counter;
-$7=$recv(aClass)._name();
+$6=$recv(aClass)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=2;
 //>>excludeEnd("ctx");
-$6=$recv($7)._matchesOf_("\x5cd+$");
-$5=$recv($6)._first();
-$4=$recv($5)._asNumber();
-counter=$recv($4).__plus((1));
+$5=$recv($6)._matchesOf_("\x5cd+$");
+$4=$recv($5)._first();
+$3=$recv($4)._asNumber();
+counter=$recv($3).__plus((1));
 counter;
-$8=$recv(aClass)._name();
+$7=$recv(aClass)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=3;
 //>>excludeEnd("ctx");
-$1=$recv($8)._replaceRegexp_with_("\x5cd+$"._asRegexp(),$recv(counter)._asString());
+return $recv($7)._replaceRegexp_with_("\x5cd+$"._asRegexp(),$recv(counter)._asString());
 };
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"subclassNameFor:",{aClass:aClass},$globals.Repl)});
 //>>excludeEnd("ctx");

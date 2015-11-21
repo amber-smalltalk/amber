@@ -158,9 +158,7 @@ selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@messageText"];
-return $1;
+return self["@messageText"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -281,9 +279,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._signalerContextFrom_(self._context());
-return $1;
+return self._signalerContextFrom_(self._context());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signalerContext",{},$globals.Error)});
 //>>excludeEnd("ctx");
@@ -306,20 +302,20 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $4,$3,$2,$1;
-$1=$recv(aContext)._findContextSuchThat_((function(context){
+var $3,$2,$1;
+return $recv(aContext)._findContextSuchThat_((function(context){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv(context)._receiver();
+$3=$recv(context)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
-$3=$recv($4).__eq_eq(self);
+$2=$recv($3).__eq_eq(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
-$2=$recv($3)._or_((function(){
+$1=$recv($2)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -328,12 +324,11 @@ return $recv($recv(context)._receiver()).__eq_eq(self._class());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
 }));
-return $recv($2)._not();
+return $recv($1)._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Error)});
 //>>excludeEnd("ctx");
@@ -399,9 +394,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._new())._signal();
-return $1;
+return $recv(self._new())._signal();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error.klass)});
 //>>excludeEnd("ctx");
@@ -424,9 +417,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._new())._signal_(aString);
-return $1;
+return $recv(self._new())._signal_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error.klass)});
 //>>excludeEnd("ctx");
@@ -472,20 +463,20 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $4,$3,$2,$1;
-$1=$recv(aContext)._findContextSuchThat_((function(context){
+var $3,$2,$1;
+return $recv(aContext)._findContextSuchThat_((function(context){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv(context)._receiver();
+$3=$recv(context)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
-$3=$recv($4).__eq_eq(self);
+$2=$recv($3).__eq_eq(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["=="]=1;
 //>>excludeEnd("ctx");
-$2=$recv($3)._or_((function(){
+$1=$recv($2)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -505,12 +496,11 @@ return $recv($recv($recv(context)._method())._selector()).__eq("halt");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["or:"]=1;
 //>>excludeEnd("ctx");
-return $recv($2)._not();
+return $recv($1)._not();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Halt)});
 //>>excludeEnd("ctx");
@@ -560,9 +550,7 @@ selector: "exception",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@exception"];
-return $1;
+return self["@exception"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -627,12 +615,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._exception_(anException);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._exception_(anException);
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},$globals.JavaScriptException.klass)});
 //>>excludeEnd("ctx");
@@ -655,13 +641,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._exception_(anException);
-$recv($2)._context_(aMethodContext);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._exception_(anException);
+$recv($1)._context_(aMethodContext);
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},$globals.JavaScriptException.klass)});
 //>>excludeEnd("ctx");
@@ -686,9 +670,7 @@ selector: "message",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@message"];
-return $1;
+return self["@message"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -753,9 +735,7 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
+return self["@receiver"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -798,9 +778,7 @@ selector: "object",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@object"];
-return $1;
+return self["@object"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);

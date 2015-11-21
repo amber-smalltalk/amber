@@ -14,9 +14,7 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=window;
-return $1;
+return window;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -39,12 +37,11 @@ function $NativeFunction(){return $globals.NativeFunction||(typeof NativeFunctio
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$receiver;
+var $receiver;
 if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
 self._error_("XMLHttpRequest not available.");
 } else {
-$1=$recv($NativeFunction())._constructorOf_($XMLHttpRequest());
-return $1;
+return $recv($NativeFunction())._constructorOf_($XMLHttpRequest());
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -128,9 +125,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(window)._alert_(aString);
-return $1;
+return $recv(window)._alert_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.BrowserTerminal)});
 //>>excludeEnd("ctx");
@@ -153,9 +148,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(window)._confirm_(aString);
-return $1;
+return $recv(window)._confirm_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.BrowserTerminal)});
 //>>excludeEnd("ctx");
@@ -178,9 +171,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(window)._prompt_(aString);
-return $1;
+return $recv(window)._prompt_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.BrowserTerminal)});
 //>>excludeEnd("ctx");
@@ -203,9 +194,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(window)._prompt_default_(aString,defaultString);
-return $1;
+return $recv(window)._prompt_default_(aString,defaultString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.BrowserTerminal)});
 //>>excludeEnd("ctx");
@@ -282,9 +271,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._postMessageTo_origin_(aFrame,"*");
-return $1;
+return self._postMessageTo_origin_(aFrame,"*");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"postMessageTo:",{aFrame:aFrame},$globals.Object)});
 //>>excludeEnd("ctx");

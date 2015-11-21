@@ -152,7 +152,7 @@ visitCascadeNode: aNode
 	aNode nodes allButLast do: [ :each |
 		self sequence add: (self visit: each) ].
 
-	^ self alias: aNode nodes last
+	^ self visitOrAlias: aNode nodes last
 !
 
 visitDynamicArrayNode: aNode
@@ -221,7 +221,7 @@ visitReturnNode: aNode
 		ifFalse: [ IRReturn new ].
 	return scope: aNode scope.
 	aNode nodes do: [ :each |
-		return add: (self alias: each) ].
+		return add: (self visitOrAlias: each) ].
 	^ return
 !
 

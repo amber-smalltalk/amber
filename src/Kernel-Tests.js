@@ -1523,7 +1523,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$17,$18,$16,$15,$20,$19,$22,$21,$25,$24,$23;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$16,$17,$15,$19,$18,$21,$20,$23,$22;
 $1=true.__and(true);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["&"]=1;
@@ -1612,46 +1612,46 @@ self._deny_($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=5;
 //>>excludeEnd("ctx");
-$17=(1).__gt((0));
+$16=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=3;
 //>>excludeEnd("ctx");
-$18=(1).__gt((2));
+$17=(1).__gt((2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=4;
 //>>excludeEnd("ctx");
-$16=$recv($17).__and($18);
-$15=self._deny_($16);
-$20=(1).__gt((0));
+$15=$recv($16).__and($17);
+self._deny_($15);
+$19=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=5;
 //>>excludeEnd("ctx");
-$19=false.__or($20);
+$18=false.__or($19);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["|"]=5;
 //>>excludeEnd("ctx");
-self._assert_($19);
+self._assert_($18);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=6;
 //>>excludeEnd("ctx");
-$22=(1).__gt((0));
+$21=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=6;
 //>>excludeEnd("ctx");
-$21=$recv($22).__or(false);
+$20=$recv($21).__or(false);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["|"]=6;
 //>>excludeEnd("ctx");
-self._assert_($21);
+self._assert_($20);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=7;
 //>>excludeEnd("ctx");
-$25=(1).__gt((0));
+$23=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=7;
 //>>excludeEnd("ctx");
-$24=$recv($25).__or((1).__gt((2)));
-$23=self._assert_($24);
+$22=$recv($23).__or((1).__gt((2)));
+self._assert_($22);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testLogic",{},$globals.BooleanTest)});
@@ -1675,7 +1675,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$11,$13,$12,$16,$15,$14,$17,$19,$18,$22,$21,$20;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$11,$13,$12,$15,$14,$16,$18,$17,$20,$19;
 $1=true._and_((function(){
 return true;
 
@@ -1798,11 +1798,11 @@ self._deny_($12);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["deny:"]=5;
 //>>excludeEnd("ctx");
-$16=(1).__gt((0));
+$15=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=3;
 //>>excludeEnd("ctx");
-$15=$recv($16)._and_((function(){
+$14=$recv($15)._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1814,8 +1814,8 @@ $ctx2.sendIdx[">"]=4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,11)});
 //>>excludeEnd("ctx");
 }));
-$14=self._deny_($15);
-$17=false._or_((function(){
+self._deny_($14);
+$16=false._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1830,30 +1830,30 @@ $ctx2.sendIdx[">"]=5;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["or:"]=5;
 //>>excludeEnd("ctx");
-self._assert_($17);
+self._assert_($16);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=6;
 //>>excludeEnd("ctx");
-$19=(1).__gt((0));
+$18=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=6;
 //>>excludeEnd("ctx");
-$18=$recv($19)._or_((function(){
+$17=$recv($18)._or_((function(){
 return false;
 
 }));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["or:"]=6;
 //>>excludeEnd("ctx");
-self._assert_($18);
+self._assert_($17);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:"]=7;
 //>>excludeEnd("ctx");
-$22=(1).__gt((0));
+$20=(1).__gt((0));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[">"]=7;
 //>>excludeEnd("ctx");
-$21=$recv($22)._or_((function(){
+$19=$recv($20)._or_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1862,7 +1862,7 @@ return (1).__gt((2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,14)});
 //>>excludeEnd("ctx");
 }));
-$20=self._assert_($21);
+self._assert_($19);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},$globals.BooleanTest)});
@@ -2543,9 +2543,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._class())._collectionClass();
-return $1;
+return $recv(self._class())._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
@@ -2700,9 +2698,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._collectionClass())._with_(self._sampleNewValue());
-return $1;
+return $recv(self._collectionClass())._with_(self._sampleNewValue());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.CollectionTest)});
 //>>excludeEnd("ctx");
@@ -2725,7 +2721,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$5,$4,$6,$1,$7,$10,$9,$11,$12,$13,$8,$14,$17,$16,$18,$20,$19,$21,$15,$23,$24,$25,$26,$22,$27,$28,$29;
+var $2,$3,$5,$4,$6,$1,$7,$10,$9,$11,$12,$13,$8,$14,$17,$16,$18,$20,$19,$21,$15,$23,$24,$25,$26,$22,$27,$28;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
@@ -2841,8 +2837,7 @@ $ctx1.sendIdx["collectionWithNewValue"]=1;
 self._assert_equals_($22,$27);
 $28=self._sampleNewValueAsCollection();
 $recv($28)._addAll_(self._collection());
-$29=$recv($28)._yourself();
-self._assertSameContents_as_($29,self._collectionWithNewValue());
+self._assertSameContents_as_($recv($28)._yourself(),self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.CollectionTest)});
@@ -4215,11 +4210,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 $1=self._collection();
 $recv($1)._removeAll();
-$2=$recv($1)._yourself();
-self._assert_equals_($2,$recv(self._collectionClass())._new());
+self._assert_equals_($recv($1)._yourself(),$recv(self._collectionClass())._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.CollectionTest)});
@@ -4460,9 +4454,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._collectionClass())._isNil();
-return $1;
+return $recv(self._collectionClass())._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.CollectionTest.klass)});
 //>>excludeEnd("ctx");
@@ -5074,7 +5066,7 @@ function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 jsNull=$recv($JSON())._parse_("null");
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5082,8 +5074,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=self._collection();
 $recv($1)._at_put_(index,jsNull);
-$2=$recv($1)._indexOf_(jsNull);
-return self._assert_equals_($2,index);
+return self._assert_equals_($recv($1)._indexOf_(jsNull),index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -5269,7 +5260,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
+var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$13;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -5335,8 +5326,7 @@ $14=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
 $recv($14)._addAll_(self._collection());
-$15=$recv($14)._yourself();
-$13=$15;
+$13=$recv($14)._yourself();
 self._assert_equals_($13,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5589,7 +5579,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$4,$1,$5;
+var $3,$2,$1,$4;
 $3=self._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionClass"]=1;
@@ -5600,13 +5590,12 @@ $recv($2)._at_put_("firstname","James");
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
 $recv($2)._at_put_("lastname","Bond");
-$4=$recv($2)._printString();
-$1=$4;
-$5=$recv("a ".__comma($recv(self._collectionClass())._name())).__comma(" ('firstname' -> 'James' , 'lastname' -> 'Bond')");
+$1=$recv($2)._printString();
+$4=$recv("a ".__comma($recv(self._collectionClass())._name())).__comma(" ('firstname' -> 'James' , 'lastname' -> 'Bond')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_($1,$5);
+self._assert_equals_($1,$4);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testPrintString",{},$globals.AssociativeCollectionTest)});
@@ -5631,7 +5620,7 @@ function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$6,$4,$7,$8;
+var $1,$2,$3,$5,$6,$4,$7;
 self._nonIndexesDo_((function(each){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5698,8 +5687,7 @@ return self._deny_($4);
 }));
 $7=self._collectionWithNewValue();
 $recv($7)._removeKey_(self._sampleNewIndex());
-$8=$recv($7)._yourself();
-self._assert_equals_($8,self._collection());
+self._assert_equals_($recv($7)._yourself(),self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},$globals.AssociativeCollectionTest)});
@@ -5723,7 +5711,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$7,$8,$6,$9,$10;
+var $1,$2,$3,$4,$5,$7,$8,$6,$9;
 self._nonIndexesDo_((function(each){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5817,8 +5805,7 @@ return self._assert_(false);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
-$10=$recv($9)._yourself();
-self._assert_equals_($10,self._collection());
+self._assert_equals_($recv($9)._yourself(),self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},$globals.AssociativeCollectionTest)});
@@ -5889,24 +5876,22 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),(1));
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_("a",(2));
+$recv($1)._at_put_("a",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_(true,(3));
+$recv($1)._at_put_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_((1).__at((3)),(-4));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((1).__at((3)),(-4));
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
@@ -5929,9 +5914,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=[(1),"a",true,(1).__at((3))];
-return $1;
+return [(1),"a",true,(1).__at((3))];
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
@@ -5955,24 +5938,22 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),"1");
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),"1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_("a","2");
+$recv($1)._at_put_("a","2");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_(true,"3");
+$recv($1)._at_put_(true,"3");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_((1).__at((3)),"-4");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((1).__at((3)),"-4");
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
@@ -6010,9 +5991,7 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1),(2),(3),(-4)];
-return $1;
+return [(1),(2),(3),(-4)];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6034,36 +6013,34 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),(1));
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_("a",(2));
+$recv($1)._at_put_("a",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_(true,(3));
+$recv($1)._at_put_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_((4),(-4));
+$recv($1)._at_put_((4),(-4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=4;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_("b",(1));
+$recv($1)._at_put_("b",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=5;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_((3),(3));
+$recv($1)._at_put_((3),(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=6;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_(false,(12));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_(false,(12));
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
@@ -6087,28 +6064,26 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),(1));
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_("a",(2));
+$recv($1)._at_put_("a",(2));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_(true,(3));
+$recv($1)._at_put_(true,(3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_((1).__at((3)),(-4));
+$recv($1)._at_put_((1).__at((3)),(-4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=4;
 //>>excludeEnd("ctx");
-$recv($2)._at_put_("new","N");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_("new","N");
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
@@ -6132,12 +6107,10 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_("new","N");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_("new","N");
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
@@ -6349,9 +6322,7 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6369,9 +6340,7 @@ selector: "collectionKeys",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=["b","a","c","d"];
-return $1;
+return ["b","a","c","d"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6389,9 +6358,7 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6427,9 +6394,7 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1),(2),(3),(-4)];
-return $1;
+return [(1),(2),(3),(-4)];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6447,9 +6412,7 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6467,9 +6430,7 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6487,9 +6448,7 @@ selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["new","N"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["new","N"]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7233,9 +7192,7 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1), (2), (3), (-4)];
-return $1;
+return [(1), (2), (3), (-4)];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7271,9 +7228,7 @@ selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1), (2)];
-return $1;
+return [(1), (2)];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7309,9 +7264,7 @@ selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(3), (-4)];
-return $1;
+return [(3), (-4)];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7329,9 +7282,7 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=["1", "2", "3", "-4"];
-return $1;
+return ["1", "2", "3", "-4"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7367,9 +7318,7 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=["a", "b", "c", (1), (2), (1), "a"];
-return $1;
+return ["a", "b", "c", (1), (2), (1), "a"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7387,9 +7336,7 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1), (2), (3), (-4), "N"];
-return $1;
+return [(1), (2), (3), (-4), "N"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -7487,11 +7434,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 $1=self._collection();
 $recv($1)._addFirst_((0));
-$2=$recv($1)._yourself();
-self._assert_equals_($recv($2)._first(),(0));
+self._assert_equals_($recv($recv($1)._yourself())._first(),(0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},$globals.ArrayTest)});
@@ -7517,7 +7463,7 @@ function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 array=$recv($Array())._new();
 $1=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7558,12 +7504,12 @@ $recv($6)._remove_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["remove:"]=1;
 //>>excludeEnd("ctx");
-$7=$recv($6)._remove_((3));
-$8=$recv(array)._printString();
+$recv($6)._remove_((3));
+$7=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=4;
 //>>excludeEnd("ctx");
-self._assert_equals_($8,"an Array ('foo')");
+self._assert_equals_($7,"an Array ('foo')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
@@ -7571,11 +7517,11 @@ $recv(array)._addLast_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["addLast:"]=1;
 //>>excludeEnd("ctx");
-$9=$recv(array)._printString();
+$8=$recv(array)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=5;
 //>>excludeEnd("ctx");
-self._assert_equals_($9,"an Array ('foo' 3)");
+self._assert_equals_($8,"an Array ('foo' 3)");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
@@ -8845,7 +8791,6 @@ function $String(){return $globals.String||(typeof String=="undefined"?nil:Strin
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
 self._assert_equals_($recv($String())._streamContents_((function(aStream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -8855,8 +8800,7 @@ $recv(aStream)._nextPutAll_("hello");
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
 $recv(aStream)._space();
-$1=$recv(aStream)._nextPutAll_("world");
-return $1;
+return $recv(aStream)._nextPutAll_("world");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -8988,24 +8932,22 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Set())._new();
-$recv($2)._add_($Smalltalk());
+var $1;
+$1=$recv($Set())._new();
+$recv($1)._add_($Smalltalk());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._add_(nil);
+$recv($1)._add_(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._add_((3).__at((3)));
+$recv($1)._add_((3).__at((3)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._add_(false);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_(false);
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
@@ -9029,24 +8971,22 @@ function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Set())._new();
-$recv($2)._add_("a SmalltalkImage");
+var $1;
+$1=$recv($Set())._new();
+$recv($1)._add_("a SmalltalkImage");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._add_("nil");
+$recv($1)._add_("nil");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._add_("3@3");
+$recv($1)._add_("3@3");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._add_("false");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_("false");
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
@@ -9087,12 +9027,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=self._collection();
-$recv($2)._add_((0));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._collection();
+$recv($1)._add_((0));
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
@@ -9117,28 +9055,26 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Set())._new();
-$recv($2)._add_($Smalltalk());
+var $1;
+$1=$recv($Set())._new();
+$recv($1)._add_($Smalltalk());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._add_(nil);
+$recv($1)._add_(nil);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-$recv($2)._add_((3).__at((3)));
+$recv($1)._add_((3).__at((3)));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$recv($2)._add_("N");
+$recv($1)._add_("N");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=4;
 //>>excludeEnd("ctx");
-$recv($2)._add_(false);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_(false);
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.SetTest)});
 //>>excludeEnd("ctx");
@@ -9161,7 +9097,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
+var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$13;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -9227,8 +9163,7 @@ $14=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
 $recv($14)._addAll_(self._collection());
-$15=$recv($14)._yourself();
-$13=$15;
+$13=$recv($14)._yourself();
 self._assert_equals_($13,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9531,7 +9466,7 @@ function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$6,$7,$8,$9;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 set=$recv($Set())._new();
 $1=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9575,12 +9510,12 @@ $recv($6)._remove_((1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["remove:"]=1;
 //>>excludeEnd("ctx");
-$7=$recv($6)._remove_((3));
-$8=$recv(set)._printString();
+$recv($6)._remove_((3));
+$7=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=4;
 //>>excludeEnd("ctx");
-self._assert_equals_($8,"a Set ('foo')");
+self._assert_equals_($7,"a Set ('foo')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=4;
 //>>excludeEnd("ctx");
@@ -9588,11 +9523,11 @@ $recv(set)._add_((3));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=4;
 //>>excludeEnd("ctx");
-$9=$recv(set)._printString();
+$8=$recv(set)._printString();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["printString"]=5;
 //>>excludeEnd("ctx");
-self._assert_equals_($9,"a Set (3 'foo')");
+self._assert_equals_($8,"a Set (3 'foo')");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=5;
 //>>excludeEnd("ctx");
@@ -10891,11 +10826,10 @@ var object;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 $1=self._jsObject();
 $recv($1)._d_("test");
-$2=$recv($1)._yourself();
-object=$2;
+object=$recv($1)._yourself();
 self._assert_equals_($recv(object)._d(),"test");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11027,15 +10961,14 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 $1=$recv($MessageSend())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
 $recv($1)._receiver_($recv($Object())._new());
 $recv($1)._selector_("asString");
-$2=$recv($1)._yourself();
-messageSend=$2;
+messageSend=$recv($1)._yourself();
 self._assert_equals_($recv(messageSend)._value(),"an Object");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -11062,12 +10995,11 @@ function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undef
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2;
+var $1;
 $1=$recv($MessageSend())._new();
 $recv($1)._receiver_((2));
 $recv($1)._selector_("+");
-$2=$recv($1)._yourself();
-messageSend=$2;
+messageSend=$recv($1)._yourself();
 self._assert_equals_($recv(messageSend)._value_((3)),(5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=1;
@@ -11119,12 +11051,10 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$1;
-$2=$recv($Compiler())._new();
-$recv($2)._codeGeneratorClass_(self._codeGeneratorClass());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Compiler())._new();
+$recv($1)._codeGeneratorClass_(self._codeGeneratorClass());
+return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"compiler",{},$globals.MethodInheritanceTest)});
 //>>excludeEnd("ctx");
@@ -13504,9 +13434,7 @@ selector: "foo",
 protocol: 'not yet classified',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@foo"];
-return $1;
+return self["@foo"];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -14611,29 +14539,29 @@ function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$4,$3,$6,$5;
+var $1,$3,$2,$5,$4;
 queue=$recv($Queue())._new();
 $1=queue;
 $recv($1)._nextPut_("index1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nextPut:"]=1;
 //>>excludeEnd("ctx");
-$2=$recv($1)._nextPut_("index2");
-$4=$recv(queue)._next();
+$recv($1)._nextPut_("index2");
+$3=$recv(queue)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["next"]=1;
 //>>excludeEnd("ctx");
-$3=$recv($4).__eq("index1");
+$2=$recv($3).__eq("index1");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["="]=1;
 //>>excludeEnd("ctx");
-self._assert_($3);
-$6=$recv(queue)._next();
+self._assert_($2);
+$5=$recv(queue)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["next"]=2;
 //>>excludeEnd("ctx");
-$5=$recv($6).__eq("index");
-self._deny_($5);
+$4=$recv($5).__eq("index");
+self._deny_($4);
 self._should_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -14807,9 +14735,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._class())._collectionClass();
-return $1;
+return $recv(self._class())._collectionClass();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
@@ -14832,9 +14758,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._collectionClass())._new();
-return $1;
+return $recv(self._collectionClass())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
@@ -14857,9 +14781,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($recv(self._collectionClass())._new())._stream();
-return $1;
+return $recv($recv(self._collectionClass())._new())._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newStream",{},$globals.StreamTest)});
 //>>excludeEnd("ctx");
@@ -15070,21 +14992,21 @@ var stream,collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3;
+var $1,$2;
 collection=self._newCollection();
 stream=self._newStream();
 $1=stream;
 $recv($1)._nextPutAll_(collection);
-$2=$recv($1)._position_((0));
+$recv($1)._position_((0));
 $recv(collection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$3=$recv(stream)._next();
+$2=$recv(stream)._next();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["next"]=1;
 //>>excludeEnd("ctx");
-return self._assert_equals_($3,each);
+return self._assert_equals_($2,each);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -15236,9 +15158,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv(self._collectionClass())._isNil();
-return $1;
+return $recv(self._collectionClass())._isNil();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.StreamTest.klass)});
 //>>excludeEnd("ctx");
@@ -15263,9 +15183,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=[true,(1),(3).__at((4)),"foo"];
-return $1;
+return [true,(1),(3).__at((4)),"foo"];
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.ArrayStreamTest)});
 //>>excludeEnd("ctx");
