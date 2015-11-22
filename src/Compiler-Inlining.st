@@ -364,7 +364,7 @@ inlinedSequence
 !IRSendInliner methodsFor: 'inlining'!
 
 ifFalse: anIRInstruction
-	^ self inlinedSend: IRInlinedIfFalse new with: anIRInstruction
+	^ self inlinedSend: IRInlinedIfFalse new withBlock: anIRInstruction
 !
 
 ifFalse: anIRInstruction ifTrue: anotherIRInstruction
@@ -374,8 +374,8 @@ ifFalse: anIRInstruction ifTrue: anotherIRInstruction
 ifNil: anIRInstruction
 	^ self
 		inlinedSend: IRInlinedIfNilIfNotNil new
-		with: anIRInstruction
-		with: (IRClosure new
+		withBlock: anIRInstruction
+		withBlock: (IRClosure new
 			scope: anIRInstruction scope copy;
 			add: (IRBlockSequence new
 				add: self send instructions first;
@@ -384,31 +384,31 @@ ifNil: anIRInstruction
 !
 
 ifNil: anIRInstruction ifNotNil: anotherIRInstruction
-	^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anIRInstruction with: anotherIRInstruction
+	^ self inlinedSend: IRInlinedIfNilIfNotNil new withBlock: anIRInstruction withBlock: anotherIRInstruction
 !
 
 ifNotNil: anIRInstruction
 	^ self
 		inlinedSend: IRInlinedIfNilIfNotNil new
-		with: (IRClosure new
+		withBlock: (IRClosure new
 			scope: anIRInstruction scope copy;
 			add: (IRBlockSequence new
 				add: self send instructions first;
 				yourself);
 			yourself)
-		with: anIRInstruction
+		withBlock: anIRInstruction
 !
 
 ifNotNil: anIRInstruction ifNil: anotherIRInstruction
-	^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anotherIRInstruction with: anIRInstruction
+	^ self inlinedSend: IRInlinedIfNilIfNotNil new withBlock: anotherIRInstruction withBlock: anIRInstruction
 !
 
 ifTrue: anIRInstruction
-	^ self inlinedSend: IRInlinedIfTrue new with: anIRInstruction
+	^ self inlinedSend: IRInlinedIfTrue new withBlock: anIRInstruction
 !
 
 ifTrue: anIRInstruction ifFalse: anotherIRInstruction
-	^ self inlinedSend: IRInlinedIfTrueIfFalse new with: anIRInstruction with: anotherIRInstruction
+	^ self inlinedSend: IRInlinedIfTrueIfFalse new withBlock: anIRInstruction withBlock: anotherIRInstruction
 !
 
 inlineClosure: anIRClosure
@@ -458,7 +458,7 @@ inlineSend: anIRSend
 		withArguments: self send instructions allButFirst
 !
 
-inlinedSend: inlinedSend with: anIRInstruction
+inlinedSend: inlinedSend withBlock: anIRInstruction
 	| inlinedClosure |
 
 	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
@@ -477,7 +477,7 @@ inlinedSend: inlinedSend with: anIRInstruction
 	^ inlinedSend
 !
 
-inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
+inlinedSend: inlinedSend withBlock: anIRInstruction withBlock: anotherIRInstruction
 	| inlinedClosure1 inlinedClosure2 |
 
 	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].

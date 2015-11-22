@@ -1360,17 +1360,17 @@ function $IRInlinedIfFalse(){return $globals.IRInlinedIfFalse||(typeof IRInlined
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._inlinedSend_with_($recv($IRInlinedIfFalse())._new(),anIRInstruction);
+return self._inlinedSend_withBlock_($recv($IRInlinedIfFalse())._new(),anIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
-source: "ifFalse: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfFalse new with: anIRInstruction",
+source: "ifFalse: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfFalse new withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfFalse"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:", "new"]
+messageSends: ["inlinedSend:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -1431,17 +1431,17 @@ $recv($3)._add_($4);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._yourself();
-return self._inlinedSend_with_with_($1,anIRInstruction,$2);
+return self._inlinedSend_withBlock_withBlock_($1,anIRInstruction,$2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
-source: "ifNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09with: anIRInstruction\x0a\x09\x09with: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)",
+source: "ifNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09withBlock: anIRInstruction\x0a\x09\x09withBlock: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)",
 referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
 $globals.IRSendInliner);
 
@@ -1455,17 +1455,17 @@ function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(type
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._inlinedSend_with_with_($recv($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
+return self._inlinedSend_withBlock_withBlock_($recv($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
-source: "ifNil: anIRInstruction ifNotNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anIRInstruction with: anotherIRInstruction",
+source: "ifNil: anIRInstruction ifNotNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new withBlock: anIRInstruction withBlock: anotherIRInstruction",
 referencedClasses: ["IRInlinedIfNilIfNotNil"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:with:", "new"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -1503,17 +1503,17 @@ $recv($3)._add_($4);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._yourself();
-return self._inlinedSend_with_with_($1,$2,anIRInstruction);
+return self._inlinedSend_withBlock_withBlock_($1,$2,anIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
-source: "ifNotNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09with: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)\x0a\x09\x09with: anIRInstruction",
+source: "ifNotNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09withBlock: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)\x0a\x09\x09withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
 $globals.IRSendInliner);
 
@@ -1527,17 +1527,17 @@ function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(type
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._inlinedSend_with_with_($recv($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
+return self._inlinedSend_withBlock_withBlock_($recv($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
-source: "ifNotNil: anIRInstruction ifNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anotherIRInstruction with: anIRInstruction",
+source: "ifNotNil: anIRInstruction ifNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new withBlock: anotherIRInstruction withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfNilIfNotNil"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:with:", "new"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -1551,17 +1551,17 @@ function $IRInlinedIfTrue(){return $globals.IRInlinedIfTrue||(typeof IRInlinedIf
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._inlinedSend_with_($recv($IRInlinedIfTrue())._new(),anIRInstruction);
+return self._inlinedSend_withBlock_($recv($IRInlinedIfTrue())._new(),anIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction"],
-source: "ifTrue: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrue new with: anIRInstruction",
+source: "ifTrue: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrue new withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfTrue"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:", "new"]
+messageSends: ["inlinedSend:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -1575,17 +1575,17 @@ function $IRInlinedIfTrueIfFalse(){return $globals.IRInlinedIfTrueIfFalse||(type
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._inlinedSend_with_with_($recv($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
+return self._inlinedSend_withBlock_withBlock_($recv($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInstruction", "anotherIRInstruction"],
-source: "ifTrue: anIRInstruction ifFalse: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrueIfFalse new with: anIRInstruction with: anotherIRInstruction",
+source: "ifTrue: anIRInstruction ifFalse: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrueIfFalse new withBlock: anIRInstruction withBlock: anotherIRInstruction",
 referencedClasses: ["IRInlinedIfTrueIfFalse"],
 //>>excludeEnd("ide");
-messageSends: ["inlinedSend:with:with:", "new"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -1859,7 +1859,7 @@ $globals.IRSendInliner);
 
 $core.addMethod(
 $core.method({
-selector: "inlinedSend:with:",
+selector: "inlinedSend:withBlock:",
 protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction){
 var self=this;
@@ -1899,12 +1899,12 @@ $ctx1.sendIdx["internalVariables"]=1;
 $recv($6)._addAll_($recv(inlinedSend)._internalVariables());
 return inlinedSend;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},$globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSend:withBlock:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["inlinedSend", "anIRInstruction"],
-source: "inlinedSend: inlinedSend with: anIRInstruction\x0a\x09| inlinedClosure |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09inlinedClosure := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x0a\x09^ inlinedSend",
+source: "inlinedSend: inlinedSend withBlock: anIRInstruction\x0a\x09| inlinedClosure |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09inlinedClosure := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x0a\x09^ inlinedSend",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isClosure", "inliningError:", "=", "size", "arguments", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
@@ -1913,7 +1913,7 @@ $globals.IRSendInliner);
 
 $core.addMethod(
 $core.method({
-selector: "inlinedSend:with:with:",
+selector: "inlinedSend:withBlock:withBlock:",
 protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
@@ -1972,12 +1972,12 @@ $ctx1.sendIdx["internalVariables"]=1;
 $recv($8)._addAll_($recv(inlinedSend)._internalVariables());
 return inlinedSend;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},$globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSend:withBlock:withBlock:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},$globals.IRSendInliner)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["inlinedSend", "anIRInstruction", "anotherIRInstruction"],
-source: "inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x09\x09\x0a\x09^ inlinedSend",
+source: "inlinedSend: inlinedSend withBlock: anIRInstruction withBlock: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x09\x09\x0a\x09^ inlinedSend",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifFalse:", "isClosure", "inliningError:", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
