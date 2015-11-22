@@ -279,9 +279,11 @@ visitIRInlinedIfFalse: anIRInlinedIfFalse
 visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
 	self stream
 		nextPutIfElse: [
-			self stream nextPutAll: '(', anIRInlinedIfNilIfNotNil receiverInternalVariableName, ' = '.
+			| recvVarName |
+			recvVarName := anIRInlinedIfNilIfNotNil receiverInternalVariableName.
+			self stream nextPutAll: '(', recvVarName, ' = '.
 			self visit: anIRInlinedIfNilIfNotNil instructions first.
-			self stream nextPutAll: ') == null || $receiver.isNil' ]
+			self stream nextPutAll: ') == null || ', recvVarName, '.isNil' ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]
 !

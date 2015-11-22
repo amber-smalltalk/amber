@@ -1015,20 +1015,27 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$4,$7,$6;
+var $1,$2,$4,$3,$6,$5,$7,$8,$10,$9;
 $1=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["stream"]=1;
 //>>excludeEnd("ctx");
 $recv($1)._nextPutIfElse_with_with_((function(){
+var recvVarName;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
+recvVarName=$recv(anIRInlinedIfNilIfNotNil)._receiverInternalVariableName();
+recvVarName;
 $2=self._stream();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["stream"]=2;
 //>>excludeEnd("ctx");
-$3=$recv("(".__comma($recv(anIRInlinedIfNilIfNotNil)._receiverInternalVariableName())).__comma(" = ");
+$4="(".__comma(recvVarName);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+$3=$recv($4).__comma(" = ");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx[","]=1;
 //>>excludeEnd("ctx");
@@ -1036,29 +1043,34 @@ $recv($2)._nextPutAll_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["nextPutAll:"]=1;
 //>>excludeEnd("ctx");
-$5=$recv(anIRInlinedIfNilIfNotNil)._instructions();
+$6=$recv(anIRInlinedIfNilIfNotNil)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
-$4=$recv($5)._first();
-self._visit_($4);
+$5=$recv($6)._first();
+self._visit_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["visit:"]=1;
 //>>excludeEnd("ctx");
-return $recv(self._stream())._nextPutAll_(") == null || $receiver.isNil");
+$7=self._stream();
+$8=$recv(") == null || ".__comma(recvVarName)).__comma(".isNil");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+$ctx2.sendIdx[","]=3;
+//>>excludeEnd("ctx");
+return $recv($7)._nextPutAll_($8);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({recvVarName:recvVarName},$ctx1,1)});
 //>>excludeEnd("ctx");
 }),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$7=$recv(anIRInlinedIfNilIfNotNil)._instructions();
+$10=$recv(anIRInlinedIfNilIfNotNil)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["instructions"]=2;
 //>>excludeEnd("ctx");
-$6=$recv($7)._second();
-return self._visit_($6);
+$9=$recv($10)._second();
+return self._visit_($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["visit:"]=2;
 //>>excludeEnd("ctx");
@@ -1081,10 +1093,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRInlinedIfNilIfNotNil"],
-source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '(', anIRInlinedIfNilIfNotNil receiverInternalVariableName, ' = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == null || $receiver.isNil' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
+source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09| recvVarName |\x0a\x09\x09\x09recvVarName := anIRInlinedIfNilIfNotNil receiverInternalVariableName.\x0a\x09\x09\x09self stream nextPutAll: '(', recvVarName, ' = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == null || ', recvVarName, '.isNil' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", ",", "receiverInternalVariableName", "visit:", "first", "instructions", "second", "third"]
+messageSends: ["nextPutIfElse:with:with:", "stream", "receiverInternalVariableName", "nextPutAll:", ",", "visit:", "first", "instructions", "second", "third"]
 }),
 $globals.IRInliningJSTranslator);
 
