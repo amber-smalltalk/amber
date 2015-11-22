@@ -273,19 +273,19 @@ visitIRInlinedIfFalse: anIRInlinedIfFalse
 		self stream nextPutAll: '!!$core.assert('.
 		self visit: anIRInlinedIfFalse instructions first.
 		self stream nextPutAll: ')' ]
-		with: [ self visit: anIRInlinedIfFalse instructions last ]
+		then: [ self visit: anIRInlinedIfFalse instructions last ]
 !
 
 visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
 	self stream
-		nextPutIfElse: [
+		nextPutIf: [
 			| recvVarName |
 			recvVarName := anIRInlinedIfNilIfNotNil receiverInternalVariableName.
 			self stream nextPutAll: '(', recvVarName, ' = '.
 			self visit: anIRInlinedIfNilIfNotNil instructions first.
 			self stream nextPutAll: ') == null || ', recvVarName, '.isNil' ]
-		with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
-		with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]
+		then: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
+		else: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]
 !
 
 visitIRInlinedIfTrue: anIRInlinedIfTrue
@@ -293,17 +293,17 @@ visitIRInlinedIfTrue: anIRInlinedIfTrue
 		self stream nextPutAll: '$core.assert('.
 		self visit: anIRInlinedIfTrue instructions first.
 		self stream nextPutAll: ')' ]
-		with: [ self visit: anIRInlinedIfTrue instructions last ]
+		then: [ self visit: anIRInlinedIfTrue instructions last ]
 !
 
 visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse
 	self stream
-		nextPutIfElse: [
+		nextPutIf: [
 			self stream nextPutAll: '$core.assert('.
 			self visit: anIRInlinedIfTrueIfFalse instructions first.
 			self stream nextPutAll: ')' ]
-		with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]
-		with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]
+		then: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]
+		else: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]
 !
 
 visitIRInlinedNonLocalReturn: anIRInlinedReturn

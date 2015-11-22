@@ -1223,7 +1223,7 @@ nextPutFunctionWith: aBlock arguments: anArray
 	stream lf; nextPutAll: '}'
 !
 
-nextPutIf: aBlock with: anotherBlock
+nextPutIf: aBlock then: anotherBlock
 	stream nextPutAll: 'if('.
 	aBlock value.
 	stream nextPutAll: '){'; lf.
@@ -1231,7 +1231,7 @@ nextPutIf: aBlock with: anotherBlock
 	stream nextPutAll: '}'
 !
 
-nextPutIfElse: aBlock with: ifBlock with: elseBlock
+nextPutIf: aBlock then: ifBlock else: elseBlock
 	stream nextPutAll: 'if('.
 	aBlock value.
 	stream nextPutAll: '){'; lf.
