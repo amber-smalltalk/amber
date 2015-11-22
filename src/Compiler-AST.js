@@ -2619,21 +2619,20 @@ function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$4,$3,$receiver;
+var $1,$3,$2,$receiver;
 $1=$recv($SendNode())._new();
 $recv($1)._position_(self._position());
 $recv($1)._source_(self._source());
-$2=$1;
-$4=self._receiver();
+$3=self._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
-if(($receiver = $4) == null || $receiver.isNil){
-$3=anObject;
+if(($receiver = $3) == null || $receiver.isNil){
+$2=anObject;
 } else {
-$3=$recv(self._receiver())._valueForReceiver_(anObject);
+$2=$recv(self._receiver())._valueForReceiver_(anObject);
 };
-$recv($2)._receiver_($3);
+$recv($1)._receiver_($2);
 $recv($1)._selector_(self._selector());
 $recv($1)._arguments_(self._arguments());
 return $recv($1)._yourself();

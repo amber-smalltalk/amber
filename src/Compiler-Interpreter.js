@@ -1320,20 +1320,19 @@ function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNode
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$7,$6,$5,$receiver;
+var $1,$2,$3,$6,$5,$4,$receiver;
 $1=$recv($ASTPCNodeVisitor())._new();
 $recv($1)._selector_(self._evaluatedSelector());
 $recv($1)._context_(self);
-$2=$1;
-$3=self._ast();
+$2=self._ast();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["ast"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._visit_($3);
+$recv($1)._visit_($2);
 currentNode=$recv($1)._currentNode();
-$4=$recv(self._ast())._sequenceNode();
-if(($receiver = $4) == null || $receiver.isNil){
-$4;
+$3=$recv(self._ast())._sequenceNode();
+if(($receiver = $3) == null || $receiver.isNil){
+$3;
 } else {
 var sequence;
 sequence=$receiver;
@@ -1351,13 +1350,13 @@ $ctx1.sendIdx["do:"]=1;
 //>>excludeEnd("ctx");
 };
 $recv(anInterpreter)._node_(currentNode);
-$7=self._innerContext();
+$6=self._innerContext();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["innerContext"]=1;
 //>>excludeEnd("ctx");
-$6=$recv($7)._arguments();
-$5=$recv($6)._reversed();
-$recv($5)._do_((function(each){
+$5=$recv($6)._arguments();
+$4=$recv($5)._reversed();
+$recv($4)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");

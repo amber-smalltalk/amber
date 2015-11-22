@@ -1398,6 +1398,24 @@ $globals.AliasVar.comment="I am an internally defined variable by the compiler";
 //>>excludeEnd("ide");
 $core.addMethod(
 $core.method({
+selector: "isImmutable",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isImmutable\x0a\x09^ true",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.AliasVar);
+
+$core.addMethod(
+$core.method({
 selector: "node",
 protocol: 'accessing',
 fn: function (){
@@ -1787,7 +1805,7 @@ function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof U
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4;
+var $1,$2,$3;
 identifier=$recv(aNode)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=1;
@@ -1803,12 +1821,11 @@ return self._isVariableUndefined_inPackage_(identifier,self._thePackage());
 }));
 if($core.assert($1)){
 $2=$recv($UnknownVariableError())._new();
-$3=$2;
-$4=$recv(aNode)._value();
+$3=$recv(aNode)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=2;
 //>>excludeEnd("ctx");
-$recv($3)._variableName_($4);
+$recv($2)._variableName_($3);
 $recv($2)._signal();
 } else {
 $recv($recv($recv(self["@currentScope"])._methodScope())._unknownVariables())._add_($recv(aNode)._value());
@@ -2608,7 +2625,7 @@ function $UnknownVar(){return $globals.UnknownVar||(typeof UnknownVar=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$3,$2,$4,$5,$6,$7,$8,$9,$10,$receiver;
+var $1,$3,$2,$4,$5,$6,$7,$8,$9,$receiver;
 binding=$recv(self["@currentScope"])._lookupVariable_(aNode);
 $1=binding;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -2622,32 +2639,31 @@ $4=$recv($ClassRefVar())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$5=$4;
-$6=$recv(aNode)._value();
+$5=$recv(aNode)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=2;
 //>>excludeEnd("ctx");
-$recv($5)._name_($6);
+$recv($4)._name_($5);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name:"]=1;
 //>>excludeEnd("ctx");
-$7=$recv($4)._yourself();
+$6=$recv($4)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-binding=$7;
+binding=$6;
 binding;
-$8=self._classReferences();
-$9=$recv(aNode)._value();
+$7=self._classReferences();
+$8=$recv(aNode)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=3;
 //>>excludeEnd("ctx");
-$recv($8)._add_($9);
+$recv($7)._add_($8);
 } else {
 self._errorUnknownVariable_(aNode);
-$10=$recv($UnknownVar())._new();
-$recv($10)._name_($recv(aNode)._value());
-binding=$recv($10)._yourself();
+$9=$recv($UnknownVar())._new();
+$recv($9)._name_($recv(aNode)._value());
+binding=$recv($9)._yourself();
 binding;
 };
 } else {

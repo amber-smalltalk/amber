@@ -297,6 +297,12 @@ node: aNode
 	node := aNode
 ! !
 
+!AliasVar methodsFor: 'testing'!
+
+isImmutable
+	^ true
+! !
+
 ScopeVar subclass: #ArgVar
 	instanceVariableNames: ''
 	package: 'Compiler-Semantic'!

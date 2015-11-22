@@ -91,17 +91,16 @@ function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3;
+var $1,$2;
 $1=$recv($ASTPCNodeVisitor())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$2=$1;
-$3=$recv($recv($AIContext())._new())._yourself();
+$2=$recv($recv($AIContext())._new())._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._context_($3);
+$recv($1)._context_($2);
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},$globals.ASTPCNodeVisitorTest)});
@@ -127,18 +126,17 @@ function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3;
+var $1,$2;
 $1=$recv($ASTPCNodeVisitor())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
 $recv($1)._selector_(aString);
-$2=$1;
-$3=$recv($recv($AIContext())._new())._yourself();
+$2=$recv($recv($AIContext())._new())._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._context_($3);
+$recv($1)._context_($2);
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForSelector:",{aString:aString},$globals.ASTPCNodeVisitorTest)});
@@ -2903,18 +2901,17 @@ function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$4,$5,$3;
+var $1,$3,$4,$2;
 $1=$recv($AISemanticAnalyzer())._on_($Object());
-$2=$1;
-$4=$recv($AIContext())._new();
-$recv($4)._defineLocal_("local");
-$recv($4)._localAt_put_("local",(3));
-$5=$recv($4)._yourself();
+$3=$recv($AIContext())._new();
+$recv($3)._defineLocal_("local");
+$recv($3)._localAt_put_("local",(3));
+$4=$recv($3)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-$3=$5;
-$recv($2)._context_($3);
+$2=$4;
+$recv($1)._context_($2);
 self["@analyzer"]=$recv($1)._yourself();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
