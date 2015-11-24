@@ -3778,17 +3778,31 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
+$recv(self._stream())._nextPutAssignLhs_rhs_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
 $2=$recv(anIRAssignment)._instructions();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["instructions"]=1;
+$ctx2.sendIdx["instructions"]=1;
 //>>excludeEnd("ctx");
 $1=$recv($2)._first();
-self._visit_($1);
+return self._visit_($1);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["visit:"]=1;
+$ctx2.sendIdx["visit:"]=1;
 //>>excludeEnd("ctx");
-$recv(self._stream())._nextPutAssignment();
-self._visit_($recv($recv(anIRAssignment)._instructions())._last());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._visit_($recv($recv(anIRAssignment)._instructions())._last());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRJSTranslator)});
@@ -3796,10 +3810,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anIRAssignment"],
-source: "visitIRAssignment: anIRAssignment\x0a\x09self visit: anIRAssignment instructions first.\x0a\x09self stream nextPutAssignment.\x0a\x09self visit: anIRAssignment instructions last.",
+source: "visitIRAssignment: anIRAssignment\x0a\x09self stream\x0a\x09\x09nextPutAssignLhs: [self visit: anIRAssignment instructions first]\x0a\x09\x09rhs: [self visit: anIRAssignment instructions last].",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["visit:", "first", "instructions", "nextPutAssignment", "stream", "last"]
+messageSends: ["nextPutAssignLhs:rhs:", "stream", "visit:", "first", "instructions", "last"]
 }),
 $globals.IRJSTranslator);
 
@@ -4807,25 +4821,30 @@ $globals.JSStream);
 
 $core.addMethod(
 $core.method({
-selector: "nextPutAssignment",
+selector: "nextPutAssignLhs:rhs:",
 protocol: 'streaming',
-fn: function (){
+fn: function (aBlock,anotherBlock){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
+$recv(aBlock)._value();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["value"]=1;
+//>>excludeEnd("ctx");
 $recv(self["@stream"])._nextPutAll_("=");
+$recv(anotherBlock)._value();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutAssignment",{},$globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutAssignLhs:rhs:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.JSStream)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextPutAssignment\x0a\x09stream nextPutAll: '='",
+args: ["aBlock", "anotherBlock"],
+source: "nextPutAssignLhs: aBlock rhs: anotherBlock\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '='.\x0a\x09anotherBlock value",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutAll:"]
+messageSends: ["value", "nextPutAll:"]
 }),
 $globals.JSStream);
 

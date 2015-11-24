@@ -941,9 +941,9 @@ initialize
 !IRJSTranslator methodsFor: 'visiting'!
 
 visitIRAssignment: anIRAssignment
-	self visit: anIRAssignment instructions first.
-	self stream nextPutAssignment.
-	self visit: anIRAssignment instructions last.
+	self stream
+		nextPutAssignLhs: [self visit: anIRAssignment instructions first]
+		rhs: [self visit: anIRAssignment instructions last].
 !
 
 visitIRClosure: anIRClosure
@@ -1113,8 +1113,10 @@ nextPutAll: aString
 	stream nextPutAll: aString
 !
 
-nextPutAssignment
-	stream nextPutAll: '='
+nextPutAssignLhs: aBlock rhs: anotherBlock
+	aBlock value.
+	stream nextPutAll: '='.
+	anotherBlock value
 !
 
 nextPutBlockContextFor: anIRClosure during: aBlock
