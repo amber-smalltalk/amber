@@ -5731,30 +5731,6 @@ $globals.JSStream);
 
 $core.addMethod(
 $core.method({
-selector: "nextPutReturn",
-protocol: 'streaming',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv(self["@stream"])._nextPutAll_("return ");
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextPutReturn",{},$globals.JSStream)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextPutReturn\x0a\x09stream nextPutAll: 'return '",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["nextPutAll:"]
-}),
-$globals.JSStream);
-
-$core.addMethod(
-$core.method({
 selector: "nextPutReturnWith:",
 protocol: 'streaming',
 fn: function (aBlock){
@@ -5762,7 +5738,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._nextPutReturn();
+$recv(self["@stream"])._nextPutAll_("return ");
 $recv(aBlock)._value();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5771,10 +5747,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "nextPutReturnWith: aBlock\x0a\x09self nextPutReturn.\x0a\x09aBlock value",
+source: "nextPutReturnWith: aBlock\x0a\x09stream nextPutAll: 'return '.\x0a\x09aBlock value",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nextPutReturn", "value"]
+messageSends: ["nextPutAll:", "value"]
 }),
 $globals.JSStream);
 

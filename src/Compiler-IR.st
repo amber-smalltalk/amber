@@ -1278,12 +1278,8 @@ nextPutNonLocalReturnWith: aBlock
 	stream nextPutAll: ']'
 !
 
-nextPutReturn
-	stream nextPutAll: 'return '
-!
-
 nextPutReturnWith: aBlock
-	self nextPutReturn.
+	stream nextPutAll: 'return '.
 	aBlock value
 !
 
