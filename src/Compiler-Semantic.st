@@ -585,9 +585,7 @@ visitReturnNode: aNode
 visitSendNode: aNode
 
 	aNode receiver value = 'super'
-		ifTrue: [
-			aNode superSend: true.
-			aNode receiver value: 'self' ]
+		ifTrue: [ aNode superSend: true ]
 		
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
 			aNode shouldBeInlined: true.

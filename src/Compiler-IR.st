@@ -230,7 +230,6 @@ visitSendNode: aNode
 	send
 		selector: aNode selector;
 		index: aNode index.
-	aNode superSend ifTrue: [ send classSend: self theClass superclass ].
 	
 	all := self aliasTemporally: { aNode receiver }, aNode arguments.
 	receiver := all first.
@@ -660,20 +659,12 @@ accept: aVisitor
 ! !
 
 IRInstruction subclass: #IRSend
-	instanceVariableNames: 'selector classSend index'
+	instanceVariableNames: 'selector index'
 	package: 'Compiler-IR'!
 !IRSend commentStamp!
 I am a message send instruction.!
 
 !IRSend methodsFor: 'accessing'!
-
-classSend
-	^ classSend
-!
-
-classSend: aClass
-	classSend := aClass
-!
 
 index
 	^ index
@@ -683,22 +674,20 @@ index: anInteger
 	index := anInteger
 !
 
+isSuperSend
+	| receiver |
+	receiver := self instructions first.
+	^ receiver isVariable and: [
+		receiver variable isPseudoVar and: [
+			receiver variable name = 'super' ] ]
+!
+
 selector
 	^ selector
 !
 
 selector: aString
 	selector := aString
-! !
-
-!IRSend methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-
-	classSend := false.
-	index := nil.
-	selector := nil
 ! !
 
 !IRSend methodsFor: 'testing'!
@@ -1005,9 +994,9 @@ visitIRSend: anIRSend
 	| sends superclass |
 	sends := (anIRSend method sendIndexes at: anIRSend selector) size.
 	
-	anIRSend classSend = false
-		ifTrue: [ self visitSend: anIRSend ]
-		ifFalse: [ self visitSuperSend: anIRSend ].
+	anIRSend isSuperSend
+		ifTrue: [ self visitSuperSend: anIRSend ]
+		ifFalse: [ self visitSend: anIRSend ].
 		
 	(sends > 1 and: [ anIRSend index < sends ])
 		ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]
@@ -1073,9 +1062,7 @@ visitSuperSend: anIRSend
 		nextPutAll: '(', self currentClass asJavascript;
 		nextPutAll: '.superclass||$boot.dnu).fn.prototype.';
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
-		nextPutAll: '$recv('.
-	self visit: anIRSend instructions first.
-	self stream nextPutAll: '), '.
+		nextPutAll: '$recv(self), '.
 	self
 		visitInstructionList: anIRSend instructions allButFirst
 		enclosedBetween: '[' and: ']'.
