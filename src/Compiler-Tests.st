@@ -506,13 +506,6 @@ should: aString receiver: anObject return: aResult
 	^ self 
 		assert: (self interpret: aString receiver: receiver withArguments: #{})
 		equals: aResult
-!
-
-should: aString return: anObject
-	^ self 
-		should: aString
-		receiver: receiver
-		return: anObject
 ! !
 
 ASTInterpreterTest subclass: #ASTDebuggerTest

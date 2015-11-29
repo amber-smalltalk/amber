@@ -1865,29 +1865,6 @@ messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
 }),
 $globals.ASTInterpreterTest);
 
-$core.addMethod(
-$core.method({
-selector: "should:return:",
-protocol: 'testing',
-fn: function (aString,anObject){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return self._should_receiver_return_(aString,self["@receiver"],anObject);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},$globals.ASTInterpreterTest)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aString", "anObject"],
-source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString\x0a\x09\x09receiver: receiver\x0a\x09\x09return: anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["should:receiver:return:"]
-}),
-$globals.ASTInterpreterTest);
-
 
 
 $core.addClass('ASTDebuggerTest', $globals.ASTInterpreterTest, [], 'Compiler-Tests');
