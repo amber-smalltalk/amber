@@ -2262,55 +2262,6 @@ $globals.SemanticAnalyzer);
 
 $core.addMethod(
 $core.method({
-selector: "visitCascadeNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $3,$2,$1;
-(
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
-//>>excludeEnd("ctx");
-($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitCascadeNode_.apply($recv(self), [aNode]));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = false;
-//>>excludeEnd("ctx");;
-$3=$recv(aNode)._nodes();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nodes"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._first();
-$1=$recv($2)._superSend();
-if($core.assert($1)){
-$recv($recv(aNode)._nodes())._do_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(each)._superSend_(true);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
-//>>excludeEnd("ctx");
-}));
-};
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09super visitCascadeNode: aNode.\x0a\x09aNode nodes first superSend ifTrue: [\x0a\x09\x09aNode nodes do: [ :each | each superSend: true ] ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["visitCascadeNode:", "ifTrue:", "superSend", "first", "nodes", "do:", "superSend:"]
-}),
-$globals.SemanticAnalyzer);
-
-$core.addMethod(
-$core.method({
 selector: "visitMethodNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -2425,9 +2376,7 @@ $ctx1.sendIdx["receiver"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._value();
 $1=$recv($2).__eq("super");
-if($core.assert($1)){
-$recv(aNode)._superSend_(true);
-} else {
+if(!$core.assert($1)){
 $5=$recv($IRSendInliner())._inlinedSelectors();
 $6=$recv(aNode)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2460,7 +2409,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return $recv($Set())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)});
 //>>excludeEnd("ctx");
 }));
 $11=self._messageSends();
@@ -2492,10 +2441,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifTrue: [ aNode superSend: true ]\x0a\x09\x09\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver ifNotNil: [ :receiver |\x0a\x09\x09\x09\x09receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver ifNotNil: [ :receiver |\x0a\x09\x09\x09\x09receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
 referencedClasses: ["IRSendInliner", "Set"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "ifTrue:", "includes:", "inlinedSelectors", "selector", "shouldBeInlined:", "ifNotNil:", "shouldBeAliased:", "at:ifAbsentPut:", "messageSends", "new", "add:", "at:", "index:", "size", "visitSendNode:"]
+messageSends: ["ifFalse:", "=", "value", "receiver", "ifTrue:", "includes:", "inlinedSelectors", "selector", "shouldBeInlined:", "ifNotNil:", "shouldBeAliased:", "at:ifAbsentPut:", "messageSends", "new", "add:", "at:", "index:", "size", "visitSendNode:"]
 }),
 $globals.SemanticAnalyzer);
 

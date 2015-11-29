@@ -549,12 +549,6 @@ visitBlockNode: aNode
 	self popScope
 !
 
-visitCascadeNode: aNode
-	super visitCascadeNode: aNode.
-	aNode nodes first superSend ifTrue: [
-		aNode nodes do: [ :each | each superSend: true ] ]
-!
-
 visitMethodNode: aNode
 	self pushScope: self newMethodScope.
 	aNode scope: currentScope.
@@ -585,8 +579,6 @@ visitReturnNode: aNode
 visitSendNode: aNode
 
 	aNode receiver value = 'super'
-		ifTrue: [ aNode superSend: true ]
-		
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
 			aNode shouldBeInlined: true.
 			aNode receiver ifNotNil: [ :receiver |

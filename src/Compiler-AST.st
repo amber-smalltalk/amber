@@ -489,7 +489,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #SendNode
-	instanceVariableNames: 'selector arguments receiver superSend index'
+	instanceVariableNames: 'selector arguments receiver index'
 	package: 'Compiler-AST'!
 !SendNode commentStamp!
 I represent an message send node.!
@@ -556,11 +556,7 @@ selector: aString
 !
 
 superSend
-	^ superSend ifNil: [ false ]
-!
-
-superSend: aBoolean
-	superSend := aBoolean
+	^ self receiver value = 'super'
 ! !
 
 !SendNode methodsFor: 'building'!

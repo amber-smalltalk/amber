@@ -2058,7 +2058,7 @@ $globals.ReturnNode);
 
 
 
-$core.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
+$core.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'index'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SendNode.comment="I represent an message send node.";
 //>>excludeEnd("ide");
@@ -2533,42 +2533,17 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$receiver;
-$1=self["@superSend"];
-if(($receiver = $1) == null || $receiver.isNil){
-return false;
-} else {
-return $1;
-};
+return $recv($recv(self._receiver())._value()).__eq("super");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"superSend",{},$globals.SendNode)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "superSend\x0a\x09^ superSend ifNil: [ false ]",
+source: "superSend\x0a\x09^ self receiver value = 'super'",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:"]
-}),
-$globals.SendNode);
-
-$core.addMethod(
-$core.method({
-selector: "superSend:",
-protocol: 'accessing',
-fn: function (aBoolean){
-var self=this;
-self["@superSend"]=aBoolean;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBoolean"],
-source: "superSend: aBoolean\x0a\x09superSend := aBoolean",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
+messageSends: ["=", "value", "receiver"]
 }),
 $globals.SendNode);
 
