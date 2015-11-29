@@ -959,19 +959,15 @@ visitIRClosure: anIRClosure
 !
 
 visitIRDynamicArray: anIRDynamicArray
-	self stream nextPutAll: '['.
-	anIRDynamicArray instructions
-		do: [ :each | self visit: each ]
-		separatedBy: [ self stream nextPutAll: ',' ].
-	stream nextPutAll: ']'
+	self
+		visitInstructionList: anIRDynamicArray instructions
+		enclosedBetween: '[' and: ']'
 !
 
 visitIRDynamicDictionary: anIRDynamicDictionary
-	self stream nextPutAll: '$globals.HashedCollection._newFromPairs_(['.
-		anIRDynamicDictionary instructions
-			do: [ :each | self visit: each ]
-			separatedBy: [ self stream nextPutAll: ',' ].
-	self stream nextPutAll: '])'
+	self
+		visitInstructionList: anIRDynamicDictionary instructions
+		enclosedBetween: '$globals.HashedCollection._newFromPairs_([' and: '])'
 !
 
 visitIRMethod: anIRMethod
@@ -1044,6 +1040,14 @@ visitIRVerbatim: anIRVerbatim
 		self stream nextPutAll: anIRVerbatim source ]
 !
 
+visitInstructionList: anArray enclosedBetween: aString and: anotherString
+	self stream nextPutAll: aString.
+	anArray
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	stream nextPutAll: anotherString
+!
+
 visitReceiver: anIRInstruction
 	anIRInstruction needsBoxingAsReceiver ifFalse: [ ^ self visit: anIRInstruction ].
 	
@@ -1054,11 +1058,10 @@ visitReceiver: anIRInstruction
 
 visitSend: anIRSend
 	self visitReceiver: anIRSend instructions first.
-	self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName, '('.
-	anIRSend instructions allButFirst
-		do: [ :each | self visit: each ]
-		separatedBy: [ self stream nextPutAll: ',' ].
-	self stream nextPutAll: ')'
+	self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName.
+	self
+		visitInstructionList: anIRSend instructions allButFirst
+		enclosedBetween: '(' and: ')'
 !
 
 visitSuperSend: anIRSend
@@ -1072,12 +1075,12 @@ visitSuperSend: anIRSend
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
 		nextPutAll: '$recv('.
 	self visit: anIRSend instructions first.
-	self stream nextPutAll: '), ['.
-	anIRSend instructions allButFirst
-		do: [ :each | self visit: each ]
-		separatedBy: [ self stream nextPutAll: ',' ].
+	self stream nextPutAll: '), '.
+	self
+		visitInstructionList: anIRSend instructions allButFirst
+		enclosedBetween: '[' and: ']'.
 	self stream 
-		nextPutAll: ']));'; lf;
+		nextPutAll: '));'; lf;
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
 		nextPutAll: anIRSend scope alias, '.supercall = false;'; lf;
 		nextPutAll: '//>>excludeEnd("ctx");'
