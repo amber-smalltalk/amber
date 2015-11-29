@@ -1954,24 +1954,6 @@ messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
 }),
 $globals.ASTInterpreterTest);
 
-$core.addMethod(
-$core.method({
-selector: "testRootSuperSend",
-protocol: 'tests',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "testRootSuperSend\x0a\x09\x22TODO make this test work for ASTInterpreter\x22",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ASTInterpreterTest);
-
 
 
 $core.addClass('ASTDebuggerTest', $globals.ASTInterpreterTest, [], 'Compiler-Tests');

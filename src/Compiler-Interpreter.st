@@ -688,7 +688,7 @@ messageFromSendNode: aSendNode arguments: aCollection
 
 messageNotUnderstood: aMessage receiver: anObject
 	MessageNotUnderstood new
-		meesage: aMessage;
+		message: aMessage;
 		receiver: anObject;
 		signal
 !

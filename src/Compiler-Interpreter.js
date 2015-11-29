@@ -2389,7 +2389,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv($MessageNotUnderstood())._new();
-$recv($1)._meesage_(aMessage);
+$recv($1)._message_(aMessage);
 $recv($1)._receiver_(anObject);
 $recv($1)._signal();
 return self;
@@ -2399,10 +2399,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aMessage", "anObject"],
-source: "messageNotUnderstood: aMessage receiver: anObject\x0a\x09MessageNotUnderstood new\x0a\x09\x09meesage: aMessage;\x0a\x09\x09receiver: anObject;\x0a\x09\x09signal",
+source: "messageNotUnderstood: aMessage receiver: anObject\x0a\x09MessageNotUnderstood new\x0a\x09\x09message: aMessage;\x0a\x09\x09receiver: anObject;\x0a\x09\x09signal",
 referencedClasses: ["MessageNotUnderstood"],
 //>>excludeEnd("ide");
-messageSends: ["meesage:", "new", "receiver:", "signal"]
+messageSends: ["message:", "new", "receiver:", "signal"]
 }),
 $globals.ASTInterpreter);
 

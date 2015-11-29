@@ -525,12 +525,6 @@ should: aString receiver: anObject return: aResult
 		equals: aResult
 ! !
 
-!ASTInterpreterTest methodsFor: 'tests'!
-
-testRootSuperSend
-	"TODO make this test work for ASTInterpreter"
-! !
-
 ASTInterpreterTest subclass: #ASTDebuggerTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
