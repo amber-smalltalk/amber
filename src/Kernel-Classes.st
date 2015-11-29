@@ -199,7 +199,7 @@ subclasses
 !
 
 superclass
-	<return self.superclass || nil>
+	<return self.superclass>
 !
 
 theMetaClass

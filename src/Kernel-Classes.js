@@ -1388,7 +1388,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self.superclass || nil;
+return self.superclass;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"superclass",{},$globals.Behavior)});
@@ -1396,7 +1396,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "superclass\x0a\x09<return self.superclass || nil>",
+source: "superclass\x0a\x09<return self.superclass>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
