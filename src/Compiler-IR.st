@@ -691,6 +691,16 @@ selector: aString
 	selector := aString
 ! !
 
+!IRSend methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+
+	classSend := false.
+	index := nil.
+	selector := nil
+! !
+
 !IRSend methodsFor: 'testing'!
 
 isSend
@@ -996,12 +1006,12 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
-	| sends |
+	| sends superclass |
 	sends := (anIRSend method sendIndexes at: anIRSend selector) size.
 	
-	anIRSend classSend
-		ifNil: [ self visitSend: anIRSend ]
-		ifNotNil: [ self visitSuperSend: anIRSend ].
+	anIRSend classSend = false
+		ifTrue: [ self visitSend: anIRSend ]
+		ifFalse: [ self visitSuperSend: anIRSend ].
 		
 	(sends > 1 and: [ anIRSend index < sends ])
 		ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]
@@ -1057,8 +1067,8 @@ visitSuperSend: anIRSend
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
 		nextPutAll: anIRSend scope alias, '.supercall = true, '; lf;
 		nextPutAll: '//>>excludeEnd("ctx");'; lf;
-		nextPutAll: self currentClass asJavascript;
-		nextPutAll: '.superclass.fn.prototype.';
+		nextPutAll: '(', self currentClass asJavascript;
+		nextPutAll: '.superclass||$boot.dnu).fn.prototype.';
 		nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';
 		nextPutAll: '$recv('.
 	self visit: anIRSend instructions first.

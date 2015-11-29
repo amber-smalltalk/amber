@@ -510,6 +510,69 @@ $globals.CodeGeneratorTest);
 
 $core.addMethod(
 $core.method({
+selector: "should:receiver:raise:",
+protocol: 'testing',
+fn: function (aString,anObject,anErrorClass){
+var self=this;
+var method,result;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$2,$3,$receiver;
+self["@receiver"]=anObject;
+$recv((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._should_raise_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx3) {
+//>>excludeEnd("ctx");
+$1=self._compiler();
+$2=$recv(anObject)._class();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx3.sendIdx["class"]=1;
+//>>excludeEnd("ctx");
+method=$recv($1)._install_forClass_protocol_(aString,$2,"tests");
+method;
+return $recv(self["@receiver"])._perform_($recv(method)._selector());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+//>>excludeEnd("ctx");
+}),anErrorClass);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._ensure_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$3=method;
+if(($receiver = $3) == null || $receiver.isNil){
+return $3;
+} else {
+return $recv($recv(anObject)._class())._removeCompiledMethod_(method);
+};
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"should:receiver:raise:",{aString:aString,anObject:anObject,anErrorClass:anErrorClass,method:method,result:result},$globals.CodeGeneratorTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aString", "anObject", "anErrorClass"],
+source: "should: aString receiver: anObject raise: anErrorClass\x0a\x09| method result |\x0a\x0a\x09receiver := anObject.\x0a\x09[ self should: [\x0a\x09\x09method := self compiler install: aString forClass: anObject class protocol: 'tests'.\x0a\x09\x09receiver perform: method selector ] raise: anErrorClass ]\x0a\x09ensure: [ method ifNotNil: [ anObject class removeCompiledMethod: method ] ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ensure:", "should:raise:", "install:forClass:protocol:", "compiler", "class", "perform:", "selector", "ifNotNil:", "removeCompiledMethod:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
 selector: "should:receiver:return:",
 protocol: 'testing',
 fn: function (aString,anObject,aResult){
@@ -1286,6 +1349,32 @@ $globals.CodeGeneratorTest);
 
 $core.addMethod(
 $core.method({
+selector: "testRootSuperSend",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $ProtoObject(){return $globals.ProtoObject||(typeof ProtoObject=="undefined"?nil:ProtoObject)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._should_receiver_raise_("foo ^ super class",$recv($ProtoObject())._new(),$MessageNotUnderstood());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testRootSuperSend",{},$globals.CodeGeneratorTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testRootSuperSend\x0a\x09self \x0a\x09\x09should: 'foo ^ super class' \x0a\x09\x09receiver: ProtoObject new\x0a\x09\x09raise: MessageNotUnderstood",
+referencedClasses: ["ProtoObject", "MessageNotUnderstood"],
+//>>excludeEnd("ide");
+messageSends: ["should:receiver:raise:", "new"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
 selector: "testSendReceiverAndArgumentsOrdered",
 protocol: 'tests',
 fn: function (){
@@ -1862,6 +1951,24 @@ source: "should: aString receiver: anObject return: aResult\x0a\x09receiver := a
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
+}),
+$globals.ASTInterpreterTest);
+
+$core.addMethod(
+$core.method({
+selector: "testRootSuperSend",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testRootSuperSend\x0a\x09\x22TODO make this test work for ASTInterpreter\x22",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
 $globals.ASTInterpreterTest);
 

@@ -157,6 +157,16 @@ tearDown
 
 !CodeGeneratorTest methodsFor: 'testing'!
 
+should: aString receiver: anObject raise: anErrorClass
+	| method result |
+
+	receiver := anObject.
+	[ self should: [
+		method := self compiler install: aString forClass: anObject class protocol: 'tests'.
+		receiver perform: method selector ] raise: anErrorClass ]
+	ensure: [ method ifNotNil: [ anObject class removeCompiledMethod: method ] ]
+!
+
 should: aString receiver: anObject return: aResult
 	| method result |
 
@@ -347,6 +357,13 @@ testPascalCaseGlobal
 	self should: 'foo ^NonExistent' return: nil
 !
 
+testRootSuperSend
+	self 
+		should: 'foo ^ super class' 
+		receiver: ProtoObject new
+		raise: MessageNotUnderstood
+!
+
 testSendReceiverAndArgumentsOrdered
 	self should: 'foo
 	| x |
@@ -506,6 +523,12 @@ should: aString receiver: anObject return: aResult
 	^ self 
 		assert: (self interpret: aString receiver: receiver withArguments: #{})
 		equals: aResult
+! !
+
+!ASTInterpreterTest methodsFor: 'tests'!
+
+testRootSuperSend
+	"TODO make this test work for ASTInterpreter"
 ! !
 
 ASTInterpreterTest subclass: #ASTDebuggerTest
