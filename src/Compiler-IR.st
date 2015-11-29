@@ -183,7 +183,6 @@ visitMethodNode: aNode
 		arguments: aNode arguments;
 		selector: aNode selector;
 		sendIndexes: aNode sendIndexes;
-		superSends: aNode superSends;
 		requiresSmalltalkContext: aNode requiresSmalltalkContext;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
@@ -486,7 +485,7 @@ accept: aVisitor
 ! !
 
 IRClosureInstruction subclass: #IRMethod
-	instanceVariableNames: 'theClass source selector classReferences sendIndexes superSends requiresSmalltalkContext internalVariables'
+	instanceVariableNames: 'theClass source selector classReferences sendIndexes requiresSmalltalkContext internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -539,14 +538,6 @@ source
 
 source: aString
 	source := aString
-!
-
-superSends
-	^ superSends
-!
-
-superSends: aCollection
-	superSends := aCollection
 !
 
 theClass

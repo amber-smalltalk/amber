@@ -1608,7 +1608,7 @@ $globals.JSStatementNode);
 
 
 
-$core.addClass('MethodNode', $globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes', 'superSends'], 'Compiler-AST');
+$core.addClass('MethodNode', $globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.MethodNode.comment="I represent an method node.\x0a\x0aA method node must be the root and only method node of a valid AST.";
 //>>excludeEnd("ide");
@@ -1943,43 +1943,6 @@ return self;
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
 source: "source: aString\x0a\x09source := aString",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.MethodNode);
-
-$core.addMethod(
-$core.method({
-selector: "superSends",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@superSends"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "superSends\x0a\x09^ superSends",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.MethodNode);
-
-$core.addMethod(
-$core.method({
-selector: "superSends:",
-protocol: 'accessing',
-fn: function (aCollection){
-var self=this;
-self["@superSends"]=aCollection;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aCollection"],
-source: "superSends: aCollection\x0a\x09superSends := aCollection",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

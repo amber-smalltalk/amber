@@ -1730,7 +1730,7 @@ $globals.UnknownVar);
 
 
 
-$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 //>>excludeEnd("ide");
@@ -2080,37 +2080,6 @@ $globals.SemanticAnalyzer);
 
 $core.addMethod(
 $core.method({
-selector: "superSends",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-$1=self["@superSends"];
-if(($receiver = $1) == null || $receiver.isNil){
-self["@superSends"]=$recv($Dictionary())._new();
-return self["@superSends"];
-} else {
-return $1;
-};
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"superSends",{},$globals.SemanticAnalyzer)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "superSends\x0a\x09^ superSends ifNil: [ superSends := Dictionary new ]",
-referencedClasses: ["Dictionary"],
-//>>excludeEnd("ide");
-messageSends: ["ifNil:", "new"]
-}),
-$globals.SemanticAnalyzer);
-
-$core.addMethod(
-$core.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
@@ -2384,7 +2353,6 @@ $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 $recv(aNode)._classReferences_(self._classReferences());
 $recv(aNode)._sendIndexes_(self._messageSends());
-$recv(aNode)._superSends_($recv(self._superSends())._keys());
 self._popScope();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2393,10 +2361,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [ :each |\x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode\x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09sendIndexes: self messageSends;\x0a\x09\x09superSends: self superSends keys.\x0a\x09self popScope",
+source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [ :each |\x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode\x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09sendIndexes: self messageSends.\x0a\x09self popScope",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "sendIndexes:", "messageSends", "superSends:", "keys", "superSends", "popScope"]
+messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "sendIndexes:", "messageSends", "popScope"]
 }),
 $globals.SemanticAnalyzer);
 
@@ -2445,12 +2413,12 @@ selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$1,$4,$5,$6,$8,$9,$7,$11,$12,$10,$13,$14,$15,$17,$18,$16,$receiver;
+var $3,$2,$1,$4,$6,$7,$5,$8,$9,$10,$12,$13,$11,$receiver;
 $3=$recv(aNode)._receiver();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["receiver"]=1;
@@ -2464,54 +2432,18 @@ $4=$recv(aNode)._receiver();
 $ctx1.sendIdx["receiver"]=2;
 //>>excludeEnd("ctx");
 $recv($4)._value_("self");
-$5=self._superSends();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["superSends"]=1;
-//>>excludeEnd("ctx");
-$6=$recv(aNode)._selector();
+} else {
+$6=$recv($IRSendInliner())._inlinedSelectors();
+$7=$recv(aNode)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["selector"]=1;
 //>>excludeEnd("ctx");
-$recv($5)._at_ifAbsentPut_($6,(function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv($Set())._new();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["new"]=1;
-//>>excludeEnd("ctx");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-//>>excludeEnd("ctx");
-}));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["at:ifAbsentPut:"]=1;
-//>>excludeEnd("ctx");
-$8=self._superSends();
-$9=$recv(aNode)._selector();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["selector"]=2;
-//>>excludeEnd("ctx");
-$7=$recv($8)._at_($9);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["at:"]=1;
-//>>excludeEnd("ctx");
-$recv($7)._add_(aNode);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["add:"]=1;
-//>>excludeEnd("ctx");
-} else {
-$11=$recv($IRSendInliner())._inlinedSelectors();
-$12=$recv(aNode)._selector();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["selector"]=3;
-//>>excludeEnd("ctx");
-$10=$recv($11)._includes_($12);
-if($core.assert($10)){
+$5=$recv($6)._includes_($7);
+if($core.assert($5)){
 $recv(aNode)._shouldBeInlined_(true);
-$13=$recv(aNode)._receiver();
-if(($receiver = $13) == null || $receiver.isNil){
-$13;
+$8=$recv(aNode)._receiver();
+if(($receiver = $8) == null || $receiver.isNil){
+$8;
 } else {
 var receiver;
 receiver=$receiver;
@@ -2519,36 +2451,36 @@ $recv(receiver)._shouldBeAliased_(true);
 };
 };
 };
-$14=self._messageSends();
+$9=self._messageSends();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["messageSends"]=1;
 //>>excludeEnd("ctx");
-$15=$recv(aNode)._selector();
+$10=$recv(aNode)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["selector"]=4;
+$ctx1.sendIdx["selector"]=2;
 //>>excludeEnd("ctx");
-$recv($14)._at_ifAbsentPut_($15,(function(){
+$recv($9)._at_ifAbsentPut_($10,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return $recv($Set())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
-$17=self._messageSends();
+$12=self._messageSends();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["messageSends"]=2;
 //>>excludeEnd("ctx");
-$18=$recv(aNode)._selector();
+$13=$recv(aNode)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["selector"]=5;
+$ctx1.sendIdx["selector"]=3;
 //>>excludeEnd("ctx");
-$16=$recv($17)._at_($18);
+$11=$recv($12)._at_($13);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["at:"]=2;
+$ctx1.sendIdx["at:"]=1;
 //>>excludeEnd("ctx");
-$recv($16)._add_(aNode);
+$recv($11)._add_(aNode);
 $recv(aNode)._index_($recv($recv(self._messageSends())._at_($recv(aNode)._selector()))._size());
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2565,10 +2497,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a\x09\x09\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver ifNotNil: [ :receiver |\x0a\x09\x09\x09\x09receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
-referencedClasses: ["Set", "IRSendInliner"],
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self' ]\x0a\x09\x09\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver ifNotNil: [ :receiver |\x0a\x09\x09\x09\x09receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
+referencedClasses: ["IRSendInliner", "Set"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "at:ifAbsentPut:", "superSends", "selector", "new", "add:", "at:", "ifTrue:", "includes:", "inlinedSelectors", "shouldBeInlined:", "ifNotNil:", "shouldBeAliased:", "messageSends", "index:", "size", "visitSendNode:"]
+messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "ifTrue:", "includes:", "inlinedSelectors", "selector", "shouldBeInlined:", "ifNotNil:", "shouldBeAliased:", "at:ifAbsentPut:", "messageSends", "new", "add:", "at:", "index:", "size", "visitSendNode:"]
 }),
 $globals.SemanticAnalyzer);
 

@@ -378,7 +378,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences sendIndexes superSends'
+	instanceVariableNames: 'selector arguments source scope classReferences sendIndexes'
 	package: 'Compiler-AST'!
 !MethodNode commentStamp!
 I represent an method node.
@@ -448,14 +448,6 @@ source
 
 source: aString
 	source := aString
-!
-
-superSends
-	^ superSends
-!
-
-superSends: aCollection
-	superSends := aCollection
 ! !
 
 !MethodNode methodsFor: 'visiting'!
