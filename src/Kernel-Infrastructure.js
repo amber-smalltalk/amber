@@ -205,7 +205,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply($recv(self), [aMessage]));
+($globals.JSObjectProxy.superclass||$boot.dnu).fn.prototype._doesNotUnderstand_.apply($recv(self), [aMessage]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -628,7 +628,7 @@ var $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ClassOrganizer.superclass.fn.prototype._addElement_.apply($recv(self), [aString]));
+($globals.ClassOrganizer.superclass||$boot.dnu).fn.prototype._addElement_.apply($recv(self), [aString]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -666,7 +666,7 @@ var $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ClassOrganizer.superclass.fn.prototype._removeElement_.apply($recv(self), [aString]));
+($globals.ClassOrganizer.superclass||$boot.dnu).fn.prototype._removeElement_.apply($recv(self), [aString]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1497,7 +1497,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.Package.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+($globals.Package.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2436,7 +2436,7 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.Setting.klass.superclass.fn.prototype._new.apply($recv(self), []));
+($globals.Setting.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3439,7 +3439,7 @@ self["@current"]=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply($recv(self), []));
+($globals.SmalltalkImage.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;

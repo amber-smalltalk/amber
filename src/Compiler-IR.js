@@ -1894,7 +1894,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRClosureInstruction.superclass.fn.prototype._scope_.apply($recv(self), [aScope]));
+($globals.IRClosureInstruction.superclass||$boot.dnu).fn.prototype._scope_.apply($recv(self), [aScope]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2759,7 +2759,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRSend.superclass.fn.prototype._initialize.apply($recv(self), []));
+($globals.IRSend.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3708,7 +3708,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRJSTranslator.superclass.fn.prototype._initialize.apply($recv(self), []));
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3852,7 +3852,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRClosure_.apply($recv(self), [anIRClosure]));
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRClosure_.apply($recv(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4085,7 +4085,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx5.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx5.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4101,7 +4101,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx4.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4149,7 +4149,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4188,7 +4188,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = false;
 //>>excludeEnd("ctx");;
@@ -4728,7 +4728,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.JSStream.superclass.fn.prototype._initialize.apply($recv(self), []));
+($globals.JSStream.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;

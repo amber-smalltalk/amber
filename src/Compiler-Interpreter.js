@@ -1545,7 +1545,7 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.AISemanticAnalyzer.superclass.fn.prototype._visitVariableNode_.apply($recv(self), [aNode]));
+($globals.AISemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitVariableNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2281,7 +2281,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ASTInterpreter.superclass.fn.prototype._initialize.apply($recv(self), []));
+($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -2928,7 +2928,7 @@ if(!$core.assert($1)){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ASTInterpreter.superclass.fn.prototype._visit_.apply($recv(self), [aNode]));
+($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._visit_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3018,7 +3018,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ASTInterpreter.superclass.fn.prototype._visitBlockSequenceNode_.apply($recv(self), [aNode]));
+($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._visitBlockSequenceNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -3598,7 +3598,7 @@ sendIndex=$recv($1)._sendIndexAt_($2);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
+($globals.ASTPCNodeVisitor.superclass||$boot.dnu).fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;

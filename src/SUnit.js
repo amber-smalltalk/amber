@@ -965,7 +965,7 @@ return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ReportingTestContext.superclass.fn.prototype._execute_.apply($recv(self), [aBlock]));
+($globals.ReportingTestContext.superclass||$boot.dnu).fn.prototype._execute_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1109,7 +1109,7 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply($recv(self), [aTestCase]));
+($globals.ReportingTestContext.klass.superclass||$boot.dnu).fn.prototype._testCase_.apply($recv(self), [aTestCase]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1263,7 +1263,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.TestResult.superclass.fn.prototype._initialize.apply($recv(self), []));
+($globals.TestResult.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1565,7 +1565,7 @@ var $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.TestSuiteRunner.superclass.fn.prototype._initialize.apply($recv(self), []));
+($globals.TestSuiteRunner.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
@@ -1730,7 +1730,7 @@ $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
 //>>excludeEnd("ctx");
-$globals.TestSuiteRunner.klass.superclass.fn.prototype._new.apply($recv(self), []));
+($globals.TestSuiteRunner.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
