@@ -677,9 +677,7 @@ index: anInteger
 isSuperSend
 	| receiver |
 	receiver := self instructions first.
-	^ receiver isVariable and: [
-		receiver variable isPseudoVar and: [
-			receiver variable name = 'super' ] ]
+	^ receiver isVariable and: [ receiver variable name = 'super' ]
 !
 
 selector

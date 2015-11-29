@@ -2733,44 +2733,26 @@ var receiver;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$2,$1;
 receiver=$recv(self._instructions())._first();
-$1=$recv($recv(receiver)._isVariable())._and_((function(){
+return $recv($recv(receiver)._isVariable())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$3=$recv(receiver)._variable();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.sendIdx["variable"]=1;
-//>>excludeEnd("ctx");
-$2=$recv($3)._isPseudoVar();
-return $recv($2)._and_((function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx3) {
-//>>excludeEnd("ctx");
 return $recv($recv($recv(receiver)._variable())._name()).__eq("super");
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
-//>>excludeEnd("ctx");
-}));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["and:"]=1;
-//>>excludeEnd("ctx");
-return $1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"isSuperSend",{receiver:receiver},$globals.IRSend)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "isSuperSend\x0a\x09| receiver |\x0a\x09receiver := self instructions first.\x0a\x09^ receiver isVariable and: [\x0a\x09\x09receiver variable isPseudoVar and: [\x0a\x09\x09\x09receiver variable name = 'super' ] ]",
+source: "isSuperSend\x0a\x09| receiver |\x0a\x09receiver := self instructions first.\x0a\x09^ receiver isVariable and: [ receiver variable name = 'super' ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["first", "instructions", "and:", "isVariable", "isPseudoVar", "variable", "=", "name"]
+messageSends: ["first", "instructions", "and:", "isVariable", "=", "name", "variable"]
 }),
 $globals.IRSend);
 
