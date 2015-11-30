@@ -824,7 +824,7 @@ visitSendNode: aNode
 	| receiver args message result |
 	
 	args := aNode arguments collect: [ :each | self pop ].
-	receiver := self pop.
+	receiver := self peek.
 	
 	message := self
 		messageFromSendNode: aNode
@@ -834,8 +834,7 @@ visitSendNode: aNode
 	
 	"For cascade sends, push the reciever if the send is not the last one"
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
-		ifTrue: [ self push: receiver ]
-		ifFalse: [ self push: result ]
+		ifFalse: [ self pop; push: result ]
 !
 
 visitSequenceNode: aNode

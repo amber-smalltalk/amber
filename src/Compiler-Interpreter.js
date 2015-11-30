@@ -3200,7 +3200,7 @@ $ctx2.sendIdx["pop"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-receiver=self._pop();
+receiver=self._peek();
 message=self._messageFromSendNode_arguments_(aNode,$recv(args)._reversed());
 result=self._sendMessage_to_superSend_(message,receiver,$recv(aNode)._superSend());
 $1=$recv($recv(aNode)._isCascadeSendNode())._and_((function(){
@@ -3212,12 +3212,8 @@ return $recv($recv(aNode)._isLastChild())._not();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-if($core.assert($1)){
-self._push_(receiver);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["push:"]=1;
-//>>excludeEnd("ctx");
-} else {
+if(!$core.assert($1)){
+self._pop();
 self._push_(result);
 };
 return self;
@@ -3227,10 +3223,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self pop.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifTrue: [ self push: receiver ]\x0a\x09\x09ifFalse: [ self push: result ]",
+source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self peek.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifFalse: [ self pop; push: result ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
+messageSends: ["collect:", "arguments", "pop", "peek", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
 }),
 $globals.ASTInterpreter);
 
