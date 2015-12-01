@@ -239,7 +239,7 @@ keywordSend    = receiver:binarySend tail:keywordMessage? {
 
 message        = binaryMessage / unaryMessage / keywordMessage
 
-cascade        = ws send:keywordSend messages:(ws ";" ws mess:message {return mess;})+ {
+cascade        = ws send:keywordSend & { return send._isSendNode(); } messages:(ws ";" ws mess:message {return mess;})+ {
                      var cascade = [];
                      cascade.push(send);
                      for(var i = 0; i < messages.length; i++) {
@@ -269,7 +269,7 @@ method         = pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequ
                  }
 
 
-associationSend     = send:binarySend & { return send._selector() === "->" } { return [send._receiver(), send._arguments()[0]]; }
+associationSend     = send:binarySend & { return send._isSendNode() && send._selector() === "->" } { return [send._receiver(), send._arguments()[0]]; }
 
 associationList = ws "." ws expression:associationSend {return expression;}
 associations    = first:associationSend others:associationList* { return first.concat.apply(first, others); }
