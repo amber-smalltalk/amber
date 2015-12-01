@@ -102,7 +102,7 @@ keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg:a
 binaryPattern  = ws selector:binarySelector ws arg:identifier {return [selector, [arg]];}
 unaryPattern   = ws selector:unarySelector {return [selector, []];}
 
-expression     = assignment / cascade / keywordSend / binarySend
+expression     = assignment / cascade / keywordSend
 
 expressionList = ws "." ws expression:expression {return expression;}
 expressions    = first:expression others:expressionList* { return [first].concat(others); }
@@ -228,13 +228,18 @@ keywordMessage = pairs:keywordPair+ {
                              ._arguments_(args);
                  }
 
-keywordSend    = receiver:binarySend tail:keywordMessage {
-                     return tail._valueForReceiver_(receiver);
+keywordSend    = receiver:binarySend tail:keywordMessage? {
+                     if(tail) {
+                         return tail._valueForReceiver_(receiver);
+                     }
+                     else {
+                         return receiver;
+                     }
                  }
 
 message        = binaryMessage / unaryMessage / keywordMessage
 
-cascade        = ws send:(keywordSend / binarySend) messages:(ws ";" ws mess:message {return mess;})+ {
+cascade        = ws send:keywordSend messages:(ws ";" ws mess:message {return mess;})+ {
                      var cascade = [];
                      cascade.push(send);
                      for(var i = 0; i < messages.length; i++) {
