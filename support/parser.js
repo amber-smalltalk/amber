@@ -166,16 +166,13 @@ $globals.SmalltalkParser = (function() {
         peg$c84 = { type: "class", value: "[\\\\+*\\/=><,@%~|&\\-]", description: "[\\\\+*\\/=><,@%~|&\\-]" },
         peg$c85 = function(bin) {return bin.join("");},
         peg$c86 = function(pairs) {
-                             var keywords = [];
+                             var selector = "";
                              var params = [];
-                             var i = 0;
-                             for(i = 0; i < pairs.length; i++){
-                                 keywords.push(pairs[i].key);
-                             }
-                             for(i = 0; i < pairs.length; i++){
+                             for(var i = 0; i < pairs.length; i++){
+                                 selector += pairs[i].key;
                                  params.push(pairs[i].arg);
                              }
-                             return [keywords.join(""), params];
+                             return [selector, params];
                          },
         peg$c87 = function(selector, arg) {return [selector, [arg]];},
         peg$c88 = function(selector) {return [selector, []];},
@@ -270,16 +267,16 @@ $globals.SmalltalkParser = (function() {
                              }
                          },
         peg$c118 = function(pairs) {
-                             var selector = [];
+                             var selector = "";
                              var args = [];
                               for(var i = 0; i < pairs.length; i++) {
-                                  selector.push(pairs[i].key);
+                                  selector += pairs[i].key;
                                   args.push(pairs[i].arg);
                               }
                               return $globals.SendNode._new()
                                      ._position_((line()).__at(column()))
                                      ._source_(text())
-                                     ._selector_(selector.join(""))
+                                     ._selector_(selector)
                                      ._arguments_(args);
                          },
         peg$c119 = function(send) { return send._isSendNode(); },
@@ -287,16 +284,12 @@ $globals.SmalltalkParser = (function() {
         peg$c121 = { type: "literal", value: ";", description: "\";\"" },
         peg$c122 = function(mess) {return mess;},
         peg$c123 = function(send, messages) {
-                             var cascade = [];
-                             cascade.push(send);
-                             for(var i = 0; i < messages.length; i++) {
-                                 cascade.push(messages[i]);
-                             }
+                             messages.unshift(send);
                              return $globals.CascadeNode._new()
                                     ._position_((line()).__at(column()))
                                     ._source_(text())
                                     ._receiver_(send._receiver())
-                                    ._nodes_(cascade);
+                                    ._nodes_(messages);
                          },
         peg$c124 = "<",
         peg$c125 = { type: "literal", value: "<", description: "\"<\"" },

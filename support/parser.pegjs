@@ -88,16 +88,13 @@ binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("");}
 unarySelector  = identifier
 
 keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg:arg};})+ {
-                     var keywords = [];
+                     var selector = "";
                      var params = [];
-                     var i = 0;
-                     for(i = 0; i < pairs.length; i++){
-                         keywords.push(pairs[i].key);
-                     }
-                     for(i = 0; i < pairs.length; i++){
+                     for(var i = 0; i < pairs.length; i++){
+                         selector += pairs[i].key;
                          params.push(pairs[i].arg);
                      }
-                     return [keywords.join(""), params];
+                     return [selector, params];
                  }
 binaryPattern  = ws selector:binarySelector ws arg:identifier {return [selector, [arg]];}
 unaryPattern   = ws selector:unarySelector {return [selector, []];}
@@ -215,16 +212,16 @@ binarySend     = receiver:unarySend tail:binaryTail? {
 
 
 keywordMessage = pairs:keywordPair+ {
-                     var selector = [];
+                     var selector = "";
                      var args = [];
                       for(var i = 0; i < pairs.length; i++) {
-                          selector.push(pairs[i].key);
+                          selector += pairs[i].key;
                           args.push(pairs[i].arg);
                       }
                       return $globals.SendNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
-                             ._selector_(selector.join(""))
+                             ._selector_(selector)
                              ._arguments_(args);
                  }
 
@@ -240,16 +237,12 @@ keywordSend    = receiver:binarySend tail:keywordMessage? {
 message        = binaryMessage / unaryMessage / keywordMessage
 
 cascade        = ws send:keywordSend & { return send._isSendNode(); } messages:(ws ";" ws mess:message {return mess;})+ {
-                     var cascade = [];
-                     cascade.push(send);
-                     for(var i = 0; i < messages.length; i++) {
-                         cascade.push(messages[i]);
-                     }
+                     messages.unshift(send);
                      return $globals.CascadeNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._receiver_(send._receiver())
-                            ._nodes_(cascade);
+                            ._nodes_(messages);
                  }
 
 jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {
