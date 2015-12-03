@@ -142,9 +142,9 @@ statementsWs     = ret:ret maybeDotsWs {return [ret];}
                        return expressions || [];
                    }
 
-sequenceWs       = (js:jsSequence ws { return js; }) / stSequenceWs
+wsSequenceWs       = (ws js:jsSequence ws { return js; }) / wsStSequenceWs
 
-stSequenceWs    = temps:temps? ws statements:statementsWs? {
+wsStSequenceWs    = ws temps:temps? maybeDotsWs statements:statementsWs? {
                      return $globals.SequenceNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -154,7 +154,7 @@ stSequenceWs    = temps:temps? ws statements:statementsWs? {
 
 jsSequence     = jsStatement
 
-block          = '[' params:wsBlockParamList? ws sequence:sequenceWs? ']' {
+block          = '[' params:wsBlockParamList? sequence:wsSequenceWs? ']' {
                      return $globals.BlockNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -259,7 +259,7 @@ jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {
                  }
 
 
-method         = pattern:(wsKeywordPattern / wsBinaryPattern / wsUnaryPattern) ws sequence:sequenceWs? {
+method         = pattern:(wsKeywordPattern / wsBinaryPattern / wsUnaryPattern) sequence:wsSequenceWs? {
                       return $globals.MethodNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
