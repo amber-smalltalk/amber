@@ -3199,9 +3199,6 @@ $globals.SmalltalkParser = (function() {
           s3 = peg$parsews();
           if (s3 !== peg$FAILED) {
             s4 = peg$parseunarySend();
-            if (s4 === peg$FAILED) {
-              s4 = peg$parseoperand();
-            }
             if (s4 !== peg$FAILED) {
               peg$reportedPos = s0;
               s1 = peg$c116(s2, s4);

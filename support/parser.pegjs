@@ -184,7 +184,7 @@ unarySend      = receiver:operand ws tail:unaryTail? {
                      }
                  }
 
-binaryMessage  = ws selector:binarySelector ws arg:(unarySend / operand) {
+binaryMessage  = ws selector:binarySelector ws arg:unarySend {
                      return $globals.SendNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
