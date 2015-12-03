@@ -3,6 +3,7 @@ start = method
 separator      = [ \t\v\f\u00A0\uFEFF\n\r\u2028\u2029]+
 comments       = ('"' [^"]* '"')+
 ws             = (separator / comments)*
+maybeDotsWs = ("." / separator / comments)*
 identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
 keyword        = first:identifier last:":" {return first + last;}
 selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("");}
@@ -39,21 +40,29 @@ hex            = neg:"-"? "16r" num:[0-9a-fA-F]+ {return parseInt(((neg || '') +
 float          = neg:"-"? digits:[0-9]+ "." dec:[0-9]+ {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);}
 integer        = neg:"-"? digits:[0-9]+ {return (parseInt((neg || '') + digits.join(""), 10));}
 
-literalArray   = "#(" rest:literalArrayRest {return rest;}
-bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
-literalArrayRest   = lits:(ws lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) {return lit._value();})* ws ")" {
+literalArray   = "#(" rest:wsLiteralArrayContents ws ")" {
+    return rest
+        ._position_((line()).__at(column()))
+        ._source_(text());
+}
+bareLiteralArray   = "(" rest:wsLiteralArrayContents ws ")" {
+    return rest
+        ._position_((line()).__at(column()))
+        ._source_(text());
+}
+
+literalArrayElement = parseTimeLiteral / bareLiteralArray / bareSymbol
+wsLiteralArrayContents   = lits:(ws lit:literalArrayElement {return lit._value();})* {
                      return $globals.ValueNode._new()
-                            ._position_((line()).__at(column()))
-                            ._source_(text())
                             ._value_(lits);
                  }
-dynamicArray   = "{" ws expressions:expressions? ws "."? "}" {
+dynamicArray   = "{" ws expressions:expressions? maybeDotsWs "}" {
                      return $globals.DynamicArrayNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._nodes_(expressions || []);
                  }
-dynamicDictionary = "#{" ws expressions:associations? ws "}" {
+dynamicDictionary = "#{" ws expressions:associations? maybeDotsWs  "}" {
                         return $globals.DynamicDictionaryNode._new()
                                ._position_((line()).__at(column()))
                                ._source_(text())
@@ -82,12 +91,10 @@ variable       = identifier:identifier {
 
 reference      = variable
 
-keywordPair    = ws key:keyword ws arg:binarySend {return {key:key, arg:arg};}
-
 binarySelector = bin:[\\+*/=><,@%~|&-]+ {return bin.join("");}
 unarySelector  = identifier
 
-keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg:arg};})+ {
+wsKeywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg:arg};})+ {
                      var selector = "";
                      var params = [];
                      for(var i = 0; i < pairs.length; i++){
@@ -96,13 +103,13 @@ keywordPattern = pairs:(ws key:keyword ws arg:identifier {return {key:key, arg:a
                      }
                      return [selector, params];
                  }
-binaryPattern  = ws selector:binarySelector ws arg:identifier {return [selector, [arg]];}
-unaryPattern   = ws selector:unarySelector {return [selector, []];}
+wsBinaryPattern  = ws selector:binarySelector ws arg:identifier {return [selector, [arg]];}
+wsUnaryPattern   = ws selector:unarySelector {return [selector, []];}
 
 expression     = assignment / cascade / keywordSend
 
-expressionList = ws "." ws expression:expression {return expression;}
-expressions    = first:expression others:expressionList* { return [first].concat(others); }
+wsExpressionsRest = ws "." maybeDotsWs expression:expression {return expression;}
+expressions    = first:expression others:wsExpressionsRest* { return [first].concat(others); }
 
 assignment     = variable:variable ws ':=' ws expression:expression {
                      return $globals.AssignmentNode._new()
@@ -112,7 +119,7 @@ assignment     = variable:variable ws ':=' ws expression:expression {
                             ._right_(expression);
                  }
 
-ret            = '^' ws expression:expression ws '.'? {
+ret            = '^' ws expression:expression {
                      return $globals.ReturnNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -121,23 +128,23 @@ ret            = '^' ws expression:expression ws '.'? {
   
 temps          = "|" vars:(ws variable:identifier {return variable;})* ws "|" {return vars;}
 
-blockParamList = params:((ws ":" ws param:identifier {return param;})+) ws "|" {return params;}
+wsBlockParamList = params:((ws ":" ws param:identifier {return param;})+) ws "|" {return params;}
 
 subexpression  = '(' ws expression:expression ws ')' {return expression;}
 
-statements     = ret:ret "."* {return [ret];}
-                 / exps:expressions ws "."+ ws ret:ret "."* {
+statementsWs     = ret:ret maybeDotsWs {return [ret];}
+                 / exps:expressions ws "." maybeDotsWs ret:ret maybeDotsWs {
                        var expressions = exps;
                        expressions.push(ret);
                        return expressions;
                    }
-                 / expressions:expressions? "."* {
+                 / expressions:expressions? maybeDotsWs {
                        return expressions || [];
                    }
 
-sequence       = jsSequence / stSequence
+sequenceWs       = (js:jsSequence ws { return js; }) / stSequenceWs
 
-stSequence     = temps:temps? ws statements:statements? ws {
+stSequenceWs    = temps:temps? ws statements:statementsWs? {
                      return $globals.SequenceNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -147,7 +154,7 @@ stSequence     = temps:temps? ws statements:statements? ws {
 
 jsSequence     = jsStatement
 
-block          = '[' params:blockParamList? ws sequence:sequence? ws ']' {
+block          = '[' params:wsBlockParamList? ws sequence:sequenceWs? ']' {
                      return $globals.BlockNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -159,14 +166,14 @@ operand        = literal / reference / subexpression
 
 
 
-unaryMessage   = ws selector:unarySelector !":" {
+wsUnaryMessage   = ws selector:unarySelector !":" {
                      return $globals.SendNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
                             ._selector_(selector);
                  }
 
-unaryTail      = message:unaryMessage ws tail:unaryTail? ws {
+wsUnaryTail      = message:wsUnaryMessage tail:wsUnaryTail? {
                      if(tail) {
                          return tail._valueForReceiver_(message);
                      }
@@ -175,7 +182,7 @@ unaryTail      = message:unaryMessage ws tail:unaryTail? ws {
                      }
                  }
 
-unarySend      = receiver:operand ws tail:unaryTail? {
+unarySend      = receiver:operand tail:wsUnaryTail? {
                      if(tail) {
                          return tail._valueForReceiver_(receiver);
                      }
@@ -184,7 +191,7 @@ unarySend      = receiver:operand ws tail:unaryTail? {
                      }
                  }
 
-binaryMessage  = ws selector:binarySelector ws arg:unarySend {
+wsBinaryMessage  = ws selector:binarySelector ws arg:unarySend {
                      return $globals.SendNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
@@ -192,7 +199,7 @@ binaryMessage  = ws selector:binarySelector ws arg:unarySend {
                             ._arguments_([arg]);
                  }
 
-binaryTail     = message:binaryMessage tail:binaryTail? {
+wsBinaryTail     = message:wsBinaryMessage tail:wsBinaryTail? {
                      if(tail) {
                          return tail._valueForReceiver_(message);
                       }
@@ -201,7 +208,7 @@ binaryTail     = message:binaryMessage tail:binaryTail? {
                      }
                  }
 
-binarySend     = receiver:unarySend tail:binaryTail? {
+binarySend     = receiver:unarySend tail:wsBinaryTail? {
                      if(tail) {
                          return tail._valueForReceiver_(receiver);
                      }
@@ -211,7 +218,7 @@ binarySend     = receiver:unarySend tail:binaryTail? {
                  }
 
 
-keywordMessage = pairs:keywordPair+ {
+wsKeywordMessage = pairs:(ws key:keyword ws arg:binarySend {return {key:key, arg:arg};})+ {
                      var selector = "";
                      var args = [];
                       for(var i = 0; i < pairs.length; i++) {
@@ -225,7 +232,7 @@ keywordMessage = pairs:keywordPair+ {
                              ._arguments_(args);
                  }
 
-keywordSend    = receiver:binarySend tail:keywordMessage? {
+keywordSend    = receiver:binarySend tail:wsKeywordMessage? {
                      if(tail) {
                          return tail._valueForReceiver_(receiver);
                      }
@@ -234,9 +241,9 @@ keywordSend    = receiver:binarySend tail:keywordMessage? {
                      }
                  }
 
-message        = binaryMessage / unaryMessage / keywordMessage
+wsMessage        = wsBinaryMessage / wsUnaryMessage / wsKeywordMessage
 
-cascade        = ws send:keywordSend & { return send._isSendNode(); } messages:(ws ";" ws mess:message {return mess;})+ {
+cascade        = send:keywordSend & { return send._isSendNode(); } messages:(ws ";" mess:wsMessage {return mess;})+ {
                      messages.unshift(send);
                      return $globals.CascadeNode._new()
                             ._position_((line()).__at(column()))
@@ -252,7 +259,7 @@ jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {
                  }
 
 
-method         = pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequence:sequence? ws {
+method         = pattern:(wsKeywordPattern / wsBinaryPattern / wsUnaryPattern) ws sequence:sequenceWs? {
                       return $globals.MethodNode._new()
                              ._position_((line()).__at(column()))
                              ._source_(text())
@@ -264,5 +271,5 @@ method         = pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequ
 
 associationSend     = send:binarySend & { return send._isSendNode() && send._selector() === "->" } { return [send._receiver(), send._arguments()[0]]; }
 
-associationList = ws "." ws expression:associationSend {return expression;}
-associations    = first:associationSend others:associationList* { return first.concat.apply(first, others); }
+wsAssociationsRest = ws "." maybeDotsWs expression:associationSend {return expression;}
+associations    = first:associationSend others:wsAssociationsRest* { return first.concat.apply(first, others); }
