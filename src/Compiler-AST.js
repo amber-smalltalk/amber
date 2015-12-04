@@ -1401,90 +1401,6 @@ $globals.BlockNode);
 
 
 
-$core.addClass('CascadeNode', $globals.Node, ['receiver'], 'Compiler-AST');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.CascadeNode.comment="I represent an cascade node.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "accept:",
-protocol: 'visiting',
-fn: function (aVisitor){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return $recv(aVisitor)._visitCascadeNode_(self);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.CascadeNode)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitCascadeNode: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["visitCascadeNode:"]
-}),
-$globals.CascadeNode);
-
-$core.addMethod(
-$core.method({
-selector: "isCascadeNode",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "isCascadeNode\x0a\x09^ true",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.CascadeNode);
-
-$core.addMethod(
-$core.method({
-selector: "receiver",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@receiver"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "receiver\x0a\x09^ receiver",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.CascadeNode);
-
-$core.addMethod(
-$core.method({
-selector: "receiver:",
-protocol: 'accessing',
-fn: function (aNode){
-var self=this;
-self["@receiver"]=aNode;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "receiver: aNode\x0a\x09receiver := aNode",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.CascadeNode);
-
-
-
 $core.addClass('DynamicArrayNode', $globals.Node, [], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.DynamicArrayNode.comment="I represent an dynamic array node.";
@@ -1991,6 +1907,53 @@ referencedClasses: [],
 messageSends: []
 }),
 $globals.QuasiSendNode);
+
+
+
+$core.addClass('CascadeNode', $globals.QuasiSendNode, [], 'Compiler-AST');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.CascadeNode.comment="I represent an cascade node.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "accept:",
+protocol: 'visiting',
+fn: function (aVisitor){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(aVisitor)._visitCascadeNode_(self);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.CascadeNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aVisitor"],
+source: "accept: aVisitor\x0a\x09^ aVisitor visitCascadeNode: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitCascadeNode:"]
+}),
+$globals.CascadeNode);
+
+$core.addMethod(
+$core.method({
+selector: "isCascadeNode",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isCascadeNode\x0a\x09^ true",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.CascadeNode);
 
 
 

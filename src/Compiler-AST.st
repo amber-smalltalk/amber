@@ -303,34 +303,6 @@ accept: aVisitor
 	^ aVisitor visitBlockNode: self
 ! !
 
-Node subclass: #CascadeNode
-	instanceVariableNames: 'receiver'
-	package: 'Compiler-AST'!
-!CascadeNode commentStamp!
-I represent an cascade node.!
-
-!CascadeNode methodsFor: 'accessing'!
-
-receiver
-	^ receiver
-!
-
-receiver: aNode
-	receiver := aNode
-! !
-
-!CascadeNode methodsFor: 'testing'!
-
-isCascadeNode
-	^ true
-! !
-
-!CascadeNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitCascadeNode: self
-! !
-
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
@@ -472,6 +444,24 @@ receiver
 
 receiver: anObject
 	receiver := anObject
+! !
+
+QuasiSendNode subclass: #CascadeNode
+	instanceVariableNames: ''
+	package: 'Compiler-AST'!
+!CascadeNode commentStamp!
+I represent an cascade node.!
+
+!CascadeNode methodsFor: 'testing'!
+
+isCascadeNode
+	^ true
+! !
+
+!CascadeNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitCascadeNode: self
 ! !
 
 Node subclass: #ReturnNode
