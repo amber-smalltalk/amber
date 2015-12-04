@@ -1910,6 +1910,33 @@ $globals.QuasiSendNode);
 
 
 
+$core.addClass('BranchSendNode', $globals.QuasiSendNode, [], 'Compiler-AST');
+$core.addMethod(
+$core.method({
+selector: "valueForReceiver:",
+protocol: 'building',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._nodes_([$recv($recv(self._nodes())._first())._valueForReceiver_(anObject)]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},$globals.BranchSendNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "valueForReceiver: anObject\x0a\x09self nodes: {self nodes first valueForReceiver: anObject}.\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["nodes:", "valueForReceiver:", "first", "nodes"]
+}),
+$globals.BranchSendNode);
+
+
+
 $core.addClass('CascadeNode', $globals.QuasiSendNode, [], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.CascadeNode.comment="I represent an cascade node.";
@@ -1952,6 +1979,33 @@ source: "isCascadeNode\x0a\x09^ true",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
+}),
+$globals.CascadeNode);
+
+$core.addMethod(
+$core.method({
+selector: "valueForReceiver:",
+protocol: 'building',
+fn: function (anObject){
+var self=this;
+var nds;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+nds=self._nodes();
+$recv(nds)._at_put_((1),$recv($recv(nds)._first())._valueForReceiver_(anObject));
+self._nodes_(nds);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject,nds:nds},$globals.CascadeNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "valueForReceiver: anObject\x0a\x09| nds |\x0a\x09nds := self nodes.\x0a\x09nds at: 1 put: (nds first valueForReceiver: anObject).\x0a\x09self nodes: nds.\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["nodes", "at:put:", "valueForReceiver:", "first", "nodes:"]
 }),
 $globals.CascadeNode);
 

@@ -446,11 +446,32 @@ receiver: anObject
 	receiver := anObject
 ! !
 
+QuasiSendNode subclass: #BranchSendNode
+	instanceVariableNames: ''
+	package: 'Compiler-AST'!
+
+!BranchSendNode methodsFor: 'building'!
+
+valueForReceiver: anObject
+	self nodes: {self nodes first valueForReceiver: anObject}.
+	^ self
+! !
+
 QuasiSendNode subclass: #CascadeNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
 !CascadeNode commentStamp!
 I represent an cascade node.!
+
+!CascadeNode methodsFor: 'building'!
+
+valueForReceiver: anObject
+	| nds |
+	nds := self nodes.
+	nds at: 1 put: (nds first valueForReceiver: anObject).
+	self nodes: nds.
+	^ self
+! !
 
 !CascadeNode methodsFor: 'testing'!
 

@@ -164,7 +164,37 @@ block          = '[' params:wsBlockParamList? sequence:wsSequenceWs? ']' {
 
 operand        = literal / reference / subexpression
 
+augment = "(" send:(wsBinaryTail / wsKeywordMessage / wsUnaryTail) messages:(ws ";" mess:wsMessage {return mess;})* ws ")" {
+                     if (messages.length) {
+                         messages.unshift(send);
+                         send = $globals.CascadeNode._new()
+                                ._position_((line()).__at(column()))
+                                ._source_(text())
+                                ._nodes_(messages);
+					 }
+					 return $globals.BranchSendNode._new()
+                            ._position_((line()).__at(column()))
+                            ._source_(text())
+                            ._nodes_([send]);
+                 }
 
+wsAugmentTail      = ws message:augment tail:wsAugmentTail? {
+                     if(tail) {
+                         return tail._valueForReceiver_(message);
+                     }
+                     else {
+                         return message;
+                     }
+                 }
+
+augmentedOperand = operand:operand tail:wsAugmentTail? {
+                     if(tail) {
+                         return tail._valueForReceiver_(operand);
+                     }
+                     else {
+                         return operand;
+                     }
+                 }
 
 wsUnaryMessage   = ws selector:unarySelector !":" {
                      return $globals.SendNode._new()
@@ -182,7 +212,7 @@ wsUnaryTail      = message:wsUnaryMessage tail:wsUnaryTail? {
                      }
                  }
 
-unarySend      = receiver:operand tail:wsUnaryTail? {
+unarySend      = receiver:augmentedOperand tail:wsUnaryTail? {
                      if(tail) {
                          return tail._valueForReceiver_(receiver);
                      }
