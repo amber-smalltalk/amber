@@ -1957,114 +1957,7 @@ $globals.CascadeNode);
 
 
 
-$core.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "accept:",
-protocol: 'visiting',
-fn: function (aVisitor){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return $recv(aVisitor)._visitReturnNode_(self);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.ReturnNode)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitReturnNode: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["visitReturnNode:"]
-}),
-$globals.ReturnNode);
-
-$core.addMethod(
-$core.method({
-selector: "isReturnNode",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "isReturnNode\x0a\x09^ true",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ReturnNode);
-
-$core.addMethod(
-$core.method({
-selector: "nonLocalReturn",
-protocol: 'testing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return $recv($recv(self._scope())._isMethodScope())._not();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nonLocalReturn",{},$globals.ReturnNode)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nonLocalReturn\x0a\x09^ self scope isMethodScope not",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["not", "isMethodScope", "scope"]
-}),
-$globals.ReturnNode);
-
-$core.addMethod(
-$core.method({
-selector: "scope",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@scope"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "scope\x0a\x09^ scope",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ReturnNode);
-
-$core.addMethod(
-$core.method({
-selector: "scope:",
-protocol: 'accessing',
-fn: function (aLexicalScope){
-var self=this;
-self["@scope"]=aLexicalScope;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aLexicalScope"],
-source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.ReturnNode);
-
-
-
-$core.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'index'], 'Compiler-AST');
+$core.addClass('SendNode', $globals.QuasiSendNode, ['selector', 'arguments', 'index'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SendNode.comment="I represent an message send node.";
 //>>excludeEnd("ide");
@@ -2357,24 +2250,6 @@ $globals.SendNode);
 
 $core.addMethod(
 $core.method({
-selector: "receiver",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@receiver"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "receiver\x0a\x09^ receiver",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.SendNode);
-
-$core.addMethod(
-$core.method({
 selector: "receiver:",
 protocol: 'accessing',
 fn: function (aNode){
@@ -2383,7 +2258,14 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-self["@receiver"]=aNode;
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+($globals.SendNode.superclass||$boot.dnu).fn.prototype._receiver_.apply($recv(self), [aNode]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
 $1=$recv(aNode)._isNode();
 if($core.assert($1)){
 $recv(aNode)._parent_(self);
@@ -2395,10 +2277,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "receiver: aNode\x0a\x09receiver := aNode.\x0a\x09aNode isNode ifTrue: [\x0a\x09\x09aNode parent: self ]",
+source: "receiver: aNode\x0a\x09super receiver: aNode.\x0a\x09aNode isNode ifTrue: [\x0a\x09\x09aNode parent: self ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "isNode", "parent:"]
+messageSends: ["receiver:", "ifTrue:", "isNode", "parent:"]
 }),
 $globals.SendNode);
 
@@ -2592,6 +2474,113 @@ referencedClasses: ["SendNode"],
 messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"]
 }),
 $globals.SendNode);
+
+
+
+$core.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "accept:",
+protocol: 'visiting',
+fn: function (aVisitor){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(aVisitor)._visitReturnNode_(self);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.ReturnNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aVisitor"],
+source: "accept: aVisitor\x0a\x09^ aVisitor visitReturnNode: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitReturnNode:"]
+}),
+$globals.ReturnNode);
+
+$core.addMethod(
+$core.method({
+selector: "isReturnNode",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isReturnNode\x0a\x09^ true",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ReturnNode);
+
+$core.addMethod(
+$core.method({
+selector: "nonLocalReturn",
+protocol: 'testing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($recv(self._scope())._isMethodScope())._not();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nonLocalReturn",{},$globals.ReturnNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nonLocalReturn\x0a\x09^ self scope isMethodScope not",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["not", "isMethodScope", "scope"]
+}),
+$globals.ReturnNode);
+
+$core.addMethod(
+$core.method({
+selector: "scope",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self["@scope"];
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "scope\x0a\x09^ scope",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ReturnNode);
+
+$core.addMethod(
+$core.method({
+selector: "scope:",
+protocol: 'accessing',
+fn: function (aLexicalScope){
+var self=this;
+self["@scope"]=aLexicalScope;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aLexicalScope"],
+source: "scope: aLexicalScope\x0a\x09scope := aLexicalScope",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ReturnNode);
 
 
 

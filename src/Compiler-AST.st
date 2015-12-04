@@ -464,40 +464,8 @@ accept: aVisitor
 	^ aVisitor visitCascadeNode: self
 ! !
 
-Node subclass: #ReturnNode
-	instanceVariableNames: 'scope'
-	package: 'Compiler-AST'!
-!ReturnNode commentStamp!
-I represent an return node. At the AST level, there is not difference between a local return or non-local return.!
-
-!ReturnNode methodsFor: 'accessing'!
-
-scope
-	^ scope
-!
-
-scope: aLexicalScope
-	scope := aLexicalScope
-! !
-
-!ReturnNode methodsFor: 'testing'!
-
-isReturnNode
-	^ true
-!
-
-nonLocalReturn
-	^ self scope isMethodScope not
-! !
-
-!ReturnNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitReturnNode: self
-! !
-
-Node subclass: #SendNode
-	instanceVariableNames: 'selector arguments receiver index'
+QuasiSendNode subclass: #SendNode
+	instanceVariableNames: 'selector arguments index'
 	package: 'Compiler-AST'!
 !SendNode commentStamp!
 I represent an message send node.!
@@ -545,12 +513,8 @@ nodes
 		yourself
 !
 
-receiver
-	^ receiver
-!
-
 receiver: aNode
-	receiver := aNode.
+	super receiver: aNode.
 	aNode isNode ifTrue: [
 		aNode parent: self ]
 !
@@ -617,6 +581,38 @@ shouldBeAliased
 
 accept: aVisitor
 	^ aVisitor visitSendNode: self
+! !
+
+Node subclass: #ReturnNode
+	instanceVariableNames: 'scope'
+	package: 'Compiler-AST'!
+!ReturnNode commentStamp!
+I represent an return node. At the AST level, there is not difference between a local return or non-local return.!
+
+!ReturnNode methodsFor: 'accessing'!
+
+scope
+	^ scope
+!
+
+scope: aLexicalScope
+	scope := aLexicalScope
+! !
+
+!ReturnNode methodsFor: 'testing'!
+
+isReturnNode
+	^ true
+!
+
+nonLocalReturn
+	^ self scope isMethodScope not
+! !
+
+!ReturnNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitReturnNode: self
 ! !
 
 Node subclass: #SequenceNode
