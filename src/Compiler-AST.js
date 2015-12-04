@@ -1951,6 +1951,49 @@ $globals.MethodNode);
 
 
 
+$core.addClass('QuasiSendNode', $globals.Node, ['receiver'], 'Compiler-AST');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.QuasiSendNode.comment="I am a node that has a receiver.\x0a\x0aMy subclasses are `SendNode`, `CascadeNode` and `BranchSendNode`.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "receiver",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self["@receiver"];
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "receiver\x0a\x09^ receiver",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.QuasiSendNode);
+
+$core.addMethod(
+$core.method({
+selector: "receiver:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@receiver"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "receiver: anObject\x0a\x09receiver := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.QuasiSendNode);
+
+
+
 $core.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return.";

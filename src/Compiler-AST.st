@@ -456,6 +456,24 @@ accept: aVisitor
 	^ aVisitor visitMethodNode: self
 ! !
 
+Node subclass: #QuasiSendNode
+	instanceVariableNames: 'receiver'
+	package: 'Compiler-AST'!
+!QuasiSendNode commentStamp!
+I am a node that has a receiver.
+
+My subclasses are `SendNode`, `CascadeNode` and `BranchSendNode`.!
+
+!QuasiSendNode methodsFor: 'accessing'!
+
+receiver
+	^ receiver
+!
+
+receiver: anObject
+	receiver := anObject
+! !
+
 Node subclass: #ReturnNode
 	instanceVariableNames: 'scope'
 	package: 'Compiler-AST'!
