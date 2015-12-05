@@ -549,6 +549,11 @@ visitBlockNode: aNode
 	self popScope
 !
 
+visitBranchSendNode: aNode
+	aNode receiver shouldBeAliased: true.
+	super visitBranchSendNode: aNode
+!
+
 visitCascadeNode: aNode
 	aNode receiver: aNode nodes first receiver.
 	super visitCascadeNode: aNode

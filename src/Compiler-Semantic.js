@@ -2262,6 +2262,38 @@ $globals.SemanticAnalyzer);
 
 $core.addMethod(
 $core.method({
+selector: "visitBranchSendNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv(aNode)._receiver())._shouldBeAliased_(true);
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitBranchSendNode_.apply($recv(self), [aNode]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitBranchSendNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitBranchSendNode: aNode\x0a\x09aNode receiver shouldBeAliased: true.\x0a\x09super visitBranchSendNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["shouldBeAliased:", "receiver", "visitBranchSendNode:"]
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
 selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){

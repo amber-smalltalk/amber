@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'Compiler-IR'!
 NodeVisitor subclass: #IRASTTranslator
-	instanceVariableNames: 'source theClass method sequence nextAlias'
+	instanceVariableNames: 'source theClass method sequence nextAlias nodeAliases'
 	package: 'Compiler-IR'!
 !IRASTTranslator commentStamp!
 I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.!
@@ -19,6 +19,17 @@ nextAlias
 	nextAlias ifNil: [ nextAlias := 0 ].
 	nextAlias := nextAlias + 1.
 	^ nextAlias asString
+!
+
+node: aNode aliased: anAliasVar
+	nodeAliases ifNil: [ nodeAliases := Dictionary new ].
+	nodeAliases at: aNode put: anAliasVar
+!
+
+nodeAliasFor: aNode
+	nodeAliases
+		ifNil: [ ^ nil ]
+		ifNotNil: [ ^ nodeAliases at: aNode ifAbsent: [] ]
 !
 
 sequence
@@ -60,10 +71,13 @@ alias: aNode
 	| variable |
 
 	aNode isImmutable ifTrue: [ ^ self visit: aNode ].
+	
+	(self nodeAliasFor: aNode) ifNotNil: [ :aliasVar | ^ aliasVar ].
 
 	variable := IRVariable new
 		variable: (AliasVar new name: '$', self nextAlias);
 		yourself.
+	self node: aNode aliased: variable.
 
 	self sequence add: (IRAssignment new
 		add: variable;
@@ -135,6 +149,13 @@ visitBlockSequenceNode: aNode
 				aNode nodes last isReturnNode
 					ifFalse: [ self sequence add: (IRBlockReturn new add: (self visitOrAlias: aNode nodes last); yourself) ]
 					ifTrue: [ self sequence add: (self visitOrAlias: aNode nodes last) ] ]]
+!
+
+visitBranchSendNode: aNode
+	aNode nodes do: [ :each |
+		self sequence add: (self visit: each) ].
+
+	^ self visitOrAlias: aNode receiver
 !
 
 visitCascadeNode: aNode

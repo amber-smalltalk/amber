@@ -4,7 +4,7 @@ $core.addPackage('Compiler-IR');
 $core.packages["Compiler-IR"].innerEval = function (expr) { return eval(expr); };
 $core.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-$core.addClass('IRASTTranslator', $globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
+$core.addClass('IRASTTranslator', $globals.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias', 'nodeAliases'], 'Compiler-IR');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
 //>>excludeEnd("ide");
@@ -21,7 +21,7 @@ function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="un
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$4,$6,$7,$9,$8;
+var $1,$2,$3,$4,$6,$5,$7,$8,$10,$9,$receiver;
 $1=$recv(aNode)._isImmutable();
 if($core.assert($1)){
 $2=self._visit_(aNode);
@@ -30,33 +30,42 @@ $ctx1.sendIdx["visit:"]=1;
 //>>excludeEnd("ctx");
 return $2;
 };
-$3=$recv($IRVariable())._new();
+$3=self._nodeAliasFor_(aNode);
+if(($receiver = $3) == null || $receiver.isNil){
+$3;
+} else {
+var aliasVar;
+aliasVar=$receiver;
+return aliasVar;
+};
+$4=$recv($IRVariable())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$5=$recv($AliasVar())._new();
+$6=$recv($AliasVar())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
-$4=$recv($5)._name_("$".__comma(self._nextAlias()));
-$recv($3)._variable_($4);
-$6=$recv($3)._yourself();
+$5=$recv($6)._name_("$".__comma(self._nextAlias()));
+$recv($4)._variable_($5);
+$7=$recv($4)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
-variable=$6;
-$7=self._sequence();
-$9=$recv($IRAssignment())._new();
-$recv($9)._add_(variable);
+variable=$7;
+self._node_aliased_(aNode,variable);
+$8=self._sequence();
+$10=$recv($IRAssignment())._new();
+$recv($10)._add_(variable);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
 //>>excludeEnd("ctx");
-$recv($9)._add_(self._visit_(aNode));
+$recv($10)._add_(self._visit_(aNode));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$8=$recv($9)._yourself();
-$recv($7)._add_($8);
+$9=$recv($10)._yourself();
+$recv($8)._add_($9);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
@@ -68,10 +77,10 @@ return variable;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "alias: aNode\x0a\x09| variable |\x0a\x0a\x09aNode isImmutable ifTrue: [ ^ self visit: aNode ].\x0a\x0a\x09variable := IRVariable new\x0a\x09\x09variable: (AliasVar new name: '$', self nextAlias);\x0a\x09\x09yourself.\x0a\x0a\x09self sequence add: (IRAssignment new\x0a\x09\x09add: variable;\x0a\x09\x09add: (self visit: aNode);\x0a\x09\x09yourself).\x0a\x0a\x09self method internalVariables add: variable.\x0a\x0a\x09^ variable",
+source: "alias: aNode\x0a\x09| variable |\x0a\x0a\x09aNode isImmutable ifTrue: [ ^ self visit: aNode ].\x0a\x09\x0a\x09(self nodeAliasFor: aNode) ifNotNil: [ :aliasVar | ^ aliasVar ].\x0a\x0a\x09variable := IRVariable new\x0a\x09\x09variable: (AliasVar new name: '$', self nextAlias);\x0a\x09\x09yourself.\x0a\x09self node: aNode aliased: variable.\x0a\x0a\x09self sequence add: (IRAssignment new\x0a\x09\x09add: variable;\x0a\x09\x09add: (self visit: aNode);\x0a\x09\x09yourself).\x0a\x0a\x09self method internalVariables add: variable.\x0a\x0a\x09^ variable",
 referencedClasses: ["IRVariable", "AliasVar", "IRAssignment"],
 //>>excludeEnd("ide");
-messageSends: ["ifTrue:", "isImmutable", "visit:", "variable:", "new", "name:", ",", "nextAlias", "yourself", "add:", "sequence", "internalVariables", "method"]
+messageSends: ["ifTrue:", "isImmutable", "visit:", "ifNotNil:", "nodeAliasFor:", "variable:", "new", "name:", ",", "nextAlias", "yourself", "node:aliased:", "add:", "sequence", "internalVariables", "method"]
 }),
 $globals.IRASTTranslator);
 
@@ -201,6 +210,71 @@ source: "nextAlias\x0a\x09nextAlias ifNil: [ nextAlias := 0 ].\x0a\x09nextAlias 
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifNil:", "+", "asString"]
+}),
+$globals.IRASTTranslator);
+
+$core.addMethod(
+$core.method({
+selector: "node:aliased:",
+protocol: 'accessing',
+fn: function (aNode,anAliasVar){
+var self=this;
+function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+$1=self["@nodeAliases"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@nodeAliases"]=$recv($Dictionary())._new();
+self["@nodeAliases"];
+} else {
+$1;
+};
+$recv(self["@nodeAliases"])._at_put_(aNode,anAliasVar);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"node:aliased:",{aNode:aNode,anAliasVar:anAliasVar},$globals.IRASTTranslator)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode", "anAliasVar"],
+source: "node: aNode aliased: anAliasVar\x0a\x09nodeAliases ifNil: [ nodeAliases := Dictionary new ].\x0a\x09nodeAliases at: aNode put: anAliasVar",
+referencedClasses: ["Dictionary"],
+//>>excludeEnd("ide");
+messageSends: ["ifNil:", "new", "at:put:"]
+}),
+$globals.IRASTTranslator);
+
+$core.addMethod(
+$core.method({
+selector: "nodeAliasFor:",
+protocol: 'accessing',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$receiver;
+$1=self["@nodeAliases"];
+if(($receiver = $1) == null || $receiver.isNil){
+return nil;
+} else {
+return $recv(self["@nodeAliases"])._at_ifAbsent_(aNode,(function(){
+
+}));
+};
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nodeAliasFor:",{aNode:aNode},$globals.IRASTTranslator)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "nodeAliasFor: aNode\x0a\x09nodeAliases\x0a\x09\x09ifNil: [ ^ nil ]\x0a\x09\x09ifNotNil: [ ^ nodeAliases at: aNode ifAbsent: [] ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifNil:ifNotNil:", "at:ifAbsent:"]
 }),
 $globals.IRASTTranslator);
 
@@ -546,6 +620,38 @@ source: "visitBlockSequenceNode: aNode\x0a\x09^ self\x0a\x09\x09withSequence: IR
 referencedClasses: ["IRBlockSequence", "IRBlockReturn"],
 //>>excludeEnd("ide");
 messageSends: ["withSequence:do:", "new", "ifNotEmpty:", "nodes", "do:", "allButLast", "add:", "sequence", "visitOrAlias:", "ifFalse:ifTrue:", "isReturnNode", "last", "yourself"]
+}),
+$globals.IRASTTranslator);
+
+$core.addMethod(
+$core.method({
+selector: "visitBranchSendNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+$recv($recv(aNode)._nodes())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(self._sequence())._add_(self._visit_(each));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return self._visitOrAlias_($recv(aNode)._receiver());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitBranchSendNode:",{aNode:aNode},$globals.IRASTTranslator)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitBranchSendNode: aNode\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self visitOrAlias: aNode receiver",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "nodes", "add:", "sequence", "visit:", "visitOrAlias:", "receiver"]
 }),
 $globals.IRASTTranslator);
 

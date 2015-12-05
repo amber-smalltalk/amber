@@ -1913,6 +1913,29 @@ $globals.QuasiSendNode);
 $core.addClass('BranchSendNode', $globals.QuasiSendNode, [], 'Compiler-AST');
 $core.addMethod(
 $core.method({
+selector: "accept:",
+protocol: 'visiting',
+fn: function (aVisitor){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(aVisitor)._visitBranchSendNode_(self);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.BranchSendNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aVisitor"],
+source: "accept: aVisitor\x0a\x09^ aVisitor visitBranchSendNode: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitBranchSendNode:"]
+}),
+$globals.BranchSendNode);
+
+$core.addMethod(
+$core.method({
 selector: "valueForReceiver:",
 protocol: 'building',
 fn: function (anObject){
@@ -1920,7 +1943,14 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
+var $1,$receiver;
 self._nodes_([$recv($recv(self._nodes())._first())._valueForReceiver_(anObject)]);
+$1=self._receiver();
+if(($receiver = $1) == null || $receiver.isNil){
+self._receiver_(anObject);
+} else {
+$1;
+};
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},$globals.BranchSendNode)});
@@ -1928,10 +1958,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "valueForReceiver: anObject\x0a\x09self nodes: {self nodes first valueForReceiver: anObject}.\x0a\x09^ self",
+source: "valueForReceiver: anObject\x0a\x09self nodes: {self nodes first valueForReceiver: anObject}.\x0a\x09self receiver ifNil: [ self receiver: anObject ].\x0a\x09^ self",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["nodes:", "valueForReceiver:", "first", "nodes"]
+messageSends: ["nodes:", "valueForReceiver:", "first", "nodes", "ifNil:", "receiver", "receiver:"]
 }),
 $globals.BranchSendNode);
 
@@ -3345,6 +3375,29 @@ source: "visitBlockSequenceNode: aNode\x0a\x09^ self visitSequenceNode: aNode",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitSequenceNode:"]
+}),
+$globals.NodeVisitor);
+
+$core.addMethod(
+$core.method({
+selector: "visitBranchSendNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return self._visitNode_(aNode);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitBranchSendNode:",{aNode:aNode},$globals.NodeVisitor)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitBranchSendNode: aNode\x0a\x09^ self visitNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitNode:"]
 }),
 $globals.NodeVisitor);
 

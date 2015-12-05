@@ -454,7 +454,14 @@ QuasiSendNode subclass: #BranchSendNode
 
 valueForReceiver: anObject
 	self nodes: {self nodes first valueForReceiver: anObject}.
+	self receiver ifNil: [ self receiver: anObject ].
 	^ self
+! !
+
+!BranchSendNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitBranchSendNode: self
 ! !
 
 QuasiSendNode subclass: #CascadeNode
@@ -820,6 +827,10 @@ visitBlockNode: aNode
 
 visitBlockSequenceNode: aNode
 	^ self visitSequenceNode: aNode
+!
+
+visitBranchSendNode: aNode
+	^ self visitNode: aNode
 !
 
 visitCascadeNode: aNode

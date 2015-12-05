@@ -193,6 +193,13 @@ testAssignment
 	self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1
 !
 
+testAugments
+	
+	self should: 'foo ^ (Array new) (add: 3) (add: 4)' return: #(3 4).
+	self should: 'foo ^ (Array new) (add: 3; add: 4)' return: #(3 4).
+	self should: 'foo ^ (Array new) (add: 3) (add: 4) size' return: 2
+!
+
 testBackslashSelectors
 	
 	self should: '\ arg ^ 4' return: 4.
