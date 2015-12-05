@@ -248,7 +248,6 @@ cascade        = send:keywordSend & { return send._isSendNode(); } messages:(ws 
                      return $globals.CascadeNode._new()
                             ._position_((line()).__at(column()))
                             ._source_(text())
-                            ._receiver_(send._receiver())
                             ._nodes_(messages);
                  }
 

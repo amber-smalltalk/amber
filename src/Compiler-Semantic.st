@@ -549,6 +549,11 @@ visitBlockNode: aNode
 	self popScope
 !
 
+visitCascadeNode: aNode
+	aNode receiver: aNode nodes first receiver.
+	super visitCascadeNode: aNode
+!
+
 visitMethodNode: aNode
 	self pushScope: self newMethodScope.
 	aNode scope: currentScope.
