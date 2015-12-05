@@ -212,8 +212,8 @@ testCascades
 
 testCascadesWithInlining
 	
-	self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.
-	self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2
+	self should: 'foo ^ true class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.
+	self should: 'foo ^ false class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2
 !
 
 testDynamicArrayElementsOrdered
