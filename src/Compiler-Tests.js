@@ -1867,7 +1867,8 @@ return $recv(ctx)._localAt_put_(key,value);
 }));
 $3=interpreter;
 $recv($3)._context_(ctx);
-$recv($3)._node_($recv(ast)._nextChild());
+$recv($3)._node_(ast);
+$recv($3)._enterNode();
 $recv($3)._proceed();
 return $recv($3)._result();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1876,10 +1877,10 @@ return $recv($3)._result();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09node: ast nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09node: ast;\x0a\x09\x09enterNode;\x0a\x09\x09proceed;\x0a\x09\x09result",
 referencedClasses: ["ASTInterpreter", "AIContext"],
 //>>excludeEnd("ide");
-messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "node:", "nextChild", "proceed", "result"]
+messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "node:", "enterNode", "proceed", "result"]
 }),
 $globals.ASTInterpreterTest);
 
@@ -1970,7 +1971,7 @@ function $ASTDebugger(){return $globals.ASTDebugger||(typeof ASTDebugger=="undef
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$receiver;
+var $1,$2,$3,$4,$5,$receiver;
 $1=$recv($AIContext())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
@@ -2012,21 +2013,23 @@ $recv($3)._context_(ctx);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["context:"]=1;
 //>>excludeEnd("ctx");
-$recv($recv(ctx)._interpreter())._node_($recv(ast)._nextChild());
+$4=$recv(ctx)._interpreter();
+$recv($4)._node_(ast);
+$recv($4)._enterNode();
 debugger_=$recv($ASTDebugger())._context_(ctx);
-$4=debugger_;
-$recv($4)._proceed();
-return $recv($4)._result();
+$5=debugger_;
+$recv($5)._proceed();
+return $recv($5)._result();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,debugger_:debugger_},$globals.ASTDebuggerTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx ast debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: ast nextChild.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx ast debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: ast; enterNode.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
 referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"],
 //>>excludeEnd("ide");
-messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "proceed", "result"]
+messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "enterNode", "proceed", "result"]
 }),
 $globals.ASTDebuggerTest);
 

@@ -510,7 +510,8 @@ interpret: aString receiver: anObject withArguments: aDictionary
 	
 	^ interpreter
 		context: ctx;
-		node: ast nextChild;
+		node: ast;
+		enterNode;
 		proceed;
 		result
 ! !
@@ -549,7 +550,7 @@ interpret: aString receiver: anObject withArguments: aDictionary
 		ctx localAt: key put: value ].
 	ctx interpreter context: ctx.
 	
-	ctx interpreter node: ast nextChild.
+	ctx interpreter node: ast; enterNode.
 	
 	debugger := ASTDebugger context: ctx.
 	

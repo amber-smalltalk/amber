@@ -278,7 +278,8 @@ $2=$recv(context)._interpreter();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["interpreter"]=1;
 //>>excludeEnd("ctx");
-$recv($2)._node_($recv(sequenceNode)._nextChild());
+$recv($2)._node_(sequenceNode);
+$recv($2)._enterNode();
 $recv($2)._proceed();
 $3=$recv(self["@outerContext"])._interpreter();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -292,10 +293,10 @@ return $recv($recv(context)._interpreter())._pop();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
-source: "valueWithPossibleArguments: aCollection\x0a\x09| context sequenceNode |\x0a\x09context := outerContext newInnerContext.\x0a\x0a\x09\x22Interpret a copy of the sequence node to avoid creating a new AIBlockClosure\x22\x0a\x09sequenceNode := node nodes first copy\x0a\x09\x09parent: nil;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals in the context\x22\x0a\x09sequenceNode temps do: [ :each |\x0a\x09\x09context defineLocal: each ].\x0a\x09\x09\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context defineLocal: each.\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: sequenceNode nextChild;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter\x0a\x09\x09setNonLocalReturnFromContext: context.\x0a\x09\x09\x0a\x09^ context interpreter pop",
+source: "valueWithPossibleArguments: aCollection\x0a\x09| context sequenceNode |\x0a\x09context := outerContext newInnerContext.\x0a\x0a\x09\x22Interpret a copy of the sequence node to avoid creating a new AIBlockClosure\x22\x0a\x09sequenceNode := node nodes first copy\x0a\x09\x09parent: nil;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals in the context\x22\x0a\x09sequenceNode temps do: [ :each |\x0a\x09\x09context defineLocal: each ].\x0a\x09\x09\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context defineLocal: each.\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: sequenceNode;\x0a\x09\x09enterNode;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter\x0a\x09\x09setNonLocalReturnFromContext: context.\x0a\x09\x09\x0a\x09^ context interpreter pop",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "proceed", "setNonLocalReturnFromContext:", "pop"]
+messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "enterNode", "proceed", "setNonLocalReturnFromContext:", "pop"]
 }),
 $globals.AIBlockClosure);
 
@@ -543,7 +544,8 @@ return $core.withContext(function($ctx1) {
 var $1;
 $1=$recv($ASTInterpreter())._new();
 $recv($1)._context_(self);
-$recv($1)._node_($recv(aNode)._nextChild());
+$recv($1)._node_(aNode);
+$recv($1)._enterNode();
 $recv($1)._proceed();
 return $recv($1)._result();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -552,10 +554,10 @@ return $recv($1)._result();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode;\x0a\x09\x09enterNode;\x0a\x09\x09proceed;\x0a\x09\x09result",
 referencedClasses: ["ASTInterpreter"],
 //>>excludeEnd("ide");
-messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"]
+messageSends: ["context:", "new", "node:", "enterNode", "proceed", "result"]
 }),
 $globals.AIContext);
 
@@ -2042,6 +2044,129 @@ messageSends: ["context:", "new", "yourself"]
 $globals.ASTDebugger.klass);
 
 
+$core.addClass('ASTEnterNode', $globals.NodeVisitor, ['interpreter'], 'Compiler-Interpreter');
+$core.addMethod(
+$core.method({
+selector: "interpreter",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self["@interpreter"];
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "interpreter\x0a\x09^ interpreter",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "interpreter:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@interpreter"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "interpreter: anObject\x0a\x09interpreter := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "visitBlockNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return aNode;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitBlockNode: aNode\x0a\x09\x22Answer the node as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "visitNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $early={};
+try {
+$recv($recv(aNode)._nodes())._ifEmpty_ifNotEmpty_((function(){
+throw $early=[aNode];
+
+}),(function(nodes){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+throw $early=[self._visit_($recv(nodes)._first())];
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({nodes:nodes},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+return self;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},$globals.ASTEnterNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitNode: aNode\x0a\x09aNode nodes\x0a\x09\x09ifEmpty: [ ^ aNode ]\x0a\x09\x09ifNotEmpty: [ :nodes | ^ self visit: nodes first ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["ifEmpty:ifNotEmpty:", "nodes", "visit:", "first"]
+}),
+$globals.ASTEnterNode);
+
+
+$core.addMethod(
+$core.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (anInterpreter){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=self._new();
+$recv($1)._interpreter_(anInterpreter);
+return $recv($1)._yourself();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"on:",{anInterpreter:anInterpreter},$globals.ASTEnterNode.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anInterpreter"],
+source: "on: anInterpreter\x0a\x09^ self new\x0a\x09\x09interpreter: anInterpreter;\x0a\x09\x09yourself",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["interpreter:", "new", "yourself"]
+}),
+$globals.ASTEnterNode.klass);
+
+
 $core.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.\x0a\x0a## API\x0a\x0aWhile my instances should be used from within an `ASTDebugger`, which provides a more high level interface,\x0ayou can use methods from the `interpreting` protocol:\x0a\x0a- `#step` evaluates the current `node` only\x0a- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)\x0a- `#proceed` evaluates eagerly the AST\x0a- `#restart` select the first node of the AST\x0a- `#skip` skips the current node, moving to the next one if any";
@@ -2155,6 +2280,31 @@ source: "context: aContext\x0a\x09context := aContext",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
+}),
+$globals.ASTInterpreter);
+
+$core.addMethod(
+$core.method({
+selector: "enterNode",
+protocol: 'interpreting',
+fn: function (){
+var self=this;
+function $ASTEnterNode(){return $globals.ASTEnterNode||(typeof ASTEnterNode=="undefined"?nil:ASTEnterNode)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._node_($recv($recv($ASTEnterNode())._on_(self))._visit_(self._node()));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"enterNode",{},$globals.ASTInterpreter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "enterNode\x0a\x09self node: ((ASTEnterNode on: self) visit: self node)",
+referencedClasses: ["ASTEnterNode"],
+//>>excludeEnd("ide");
+messageSends: ["node:", "visit:", "on:", "node"]
 }),
 $globals.ASTInterpreter);
 
@@ -2387,21 +2537,40 @@ selector: "next",
 protocol: 'interpreting',
 fn: function (){
 var self=this;
+var nd,nextNode;
+function $ASTEnterNode(){return $globals.ASTEnterNode||(typeof ASTEnterNode=="undefined"?nil:ASTEnterNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._node_($recv(self._node())._nextNode());
+var $1,$2,$receiver;
+nd=self._node();
+$1=$recv(nd)._parent();
+if(($receiver = $1) == null || $receiver.isNil){
+nextNode=$1;
+} else {
+var parent;
+parent=$receiver;
+$2=$recv(parent)._nextSiblingNode_(nd);
+if(($receiver = $2) == null || $receiver.isNil){
+nextNode=parent;
+} else {
+var sibling;
+sibling=$receiver;
+nextNode=$recv($recv($ASTEnterNode())._on_(self))._visit_(sibling);
+};
+};
+self._node_(nextNode);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"next",{},$globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"next",{nd:nd,nextNode:nextNode},$globals.ASTInterpreter)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "next\x0a\x09self node: self node nextNode",
-referencedClasses: [],
+source: "next\x0a\x09| nd nextNode |\x0a\x09nd := self node.\x0a\x09nextNode := nd parent ifNotNil: [ :parent |\x0a\x09\x09(parent nextSiblingNode: nd)\x0a\x09\x09\x09ifNil: [ parent ]\x0a\x09\x09\x09ifNotNil: [ :sibling | (ASTEnterNode on: self) visit: sibling ] ].\x0a\x09self node: nextNode",
+referencedClasses: ["ASTEnterNode"],
 //>>excludeEnd("ide");
-messageSends: ["node:", "nextNode", "node"]
+messageSends: ["node", "ifNotNil:", "parent", "ifNil:ifNotNil:", "nextSiblingNode:", "visit:", "on:", "node:"]
 }),
 $globals.ASTInterpreter);
 
@@ -2576,7 +2745,8 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._node_($recv($recv(self._context())._ast())._nextChild());
+self._node_($recv(self._context())._ast());
+self._enterNode();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"restart",{},$globals.ASTInterpreter)});
@@ -2584,10 +2754,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "restart\x0a\x09self node: self context ast nextChild",
+source: "restart\x0a\x09self node: self context ast; enterNode",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["node:", "nextChild", "ast", "context"]
+messageSends: ["node:", "ast", "context", "enterNode"]
 }),
 $globals.ASTInterpreter);
 
@@ -3642,34 +3812,16 @@ $globals.BlockNode);
 
 $core.addMethod(
 $core.method({
-selector: "nextChild",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.BlockNode);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
+selector: "nextSiblingNode:",
 protocol: '*Compiler-Interpreter',
 fn: function (aNode){
 var self=this;
-return self;
+return nil;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
+source: "nextSiblingNode: aNode\x0a\x09\x22Answer nil as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09\x22In fact, this should not have been called, ever. IMO. -- herby\x22\x0a\x09\x0a\x09^ nil",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -3750,75 +3902,10 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "nextChild",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $2,$1;
-$2=self._nodes();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nodes"]=1;
-//>>excludeEnd("ctx");
-$1=$recv($2)._isEmpty();
-if($core.assert($1)){
-return self;
-} else {
-return $recv($recv(self._nodes())._first())._nextChild();
-};
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextChild",{},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1,$receiver;
-$1=self._parent();
-if(($receiver = $1) == null || $receiver.isNil){
-return $1;
-} else {
-var node;
-node=$receiver;
-return $recv(node)._nextNode_(self);
-};
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextNode",{},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["ifNotNil:", "parent", "nextNode:"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
+selector: "nextSiblingNode:",
 protocol: '*Compiler-Interpreter',
 fn: function (aNode){
 var self=this;
-var next;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -3829,23 +3916,22 @@ $1=self._nodes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nodes"]=1;
 //>>excludeEnd("ctx");
-next=$recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
-throw $early=[self];
+return $recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+throw $early=[nil];
 
 }));
-return $recv(next)._nextChild();
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},$globals.Node)});
+}, function($ctx1) {$ctx1.fill(self,"nextSiblingNode:",{aNode:aNode},$globals.Node)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
+source: "nextSiblingNode: aNode\x0a\x09\x22Answer the next node after aNode or nil\x22\x0a\x09\x0a\x09^ self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ nil ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:"]
 }),
 $globals.Node);
 
