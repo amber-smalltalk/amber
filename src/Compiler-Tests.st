@@ -510,7 +510,7 @@ interpret: aString receiver: anObject withArguments: aDictionary
 	
 	^ interpreter
 		context: ctx;
-		interpret: ast nextChild;
+		node: ast nextChild;
 		proceed;
 		result
 ! !

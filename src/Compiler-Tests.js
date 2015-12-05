@@ -1867,7 +1867,7 @@ return $recv(ctx)._localAt_put_(key,value);
 }));
 $3=interpreter;
 $recv($3)._context_(ctx);
-$recv($3)._interpret_($recv(ast)._nextChild());
+$recv($3)._node_($recv(ast)._nextChild());
 $recv($3)._proceed();
 return $recv($3)._result();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1876,10 +1876,10 @@ return $recv($3)._result();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: ast nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09node: ast nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
 referencedClasses: ["ASTInterpreter", "AIContext"],
 //>>excludeEnd("ide");
-messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "proceed", "result"]
+messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "node:", "nextChild", "proceed", "result"]
 }),
 $globals.ASTInterpreterTest);
 

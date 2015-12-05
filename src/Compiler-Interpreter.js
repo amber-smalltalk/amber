@@ -2326,31 +2326,6 @@ $globals.ASTInterpreter);
 
 $core.addMethod(
 $core.method({
-selector: "interpret:",
-protocol: 'interpreting',
-fn: function (aNode){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-self._node_(aNode);
-self._interpret();
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"interpret:",{aNode:aNode},$globals.ASTInterpreter)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "interpret: aNode\x0a\x09self node: aNode.\x0a\x09self interpret",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["node:", "interpret"]
-}),
-$globals.ASTInterpreter);
-
-$core.addMethod(
-$core.method({
 selector: "messageFromSendNode:arguments:",
 protocol: 'private',
 fn: function (aSendNode,aCollection){

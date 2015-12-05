@@ -607,11 +607,6 @@ interpret
 	self visit: self node
 !
 
-interpret: aNode
-	self node: aNode.
-	self interpret
-!
-
 next
 	self node: self node nextNode
 !
