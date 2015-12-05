@@ -772,11 +772,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._should_return_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
+self._should_return_("foo ^ true class; ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["should:return:"]=1;
 //>>excludeEnd("ctx");
-self._should_return_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]",(2));
+self._should_return_("foo ^ false class; ifTrue: [ 1 ] ifFalse: [ 2 ]",(2));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testCascadesWithInlining",{},$globals.CodeGeneratorTest)});
@@ -784,7 +784,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testCascadesWithInlining\x0a\x09\x0a\x09self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2",
+source: "testCascadesWithInlining\x0a\x09\x0a\x09self should: 'foo ^ true class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ false class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["should:return:"]
