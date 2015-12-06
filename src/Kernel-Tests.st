@@ -470,7 +470,7 @@ testSetJavaScriptConstructor
 ! !
 
 TestCase subclass: #CollectionTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'sampleBlock'
 	package: 'Kernel-Tests'!
 
 !CollectionTest methodsFor: 'convenience'!
@@ -539,6 +539,14 @@ sampleNewValueAsCollection
 	^ self collectionClass with: self sampleNewValue
 ! !
 
+!CollectionTest methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+
+	sampleBlock := []
+! !
+
 !CollectionTest methodsFor: 'testing'!
 
 isCollectionReadOnly
@@ -591,7 +599,7 @@ testAsSet
 	| c set |
 	c := self collectionWithDuplicates.
 	set := c asSet.
-	self assert: set size equals: 5.
+	self assert: set size equals: 6.
 	c do: [ :each |
 		self assert: (set includes: each) ]
 !
@@ -878,6 +886,8 @@ collectionValues
 
 nonIndexesDo: aBlock
 	aBlock value: 5.
+	aBlock value: [].
+	aBlock value: Object new.
 	aBlock value: 'z'
 !
 
@@ -992,11 +1002,12 @@ collection
 		at: 'a' put: 2;
 		at: true put: 3;
 		at: 1@3 put: -4;
+		at: sampleBlock put: 9;
 		yourself
 !
 
 collectionKeys
-	^ {1. 'a'. true. 1@3}
+	^ {1. 'a'. true. 1@3. sampleBlock}
 !
 
 collectionOfPrintStrings
@@ -1005,15 +1016,16 @@ collectionOfPrintStrings
 		at: 'a' put: '2';
 		at: true put: '3';
 		at: 1@3 put: '-4';
+		at: sampleBlock put: '9';
 		yourself
 !
 
 collectionSize
-	^ 4
+	^ 5
 !
 
 collectionValues
-	^ {1. 2. 3. -4}
+	^ {1. 2. 3. -4. 9}
 !
 
 collectionWithDuplicates
@@ -1022,6 +1034,7 @@ collectionWithDuplicates
 		at: 'a' put: 2;
 		at: true put: 3;
 		at: 4 put: -4;
+		at: sampleBlock put: 9;
 		at: 'b' put: 1;
 		at: 3 put: 3;
 		at: false put: 12;
@@ -1034,6 +1047,7 @@ collectionWithNewValue
 		at: 'a' put: 2;
 		at: true put: 3;
 		at: 1@3 put: -4;
+		at: sampleBlock put: 9;
 		at: 'new' put: 'N';
 		yourself
 !
@@ -1047,7 +1061,8 @@ sampleNewValueAsCollection
 samplesDo: aBlock
 	super samplesDo: aBlock.
 	aBlock value: true value: 3.
-	aBlock value: 1@3 value: -4
+	aBlock value: 1@3 value: -4.
+	aBlock value: sampleBlock value: 9
 ! !
 
 !DictionaryTest methodsFor: 'tests'!
@@ -1112,7 +1127,7 @@ collectionValues
 !
 
 collectionWithDuplicates
-	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10. 'h' -> 0 }
 !
 
 collectionWithNewValue
@@ -1291,7 +1306,7 @@ collectionSize
 !
 
 collectionWithDuplicates
-	^ #('a' 'b' 'c' 1 2 1 'a')
+	^ #('a' 'b' 'c' 1 2 1 'a' ())
 !
 
 collectionWithNewValue
@@ -1422,7 +1437,7 @@ collectionSize
 !
 
 collectionWithDuplicates
-	^ 'abbaerte'
+	^ 'abbaerten'
 !
 
 collectionWithNewValue
@@ -1621,6 +1636,7 @@ collection
 		add: nil;
 		add: 3@3;
 		add: false;
+		add: sampleBlock;
 		yourself
 !
 
@@ -1630,11 +1646,12 @@ collectionOfPrintStrings
 		add: 'nil';
 		add: '3@3';
 		add: 'false';
+		add: 'a BlockClosure';
 		yourself
 !
 
 collectionSize
-	^ 4
+	^ 5
 !
 
 collectionWithDuplicates
@@ -1649,6 +1666,7 @@ collectionWithNewValue
 		add: 3@3;
 		add: 'N';
 		add: false;
+		add: sampleBlock;
 		yourself
 ! !
 
