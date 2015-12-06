@@ -5301,7 +5301,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$12,$11;
+var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$11;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -5360,13 +5360,12 @@ self._assert_equals_($6,$10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$12=self._collectionWithNewValue();
+$11=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
-$recv($12)._addAll_(self._collection());
-$11=$recv($12)._yourself();
-self._assert_equals_($11,self._collectionWithNewValue());
+$recv($11)._addAll_(self._collection());
+self._assert_equals_($recv($11)._yourself(),self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.AssociativeCollectionTest)});
@@ -9168,7 +9167,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$12,$11;
+var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$11;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -9227,13 +9226,12 @@ self._assert_equals_($6,$10);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["assert:equals:"]=2;
 //>>excludeEnd("ctx");
-$12=self._collectionWithNewValue();
+$11=self._collectionWithNewValue();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collectionWithNewValue"]=3;
 //>>excludeEnd("ctx");
-$recv($12)._addAll_(self._collection());
-$11=$recv($12)._yourself();
-self._assert_equals_($11,self._collectionWithNewValue());
+$recv($11)._addAll_(self._collection());
+self._assert_equals_($recv($11)._yourself(),self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.SetTest)});
