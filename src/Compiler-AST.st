@@ -52,6 +52,10 @@ navigationNodeAt: aPoint ifAbsent: aBlock
 		(b positionStart dist: aPoint) ]) first
 !
 
+nodeId
+	^ self identityHash
+!
+
 nodes
 	^ nodes ifNil: [ nodes := Array new ]
 !

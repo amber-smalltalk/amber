@@ -556,6 +556,29 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
+selector: "nodeId",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return self._identityHash();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"nodeId",{},$globals.Node)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "nodeId\x0a\x09^ self identityHash",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["identityHash"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){

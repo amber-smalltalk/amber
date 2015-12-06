@@ -22,14 +22,14 @@ nextAlias
 !
 
 node: aNode aliased: anAliasVar
-	nodeAliases ifNil: [ nodeAliases := Dictionary new ].
-	nodeAliases at: aNode put: anAliasVar
+	nodeAliases ifNil: [ nodeAliases := #{} ].
+	nodeAliases at: aNode nodeId put: anAliasVar
 !
 
 nodeAliasFor: aNode
 	nodeAliases
 		ifNil: [ ^ nil ]
-		ifNotNil: [ ^ nodeAliases at: aNode ifAbsent: [] ]
+		ifNotNil: [ ^ nodeAliases at: aNode nodeId ifAbsent: [] ]
 !
 
 sequence

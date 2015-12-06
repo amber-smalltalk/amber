@@ -219,19 +219,18 @@ selector: "node:aliased:",
 protocol: 'accessing',
 fn: function (aNode,anAliasVar){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@nodeAliases"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@nodeAliases"]=$recv($Dictionary())._new();
+self["@nodeAliases"]=$globals.HashedCollection._newFromPairs_([]);
 self["@nodeAliases"];
 } else {
 $1;
 };
-$recv(self["@nodeAliases"])._at_put_(aNode,anAliasVar);
+$recv(self["@nodeAliases"])._at_put_($recv(aNode)._nodeId(),anAliasVar);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"node:aliased:",{aNode:aNode,anAliasVar:anAliasVar},$globals.IRASTTranslator)});
@@ -239,10 +238,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode", "anAliasVar"],
-source: "node: aNode aliased: anAliasVar\x0a\x09nodeAliases ifNil: [ nodeAliases := Dictionary new ].\x0a\x09nodeAliases at: aNode put: anAliasVar",
-referencedClasses: ["Dictionary"],
+source: "node: aNode aliased: anAliasVar\x0a\x09nodeAliases ifNil: [ nodeAliases := #{} ].\x0a\x09nodeAliases at: aNode nodeId put: anAliasVar",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:", "new", "at:put:"]
+messageSends: ["ifNil:", "at:put:", "nodeId"]
 }),
 $globals.IRASTTranslator);
 
@@ -260,7 +259,7 @@ $1=self["@nodeAliases"];
 if(($receiver = $1) == null || $receiver.isNil){
 return nil;
 } else {
-return $recv(self["@nodeAliases"])._at_ifAbsent_(aNode,(function(){
+return $recv(self["@nodeAliases"])._at_ifAbsent_($recv(aNode)._nodeId(),(function(){
 
 }));
 };
@@ -271,10 +270,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "nodeAliasFor: aNode\x0a\x09nodeAliases\x0a\x09\x09ifNil: [ ^ nil ]\x0a\x09\x09ifNotNil: [ ^ nodeAliases at: aNode ifAbsent: [] ]",
+source: "nodeAliasFor: aNode\x0a\x09nodeAliases\x0a\x09\x09ifNil: [ ^ nil ]\x0a\x09\x09ifNotNil: [ ^ nodeAliases at: aNode nodeId ifAbsent: [] ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["ifNil:ifNotNil:", "at:ifAbsent:"]
+messageSends: ["ifNil:ifNotNil:", "at:ifAbsent:", "nodeId"]
 }),
 $globals.IRASTTranslator);
 
