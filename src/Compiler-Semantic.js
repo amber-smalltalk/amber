@@ -1732,7 +1732,7 @@ $globals.UnknownVar);
 
 
 
-$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends'], 'Compiler-Semantic');
+$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends', 'visitedRefIds'], 'Compiler-Semantic');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 //>>excludeEnd("ide");
@@ -1843,6 +1843,39 @@ source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable i
 referencedClasses: ["Smalltalk", "UnknownVariableError"],
 //>>excludeEnd("ide");
 messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJsVariables", "isVariableUndefined:inPackage:", "thePackage", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope"]
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+self["@visitedRefIds"]=$recv($Set())._new();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.SemanticAnalyzer)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09visitedRefIds := Set new",
+referencedClasses: ["Set"],
+//>>excludeEnd("ide");
+messageSends: ["initialize", "new"]
 }),
 $globals.SemanticAnalyzer);
 
@@ -2383,12 +2416,21 @@ selector: "visitRefNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
+var ref,aux;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$recv($recv(aNode)._node())._shouldBeAliased_(true);
-$1=(
+var $1,$2;
+ref=$recv(aNode)._node();
+aux=$recv(self["@visitedRefIds"])._size();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["size"]=1;
+//>>excludeEnd("ctx");
+$recv(self["@visitedRefIds"])._add_($recv(ref)._nodeId());
+$1=$recv(aux).__lt($recv(self["@visitedRefIds"])._size());
+if($core.assert($1)){
+$recv(ref)._shouldBeAliased_(true);
+$2=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true,
 //>>excludeEnd("ctx");
@@ -2396,17 +2438,19 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-return $1;
+return $2;
+};
+return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
+}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode,ref:ref,aux:aux},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitRefNode: aNode\x0a\x09aNode node shouldBeAliased: true.\x0a\x09^ super visitRefNode: aNode",
+source: "visitRefNode: aNode\x0a\x09| ref aux |\x0a\x09ref := aNode node.\x0a\x09aux := visitedRefIds size.\x0a\x09visitedRefIds add: ref nodeId.\x0a\x09aux < visitedRefIds size \x22added; not visited yet\x22 ifTrue: [\x0a\x09\x09ref shouldBeAliased: true.\x0a\x09\x09^ super visitRefNode: aNode ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["shouldBeAliased:", "node", "visitRefNode:"]
+messageSends: ["node", "size", "add:", "nodeId", "ifTrue:", "<", "shouldBeAliased:", "visitRefNode:"]
 }),
 $globals.SemanticAnalyzer);
 
