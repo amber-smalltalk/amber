@@ -423,6 +423,37 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
+selector: "location:",
+protocol: 'accessing',
+fn: function (aLocation){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $3,$2,$1;
+$3=$recv(aLocation)._start();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["start"]=1;
+//>>excludeEnd("ctx");
+$2=$recv($3)._line();
+$1=$recv($2).__at($recv($recv(aLocation)._start())._column());
+self._position_($1);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"location:",{aLocation:aLocation},$globals.Node)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aLocation"],
+source: "location: aLocation\x0a\x09self position: aLocation start line @ aLocation start column",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["position:", "@", "line", "start", "column"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){

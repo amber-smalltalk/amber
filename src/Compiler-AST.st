@@ -26,6 +26,10 @@ allNodes
 	^ allNodes
 !
 
+location: aLocation
+	self position: aLocation start line @ aLocation start column
+!
+
 method
 	^ self parent ifNotNil: [ :node | node method ]
 !

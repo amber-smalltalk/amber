@@ -10,14 +10,14 @@ selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
 string         = "'" val:(("''" {return "'";} / [^'])*) "'" {
                      return $globals.ValueNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._value_(val.join(""));
                  }
 character      = "$" char:. 
                   {
                       return $globals.ValueNode._new()
-                             ._position_((line()).__at(column()))
+                             ._location_(location())
                              ._source_(text())
                              ._value_(char);
                   }
@@ -25,13 +25,13 @@ symbol         = "#" rest:bareSymbol {return rest;}
 bareSymbol         = val:(selector / binarySelector / node:string {return node._value();})
                   {
                       return $globals.ValueNode._new()
-                             ._position_((line()).__at(column()))
+                             ._location_(location())
                              ._source_(text())
                              ._value_(val);
                   }
 number         = n:(numberExp / hex / float / integer) {
                      return $globals.ValueNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._value_(n);
                  }
@@ -42,12 +42,12 @@ integer        = neg:"-"? digits:[0-9]+ {return (parseInt((neg || '') + digits.j
 
 literalArray   = "#(" rest:wsLiteralArrayContents ws ")" {
     return rest
-        ._position_((line()).__at(column()))
+        ._location_(location())
         ._source_(text());
 }
 bareLiteralArray   = "(" rest:wsLiteralArrayContents ws ")" {
     return rest
-        ._position_((line()).__at(column()))
+        ._location_(location())
         ._source_(text());
 }
 
@@ -58,13 +58,13 @@ wsLiteralArrayContents   = lits:(ws lit:literalArrayElement {return lit._value()
                  }
 dynamicArray   = "{" ws expressions:expressions? maybeDotsWs "}" {
                      return $globals.DynamicArrayNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._nodes_(expressions || []);
                  }
 dynamicDictionary = "#{" ws expressions:associations? maybeDotsWs  "}" {
                         return $globals.DynamicDictionaryNode._new()
-                               ._position_((line()).__at(column()))
+                               ._location_(location())
                                ._source_(text())
                                ._nodes_(expressions || []);
                     }
@@ -73,7 +73,7 @@ pseudoVariable = val:(
                  / 'false' {return false;}
                  / 'nil' {return nil;}) {
                        return $globals.ValueNode._new()
-                              ._position_((line()).__at(column()))
+                              ._location_(location())
                               ._source_(text())
                               ._value_(val);
                    }
@@ -84,7 +84,7 @@ literal        = runtimeLiteral / parseTimeLiteral
 
 variable       = identifier:identifier {
                      return $globals.VariableNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._value_(identifier);
                  }
@@ -113,7 +113,7 @@ expressions    = first:expression others:wsExpressionsRest* { return [first].con
 
 assignment     = variable:variable ws ':=' ws expression:expression {
                      return $globals.AssignmentNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._left_(variable)
                             ._right_(expression);
@@ -121,7 +121,7 @@ assignment     = variable:variable ws ':=' ws expression:expression {
 
 ret            = '^' ws expression:expression {
                      return $globals.ReturnNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._nodes_([expression]);
                  }
@@ -146,7 +146,7 @@ wsSequenceWs       = (ws js:jsSequence ws { return js; }) / wsStSequenceWs
 
 wsStSequenceWs    = ws temps:temps? maybeDotsWs statements:statementsWs? {
                      return $globals.SequenceNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._temps_(temps || [])
                             ._nodes_(statements || []);
@@ -156,7 +156,7 @@ jsSequence     = jsStatement
 
 block          = '[' params:wsBlockParamList? sequence:wsSequenceWs? ']' {
                      return $globals.BlockNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._parameters_(params || [])
                             ._nodes_([sequence._asBlockSequenceNode()]);
@@ -168,7 +168,7 @@ operand        = literal / reference / subexpression
 
 wsUnaryMessage   = ws selector:unarySelector !":" {
                      return $globals.SendNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._selector_(selector);
                  }
@@ -193,7 +193,7 @@ unarySend      = receiver:operand tail:wsUnaryTail? {
 
 wsBinaryMessage  = ws selector:binarySelector ws arg:unarySend {
                      return $globals.SendNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._selector_(selector)
                             ._arguments_([arg]);
@@ -226,7 +226,7 @@ wsKeywordMessage = pairs:(ws key:keyword ws arg:binarySend {return {key:key, arg
                           args.push(pairs[i].arg);
                       }
                       return $globals.SendNode._new()
-                             ._position_((line()).__at(column()))
+                             ._location_(location())
                              ._source_(text())
                              ._selector_(selector)
                              ._arguments_(args);
@@ -246,21 +246,21 @@ wsMessage        = wsBinaryMessage / wsUnaryMessage / wsKeywordMessage
 cascade        = send:keywordSend & { return send._isSendNode(); } messages:(ws ";" mess:wsMessage {return mess;})+ {
                      messages.unshift(send);
                      return $globals.CascadeNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(text())
                             ._nodes_(messages);
                  }
 
 jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {
                      return $globals.JSStatementNode._new()
-                            ._position_((line()).__at(column()))
+                            ._location_(location())
                             ._source_(val.join(""))
                  }
 
 
 method         = pattern:(wsKeywordPattern / wsBinaryPattern / wsUnaryPattern) sequence:wsSequenceWs? {
                       return $globals.MethodNode._new()
-                             ._position_((line()).__at(column()))
+                             ._location_(location())
                              ._source_(text())
                              ._selector_(pattern[0])
                              ._arguments_(pattern[1])
