@@ -410,7 +410,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope blockIndex thePackage theClass classReferences messageSends'
+	instanceVariableNames: 'currentScope blockIndex thePackage theClass classReferences messageSends visitedRefIds'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -487,6 +487,14 @@ newScopeOfClass: aLexicalScopeClass
 		yourself
 ! !
 
+!SemanticAnalyzer methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+
+	visitedRefIds := Set new
+! !
+
 !SemanticAnalyzer methodsFor: 'private'!
 
 nextBlockIndex
@@ -555,7 +563,10 @@ visitBranchSendNode: aNode
 !
 
 visitCascadeNode: aNode
-	aNode receiver: aNode nodes first receiver.
+	| recv |
+	recv := aNode nodes first receiver.
+	aNode nodes do: [ :each | each receiver: (RefNode new node: recv; yourself) ].
+	aNode receiver: recv.
 	super visitCascadeNode: aNode
 !
 
@@ -576,6 +587,16 @@ visitMethodNode: aNode
 		classReferences: self classReferences;
 		sendIndexes: self messageSends.
 	self popScope
+!
+
+visitRefNode: aNode
+	| ref aux |
+	ref := aNode node.
+	aux := visitedRefIds size.
+	visitedRefIds add: ref nodeId.
+	aux < visitedRefIds size "added; not visited yet" ifTrue: [
+		ref shouldBeAliased: true.
+		^ super visitRefNode: aNode ]
 !
 
 visitReturnNode: aNode

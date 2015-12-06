@@ -660,48 +660,22 @@ selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$4,$3;
-$1=$recv(aNode)._nodes();
+var $2,$1;
+$2=$recv(aNode)._nodes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nodes"]=1;
 //>>excludeEnd("ctx");
-$recv($1)._inject_into_($recv(aNode)._receiver(),(function(previous,each){
-var receiver;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-$2=$recv(previous)._isImmutable();
-if($core.assert($2)){
-receiver=previous;
-} else {
-var alias;
-alias=self._alias_(previous);
-alias;
-receiver=$recv($recv($VariableNode())._new())._binding_($recv(alias)._variable());
-};
-receiver;
-$recv(each)._receiver_(receiver);
-return receiver;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({previous:previous,each:each,receiver:receiver},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-$4=$recv(aNode)._nodes();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["nodes"]=2;
-//>>excludeEnd("ctx");
-$3=$recv($4)._allButLast();
-$recv($3)._do_((function(each){
+$1=$recv($2)._allButLast();
+$recv($1)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return $recv(self._sequence())._add_(self._visit_(each));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
 return self._visitOrAlias_($recv($recv(aNode)._nodes())._last());
@@ -711,10 +685,10 @@ return self._visitOrAlias_($recv($recv(aNode)._nodes())._last());
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09aNode nodes inject: aNode receiver into: [ :previous :each |\x0a\x09\x09| receiver |\x0a\x09\x09receiver := previous isImmutable \x0a\x09\x09\x09ifTrue: [ previous ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09| alias |\x0a\x09\x09\x09\x09alias := self alias: previous.\x0a\x09\x09\x09\x09VariableNode new binding: alias variable ].\x0a\x09\x09each receiver: receiver.\x0a\x09\x09receiver ].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self visitOrAlias: aNode nodes last",
-referencedClasses: ["VariableNode"],
+source: "visitCascadeNode: aNode\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self visitOrAlias: aNode nodes last",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["inject:into:", "nodes", "receiver", "ifTrue:ifFalse:", "isImmutable", "alias:", "binding:", "new", "variable", "receiver:", "do:", "allButLast", "add:", "sequence", "visit:", "visitOrAlias:", "last"]
+messageSends: ["do:", "allButLast", "nodes", "add:", "sequence", "visit:", "visitOrAlias:", "last"]
 }),
 $globals.IRASTTranslator);
 
@@ -994,6 +968,29 @@ source: "visitOrAlias: aNode\x0a\x09^ aNode shouldBeAliased\x0a\x09\x09ifTrue: [
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["ifTrue:ifFalse:", "shouldBeAliased", "alias:", "visit:"]
+}),
+$globals.IRASTTranslator);
+
+$core.addMethod(
+$core.method({
+selector: "visitRefNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return self._alias_($recv(aNode)._node());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode},$globals.IRASTTranslator)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitRefNode: aNode\x0a\x09^ self alias: aNode node",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["alias:", "node"]
 }),
 $globals.IRASTTranslator);
 

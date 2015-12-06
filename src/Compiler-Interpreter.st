@@ -564,6 +564,14 @@ visitNode: aNode
 	aNode nodes
 		ifEmpty: [ ^ aNode ]
 		ifNotEmpty: [ :nodes | ^ self visit: nodes first ]
+!
+
+visitRefNode: aNode
+	| ref |
+	ref := aNode node.
+	self interpreter refResults at: ref nodeId
+		ifPresent: [ ^ aNode ]
+		ifAbsent: [ ref parent: aNode. ^ super visitRefNode: aNode ]
 ! !
 
 !ASTEnterNode class methodsFor: 'instance creation'!
@@ -575,7 +583,7 @@ on: anInterpreter
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
-	instanceVariableNames: 'node context stack returnValue returned forceAtEnd'
+	instanceVariableNames: 'node context stack returnValue returned forceAtEnd refResults'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
 I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.
@@ -611,6 +619,10 @@ node: aNode
 	node := aNode
 !
 
+refResults
+	^ refResults
+!
+
 result
 	^ self hasReturned 
 		ifTrue: [ self returnValue ] 
@@ -634,6 +646,7 @@ stack
 initialize
 	super initialize.
 
+	refResults := #{}.
 	forceAtEnd := false
 ! !
 
@@ -858,6 +871,14 @@ visitNode: aNode
 	"Do nothing by default. Especially, do not visit children recursively."
 !
 
+visitRefNode: aNode
+	| ref refid |
+	ref := aNode node.
+	refid := ref nodeId.
+	self refResults at: refid ifAbsentPut: [ self pop ].
+	self push: (self refResults at: refid)
+!
+
 visitReturnNode: aNode
 	returned := true.
 	self returnValue: self pop
@@ -867,7 +888,7 @@ visitSendNode: aNode
 	| receiver args message result |
 	
 	args := aNode arguments collect: [ :each | self pop ].
-	receiver := self peek.
+	receiver := self pop.
 	
 	message := self
 		messageFromSendNode: aNode
@@ -877,7 +898,7 @@ visitSendNode: aNode
 	
 	"For cascade sends, push the reciever if the send is not the last one"
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
-		ifFalse: [ self pop; push: result ]
+		ifFalse: [ self push: result ]
 !
 
 visitSequenceNode: aNode
@@ -1023,6 +1044,13 @@ nextSiblingNode: aNode
 	^ self nodes 
 		at: (self nodes indexOf: aNode) + 1
 		ifAbsent: [ ^ nil ]
+! !
+
+!RefNode methodsFor: '*Compiler-Interpreter'!
+
+nextSiblingNode: aNode
+	"no siblings in ref node"
+	^ nil
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!
