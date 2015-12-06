@@ -248,6 +248,11 @@ testGlobalVar
 	self should: 'foo ^ NonExistingVar' return: nil
 !
 
+testInnerCascades
+	
+	self should: 'foo ^ Array new add: (3 squared; negated); add: (4 negated; squared); yourself' return: #(-3 16)
+!
+
 testInnerTemporalDependentElementsOrdered
 	self should: 'foo
 	| x |
