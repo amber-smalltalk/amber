@@ -436,40 +436,6 @@ accept: aVisitor
 	^ aVisitor visitMethodNode: self
 ! !
 
-Node subclass: #RefNode
-	instanceVariableNames: 'node'
-	package: 'Compiler-AST'!
-!RefNode commentStamp!
-I reference other `node`, which may be used more times,
-each time getting separate instance of me.
-
-I have my own `parent`, but delegate visitors to `node`.
-
-During semantic analysis, analyzer does `node shouldBeAliased: true`
-because of the fact it may be used more times.!
-
-!RefNode methodsFor: 'accessing'!
-
-node
-	^ node
-!
-
-node: anObject
-	node := anObject
-! !
-
-!RefNode methodsFor: 'testing'!
-
-isImmutable
-	^ true
-! !
-
-!RefNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitRefNode: self
-! !
-
 Node subclass: #QuasiSendNode
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-AST'!
@@ -651,6 +617,40 @@ shouldBeAliased
 
 accept: aVisitor
 	^ aVisitor visitSendNode: self
+! !
+
+Node subclass: #RefNode
+	instanceVariableNames: 'node'
+	package: 'Compiler-AST'!
+!RefNode commentStamp!
+I reference other `node`, which may be used more times,
+each time getting separate instance of me.
+
+I have my own `parent`, but delegate visitors to `node`.
+
+During semantic analysis, analyzer does `node shouldBeAliased: true`
+because of the fact it may be used more times.!
+
+!RefNode methodsFor: 'accessing'!
+
+node
+	^ node
+!
+
+node: anObject
+	node := anObject
+! !
+
+!RefNode methodsFor: 'testing'!
+
+isImmutable
+	^ true
+! !
+
+!RefNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitRefNode: self
 ! !
 
 Node subclass: #ReturnNode

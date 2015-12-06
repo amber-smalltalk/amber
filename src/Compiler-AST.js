@@ -1921,90 +1921,6 @@ $globals.MethodNode);
 
 
 
-$core.addClass('RefNode', $globals.Node, ['node'], 'Compiler-AST');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.RefNode.comment="I reference other `node`, which may be used more times,\x0aeach time getting separate instance of me.\x0a\x0aI have my own `parent`, but delegate visitors to `node`.\x0a\x0aDuring semantic analysis, analyzer does `node shouldBeAliased: true`\x0abecause of the fact it may be used more times.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "accept:",
-protocol: 'visiting',
-fn: function (aVisitor){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return $recv(aVisitor)._visitRefNode_(self);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.RefNode)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitRefNode: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["visitRefNode:"]
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "isImmutable",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "isImmutable\x0a\x09^ true",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "node",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@node"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "node\x0a\x09^ node",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "node:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@node"]=anObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "node: anObject\x0a\x09node := anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-
-
 $core.addClass('QuasiSendNode', $globals.Node, ['receiver'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.QuasiSendNode.comment="I am a node that has a receiver.\x0a\x0aMy subclasses are `SendNode`, `CascadeNode` and `BranchSendNode`.";
@@ -2696,6 +2612,90 @@ referencedClasses: ["SendNode"],
 messageSends: ["position:", "new", "position", "source:", "source", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"]
 }),
 $globals.SendNode);
+
+
+
+$core.addClass('RefNode', $globals.Node, ['node'], 'Compiler-AST');
+//>>excludeStart("ide", pragmas.excludeIdeData);
+$globals.RefNode.comment="I reference other `node`, which may be used more times,\x0aeach time getting separate instance of me.\x0a\x0aI have my own `parent`, but delegate visitors to `node`.\x0a\x0aDuring semantic analysis, analyzer does `node shouldBeAliased: true`\x0abecause of the fact it may be used more times.";
+//>>excludeEnd("ide");
+$core.addMethod(
+$core.method({
+selector: "accept:",
+protocol: 'visiting',
+fn: function (aVisitor){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(aVisitor)._visitRefNode_(self);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.RefNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aVisitor"],
+source: "accept: aVisitor\x0a\x09^ aVisitor visitRefNode: self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["visitRefNode:"]
+}),
+$globals.RefNode);
+
+$core.addMethod(
+$core.method({
+selector: "isImmutable",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "isImmutable\x0a\x09^ true",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.RefNode);
+
+$core.addMethod(
+$core.method({
+selector: "node",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self["@node"];
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "node\x0a\x09^ node",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.RefNode);
+
+$core.addMethod(
+$core.method({
+selector: "node:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@node"]=anObject;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "node: anObject\x0a\x09node := anObject",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.RefNode);
 
 
 
