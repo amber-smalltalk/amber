@@ -566,6 +566,14 @@ visitNode: aNode
 		ifNotEmpty: [ :nodes | ^ self visit: nodes first ]
 !
 
+visitRefNode: aNode
+	| ref |
+	ref := aNode node.
+	self interpreter refResults at: ref nodeId
+		ifPresent: [ ^ aNode ]
+		ifAbsent: [ ref parent: aNode. ^ super visitRefNode: aNode ]
+!
+
 visitSequenceNode: aNode
 	aNode temps do: [ :each |
 		self interpreter context defineLocal: each ].
@@ -581,7 +589,7 @@ on: anInterpreter
 ! !
 
 NodeVisitor subclass: #ASTInterpreter
-	instanceVariableNames: 'node context stack returnValue returned forceAtEnd'
+	instanceVariableNames: 'node context stack returnValue returned forceAtEnd refResults'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
 I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.
@@ -617,6 +625,10 @@ node: aNode
 	node := aNode
 !
 
+refResults
+	^ refResults
+!
+
 result
 	^ self hasReturned 
 		ifTrue: [ self returnValue ] 
@@ -640,6 +652,7 @@ stack
 initialize
 	super initialize.
 
+	refResults := #{}.
 	forceAtEnd := false
 ! !
 
@@ -864,6 +877,14 @@ visitNode: aNode
 	"Do nothing by default. Especially, do not visit children recursively."
 !
 
+visitRefNode: aNode
+	| ref refid |
+	ref := aNode node.
+	refid := ref nodeId.
+	self refResults at: refid ifAbsentPut: [ self pop ].
+	self push: (self refResults at: refid)
+!
+
 visitReturnNode: aNode
 	returned := true.
 	self returnValue: self pop
@@ -1024,6 +1045,13 @@ nextSiblingNode: aNode
 	^ self nodes 
 		at: (self nodes indexOf: aNode) + 1
 		ifAbsent: [ ^ nil ]
+! !
+
+!RefNode methodsFor: '*Compiler-Interpreter'!
+
+nextSiblingNode: aNode
+	"no siblings in ref node"
+	^ nil
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!

@@ -2268,10 +2268,34 @@ selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
+var recv;
+function $RefNode(){return $globals.RefNode||(typeof RefNode=="undefined"?nil:RefNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(aNode)._receiver_($recv($recv($recv(aNode)._nodes())._first())._receiver());
+var $2,$1,$4,$3;
+$2=$recv(aNode)._nodes();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["nodes"]=1;
+//>>excludeEnd("ctx");
+$1=$recv($2)._first();
+recv=$recv($1)._receiver();
+$recv($recv(aNode)._nodes())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$4=$recv($RefNode())._new();
+$recv($4)._node_(recv);
+$3=$recv($4)._yourself();
+return $recv(each)._receiver_($3);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.sendIdx["receiver:"]=1;
+//>>excludeEnd("ctx");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+$recv(aNode)._receiver_(recv);
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true,
@@ -2282,15 +2306,15 @@ $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode,recv:recv},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09aNode receiver: aNode nodes first receiver.\x0a\x09super visitCascadeNode: aNode",
-referencedClasses: [],
+source: "visitCascadeNode: aNode\x0a\x09| recv |\x0a\x09recv := aNode nodes first receiver.\x0a\x09aNode nodes do: [ :each | each receiver: (RefNode new node: recv; yourself) ].\x0a\x09aNode receiver: recv.\x0a\x09super visitCascadeNode: aNode",
+referencedClasses: ["RefNode"],
 //>>excludeEnd("ide");
-messageSends: ["receiver:", "receiver", "first", "nodes", "visitCascadeNode:"]
+messageSends: ["receiver", "first", "nodes", "do:", "receiver:", "node:", "new", "yourself", "visitCascadeNode:"]
 }),
 $globals.SemanticAnalyzer);
 
@@ -2350,6 +2374,39 @@ source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "sendIndexes:", "messageSends", "popScope"]
+}),
+$globals.SemanticAnalyzer);
+
+$core.addMethod(
+$core.method({
+selector: "visitRefNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$recv($recv(aNode)._node())._shouldBeAliased_(true);
+$1=(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitRefNode_.apply($recv(self), [aNode]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitRefNode: aNode\x0a\x09aNode node shouldBeAliased: true.\x0a\x09^ super visitRefNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["shouldBeAliased:", "node", "visitRefNode:"]
 }),
 $globals.SemanticAnalyzer);
 

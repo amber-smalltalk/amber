@@ -550,7 +550,10 @@ visitBlockNode: aNode
 !
 
 visitCascadeNode: aNode
-	aNode receiver: aNode nodes first receiver.
+	| recv |
+	recv := aNode nodes first receiver.
+	aNode nodes do: [ :each | each receiver: (RefNode new node: recv; yourself) ].
+	aNode receiver: recv.
 	super visitCascadeNode: aNode
 !
 
@@ -571,6 +574,11 @@ visitMethodNode: aNode
 		classReferences: self classReferences;
 		sendIndexes: self messageSends.
 	self popScope
+!
+
+visitRefNode: aNode
+	aNode node shouldBeAliased: true.
+	^ super visitRefNode: aNode
 !
 
 visitReturnNode: aNode

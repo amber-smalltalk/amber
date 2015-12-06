@@ -2141,6 +2141,57 @@ $globals.ASTEnterNode);
 
 $core.addMethod(
 $core.method({
+selector: "visitRefNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+var ref;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+var $early={};
+try {
+ref=$recv(aNode)._node();
+$recv($recv(self._interpreter())._refResults())._at_ifPresent_ifAbsent_($recv(ref)._nodeId(),(function(){
+throw $early=[aNode];
+
+}),(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(ref)._parent_(aNode);
+$1=(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.supercall = true,
+//>>excludeEnd("ctx");
+($globals.ASTEnterNode.superclass||$boot.dnu).fn.prototype._visitRefNode_.apply($recv(self), [aNode]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx2.supercall = false;
+//>>excludeEnd("ctx");;
+throw $early=[$1];
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+//>>excludeEnd("ctx");
+}));
+return self;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode,ref:ref},$globals.ASTEnterNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitRefNode: aNode\x0a\x09| ref |\x0a\x09ref := aNode node.\x0a\x09self interpreter refResults at: ref nodeId\x0a\x09\x09ifPresent: [ ^ aNode ]\x0a\x09\x09ifAbsent: [ ref parent: aNode. ^ super visitRefNode: aNode ]",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["node", "at:ifPresent:ifAbsent:", "refResults", "interpreter", "nodeId", "parent:", "visitRefNode:"]
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
 selector: "visitSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -2208,7 +2259,7 @@ messageSends: ["interpreter:", "new", "yourself"]
 $globals.ASTEnterNode.klass);
 
 
-$core.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
+$core.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd', 'refResults'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.\x0a\x0a## API\x0a\x0aWhile my instances should be used from within an `ASTDebugger`, which provides a more high level interface,\x0ayou can use methods from the `interpreting` protocol:\x0a\x0a- `#step` evaluates the current `node` only\x0a- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)\x0a- `#proceed` evaluates eagerly the AST\x0a- `#restart` select the first node of the AST\x0a- `#skip` skips the current node, moving to the next one if any";
 //>>excludeEnd("ide");
@@ -2476,6 +2527,7 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
+self["@refResults"]=$globals.HashedCollection._newFromPairs_([]);
 self["@forceAtEnd"]=false;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2484,7 +2536,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x0a\x09forceAtEnd := false",
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09refResults := #{}.\x0a\x09forceAtEnd := false",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize"]
@@ -2774,6 +2826,24 @@ source: "push: anObject\x0a\x09\x22Push an object to the context stack\x22\x0a\x
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "stack"]
+}),
+$globals.ASTInterpreter);
+
+$core.addMethod(
+$core.method({
+selector: "refResults",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self["@refResults"];
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "refResults\x0a\x09^ refResults",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
 $globals.ASTInterpreter);
 
@@ -3335,6 +3405,47 @@ source: "visitNode: aNode\x0a\x09\x22Do nothing by default. Especially, do not v
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
+}),
+$globals.ASTInterpreter);
+
+$core.addMethod(
+$core.method({
+selector: "visitRefNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+var ref,refid;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+ref=$recv(aNode)._node();
+refid=$recv(ref)._nodeId();
+$1=self._refResults();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["refResults"]=1;
+//>>excludeEnd("ctx");
+$recv($1)._at_ifAbsentPut_(refid,(function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._pop();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+self._push_($recv(self._refResults())._at_(refid));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode,ref:ref,refid:refid},$globals.ASTInterpreter)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitRefNode: aNode\x0a\x09| ref refid |\x0a\x09ref := aNode node.\x0a\x09refid := ref nodeId.\x0a\x09self refResults at: refid ifAbsentPut: [ self pop ].\x0a\x09self push: (self refResults at: refid)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["node", "nodeId", "at:ifAbsentPut:", "refResults", "pop", "push:", "at:"]
 }),
 $globals.ASTInterpreter);
 
@@ -3943,6 +4054,24 @@ referencedClasses: [],
 messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:"]
 }),
 $globals.Node);
+
+$core.addMethod(
+$core.method({
+selector: "nextSiblingNode:",
+protocol: '*Compiler-Interpreter',
+fn: function (aNode){
+var self=this;
+return nil;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "nextSiblingNode: aNode\x0a\x09\x22no siblings in ref node\x22\x0a\x09^ nil",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.RefNode);
 
 $core.addMethod(
 $core.method({
