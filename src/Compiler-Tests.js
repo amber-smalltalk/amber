@@ -993,6 +993,30 @@ $globals.CodeGeneratorTest);
 
 $core.addMethod(
 $core.method({
+selector: "testInnerCascades",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._should_return_("foo ^ Array new add: (3 squared; negated); add: (4 negated; squared); yourself",[(-3), (16)]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testInnerCascades",{},$globals.CodeGeneratorTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testInnerCascades\x0a\x09\x0a\x09self should: 'foo ^ Array new add: (3 squared; negated); add: (4 negated; squared); yourself' return: #(-3 16)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
 selector: "testInnerTemporalDependentElementsOrdered",
 protocol: 'tests',
 fn: function (){
