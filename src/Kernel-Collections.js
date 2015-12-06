@@ -5896,7 +5896,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return aString != null && String(self) === (typeof aString === "string" ? aString : aString.valueOf());
+
+	if (typeof aString === "string") return String(self) === aString;
+	else if (aString != null && typeof aString === "object") return String(self) === aString.valueOf();
+	else return false;;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"==",{aString:aString},$globals.String)});
@@ -5904,7 +5907,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aString"],
-source: "== aString\x0a<return aString != null && String(self) === (typeof aString === \x22string\x22 ? aString : aString.valueOf())>",
+source: "== aString\x0a<\x0a\x09if (typeof aString === \x22string\x22) return String(self) === aString;\x0a\x09else if (aString != null && typeof aString === \x22object\x22) return String(self) === aString.valueOf();\x0a\x09else return false;\x0a>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -7880,21 +7883,18 @@ var self=this;
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 
-		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
-		if ((type = typeof prim) === "object") {
-			if (anObject !== nil) {
-				bucket = null;
-				self['@slowBucketStores'].some(function (store) {
-					return bucket = store._bucketOfElement_(anObject);
-				});
-				return [ anObject, null, bucket || self['@defaultBucket'] ];
-			}
-			
-			// include nil to well-known objects under 'boolean' fastBucket
-			prim = null;
-			type = 'boolean';
+		// include nil to well-known objects under 'boolean' fastBucket
+		if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];
+		
+		var prim = anObject.valueOf();
+		if (typeof prim === "object") {
+			var bucket = null;
+			self['@slowBucketStores'].some(function (store) {
+				return bucket = store._bucketOfElement_(anObject);
+			});
+			return [ anObject, null, bucket || self['@defaultBucket'] ];
 		}
-		return [ prim, self['@fastBuckets'][type] ];
+		return [ prim, self['@fastBuckets'][typeof prim] ];
 	;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7903,7 +7903,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];\x0a\x09\x09\x0a\x09\x09var prim = anObject.valueOf();\x0a\x09\x09if (typeof prim === \x22object\x22) {\x0a\x09\x09\x09var bucket = null;\x0a\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09});\x0a\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][typeof prim] ];\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

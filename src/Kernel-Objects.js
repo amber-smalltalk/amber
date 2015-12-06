@@ -1769,7 +1769,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return aBoolean != null && self.valueOf() === (typeof aBoolean === "boolean" ? aBoolean : aBoolean.valueOf());
+
+	if (typeof aBoolean === "boolean") return self.valueOf() === aBoolean;
+	else if (aBoolean != null && typeof aBoolean === "object") return self.valueOf() === aBoolean.valueOf();
+	else return false;;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"==",{aBoolean:aBoolean},$globals.Boolean)});
@@ -1777,7 +1780,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBoolean"],
-source: "== aBoolean\x0a<return aBoolean != null && self.valueOf() === (typeof aBoolean === \x22boolean\x22 ? aBoolean : aBoolean.valueOf())>",
+source: "== aBoolean\x0a<\x0a\x09if (typeof aBoolean === \x22boolean\x22) return self.valueOf() === aBoolean;\x0a\x09else if (aBoolean != null && typeof aBoolean === \x22object\x22) return self.valueOf() === aBoolean.valueOf();\x0a\x09else return false;\x0a>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -3416,7 +3419,10 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return aNumber != null && Number(self) === (typeof aNumber === "number" ? aNumber : aNumber.valueOf());
+
+	if (typeof aNumber === "number") return Number(self) === aNumber;
+	else if (aNumber != null && typeof aNumber === "object") return Number(self) === aNumber.valueOf();
+	else return false;;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"==",{aNumber:aNumber},$globals.Number)});
@@ -3424,7 +3430,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNumber"],
-source: "== aNumber\x0a<return aNumber != null && Number(self) === (typeof aNumber === \x22number\x22 ? aNumber : aNumber.valueOf())>",
+source: "== aNumber\x0a<\x0a\x09if (typeof aNumber === \x22number\x22) return Number(self) === aNumber;\x0a\x09else if (aNumber != null && typeof aNumber === \x22object\x22) return Number(self) === aNumber.valueOf();\x0a\x09else return false;\x0a>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
