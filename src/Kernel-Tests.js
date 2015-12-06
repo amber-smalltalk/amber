@@ -2459,7 +2459,7 @@ $globals.ClassTest);
 
 
 
-$core.addClass('CollectionTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addClass('CollectionTest', $globals.TestCase, ['sampleBlock'], 'Kernel-Tests');
 $core.addMethod(
 $core.method({
 selector: "assertSameContents:as:",
@@ -2650,6 +2650,40 @@ source: "collectionWithNewValue\x0a\x09\x22Answers a collection which shows how\
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["subclassResponsibility"]
+}),
+$globals.CollectionTest);
+
+$core.addMethod(
+$core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true, 
+//>>excludeEnd("ctx");
+($globals.CollectionTest.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+self["@sampleBlock"]=(function(){
+
+});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.CollectionTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09sampleBlock := []",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["initialize"]
 }),
 $globals.CollectionTest);
 
@@ -3070,7 +3104,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 c=self._collectionWithDuplicates();
 set=$recv(c)._asSet();
-self._assert_equals_($recv(set)._size(),(5));
+self._assert_equals_($recv(set)._size(),(6));
 $recv(c)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -3087,7 +3121,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "testAsSet\x0a\x09| c set |\x0a\x09c := self collectionWithDuplicates.\x0a\x09set := c asSet.\x0a\x09self assert: set size equals: 5.\x0a\x09c do: [ :each |\x0a\x09\x09self assert: (set includes: each) ]",
+source: "testAsSet\x0a\x09| c set |\x0a\x09c := self collectionWithDuplicates.\x0a\x09set := c asSet.\x0a\x09self assert: set size equals: 6.\x0a\x09c do: [ :each |\x0a\x09\x09self assert: (set includes: each) ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "do:", "assert:", "includes:"]
@@ -5183,12 +5217,23 @@ selector: "nonIndexesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(aBlock)._value_((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value:"]=1;
+//>>excludeEnd("ctx");
+$recv(aBlock)._value_((function(){
+
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["value:"]=2;
+//>>excludeEnd("ctx");
+$recv(aBlock)._value_($recv($Object())._new());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["value:"]=3;
 //>>excludeEnd("ctx");
 $recv(aBlock)._value_("z");
 return self;
@@ -5198,10 +5243,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 5.\x0a\x09aBlock value: 'z'",
-referencedClasses: [],
+source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 5.\x0a\x09aBlock value: [].\x0a\x09aBlock value: Object new.\x0a\x09aBlock value: 'z'",
+referencedClasses: ["Object"],
 //>>excludeEnd("ide");
-messageSends: ["value:"]
+messageSends: ["value:", "new"]
 }),
 $globals.AssociativeCollectionTest);
 
@@ -5885,6 +5930,10 @@ $recv($1)._at_put_(true,(3));
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
 $recv($1)._at_put_((1).__at((3)),(-4));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:put:"]=4;
+//>>excludeEnd("ctx");
+$recv($1)._at_put_(self["@sampleBlock"],(9));
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.DictionaryTest)});
@@ -5892,7 +5941,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collection\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09yourself",
+source: "collection\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: sampleBlock put: 9;\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
@@ -5908,14 +5957,14 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return [(1),"a",true,(1).__at((3))];
+return [(1),"a",true,(1).__at((3)),self["@sampleBlock"]];
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.DictionaryTest)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionKeys\x0a\x09^ {1. 'a'. true. 1@3}",
+source: "collectionKeys\x0a\x09^ {1. 'a'. true. 1@3. sampleBlock}",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["@"]
@@ -5947,6 +5996,10 @@ $recv($1)._at_put_(true,"3");
 $ctx1.sendIdx["at:put:"]=3;
 //>>excludeEnd("ctx");
 $recv($1)._at_put_((1).__at((3)),"-4");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:put:"]=4;
+//>>excludeEnd("ctx");
+$recv($1)._at_put_(self["@sampleBlock"],"9");
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.DictionaryTest)});
@@ -5954,7 +6007,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: '1';\x0a\x09\x09at: 'a' put: '2';\x0a\x09\x09at: true put: '3';\x0a\x09\x09at: 1@3 put: '-4';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: '1';\x0a\x09\x09at: 'a' put: '2';\x0a\x09\x09at: true put: '3';\x0a\x09\x09at: 1@3 put: '-4';\x0a\x09\x09at: sampleBlock put: '9';\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
@@ -5967,12 +6020,12 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return (4);
+return (5);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionSize\x0a\x09^ 4",
+source: "collectionSize\x0a\x09^ 5",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -5985,12 +6038,12 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return [(1),(2),(3),(-4)];
+return [(1),(2),(3),(-4),(9)];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionValues\x0a\x09^ {1. 2. 3. -4}",
+source: "collectionValues\x0a\x09^ {1. 2. 3. -4. 9}",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -6025,13 +6078,17 @@ $recv($1)._at_put_((4),(-4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=4;
 //>>excludeEnd("ctx");
-$recv($1)._at_put_("b",(1));
+$recv($1)._at_put_(self["@sampleBlock"],(9));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=5;
 //>>excludeEnd("ctx");
-$recv($1)._at_put_((3),(3));
+$recv($1)._at_put_("b",(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=6;
+//>>excludeEnd("ctx");
+$recv($1)._at_put_((3),(3));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:put:"]=7;
 //>>excludeEnd("ctx");
 $recv($1)._at_put_(false,(12));
 return $recv($1)._yourself();
@@ -6041,7 +6098,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 4 put: -4;\x0a\x09\x09at: 'b' put: 1;\x0a\x09\x09at: 3 put: 3;\x0a\x09\x09at: false put: 12;\x0a\x09\x09yourself",
+source: "collectionWithDuplicates\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 4 put: -4;\x0a\x09\x09at: sampleBlock put: 9;\x0a\x09\x09at: 'b' put: 1;\x0a\x09\x09at: 3 put: 3;\x0a\x09\x09at: false put: 12;\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "yourself"]
@@ -6076,6 +6133,10 @@ $recv($1)._at_put_((1).__at((3)),(-4));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=4;
 //>>excludeEnd("ctx");
+$recv($1)._at_put_(self["@sampleBlock"],(9));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["at:put:"]=5;
+//>>excludeEnd("ctx");
 $recv($1)._at_put_("new","N");
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -6084,7 +6145,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionWithNewValue\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
+source: "collectionWithNewValue\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: sampleBlock put: 9;\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 //>>excludeEnd("ide");
 messageSends: ["at:put:", "new", "@", "yourself"]
@@ -6140,6 +6201,10 @@ $recv(aBlock)._value_value_(true,(3));
 $ctx1.sendIdx["value:value:"]=1;
 //>>excludeEnd("ctx");
 $recv(aBlock)._value_value_((1).__at((3)),(-4));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["value:value:"]=2;
+//>>excludeEnd("ctx");
+$recv(aBlock)._value_value_(self["@sampleBlock"],(9));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.DictionaryTest)});
@@ -6147,7 +6212,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: true value: 3.\x0a\x09aBlock value: 1@3 value: -4",
+source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: true value: 3.\x0a\x09aBlock value: 1@3 value: -4.\x0a\x09aBlock value: sampleBlock value: 9",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["samplesDo:", "value:value:", "@"]
@@ -6406,12 +6471,12 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10),"h",(0)]);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }",
+source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10. 'h' -> 0 }",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -7312,12 +7377,12 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return ["a", "b", "c", (1), (2), (1), "a"];
+return ["a", "b", "c", (1), (2), (1), "a", []];
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ #('a' 'b' 'c' 1 2 1 'a')",
+source: "collectionWithDuplicates\x0a\x09^ #('a' 'b' 'c' 1 2 1 'a' ())",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -7891,12 +7956,12 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return "abbaerte";
+return "abbaerten";
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ 'abbaerte'",
+source: "collectionWithDuplicates\x0a\x09^ 'abbaerten'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -8941,6 +9006,10 @@ $recv($1)._add_((3).__at((3)));
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
 $recv($1)._add_(false);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["add:"]=4;
+//>>excludeEnd("ctx");
+$recv($1)._add_(self["@sampleBlock"]);
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.SetTest)});
@@ -8948,7 +9017,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09yourself",
+source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09add: sampleBlock;\x0a\x09\x09yourself",
 referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "@", "yourself"]
@@ -8980,6 +9049,10 @@ $recv($1)._add_("3@3");
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
 $recv($1)._add_("false");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["add:"]=4;
+//>>excludeEnd("ctx");
+$recv($1)._add_("a BlockClosure");
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.SetTest)});
@@ -8987,7 +9060,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09add: 'a BlockClosure';\x0a\x09\x09yourself",
 referencedClasses: ["Set"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "yourself"]
@@ -9000,12 +9073,12 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return (4);
+return (5);
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionSize\x0a\x09^ 4",
+source: "collectionSize\x0a\x09^ 5",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
@@ -9068,6 +9141,10 @@ $recv($1)._add_("N");
 $ctx1.sendIdx["add:"]=4;
 //>>excludeEnd("ctx");
 $recv($1)._add_(false);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["add:"]=5;
+//>>excludeEnd("ctx");
+$recv($1)._add_(self["@sampleBlock"]);
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.SetTest)});
@@ -9075,7 +9152,7 @@ return $recv($1)._yourself();
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09yourself",
+source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09add: sampleBlock;\x0a\x09\x09yourself",
 referencedClasses: ["Set", "Smalltalk"],
 //>>excludeEnd("ide");
 messageSends: ["add:", "new", "@", "yourself"]

@@ -75,7 +75,8 @@ valueWithPossibleArguments: aCollection
 
 	"Interpret the first node of the BlockSequenceNode"
 	context interpreter
-		node: sequenceNode nextChild;
+		node: sequenceNode;
+		enterNode;
 		proceed.
 		
 	outerContext interpreter
@@ -219,7 +220,8 @@ evaluate: aString on: anEvaluator
 evaluateNode: aNode
 	^ ASTInterpreter new
 		context: self;
-		node: aNode nextChild;
+		node: aNode;
+		enterNode;
 		proceed;
 		result
 ! !
@@ -536,6 +538,42 @@ context: aContext
 		yourself
 ! !
 
+NodeVisitor subclass: #ASTEnterNode
+	instanceVariableNames: 'interpreter'
+	package: 'Compiler-Interpreter'!
+
+!ASTEnterNode methodsFor: 'accessing'!
+
+interpreter
+	^ interpreter
+!
+
+interpreter: anObject
+	interpreter := anObject
+! !
+
+!ASTEnterNode methodsFor: 'visiting'!
+
+visitBlockNode: aNode
+	"Answer the node as we want to avoid eager evaluation"
+	
+	^ aNode
+!
+
+visitNode: aNode
+	aNode nodes
+		ifEmpty: [ ^ aNode ]
+		ifNotEmpty: [ :nodes | ^ self visit: nodes first ]
+! !
+
+!ASTEnterNode class methodsFor: 'instance creation'!
+
+on: anInterpreter
+	^ self new
+		interpreter: anInterpreter;
+		yourself
+! !
+
 NodeVisitor subclass: #ASTInterpreter
 	instanceVariableNames: 'node context stack returnValue returned forceAtEnd'
 	package: 'Compiler-Interpreter'!
@@ -601,19 +639,24 @@ initialize
 
 !ASTInterpreter methodsFor: 'interpreting'!
 
+enterNode
+	self node: ((ASTEnterNode on: self) visit: self node)
+!
+
 interpret
 	"Interpret the next node to be evaluated"
 	
 	self visit: self node
 !
 
-interpret: aNode
-	self node: aNode.
-	self interpret
-!
-
 next
-	self node: self node nextNode
+	| nd nextNode |
+	nd := self node.
+	nextNode := nd parent ifNotNil: [ :parent |
+		(parent nextSiblingNode: nd)
+			ifNil: [ parent ]
+			ifNotNil: [ :sibling | (ASTEnterNode on: self) visit: sibling ] ].
+	self node: nextNode
 !
 
 proceed
@@ -624,7 +667,7 @@ proceed
 !
 
 restart
-	self node: self context ast nextChild
+	self node: self context ast; enterNode
 !
 
 setNonLocalReturnFromContext: aContext
@@ -942,16 +985,12 @@ isSteppingNode
 	^ true
 !
 
-nextChild
-	"Answer the receiver as we want to avoid eager evaluation"
+nextSiblingNode: aNode
+	"Answer nil as we want to avoid eager evaluation"
 	
-	^ self
-!
-
-nextNode: aNode
-	"Answer the receiver as we want to avoid eager evaluation"
+	"In fact, this should not have been called, ever. IMO. -- herby"
 	
-	^ self
+	^ nil
 ! !
 
 !DynamicArrayNode methodsFor: '*Compiler-Interpreter'!
@@ -978,31 +1017,12 @@ isSteppingNode
 	^ false
 !
 
-nextChild
-	"Answer the next node after aNode.
-	Recurse into the possible children of the receiver to answer the next node to be evaluated"
+nextSiblingNode: aNode
+	"Answer the next node after aNode or nil"
 	
-	^ self nodes isEmpty
-		ifTrue: [ self ]
-		ifFalse: [ self nodes first nextChild ]
-!
-
-nextNode
-	^ self parent ifNotNil: [ :node |
-		node nextNode: self ]
-!
-
-nextNode: aNode
-	"Answer the next node after aNode.
-	Recurse into the possible children of the next node to answer the next node to be evaluated"
-	
-	| next |
-	
-	next := self nodes 
+	^ self nodes 
 		at: (self nodes indexOf: aNode) + 1
-		ifAbsent: [ ^ self ].
-	
-	^ next nextChild
+		ifAbsent: [ ^ nil ]
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!

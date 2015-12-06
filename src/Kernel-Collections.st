@@ -1473,7 +1473,11 @@ size
 !
 
 == aString
-<return aString !!= null && String(self) === (typeof aString === "string" ? aString : aString.valueOf())>
+<
+	if (typeof aString === "string") return String(self) === aString;
+	else if (aString !!= null && typeof aString === "object") return String(self) === aString.valueOf();
+	else return false;
+>
 !
 
 > aString
@@ -1986,21 +1990,18 @@ bucketsOfElement: anObject
 	- the slow bucket"
 	
 	<
-		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
-		if ((type = typeof prim) === "object") {
-			if (anObject !!== nil) {
-				bucket = null;
-				self['@slowBucketStores'].some(function (store) {
-					return bucket = store._bucketOfElement_(anObject);
-				});
-				return [ anObject, null, bucket || self['@defaultBucket'] ];
-			}
-			
-			// include nil to well-known objects under 'boolean' fastBucket
-			prim = null;
-			type = 'boolean';
+		// include nil to well-known objects under 'boolean' fastBucket
+		if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];
+		
+		var prim = anObject.valueOf();
+		if (typeof prim === "object" || typeof prim === "function" || !!self['@fastBuckets'][typeof prim]) {
+			var bucket = null;
+			self['@slowBucketStores'].some(function (store) {
+				return bucket = store._bucketOfElement_(anObject);
+			});
+			return [ anObject, null, bucket || self['@defaultBucket'] ];
 		}
-		return [ prim, self['@fastBuckets'][type] ];
+		return [ prim, self['@fastBuckets'][typeof prim] ];
 	>
 !
 

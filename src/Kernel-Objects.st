@@ -434,7 +434,11 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 !Boolean methodsFor: 'comparing'!
 
 == aBoolean
-<return aBoolean !!= null && self.valueOf() === (typeof aBoolean === "boolean" ? aBoolean : aBoolean.valueOf())>
+<
+	if (typeof aBoolean === "boolean") return self.valueOf() === aBoolean;
+	else if (aBoolean !!= null && typeof aBoolean === "object") return self.valueOf() === aBoolean.valueOf();
+	else return false;
+>
 ! !
 
 !Boolean methodsFor: 'controlling'!
@@ -826,7 +830,11 @@ negated
 !
 
 == aNumber
-<return aNumber !!= null && Number(self) === (typeof aNumber === "number" ? aNumber : aNumber.valueOf())>
+<
+	if (typeof aNumber === "number") return Number(self) === aNumber;
+	else if (aNumber !!= null && typeof aNumber === "object") return Number(self) === aNumber.valueOf();
+	else return false;
+>
 !
 
 > aNumber
