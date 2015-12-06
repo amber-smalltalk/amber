@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.0",
-    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-execute": "^0.2.1",
