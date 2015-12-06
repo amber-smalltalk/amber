@@ -1994,7 +1994,7 @@ bucketsOfElement: anObject
 		if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];
 		
 		var prim = anObject.valueOf();
-		if (typeof prim === "object") {
+		if (typeof prim === "object" || typeof prim === "function" || !!self['@fastBuckets'][typeof prim]) {
 			var bucket = null;
 			self['@slowBucketStores'].some(function (store) {
 				return bucket = store._bucketOfElement_(anObject);

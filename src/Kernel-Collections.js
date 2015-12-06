@@ -7887,7 +7887,7 @@ return $core.withContext(function($ctx1) {
 		if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];
 		
 		var prim = anObject.valueOf();
-		if (typeof prim === "object") {
+		if (typeof prim === "object" || typeof prim === "function" || !self['@fastBuckets'][typeof prim]) {
 			var bucket = null;
 			self['@slowBucketStores'].some(function (store) {
 				return bucket = store._bucketOfElement_(anObject);
@@ -7903,7 +7903,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["anObject"],
-source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];\x0a\x09\x09\x0a\x09\x09var prim = anObject.valueOf();\x0a\x09\x09if (typeof prim === \x22object\x22) {\x0a\x09\x09\x09var bucket = null;\x0a\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09});\x0a\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][typeof prim] ];\x0a\x09>",
+source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];\x0a\x09\x09\x0a\x09\x09var prim = anObject.valueOf();\x0a\x09\x09if (typeof prim === \x22object\x22 || typeof prim === \x22function\x22 || !self['@fastBuckets'][typeof prim]) {\x0a\x09\x09\x09var bucket = null;\x0a\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09});\x0a\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][typeof prim] ];\x0a\x09>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
