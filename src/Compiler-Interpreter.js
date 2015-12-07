@@ -2139,6 +2139,47 @@ messageSends: ["ifEmpty:ifNotEmpty:", "nodes", "visit:", "first"]
 }),
 $globals.ASTEnterNode);
 
+$core.addMethod(
+$core.method({
+selector: "visitSequenceNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$recv($recv(aNode)._temps())._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv($recv(self._interpreter())._context())._defineLocal_(each);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+$1=(
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = true,
+//>>excludeEnd("ctx");
+($globals.ASTEnterNode.superclass||$boot.dnu).fn.prototype._visitSequenceNode_.apply($recv(self), [aNode]));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.supercall = false;
+//>>excludeEnd("ctx");;
+return $1;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.ASTEnterNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aNode"],
+source: "visitSequenceNode: aNode\x0a\x09aNode temps do: [ :each |\x0a\x09\x09self interpreter context defineLocal: each ].\x0a\x09^ super visitSequenceNode: aNode",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["do:", "temps", "defineLocal:", "context", "interpreter", "visitSequenceNode:"]
+}),
+$globals.ASTEnterNode);
+
 
 $core.addMethod(
 $core.method({
@@ -3372,38 +3413,6 @@ source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["collect:", "arguments", "pop", "peek", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
-}),
-$globals.ASTInterpreter);
-
-$core.addMethod(
-$core.method({
-selector: "visitSequenceNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-$recv($recv(aNode)._temps())._do_((function(each){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return $recv(self._context())._defineLocal_(each);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.ASTInterpreter)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "visitSequenceNode: aNode\x0a\x09aNode temps do: [ :each |\x0a\x09\x09self context defineLocal: each ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["do:", "temps", "defineLocal:", "context"]
 }),
 $globals.ASTInterpreter);
 

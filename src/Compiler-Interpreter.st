@@ -564,6 +564,12 @@ visitNode: aNode
 	aNode nodes
 		ifEmpty: [ ^ aNode ]
 		ifNotEmpty: [ :nodes | ^ self visit: nodes first ]
+!
+
+visitSequenceNode: aNode
+	aNode temps do: [ :each |
+		self interpreter context defineLocal: each ].
+	^ super visitSequenceNode: aNode
 ! !
 
 !ASTEnterNode class methodsFor: 'instance creation'!
@@ -878,11 +884,6 @@ visitSendNode: aNode
 	"For cascade sends, push the reciever if the send is not the last one"
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
 		ifFalse: [ self pop; push: result ]
-!
-
-visitSequenceNode: aNode
-	aNode temps do: [ :each |
-		self context defineLocal: each ]
 !
 
 visitValueNode: aNode
