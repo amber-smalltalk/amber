@@ -311,6 +311,34 @@ accept: aVisitor
 	^ aVisitor visitBlockNode: self
 ! !
 
+Node subclass: #CascadeNode
+	instanceVariableNames: 'receiver'
+	package: 'Compiler-AST'!
+!CascadeNode commentStamp!
+I represent an cascade node.!
+
+!CascadeNode methodsFor: 'accessing'!
+
+receiver
+	^ receiver
+!
+
+receiver: anObject
+	receiver := anObject
+! !
+
+!CascadeNode methodsFor: 'testing'!
+
+isCascadeNode
+	^ true
+! !
+
+!CascadeNode methodsFor: 'visiting'!
+
+accept: aVisitor
+	^ aVisitor visitCascadeNode: self
+! !
+
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
@@ -440,9 +468,10 @@ Node subclass: #QuasiSendNode
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-AST'!
 !QuasiSendNode commentStamp!
-I am a node that has a receiver.
+I am a node that has a receiver
+and with building API `#valueForReceiver:`.
 
-My subclasses are `SendNode`, `CascadeNode` and `BranchSendNode`.!
+My subclasses are `SendNode` and `BranchSendNode`.!
 
 !QuasiSendNode methodsFor: 'accessing'!
 
@@ -477,34 +506,6 @@ valueForReceiver: anObject
 
 accept: aVisitor
 	^ aVisitor visitBranchSendNode: self
-! !
-
-QuasiSendNode subclass: #CascadeNode
-	instanceVariableNames: ''
-	package: 'Compiler-AST'!
-!CascadeNode commentStamp!
-I represent an cascade node.!
-
-!CascadeNode methodsFor: 'building'!
-
-valueForReceiver: anObject
-	| nds |
-	nds := self nodes.
-	nds at: 1 put: (nds first valueForReceiver: anObject).
-	self nodes: nds.
-	^ self
-! !
-
-!CascadeNode methodsFor: 'testing'!
-
-isCascadeNode
-	^ true
-! !
-
-!CascadeNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitCascadeNode: self
 ! !
 
 QuasiSendNode subclass: #SendNode

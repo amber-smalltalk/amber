@@ -164,20 +164,20 @@ block          = '[' params:wsBlockParamList? sequence:wsSequenceWs? ']' {
 
 operand        = literal / reference / subexpression
 
-augment = "(" send:(wsBinaryTail / wsKeywordMessage / wsUnaryTail) messages:(ws ";" mess:wsMessage {return mess;})* ws ")" {
-                     if (messages.length) {
-                         messages.unshift(send);
-                         send = $globals.CascadeNode._new()
-                                ._location_(location())
-                                ._source_(text())
-                                ._nodes_(messages);
-					 }
+augment = "(" send:(wsBinaryTail / wsKeywordMessage / wsUnaryTail) ws ")" {
 					 return send._asBranchSendNode()
                             ._location_(location())
                             ._source_(text());
                  }
 
-wsAugmentTail      = ws message:augment tail:wsAugmentTail? {
+augmentCascade = "(" first:wsMessage rest:(ws ";" mess:wsMessage {return mess;})+ ws ")" {
+					 var send = rest.reduce(function (prev, curr) {
+					        return curr._asBranchSendNode()._valueForReceiver_(prev);
+					 }, first._asBranchSendNode());
+					 return send;
+                 }
+
+wsAugmentTail      = ws message:(augment / augmentCascade) tail:wsAugmentTail? {
                      if(tail) {
                          return tail._valueForReceiver_(message);
                      }
