@@ -272,12 +272,12 @@ keywordSend    = receiver:binarySend tail:wsKeywordMessage? {
 
 wsMessage        = wsBinaryMessage / wsUnaryMessage / wsKeywordMessage
 
-cascade        = send:keywordSend & { return send._isSendNode(); } messages:(ws ";" mess:wsMessage {return mess;})+ {
-                     messages.unshift(send);
-                     return $globals.CascadeNode._new()
-                            ._location_(location())
-                            ._source_(text())
-                            ._nodes_(messages);
+cascade        = first:keywordSend & { return first._isSendNode(); } rest:(ws ";" mess:wsMessage {return mess;})+ {
+					 var last = rest.pop();
+					 var send = rest.reduce(function (prev, curr) {
+					        return curr._asBranchSendNode()._valueForReceiver_(prev);
+					 }, first._asBranchSendNode());
+                     return last._valueForReceiver_(send);
                  }
 
 jsStatement    = "<" val:((">>" {return ">";} / [^>])*) ">" {

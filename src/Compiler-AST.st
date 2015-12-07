@@ -479,7 +479,8 @@ asBranchSendNode
 	^ BranchSendNode new
 		nodes: {self};
 		position: self position;
-		source: self source
+		source: self source;
+		receiver: self receiver
 !
 
 receiver

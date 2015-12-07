@@ -2019,21 +2019,25 @@ function $BranchSendNode(){return $globals.BranchSendNode||(typeof BranchSendNod
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=$recv($BranchSendNode())._new();
-$recv($1)._nodes_([self]);
-$recv($1)._position_(self._position());
-return $recv($1)._source_(self._source());
+var $4,$3,$2,$1;
+$4=$recv($BranchSendNode())._new();
+$recv($4)._nodes_([self]);
+$3=$4;
+$recv($3)._position_(self._position());
+$2=$3;
+$recv($2)._source_(self._source());
+$1=$2;
+return $recv($1)._receiver_(self._receiver());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asBranchSendNode",{},$globals.QuasiSendNode)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "asBranchSendNode\x0a\x09^ BranchSendNode new\x0a\x09\x09nodes: {self};\x0a\x09\x09position: self position;\x0a\x09\x09source: self source",
+source: "asBranchSendNode\x0a\x09^ BranchSendNode new\x0a\x09\x09nodes: {self};\x0a\x09\x09position: self position;\x0a\x09\x09source: self source;\x0a\x09\x09receiver: self receiver",
 referencedClasses: ["BranchSendNode"],
 //>>excludeEnd("ide");
-messageSends: ["nodes:", "new", "position:", "position", "source:", "source"]
+messageSends: ["receiver:", "source:", "position:", "nodes:", "new", "position", "source", "receiver"]
 }),
 $globals.QuasiSendNode);
 
