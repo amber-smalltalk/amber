@@ -560,7 +560,7 @@ visitBlockNode: aNode
 visitCascadeNode: aNode
 	| recv |
 	recv := aNode nodes first receiver.
-	aNode nodes do: [ :each | each receiver: (RefNode new node: recv; yourself) ].
+	aNode nodes do: [ :each | each receiver: recv asRefNode ].
 	aNode receiver: recv.
 	super visitCascadeNode: aNode
 !

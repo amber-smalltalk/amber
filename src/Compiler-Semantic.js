@@ -2302,11 +2302,10 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var recv;
-function $RefNode(){return $globals.RefNode||(typeof RefNode=="undefined"?nil:RefNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$1,$4,$3;
+var $2,$1;
 $2=$recv(aNode)._nodes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["nodes"]=1;
@@ -2317,10 +2316,7 @@ $recv($recv(aNode)._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$4=$recv($RefNode())._new();
-$recv($4)._node_(recv);
-$3=$recv($4)._yourself();
-return $recv(each)._receiver_($3);
+return $recv(each)._receiver_($recv(recv)._asRefNode());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["receiver:"]=1;
 //>>excludeEnd("ctx");
@@ -2344,10 +2340,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09| recv |\x0a\x09recv := aNode nodes first receiver.\x0a\x09aNode nodes do: [ :each | each receiver: (RefNode new node: recv; yourself) ].\x0a\x09aNode receiver: recv.\x0a\x09super visitCascadeNode: aNode",
-referencedClasses: ["RefNode"],
+source: "visitCascadeNode: aNode\x0a\x09| recv |\x0a\x09recv := aNode nodes first receiver.\x0a\x09aNode nodes do: [ :each | each receiver: recv asRefNode ].\x0a\x09aNode receiver: recv.\x0a\x09super visitCascadeNode: aNode",
+referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["receiver", "first", "nodes", "do:", "receiver:", "node:", "new", "yourself", "visitCascadeNode:"]
+messageSends: ["receiver", "first", "nodes", "do:", "receiver:", "asRefNode", "visitCascadeNode:"]
 }),
 $globals.SemanticAnalyzer);
 

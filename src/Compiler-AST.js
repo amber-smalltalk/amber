@@ -97,6 +97,33 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
+selector: "asRefNode",
+protocol: 'converting',
+fn: function (){
+var self=this;
+function $RefNode(){return $globals.RefNode||(typeof RefNode=="undefined"?nil:RefNode)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($RefNode())._new();
+$recv($1)._node_(self);
+return $recv($1)._yourself();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"asRefNode",{},$globals.Node)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "asRefNode\x0a\x09^ RefNode new node: self; yourself",
+referencedClasses: ["RefNode"],
+//>>excludeEnd("ide");
+messageSends: ["node:", "new", "yourself"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
 selector: "inPosition:",
 protocol: 'testing',
 fn: function (aPoint){
@@ -2052,6 +2079,24 @@ source: "accept: aVisitor\x0a\x09^ aVisitor visitRefNode: self",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitRefNode:"]
+}),
+$globals.RefNode);
+
+$core.addMethod(
+$core.method({
+selector: "asRefNode",
+protocol: 'converting',
+fn: function (){
+var self=this;
+return self;
+
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "asRefNode\x0a\x09^ self",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
 }),
 $globals.RefNode);
 
