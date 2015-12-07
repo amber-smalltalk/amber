@@ -122,6 +122,12 @@ nodes: aCollection
 	aCollection do: [ :each | each parent: self ]
 ! !
 
+!Node methodsFor: 'converting'!
+
+asRefNode
+	^ RefNode new node: self; yourself
+! !
+
 !Node methodsFor: 'copying'!
 
 postCopy
@@ -484,6 +490,12 @@ node
 
 node: anObject
 	node := anObject
+! !
+
+!RefNode methodsFor: 'converting'!
+
+asRefNode
+	^ self
 ! !
 
 !RefNode methodsFor: 'testing'!
