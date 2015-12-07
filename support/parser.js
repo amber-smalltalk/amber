@@ -244,10 +244,9 @@ $globals.SmalltalkParser = (function() {
                                         ._source_(text())
                                         ._nodes_(messages);
         					 }
-        					 return $globals.BranchSendNode._new()
+        					 return send._asBranchSendNode()
                                     ._location_(location())
-                                    ._source_(text())
-                                    ._nodes_([send]);
+                                    ._source_(text());
                          },
         peg$c115 = function(message, tail) {
                              if(tail) {

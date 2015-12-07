@@ -1927,6 +1927,34 @@ $globals.QuasiSendNode.comment="I am a node that has a receiver.\x0a\x0aMy subcl
 //>>excludeEnd("ide");
 $core.addMethod(
 $core.method({
+selector: "asBranchSendNode",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+function $BranchSendNode(){return $globals.BranchSendNode||(typeof BranchSendNode=="undefined"?nil:BranchSendNode)}
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1;
+$1=$recv($BranchSendNode())._new();
+$recv($1)._nodes_([self]);
+$recv($1)._position_(self._position());
+return $recv($1)._source_(self._source());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"asBranchSendNode",{},$globals.QuasiSendNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "asBranchSendNode\x0a\x09^ BranchSendNode new\x0a\x09\x09nodes: {self};\x0a\x09\x09position: self position;\x0a\x09\x09source: self source",
+referencedClasses: ["BranchSendNode"],
+//>>excludeEnd("ide");
+messageSends: ["nodes:", "new", "position:", "position", "source:", "source"]
+}),
+$globals.QuasiSendNode);
+
+$core.addMethod(
+$core.method({
 selector: "receiver",
 protocol: 'accessing',
 fn: function (){

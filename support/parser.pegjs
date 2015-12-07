@@ -172,10 +172,9 @@ augment = "(" send:(wsBinaryTail / wsKeywordMessage / wsUnaryTail) messages:(ws 
                                 ._source_(text())
                                 ._nodes_(messages);
 					 }
-					 return $globals.BranchSendNode._new()
+					 return send._asBranchSendNode()
                             ._location_(location())
-                            ._source_(text())
-                            ._nodes_([send]);
+                            ._source_(text());
                  }
 
 wsAugmentTail      = ws message:augment tail:wsAugmentTail? {

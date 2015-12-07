@@ -446,6 +446,13 @@ My subclasses are `SendNode`, `CascadeNode` and `BranchSendNode`.!
 
 !QuasiSendNode methodsFor: 'accessing'!
 
+asBranchSendNode
+	^ BranchSendNode new
+		nodes: {self};
+		position: self position;
+		source: self source
+!
+
 receiver
 	^ receiver
 !
