@@ -90,29 +90,41 @@ selector: "aliasTemporally:",
 protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
-var threshold,result;
+var threshold,j,result;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3;
 threshold=(0);
-$recv(aCollection)._withIndexDo_((function(each,i){
+j=$recv(aCollection)._size();
+$recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
+return $recv($recv(threshold).__eq((0))).__and($recv(j).__gt((0)));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._whileTrue_((function(){
+var each;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+each=$recv(aCollection)._at_(j);
+each;
 $1=$recv(each)._subtreeNeedsAliasing();
 if($core.assert($1)){
-threshold=i;
+threshold=j;
 return threshold;
+} else {
+j=$recv(j).__minus((1));
+return j;
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)});
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["withIndexDo:"]=1;
-//>>excludeEnd("ctx");
 result=$recv($OrderedCollection())._new();
 $recv(aCollection)._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -127,20 +139,20 @@ $3=self._visit_(each);
 };
 return $recv($2)._add_($3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,3)});
+}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
 return result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"aliasTemporally:",{aCollection:aCollection,threshold:threshold,result:result},$globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"aliasTemporally:",{aCollection:aCollection,threshold:threshold,j:j,result:result},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aCollection"],
-source: "aliasTemporally: aCollection\x0a\x09\x22https://github.com/NicolasPetton/amber/issues/296\x0a\x09\x0a\x09If a node is aliased, all preceding ones are aliased as well.\x0a\x09The tree is iterated twice. First we get the aliasing dependency,\x0a\x09then the aliasing itself is done\x22\x0a\x0a\x09| threshold result |\x0a\x09threshold := 0.\x0a\x09\x0a\x09aCollection withIndexDo: [ :each :i |\x0a\x09\x09each subtreeNeedsAliasing\x0a\x09\x09\x09ifTrue: [ threshold := i ] ].\x0a\x0a\x09result := OrderedCollection new.\x0a\x09aCollection withIndexDo: [ :each :i |\x0a\x09\x09result add: (i <= threshold\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ]) ].\x0a\x0a\x09^ result",
+source: "aliasTemporally: aCollection\x0a\x09\x22https://github.com/NicolasPetton/amber/issues/296\x0a\x09\x0a\x09If a node is aliased, all preceding ones are aliased as well.\x0a\x09The tree is iterated twice. First we get the aliasing dependency,\x0a\x09then the aliasing itself is done\x22\x0a\x0a\x09| threshold j result |\x0a\x09threshold := 0.\x0a\x09j := aCollection size.\x0a\x09\x0a\x09[ threshold = 0 & (j > 0) ] whileTrue: [\x0a\x09\x09| each |\x0a\x09\x09each := aCollection at: j.\x0a\x09\x09each subtreeNeedsAliasing\x0a\x09\x09\x09ifTrue: [ threshold := j ]\x0a\x09\x09\x09ifFalse: [ j := j - 1 ] ].\x0a\x0a\x09result := OrderedCollection new.\x0a\x09aCollection withIndexDo: [ :each :i |\x0a\x09\x09result add: (i <= threshold\x0a\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09ifFalse: [ self visit: each ]) ].\x0a\x0a\x09^ result",
 referencedClasses: ["OrderedCollection"],
 //>>excludeEnd("ide");
-messageSends: ["withIndexDo:", "ifTrue:", "subtreeNeedsAliasing", "new", "add:", "ifTrue:ifFalse:", "<=", "alias:", "visit:"]
+messageSends: ["size", "whileTrue:", "&", "=", ">", "at:", "ifTrue:ifFalse:", "subtreeNeedsAliasing", "-", "new", "withIndexDo:", "add:", "<=", "alias:", "visit:"]
 }),
 $globals.IRASTTranslator);
 
