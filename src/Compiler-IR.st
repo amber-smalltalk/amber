@@ -96,12 +96,16 @@ aliasTemporally: aCollection
 	The tree is iterated twice. First we get the aliasing dependency,
 	then the aliasing itself is done"
 
-	| threshold result |
+	| threshold j result |
 	threshold := 0.
+	j := aCollection size.
 	
-	aCollection withIndexDo: [ :each :i |
+	[ threshold = 0 & (j > 0) ] whileTrue: [
+		| each |
+		each := aCollection at: j.
 		each subtreeNeedsAliasing
-			ifTrue: [ threshold := i ] ].
+			ifTrue: [ threshold := j ]
+			ifFalse: [ j := j - 1 ] ].
 
 	result := OrderedCollection new.
 	aCollection withIndexDo: [ :each :i |
