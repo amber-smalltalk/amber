@@ -26,7 +26,9 @@
     "node": "0.10.x || 0.12.x || >=4.0.0"
   },
   "scripts": {
-    "test": "grunt test && cd external && cd amber-cli && npm test && cd .. && cd .."
+    "test": "npm run test:sunit && npm run test:e2e",
+    "test:sunit": "grunt test",
+    "test:e2e": "(cd external && cd amber-cli && npm test)"
   },
   "devDependencies": {
     "grunt": "^0.4.0",
