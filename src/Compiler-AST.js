@@ -1514,6 +1514,29 @@ messageSends: []
 }),
 $globals.CascadeNode);
 
+$core.addMethod(
+$core.method({
+selector: "subtreeNeedsAliasing",
+protocol: 'testing',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($recv(self._parent())._isSequenceNode())._not();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},$globals.CascadeNode)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "subtreeNeedsAliasing\x0a\x09^ self parent isSequenceNode not",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["not", "isSequenceNode", "parent"]
+}),
+$globals.CascadeNode);
+
 
 
 $core.addClass('DynamicArrayNode', $globals.Node, [], 'Compiler-AST');
