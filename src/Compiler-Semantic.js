@@ -1006,7 +1006,7 @@ function $PseudoVar(){return $globals.PseudoVar||(typeof PseudoVar=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$receiver;
+var $1,$2,$4,$3,$receiver;
 $1=self["@pseudoVars"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@pseudoVars"]=$recv($Dictionary())._new();
@@ -1015,9 +1015,11 @@ $recv($recv($Smalltalk())._pseudoVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=$recv($PseudoVar())._on_(each);
-$recv($2)._scope_(self._methodScope());
-return $recv(self["@pseudoVars"])._at_put_(each,$recv($2)._yourself());
+$2=self["@pseudoVars"];
+$4=$recv($PseudoVar())._on_(each);
+$recv($4)._scope_(self._methodScope());
+$3=$recv($4)._yourself();
+return $recv($2)._at_put_(each,$3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");

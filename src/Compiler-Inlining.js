@@ -2337,7 +2337,7 @@ function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$3,$2,$4,$5;
+var $1,$3,$2,$4,$6,$5;
 closure=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = true, 
@@ -2368,9 +2368,10 @@ $4=$recv(statements)._last();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["last"]=3;
 //>>excludeEnd("ctx");
-$5=$recv($IRReturn())._new();
-$recv($5)._add_($recv($recv(statements)._last())._copy());
-return $recv($4)._replaceWith_($recv($5)._yourself());
+$6=$recv($IRReturn())._new();
+$recv($6)._add_($recv($recv(statements)._last())._copy());
+$5=$recv($6)._yourself();
+return $recv($4)._replaceWith_($5);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});

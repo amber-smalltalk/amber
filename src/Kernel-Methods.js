@@ -1053,16 +1053,18 @@ function $MethodMoved(){return $globals.MethodMoved||(typeof MethodMoved=="undef
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$receiver;
+var $1,$3,$2,$4,$receiver;
 oldProtocol=self._protocol();
 self._basicAt_put_("protocol",aString);
-$1=$recv($MethodMoved())._new();
-$recv($1)._method_(self);
-$recv($1)._oldProtocol_(oldProtocol);
-$recv($recv($SystemAnnouncer())._current())._announce_($recv($1)._yourself());
-$2=self._methodClass();
-if(($receiver = $2) == null || $receiver.isNil){
-$2;
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($MethodMoved())._new();
+$recv($3)._method_(self);
+$recv($3)._oldProtocol_(oldProtocol);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
+$4=self._methodClass();
+if(($receiver = $4) == null || $receiver.isNil){
+$4;
 } else {
 var methodClass;
 methodClass=$receiver;
