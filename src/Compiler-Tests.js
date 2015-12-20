@@ -765,6 +765,78 @@ $globals.CodeGeneratorTest);
 
 $core.addMethod(
 $core.method({
+selector: "testCascadesInDynamicArray",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._should_return_("foo | x | x := 1. ^ {x. [x:=2] value; in: [x]}",[(1), (2)]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testCascadesInDynamicArray",{},$globals.CodeGeneratorTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testCascadesInDynamicArray\x0a\x09self should: 'foo | x | x := 1. ^ {x. [x:=2] value; in: [x]}' return: #(1 2)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
+selector: "testCascadesInDynamicDictioary",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._should_return_("foo | x | x := 1. ^ #{'one' -> x. 'two' -> ([x:=2] value; in: [x])}",$globals.HashedCollection._newFromPairs_(["one",(1),"two",(2)]));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testCascadesInDynamicDictioary",{},$globals.CodeGeneratorTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testCascadesInDynamicDictioary\x0a\x09self should: 'foo | x | x := 1. ^ #{''one'' -> x. ''two'' -> ([x:=2] value; in: [x])}' return: #{'one' -> 1. 'two' -> 2}",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
+selector: "testCascadesInSend",
+protocol: 'tests',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._should_return_("foo | x | x := 1. ^ Array with: x with: ([x:=2] value; in: [x])",[(1), (2)]);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testCascadesInSend",{},$globals.CodeGeneratorTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testCascadesInSend\x0a\x09self should: 'foo | x | x := 1. ^ Array with: x with: ([x:=2] value; in: [x])' return: #(1 2)",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
 selector: "testCascadesWithInlining",
 protocol: 'tests',
 fn: function (){
