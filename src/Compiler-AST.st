@@ -337,6 +337,10 @@ receiver: aNode
 
 isCascadeNode
 	^ true
+!
+
+subtreeNeedsAliasing
+	^ self parent isSequenceNode not
 ! !
 
 !CascadeNode methodsFor: 'visiting'!
