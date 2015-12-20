@@ -210,6 +210,18 @@ testCascades
 	self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)
 !
 
+testCascadesInDynamicArray
+	self should: 'foo | x | x := 1. ^ {x. [x:=2] value; in: [x]}' return: #(1 2)
+!
+
+testCascadesInDynamicDictioary
+	self should: 'foo | x | x := 1. ^ #{''one'' -> x. ''two'' -> ([x:=2] value; in: [x])}' return: #{'one' -> 1. 'two' -> 2}
+!
+
+testCascadesInSend
+	self should: 'foo | x | x := 1. ^ Array with: x with: ([x:=2] value; in: [x])' return: #(1 2)
+!
+
 testCascadesWithInlining
 	
 	self should: 'foo ^ true class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.
