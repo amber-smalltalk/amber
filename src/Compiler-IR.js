@@ -947,7 +947,7 @@ selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-var send,all,receiver,arguments_;
+var send;
 function $IRSend(){return $globals.IRSend||(typeof IRSend=="undefined"?nil:IRSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
@@ -957,14 +957,7 @@ send=$recv($IRSend())._new();
 $1=send;
 $recv($1)._selector_($recv(aNode)._selector());
 $recv($1)._index_($recv(aNode)._index());
-all=self._aliasTemporally_($recv([$recv(aNode)._receiver()]).__comma($recv(aNode)._arguments()));
-receiver=$recv(all)._first();
-arguments_=$recv(all)._allButFirst();
-$recv(send)._add_(receiver);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["add:"]=1;
-//>>excludeEnd("ctx");
-$recv(arguments_)._do_((function(each){
+$recv(self._aliasTemporally_($recv(aNode)._nodes()))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -975,15 +968,15 @@ return $recv(send)._add_(each);
 }));
 return send;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,send:send,all:all,receiver:receiver,arguments_:arguments_},$globals.IRASTTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,send:send},$globals.IRASTTranslator)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| send all receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send\x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09\x0a\x09all := self aliasTemporally: { aNode receiver }, aNode arguments.\x0a\x09receiver := all first.\x0a\x09arguments := all allButFirst.\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
+source: "visitSendNode: aNode\x0a\x09| send |\x0a\x09send := IRSend new.\x0a\x09send\x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09\x0a\x09(self aliasTemporally: aNode nodes) do: [ :each | send add: each ].\x0a\x0a\x09^ send",
 referencedClasses: ["IRSend"],
 //>>excludeEnd("ide");
-messageSends: ["new", "selector:", "selector", "index:", "index", "aliasTemporally:", ",", "receiver", "arguments", "first", "allButFirst", "add:", "do:"]
+messageSends: ["new", "selector:", "selector", "index:", "index", "do:", "aliasTemporally:", "nodes", "add:"]
 }),
 $globals.IRASTTranslator);
 

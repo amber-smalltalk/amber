@@ -225,18 +225,13 @@ visitReturnNode: aNode
 !
 
 visitSendNode: aNode
-	| send all receiver arguments |
+	| send |
 	send := IRSend new.
 	send
 		selector: aNode selector;
 		index: aNode index.
 	
-	all := self aliasTemporally: { aNode receiver }, aNode arguments.
-	receiver := all first.
-	arguments := all allButFirst.
-
-	send add: receiver.
-	arguments do: [ :each | send add: each ].
+	(self aliasTemporally: aNode nodes) do: [ :each | send add: each ].
 
 	^ send
 !
