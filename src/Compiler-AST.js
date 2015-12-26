@@ -786,7 +786,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Node.superclass||$boot.dnu).fn.prototype._postCopy.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1237,7 +1237,7 @@ return $core.withContext(function($ctx1) {
 var $1;
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AssignmentNode.superclass||$boot.dnu).fn.prototype._shouldBeAliased.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2519,7 +2519,7 @@ var $2,$1;
 sends=$recv($recv($recv(self._method())._sendIndexes())._at_(self._selector()))._size();
 $2=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SendNode.superclass||$boot.dnu).fn.prototype._shouldBeAliased.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

@@ -370,7 +370,7 @@ function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempD
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$4,$6;
+var $1,$2,$3,$5,$4,$6,$8,$7;
 $1=$recv($IRClosure())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
@@ -399,10 +399,12 @@ $recv($4)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$6=$recv($IRTempDeclaration())._new();
-$recv($6)._name_($recv(each)._name());
-$recv($6)._scope_($recv(aNode)._scope());
-return $recv(closure)._add_($recv($6)._yourself());
+$6=closure;
+$8=$recv($IRTempDeclaration())._new();
+$recv($8)._name_($recv(each)._name());
+$recv($8)._scope_($recv(aNode)._scope());
+$7=$recv($8)._yourself();
+return $recv($6)._add_($7);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["add:"]=1;
 //>>excludeEnd("ctx");
@@ -724,7 +726,7 @@ function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefine
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$3,$4,$1,$6,$5,$7,$9,$10,$11,$8,$12,$14,$13,$15,$17,$19,$20,$18,$21,$16,$22;
+var $2,$3,$4,$1,$6,$5,$7,$9,$10,$11,$8,$12,$14,$13,$15,$17,$19,$20,$18,$21,$16,$23,$22;
 $2=$recv($IRMethod())._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
@@ -845,9 +847,10 @@ $recv($15)._add_($16);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$22=$recv($IRVerbatim())._new();
-$recv($22)._source_("");
-$recv($15)._add_($recv($22)._yourself());
+$23=$recv($IRVerbatim())._new();
+$recv($23)._source_("");
+$22=$recv($23)._yourself();
+$recv($15)._add_($22);
 };
 return self._method();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1879,7 +1882,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRClosureInstruction.superclass||$boot.dnu).fn.prototype._scope_.apply($recv(self), [aScope]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3655,7 +3658,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3799,7 +3802,7 @@ return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx3.supercall = true, 
+$ctx3.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRClosure_.apply($recv(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3970,7 +3973,7 @@ return $core.withContext(function($ctx5) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx5.supercall = true, 
+$ctx5.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3986,7 +3989,7 @@ $ctx5.sendIdx["visitIRMethod:"]=1;
 } else {
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx4.supercall = true, 
+$ctx4.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4034,7 +4037,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.supercall = true, 
+$ctx2.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4073,7 +4076,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.supercall = true, 
+$ctx2.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4591,7 +4594,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.JSStream.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

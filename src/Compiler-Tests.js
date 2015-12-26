@@ -162,11 +162,13 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo <consolee.log(1)>",$Object());
-$1=self._astPCNodeVisitor();
-$recv($1)._visit_(ast);
-self._assert_($recv($recv($1)._currentNode())._isJSStatementNode());
+$3=self._astPCNodeVisitor();
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._isJSStatementNode();
+self._assert_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testJSStatementNode",{ast:ast,visitor:visitor},$globals.ASTPCNodeVisitorTest)});
@@ -192,11 +194,13 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo self asString yourself. ^ self asBoolean",$Object());
-$1=self._astPCNodeVisitorForSelector_("yourself");
-$recv($1)._visit_(ast);
-self._assert_equals_($recv($recv($1)._currentNode())._selector(),"yourself");
+$3=self._astPCNodeVisitorForSelector_("yourself");
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._selector();
+self._assert_equals_($1,"yourself");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},$globals.ASTPCNodeVisitorTest)});
@@ -222,11 +226,13 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean",$Object());
-$1=self._astPCNodeVisitorForSelector_("yourself");
-$recv($1)._visit_(ast);
-self._assert_equals_($recv($recv($1)._currentNode())._selector(),"yourself");
+$3=self._astPCNodeVisitorForSelector_("yourself");
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._selector();
+self._assert_equals_($1,"yourself");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testMessageSendWithBlocks",{ast:ast},$globals.ASTPCNodeVisitorTest)});
@@ -252,7 +258,7 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $3,$4,$2,$1,$5;
+var $3,$4,$2,$1,$7,$6,$5;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["parse:forClass:"]=1;
@@ -279,9 +285,11 @@ self._assert_equals_($1,"yourself");
 $ctx1.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
-$5=self._astPCNodeVisitorForSelector_("asBoolean");
-$recv($5)._visit_(ast);
-self._assert_equals_($recv($recv($5)._currentNode())._selector(),"asBoolean");
+$7=self._astPCNodeVisitorForSelector_("asBoolean");
+$recv($7)._visit_(ast);
+$6=$recv($7)._currentNode();
+$5=$recv($6)._selector();
+self._assert_equals_($5,"asBoolean");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},$globals.ASTPCNodeVisitorTest)});
@@ -307,11 +315,13 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo ^ self",$Object());
-$1=self._astPCNodeVisitor();
-$recv($1)._visit_(ast);
-self._assert_($recv($recv($1)._currentNode())._isNil());
+$3=self._astPCNodeVisitor();
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._isNil();
+self._assert_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testNoMessageSend",{ast:ast},$globals.ASTPCNodeVisitorTest)});
@@ -337,11 +347,13 @@ function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Objec
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo <console.log(1)>",$Object());
-$1=self._astPCNodeVisitor();
-$recv($1)._visit_(ast);
-self._assert_($recv($recv($1)._currentNode())._isJSStatementNode());
+$3=self._astPCNodeVisitor();
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._isJSStatementNode();
+self._assert_($1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testPC",{ast:ast,visitor:visitor},$globals.ASTPCNodeVisitorTest)});

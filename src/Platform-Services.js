@@ -438,16 +438,17 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4;
+var $1,$2,$3,$5,$4;
 $1=self._classBuilder();
 $2=$recv(aClass)._superclass();
 $3=$recv(aClass)._name();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["name"]=1;
 //>>excludeEnd("ctx");
-$4=$recv($recv(aClass)._instanceVariableNames())._copy();
-$recv($4)._add_(aString);
-$recv($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$recv($4)._yourself(),$recv($recv(aClass)._package())._name());
+$5=$recv($recv(aClass)._instanceVariableNames())._copy();
+$recv($5)._add_(aString);
+$4=$recv($5)._yourself();
+$recv($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$4,$recv($recv(aClass)._package())._name());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},$globals.Environment)});
@@ -2610,7 +2611,7 @@ return $core.withContext(function($ctx1) {
 var $3,$2,$1,$5,$4;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.String.superclass||$boot.dnu).fn.prototype._inspectOn_.apply($recv(self), [anInspector]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

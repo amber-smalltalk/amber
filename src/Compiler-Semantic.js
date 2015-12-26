@@ -725,7 +725,7 @@ return $core.withContext(function($ctx1) {
 var $1;
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.MethodLexicalScope.superclass||$boot.dnu).fn.prototype._allVariableNames.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -757,7 +757,7 @@ return $core.withContext(function($ctx1) {
 var $1,$receiver;
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.MethodLexicalScope.superclass||$boot.dnu).fn.prototype._bindingFor_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1006,7 +1006,7 @@ function $PseudoVar(){return $globals.PseudoVar||(typeof PseudoVar=="undefined"?
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$receiver;
+var $1,$2,$4,$3,$receiver;
 $1=self["@pseudoVars"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@pseudoVars"]=$recv($Dictionary())._new();
@@ -1015,9 +1015,11 @@ $recv($recv($Smalltalk())._pseudoVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$2=$recv($PseudoVar())._on_(each);
-$recv($2)._scope_(self._methodScope());
-return $recv(self["@pseudoVars"])._at_put_(each,$recv($2)._yourself());
+$2=self["@pseudoVars"];
+$4=$recv($PseudoVar())._on_(each);
+$recv($4)._scope_(self._methodScope());
+$3=$recv($4)._yourself();
+return $recv($2)._at_put_(each,$3);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
@@ -2193,7 +2195,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitAssignmentNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2239,7 +2241,7 @@ return $recv(self["@currentScope"])._addArg_(each);
 }));
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitBlockNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2272,7 +2274,7 @@ return $core.withContext(function($ctx1) {
 $recv(aNode)._receiver_($recv($recv($recv(aNode)._nodes())._first())._receiver());
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitCascadeNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2328,7 +2330,7 @@ return $recv(self["@currentScope"])._addArg_(each);
 }));
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitMethodNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2370,7 +2372,7 @@ $recv($recv(self["@currentScope"])._methodScope())._addNonLocalReturn_(self["@cu
 };
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitReturnNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2460,7 +2462,7 @@ $recv($10)._add_(aNode);
 $recv(aNode)._index_($recv($recv(self._messageSends())._at_($recv(aNode)._selector()))._size());
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2501,7 +2503,7 @@ return $recv(self["@currentScope"])._addTemp_(each);
 }));
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitSequenceNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

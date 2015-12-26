@@ -2664,7 +2664,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.CollectionTest.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2755,7 +2755,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $2,$4,$3,$5,$1,$6,$9,$8,$10,$11,$7,$12,$15,$14,$17,$16,$18,$13,$20,$21,$22,$19,$23,$24;
+var $2,$4,$3,$5,$1,$6,$9,$8,$10,$11,$7,$12,$15,$14,$17,$16,$18,$13,$20,$21,$22,$19,$23,$25,$24;
 $2=self._collection();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["collection"]=1;
@@ -2865,9 +2865,10 @@ $23=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=1;
 //>>excludeEnd("ctx");
 self._assert_equals_($19,$23);
-$24=self._sampleNewValueAsCollection();
-$recv($24)._addAll_(self._collection());
-self._assertSameContents_as_($recv($24)._yourself(),self._collectionWithNewValue());
+$25=self._sampleNewValueAsCollection();
+$recv($25)._addAll_(self._collection());
+$24=$recv($25)._yourself();
+self._assertSameContents_as_($24,self._collectionWithNewValue());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.CollectionTest)});
@@ -4240,10 +4241,11 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._collection();
-$recv($1)._removeAll();
-self._assert_equals_($recv($1)._yourself(),$recv(self._collectionClass())._new());
+var $2,$1;
+$2=self._collection();
+$recv($2)._removeAll();
+$1=$recv($2)._yourself();
+self._assert_equals_($1,$recv(self._collectionClass())._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.CollectionTest)});
@@ -5096,15 +5098,16 @@ function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
+var $2,$1;
 jsNull=$recv($JSON())._parse_("null");
 self._samplesDo_((function(index,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-$1=self._collection();
-$recv($1)._at_put_(index,jsNull);
-return self._assert_equals_($recv($1)._indexOf_(jsNull),index);
+$2=self._collection();
+$recv($2)._at_put_(index,jsNull);
+$1=$recv($2)._indexOf_(jsNull);
+return self._assert_equals_($1,index);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -5304,7 +5307,7 @@ return $core.withContext(function($ctx1) {
 var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$12,$11;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AssociativeCollectionTest.superclass||$boot.dnu).fn.prototype._testAddAll.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5443,7 +5446,7 @@ return $core.withContext(function($ctx1) {
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AssociativeCollectionTest.superclass||$boot.dnu).fn.prototype._testComma.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5659,7 +5662,7 @@ function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$5,$6,$4,$7;
+var $1,$2,$3,$5,$6,$4,$8,$7;
 self._nonIndexesDo_((function(each){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5724,9 +5727,10 @@ return self._deny_($4);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-$7=self._collectionWithNewValue();
-$recv($7)._removeKey_(self._sampleNewIndex());
-self._assert_equals_($recv($7)._yourself(),self._collection());
+$8=self._collectionWithNewValue();
+$recv($8)._removeKey_(self._sampleNewIndex());
+$7=$recv($8)._yourself();
+self._assert_equals_($7,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},$globals.AssociativeCollectionTest)});
@@ -5750,7 +5754,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$2,$3,$4,$5,$7,$8,$6,$9;
+var $1,$2,$3,$4,$5,$7,$8,$6,$10,$9;
 self._nonIndexesDo_((function(each){
 var collection;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -5834,8 +5838,8 @@ return self._deny_($6);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,3)});
 //>>excludeEnd("ctx");
 }));
-$9=self._collectionWithNewValue();
-$recv($9)._removeKey_ifAbsent_(self._sampleNewIndex(),(function(){
+$10=self._collectionWithNewValue();
+$recv($10)._removeKey_ifAbsent_(self._sampleNewIndex(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -5844,7 +5848,8 @@ return self._assert_(false);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 //>>excludeEnd("ctx");
 }));
-self._assert_equals_($recv($9)._yourself(),self._collection());
+$9=$recv($10)._yourself();
+self._assert_equals_($9,self._collection());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},$globals.AssociativeCollectionTest)});
@@ -6190,7 +6195,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.DictionaryTest.superclass||$boot.dnu).fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7436,7 +7441,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.ArrayTest.superclass||$boot.dnu).fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -7493,10 +7498,12 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1;
-$1=self._collection();
-$recv($1)._addFirst_((0));
-self._assert_equals_($recv($recv($1)._yourself())._first(),(0));
+var $3,$2,$1;
+$3=self._collection();
+$recv($3)._addFirst_((0));
+$2=$recv($3)._yourself();
+$1=$recv($2)._first();
+self._assert_equals_($1,(0));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},$globals.ArrayTest)});
@@ -8015,7 +8022,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.StringTest.superclass||$boot.dnu).fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9171,7 +9178,7 @@ return $core.withContext(function($ctx1) {
 var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$12,$11;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SetTest.superclass||$boot.dnu).fn.prototype._testAddAll.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9345,7 +9352,7 @@ return $core.withContext(function($ctx1) {
 var $2,$1;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SetTest.superclass||$boot.dnu).fn.prototype._testCollect.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9391,7 +9398,7 @@ return $core.withContext(function($ctx1) {
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SetTest.superclass||$boot.dnu).fn.prototype._testComma.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
