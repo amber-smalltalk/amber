@@ -1545,7 +1545,7 @@ return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.supercall = true, 
+$ctx2.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AISemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitVariableNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2141,57 +2141,6 @@ $globals.ASTEnterNode);
 
 $core.addMethod(
 $core.method({
-selector: "visitRefNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-var ref;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-var $early={};
-try {
-ref=$recv(aNode)._node();
-$recv($recv(self._interpreter())._refResults())._at_ifPresent_ifAbsent_($recv(ref)._nodeId(),(function(){
-throw $early=[aNode];
-
-}),(function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-$recv(ref)._parent_(aNode);
-$1=(
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.supercall = true, 
-//>>excludeEnd("ctx");
-($globals.ASTEnterNode.superclass||$boot.dnu).fn.prototype._visitRefNode_.apply($recv(self), [aNode]));
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx2.supercall = false;
-//>>excludeEnd("ctx");;
-throw $early=[$1];
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-//>>excludeEnd("ctx");
-}));
-return self;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode,ref:ref},$globals.ASTEnterNode)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "visitRefNode: aNode\x0a\x09| ref |\x0a\x09ref := aNode node.\x0a\x09self interpreter refResults at: ref nodeId\x0a\x09\x09ifPresent: [ ^ aNode ]\x0a\x09\x09ifAbsent: [ ref parent: aNode. ^ super visitRefNode: aNode ]",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["node", "at:ifPresent:ifAbsent:", "refResults", "interpreter", "nodeId", "parent:", "visitRefNode:"]
-}),
-$globals.ASTEnterNode);
-
-$core.addMethod(
-$core.method({
 selector: "visitSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -2211,7 +2160,7 @@ return $recv($recv(self._interpreter())._context())._defineLocal_(each);
 }));
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.ASTEnterNode.superclass||$boot.dnu).fn.prototype._visitSequenceNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2259,7 +2208,7 @@ messageSends: ["interpreter:", "new", "yourself"]
 $globals.ASTEnterNode.klass);
 
 
-$core.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd', 'refResults'], 'Compiler-Interpreter');
+$core.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ASTInterpreter.comment="I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.\x0a\x0a## API\x0a\x0aWhile my instances should be used from within an `ASTDebugger`, which provides a more high level interface,\x0ayou can use methods from the `interpreting` protocol:\x0a\x0a- `#step` evaluates the current `node` only\x0a- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)\x0a- `#proceed` evaluates eagerly the AST\x0a- `#restart` select the first node of the AST\x0a- `#skip` skips the current node, moving to the next one if any";
 //>>excludeEnd("ide");
@@ -2521,13 +2470,12 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@refResults"]=$globals.HashedCollection._newFromPairs_([]);
 self["@forceAtEnd"]=false;
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2536,7 +2484,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x0a\x09refResults := #{}.\x0a\x09forceAtEnd := false",
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09forceAtEnd := false",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["initialize"]
@@ -2826,24 +2774,6 @@ source: "push: anObject\x0a\x09\x22Push an object to the context stack\x22\x0a\x
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["add:", "stack"]
-}),
-$globals.ASTInterpreter);
-
-$core.addMethod(
-$core.method({
-selector: "refResults",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@refResults"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "refResults\x0a\x09^ refResults",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
 }),
 $globals.ASTInterpreter);
 
@@ -3182,7 +3112,7 @@ $1=self._hasReturned();
 if(!$core.assert($1)){
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._visit_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3272,7 +3202,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._visitBlockSequenceNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3410,47 +3340,6 @@ $globals.ASTInterpreter);
 
 $core.addMethod(
 $core.method({
-selector: "visitRefNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-var ref,refid;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-ref=$recv(aNode)._node();
-refid=$recv(ref)._nodeId();
-$1=self._refResults();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.sendIdx["refResults"]=1;
-//>>excludeEnd("ctx");
-$recv($1)._at_ifAbsentPut_(refid,(function(){
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx2) {
-//>>excludeEnd("ctx");
-return self._pop();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
-//>>excludeEnd("ctx");
-}));
-self._push_($recv(self._refResults())._at_(refid));
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode,ref:ref,refid:refid},$globals.ASTInterpreter)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "visitRefNode: aNode\x0a\x09| ref refid |\x0a\x09ref := aNode node.\x0a\x09refid := ref nodeId.\x0a\x09self refResults at: refid ifAbsentPut: [ self pop ].\x0a\x09self push: (self refResults at: refid)",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["node", "nodeId", "at:ifAbsentPut:", "refResults", "pop", "push:", "at:"]
-}),
-$globals.ASTInterpreter);
-
-$core.addMethod(
-$core.method({
 selector: "visitReturnNode:",
 protocol: 'visiting',
 fn: function (aNode){
@@ -3497,7 +3386,7 @@ $ctx2.sendIdx["pop"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-receiver=self._pop();
+receiver=self._peek();
 message=self._messageFromSendNode_arguments_(aNode,$recv(args)._reversed());
 result=self._sendMessage_to_superSend_(message,receiver,$recv(aNode)._superSend());
 $1=$recv($recv(aNode)._isCascadeSendNode())._and_((function(){
@@ -3510,6 +3399,7 @@ return $recv($recv(aNode)._isLastChild())._not();
 //>>excludeEnd("ctx");
 }));
 if(!$core.assert($1)){
+self._pop();
 self._push_(result);
 };
 return self;
@@ -3519,10 +3409,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self pop.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifFalse: [ self push: result ]",
+source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self peek.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifFalse: [ self pop; push: result ]",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
+messageSends: ["collect:", "arguments", "pop", "peek", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
 }),
 $globals.ASTInterpreter);
 
@@ -3856,7 +3746,7 @@ $ctx1.sendIdx["selector"]=1;
 sendIndex=$recv($1)._sendIndexAt_($2);
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.ASTPCNodeVisitor.superclass||$boot.dnu).fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4053,24 +3943,6 @@ referencedClasses: [],
 messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:"]
 }),
 $globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextSiblingNode:",
-protocol: '*Compiler-Interpreter',
-fn: function (aNode){
-var self=this;
-return nil;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "nextSiblingNode: aNode\x0a\x09\x22no siblings in ref node\x22\x0a\x09^ nil",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
 
 $core.addMethod(
 $core.method({

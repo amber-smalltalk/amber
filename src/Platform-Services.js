@@ -2611,7 +2611,7 @@ return $core.withContext(function($ctx1) {
 var $3,$2,$1,$5,$4;
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.String.superclass||$boot.dnu).fn.prototype._inspectOn_.apply($recv(self), [anInspector]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

@@ -1,6 +1,6 @@
 Smalltalk createPackage: 'Compiler-IR'!
 NodeVisitor subclass: #IRASTTranslator
-	instanceVariableNames: 'source theClass method sequence nextAlias nodeAliases'
+	instanceVariableNames: 'source theClass method sequence nextAlias'
 	package: 'Compiler-IR'!
 !IRASTTranslator commentStamp!
 I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.!
@@ -19,17 +19,6 @@ nextAlias
 	nextAlias ifNil: [ nextAlias := 0 ].
 	nextAlias := nextAlias + 1.
 	^ nextAlias asString
-!
-
-node: aNode aliased: anAliasVar
-	nodeAliases ifNil: [ nodeAliases := #{} ].
-	nodeAliases at: aNode nodeId put: anAliasVar
-!
-
-nodeAliasFor: aNode
-	nodeAliases
-		ifNil: [ ^ nil ]
-		ifNotNil: [ ^ nodeAliases at: aNode nodeId ifAbsent: [] ]
 !
 
 sequence
@@ -71,13 +60,10 @@ alias: aNode
 	| variable |
 
 	aNode isImmutable ifTrue: [ ^ self visit: aNode ].
-	
-	(self nodeAliasFor: aNode) ifNotNil: [ :aliasVar | ^ aliasVar ].
 
 	variable := IRVariable new
 		variable: (AliasVar new name: '$', self nextAlias);
 		yourself.
-	self node: aNode aliased: variable.
 
 	self sequence add: (IRAssignment new
 		add: variable;
@@ -96,16 +82,12 @@ aliasTemporally: aCollection
 	The tree is iterated twice. First we get the aliasing dependency,
 	then the aliasing itself is done"
 
-	| threshold j result |
+	| threshold result |
 	threshold := 0.
-	j := aCollection size.
 	
-	[ threshold = 0 & (j > 0) ] whileTrue: [
-		| each |
-		each := aCollection at: j.
+	aCollection withIndexDo: [ :each :i |
 		each subtreeNeedsAliasing
-			ifTrue: [ threshold := j ]
-			ifFalse: [ j := j - 1 ] ].
+			ifTrue: [ threshold := i ] ].
 
 	result := OrderedCollection new.
 	aCollection withIndexDo: [ :each :i |
@@ -156,6 +138,17 @@ visitBlockSequenceNode: aNode
 !
 
 visitCascadeNode: aNode
+	aNode nodes inject: aNode receiver into: [ :previous :each |
+		| receiver |
+		receiver := previous isImmutable 
+			ifTrue: [ previous ]
+			ifFalse: [
+				| alias |
+				alias := self alias: previous.
+				VariableNode new binding: alias variable ].
+		each receiver: receiver.
+		receiver ].
+
 	aNode nodes allButLast do: [ :each |
 		self sequence add: (self visit: each) ].
 
@@ -218,10 +211,6 @@ visitOrAlias: aNode
 	^ aNode shouldBeAliased
 		ifTrue: [ self alias: aNode ]
 		ifFalse: [ self visit: aNode ]
-!
-
-visitRefNode: aNode
-	^ self alias: aNode node
 !
 
 visitReturnNode: aNode
@@ -1066,7 +1055,7 @@ visitSuperSend: anIRSend
 	self stream
 		nextPutAll: '('; lf;
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
-		nextPutAll: anIRSend scope alias, '.supercall = true, '; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = true,'; lf;
 		nextPutAll: '//>>excludeEnd("ctx");'; lf;
 		nextPutAll: '(', self currentClass asJavascript;
 		nextPutAll: '.superclass||$boot.dnu).fn.prototype.';

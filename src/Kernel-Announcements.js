@@ -352,7 +352,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Announcer.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -580,7 +580,7 @@ $1=self["@current"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@current"]=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SystemAnnouncer.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

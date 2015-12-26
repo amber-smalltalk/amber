@@ -297,7 +297,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.BucketStore.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2178,7 +2178,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AssociativeCollection.superclass||$boot.dnu).fn.prototype._addAll_.apply($recv(self), [$recv(anAssociativeCollection)._associations()]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2715,7 +2715,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AssociativeCollection.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3279,7 +3279,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Dictionary.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -4937,7 +4937,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Array.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8117,7 +8117,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Set.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -8221,7 +8221,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Set.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9780,7 +9780,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Queue.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

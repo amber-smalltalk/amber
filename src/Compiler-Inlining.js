@@ -722,7 +722,7 @@ return localReturn;
 };
 $7=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -758,7 +758,7 @@ return $recv(self._assignmentInliner())._inlineAssignment_(anIRAssignment);
 } else {
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRAssignment_.apply($recv(self), [anIRAssignment]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -817,7 +817,7 @@ return $recv(self._returnInliner())._inlineReturn_(anIRReturn);
 } else {
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -853,7 +853,7 @@ return $recv(self._sendInliner())._inlineSend_(anIRSend);
 } else {
 return (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRSend_.apply($recv(self), [anIRSend]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2261,7 +2261,7 @@ return $core.withContext(function($ctx1) {
 var $2,$1,$4,$3,$5,$7,$6;
 inlinedClosure=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRAssignmentInliner.superclass||$boot.dnu).fn.prototype._inlineClosure_.apply($recv(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2340,7 +2340,7 @@ return $core.withContext(function($ctx1) {
 var $1,$3,$2,$4,$6,$5;
 closure=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.IRReturnInliner.superclass||$boot.dnu).fn.prototype._inlineClosure_.apply($recv(self), [anIRClosure]));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

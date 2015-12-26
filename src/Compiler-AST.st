@@ -52,10 +52,6 @@ navigationNodeAt: aPoint ifAbsent: aBlock
 		(b positionStart dist: aPoint) ]) first
 !
 
-nodeId
-	^ self identityHash
-!
-
 nodes
 	^ nodes ifNil: [ nodes := Array new ]
 !
@@ -120,12 +116,6 @@ source: aString
 nodes: aCollection
 	nodes := aCollection.
 	aCollection do: [ :each | each parent: self ]
-! !
-
-!Node methodsFor: 'converting'!
-
-asRefNode
-	^ RefNode new node: self; yourself
 ! !
 
 !Node methodsFor: 'copying'!
@@ -472,46 +462,6 @@ source: aString
 
 accept: aVisitor
 	^ aVisitor visitMethodNode: self
-! !
-
-Node subclass: #RefNode
-	instanceVariableNames: 'node'
-	package: 'Compiler-AST'!
-!RefNode commentStamp!
-I reference other `node`, which may be used more times,
-each time getting separate instance of me.
-
-I have my own `parent`, but delegate visitors to `node`.
-
-During semantic analysis, analyzer does `node shouldBeAliased: true`
-because of the fact it may be used more times.!
-
-!RefNode methodsFor: 'accessing'!
-
-node
-	^ node
-!
-
-node: anObject
-	node := anObject
-! !
-
-!RefNode methodsFor: 'converting'!
-
-asRefNode
-	^ self
-! !
-
-!RefNode methodsFor: 'testing'!
-
-isImmutable
-	^ true
-! !
-
-!RefNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitRefNode: self
 ! !
 
 Node subclass: #ReturnNode
@@ -877,10 +827,6 @@ visitMethodNode: aNode
 
 visitNode: aNode
 	^ self visitAll: aNode nodes
-!
-
-visitRefNode: aNode
-	^ self visit: aNode node
 !
 
 visitReturnNode: aNode

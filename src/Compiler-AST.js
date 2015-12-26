@@ -97,33 +97,6 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "asRefNode",
-protocol: 'converting',
-fn: function (){
-var self=this;
-function $RefNode(){return $globals.RefNode||(typeof RefNode=="undefined"?nil:RefNode)}
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var $1;
-$1=$recv($RefNode())._new();
-$recv($1)._node_(self);
-return $recv($1)._yourself();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"asRefNode",{},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "asRefNode\x0a\x09^ RefNode new node: self; yourself",
-referencedClasses: ["RefNode"],
-//>>excludeEnd("ide");
-messageSends: ["node:", "new", "yourself"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
 selector: "inPosition:",
 protocol: 'testing',
 fn: function (aPoint){
@@ -583,29 +556,6 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "nodeId",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return self._identityHash();
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"nodeId",{},$globals.Node)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "nodeId\x0a\x09^ self identityHash",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["identityHash"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
 selector: "nodes",
 protocol: 'accessing',
 fn: function (){
@@ -836,7 +786,7 @@ return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 (
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.Node.superclass||$boot.dnu).fn.prototype._postCopy.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1287,7 +1237,7 @@ return $core.withContext(function($ctx1) {
 var $1;
 $1=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.AssignmentNode.superclass||$boot.dnu).fn.prototype._shouldBeAliased.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2055,108 +2005,6 @@ $globals.MethodNode);
 
 
 
-$core.addClass('RefNode', $globals.Node, ['node'], 'Compiler-AST');
-//>>excludeStart("ide", pragmas.excludeIdeData);
-$globals.RefNode.comment="I reference other `node`, which may be used more times,\x0aeach time getting separate instance of me.\x0a\x0aI have my own `parent`, but delegate visitors to `node`.\x0a\x0aDuring semantic analysis, analyzer does `node shouldBeAliased: true`\x0abecause of the fact it may be used more times.";
-//>>excludeEnd("ide");
-$core.addMethod(
-$core.method({
-selector: "accept:",
-protocol: 'visiting',
-fn: function (aVisitor){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return $recv(aVisitor)._visitRefNode_(self);
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.RefNode)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitRefNode: self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["visitRefNode:"]
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "asRefNode",
-protocol: 'converting',
-fn: function (){
-var self=this;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "asRefNode\x0a\x09^ self",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "isImmutable",
-protocol: 'testing',
-fn: function (){
-var self=this;
-return true;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "isImmutable\x0a\x09^ true",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "node",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-return self["@node"];
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: [],
-source: "node\x0a\x09^ node",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-$core.addMethod(
-$core.method({
-selector: "node:",
-protocol: 'accessing',
-fn: function (anObject){
-var self=this;
-self["@node"]=anObject;
-return self;
-
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["anObject"],
-source: "node: anObject\x0a\x09node := anObject",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.RefNode);
-
-
-
 $core.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
 //>>excludeStart("ide", pragmas.excludeIdeData);
 $globals.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return.";
@@ -2671,7 +2519,7 @@ var $2,$1;
 sends=$recv($recv($recv(self._method())._sendIndexes())._at_(self._selector()))._size();
 $2=(
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-$ctx1.supercall = true, 
+$ctx1.supercall = true,
 //>>excludeEnd("ctx");
 ($globals.SendNode.superclass||$boot.dnu).fn.prototype._shouldBeAliased.apply($recv(self), []));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3640,29 +3488,6 @@ source: "visitNode: aNode\x0a\x09^ self visitAll: aNode nodes",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["visitAll:", "nodes"]
-}),
-$globals.NodeVisitor);
-
-$core.addMethod(
-$core.method({
-selector: "visitRefNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return self._visit_($recv(aNode)._node());
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"visitRefNode:",{aNode:aNode},$globals.NodeVisitor)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aNode"],
-source: "visitRefNode: aNode\x0a\x09^ self visit: aNode node",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: ["visit:", "node"]
 }),
 $globals.NodeVisitor);
 
