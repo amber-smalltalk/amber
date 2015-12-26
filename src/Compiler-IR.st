@@ -1055,7 +1055,7 @@ visitSuperSend: anIRSend
 	self stream
 		nextPutAll: '('; lf;
 		nextPutAll: '//>>excludeStart("ctx", pragmas.excludeDebugContexts);'; lf;
-		nextPutAll: anIRSend scope alias, '.supercall = true, '; lf;
+		nextPutAll: anIRSend scope alias, '.supercall = true,'; lf;
 		nextPutAll: '//>>excludeEnd("ctx");'; lf;
 		nextPutAll: '(', self currentClass asJavascript;
 		nextPutAll: '.superclass||$boot.dnu).fn.prototype.';
