@@ -1,8 +1,8 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-	var PEG = require('pegjs');
+    var PEG = require('pegjs');
 
-	/**
+    /**
      Full config looks like this:
      pegjs: {
      my_parser: {
@@ -11,14 +11,14 @@ module.exports = function(grunt) {
      export_var: 'smalltalk.parser' // default: module.exports
      },
    */
-  grunt.registerMultiTask('peg', 'Generate JavaScript parser from PEG.js grammar description', function() {
-    var options = this.options({
-      cache: false,
-      output: 'source',
-      export_var: 'module.exports'
+    grunt.registerMultiTask('peg', 'Generate JavaScript parser from PEG.js grammar description', function () {
+        var options = this.options({
+            cache: false,
+            output: 'source',
+            export_var: 'module.exports'
+        });
+        var parser = PEG.buildParser(grunt.file.read(this.data.src), options);
+        var content = "define(['./boot'], function($boot) {\nvar $globals = $boot.globals, nil = $boot.nil;\n" + options.export_var + " = " + parser + ";\n});";
+        grunt.file.write(this.data.dest, content);
     });
-    var parser = PEG.buildParser(grunt.file.read(this.data.src), options);
-    var content = 'define("amber/parser", ["./boot"], function($boot) {\nvar $globals = $boot.globals, nil = $boot.nil;\n'+options.export_var + ' = ' + parser + ';\n});';
-    grunt.file.write(this.data.dest, content);
-  });
 };

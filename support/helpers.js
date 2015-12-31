@@ -1,4 +1,4 @@
-define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
+define(["amber/boot", "require"], function (boot, require) {
     var globals = boot.globals,
         exports = {},
         api = boot.api,

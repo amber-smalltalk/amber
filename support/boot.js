@@ -39,7 +39,7 @@
 
 //jshint eqnull:true
 
-define("amber/boot", ['require', './browser-compatibility'], function (require) {
+define(['require', './browser-compatibility'], function (require) {
 
     /* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
@@ -1196,5 +1196,11 @@ define("amber/boot", ['require', './browser-compatibility'], function (require) 
         brikz.rebuild();
     }
 
-    return {api: api, nil: brikz.root.nil, dnu: brikz.root.rootAsClass, globals: globals, asReceiver: brikz.asReceiver.asReceiver};
+    return {
+        api: api,
+        nil: brikz.root.nil,
+        dnu: brikz.root.rootAsClass,
+        globals: globals,
+        asReceiver: brikz.asReceiver.asReceiver
+    };
 });
