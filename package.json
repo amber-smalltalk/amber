@@ -26,6 +26,9 @@
     "node": "0.10.x || 0.12.x || >=4.0.0"
   },
   "scripts": {
+    "build:parser:begin": "node -e \"process.stdout.write('define([\\'./boot\\'], function($boot) {\\nvar $globals = $boot.globals, nil = $boot.nil;\\n');\"",
+    "build:parser": "(npm run -s build:parser:begin && pegjs --cache --export-var $globals.SmalltalkParser < support/parser.pegjs && npm run -s build:parser:end) > support/parser.js",
+    "build:parser:end": "node -e \"process.stdout.write('});');\"",
     "test": "npm run test:sunit && npm run test:e2e",
     "test:sunit": "grunt test",
     "test:e2e": "(cd external && cd amber-cli && npm test)"
