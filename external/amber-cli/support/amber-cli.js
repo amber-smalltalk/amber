@@ -54,7 +54,7 @@ define("config-node", function(){});
 
 //jshint eqnull:true
 
-define("amber/boot", ['require', './browser-compatibility'], function (require) {
+define('amber/boot',['require', './browser-compatibility'], function (require) {
 
     /* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
@@ -1211,10 +1211,16 @@ define("amber/boot", ['require', './browser-compatibility'], function (require) 
         brikz.rebuild();
     }
 
-    return {api: api, nil: brikz.root.nil, globals: globals, asReceiver: brikz.asReceiver.asReceiver};
+    return {
+        api: api,
+        nil: brikz.root.nil,
+        dnu: brikz.root.rootAsClass,
+        globals: globals,
+        asReceiver: brikz.asReceiver.asReceiver
+    };
 });
 
-define("amber/helpers", ["amber/boot", "require"], function (boot, require) {
+define('amber/helpers',["amber/boot", "require"], function (boot, require) {
     var globals = boot.globals,
         exports = {},
         api = boot.api,
@@ -1299,9 +1305,7 @@ protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__eq_eq(anObject);
-return $1;
+return self.__eq_eq(anObject);
 }, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},$globals.ProtoObject)});
 },
 args: ["anObject"],
@@ -1336,9 +1340,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._printString();
-return $1;
+return self._printString();
 }, function($ctx1) {$ctx1.fill(self,"asString",{},$globals.ProtoObject)});
 },
 args: [],
@@ -1374,11 +1376,11 @@ fn: function (aMessage){
 var self=this;
 function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($MessageNotUnderstood())._new();
 $recv($1)._receiver_(self);
 $recv($1)._message_(aMessage);
-$2=$recv($1)._signal();
+$recv($1)._signal();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},$globals.ProtoObject)});
 },
@@ -1396,9 +1398,7 @@ protocol: 'evaluating',
 fn: function (aString,anEvaluator){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anEvaluator)._evaluate_receiver_(aString,self);
-return $1;
+return $recv(anEvaluator)._evaluate_receiver_(aString,self);
 }, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},$globals.ProtoObject)});
 },
 args: ["aString", "anEvaluator"],
@@ -1455,9 +1455,7 @@ protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anotherBlock)._value_(self);
-return $1;
+return $recv(anotherBlock)._value_(self);
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.ProtoObject)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -1474,9 +1472,7 @@ protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aBlock)._value_(self);
-return $1;
+return $recv(aBlock)._value_(self);
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},$globals.ProtoObject)});
 },
 args: ["aBlock"],
@@ -1493,9 +1489,7 @@ protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aBlock)._value_(self);
-return $1;
+return $recv(aBlock)._value_(self);
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.ProtoObject)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -1599,14 +1593,13 @@ protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._isMemberOf_(aClass);
-if($core.assert($2)){
-$1=true;
+var $1;
+$1=self._isMemberOf_(aClass);
+if($core.assert($1)){
+return true;
 } else {
-$1=$recv(self._class())._inheritsFrom_(aClass);
+return $recv(self._class())._inheritsFrom_(aClass);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"isKindOf:",{aClass:aClass},$globals.ProtoObject)});
 },
 args: ["aClass"],
@@ -1639,11 +1632,10 @@ protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._identityHash();
+var $1;
+$1=self._identityHash();
 $ctx1.sendIdx["identityHash"]=1;
-$1=$recv($2).__eq($recv(anObject)._identityHash());
-return $1;
+return $recv($1).__eq($recv(anObject)._identityHash());
 }, function($ctx1) {$ctx1.fill(self,"isSameInstanceAs:",{anObject:anObject},$globals.ProtoObject)});
 },
 args: ["anObject"],
@@ -1660,9 +1652,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._isNil())._not();
-return $1;
+return $recv(self._isNil())._not();
 }, function($ctx1) {$ctx1.fill(self,"notNil",{},$globals.ProtoObject)});
 },
 args: [],
@@ -1679,9 +1669,7 @@ protocol: 'message handling',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._perform_withArguments_(aString,[]);
-return $1;
+return self._perform_withArguments_(aString,[]);
 }, function($ctx1) {$ctx1.fill(self,"perform:",{aString:aString},$globals.ProtoObject)});
 },
 args: ["aString"],
@@ -1749,13 +1737,11 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($String())._streamContents_((function(str){
+return $recv($String())._streamContents_((function(str){
 return $core.withContext(function($ctx2) {
 return self._printOn_(str);
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{},$globals.ProtoObject)});
 },
 args: [],
@@ -1808,9 +1794,7 @@ protocol: 'comparing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self.__eq_eq(anObject)).__eq(false);
-return $1;
+return $recv(self.__eq_eq(anObject)).__eq(false);
 }, function($ctx1) {$ctx1.fill(self,"~~",{anObject:anObject},$globals.ProtoObject)});
 },
 args: ["anObject"],
@@ -1848,9 +1832,7 @@ fn: function (anObject){
 var self=this;
 function $Association(){return $globals.Association||(typeof Association=="undefined"?nil:Association)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Association())._key_value_(self,anObject);
-return $1;
+return $recv($Association())._key_value_(self,anObject);
 }, function($ctx1) {$ctx1.fill(self,"->",{anObject:anObject},$globals.Object)});
 },
 args: ["anObject"],
@@ -1869,15 +1851,13 @@ var self=this;
 var variables;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($HashedCollection())._new();
 $recv($recv(self._class())._allInstanceVariableNames())._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(variables)._at_put_(each,$recv(self._instVarAt_(each))._asJSON());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=variables;
-return $1;
+return variables;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{variables:variables},$globals.Object)});
 },
 args: [],
@@ -1895,9 +1875,7 @@ fn: function (){
 var self=this;
 function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($JSON())._stringify_(self._asJSON());
-return $1;
+return $recv($JSON())._stringify_(self._asJSON());
 }, function($ctx1) {$ctx1.fill(self,"asJSONString",{},$globals.Object)});
 },
 args: [],
@@ -1914,9 +1892,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._asString();
-return $1;
+return self._asString();
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},$globals.Object)});
 },
 args: [],
@@ -1987,9 +1963,7 @@ protocol: 'message handling',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicPerform_withArguments_(aString,[]);
-return $1;
+return self._basicPerform_withArguments_(aString,[]);
 }, function($ctx1) {$ctx1.fill(self,"basicPerform:",{aString:aString},$globals.Object)});
 },
 args: ["aString"],
@@ -2043,9 +2017,7 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._shallowCopy())._postCopy();
-return $1;
+return $recv(self._shallowCopy())._postCopy();
 }, function($ctx1) {$ctx1.fill(self,"copy",{},$globals.Object)});
 },
 args: [],
@@ -2192,9 +2164,7 @@ protocol: 'evaluating',
 fn: function (aValuable){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aValuable)._value_(self);
-return $1;
+return $recv(aValuable)._value_(self);
 }, function($ctx1) {$ctx1.fill(self,"in:",{aValuable:aValuable},$globals.Object)});
 },
 args: ["aValuable"],
@@ -2291,9 +2261,7 @@ protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class()).__eq(aClass);
-return $1;
+return $recv(self._class()).__eq(aClass);
 }, function($ctx1) {$ctx1.fill(self,"isMemberOf:",{aClass:aClass},$globals.Object)});
 },
 args: ["aClass"],
@@ -2440,9 +2408,7 @@ protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._canUnderstand_(aSelector);
-return $1;
+return $recv(self._class())._canUnderstand_(aSelector);
 }, function($ctx1) {$ctx1.fill(self,"respondsTo:",{aSelector:aSelector},$globals.Object)});
 },
 args: ["aSelector"],
@@ -2691,12 +2657,15 @@ protocol: 'comparing',
 fn: function (aBoolean){
 var self=this;
 return $core.withContext(function($ctx1) {
-return aBoolean != null && self.valueOf() === (typeof aBoolean === "boolean" ? aBoolean : aBoolean.valueOf());
+
+	if (typeof aBoolean === "boolean") return self.valueOf() === aBoolean;
+	else if (aBoolean != null && typeof aBoolean === "object") return self.valueOf() === aBoolean.valueOf();
+	else return false;;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"==",{aBoolean:aBoolean},$globals.Boolean)});
 },
 args: ["aBoolean"],
-source: "== aBoolean\x0a<return aBoolean != null && self.valueOf() === (typeof aBoolean === \x22boolean\x22 ? aBoolean : aBoolean.valueOf())>",
+source: "== aBoolean\x0a<\x0a\x09if (typeof aBoolean === \x22boolean\x22) return self.valueOf() === aBoolean;\x0a\x09else if (aBoolean != null && typeof aBoolean === \x22object\x22) return self.valueOf() === aBoolean.valueOf();\x0a\x09else return false;\x0a>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -2709,13 +2678,12 @@ protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self.__eq(true);
-$1=$recv($2)._ifTrue_ifFalse_(aBlock,(function(){
+var $1;
+$1=self.__eq(true);
+return $recv($1)._ifTrue_ifFalse_(aBlock,(function(){
 return false;
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"and:",{aBlock:aBlock},$globals.Boolean)});
 },
 args: ["aBlock"],
@@ -2732,13 +2700,11 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 if($core.assert(self)){
-$1=(1);
+return (1);
 } else {
-$1=(0);
+return (0);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBit",{},$globals.Boolean)});
 },
 args: [],
@@ -2805,11 +2771,9 @@ protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._ifTrue_ifFalse_((function(){
+return self._ifTrue_ifFalse_((function(){
 
 }),aBlock);
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{aBlock:aBlock},$globals.Boolean)});
 },
 args: ["aBlock"],
@@ -2826,9 +2790,7 @@ protocol: 'controlling',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._ifTrue_ifFalse_(anotherBlock,aBlock);
-return $1;
+return self._ifTrue_ifFalse_(anotherBlock,aBlock);
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:ifTrue:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Boolean)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -2845,11 +2807,9 @@ protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._ifTrue_ifFalse_(aBlock,(function(){
+return self._ifTrue_ifFalse_(aBlock,(function(){
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{aBlock:aBlock},$globals.Boolean)});
 },
 args: ["aBlock"],
@@ -2922,9 +2882,7 @@ protocol: 'controlling',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__eq(false);
-return $1;
+return self.__eq(false);
 }, function($ctx1) {$ctx1.fill(self,"not",{},$globals.Boolean)});
 },
 args: [],
@@ -2941,13 +2899,12 @@ protocol: 'controlling',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self.__eq(true);
-$1=$recv($2)._ifTrue_ifFalse_((function(){
+var $1;
+$1=self.__eq(true);
+return $recv($1)._ifTrue_ifFalse_((function(){
 return true;
 
 }),aBlock);
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"or:",{aBlock:aBlock},$globals.Boolean)});
 },
 args: ["aBlock"],
@@ -3098,19 +3055,18 @@ protocol: 'comparing',
 fn: function (aDate){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$4,$1;
-$3=$recv(aDate)._class();
+var $2,$1,$3;
+$2=$recv(aDate)._class();
 $ctx1.sendIdx["class"]=1;
-$2=$recv($3).__eq_eq(self._class());
+$1=$recv($2).__eq_eq(self._class());
 $ctx1.sendIdx["=="]=1;
-$1=$recv($2)._and_((function(){
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
-$4=self._asMilliseconds();
+$3=self._asMilliseconds();
 $ctx2.sendIdx["asMilliseconds"]=1;
-return $recv($4).__eq_eq($recv(aDate)._asMilliseconds());
+return $recv($3).__eq_eq($recv(aDate)._asMilliseconds());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"=",{aDate:aDate},$globals.Date)});
 },
 args: ["aDate"],
@@ -3199,9 +3155,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._time();
-return $1;
+return self._time();
 }, function($ctx1) {$ctx1.fill(self,"asMilliseconds",{},$globals.Date)});
 },
 args: [],
@@ -3218,9 +3172,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._asMilliseconds();
-return $1;
+return self._asMilliseconds();
 }, function($ctx1) {$ctx1.fill(self,"asNumber",{},$globals.Date)});
 },
 args: [],
@@ -3273,9 +3225,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._dayOfWeek();
-return $1;
+return self._dayOfWeek();
 }, function($ctx1) {$ctx1.fill(self,"day",{},$globals.Date)});
 },
 args: [],
@@ -3669,9 +3619,7 @@ protocol: 'instance creation',
 fn: function (aNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._new_(aNumber);
-return $1;
+return self._new_(aNumber);
 }, function($ctx1) {$ctx1.fill(self,"fromMilliseconds:",{aNumber:aNumber},$globals.Date.klass)});
 },
 args: ["aNumber"],
@@ -3688,9 +3636,7 @@ protocol: 'instance creation',
 fn: function (aNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._fromMilliseconds_($recv(aNumber).__star((1000)));
-return $1;
+return self._fromMilliseconds_($recv(aNumber).__star((1000)));
 }, function($ctx1) {$ctx1.fill(self,"fromSeconds:",{aNumber:aNumber},$globals.Date.klass)});
 },
 args: ["aNumber"],
@@ -3707,9 +3653,7 @@ protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._new_(aString);
-return $1;
+return self._new_(aString);
 }, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},$globals.Date.klass)});
 },
 args: ["aString"],
@@ -3728,12 +3672,10 @@ var self=this;
 var t;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 return $core.withContext(function($ctx1) {
-var $1;
 t=$recv($Date())._now();
 $ctx1.sendIdx["now"]=1;
 $recv(aBlock)._value();
-$1=$recv($recv($Date())._now()).__minus(t);
-return $1;
+return $recv($recv($Date())._now()).__minus(t);
 }, function($ctx1) {$ctx1.fill(self,"millisecondsToRun:",{aBlock:aBlock,t:t},$globals.Date.klass)});
 },
 args: ["aBlock"],
@@ -3768,9 +3710,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._today();
-return $1;
+return self._today();
 }, function($ctx1) {$ctx1.fill(self,"now",{},$globals.Date.klass)});
 },
 args: [],
@@ -3787,9 +3727,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._new();
-return $1;
+return self._new();
 }, function($ctx1) {$ctx1.fill(self,"today",{},$globals.Date.klass)});
 },
 args: [],
@@ -3845,9 +3783,7 @@ protocol: 'mathematical functions',
 fn: function (exponent){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._raisedTo_(exponent);
-return $1;
+return self._raisedTo_(exponent);
 }, function($ctx1) {$ctx1.fill(self,"**",{exponent:exponent},$globals.Number)});
 },
 args: ["exponent"],
@@ -3918,9 +3854,7 @@ protocol: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self.__slash(aNumber))._floor();
-return $1;
+return $recv(self.__slash(aNumber))._floor();
 }, function($ctx1) {$ctx1.fill(self,"//",{aNumber:aNumber},$globals.Number)});
 },
 args: ["aNumber"],
@@ -3973,12 +3907,15 @@ protocol: 'comparing',
 fn: function (aNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-return aNumber != null && Number(self) === (typeof aNumber === "number" ? aNumber : aNumber.valueOf());
+
+	if (typeof aNumber === "number") return Number(self) === aNumber;
+	else if (aNumber != null && typeof aNumber === "object") return Number(self) === aNumber.valueOf();
+	else return false;;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"==",{aNumber:aNumber},$globals.Number)});
 },
 args: ["aNumber"],
-source: "== aNumber\x0a<return aNumber != null && Number(self) === (typeof aNumber === \x22number\x22 ? aNumber : aNumber.valueOf())>",
+source: "== aNumber\x0a<\x0a\x09if (typeof aNumber === \x22number\x22) return Number(self) === aNumber;\x0a\x09else if (aNumber != null && typeof aNumber === \x22object\x22) return Number(self) === aNumber.valueOf();\x0a\x09else return false;\x0a>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -4028,9 +3965,7 @@ fn: function (aNumber){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Point())._x_y_(self,aNumber);
-return $1;
+return $recv($Point())._x_y_(self,aNumber);
 }, function($ctx1) {$ctx1.fill(self,"@",{aNumber:aNumber},$globals.Number)});
 },
 args: ["aNumber"],
@@ -4190,9 +4125,7 @@ fn: function (){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Point())._x_y_(self,self);
-return $1;
+return $recv($Point())._x_y_(self,self);
 }, function($ctx1) {$ctx1.fill(self,"asPoint",{},$globals.Number)});
 },
 args: [],
@@ -4228,9 +4161,7 @@ fn: function (){
 var self=this;
 function $Random(){return $globals.Random||(typeof Random=="undefined"?nil:Random)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($recv($recv($recv($Random())._new())._next()).__star(self))._truncated()).__plus((1));
-return $1;
+return $recv($recv($recv($recv($recv($Random())._new())._next()).__star(self))._truncated()).__plus((1));
 }, function($ctx1) {$ctx1.fill(self,"atRandom",{},$globals.Number)});
 },
 args: [],
@@ -4299,9 +4230,7 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._copy();
-return $1;
+return self._copy();
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{},$globals.Number)});
 },
 args: [],
@@ -4318,9 +4247,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=(0).__eq(self.__backslash_backslash((2)));
-return $1;
+return (0).__eq(self.__backslash_backslash((2)));
 }, function($ctx1) {$ctx1.fill(self,"even",{},$globals.Number)});
 },
 args: [],
@@ -4387,9 +4314,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__eq((0));
-return $1;
+return self.__eq((0));
 }, function($ctx1) {$ctx1.fill(self,"isZero",{},$globals.Number)});
 },
 args: [],
@@ -4496,9 +4421,7 @@ protocol: 'arithmetic',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=(0).__minus(self);
-return $1;
+return (0).__minus(self);
 }, function($ctx1) {$ctx1.fill(self,"negated",{},$globals.Number)});
 },
 args: [],
@@ -4515,9 +4438,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__lt((0));
-return $1;
+return self.__lt((0));
 }, function($ctx1) {$ctx1.fill(self,"negative",{},$globals.Number)});
 },
 args: [],
@@ -4534,9 +4455,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._even())._not();
-return $1;
+return $recv(self._even())._not();
 }, function($ctx1) {$ctx1.fill(self,"odd",{},$globals.Number)});
 },
 args: [],
@@ -4553,9 +4472,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__gt_eq((0));
-return $1;
+return self.__gt_eq((0));
 }, function($ctx1) {$ctx1.fill(self,"positive",{},$globals.Number)});
 },
 args: [],
@@ -4708,9 +4625,7 @@ protocol: 'mathematical functions',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__star(self);
-return $1;
+return self.__star(self);
 }, function($ctx1) {$ctx1.fill(self,"squared",{},$globals.Number)});
 },
 args: [],
@@ -4777,7 +4692,6 @@ var self=this;
 var array,first,last,count;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1;
 first=self._truncated();
 $ctx1.sendIdx["truncated"]=1;
 last=$recv($recv(aNumber)._truncated()).__plus((1));
@@ -4794,8 +4708,7 @@ first=$recv(first).__plus((1));
 return first;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$1=array;
-return $1;
+return array;
 }, function($ctx1) {$ctx1.fill(self,"to:",{aNumber:aNumber,array:array,first:first,last:last,count:count},$globals.Number)});
 },
 args: ["aNumber"],
@@ -4814,7 +4727,7 @@ var self=this;
 var array,value,pos;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1,$2;
 value=self;
 array=$recv($Array())._new();
 pos=(1);
@@ -4857,8 +4770,7 @@ return value;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)});
 }));
 };
-$3=array;
-return $3;
+return array;
 }, function($ctx1) {$ctx1.fill(self,"to:by:",{stop:stop,step:step,array:array,value:value,pos:pos},$globals.Number)});
 },
 args: ["stop", "step"],
@@ -5057,19 +4969,18 @@ fn: function (aPoint){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 return $core.withContext(function($ctx1) {
-var $3,$5,$4,$2,$7,$6,$1;
-$3=self._x();
+var $2,$4,$3,$1,$6,$5;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$5=$recv(aPoint)._asPoint();
+$4=$recv(aPoint)._asPoint();
 $ctx1.sendIdx["asPoint"]=1;
-$4=$recv($5)._x();
-$2=$recv($3).__star($4);
+$3=$recv($4)._x();
+$1=$recv($2).__star($3);
 $ctx1.sendIdx["*"]=1;
-$7=self._y();
+$6=self._y();
 $ctx1.sendIdx["y"]=1;
-$6=$recv($7).__star($recv($recv(aPoint)._asPoint())._y());
-$1=$recv($Point())._x_y_($2,$6);
-return $1;
+$5=$recv($6).__star($recv($recv(aPoint)._asPoint())._y());
+return $recv($Point())._x_y_($1,$5);
 }, function($ctx1) {$ctx1.fill(self,"*",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5087,19 +4998,18 @@ fn: function (aPoint){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 return $core.withContext(function($ctx1) {
-var $3,$5,$4,$2,$7,$6,$1;
-$3=self._x();
+var $2,$4,$3,$1,$6,$5;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$5=$recv(aPoint)._asPoint();
+$4=$recv(aPoint)._asPoint();
 $ctx1.sendIdx["asPoint"]=1;
-$4=$recv($5)._x();
-$2=$recv($3).__plus($4);
+$3=$recv($4)._x();
+$1=$recv($2).__plus($3);
 $ctx1.sendIdx["+"]=1;
-$7=self._y();
+$6=self._y();
 $ctx1.sendIdx["y"]=1;
-$6=$recv($7).__plus($recv($recv(aPoint)._asPoint())._y());
-$1=$recv($Point())._x_y_($2,$6);
-return $1;
+$5=$recv($6).__plus($recv($recv(aPoint)._asPoint())._y());
+return $recv($Point())._x_y_($1,$5);
 }, function($ctx1) {$ctx1.fill(self,"+",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5117,19 +5027,18 @@ fn: function (aPoint){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 return $core.withContext(function($ctx1) {
-var $3,$5,$4,$2,$7,$6,$1;
-$3=self._x();
+var $2,$4,$3,$1,$6,$5;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$5=$recv(aPoint)._asPoint();
+$4=$recv(aPoint)._asPoint();
 $ctx1.sendIdx["asPoint"]=1;
-$4=$recv($5)._x();
-$2=$recv($3).__minus($4);
+$3=$recv($4)._x();
+$1=$recv($2).__minus($3);
 $ctx1.sendIdx["-"]=1;
-$7=self._y();
+$6=self._y();
 $ctx1.sendIdx["y"]=1;
-$6=$recv($7).__minus($recv($recv(aPoint)._asPoint())._y());
-$1=$recv($Point())._x_y_($2,$6);
-return $1;
+$5=$recv($6).__minus($recv($recv(aPoint)._asPoint())._y());
+return $recv($Point())._x_y_($1,$5);
 }, function($ctx1) {$ctx1.fill(self,"-",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5147,19 +5056,18 @@ fn: function (aPoint){
 var self=this;
 function $Point(){return $globals.Point||(typeof Point=="undefined"?nil:Point)}
 return $core.withContext(function($ctx1) {
-var $3,$5,$4,$2,$7,$6,$1;
-$3=self._x();
+var $2,$4,$3,$1,$6,$5;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$5=$recv(aPoint)._asPoint();
+$4=$recv(aPoint)._asPoint();
 $ctx1.sendIdx["asPoint"]=1;
-$4=$recv($5)._x();
-$2=$recv($3).__slash($4);
+$3=$recv($4)._x();
+$1=$recv($2).__slash($3);
 $ctx1.sendIdx["/"]=1;
-$7=self._y();
+$6=self._y();
 $ctx1.sendIdx["y"]=1;
-$6=$recv($7).__slash($recv($recv(aPoint)._asPoint())._y());
-$1=$recv($Point())._x_y_($2,$6);
-return $1;
+$5=$recv($6).__slash($recv($recv(aPoint)._asPoint())._y());
+return $recv($Point())._x_y_($1,$5);
 }, function($ctx1) {$ctx1.fill(self,"/",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5176,19 +5084,18 @@ protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$4,$1;
-$3=self._x();
+var $2,$1,$3;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$2=$recv($3).__lt($recv(aPoint)._x());
+$1=$recv($2).__lt($recv(aPoint)._x());
 $ctx1.sendIdx["<"]=1;
-$1=$recv($2)._and_((function(){
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
-$4=self._y();
+$3=self._y();
 $ctx2.sendIdx["y"]=1;
-return $recv($4).__lt($recv(aPoint)._y());
+return $recv($3).__lt($recv(aPoint)._y());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"<",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5205,19 +5112,18 @@ protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$4,$1;
-$3=self._x();
+var $2,$1,$3;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$2=$recv($3).__lt_eq($recv(aPoint)._x());
+$1=$recv($2).__lt_eq($recv(aPoint)._x());
 $ctx1.sendIdx["<="]=1;
-$1=$recv($2)._and_((function(){
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
-$4=self._y();
+$3=self._y();
 $ctx2.sendIdx["y"]=1;
-return $recv($4).__lt_eq($recv(aPoint)._y());
+return $recv($3).__lt_eq($recv(aPoint)._y());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"<=",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5234,24 +5140,23 @@ protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$5,$4,$7,$6,$1;
-$3=$recv(aPoint)._class();
+var $2,$1,$4,$3,$6,$5;
+$2=$recv(aPoint)._class();
 $ctx1.sendIdx["class"]=1;
-$2=$recv($3).__eq(self._class());
+$1=$recv($2).__eq(self._class());
 $ctx1.sendIdx["="]=1;
-$1=$recv($2)._and_((function(){
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
-$5=$recv(aPoint)._x();
+$4=$recv(aPoint)._x();
 $ctx2.sendIdx["x"]=1;
-$4=$recv($5).__eq(self._x());
+$3=$recv($4).__eq(self._x());
 $ctx2.sendIdx["="]=2;
-$7=$recv(aPoint)._y();
+$6=$recv(aPoint)._y();
 $ctx2.sendIdx["y"]=1;
-$6=$recv($7).__eq(self._y());
-return $recv($4).__and($6);
+$5=$recv($6).__eq(self._y());
+return $recv($3).__and($5);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"=",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5268,19 +5173,18 @@ protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$4,$1;
-$3=self._x();
+var $2,$1,$3;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$2=$recv($3).__gt($recv(aPoint)._x());
+$1=$recv($2).__gt($recv(aPoint)._x());
 $ctx1.sendIdx[">"]=1;
-$1=$recv($2)._and_((function(){
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
-$4=self._y();
+$3=self._y();
 $ctx2.sendIdx["y"]=1;
-return $recv($4).__gt($recv(aPoint)._y());
+return $recv($3).__gt($recv(aPoint)._y());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,">",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5297,19 +5201,18 @@ protocol: 'comparing',
 fn: function (aPoint){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$4,$1;
-$3=self._x();
+var $2,$1,$3;
+$2=self._x();
 $ctx1.sendIdx["x"]=1;
-$2=$recv($3).__gt_eq($recv(aPoint)._x());
+$1=$recv($2).__gt_eq($recv(aPoint)._x());
 $ctx1.sendIdx[">="]=1;
-$1=$recv($2)._and_((function(){
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
-$4=self._y();
+$3=self._y();
 $ctx2.sendIdx["y"]=1;
-return $recv($4).__gt_eq($recv(aPoint)._y());
+return $recv($3).__gt_eq($recv(aPoint)._y());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,">=",{aPoint:aPoint},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5343,15 +5246,14 @@ fn: function (aPoint){
 var self=this;
 var dx,dy;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
+var $2,$1;
 dx=$recv($recv(aPoint)._x()).__minus(self["@x"]);
 $ctx1.sendIdx["-"]=1;
 dy=$recv($recv(aPoint)._y()).__minus(self["@y"]);
-$3=$recv(dx).__star(dx);
+$2=$recv(dx).__star(dx);
 $ctx1.sendIdx["*"]=1;
-$2=$recv($3).__plus($recv(dy).__star(dy));
-$1=$recv($2)._sqrt();
-return $1;
+$1=$recv($2).__plus($recv(dy).__star(dy));
+return $recv($1)._sqrt();
 }, function($ctx1) {$ctx1.fill(self,"dist:",{aPoint:aPoint,dx:dx,dy:dy},$globals.Point)});
 },
 args: ["aPoint"],
@@ -5398,11 +5300,10 @@ protocol: 'transforming',
 fn: function (delta){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv($recv(delta)._x()).__plus(self["@x"]);
+var $1;
+$1=$recv($recv(delta)._x()).__plus(self["@x"]);
 $ctx1.sendIdx["+"]=1;
-$1=$recv($2).__at($recv($recv(delta)._y()).__plus(self["@y"]));
-return $1;
+return $recv($1).__at($recv($recv(delta)._y()).__plus(self["@y"]));
 }, function($ctx1) {$ctx1.fill(self,"translateBy:",{delta:delta},$globals.Point)});
 },
 args: ["delta"],
@@ -5418,9 +5319,7 @@ selector: "x",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@x"];
-return $1;
+return self["@x"];
 
 },
 args: [],
@@ -5453,9 +5352,7 @@ selector: "y",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@y"];
-return $1;
+return self["@y"];
 
 },
 args: [],
@@ -5506,13 +5403,11 @@ protocol: 'instance creation',
 fn: function (aNumber,anotherNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._x_(aNumber);
-$recv($2)._y_(anotherNumber);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._x_(aNumber);
+$recv($1)._y_(anotherNumber);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"x:y:",{aNumber:aNumber,anotherNumber:anotherNumber},$globals.Point.klass)});
 },
 args: ["aNumber", "anotherNumber"],
@@ -5550,13 +5445,11 @@ protocol: 'accessing',
 fn: function (anInteger){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv((1)._to_(anInteger))._collect_((function(each){
+return $recv((1)._to_(anInteger))._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return self._next();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger},$globals.Random)});
 },
 args: ["anInteger"],
@@ -5576,9 +5469,7 @@ selector: "asJSON",
 protocol: 'converting',
 fn: function (){
 var self=this;
-var $1;
-$1=null;
-return $1;
+return null;
 
 },
 args: [],
@@ -5611,11 +5502,9 @@ protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._ifNil_ifNotNil_(aBlock,(function(){
+return self._ifNil_ifNotNil_(aBlock,(function(){
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{aBlock:aBlock},$globals.UndefinedObject)});
 },
 args: ["aBlock"],
@@ -5632,9 +5521,7 @@ protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aBlock)._value();
-return $1;
+return $recv(aBlock)._value();
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.UndefinedObject)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -5667,9 +5554,7 @@ protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anotherBlock)._value();
-return $1;
+return $recv(anotherBlock)._value();
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.UndefinedObject)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -5768,9 +5653,7 @@ protocol: 'class creation',
 fn: function (aString,anotherString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
-return $1;
+return self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:",{aString:aString,anotherString:anotherString},$globals.UndefinedObject)});
 },
 args: ["aString", "anotherString"],
@@ -5787,9 +5670,7 @@ protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
-return $1;
+return self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:category:",{aString:aString,aString2:aString2,aString3:aString3},$globals.UndefinedObject)});
 },
 args: ["aString", "aString2", "aString3"],
@@ -5806,9 +5687,7 @@ protocol: 'class creation',
 fn: function (aString,aString2,classVars,pools,aString3){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
-return $1;
+return self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",{aString:aString,aString2:aString2,classVars:classVars,pools:pools,aString3:aString3},$globals.UndefinedObject)});
 },
 args: ["aString", "aString2", "classVars", "pools", "aString3"],
@@ -5826,9 +5705,7 @@ fn: function (aString,aString2,aString3){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,$recv(aString)._asString(),aString2,aString3);
-return $1;
+return $recv($recv($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,$recv(aString)._asString(),aString2,aString3);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3},$globals.UndefinedObject)});
 },
 args: ["aString", "aString2", "aString3"],
@@ -5874,9 +5751,7 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._methodAt_(aString);
-return $1;
+return self._methodAt_(aString);
 }, function($ctx1) {$ctx1.fill(self,">>",{aString:aString},$globals.Behavior)});
 },
 args: ["aString"],
@@ -5897,7 +5772,7 @@ function $MethodAdded(){return $globals.MethodAdded||(typeof MethodAdded=="undef
 function $MethodModified(){return $globals.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$receiver;
 oldMethod=$recv(self._methodDictionary())._at_ifAbsent_($recv(aMethod)._selector(),(function(){
 return nil;
 
@@ -5932,8 +5807,7 @@ announcement=$9;
 $10=$recv($MethodModified())._new();
 $recv($10)._oldMethod_(oldMethod);
 $recv($10)._method_(aMethod);
-$11=$recv($10)._yourself();
-announcement=$11;
+announcement=$recv($10)._yourself();
 };
 $recv($recv($SystemAnnouncer())._current())._announce_(announcement);
 return self;
@@ -5954,7 +5828,7 @@ fn: function (){
 var self=this;
 var result;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 result=$recv(self._instanceVariableNames())._copy();
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
@@ -5963,8 +5837,7 @@ $1;
 } else {
 $recv(result)._addAll_($recv(self._superclass())._allInstanceVariableNames());
 };
-$2=result;
-return $2;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"allInstanceVariableNames",{result:result},$globals.Behavior)});
 },
 args: [],
@@ -5981,18 +5854,16 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$1;
-$2=self._allSuperclasses();
-$3=self._selectors();
+var $1,$2;
+$1=self._allSuperclasses();
+$2=self._selectors();
 $ctx1.sendIdx["selectors"]=1;
-$1=$recv($2)._inject_into_($3,(function(acc,each){
+return $recv($1)._inject_into_($2,(function(acc,each){
 return $core.withContext(function($ctx2) {
 $recv(acc)._addAll_($recv(each)._selectors());
-$4=$recv(acc)._yourself();
-return $4;
+return $recv(acc)._yourself();
 }, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"allSelectors",{},$globals.Behavior)});
 },
 args: [],
@@ -6010,7 +5881,6 @@ fn: function (){
 var self=this;
 var subclasses,index;
 return $core.withContext(function($ctx1) {
-var $1;
 subclasses=self._subclasses();
 $ctx1.sendIdx["subclasses"]=1;
 index=(1);
@@ -6025,8 +5895,7 @@ index=$recv(index).__plus((1));
 return index;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-$1=subclasses;
-return $1;
+return subclasses;
 }, function($ctx1) {$ctx1.fill(self,"allSubclasses",{subclasses:subclasses,index:index},$globals.Behavior)});
 },
 args: [],
@@ -6066,22 +5935,19 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$5,$4,$6,$3,$receiver;
+var $1,$3,$2,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
-$2=[];
-return $2;
+return [];
 } else {
 $1;
 };
-$5=self._superclass();
+$3=self._superclass();
 $ctx1.sendIdx["superclass"]=2;
-$4=$recv($OrderedCollection())._with_($5);
-$recv($4)._addAll_($recv(self._superclass())._allSuperclasses());
-$6=$recv($4)._yourself();
-$3=$6;
-return $3;
+$2=$recv($OrderedCollection())._with_($3);
+$recv($2)._addAll_($recv(self._superclass())._allSuperclasses());
+return $recv($2)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"allSuperclasses",{},$globals.Behavior)});
 },
 args: [],
@@ -6152,20 +6018,19 @@ protocol: 'testing',
 fn: function (aSelector){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$1=$recv(self._includesSelector_($recv(aSelector)._asString()))._or_((function(){
+var $2,$1;
+return $recv(self._includesSelector_($recv(aSelector)._asString()))._or_((function(){
 return $core.withContext(function($ctx2) {
-$3=self._superclass();
+$2=self._superclass();
 $ctx2.sendIdx["superclass"]=1;
-$2=$recv($3)._notNil();
-return $recv($2)._and_((function(){
+$1=$recv($2)._notNil();
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx3) {
 return $recv(self._superclass())._canUnderstand_(aSelector);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 }));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"canUnderstand:",{aSelector:aSelector},$globals.Behavior)});
 },
 args: ["aSelector"],
@@ -6182,14 +6047,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._basicAt_("comment");
-if(($receiver = $2) == null || $receiver.isNil){
-$1="";
+var $1,$receiver;
+$1=self._basicAt_("comment");
+if(($receiver = $1) == null || $receiver.isNil){
+return "";
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"comment",{},$globals.Behavior)});
 },
 args: [],
@@ -6208,12 +6072,13 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassCommentChanged(){return $globals.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 self._basicAt_put_("comment",aString);
-$1=$recv($ClassCommentChanged())._new();
-$recv($1)._theClass_(self);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($ClassCommentChanged())._new();
+$recv($3)._theClass_(self);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"comment:",{aString:aString},$globals.Behavior)});
 },
@@ -6232,9 +6097,7 @@ fn: function (aString,anotherString){
 var self=this;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Compiler())._new())._install_forClass_protocol_(aString,self,anotherString);
-return $1;
+return $recv($recv($Compiler())._new())._install_forClass_protocol_(aString,self,anotherString);
 }, function($ctx1) {$ctx1.fill(self,"compile:protocol:",{aString:aString,anotherString:anotherString},$globals.Behavior)});
 },
 args: ["aString", "anotherString"],
@@ -6267,13 +6130,11 @@ protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self.__eq_eq(aClass))._or_((function(){
+return $recv(self.__eq_eq(aClass))._or_((function(){
 return $core.withContext(function($ctx2) {
 return self._inheritsFrom_(aClass);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"includesBehavior:",{aClass:aClass},$globals.Behavior)});
 },
 args: ["aClass"],
@@ -6290,9 +6151,7 @@ protocol: 'testing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._methodDictionary())._includesKey_(aString);
-return $1;
+return $recv(self._methodDictionary())._includesKey_(aString);
 }, function($ctx1) {$ctx1.fill(self,"includesSelector:",{aString:aString},$globals.Behavior)});
 },
 args: ["aString"],
@@ -6309,7 +6168,7 @@ protocol: 'testing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$4,$3,$2,$receiver;
+var $1,$3,$2,$receiver;
 $1=self._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -6317,15 +6176,14 @@ return false;
 } else {
 $1;
 };
-$4=self._superclass();
+$3=self._superclass();
 $ctx1.sendIdx["superclass"]=2;
-$3=$recv(aClass).__eq_eq($4);
-$2=$recv($3)._or_((function(){
+$2=$recv(aClass).__eq_eq($3);
+return $recv($2)._or_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._superclass())._inheritsFrom_(aClass);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"inheritsFrom:",{aClass:aClass},$globals.Behavior)});
 },
 args: ["aClass"],
@@ -6413,7 +6271,7 @@ fn: function (selector){
 var self=this;
 var lookupClass;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 var $early={};
 try {
 lookupClass=self;
@@ -6425,8 +6283,7 @@ return $recv(lookupClass).__eq(nil);
 return $core.withContext(function($ctx2) {
 $1=$recv(lookupClass)._includesSelector_(selector);
 if($core.assert($1)){
-$2=$recv(lookupClass)._methodAt_(selector);
-throw $early=[$2];
+throw $early=[$recv(lookupClass)._methodAt_(selector)];
 };
 lookupClass=$recv(lookupClass)._superclass();
 return lookupClass;
@@ -6451,9 +6308,7 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._methodDictionary())._at_(aString);
-return $1;
+return $recv(self._methodDictionary())._at_(aString);
 }, function($ctx1) {$ctx1.fill(self,"methodAt:",{aString:aString},$globals.Behavior)});
 },
 args: ["aString"],
@@ -6496,42 +6351,40 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $3,$4,$2,$7,$8,$6,$9,$5,$10,$1;
-$1=$recv($String())._streamContents_((function(stream){
+var $2,$3,$1,$6,$7,$5,$8,$4;
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 $recv(stream)._nextPutAll_("messageSelectorAndArgumentNames");
 $ctx2.sendIdx["nextPutAll:"]=1;
-$3=$recv($String())._lf();
+$2=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=1;
-$4=$recv($String())._tab();
+$3=$recv($String())._tab();
 $ctx2.sendIdx["tab"]=1;
-$2=$recv($3).__comma($4);
+$1=$recv($2).__comma($3);
 $ctx2.sendIdx[","]=1;
-$recv(stream)._nextPutAll_($2);
+$recv(stream)._nextPutAll_($1);
 $ctx2.sendIdx["nextPutAll:"]=2;
 $recv(stream)._nextPutAll_("\x22comment stating purpose of message\x22");
 $ctx2.sendIdx["nextPutAll:"]=3;
-$7=$recv($String())._lf();
+$6=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=2;
-$8=$recv($String())._lf();
+$7=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=3;
-$6=$recv($7).__comma($8);
+$5=$recv($6).__comma($7);
 $ctx2.sendIdx[","]=3;
-$9=$recv($String())._tab();
+$8=$recv($String())._tab();
 $ctx2.sendIdx["tab"]=2;
-$5=$recv($6).__comma($9);
+$4=$recv($5).__comma($8);
 $ctx2.sendIdx[","]=2;
-$recv(stream)._nextPutAll_($5);
+$recv(stream)._nextPutAll_($4);
 $ctx2.sendIdx["nextPutAll:"]=4;
 $recv(stream)._nextPutAll_("| temporary variable names |");
 $ctx2.sendIdx["nextPutAll:"]=5;
 $recv(stream)._nextPutAll_($recv($recv($String())._lf()).__comma($recv($String())._tab()));
 $ctx2.sendIdx["nextPutAll:"]=6;
-$10=$recv(stream)._nextPutAll_("statements");
-return $10;
+return $recv(stream)._nextPutAll_("statements");
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodTemplate",{},$globals.Behavior)});
 },
 args: [],
@@ -6548,9 +6401,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._methodDictionary())._values();
-return $1;
+return $recv(self._methodDictionary())._values();
 }, function($ctx1) {$ctx1.fill(self,"methods",{},$globals.Behavior)});
 },
 args: [],
@@ -6567,13 +6418,11 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._methods())._select_((function(each){
+return $recv(self._methods())._select_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv($recv(each)._protocol()).__eq(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:",{aString:aString},$globals.Behavior)});
 },
 args: ["aString"],
@@ -6608,9 +6457,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._basicNew())._initialize();
-return $1;
+return $recv(self._basicNew())._initialize();
 }, function($ctx1) {$ctx1.fill(self,"new",{},$globals.Behavior)});
 },
 args: [],
@@ -6627,9 +6474,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("organization");
-return $1;
+return self._basicAt_("organization");
 }, function($ctx1) {$ctx1.fill(self,"organization",{},$globals.Behavior)});
 },
 args: [],
@@ -6647,19 +6492,18 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv($recv(self._ownProtocols())._inject_into_($recv($OrderedCollection())._new(),(function(acc,each){
+var $1;
+return $recv($recv(self._ownProtocols())._inject_into_($recv($OrderedCollection())._new(),(function(acc,each){
 return $core.withContext(function($ctx2) {
 return $recv(acc).__comma(self._methodsInProtocol_(each));
 }, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)});
 })))._sorted_((function(a,b){
 return $core.withContext(function($ctx2) {
-$2=$recv(a)._selector();
+$1=$recv(a)._selector();
 $ctx2.sendIdx["selector"]=1;
-return $recv($2).__lt_eq($recv(b)._selector());
+return $recv($1).__lt_eq($recv(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownMethods",{},$globals.Behavior)});
 },
 args: [],
@@ -6676,13 +6520,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._protocols())._reject_((function(each){
+return $recv(self._protocols())._reject_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._match_("^\x5c*");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownProtocols",{},$globals.Behavior)});
 },
 args: [],
@@ -6700,17 +6542,15 @@ fn: function (aString){
 var self=this;
 function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1;
 $1=$recv(aString)._beginsWith_("*");
 if(!$core.assert($1)){
-$2=self._package();
-return $2;
+return self._package();
 };
-$3=$recv($Package())._named_ifAbsent_($recv(aString)._allButFirst(),(function(){
+return $recv($Package())._named_ifAbsent_($recv(aString)._allButFirst(),(function(){
 return nil;
 
 }));
-return $3;
 }, function($ctx1) {$ctx1.fill(self,"packageOfProtocol:",{aString:aString},$globals.Behavior)});
 },
 args: ["aString"],
@@ -6727,9 +6567,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._organization())._elements())._sorted();
-return $1;
+return $recv($recv(self._organization())._elements())._sorted();
 }, function($ctx1) {$ctx1.fill(self,"protocols",{},$globals.Behavior)});
 },
 args: [],
@@ -6801,9 +6639,7 @@ fn: function (){
 var self=this;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Compiler())._new())._recompile_(self);
-return $1;
+return $recv($recv($Compiler())._new())._recompile_(self);
 }, function($ctx1) {$ctx1.fill(self,"recompile",{},$globals.Behavior)});
 },
 args: [],
@@ -6822,13 +6658,14 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodRemoved(){return $globals.MethodRemoved||(typeof MethodRemoved=="undefined"?nil:MethodRemoved)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 self._basicRemoveCompiledMethod_(aMethod);
 self._removeProtocolIfEmpty_($recv(aMethod)._protocol());
-$1=$recv($MethodRemoved())._new();
-$recv($1)._method_(aMethod);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($MethodRemoved())._new();
+$recv($3)._method_(aMethod);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"removeCompiledMethod:",{aMethod:aMethod},$globals.Behavior)});
 },
@@ -6872,9 +6709,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._methodDictionary())._keys();
-return $1;
+return $recv(self._methodDictionary())._keys();
 }, function($ctx1) {$ctx1.fill(self,"selectors",{},$globals.Behavior)});
 },
 args: [],
@@ -6909,12 +6744,12 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-return self.superclass || nil;
+return self.superclass;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"superclass",{},$globals.Behavior)});
 },
 args: [],
-source: "superclass\x0a\x09<return self.superclass || nil>",
+source: "superclass\x0a\x09<return self.superclass>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -6964,12 +6799,10 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Array())._with_(self);
-$recv($2)._addAll_(self._allSubclasses());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Array())._with_(self);
+$recv($1)._addAll_(self._allSubclasses());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"withAllSubclasses",{},$globals.Behavior)});
 },
 args: [],
@@ -6990,9 +6823,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1="$globals.".__comma(self._name());
-return $1;
+return "$globals.".__comma(self._name());
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},$globals.Class)});
 },
 args: [],
@@ -7028,15 +6859,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._package();
+var $1,$receiver;
+$1=self._package();
 $ctx1.sendIdx["package"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$1="Unclassified";
+if(($receiver = $1) == null || $receiver.isNil){
+return "Unclassified";
 } else {
-$1=$recv(self._package())._name();
+return $recv(self._package())._name();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},$globals.Class)});
 },
 args: [],
@@ -7070,8 +6900,8 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $3,$4,$2,$5,$6,$7,$1;
-$1=$recv($String())._streamContents_((function(stream){
+var $2,$3,$1,$4,$5;
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 $recv(stream)._nextPutAll_($recv(self._superclass())._asString());
 $ctx2.sendIdx["nextPutAll:"]=1;
@@ -7079,17 +6909,17 @@ $recv(stream)._nextPutAll_(" subclass: #");
 $ctx2.sendIdx["nextPutAll:"]=2;
 $recv(stream)._nextPutAll_(self._name());
 $ctx2.sendIdx["nextPutAll:"]=3;
-$3=$recv($String())._lf();
+$2=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=1;
-$4=$recv($String())._tab();
+$3=$recv($String())._tab();
 $ctx2.sendIdx["tab"]=1;
-$2=$recv($3).__comma($4);
+$1=$recv($2).__comma($3);
 $ctx2.sendIdx[","]=1;
-$recv(stream)._nextPutAll_($2);
+$recv(stream)._nextPutAll_($1);
 $ctx2.sendIdx["nextPutAll:"]=4;
-$5=$recv(stream)._nextPutAll_("instanceVariableNames: '");
+$4=$recv(stream)._nextPutAll_("instanceVariableNames: '");
 $ctx2.sendIdx["nextPutAll:"]=5;
-$5;
+$4;
 $recv(self._instanceVariableNames())._do_separatedBy_((function(each){
 return $core.withContext(function($ctx3) {
 return $recv(stream)._nextPutAll_(each);
@@ -7101,19 +6931,17 @@ return $recv(stream)._nextPutAll_(" ");
 $ctx3.sendIdx["nextPutAll:"]=7;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 }));
-$6=$recv("'".__comma($recv($String())._lf())).__comma($recv($String())._tab());
+$5=$recv("'".__comma($recv($String())._lf())).__comma($recv($String())._tab());
 $ctx2.sendIdx[","]=2;
-$recv(stream)._nextPutAll_($6);
+$recv(stream)._nextPutAll_($5);
 $ctx2.sendIdx["nextPutAll:"]=8;
 $recv(stream)._nextPutAll_("package: '");
 $ctx2.sendIdx["nextPutAll:"]=9;
 $recv(stream)._nextPutAll_(self._category());
 $ctx2.sendIdx["nextPutAll:"]=10;
-$7=$recv(stream)._nextPutAll_("'");
-return $7;
+return $recv(stream)._nextPutAll_("'");
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},$globals.Class)});
 },
 args: [],
@@ -7146,9 +6974,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("pkg");
-return $1;
+return self._basicAt_("pkg");
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.Class)});
 },
 args: [],
@@ -7168,7 +6994,7 @@ var oldPackage;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassMoved(){return $globals.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$3,$4,$5;
+var $2,$1,$3,$4,$6,$5;
 $2=self._package();
 $ctx1.sendIdx["package"]=1;
 $1=$recv($2).__eq(aPackage);
@@ -7181,11 +7007,12 @@ $3=$recv(oldPackage)._organization();
 $ctx1.sendIdx["organization"]=1;
 $recv($3)._removeElement_(self);
 $recv($recv(aPackage)._organization())._addElement_(self);
-$4=$recv($ClassMoved())._new();
-$recv($4)._theClass_(self);
-$recv($4)._oldPackage_(oldPackage);
-$5=$recv($4)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($5);
+$4=$recv($SystemAnnouncer())._current();
+$6=$recv($ClassMoved())._new();
+$recv($6)._theClass_(self);
+$recv($6)._oldPackage_(oldPackage);
+$5=$recv($6)._yourself();
+$recv($4)._announce_($5);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage,oldPackage:oldPackage},$globals.Class)});
 },
@@ -7240,9 +7067,7 @@ protocol: 'class creation',
 fn: function (aString,anotherString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
-return $1;
+return self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:",{aString:aString,anotherString:anotherString},$globals.Class)});
 },
 args: ["aString", "anotherString"],
@@ -7259,9 +7084,7 @@ protocol: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
-return $1;
+return self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:category:",{aString:aString,aString2:aString2,aString3:aString3},$globals.Class)});
 },
 args: ["aString", "aString2", "aString3"],
@@ -7278,9 +7101,7 @@ protocol: 'class creation',
 fn: function (aString,aString2,classVars,pools,aString3){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
-return $1;
+return self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",{aString:aString,aString2:aString2,classVars:classVars,pools:pools,aString3:aString3},$globals.Class)});
 },
 args: ["aString", "aString2", "classVars", "pools", "aString3"],
@@ -7298,9 +7119,7 @@ fn: function (aString,aString2,aString3){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,$recv(aString)._asString(),aString2,aString3);
-return $1;
+return $recv($recv($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,$recv(aString)._asString(),aString2,aString3);
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3},$globals.Class)});
 },
 args: ["aString", "aString2", "aString3"],
@@ -7335,9 +7154,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._class();
-return $1;
+return self._class();
 }, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},$globals.Class)});
 },
 args: [],
@@ -7395,14 +7212,14 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv($String())._streamContents_((function(stream){
+var $1;
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 $recv(stream)._nextPutAll_(self._asString());
 $ctx2.sendIdx["nextPutAll:"]=1;
-$2=$recv(stream)._nextPutAll_(" instanceVariableNames: '");
+$1=$recv(stream)._nextPutAll_(" instanceVariableNames: '");
 $ctx2.sendIdx["nextPutAll:"]=2;
-$2;
+$1;
 $recv(self._instanceVariableNames())._do_separatedBy_((function(each){
 return $core.withContext(function($ctx3) {
 return $recv(stream)._nextPutAll_(each);
@@ -7417,7 +7234,6 @@ $ctx3.sendIdx["nextPutAll:"]=4;
 return $recv(stream)._nextPutAll_("'");
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},$globals.Metaclass)});
 },
 args: [],
@@ -7487,9 +7303,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._instanceClass())._package();
-return $1;
+return $recv(self._instanceClass())._package();
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.Metaclass)});
 },
 args: [],
@@ -7506,10 +7320,9 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_($recv(self._instanceClass())._name());
 $ctx1.sendIdx["nextPutAll:"]=1;
-$1=$recv(aStream)._nextPutAll_(" class");
+$recv(aStream)._nextPutAll_(" class");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.Metaclass)});
 },
@@ -7527,8 +7340,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($recv(self._instanceClass())._subclasses())._select_((function(each){
+return $recv($recv($recv(self._instanceClass())._subclasses())._select_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv($recv(each)._isMetaclass())._not();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
@@ -7537,7 +7349,6 @@ return $core.withContext(function($ctx2) {
 return $recv(each)._theMetaClass();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclasses",{},$globals.Metaclass)});
 },
 args: [],
@@ -7570,9 +7381,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._instanceClass();
-return $1;
+return self._instanceClass();
 }, function($ctx1) {$ctx1.fill(self,"theNonMetaClass",{},$globals.Metaclass)});
 },
 args: [],
@@ -7596,7 +7405,7 @@ var theClass,thePackage;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$receiver;
+var $1,$2,$receiver;
 theClass=$recv($recv($Smalltalk())._globals())._at_(className);
 thePackage=$recv($Package())._named_(packageName);
 $1=theClass;
@@ -7606,12 +7415,10 @@ $1;
 $recv(theClass)._package_(thePackage);
 $2=$recv($recv(theClass)._superclass()).__eq_eq(aClass);
 if(!$core.assert($2)){
-$3=self._migrateClassNamed_superclass_instanceVariableNames_package_(className,aClass,aCollection,packageName);
-return $3;
+return self._migrateClassNamed_superclass_instanceVariableNames_package_(className,aClass,aCollection,packageName);
 };
 };
-$4=self._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,className,aCollection,packageName);
-return $4;
+return self._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,className,aCollection,packageName);
 }, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,className:className,aCollection:aCollection,packageName:packageName,theClass:theClass,thePackage:thePackage},$globals.ClassBuilder)});
 },
 args: ["aClass", "className", "aCollection", "packageName"],
@@ -7754,13 +7561,14 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassDefinitionChanged(){return $globals.ClassDefinitionChanged||(typeof ClassDefinitionChanged=="undefined"?nil:ClassDefinitionChanged)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 self._basicClass_instanceVariableNames_(aClass,ivarNames);
 self._setupClass_(aClass);
-$1=$recv($ClassDefinitionChanged())._new();
-$recv($1)._theClass_(aClass);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($ClassDefinitionChanged())._new();
+$recv($3)._theClass_(aClass);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"class:instanceVariableNames:",{aClass:aClass,ivarNames:ivarNames},$globals.ClassBuilder)});
 },
@@ -7781,15 +7589,15 @@ var newClass;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassAdded(){return $globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1,$3,$2;
 newClass=self._addSubclassOf_named_instanceVariableNames_package_($recv(aClass)._superclass(),className,$recv(aClass)._instanceVariableNames(),$recv($recv(aClass)._package())._name());
 self._copyClass_to_(aClass,newClass);
-$1=$recv($ClassAdded())._new();
-$recv($1)._theClass_(newClass);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
-$3=newClass;
-return $3;
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($ClassAdded())._new();
+$recv($3)._theClass_(newClass);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
+return newClass;
 }, function($ctx1) {$ctx1.fill(self,"copyClass:named:",{aClass:aClass,className:className,newClass:newClass},$globals.ClassBuilder)});
 },
 args: ["aClass", "className"],
@@ -7875,13 +7683,11 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(aString)._tokenize_(" "))._reject_((function(each){
+return $recv($recv(aString)._tokenize_(" "))._reject_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._isEmpty();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aString:aString},$globals.ClassBuilder)});
 },
 args: ["aString"],
@@ -7898,11 +7704,10 @@ protocol: 'class migration',
 fn: function (aClass,anotherClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv(aClass)._name();
+var $1;
+$1=$recv(aClass)._name();
 $ctx1.sendIdx["name"]=1;
-$1=self._migrateClassNamed_superclass_instanceVariableNames_package_($2,anotherClass,$recv(aClass)._instanceVariableNames(),$recv($recv(aClass)._package())._name());
-return $1;
+return self._migrateClassNamed_superclass_instanceVariableNames_package_($1,anotherClass,$recv(aClass)._instanceVariableNames(),$recv($recv(aClass)._package())._name());
 }, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass},$globals.ClassBuilder)});
 },
 args: ["aClass", "anotherClass"],
@@ -7924,7 +7729,7 @@ function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassMigrated(){return $globals.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5;
+var $1,$2,$4,$3;
 tmp="new*".__comma(className);
 oldClass=$recv($recv($Smalltalk())._globals())._at_(className);
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
@@ -7945,20 +7750,20 @@ return $recv(exception)._resignal();
 }));
 self._rawRenameClass_to_(oldClass,tmp);
 $ctx1.sendIdx["rawRenameClass:to:"]=1;
-$2=self._rawRenameClass_to_(newClass,className);
+self._rawRenameClass_to_(newClass,className);
 $recv($recv(oldClass)._subclasses())._do_((function(each){
 return $core.withContext(function($ctx2) {
 return self._migrateClass_superclass_(each,newClass);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 }));
 self._basicRemoveClass_(oldClass);
-$3=$recv($ClassMigrated())._new();
-$recv($3)._theClass_(newClass);
-$recv($3)._oldClass_(oldClass);
-$4=$recv($3)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($4);
-$5=newClass;
-return $5;
+$2=$recv($SystemAnnouncer())._current();
+$4=$recv($ClassMigrated())._new();
+$recv($4)._theClass_(newClass);
+$recv($4)._oldClass_(oldClass);
+$3=$recv($4)._yourself();
+$recv($2)._announce_($3);
+return newClass;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{className:className,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp},$globals.ClassBuilder)});
 },
 args: ["className", "aClass", "aCollection", "packageName"],
@@ -7997,13 +7802,14 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassRenamed(){return $globals.ClassRenamed||(typeof ClassRenamed=="undefined"?nil:ClassRenamed)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 self._basicRenameClass_to_(aClass,className);
 $recv(aClass)._recompile();
-$1=$recv($ClassRenamed())._new();
-$recv($1)._theClass_(aClass);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($ClassRenamed())._new();
+$recv($3)._theClass_(aClass);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,className:className},$globals.ClassBuilder)});
 },
@@ -8039,9 +7845,7 @@ protocol: 'class definition',
 fn: function (aClass,className){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._superclass_subclass_instanceVariableNames_package_(aClass,className,"",nil);
-return $1;
+return self._superclass_subclass_instanceVariableNames_package_(aClass,className,"",nil);
 }, function($ctx1) {$ctx1.fill(self,"superclass:subclass:",{aClass:aClass,className:className},$globals.ClassBuilder)});
 },
 args: ["aClass", "className"],
@@ -8061,7 +7865,7 @@ var newClass;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassAdded(){return $globals.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$receiver;
+var $1,$2,$3,$5,$4,$receiver;
 $1=self._instanceVariableNamesFor_(ivarNames);
 if(($receiver = packageName) == null || $receiver.isNil){
 $2="unclassified";
@@ -8070,12 +7874,12 @@ $2=packageName;
 };
 newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,className,$1,$2);
 self._setupClass_(newClass);
-$3=$recv($ClassAdded())._new();
-$recv($3)._theClass_(newClass);
-$4=$recv($3)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($4);
-$5=newClass;
-return $5;
+$3=$recv($SystemAnnouncer())._current();
+$5=$recv($ClassAdded())._new();
+$recv($5)._theClass_(newClass);
+$4=$recv($5)._yourself();
+$recv($3)._announce_($4);
+return newClass;
 }, function($ctx1) {$ctx1.fill(self,"superclass:subclass:instanceVariableNames:package:",{aClass:aClass,className:className,ivarNames:ivarNames,packageName:packageName,newClass:newClass},$globals.ClassBuilder)});
 },
 args: ["aClass", "className", "ivarNames", "packageName"],
@@ -8133,9 +7937,7 @@ selector: "level",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@level"];
-return $1;
+return self["@level"];
 
 },
 args: [],
@@ -8168,9 +7970,7 @@ selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@nodes"];
-return $1;
+return self["@nodes"];
 
 },
 args: [],
@@ -8186,9 +7986,7 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -8257,14 +8055,12 @@ protocol: 'instance creation',
 fn: function (aClass,aCollection,anInteger){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._theClass_(aClass);
-$recv($2)._level_(anInteger);
-$recv($2)._getNodesFrom_(aCollection);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._theClass_(aClass);
+$recv($1)._level_(anInteger);
+$recv($1)._getNodesFrom_(aCollection);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:classes:level:",{aClass:aClass,aCollection:aCollection,anInteger:anInteger},$globals.ClassSorterNode.klass)});
 },
 args: ["aClass", "aCollection", "anInteger"],
@@ -8424,9 +8220,7 @@ protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._newWithValues_([anObject]);
-return $1;
+return self._newWithValues_([anObject]);
 }, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},$globals.BlockClosure)});
 },
 args: ["anObject"],
@@ -8443,9 +8237,7 @@ protocol: 'evaluating',
 fn: function (anObject,anObject2){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._newWithValues_([anObject,anObject2]);
-return $1;
+return self._newWithValues_([anObject,anObject2]);
 }, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},$globals.BlockClosure)});
 },
 args: ["anObject", "anObject2"],
@@ -8462,9 +8254,7 @@ protocol: 'evaluating',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._newWithValues_([anObject,anObject2,anObject3]);
-return $1;
+return self._newWithValues_([anObject,anObject2,anObject3]);
 }, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.BlockClosure)});
 },
 args: ["anObject", "anObject2", "anObject3"],
@@ -8522,21 +8312,20 @@ fn: function (anErrorClass,aBlock){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=self._tryCatch_((function(error){
+var $1;
+return self._tryCatch_((function(error){
 var smalltalkError;
 return $core.withContext(function($ctx2) {
 smalltalkError=$recv($Smalltalk())._asSmalltalkException_(error);
 smalltalkError;
-$2=$recv(smalltalkError)._isKindOf_(anErrorClass);
-if($core.assert($2)){
+$1=$recv(smalltalkError)._isKindOf_(anErrorClass);
+if($core.assert($1)){
 return $recv(aBlock)._value_(smalltalkError);
 } else {
 return $recv(smalltalkError)._resignal();
 };
 }, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},$globals.BlockClosure)});
 },
 args: ["anErrorClass", "aBlock"],
@@ -8570,9 +8359,7 @@ fn: function (){
 var self=this;
 function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Date())._millisecondsToRun_(self);
-return $1;
+return $recv($Date())._millisecondsToRun_(self);
 }, function($ctx1) {$ctx1.fill(self,"timeToRun",{},$globals.BlockClosure)});
 },
 args: [],
@@ -8864,9 +8651,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._protocol();
-return $1;
+return self._protocol();
 }, function($ctx1) {$ctx1.fill(self,"category",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -8899,9 +8684,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("fn");
-return $1;
+return self._basicAt_("fn");
 }, function($ctx1) {$ctx1.fill(self,"fn",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -8985,7 +8768,7 @@ fn: function (){
 var self=this;
 var superclass;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$receiver;
+var $1,$2,$receiver;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
 superclass=$recv($1)._superclass();
@@ -8996,8 +8779,7 @@ return false;
 } else {
 $2;
 };
-$3=$recv($recv($recv(self._methodClass())._superclass())._lookupSelector_(self._selector()))._notNil();
-return $3;
+return $recv($recv($recv(self._methodClass())._superclass())._lookupSelector_(self._selector()))._notNil();
 }, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},$globals.CompiledMethod)});
 },
 args: [],
@@ -9014,9 +8796,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("messageSends");
-return $1;
+return self._basicAt_("messageSends");
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9033,9 +8813,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("methodClass");
-return $1;
+return self._basicAt_("methodClass");
 }, function($ctx1) {$ctx1.fill(self,"methodClass",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9052,16 +8830,15 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._methodClass();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
+var $1,$receiver;
+$1=self._methodClass();
+if(($receiver = $1) == null || $receiver.isNil){
+return $1;
 } else {
 var class_;
 class_=$receiver;
-$1=$recv(class_)._packageOfProtocol_(self._protocol());
+return $recv(class_)._packageOfProtocol_(self._protocol());
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9078,14 +8855,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._basicAt_("protocol");
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._defaultProtocol();
+var $1,$receiver;
+$1=self._basicAt_("protocol");
+if(($receiver = $1) == null || $receiver.isNil){
+return self._defaultProtocol();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"protocol",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9105,17 +8881,18 @@ var oldProtocol;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodMoved(){return $globals.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$receiver;
+var $1,$3,$2,$4,$receiver;
 oldProtocol=self._protocol();
 self._basicAt_put_("protocol",aString);
-$1=$recv($MethodMoved())._new();
-$recv($1)._method_(self);
-$recv($1)._oldProtocol_(oldProtocol);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
-$3=self._methodClass();
-if(($receiver = $3) == null || $receiver.isNil){
-$3;
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($MethodMoved())._new();
+$recv($3)._method_(self);
+$recv($3)._oldProtocol_(oldProtocol);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
+$4=self._methodClass();
+if(($receiver = $4) == null || $receiver.isNil){
+$4;
 } else {
 var methodClass;
 methodClass=$receiver;
@@ -9139,9 +8916,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("referencedClasses");
-return $1;
+return self._basicAt_("referencedClasses");
 }, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9158,9 +8933,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("selector");
-return $1;
+return self._basicAt_("selector");
 }, function($ctx1) {$ctx1.fill(self,"selector",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9195,9 +8968,7 @@ protocol: 'evaluating',
 fn: function (anObject,aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._fn())._applyTo_arguments_(anObject,aCollection);
-return $1;
+return $recv(self._fn())._applyTo_arguments_(anObject,aCollection);
 }, function($ctx1) {$ctx1.fill(self,"sendTo:arguments:",{anObject:anObject,aCollection:aCollection},$globals.CompiledMethod)});
 },
 args: ["anObject", "aCollection"],
@@ -9214,14 +8985,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._basicAt_("source");
-if(($receiver = $2) == null || $receiver.isNil){
-$1="";
+var $1,$receiver;
+$1=self._basicAt_("source");
+if(($receiver = $1) == null || $receiver.isNil){
+return "";
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"source",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -9279,9 +9049,7 @@ protocol: 'defaults',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._defaultMaxPoolSize();
-return $1;
+return $recv(self._class())._defaultMaxPoolSize();
 }, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},$globals.ForkPool)});
 },
 args: [],
@@ -9323,8 +9091,8 @@ var self=this;
 function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.ForkPool.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.ForkPool.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@poolSize"]=(0);
 self["@queue"]=$recv($Queue())._new();
@@ -9348,9 +9116,9 @@ var self=this;
 var sentinel;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
+var $1;
 sentinel=$recv($Object())._new();
-$1=(function(){
+return (function(){
 var block;
 return $core.withContext(function($ctx2) {
 self["@poolSize"]=$recv(self["@poolSize"]).__minus((1));
@@ -9360,8 +9128,8 @@ return sentinel;
 
 }));
 block;
-$2=$recv(block).__eq_eq(sentinel);
-if(!$core.assert($2)){
+$1=$recv(block).__eq_eq(sentinel);
+if(!$core.assert($1)){
 return $recv((function(){
 return $core.withContext(function($ctx3) {
 return $recv(block)._value();
@@ -9374,7 +9142,6 @@ return self._addWorker();
 };
 }, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1,1)});
 });
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},$globals.ForkPool)});
 },
 args: [],
@@ -9391,14 +9158,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@maxPoolSize"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._defaultMaxPoolSize();
+var $1,$receiver;
+$1=self["@maxPoolSize"];
+if(($receiver = $1) == null || $receiver.isNil){
+return self._defaultMaxPoolSize();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"maxPoolSize",{},$globals.ForkPool)});
 },
 args: [],
@@ -9434,15 +9200,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@default"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@default"]=self._new();
+var $1,$receiver;
 $1=self["@default"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@default"]=self._new();
+return self["@default"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"default",{},$globals.ForkPool.klass)});
 },
 args: [],
@@ -9494,9 +9259,7 @@ selector: "arguments",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@arguments"];
-return $1;
+return self["@arguments"];
 
 },
 args: [],
@@ -9530,16 +9293,15 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 (
-$ctx1.supercall = true, 
-$globals.Message.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.Message.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $recv(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_(self._selector());
 $ctx1.sendIdx["nextPutAll:"]=2;
-$1=$recv(aStream)._nextPutAll_(")");
+$recv(aStream)._nextPutAll_(")");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.Message)});
 },
@@ -9556,9 +9318,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -9592,9 +9352,7 @@ protocol: 'actions',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anObject)._perform_withArguments_(self._selector(),self._arguments());
-return $1;
+return $recv(anObject)._perform_withArguments_(self._selector(),self._arguments());
 }, function($ctx1) {$ctx1.fill(self,"sendTo:",{anObject:anObject},$globals.Message)});
 },
 args: ["anObject"],
@@ -9612,13 +9370,11 @@ protocol: 'instance creation',
 fn: function (aString,anArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._selector_(aString);
-$recv($2)._arguments_(anArray);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._selector_(aString);
+$recv($1)._arguments_(anArray);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"selector:arguments:",{aString:aString,anArray:anArray},$globals.Message.klass)});
 },
 args: ["aString", "anArray"],
@@ -9638,9 +9394,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@message"])._arguments();
-return $1;
+return $recv(self["@message"])._arguments();
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.MessageSend)});
 },
 args: [],
@@ -9677,8 +9431,8 @@ var self=this;
 function $Message(){return $globals.Message||(typeof Message=="undefined"?nil:Message)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.MessageSend.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.MessageSend.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@message"]=$recv($Message())._new();
 return self;
@@ -9698,10 +9452,9 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 (
-$ctx1.supercall = true, 
-$globals.MessageSend.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.MessageSend.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $recv(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -9711,7 +9464,7 @@ $recv(aStream)._nextPutAll_(" >> ");
 $ctx1.sendIdx["nextPutAll:"]=3;
 $recv(aStream)._nextPutAll_(self._selector());
 $ctx1.sendIdx["nextPutAll:"]=4;
-$1=$recv(aStream)._nextPutAll_(")");
+$recv(aStream)._nextPutAll_(")");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.MessageSend)});
 },
@@ -9728,9 +9481,7 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
+return self["@receiver"];
 
 },
 args: [],
@@ -9764,9 +9515,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@message"])._selector();
-return $1;
+return $recv(self["@message"])._selector();
 }, function($ctx1) {$ctx1.fill(self,"selector",{},$globals.MessageSend)});
 },
 args: [],
@@ -9801,9 +9550,7 @@ protocol: 'evaluating',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@message"])._sendTo_(self._receiver());
-return $1;
+return $recv(self["@message"])._sendTo_(self._receiver());
 }, function($ctx1) {$ctx1.fill(self,"value",{},$globals.MessageSend)});
 },
 args: [],
@@ -9820,12 +9567,10 @@ protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self["@message"];
-$recv($2)._arguments_([anObject]);
-$3=$recv($2)._sendTo_(self._receiver());
-$1=$3;
-return $1;
+var $1;
+$1=self["@message"];
+$recv($1)._arguments_([anObject]);
+return $recv($1)._sendTo_(self._receiver());
 }, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},$globals.MessageSend)});
 },
 args: ["anObject"],
@@ -9842,12 +9587,10 @@ protocol: 'evaluating',
 fn: function (firstArgument,secondArgument){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self["@message"];
-$recv($2)._arguments_([firstArgument,secondArgument]);
-$3=$recv($2)._sendTo_(self._receiver());
-$1=$3;
-return $1;
+var $1;
+$1=self["@message"];
+$recv($1)._arguments_([firstArgument,secondArgument]);
+return $recv($1)._sendTo_(self._receiver());
 }, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},$globals.MessageSend)});
 },
 args: ["firstArgument", "secondArgument"],
@@ -9864,12 +9607,10 @@ protocol: 'evaluating',
 fn: function (firstArgument,secondArgument,thirdArgument){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self["@message"];
-$recv($2)._arguments_([firstArgument,secondArgument,thirdArgument]);
-$3=$recv($2)._sendTo_(self._receiver());
-$1=$3;
-return $1;
+var $1;
+$1=self["@message"];
+$recv($1)._arguments_([firstArgument,secondArgument,thirdArgument]);
+return $recv($1)._sendTo_(self._receiver());
 }, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},$globals.MessageSend)});
 },
 args: ["firstArgument", "secondArgument", "thirdArgument"],
@@ -9886,10 +9627,8 @@ protocol: 'evaluating',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 self._arguments_(aCollection);
-$1=self._value();
-return $1;
+return self._value();
 }, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},$globals.MessageSend)});
 },
 args: ["aCollection"],
@@ -10006,7 +9745,7 @@ fn: function (testBlock){
 var self=this;
 var context;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 var $early={};
 try {
 context=self;
@@ -10018,8 +9757,7 @@ return $recv(context)._isNil();
 return $core.withContext(function($ctx2) {
 $1=$recv(testBlock)._value_(context);
 if($core.assert($1)){
-$2=context;
-throw $early=[$2];
+throw $early=[context];
 };
 context=$recv(context)._outerContext();
 return context;
@@ -10080,9 +9818,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._selector())._isNil();
-return $1;
+return $recv(self._selector())._isNil();
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},$globals.MethodContext)});
 },
 args: [],
@@ -10118,7 +9854,7 @@ fn: function (){
 var self=this;
 var method,lookupClass,receiverClass,supercall;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4,$6,$5,$7,$9,$8,$receiver;
+var $1,$3,$2,$4,$6,$5,$7,$8,$receiver;
 $1=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -10145,13 +9881,12 @@ var outer;
 outer=$receiver;
 supercall=$recv(outer)._supercall();
 };
-$9=supercall;
-if($core.assert($9)){
-$8=$recv($recv($recv(method)._methodClass())._superclass())._lookupSelector_($recv(self._methodContext())._selector());
+$8=supercall;
+if($core.assert($8)){
+return $recv($recv($recv(method)._methodClass())._superclass())._lookupSelector_($recv(self._methodContext())._selector());
 } else {
-$8=method;
+return method;
 };
-return $8;
 }, function($ctx1) {$ctx1.fill(self,"method",{method:method,lookupClass:lookupClass,receiverClass:receiverClass,supercall:supercall},$globals.MethodContext)});
 },
 args: [],
@@ -10168,20 +9903,19 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$receiver;
+var $1,$2,$receiver;
 $1=self._isBlockContext();
 if(!$core.assert($1)){
 return self;
 };
-$3=self._outerContext();
-if(($receiver = $3) == null || $receiver.isNil){
-$2=$3;
+$2=self._outerContext();
+if(($receiver = $2) == null || $receiver.isNil){
+return $2;
 } else {
 var outer;
 outer=$receiver;
-$2=$recv(outer)._methodContext();
+return $recv(outer)._methodContext();
 };
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"methodContext",{},$globals.MethodContext)});
 },
 args: [],
@@ -10216,16 +9950,15 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 (
-$ctx1.supercall = true, 
-$globals.MethodContext.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.MethodContext.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $recv(aStream)._nextPutAll_("(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_(self._asString());
 $ctx1.sendIdx["nextPutAll:"]=2;
-$1=$recv(aStream)._nextPutAll_(")");
+$recv(aStream)._nextPutAll_(")");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.MethodContext)});
 },
@@ -10243,20 +9976,19 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$2=$recv(self._isBlockContext())._and_((function(){
+var $2,$1;
+$1=$recv(self._isBlockContext())._and_((function(){
 return $core.withContext(function($ctx2) {
-$3=self._outerContext();
+$2=self._outerContext();
 $ctx2.sendIdx["outerContext"]=1;
-return $recv($3)._notNil();
+return $recv($2)._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-if($core.assert($2)){
-$1=$recv(self._outerContext())._receiver();
+if($core.assert($1)){
+return $recv(self._outerContext())._receiver();
 } else {
-$1=self._basicReceiver();
+return self._basicReceiver();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},$globals.MethodContext)});
 },
 args: [],
@@ -10609,9 +10341,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._existsJsGlobal_(aString);
-return $1;
+return $recv($Smalltalk())._existsJsGlobal_(aString);
 }, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},$globals.NativeFunction.klass)});
 },
 args: ["aString"],
@@ -10996,12 +10726,10 @@ protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._rawTimeout_(anObject);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._rawTimeout_(anObject);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},$globals.Timeout.klass)});
 },
 args: ["anObject"],
@@ -11065,9 +10793,7 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@key"];
-return $1;
+return self["@key"];
 
 },
 args: [],
@@ -11121,9 +10847,7 @@ selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@value"];
-return $1;
+return self["@value"];
 
 },
 args: [],
@@ -11158,13 +10882,11 @@ protocol: 'instance creation',
 fn: function (aKey,aValue){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._key_(aKey);
-$recv($2)._value_(aValue);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._key_(aKey);
+$recv($1)._value_(aValue);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"key:value:",{aKey:aKey,aValue:aValue},$globals.Association.klass)});
 },
 args: ["aKey", "aValue"],
@@ -11249,8 +10971,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.BucketStore.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.BucketStore.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self._removeAll();
 return self;
@@ -11307,12 +11029,10 @@ protocol: 'instance creation',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._hashBlock_(aBlock);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._hashBlock_(aBlock);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"hashBlock:",{aBlock:aBlock},$globals.BucketStore.klass)});
 },
 args: ["aBlock"],
@@ -11331,9 +11051,7 @@ selector: "newBucket",
 protocol: 'private',
 fn: function (){
 var self=this;
-var $1;
-$1=[];
-return $1;
+return [];
 
 },
 args: [],
@@ -11354,12 +11072,10 @@ protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._copy();
-$recv($2)._addAll_(aCollection);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._copy();
+$recv($1)._addAll_(aCollection);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,",",{aCollection:aCollection},$globals.Collection)});
 },
 args: ["aCollection"],
@@ -11507,9 +11223,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Array())._withAll_(self);
-return $1;
+return $recv($Array())._withAll_(self);
 }, function($ctx1) {$ctx1.fill(self,"asArray",{},$globals.Collection)});
 },
 args: [],
@@ -11526,13 +11240,11 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._asArray())._collect_((function(each){
+return $recv(self._asArray())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._asJSON();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},$globals.Collection)});
 },
 args: [],
@@ -11549,9 +11261,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._asArray();
-return $1;
+return self._asArray();
 }, function($ctx1) {$ctx1.fill(self,"asOrderedCollection",{},$globals.Collection)});
 },
 args: [],
@@ -11569,9 +11279,7 @@ fn: function (){
 var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Set())._withAll_(self);
-return $1;
+return $recv($Set())._withAll_(self);
 }, function($ctx1) {$ctx1.fill(self,"asSet",{},$globals.Collection)});
 },
 args: [],
@@ -11589,15 +11297,13 @@ fn: function (aBlock){
 var self=this;
 var stream;
 return $core.withContext(function($ctx1) {
-var $1;
 stream=$recv($recv(self._class())._new())._writeStream();
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(stream)._nextPut_($recv(aBlock)._value_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=$recv(stream)._contents();
-return $1;
+return $recv(stream)._contents();
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,stream:stream},$globals.Collection)});
 },
 args: ["aBlock"],
@@ -11614,12 +11320,10 @@ protocol: 'copying',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._copy();
-$recv($2)._add_(anObject);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._copy();
+$recv($1)._add_(anObject);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"copyWith:",{anObject:anObject},$globals.Collection)});
 },
 args: ["anObject"],
@@ -11636,12 +11340,10 @@ protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._copy();
-$recv($2)._addAll_(aCollection);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._copy();
+$recv($1)._addAll_(aCollection);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"copyWithAll:",{aCollection:aCollection},$globals.Collection)});
 },
 args: ["aCollection"],
@@ -11658,13 +11360,11 @@ protocol: 'copying',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._reject_((function(each){
+return self._reject_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(aCollection)._includes_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"copyWithoutAll:",{aCollection:aCollection},$globals.Collection)});
 },
 args: ["aCollection"],
@@ -11681,13 +11381,11 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._collect_((function(each){
+return self._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._deepCopy();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{},$globals.Collection)});
 },
 args: [],
@@ -11704,13 +11402,11 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._detect_ifNone_(aBlock,(function(){
+return self._detect_ifNone_(aBlock,(function(){
 return $core.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"detect:",{aBlock:aBlock},$globals.Collection)});
 },
 args: ["aBlock"],
@@ -11810,13 +11506,12 @@ protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._isEmpty();
-$1=$recv($2)._ifTrue_ifFalse_(aBlock,(function(){
+var $1;
+$1=self._isEmpty();
+return $recv($1)._ifTrue_ifFalse_(aBlock,(function(){
 return self;
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},$globals.Collection)});
 },
 args: ["aBlock"],
@@ -11833,14 +11528,13 @@ protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._isEmpty();
-$1=$recv($2)._ifTrue_ifFalse_(aBlock,(function(){
+var $1;
+$1=self._isEmpty();
+return $recv($1)._ifTrue_ifFalse_(aBlock,(function(){
 return $core.withContext(function($ctx2) {
 return $recv(anotherBlock)._value_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Collection)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -11857,14 +11551,13 @@ protocol: 'testing',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._notEmpty();
-if($core.assert($2)){
-$1=$recv(aBlock)._value_(self);
+var $1;
+$1=self._notEmpty();
+if($core.assert($1)){
+return $recv(aBlock)._value_(self);
 } else {
-$1=self;
+return self;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},$globals.Collection)});
 },
 args: ["aBlock"],
@@ -11881,14 +11574,13 @@ protocol: 'testing',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._notEmpty();
-$1=$recv($2)._ifTrue_ifFalse_((function(){
+var $1;
+$1=self._notEmpty();
+return $recv($1)._ifTrue_ifFalse_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(aBlock)._value_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }),anotherBlock);
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Collection)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -11905,13 +11597,11 @@ protocol: 'testing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._anySatisfy_((function(each){
+return self._anySatisfy_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each).__eq(anObject);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},$globals.Collection)});
 },
 args: ["anObject"],
@@ -11929,7 +11619,6 @@ fn: function (anObject,aBlock){
 var self=this;
 var result;
 return $core.withContext(function($ctx1) {
-var $1;
 result=anObject;
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -11937,8 +11626,7 @@ result=$recv(aBlock)._value_value_(result,each);
 return result;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=result;
-return $1;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"inject:into:",{anObject:anObject,aBlock:aBlock,result:result},$globals.Collection)});
 },
 args: ["anObject", "aBlock"],
@@ -11957,7 +11645,7 @@ var self=this;
 var set,outputSet;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$3;
+var $2,$1;
 set=self._asSet();
 outputSet=$recv($Set())._new();
 $recv(aCollection)._do_((function(each){
@@ -11974,8 +11662,7 @@ return $recv(outputSet)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$3=$recv(self._class())._withAll_($recv(outputSet)._asArray());
-return $3;
+return $recv(self._class())._withAll_($recv(outputSet)._asArray());
 }, function($ctx1) {$ctx1.fill(self,"intersection:",{aCollection:aCollection,set:set,outputSet:outputSet},$globals.Collection)});
 },
 args: ["aCollection"],
@@ -11992,9 +11679,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._size()).__eq((0));
-return $1;
+return $recv(self._size()).__eq((0));
 }, function($ctx1) {$ctx1.fill(self,"isEmpty",{},$globals.Collection)});
 },
 args: [],
@@ -12041,9 +11726,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._isEmpty())._not();
-return $1;
+return $recv(self._isEmpty())._not();
 }, function($ctx1) {$ctx1.fill(self,"notEmpty",{},$globals.Collection)});
 },
 args: [],
@@ -12061,7 +11744,7 @@ fn: function (anObject){
 var self=this;
 var tally;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 tally=(0);
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -12072,8 +11755,7 @@ return tally;
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=tally;
-return $2;
+return tally;
 }, function($ctx1) {$ctx1.fill(self,"occurrencesOf:",{anObject:anObject,tally:tally},$globals.Collection)});
 },
 args: ["anObject"],
@@ -12112,13 +11794,11 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._select_((function(each){
+return self._select_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv($recv(aBlock)._value_(each)).__eq(false);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"reject:",{aBlock:aBlock},$globals.Collection)});
 },
 args: ["aBlock"],
@@ -12135,13 +11815,11 @@ protocol: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._remove_ifAbsent_(anObject,(function(){
+return self._remove_ifAbsent_(anObject,(function(){
 return $core.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},$globals.Collection)});
 },
 args: ["anObject"],
@@ -12195,7 +11873,7 @@ fn: function (aBlock){
 var self=this;
 var stream;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 stream=$recv($recv(self._class())._new())._writeStream();
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -12205,8 +11883,7 @@ return $recv(stream)._nextPut_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=$recv(stream)._contents();
-return $2;
+return $recv(stream)._contents();
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,stream:stream},$globals.Collection)});
 },
 args: ["aBlock"],
@@ -12224,7 +11901,7 @@ fn: function (selectBlock,collectBlock){
 var self=this;
 var stream;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 stream=$recv($recv(self._class())._new())._writeStream();
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -12235,8 +11912,7 @@ return $recv(stream)._nextPut_($recv(collectBlock)._value_(each));
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=$recv(stream)._contents();
-return $2;
+return $recv(stream)._contents();
 }, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},$globals.Collection)});
 },
 args: ["selectBlock", "collectBlock"],
@@ -12253,12 +11929,10 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._collect_((function(each){
+return self._collect_((function(each){
 return each;
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},$globals.Collection)});
 },
 args: [],
@@ -12310,9 +11984,7 @@ protocol: 'instance creation',
 fn: function (anInteger){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._new();
-return $1;
+return self._new();
 }, function($ctx1) {$ctx1.fill(self,"new:",{anInteger:anInteger},$globals.Collection.klass)});
 },
 args: ["anInteger"],
@@ -12329,12 +12001,10 @@ protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._add_(anObject);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._add_(anObject);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},$globals.Collection.klass)});
 },
 args: ["anObject"],
@@ -12351,14 +12021,12 @@ protocol: 'instance creation',
 fn: function (anObject,anotherObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._add_(anObject);
+var $1;
+$1=self._new();
+$recv($1)._add_(anObject);
 $ctx1.sendIdx["add:"]=1;
-$recv($2)._add_(anotherObject);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_(anotherObject);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"with:with:",{anObject:anObject,anotherObject:anotherObject},$globals.Collection.klass)});
 },
 args: ["anObject", "anotherObject"],
@@ -12375,16 +12043,14 @@ protocol: 'instance creation',
 fn: function (firstObject,secondObject,thirdObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._add_(firstObject);
+var $1;
+$1=self._new();
+$recv($1)._add_(firstObject);
 $ctx1.sendIdx["add:"]=1;
-$recv($2)._add_(secondObject);
+$recv($1)._add_(secondObject);
 $ctx1.sendIdx["add:"]=2;
-$recv($2)._add_(thirdObject);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_(thirdObject);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"with:with:with:",{firstObject:firstObject,secondObject:secondObject,thirdObject:thirdObject},$globals.Collection.klass)});
 },
 args: ["firstObject", "secondObject", "thirdObject"],
@@ -12401,12 +12067,10 @@ protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._addAll_(aCollection);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._addAll_(aCollection);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection},$globals.Collection.klass)});
 },
 args: ["aCollection"],
@@ -12426,13 +12090,11 @@ protocol: 'accessing',
 fn: function (anIndex){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_ifAbsent_(anIndex,(function(){
+return self._at_ifAbsent_(anIndex,(function(){
 return $core.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex},$globals.IndexableCollection)});
 },
 args: ["anIndex"],
@@ -12467,13 +12129,11 @@ protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_ifAbsent_(aKey,(function(){
+return self._at_ifAbsent_(aKey,(function(){
 return $core.withContext(function($ctx2) {
 return self._at_put_(aKey,$recv(aBlock)._value());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock},$globals.IndexableCollection)});
 },
 args: ["aKey", "aBlock"],
@@ -12490,12 +12150,10 @@ protocol: 'accessing',
 fn: function (anIndex,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
+return self._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
 return nil;
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock},$globals.IndexableCollection)});
 },
 args: ["anIndex", "aBlock"],
@@ -12548,13 +12206,11 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._indexOf_ifAbsent_(anObject,(function(){
+return self._indexOf_ifAbsent_(anObject,(function(){
 return $core.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:",{anObject:anObject},$globals.IndexableCollection)});
 },
 args: ["anObject"],
@@ -12633,7 +12289,7 @@ protocol: 'comparing',
 fn: function (anAssocitativeCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$4,$3,$6,$5;
+var $2,$1,$4,$3,$5;
 $2=self._class();
 $ctx1.sendIdx["class"]=1;
 $1=$recv($2).__eq($recv(anAssocitativeCollection)._class());
@@ -12648,10 +12304,9 @@ $ctx1.sendIdx["="]=2;
 if(!$core.assert($3)){
 return false;
 };
-$6=self._associations();
+$5=self._associations();
 $ctx1.sendIdx["associations"]=1;
-$5=$recv($6).__eq($recv(anAssocitativeCollection)._associations());
-return $5;
+return $recv($5).__eq($recv(anAssocitativeCollection)._associations());
 }, function($ctx1) {$ctx1.fill(self,"=",{anAssocitativeCollection:anAssocitativeCollection},$globals.AssociativeCollection)});
 },
 args: ["anAssocitativeCollection"],
@@ -12687,8 +12342,8 @@ fn: function (anAssociativeCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.AssociativeCollection.superclass.fn.prototype._addAll_.apply($recv(self), [$recv(anAssociativeCollection)._associations()]));
+$ctx1.supercall = true,
+($globals.AssociativeCollection.superclass||$boot.dnu).fn.prototype._addAll_.apply($recv(self), [$recv(anAssociativeCollection)._associations()]));
 $ctx1.supercall = false;
 return anAssociativeCollection;
 }, function($ctx1) {$ctx1.fill(self,"addAll:",{anAssociativeCollection:anAssociativeCollection},$globals.AssociativeCollection)});
@@ -12708,9 +12363,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Dictionary())._from_(self._associations());
-return $1;
+return $recv($Dictionary())._from_(self._associations());
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},$globals.AssociativeCollection)});
 },
 args: [],
@@ -12728,9 +12381,7 @@ fn: function (){
 var self=this;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($HashedCollection())._from_(self._associations());
-return $1;
+return $recv($HashedCollection())._from_(self._associations());
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},$globals.AssociativeCollection)});
 },
 args: [],
@@ -12749,15 +12400,13 @@ var self=this;
 var hash;
 function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return $core.withContext(function($ctx1) {
-var $1;
 hash=$recv($HashedCollection())._new();
 self._keysAndValuesDo_((function(key,value){
 return $core.withContext(function($ctx2) {
 return $recv(hash)._at_put_(key,$recv(value)._asJSON());
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 }));
-$1=hash;
-return $1;
+return hash;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{hash:hash},$globals.AssociativeCollection)});
 },
 args: [],
@@ -12775,15 +12424,13 @@ fn: function (){
 var self=this;
 var associations;
 return $core.withContext(function($ctx1) {
-var $1;
 associations=[];
 self._associationsDo_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(associations)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=associations;
-return $1;
+return associations;
 }, function($ctx1) {$ctx1.fill(self,"associations",{associations:associations},$globals.AssociativeCollection)});
 },
 args: [],
@@ -12823,14 +12470,13 @@ protocol: 'accessing',
 fn: function (aKey,aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._includesKey_(aKey);
-if($core.assert($2)){
-$1=$recv(aBlock)._value_(self._at_(aKey));
+var $1;
+$1=self._includesKey_(aKey);
+if($core.assert($1)){
+return $recv(aBlock)._value_(self._at_(aKey));
 } else {
-$1=$recv(anotherBlock)._value();
+return $recv(anotherBlock)._value();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aKey:aKey,aBlock:aBlock,anotherBlock:anotherBlock},$globals.AssociativeCollection)});
 },
 args: ["aKey", "aBlock", "anotherBlock"],
@@ -12848,15 +12494,13 @@ fn: function (aBlock){
 var self=this;
 var newDict;
 return $core.withContext(function($ctx1) {
-var $1;
 newDict=$recv(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return $core.withContext(function($ctx2) {
 return $recv(newDict)._at_put_(key,$recv(aBlock)._value_(value));
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 }));
-$1=newDict;
-return $1;
+return newDict;
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,newDict:newDict},$globals.AssociativeCollection)});
 },
 args: ["aBlock"],
@@ -12874,15 +12518,13 @@ fn: function (){
 var self=this;
 var copy;
 return $core.withContext(function($ctx1) {
-var $1;
 copy=$recv(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return $core.withContext(function($ctx2) {
 return $recv(copy)._at_put_(key,$recv(value)._deepCopy());
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 }));
-$1=copy;
-return $1;
+return copy;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{copy:copy},$globals.AssociativeCollection)});
 },
 args: [],
@@ -12899,9 +12541,7 @@ protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._values())._detect_ifNone_(aBlock,anotherBlock);
-return $1;
+return $recv(self._values())._detect_ifNone_(aBlock,anotherBlock);
 }, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.AssociativeCollection)});
 },
 args: ["aBlock", "anotherBlock"],
@@ -12936,9 +12576,7 @@ protocol: 'enumerating',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._values())._includes_(anObject);
-return $1;
+return $recv(self._values())._includes_(anObject);
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},$globals.AssociativeCollection)});
 },
 args: ["anObject"],
@@ -12973,13 +12611,11 @@ protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._keys())._detect_ifNone_((function(each){
+return $recv(self._keys())._detect_ifNone_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(self._at_(each)).__eq(anObject);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }),aBlock);
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},$globals.AssociativeCollection)});
 },
 args: ["anObject", "aBlock"],
@@ -12996,13 +12632,11 @@ protocol: 'accessing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._keyAtValue_ifAbsent_(anObject,(function(){
+return self._keyAtValue_ifAbsent_(anObject,(function(){
 return $core.withContext(function($ctx2) {
 return self._errorNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"keyAtValue:",{anObject:anObject},$globals.AssociativeCollection)});
 },
 args: ["anObject"],
@@ -13019,9 +12653,7 @@ protocol: 'accessing',
 fn: function (anObject,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._indexOf_ifAbsent_(anObject,aBlock);
-return $1;
+return self._indexOf_ifAbsent_(anObject,aBlock);
 }, function($ctx1) {$ctx1.fill(self,"keyAtValue:ifAbsent:",{anObject:anObject,aBlock:aBlock},$globals.AssociativeCollection)});
 },
 args: ["anObject", "aBlock"],
@@ -13097,8 +12729,8 @@ fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.AssociativeCollection.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.AssociativeCollection.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $ctx1.sendIdx["printOn:"]=1;
 $recv(aStream)._nextPutAll_(" (");
@@ -13131,9 +12763,7 @@ protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._removeKey_ifAbsent_(aKey,aBlock);
-return $1;
+return self._removeKey_ifAbsent_(aKey,aBlock);
 }, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{aKey:aKey,aBlock:aBlock},$globals.AssociativeCollection)});
 },
 args: ["aKey", "aBlock"],
@@ -13150,13 +12780,11 @@ protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._keys())._do_((function(each){
+return $recv(self._keys())._do_((function(each){
 return $core.withContext(function($ctx2) {
 return self._removeKey_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"removeAll",{},$globals.AssociativeCollection)});
 },
 args: [],
@@ -13173,9 +12801,7 @@ protocol: 'adding/removing',
 fn: function (aKey){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._remove_(aKey);
-return $1;
+return self._remove_(aKey);
 }, function($ctx1) {$ctx1.fill(self,"removeKey:",{aKey:aKey},$globals.AssociativeCollection)});
 },
 args: ["aKey"],
@@ -13211,7 +12837,7 @@ fn: function (aBlock){
 var self=this;
 var newDict;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 newDict=$recv(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return $core.withContext(function($ctx2) {
@@ -13221,8 +12847,7 @@ return $recv(newDict)._at_put_(key,value);
 };
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 }));
-$2=newDict;
-return $2;
+return newDict;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,newDict:newDict},$globals.AssociativeCollection)});
 },
 args: ["aBlock"],
@@ -13240,15 +12865,13 @@ fn: function (){
 var self=this;
 var copy;
 return $core.withContext(function($ctx1) {
-var $1;
 copy=$recv(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return $core.withContext(function($ctx2) {
 return $recv(copy)._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 }));
-$1=copy;
-return $1;
+return copy;
 }, function($ctx1) {$ctx1.fill(self,"shallowCopy",{copy:copy},$globals.AssociativeCollection)});
 },
 args: [],
@@ -13265,9 +12888,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._keys())._size();
-return $1;
+return $recv(self._keys())._size();
 }, function($ctx1) {$ctx1.fill(self,"size",{},$globals.AssociativeCollection)});
 },
 args: [],
@@ -13344,15 +12965,13 @@ fn: function (aCollection){
 var self=this;
 var newCollection;
 return $core.withContext(function($ctx1) {
-var $1;
 newCollection=self._new();
 $recv(aCollection)._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(newCollection)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=newCollection;
-return $1;
+return newCollection;
 }, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},$globals.AssociativeCollection.klass)});
 },
 args: ["aCollection"],
@@ -13369,9 +12988,7 @@ protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._from_(aCollection);
-return $1;
+return self._from_(aCollection);
 }, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},$globals.AssociativeCollection.klass)});
 },
 args: ["aCollection"],
@@ -13389,7 +13006,7 @@ fn: function (aCollection){
 var self=this;
 var newCollection;
 return $core.withContext(function($ctx1) {
-var $2,$1,$3,$4,$5;
+var $2,$1,$3,$4;
 $2=$recv(aCollection)._size();
 $ctx1.sendIdx["size"]=1;
 $1=$recv($2)._even();
@@ -13405,8 +13022,7 @@ $ctx2.sendIdx["at:"]=1;
 return $recv($3)._at_put_($4,$recv(aCollection)._at_($recv(each).__plus((1))));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-$5=newCollection;
-return $5;
+return newCollection;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},$globals.AssociativeCollection.klass)});
 },
 args: ["aCollection"],
@@ -13493,18 +13109,17 @@ fn: function (anObject,aBlock){
 var self=this;
 var index;
 return $core.withContext(function($ctx1) {
-var $2,$1;
+var $1;
 index=$recv(self["@values"])._indexOf_ifAbsent_(anObject,(function(){
 return (0);
 
 }));
-$2=$recv(index).__eq((0));
-if($core.assert($2)){
-$1=$recv(aBlock)._value();
+$1=$recv(index).__eq((0));
+if($core.assert($1)){
+return $recv(aBlock)._value();
 } else {
-$1=$recv(self["@keys"])._at_(index);
+return $recv(self["@keys"])._at_(index);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},$globals.Dictionary)});
 },
 args: ["anObject", "aBlock"],
@@ -13522,8 +13137,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Dictionary.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Dictionary.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@keys"]=[];
 self["@values"]=[];
@@ -13544,9 +13159,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@keys"])._copy();
-return $1;
+return $recv(self["@keys"])._copy();
 }, function($ctx1) {$ctx1.fill(self,"keys",{},$globals.Dictionary)});
 },
 args: [],
@@ -13563,9 +13176,7 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@keys"])._with_do_(self["@values"],aBlock);
-return $1;
+return $recv(self["@keys"])._with_do_(self["@values"],aBlock);
 }, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},$globals.Dictionary)});
 },
 args: ["aBlock"],
@@ -13582,9 +13193,7 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@keys"])._do_(aBlock);
-return $1;
+return $recv(self["@keys"])._do_(aBlock);
 }, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},$globals.Dictionary)});
 },
 args: ["aBlock"],
@@ -13675,9 +13284,7 @@ selector: "values",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@values"];
-return $1;
+return self["@values"];
 
 },
 args: [],
@@ -13694,9 +13301,7 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@values"])._do_(aBlock);
-return $1;
+return $recv(self["@values"])._do_(aBlock);
 }, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},$globals.Dictionary)});
 },
 args: ["aBlock"],
@@ -13717,14 +13322,13 @@ protocol: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._includesKey_(aKey);
-if($core.assert($2)){
-$1=self._basicAt_(aKey);
+var $1;
+$1=self._includesKey_(aKey);
+if($core.assert($1)){
+return self._basicAt_(aKey);
 } else {
-$1=$recv(aBlock)._value();
+return $recv(aBlock)._value();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},$globals.HashedCollection)});
 },
 args: ["aKey", "aBlock"],
@@ -13741,9 +13345,7 @@ protocol: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_put_(aKey,aValue);
-return $1;
+return self._basicAt_put_(aKey,aValue);
 }, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,aValue:aValue},$globals.HashedCollection)});
 },
 args: ["aKey", "aValue"],
@@ -13814,8 +13416,7 @@ protocol: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_ifPresent_ifAbsent_(aKey,(function(removed){
+return self._at_ifPresent_ifAbsent_(aKey,(function(removed){
 return $core.withContext(function($ctx2) {
 self._basicDelete_(aKey);
 return removed;
@@ -13825,7 +13426,6 @@ return $core.withContext(function($ctx2) {
 return $recv(aBlock)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},$globals.HashedCollection)});
 },
 args: ["aKey", "aBlock"],
@@ -13949,9 +13549,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._copyFrom_to_((2),self._size());
-return $1;
+return self._copyFrom_to_((2),self._size());
 }, function($ctx1) {$ctx1.fill(self,"allButFirst",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -13968,9 +13566,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._copyFrom_to_((1),$recv(self._size()).__minus((1)));
-return $1;
+return self._copyFrom_to_((1),$recv(self._size()).__minus((1)));
 }, function($ctx1) {$ctx1.fill(self,"allButLast",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -13987,9 +13583,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_($recv(self._size())._atRandom());
-return $1;
+return self._at_($recv(self._size())._atRandom());
 }, function($ctx1) {$ctx1.fill(self,"atRandom",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14006,7 +13600,7 @@ protocol: 'testing',
 fn: function (prefix){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1,$4;
+var $2,$3,$1;
 $2=self._size();
 $ctx1.sendIdx["size"]=1;
 $3=$recv(prefix)._size();
@@ -14015,8 +13609,7 @@ $1=$recv($2).__lt($3);
 if($core.assert($1)){
 return false;
 };
-$4=$recv(self._first_($recv(prefix)._size())).__eq(prefix);
-return $4;
+return $recv(self._first_($recv(prefix)._size())).__eq(prefix);
 }, function($ctx1) {$ctx1.fill(self,"beginsWith:",{prefix:prefix},$globals.SequenceableCollection)});
 },
 args: ["prefix"],
@@ -14098,7 +13691,7 @@ protocol: 'testing',
 fn: function (suffix){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1,$4;
+var $2,$3,$1;
 $2=self._size();
 $ctx1.sendIdx["size"]=1;
 $3=$recv(suffix)._size();
@@ -14107,8 +13700,7 @@ $1=$recv($2).__lt($3);
 if($core.assert($1)){
 return false;
 };
-$4=$recv(self._last_($recv(suffix)._size())).__eq(suffix);
-return $4;
+return $recv(self._last_($recv(suffix)._size())).__eq(suffix);
 }, function($ctx1) {$ctx1.fill(self,"endsWith:",{suffix:suffix},$globals.SequenceableCollection)});
 },
 args: ["suffix"],
@@ -14125,9 +13717,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_((1));
-return $1;
+return self._at_((1));
 }, function($ctx1) {$ctx1.fill(self,"first",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14144,13 +13734,12 @@ protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv(self._size()).__lt(aNumber);
 if($core.assert($1)){
 self._error_("Invalid number of elements");
 };
-$2=self._copyFrom_to_((1),aNumber);
-return $2;
+return self._copyFrom_to_((1),aNumber);
 }, function($ctx1) {$ctx1.fill(self,"first:",{aNumber:aNumber},$globals.SequenceableCollection)});
 },
 args: ["aNumber"],
@@ -14167,9 +13756,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_((4));
-return $1;
+return self._at_((4));
 }, function($ctx1) {$ctx1.fill(self,"fourth",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14186,12 +13773,10 @@ protocol: 'testing',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._indexOf_ifAbsent_(anObject,(function(){
+return $recv(self._indexOf_ifAbsent_(anObject,(function(){
 return nil;
 
 })))._notNil();
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},$globals.SequenceableCollection)});
 },
 args: ["anObject"],
@@ -14232,12 +13817,10 @@ protocol: 'accessing',
 fn: function (anObject,start){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._indexOf_startingAt_ifAbsent_(anObject,start,(function(){
+return self._indexOf_startingAt_ifAbsent_(anObject,start,(function(){
 return (0);
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:",{anObject:anObject,start:start},$globals.SequenceableCollection)});
 },
 args: ["anObject", "start"],
@@ -14278,9 +13861,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_(self._size());
-return $1;
+return self._at_(self._size());
 }, function($ctx1) {$ctx1.fill(self,"last",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14297,19 +13878,18 @@ protocol: 'accessing',
 fn: function (aNumber){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$6,$5,$4,$3;
+var $2,$1,$5,$4,$3;
 $2=self._size();
 $ctx1.sendIdx["size"]=1;
 $1=$recv($2).__lt(aNumber);
 if($core.assert($1)){
 self._error_("Invalid number of elements");
 };
-$6=self._size();
+$5=self._size();
 $ctx1.sendIdx["size"]=2;
-$5=$recv($6).__minus(aNumber);
-$4=$recv($5).__plus((1));
-$3=self._copyFrom_to_($4,self._size());
-return $3;
+$4=$recv($5).__minus(aNumber);
+$3=$recv($4).__plus((1));
+return self._copyFrom_to_($3,self._size());
 }, function($ctx1) {$ctx1.fill(self,"last:",{aNumber:aNumber},$globals.SequenceableCollection)});
 },
 args: ["aNumber"],
@@ -14326,9 +13906,7 @@ protocol: 'streaming',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._streamClass())._on_(self);
-return $1;
+return $recv(self._streamClass())._on_(self);
 }, function($ctx1) {$ctx1.fill(self,"newStream",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14363,9 +13941,7 @@ protocol: 'streaming',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._stream();
-return $1;
+return self._stream();
 }, function($ctx1) {$ctx1.fill(self,"readStream",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14382,9 +13958,7 @@ protocol: 'adding/removing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._remove_(self._last());
-return $1;
+return self._remove_(self._last());
 }, function($ctx1) {$ctx1.fill(self,"removeLast",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14419,9 +13993,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_((2));
-return $1;
+return self._at_((2));
 }, function($ctx1) {$ctx1.fill(self,"second",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14438,9 +14010,7 @@ protocol: 'streaming',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._newStream();
-return $1;
+return self._newStream();
 }, function($ctx1) {$ctx1.fill(self,"stream",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14457,9 +14027,7 @@ protocol: 'streaming',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._streamClass();
-return $1;
+return $recv(self._class())._streamClass();
 }, function($ctx1) {$ctx1.fill(self,"streamClass",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14476,9 +14044,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._at_((3));
-return $1;
+return self._at_((3));
 }, function($ctx1) {$ctx1.fill(self,"third",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14542,9 +14108,7 @@ protocol: 'streaming',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._stream();
-return $1;
+return self._stream();
 }, function($ctx1) {$ctx1.fill(self,"writeStream",{},$globals.SequenceableCollection)});
 },
 args: [],
@@ -14580,11 +14144,9 @@ fn: function (aBlock){
 var self=this;
 var stream;
 return $core.withContext(function($ctx1) {
-var $1;
 stream=$recv(self._streamClass())._on_(self._new());
 $recv(aBlock)._value_(stream);
-$1=$recv(stream)._contents();
-return $1;
+return $recv(stream)._contents();
 }, function($ctx1) {$ctx1.fill(self,"streamContents:",{aBlock:aBlock,stream:stream},$globals.SequenceableCollection.klass)});
 },
 args: ["aBlock"],
@@ -14825,8 +14387,8 @@ fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Array.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.Array.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $ctx1.sendIdx["printOn:"]=1;
 $recv(aStream)._nextPutAll_(" (");
@@ -14860,19 +14422,18 @@ fn: function (anObject,aBlock){
 var self=this;
 var index;
 return $core.withContext(function($ctx1) {
-var $2,$1;
+var $1;
 index=self._indexOf_ifAbsent_(anObject,(function(){
 return (0);
 
 }));
-$2=$recv(index).__eq((0));
-if($core.assert($2)){
-$1=$recv(aBlock)._value();
+$1=$recv(index).__eq((0));
+if($core.assert($1)){
+return $recv(aBlock)._value();
 } else {
 self._removeIndex_(index);
-$1=anObject;
+return anObject;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},$globals.Array)});
 },
 args: ["anObject", "aBlock"],
@@ -15033,13 +14594,11 @@ protocol: 'enumerating',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._sort_((function(a,b){
+return self._sort_((function(a,b){
 return $core.withContext(function($ctx2) {
 return $recv(a).__lt(b);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"sort",{},$globals.Array)});
 },
 args: [],
@@ -15078,9 +14637,7 @@ protocol: 'enumerating',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._copy())._sort();
-return $1;
+return $recv(self._copy())._sort();
 }, function($ctx1) {$ctx1.fill(self,"sorted",{},$globals.Array)});
 },
 args: [],
@@ -15097,9 +14654,7 @@ protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._copy())._sort_(aBlock);
-return $1;
+return $recv(self._copy())._sort_(aBlock);
 }, function($ctx1) {$ctx1.fill(self,"sorted:",{aBlock:aBlock},$globals.Array)});
 },
 args: ["aBlock"],
@@ -15135,12 +14690,10 @@ protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new_((1));
-$recv($2)._at_put_((1),anObject);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new_((1));
+$recv($1)._at_put_((1),anObject);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"with:",{anObject:anObject},$globals.Array.klass)});
 },
 args: ["anObject"],
@@ -15157,14 +14710,12 @@ protocol: 'instance creation',
 fn: function (anObject,anObject2){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new_((2));
-$recv($2)._at_put_((1),anObject);
+var $1;
+$1=self._new_((2));
+$recv($1)._at_put_((1),anObject);
 $ctx1.sendIdx["at:put:"]=1;
-$recv($2)._at_put_((2),anObject2);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((2),anObject2);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"with:with:",{anObject:anObject,anObject2:anObject2},$globals.Array.klass)});
 },
 args: ["anObject", "anObject2"],
@@ -15181,16 +14732,14 @@ protocol: 'instance creation',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new_((3));
-$recv($2)._at_put_((1),anObject);
+var $1;
+$1=self._new_((3));
+$recv($1)._at_put_((1),anObject);
 $ctx1.sendIdx["at:put:"]=1;
-$recv($2)._at_put_((2),anObject2);
+$recv($1)._at_put_((2),anObject2);
 $ctx1.sendIdx["at:put:"]=2;
-$recv($2)._at_put_((3),anObject3);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((3),anObject3);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"with:with:with:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},$globals.Array.klass)});
 },
 args: ["anObject", "anObject2", "anObject3"],
@@ -15208,7 +14757,6 @@ fn: function (aCollection){
 var self=this;
 var instance,index;
 return $core.withContext(function($ctx1) {
-var $1;
 index=(1);
 instance=self._new_($recv(aCollection)._size());
 $recv(aCollection)._do_((function(each){
@@ -15218,8 +14766,7 @@ index=$recv(index).__plus((1));
 return index;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=instance;
-return $1;
+return instance;
 }, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection,instance:instance,index:index},$globals.Array.klass)});
 },
 args: ["aCollection"],
@@ -15239,11 +14786,10 @@ protocol: 'copying',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._asString();
+var $1;
+$1=self._asString();
 $ctx1.sendIdx["asString"]=1;
-$1=$recv($2).__comma($recv(aString)._asString());
-return $1;
+return $recv($1).__comma($recv(aString)._asString());
 }, function($ctx1) {$ctx1.fill(self,",",{aString:aString},$globals.CharacterArray)});
 },
 args: ["aString"],
@@ -15278,9 +14824,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._fromString_($recv(self._asString())._asLowercase());
-return $1;
+return $recv(self._class())._fromString_($recv(self._asString())._asLowercase());
 }, function($ctx1) {$ctx1.fill(self,"asLowercase",{},$globals.CharacterArray)});
 },
 args: [],
@@ -15297,9 +14841,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._asString())._asNumber();
-return $1;
+return $recv(self._asString())._asNumber();
 }, function($ctx1) {$ctx1.fill(self,"asNumber",{},$globals.CharacterArray)});
 },
 args: [],
@@ -15316,9 +14858,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._subclassResponsibility();
-return $1;
+return self._subclassResponsibility();
 }, function($ctx1) {$ctx1.fill(self,"asString",{},$globals.CharacterArray)});
 },
 args: [],
@@ -15335,9 +14875,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._asString();
-return $1;
+return self._asString();
 }, function($ctx1) {$ctx1.fill(self,"asSymbol",{},$globals.CharacterArray)});
 },
 args: [],
@@ -15354,9 +14892,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._fromString_($recv(self._asString())._asUppercase());
-return $1;
+return $recv(self._class())._fromString_($recv(self._asString())._asUppercase());
 }, function($ctx1) {$ctx1.fill(self,"asUppercase",{},$globals.CharacterArray)});
 },
 args: [],
@@ -15557,12 +15093,15 @@ protocol: 'comparing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-return aString != null && String(self) === (typeof aString === "string" ? aString : aString.valueOf());
+
+	if (typeof aString === "string") return String(self) === aString;
+	else if (aString != null && typeof aString === "object") return String(self) === aString.valueOf();
+	else return false;;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"==",{aString:aString},$globals.String)});
 },
 args: ["aString"],
-source: "== aString\x0a<return aString != null && String(self) === (typeof aString === \x22string\x22 ? aString : aString.valueOf())>",
+source: "== aString\x0a<\x0a\x09if (typeof aString === \x22string\x22) return String(self) === aString;\x0a\x09else if (aString != null && typeof aString === \x22object\x22) return String(self) === aString.valueOf();\x0a\x09else return false;\x0a>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -15686,11 +15225,10 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv(self._last()).__eq(":");
 if(!$core.assert($1)){
-$2=self.__comma(":");
-return $2;
+return self.__comma(":");
 };
 return self;
 }, function($ctx1) {$ctx1.fill(self,"asMutator",{},$globals.String)});
@@ -15728,9 +15266,7 @@ fn: function (){
 var self=this;
 function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($RegularExpression())._fromString_(self);
-return $1;
+return $recv($RegularExpression())._fromString_(self);
 }, function($ctx1) {$ctx1.fill(self,"asRegexp",{},$globals.String)});
 },
 args: [],
@@ -15854,14 +15390,13 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._isEmpty();
-if($core.assert($2)){
-$1=self;
+var $1;
+$1=self._isEmpty();
+if($core.assert($1)){
+return self;
 } else {
-$1=$recv($recv(self._first())._asUppercase()).__comma(self._allButFirst());
+return $recv($recv(self._first())._asUppercase()).__comma(self._allButFirst());
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"capitalized",{},$globals.String)});
 },
 args: [],
@@ -15915,9 +15450,7 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._lines())._join_($recv($String())._lf());
-return $1;
+return $recv(self._lines())._join_($recv($String())._lf());
 }, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},$globals.String)});
 },
 args: [],
@@ -15934,9 +15467,7 @@ protocol: 'copying',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._shallowCopy();
-return $1;
+return self._shallowCopy();
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{},$globals.String)});
 },
 args: [],
@@ -15989,12 +15520,11 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=self._first();
+var $2,$1;
+$2=self._first();
 $ctx1.sendIdx["first"]=1;
-$2=$recv($3)._asUppercase();
-$1=$recv($2).__eq_eq(self._first());
-return $1;
+$1=$recv($2)._asUppercase();
+return $recv($1).__eq_eq(self._first());
 }, function($ctx1) {$ctx1.fill(self,"isCapitalized",{},$globals.String)});
 },
 args: [],
@@ -16043,13 +15573,11 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._size()).__eq((1)))._and_((function(){
+return $recv($recv(self._size()).__eq((1)))._and_((function(){
 return $core.withContext(function($ctx2) {
 return "aeiou"._includes_(self._asLowercase());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"isVowel",{},$globals.String)});
 },
 args: [],
@@ -16067,8 +15595,7 @@ fn: function (aCollection){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($String())._streamContents_((function(stream){
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 return $recv(aCollection)._do_separatedBy_((function(each){
 return $core.withContext(function($ctx3) {
@@ -16082,7 +15609,6 @@ return $recv(stream)._nextPutAll_(self);
 }));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"join:",{aCollection:aCollection},$globals.String)});
 },
 args: ["aCollection"],
@@ -16206,7 +15732,7 @@ fn: function (anIndex){
 var self=this;
 var lineCount;
 return $core.withContext(function($ctx1) {
-var $2,$1,$3;
+var $2,$1;
 var $early={};
 try {
 lineCount=(0);
@@ -16216,8 +15742,7 @@ lineCount=$recv(lineCount).__plus((1));
 $2=lineCount;
 $1=$recv($2).__eq(anIndex);
 if($core.assert($1)){
-$3=self._copyFrom_to_(start,endWithoutDelimiters);
-throw $early=[$3];
+throw $early=[self._copyFrom_to_(start,endWithoutDelimiters)];
 };
 }, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)});
 }));
@@ -16351,12 +15876,11 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_("'");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_(self);
 $ctx1.sendIdx["nextPutAll:"]=2;
-$1=$recv(aStream)._nextPutAll_("'");
+$recv(aStream)._nextPutAll_("'");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.String)});
 },
@@ -16375,9 +15899,7 @@ fn: function (aString,anotherString){
 var self=this;
 function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._replaceRegexp_with_($recv($RegularExpression())._fromString_flag_(aString,"g"),anotherString);
-return $1;
+return self._replaceRegexp_with_($recv($RegularExpression())._fromString_flag_(aString,"g"),anotherString);
 }, function($ctx1) {$ctx1.fill(self,"replace:with:",{aString:aString,anotherString:anotherString},$globals.String)});
 },
 args: ["aString", "anotherString"],
@@ -16464,9 +15986,7 @@ protocol: 'split join',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._tokenize_(aString);
-return $1;
+return self._tokenize_(aString);
 }, function($ctx1) {$ctx1.fill(self,"subStrings:",{aString:aString},$globals.String)});
 },
 args: ["aString"],
@@ -16501,9 +16021,7 @@ protocol: 'regular expressions',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._trimBoth_("\x5cs");
-return $1;
+return self._trimBoth_("\x5cs");
 }, function($ctx1) {$ctx1.fill(self,"trimBoth",{},$globals.String)});
 },
 args: [],
@@ -16520,9 +16038,7 @@ protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._trimLeft_(separators))._trimRight_(separators);
-return $1;
+return $recv(self._trimLeft_(separators))._trimRight_(separators);
 }, function($ctx1) {$ctx1.fill(self,"trimBoth:",{separators:separators},$globals.String)});
 },
 args: ["separators"],
@@ -16539,9 +16055,7 @@ protocol: 'regular expressions',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._trimLeft_("\x5cs");
-return $1;
+return self._trimLeft_("\x5cs");
 }, function($ctx1) {$ctx1.fill(self,"trimLeft",{},$globals.String)});
 },
 args: [],
@@ -16559,12 +16073,11 @@ fn: function (separators){
 var self=this;
 function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=$recv("^[".__comma(separators)).__comma("]+");
+var $2,$1;
+$2=$recv("^[".__comma(separators)).__comma("]+");
 $ctx1.sendIdx[","]=1;
-$2=$recv($RegularExpression())._fromString_flag_($3,"g");
-$1=self._replaceRegexp_with_($2,"");
-return $1;
+$1=$recv($RegularExpression())._fromString_flag_($2,"g");
+return self._replaceRegexp_with_($1,"");
 }, function($ctx1) {$ctx1.fill(self,"trimLeft:",{separators:separators},$globals.String)});
 },
 args: ["separators"],
@@ -16581,9 +16094,7 @@ protocol: 'regular expressions',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._trimRight_("\x5cs");
-return $1;
+return self._trimRight_("\x5cs");
 }, function($ctx1) {$ctx1.fill(self,"trimRight",{},$globals.String)});
 },
 args: [],
@@ -16601,12 +16112,11 @@ fn: function (separators){
 var self=this;
 function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=$recv("[".__comma(separators)).__comma("]+$");
+var $2,$1;
+$2=$recv("[".__comma(separators)).__comma("]+$");
 $ctx1.sendIdx[","]=1;
-$2=$recv($RegularExpression())._fromString_flag_($3,"g");
-$1=self._replaceRegexp_with_($2,"");
-return $1;
+$1=$recv($RegularExpression())._fromString_flag_($2,"g");
+return self._replaceRegexp_with_($1,"");
 }, function($ctx1) {$ctx1.fill(self,"trimRight:",{separators:separators},$globals.String)});
 },
 args: ["separators"],
@@ -16713,9 +16223,7 @@ protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anObject)._perform_(self);
-return $1;
+return $recv(anObject)._perform_(self);
 }, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},$globals.String)});
 },
 args: ["anObject"],
@@ -16769,9 +16277,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._fromCharCode_((27));
-return $1;
+return self._fromCharCode_((27));
 }, function($ctx1) {$ctx1.fill(self,"esc",{},$globals.String.klass)});
 },
 args: [],
@@ -16861,7 +16367,6 @@ fn: function (aString){
 var self=this;
 var result;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv((function(){
 return $core.withContext(function($ctx2) {
 result=self._random();
@@ -16869,8 +16374,7 @@ result;
 return $recv(aString)._includesSubString_(result);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }))._whileTrue();
-$1=result;
-return $1;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result},$globals.String.klass)});
 },
 args: ["aString"],
@@ -17005,10 +16509,10 @@ fn: function (anObject){
 var self=this;
 var bucket;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
+var $1,$receiver;
 bucket=self._bucketsOfElement_(anObject);
-$2=$recv(bucket)._second();
-if(($receiver = $2) == null || $receiver.isNil){
+$1=$recv(bucket)._second();
+if(($receiver = $1) == null || $receiver.isNil){
 var object,slowBucket;
 object=$recv(bucket)._first();
 $ctx1.sendIdx["first"]=1;
@@ -17022,13 +16526,12 @@ self["@size"]=$recv(self["@size"]).__plus((1));
 return self["@size"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-$1=object;
+return object;
 } else {
 var primitiveBucket;
 primitiveBucket=$receiver;
-$1=self._add_in_($recv(bucket)._first(),primitiveBucket);
+return self._add_in_($recv(bucket)._first(),primitiveBucket);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject,bucket:bucket},$globals.Set)});
 },
 args: ["anObject"],
@@ -17069,27 +16572,24 @@ fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
 
-		var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();
-		if ((type = typeof prim) === "object") {
-			if (anObject !== nil) {
-				bucket = null;
-				self['@slowBucketStores'].some(function (store) {
-					return bucket = store._bucketOfElement_(anObject);
-				});
-				return [ anObject, null, bucket || self['@defaultBucket'] ];
-			}
-			
-			// include nil to well-known objects under 'boolean' fastBucket
-			prim = null;
-			type = 'boolean';
+		// include nil to well-known objects under 'boolean' fastBucket
+		if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];
+		
+		var prim = anObject.valueOf();
+		if (typeof prim === "object" || typeof prim === "function" || !self['@fastBuckets'][typeof prim]) {
+			var bucket = null;
+			self['@slowBucketStores'].some(function (store) {
+				return bucket = store._bucketOfElement_(anObject);
+			});
+			return [ anObject, null, bucket || self['@defaultBucket'] ];
 		}
-		return [ prim, self['@fastBuckets'][type] ];
+		return [ prim, self['@fastBuckets'][typeof prim] ];
 	;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"bucketsOfElement:",{anObject:anObject},$globals.Set)});
 },
 args: ["anObject"],
-source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09var type, bucket, prim = anObject == null ? (anObject = nil) : anObject.valueOf();\x0a\x09\x09if ((type = typeof prim) === \x22object\x22) {\x0a\x09\x09\x09if (anObject !== nil) {\x0a\x09\x09\x09\x09bucket = null;\x0a\x09\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09\x09});\x0a\x09\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09\x09}\x0a\x09\x09\x09\x0a\x09\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09\x09prim = null;\x0a\x09\x09\x09type = 'boolean';\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][type] ];\x0a\x09>",
+source: "bucketsOfElement: anObject\x0a\x09\x22Find the appropriate bucket for `anObject`.\x0a\x09For optimization purposes, directly answer an array with: \x0a\x09- the object to be store\x0a\x09- the primitive bucket\x0a\x09- the slow bucket\x22\x0a\x09\x0a\x09<\x0a\x09\x09// include nil to well-known objects under 'boolean' fastBucket\x0a\x09\x09if (anObject == null || anObject.isNil) return [ null, self['@fastBuckets'].boolean ];\x0a\x09\x09\x0a\x09\x09var prim = anObject.valueOf();\x0a\x09\x09if (typeof prim === \x22object\x22 || typeof prim === \x22function\x22 || !self['@fastBuckets'][typeof prim]) {\x0a\x09\x09\x09var bucket = null;\x0a\x09\x09\x09self['@slowBucketStores'].some(function (store) {\x0a\x09\x09\x09\x09return bucket = store._bucketOfElement_(anObject);\x0a\x09\x09\x09});\x0a\x09\x09\x09return [ anObject, null, bucket || self['@defaultBucket'] ];\x0a\x09\x09}\x0a\x09\x09return [ prim, self['@fastBuckets'][typeof prim] ];\x0a\x09>",
 referencedClasses: [],
 messageSends: []
 }),
@@ -17121,15 +16621,13 @@ fn: function (aBlock){
 var self=this;
 var collection;
 return $core.withContext(function($ctx1) {
-var $1;
 collection=$recv(self._class())._new();
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(collection)._add_($recv(aBlock)._value_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=collection;
-return $1;
+return collection;
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,collection:collection},$globals.Set)});
 },
 args: ["aBlock"],
@@ -17146,7 +16644,7 @@ protocol: 'enumerating',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 var $early={};
 try {
 self._do_((function(each){
@@ -17157,8 +16655,7 @@ throw $early=[each];
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=$recv(anotherBlock)._value();
-return $2;
+return $recv(anotherBlock)._value();
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.Set)});
@@ -17208,20 +16705,19 @@ fn: function (anObject){
 var self=this;
 var bucket;
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$1,$receiver;
+var $1,$2,$3,$receiver;
 bucket=self._bucketsOfElement_(anObject);
-$2=$recv(bucket)._second();
-if(($receiver = $2) == null || $receiver.isNil){
-$3=$recv(bucket)._third();
-$4=$recv(bucket)._first();
+$1=$recv(bucket)._second();
+if(($receiver = $1) == null || $receiver.isNil){
+$2=$recv(bucket)._third();
+$3=$recv(bucket)._first();
 $ctx1.sendIdx["first"]=1;
-$1=$recv($3)._includes_($4);
+return $recv($2)._includes_($3);
 } else {
 var primitiveBucket;
 primitiveBucket=$receiver;
-$1=self._includes_in_($recv(bucket)._first(),primitiveBucket);
+return self._includes_in_($recv(bucket)._first(),primitiveBucket);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,bucket:bucket},$globals.Set)});
 },
 args: ["anObject"],
@@ -17256,14 +16752,13 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 (
-$ctx1.supercall = true, 
-$globals.Set.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Set.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@defaultBucket"]=[];
 self._initializeSlowBucketStores();
-$1=self._removeAll();
+self._removeAll();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Set)});
 },
@@ -17330,8 +16825,8 @@ fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Set.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.Set.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $ctx1.sendIdx["printOn:"]=1;
 $recv(aStream)._nextPutAll_(" (");
@@ -17365,29 +16860,27 @@ fn: function (anObject,aBlock){
 var self=this;
 var bucket;
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$5,$1,$receiver;
+var $1,$2,$3,$receiver;
 var $early={};
 try {
 bucket=self._bucketsOfElement_(anObject);
-$2=$recv(bucket)._second();
-if(($receiver = $2) == null || $receiver.isNil){
-$3=$recv(bucket)._third();
-$4=$recv(bucket)._first();
+$1=$recv(bucket)._second();
+if(($receiver = $1) == null || $receiver.isNil){
+$2=$recv(bucket)._third();
+$3=$recv(bucket)._first();
 $ctx1.sendIdx["first"]=1;
-$recv($3)._remove_ifAbsent_($4,(function(){
+$recv($2)._remove_ifAbsent_($3,(function(){
 return $core.withContext(function($ctx2) {
-$5=$recv(aBlock)._value();
-throw $early=[$5];
+throw $early=[$recv(aBlock)._value()];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
 self["@size"]=$recv(self["@size"]).__minus((1));
-$1=self["@size"];
+return self["@size"];
 } else {
 var primitiveBucket;
 primitiveBucket=$receiver;
-$1=self._remove_in_($recv(bucket)._first(),primitiveBucket);
+return self._remove_in_($recv(bucket)._first(),primitiveBucket);
 };
-return $1;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock,bucket:bucket},$globals.Set)});
@@ -17452,7 +16945,7 @@ fn: function (aBlock){
 var self=this;
 var collection;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 collection=$recv(self._class())._new();
 self._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -17462,8 +16955,7 @@ return $recv(collection)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=collection;
-return $2;
+return collection;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,collection:collection},$globals.Set)});
 },
 args: ["aBlock"],
@@ -17479,9 +16971,7 @@ selector: "size",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@size"];
-return $1;
+return self["@size"];
 
 },
 args: [],
@@ -17600,13 +17090,11 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._atStart())._and_((function(){
+return $recv(self._atStart())._and_((function(){
 return $core.withContext(function($ctx2) {
 return self._atEnd();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"isEmpty",{},$globals.ProtoStream)});
 },
 args: [],
@@ -17623,14 +17111,13 @@ protocol: 'reading',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._atEnd();
-if($core.assert($2)){
-$1=nil;
+var $1;
+$1=self._atEnd();
+if($core.assert($1)){
+return nil;
 } else {
-$1=self._subclassResponsibility();
+return self._subclassResponsibility();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"next",{},$globals.ProtoStream)});
 },
 args: [],
@@ -17723,14 +17210,13 @@ protocol: 'reading',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._atEnd();
-if($core.assert($2)){
-$1=nil;
+var $1;
+$1=self._atEnd();
+if($core.assert($1)){
+return nil;
 } else {
-$1=self._subclassResponsibility();
+return self._subclassResponsibility();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"peek",{},$globals.ProtoStream)});
 },
 args: [],
@@ -17838,13 +17324,11 @@ protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._setCollection_(aCollection);
-$recv($2)._setStreamSize_($recv(aCollection)._size());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._setCollection_(aCollection);
+$recv($1)._setStreamSize_($recv(aCollection)._size());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},$globals.ProtoStream.klass)});
 },
 args: ["aCollection"],
@@ -17864,9 +17348,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._position()).__eq(self._size());
-return $1;
+return $recv(self._position()).__eq(self._size());
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},$globals.Stream)});
 },
 args: [],
@@ -17883,9 +17365,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._position()).__eq((0));
-return $1;
+return $recv(self._position()).__eq((0));
 }, function($ctx1) {$ctx1.fill(self,"atStart",{},$globals.Stream)});
 },
 args: [],
@@ -17917,9 +17397,7 @@ selector: "collection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@collection"];
-return $1;
+return self["@collection"];
 
 },
 args: [],
@@ -17936,9 +17414,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._collection())._copyFrom_to_((1),self._streamSize());
-return $1;
+return $recv(self._collection())._copyFrom_to_((1),self._streamSize());
 }, function($ctx1) {$ctx1.fill(self,"contents",{},$globals.Stream)});
 },
 args: [],
@@ -17971,9 +17447,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._size()).__eq((0));
-return $1;
+return $recv(self._size()).__eq((0));
 }, function($ctx1) {$ctx1.fill(self,"isEmpty",{},$globals.Stream)});
 },
 args: [],
@@ -17990,18 +17464,17 @@ protocol: 'reading',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$4,$3,$1;
-$2=self._atEnd();
-if($core.assert($2)){
-$1=nil;
+var $1,$3,$2;
+$1=self._atEnd();
+if($core.assert($1)){
+return nil;
 } else {
-$4=self._position();
+$3=self._position();
 $ctx1.sendIdx["position"]=1;
-$3=$recv($4).__plus((1));
-self._position_($3);
-$1=$recv(self["@collection"])._at_(self._position());
+$2=$recv($3).__plus((1));
+self._position_($2);
+return $recv(self["@collection"])._at_(self._position());
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"next",{},$globals.Stream)});
 },
 args: [],
@@ -18019,7 +17492,7 @@ fn: function (anInteger){
 var self=this;
 var tempCollection;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 tempCollection=$recv($recv(self._collection())._class())._new();
 $recv(anInteger)._timesRepeat_((function(){
 return $core.withContext(function($ctx2) {
@@ -18029,8 +17502,7 @@ return $recv(tempCollection)._add_(self._next());
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$2=tempCollection;
-return $2;
+return tempCollection;
 }, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},$globals.Stream)});
 },
 args: ["anInteger"],
@@ -18074,12 +17546,11 @@ protocol: 'reading',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._atEnd();
-if(!$core.assert($2)){
-$1=$recv(self._collection())._at_($recv(self._position()).__plus((1)));
+var $1;
+$1=self._atEnd();
+if(!$core.assert($1)){
+return $recv(self._collection())._at_($recv(self._position()).__plus((1)));
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"peek",{},$globals.Stream)});
 },
 args: [],
@@ -18096,15 +17567,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@position"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@position"]=(0);
+var $1,$receiver;
 $1=self["@position"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@position"]=(0);
+return self["@position"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"position",{},$globals.Stream)});
 },
 args: [],
@@ -18227,9 +17697,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._streamSize();
-return $1;
+return self._streamSize();
 }, function($ctx1) {$ctx1.fill(self,"size",{},$globals.Stream)});
 },
 args: [],
@@ -18263,9 +17731,7 @@ selector: "streamSize",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@streamSize"];
-return $1;
+return self["@streamSize"];
 
 },
 args: [],
@@ -18283,13 +17749,11 @@ protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._setCollection_(aCollection);
-$recv($2)._setStreamSize_($recv(aCollection)._size());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._setCollection_(aCollection);
+$recv($1)._setStreamSize_($recv(aCollection)._size());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},$globals.Stream.klass)});
 },
 args: ["aCollection"],
@@ -18310,9 +17774,7 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._nextPutAll_($recv($String())._cr());
-return $1;
+return self._nextPutAll_($recv($String())._cr());
 }, function($ctx1) {$ctx1.fill(self,"cr",{},$globals.StringStream)});
 },
 args: [],
@@ -18330,9 +17792,7 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._nextPutAll_($recv($String())._crlf());
-return $1;
+return self._nextPutAll_($recv($String())._crlf());
 }, function($ctx1) {$ctx1.fill(self,"crlf",{},$globals.StringStream)});
 },
 args: [],
@@ -18350,9 +17810,7 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._nextPutAll_($recv($String())._lf());
-return $1;
+return self._nextPutAll_($recv($String())._lf());
 }, function($ctx1) {$ctx1.fill(self,"lf",{},$globals.StringStream)});
 },
 args: [],
@@ -18370,7 +17828,7 @@ fn: function (anInteger){
 var self=this;
 var tempCollection;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 tempCollection=$recv($recv(self._collection())._class())._new();
 $recv(anInteger)._timesRepeat_((function(){
 return $core.withContext(function($ctx2) {
@@ -18381,8 +17839,7 @@ return tempCollection;
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$2=tempCollection;
-return $2;
+return tempCollection;
 }, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},$globals.StringStream)});
 },
 args: ["anInteger"],
@@ -18512,9 +17969,7 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._nextPutAll_($recv($String())._tab());
-return $1;
+return self._nextPutAll_($recv($String())._tab());
 }, function($ctx1) {$ctx1.fill(self,"tab",{},$globals.StringStream)});
 },
 args: [],
@@ -18537,8 +17992,8 @@ var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Queue.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Queue.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@read"]=$recv($OrderedCollection())._new();
 $ctx1.sendIdx["new"]=1;
@@ -18561,13 +18016,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._nextIfAbsent_((function(){
+return self._nextIfAbsent_((function(){
 return $core.withContext(function($ctx2) {
 return self._error_("Cannot read from empty Queue.");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"next",{},$globals.Queue)});
 },
 args: [],
@@ -18586,7 +18039,7 @@ var self=this;
 var result;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2;
 var $early={};
 try {
 result=$recv(self["@read"])._at_ifAbsent_(self["@readIndex"],(function(){
@@ -18600,8 +18053,7 @@ self["@read"];
 self["@readIndex"]=(1);
 self["@readIndex"];
 };
-$3=$recv(aBlock)._value();
-throw $early=[$3];
+throw $early=[$recv(aBlock)._value()];
 };
 self["@read"]=self["@write"];
 self["@read"];
@@ -18614,8 +18066,7 @@ return $recv(self["@read"])._first();
 }));
 $recv(self["@read"])._at_put_(self["@readIndex"],nil);
 self["@readIndex"]=$recv(self["@readIndex"]).__plus((1));
-$4=result;
-return $4;
+return result;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextIfAbsent:",{aBlock:aBlock,result:result},$globals.Queue)});
@@ -18711,9 +18162,7 @@ protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._fromString_flag_(aString,"");
-return $1;
+return self._fromString_flag_(aString,"");
 }, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},$globals.RegularExpression.klass)});
 },
 args: ["aString"],
@@ -18865,9 +18314,7 @@ selector: "messageText",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@messageText"];
-return $1;
+return self["@messageText"];
 
 },
 args: [],
@@ -18964,9 +18411,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._signalerContextFrom_(self._context());
-return $1;
+return self._signalerContextFrom_(self._context());
 }, function($ctx1) {$ctx1.fill(self,"signalerContext",{},$globals.Error)});
 },
 args: [],
@@ -18983,22 +18428,21 @@ protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $4,$3,$2,$1;
-$1=$recv(aContext)._findContextSuchThat_((function(context){
+var $3,$2,$1;
+return $recv(aContext)._findContextSuchThat_((function(context){
 return $core.withContext(function($ctx2) {
-$4=$recv(context)._receiver();
+$3=$recv(context)._receiver();
 $ctx2.sendIdx["receiver"]=1;
-$3=$recv($4).__eq_eq(self);
+$2=$recv($3).__eq_eq(self);
 $ctx2.sendIdx["=="]=1;
-$2=$recv($3)._or_((function(){
+$1=$recv($2)._or_((function(){
 return $core.withContext(function($ctx3) {
 return $recv($recv(context)._receiver()).__eq_eq(self._class());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 }));
-return $recv($2)._not();
+return $recv($1)._not();
 }, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Error)});
 },
 args: ["aContext"],
@@ -19050,9 +18494,7 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._new())._signal();
-return $1;
+return $recv(self._new())._signal();
 }, function($ctx1) {$ctx1.fill(self,"signal",{},$globals.Error.klass)});
 },
 args: [],
@@ -19069,9 +18511,7 @@ protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._new())._signal_(aString);
-return $1;
+return $recv(self._new())._signal_(aString);
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},$globals.Error.klass)});
 },
 args: ["aString"],
@@ -19107,14 +18547,14 @@ protocol: 'accessing',
 fn: function (aContext){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $4,$3,$2,$1;
-$1=$recv(aContext)._findContextSuchThat_((function(context){
+var $3,$2,$1;
+return $recv(aContext)._findContextSuchThat_((function(context){
 return $core.withContext(function($ctx2) {
-$4=$recv(context)._receiver();
+$3=$recv(context)._receiver();
 $ctx2.sendIdx["receiver"]=1;
-$3=$recv($4).__eq_eq(self);
+$2=$recv($3).__eq_eq(self);
 $ctx2.sendIdx["=="]=1;
-$2=$recv($3)._or_((function(){
+$1=$recv($2)._or_((function(){
 return $core.withContext(function($ctx3) {
 return $recv($recv($recv(context)._receiver()).__eq_eq(self._class()))._or_((function(){
 return $core.withContext(function($ctx4) {
@@ -19124,10 +18564,9 @@ return $recv($recv($recv(context)._method())._selector()).__eq("halt");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 }));
 $ctx2.sendIdx["or:"]=1;
-return $recv($2)._not();
+return $recv($1)._not();
 }, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"signalerContextFrom:",{aContext:aContext},$globals.Halt)});
 },
 args: ["aContext"],
@@ -19165,9 +18604,7 @@ selector: "exception",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@exception"];
-return $1;
+return self["@exception"];
 
 },
 args: [],
@@ -19220,12 +18657,10 @@ protocol: 'instance creation',
 fn: function (anException){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._exception_(anException);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._exception_(anException);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{anException:anException},$globals.JavaScriptException.klass)});
 },
 args: ["anException"],
@@ -19242,13 +18677,11 @@ protocol: 'instance creation',
 fn: function (anException,aMethodContext){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._exception_(anException);
-$recv($2)._context_(aMethodContext);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._exception_(anException);
+$recv($1)._context_(aMethodContext);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:context:",{anException:anException,aMethodContext:aMethodContext},$globals.JavaScriptException.klass)});
 },
 args: ["anException", "aMethodContext"],
@@ -19267,9 +18700,7 @@ selector: "message",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@message"];
-return $1;
+return self["@message"];
 
 },
 args: [],
@@ -19322,9 +18753,7 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
+return self["@receiver"];
 
 },
 args: [],
@@ -19361,9 +18790,7 @@ selector: "object",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@object"];
-return $1;
+return self["@object"];
 
 },
 args: [],
@@ -19409,15 +18836,14 @@ fn: function (anObject){
 var self=this;
 function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$3;
+var $2,$1;
 $2=$recv(anObject)._class();
 $ctx1.sendIdx["class"]=1;
 $1=$recv($2).__eq_eq(self._class());
 if(!$core.assert($1)){
 return false;
 };
-$3=$recv($JSObjectProxy())._compareJSObjectOfProxy_withProxy_(self,anObject);
-return $3;
+return $recv($JSObjectProxy())._compareJSObjectOfProxy_withProxy_(self,anObject);
 }, function($ctx1) {$ctx1.fill(self,"=",{anObject:anObject},$globals.JSObjectProxy)});
 },
 args: ["anObject"],
@@ -19433,9 +18859,7 @@ selector: "asJSON",
 protocol: 'enumerating',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@jsObject"];
-return $1;
+return self["@jsObject"];
 
 },
 args: [],
@@ -19552,19 +18976,18 @@ fn: function (aMessage){
 var self=this;
 function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=$recv($JSObjectProxy())._lookupProperty_ofProxy_($recv($recv(aMessage)._selector())._asJavaScriptPropertyName(),self);
-if(($receiver = $2) == null || $receiver.isNil){
-$1=(
-$ctx1.supercall = true, 
-$globals.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply($recv(self), [aMessage]));
+var $1,$receiver;
+$1=$recv($JSObjectProxy())._lookupProperty_ofProxy_($recv($recv(aMessage)._selector())._asJavaScriptPropertyName(),self);
+if(($receiver = $1) == null || $receiver.isNil){
+return (
+$ctx1.supercall = true,
+($globals.JSObjectProxy.superclass||$boot.dnu).fn.prototype._doesNotUnderstand_.apply($recv(self), [aMessage]));
 $ctx1.supercall = false;
 } else {
 var jsSelector;
 jsSelector=$receiver;
-$1=$recv($JSObjectProxy())._forwardMessage_withArguments_ofProxy_(jsSelector,$recv(aMessage)._arguments(),self);
+return $recv($JSObjectProxy())._forwardMessage_withArguments_ofProxy_(jsSelector,$recv(aMessage)._arguments(),self);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},$globals.JSObjectProxy)});
 },
 args: ["aMessage"],
@@ -19581,9 +19004,7 @@ protocol: 'accessing',
 fn: function (aValuable){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aValuable)._value_(self["@jsObject"]);
-return $1;
+return $recv(aValuable)._value_(self["@jsObject"]);
 }, function($ctx1) {$ctx1.fill(self,"in:",{aValuable:aValuable},$globals.JSObjectProxy)});
 },
 args: ["aValuable"],
@@ -19599,9 +19020,7 @@ selector: "jsObject",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@jsObject"];
-return $1;
+return self["@jsObject"];
 
 },
 args: [],
@@ -19801,11 +19220,9 @@ fn: function (aJSObject){
 var self=this;
 var instance;
 return $core.withContext(function($ctx1) {
-var $1;
 instance=self._new();
 self._jsObject_ofProxy_(aJSObject,instance);
-$1=instance;
-return $1;
+return instance;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject,instance:instance},$globals.JSObjectProxy.klass)});
 },
 args: ["aJSObject"],
@@ -19843,9 +19260,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._basicAt_("elements"))._copy();
-return $1;
+return $recv(self._basicAt_("elements"))._copy();
 }, function($ctx1) {$ctx1.fill(self,"elements",{},$globals.Organizer)});
 },
 args: [],
@@ -19886,16 +19301,17 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ProtocolAdded(){return $globals.ProtocolAdded||(typeof ProtocolAdded=="undefined"?nil:ProtocolAdded)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 (
-$ctx1.supercall = true, 
-$globals.ClassOrganizer.superclass.fn.prototype._addElement_.apply($recv(self), [aString]));
+$ctx1.supercall = true,
+($globals.ClassOrganizer.superclass||$boot.dnu).fn.prototype._addElement_.apply($recv(self), [aString]));
 $ctx1.supercall = false;
-$1=$recv($ProtocolAdded())._new();
-$recv($1)._protocol_(aString);
-$recv($1)._theClass_(self._theClass());
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($ProtocolAdded())._new();
+$recv($3)._protocol_(aString);
+$recv($3)._theClass_(self._theClass());
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString},$globals.ClassOrganizer)});
 },
@@ -19915,16 +19331,17 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ProtocolRemoved(){return $globals.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 (
-$ctx1.supercall = true, 
-$globals.ClassOrganizer.superclass.fn.prototype._removeElement_.apply($recv(self), [aString]));
+$ctx1.supercall = true,
+($globals.ClassOrganizer.superclass||$boot.dnu).fn.prototype._removeElement_.apply($recv(self), [aString]));
 $ctx1.supercall = false;
-$1=$recv($ProtocolRemoved())._new();
-$recv($1)._protocol_(aString);
-$recv($1)._theClass_(self._theClass());
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($ProtocolRemoved())._new();
+$recv($3)._protocol_(aString);
+$recv($3)._theClass_(self._theClass());
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString},$globals.ClassOrganizer)});
 },
@@ -20024,12 +19441,13 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $PackageClean(){return $globals.PackageClean||(typeof PackageClean=="undefined"?nil:PackageClean)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 self["@dirty"]=false;
-$1=$recv($PackageClean())._new();
-$recv($1)._package_(self);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($PackageClean())._new();
+$recv($3)._package_(self);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"beClean",{},$globals.Package)});
 },
@@ -20049,12 +19467,13 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $PackageDirty(){return $globals.PackageDirty||(typeof PackageDirty=="undefined"?nil:PackageDirty)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1,$3,$2;
 self["@dirty"]=true;
-$1=$recv($PackageDirty())._new();
-$recv($1)._package_(self);
-$2=$recv($1)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($2);
+$1=$recv($SystemAnnouncer())._current();
+$3=$recv($PackageDirty())._new();
+$recv($3)._package_(self);
+$2=$recv($3)._yourself();
+$recv($1)._announce_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"beDirty",{},$globals.Package)});
 },
@@ -20073,37 +19492,35 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $3,$4,$2,$5,$6,$7,$1;
-$1=$recv($String())._streamContents_((function(stream){
+var $2,$3,$1,$4,$5;
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 $recv(stream)._nextPutAll_("Object");
 $ctx2.sendIdx["nextPutAll:"]=1;
 $recv(stream)._nextPutAll_(" subclass: #NameOfSubclass");
 $ctx2.sendIdx["nextPutAll:"]=2;
-$3=$recv($String())._lf();
+$2=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=1;
-$4=$recv($String())._tab();
+$3=$recv($String())._tab();
 $ctx2.sendIdx["tab"]=1;
-$2=$recv($3).__comma($4);
+$1=$recv($2).__comma($3);
 $ctx2.sendIdx[","]=1;
-$recv(stream)._nextPutAll_($2);
+$recv(stream)._nextPutAll_($1);
 $ctx2.sendIdx["nextPutAll:"]=3;
-$5=$recv(stream)._nextPutAll_("instanceVariableNames: ''");
+$4=$recv(stream)._nextPutAll_("instanceVariableNames: ''");
 $ctx2.sendIdx["nextPutAll:"]=4;
-$5;
-$6=$recv("'".__comma($recv($String())._lf())).__comma($recv($String())._tab());
+$4;
+$5=$recv("'".__comma($recv($String())._lf())).__comma($recv($String())._tab());
 $ctx2.sendIdx[","]=2;
-$recv(stream)._nextPutAll_($6);
+$recv(stream)._nextPutAll_($5);
 $ctx2.sendIdx["nextPutAll:"]=5;
 $recv(stream)._nextPutAll_("package: '");
 $ctx2.sendIdx["nextPutAll:"]=6;
 $recv(stream)._nextPutAll_(self._name());
 $ctx2.sendIdx["nextPutAll:"]=7;
-$7=$recv(stream)._nextPutAll_("'");
-return $7;
+return $recv(stream)._nextPutAll_("'");
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"classTemplate",{},$globals.Package)});
 },
 args: [],
@@ -20120,9 +19537,7 @@ protocol: 'classes',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._organization())._elements();
-return $1;
+return $recv(self._organization())._elements();
 }, function($ctx1) {$ctx1.fill(self,"classes",{},$globals.Package)});
 },
 args: [],
@@ -20140,52 +19555,50 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $2,$4,$5,$3,$7,$6,$9,$10,$8,$11,$12,$1;
-$1=$recv($String())._streamContents_((function(stream){
+var $1,$3,$4,$2,$6,$5,$8,$9,$7,$10;
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
-$2=$recv(self._class())._name();
+$1=$recv(self._class())._name();
 $ctx2.sendIdx["name"]=1;
-$recv(stream)._nextPutAll_($2);
+$recv(stream)._nextPutAll_($1);
 $ctx2.sendIdx["nextPutAll:"]=1;
-$4=$recv($String())._lf();
+$3=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=1;
-$5=$recv($String())._tab();
+$4=$recv($String())._tab();
 $ctx2.sendIdx["tab"]=1;
-$3=$recv($4).__comma($5);
+$2=$recv($3).__comma($4);
 $ctx2.sendIdx[","]=1;
-$recv(stream)._nextPutAll_($3);
+$recv(stream)._nextPutAll_($2);
 $ctx2.sendIdx["nextPutAll:"]=2;
 $recv(stream)._nextPutAll_("named: ");
 $ctx2.sendIdx["nextPutAll:"]=3;
-$7="'".__comma(self._name());
+$6="'".__comma(self._name());
 $ctx2.sendIdx[","]=3;
-$6=$recv($7).__comma("'");
+$5=$recv($6).__comma("'");
 $ctx2.sendIdx[","]=2;
-$recv(stream)._nextPutAll_($6);
+$recv(stream)._nextPutAll_($5);
 $ctx2.sendIdx["nextPutAll:"]=4;
-$9=$recv($String())._lf();
+$8=$recv($String())._lf();
 $ctx2.sendIdx["lf"]=2;
-$10=$recv($String())._tab();
+$9=$recv($String())._tab();
 $ctx2.sendIdx["tab"]=2;
-$8=$recv($9).__comma($10);
+$7=$recv($8).__comma($9);
 $ctx2.sendIdx[","]=4;
-$recv(stream)._nextPutAll_($8);
+$recv(stream)._nextPutAll_($7);
 $ctx2.sendIdx["nextPutAll:"]=5;
 $recv(stream)._nextPutAll_("imports: ");
 $ctx2.sendIdx["nextPutAll:"]=6;
 $recv(stream)._nextPutAll_(self._importsDefinition());
 $ctx2.sendIdx["nextPutAll:"]=7;
-$11=$recv($recv($String())._lf()).__comma($recv($String())._tab());
+$10=$recv($recv($String())._lf()).__comma($recv($String())._tab());
 $ctx2.sendIdx[","]=5;
-$recv(stream)._nextPutAll_($11);
+$recv(stream)._nextPutAll_($10);
 $ctx2.sendIdx["nextPutAll:"]=8;
 $recv(stream)._nextPutAll_("transport: (");
 $ctx2.sendIdx["nextPutAll:"]=9;
-$12=$recv(stream)._nextPutAll_($recv($recv(self._transport())._definition()).__comma(")"));
-return $12;
+return $recv(stream)._nextPutAll_($recv($recv(self._transport())._definition()).__comma(")"));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},$globals.Package)});
 },
 args: [],
@@ -20202,18 +19615,17 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@imports"];
-if(($receiver = $2) == null || $receiver.isNil){
+var $1,$receiver;
+$1=self["@imports"];
+if(($receiver = $1) == null || $receiver.isNil){
 var parsed;
 parsed=self._importsFromJson_(self._basicImports());
 parsed;
 self._imports_(parsed);
-$1=self["@imports"];
+return self["@imports"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"imports",{},$globals.Package)});
 },
 args: [],
@@ -20249,11 +19661,11 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv(self._sortedImportsAsArray())._collect_((function(each){
+var $1;
+return $recv(self._sortedImportsAsArray())._collect_((function(each){
 return $core.withContext(function($ctx2) {
-$2=$recv(each)._isString();
-if($core.assert($2)){
+$1=$recv(each)._isString();
+if($core.assert($1)){
 return each;
 } else {
 return $recv($recv($recv(each)._key()).__comma("=")).__comma($recv(each)._value());
@@ -20261,7 +19673,6 @@ $ctx2.sendIdx[","]=1;
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"importsAsJson",{},$globals.Package)});
 },
 args: [],
@@ -20279,8 +19690,7 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($String())._streamContents_((function(stream){
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 $recv(stream)._nextPutAll_("{");
 $ctx2.sendIdx["nextPutAll:"]=1;
@@ -20298,7 +19708,6 @@ $ctx3.sendIdx["nextPutAll:"]=3;
 return $recv(stream)._nextPutAll_("}");
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"importsDefinition",{},$globals.Package)});
 },
 args: [],
@@ -20315,14 +19724,14 @@ protocol: 'converting',
 fn: function (anArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv(anArray)._collect_((function(each){
+var $1;
+return $recv(anArray)._collect_((function(each){
 var split;
 return $core.withContext(function($ctx2) {
 split=$recv(each)._tokenize_("=");
 split;
-$2=$recv($recv(split)._size()).__eq((1));
-if($core.assert($2)){
+$1=$recv($recv(split)._size()).__eq((1));
+if($core.assert($1)){
 return $recv(split)._first();
 $ctx2.sendIdx["first"]=1;
 } else {
@@ -20330,7 +19739,6 @@ return $recv($recv(split)._first()).__minus_gt($recv(split)._second());
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each,split:split},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"importsFromJson:",{anArray:anArray},$globals.Package)});
 },
 args: ["anArray"],
@@ -20347,14 +19755,13 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@dirty"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@dirty"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"isDirty",{},$globals.Package)});
 },
 args: [],
@@ -20388,19 +19795,17 @@ fn: function (){
 var self=this;
 var classes,packages;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
+var $1;
 classes=self._loadDependencyClasses();
-$2=$recv($recv(classes)._collect_((function(each){
+$1=$recv($recv(classes)._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._package();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 })))._asSet();
-$recv($2)._remove_ifAbsent_(self,(function(){
+$recv($1)._remove_ifAbsent_(self,(function(){
 
 }));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"loadDependencies",{classes:classes,packages:packages},$globals.Package)});
 },
 args: [],
@@ -20419,31 +19824,29 @@ var self=this;
 var starCategoryName;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $4,$3,$2,$6,$5,$7,$1;
+var $3,$2,$1,$5,$4;
 starCategoryName="*".__comma(self._name());
 $ctx1.sendIdx[","]=1;
-$4=self._classes();
+$3=self._classes();
 $ctx1.sendIdx["classes"]=1;
-$3=$recv($4)._collect_((function(each){
+$2=$recv($3)._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._superclass();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=$recv($3)._asSet();
-$recv($2)._remove_ifAbsent_(nil,(function(){
+$1=$recv($2)._asSet();
+$recv($1)._remove_ifAbsent_(nil,(function(){
 
 }));
-$recv($2)._addAll_($recv($recv($Smalltalk())._classes())._select_((function(each){
+$recv($1)._addAll_($recv($recv($Smalltalk())._classes())._select_((function(each){
 return $core.withContext(function($ctx2) {
-$6=$recv(each)._protocols();
+$5=$recv(each)._protocols();
 $ctx2.sendIdx["protocols"]=1;
-$5=$recv($6).__comma($recv($recv(each)._class())._protocols());
-return $recv($5)._includes_(starCategoryName);
+$4=$recv($5).__comma($recv($recv(each)._class())._protocols());
+return $recv($4)._includes_(starCategoryName);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 })));
-$7=$recv($2)._yourself();
-$1=$7;
-return $1;
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},$globals.Package)});
 },
 args: [],
@@ -20497,9 +19900,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._basicAt_("organization");
-return $1;
+return self._basicAt_("organization");
 }, function($ctx1) {$ctx1.fill(self,"organization",{},$globals.Package)});
 },
 args: [],
@@ -20516,16 +19917,15 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 (
-$ctx1.supercall = true, 
-$globals.Package.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.Package.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $recv(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_(self._name());
 $ctx1.sendIdx["nextPutAll:"]=2;
-$1=$recv(aStream)._nextPutAll_(")");
+$recv(aStream)._nextPutAll_(")");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.Package)});
 },
@@ -20544,7 +19944,7 @@ fn: function (){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self._classes();
 $recv($1)._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -20552,7 +19952,7 @@ return $recv($recv($ClassBuilder())._new())._setupClass_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $ctx1.sendIdx["do:"]=1;
-$2=$recv($1)._do_((function(each){
+$recv($1)._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._initialize();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
@@ -20574,9 +19974,7 @@ protocol: 'classes',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._sortedClasses_(self._classes());
-return $1;
+return $recv(self._class())._sortedClasses_(self._classes());
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses",{},$globals.Package)});
 },
 args: [],
@@ -20593,32 +19991,31 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $4,$3,$5,$2,$7,$6,$8,$1;
-$1=$recv($recv(self._imports())._asArray())._sorted_((function(a,b){
+var $3,$2,$4,$1,$6,$5,$7;
+return $recv($recv(self._imports())._asArray())._sorted_((function(a,b){
 return $core.withContext(function($ctx2) {
-$4=$recv(a)._isString();
+$3=$recv(a)._isString();
 $ctx2.sendIdx["isString"]=1;
-$3=$recv($4)._not();
-$5=$recv(b)._isString();
+$2=$recv($3)._not();
+$4=$recv(b)._isString();
 $ctx2.sendIdx["isString"]=2;
-$2=$recv($3).__and($5);
-return $recv($2)._or_((function(){
+$1=$recv($2).__and($4);
+return $recv($1)._or_((function(){
 return $core.withContext(function($ctx3) {
-$7=$recv(a)._isString();
+$6=$recv(a)._isString();
 $ctx3.sendIdx["isString"]=3;
-$6=$recv($7).__eq($recv(b)._isString());
-return $recv($6)._and_((function(){
+$5=$recv($6).__eq($recv(b)._isString());
+return $recv($5)._and_((function(){
 return $core.withContext(function($ctx4) {
-$8=$recv(a)._value();
+$7=$recv(a)._value();
 $ctx4.sendIdx["value"]=1;
-return $recv($8).__lt_eq($recv(b)._value());
+return $recv($7).__lt_eq($recv(b)._value());
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)});
 }));
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 }));
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"sortedImportsAsArray",{},$globals.Package)});
 },
 args: [],
@@ -20636,18 +20033,16 @@ fn: function (){
 var self=this;
 function $PackageTransport(){return $globals.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$1,$receiver;
-$2=self["@transport"];
-if(($receiver = $2) == null || $receiver.isNil){
-$3=$recv($PackageTransport())._fromJson_(self._basicTransport());
-$recv($3)._package_(self);
-$4=$recv($3)._yourself();
-self["@transport"]=$4;
+var $1,$2,$receiver;
 $1=self["@transport"];
+if(($receiver = $1) == null || $receiver.isNil){
+$2=$recv($PackageTransport())._fromJson_(self._basicTransport());
+$recv($2)._package_(self);
+self["@transport"]=$recv($2)._yourself();
+return self["@transport"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"transport",{},$globals.Package)});
 },
 args: [],
@@ -20730,13 +20125,11 @@ fn: function (aPackageName){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._packageAt_ifAbsent_(aPackageName,(function(){
+return $recv($Smalltalk())._packageAt_ifAbsent_(aPackageName,(function(){
 return $core.withContext(function($ctx2) {
 return $recv($Smalltalk())._createPackage_(aPackageName);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"named:",{aPackageName:aPackageName},$globals.Package.klass)});
 },
 args: ["aPackageName"],
@@ -20754,9 +20147,7 @@ fn: function (aPackageName,aBlock){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._packageAt_ifAbsent_(aPackageName,aBlock);
-return $1;
+return $recv($Smalltalk())._packageAt_ifAbsent_(aPackageName,aBlock);
 }, function($ctx1) {$ctx1.fill(self,"named:ifAbsent:",{aPackageName:aPackageName,aBlock:aBlock},$globals.Package.klass)});
 },
 args: ["aPackageName", "aBlock"],
@@ -20774,12 +20165,10 @@ fn: function (aPackageName,anArray,aTransport){
 var self=this;
 var package_;
 return $core.withContext(function($ctx1) {
-var $1;
 package_=self._named_(aPackageName);
 $recv(package_)._imports_(anArray);
 $recv(package_)._transport_(aTransport);
-$1=package_;
-return $1;
+return package_;
 }, function($ctx1) {$ctx1.fill(self,"named:imports:transport:",{aPackageName:aPackageName,anArray:anArray,aTransport:aTransport,package_:package_},$globals.Package.klass)});
 },
 args: ["aPackageName", "anArray", "aTransport"],
@@ -20797,11 +20186,9 @@ fn: function (aPackageName,aTransport){
 var self=this;
 var package_;
 return $core.withContext(function($ctx1) {
-var $1;
 package_=self._named_(aPackageName);
 $recv(package_)._transport_(aTransport);
-$1=package_;
-return $1;
+return package_;
 }, function($ctx1) {$ctx1.fill(self,"named:transport:",{aPackageName:aPackageName,aTransport:aTransport,package_:package_},$globals.Package.klass)});
 },
 args: ["aPackageName", "aTransport"],
@@ -20821,7 +20208,7 @@ var children,others,nodes,expandedClasses;
 function $ClassSorterNode(){return $globals.ClassSorterNode||(typeof ClassSorterNode=="undefined"?nil:ClassSorterNode)}
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4;
+var $1,$3,$2;
 children=[];
 others=[];
 $recv(classes)._do_((function(each){
@@ -20856,8 +20243,7 @@ return $core.withContext(function($ctx2) {
 return $recv(aNode)._traverseClassesWith_(expandedClasses);
 }, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1,6)});
 }));
-$4=expandedClasses;
-return $4;
+return expandedClasses;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses:",{classes:classes,children:children,others:others,nodes:nodes,expandedClasses:expandedClasses},$globals.Package.klass)});
 },
 args: ["classes"],
@@ -20878,9 +20264,7 @@ fn: function (){
 var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($SystemAnnouncer())._current();
-return $1;
+return $recv($SystemAnnouncer())._current();
 }, function($ctx1) {$ctx1.fill(self,"announcer",{},$globals.PackageStateObserver)});
 },
 args: [],
@@ -20901,7 +20285,7 @@ function $ClassAnnouncement(){return $globals.ClassAnnouncement||(typeof ClassAn
 function $MethodAnnouncement(){return $globals.MethodAnnouncement||(typeof MethodAnnouncement=="undefined"?nil:MethodAnnouncement)}
 function $ProtocolAnnouncement(){return $globals.ProtocolAnnouncement||(typeof ProtocolAnnouncement=="undefined"?nil:ProtocolAnnouncement)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self._announcer();
 $recv($1)._on_send_to_($PackageAdded(),"onPackageAdded:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
@@ -20909,7 +20293,7 @@ $recv($1)._on_send_to_($ClassAnnouncement(),"onClassModification:",self);
 $ctx1.sendIdx["on:send:to:"]=2;
 $recv($1)._on_send_to_($MethodAnnouncement(),"onMethodModification:",self);
 $ctx1.sendIdx["on:send:to:"]=3;
-$2=$recv($1)._on_send_to_($ProtocolAnnouncement(),"onProtocolModification:",self);
+$recv($1)._on_send_to_($ProtocolAnnouncement(),"onProtocolModification:",self);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"observeSystem",{},$globals.PackageStateObserver)});
 },
@@ -21025,15 +20409,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@current"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=self._new();
+var $1,$receiver;
 $1=self["@current"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@current"]=self._new();
+return self["@current"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"current",{},$globals.PackageStateObserver.klass)});
 },
 args: [],
@@ -21114,9 +20497,7 @@ selector: "defaultValue",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@defaultValue"];
-return $1;
+return self["@defaultValue"];
 
 },
 args: [],
@@ -21149,9 +20530,7 @@ selector: "key",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@key"];
-return $1;
+return self["@key"];
 
 },
 args: [],
@@ -21186,13 +20565,11 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Smalltalk())._settings())._at_ifAbsent_(self._key(),(function(){
+return $recv($recv($Smalltalk())._settings())._at_ifAbsent_(self._key(),(function(){
 return $core.withContext(function($ctx2) {
 return self._defaultValue();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},$globals.Setting)});
 },
 args: [],
@@ -21210,9 +20587,7 @@ fn: function (aStringifiableObject){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Smalltalk())._settings())._at_put_(self._key(),aStringifiableObject);
-return $1;
+return $recv($recv($Smalltalk())._settings())._at_put_(self._key(),aStringifiableObject);
 }, function($ctx1) {$ctx1.fill(self,"value:",{aStringifiableObject:aStringifiableObject},$globals.Setting)});
 },
 args: ["aStringifiableObject"],
@@ -21230,16 +20605,14 @@ protocol: 'instance creation',
 fn: function (aString,aDefaultValue){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=(
-$ctx1.supercall = true, 
-$globals.Setting.klass.superclass.fn.prototype._new.apply($recv(self), []));
+var $1;
+$1=(
+$ctx1.supercall = true,
+($globals.Setting.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
 $ctx1.supercall = false;
-$recv($2)._key_(aString);
-$recv($2)._defaultValue_(aDefaultValue);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._key_(aString);
+$recv($1)._defaultValue_(aDefaultValue);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aDefaultValue:aDefaultValue},$globals.Setting.klass)});
 },
 args: ["aString", "aDefaultValue"],
@@ -21295,9 +20668,7 @@ protocol: 'accessing amd',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._core())._at_("amdRequire");
-return $1;
+return $recv(self._core())._at_("amdRequire");
 }, function($ctx1) {$ctx1.fill(self,"amdRequire",{},$globals.SmalltalkImage)});
 },
 args: [],
@@ -21316,18 +20687,17 @@ var self=this;
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $JavaScriptException(){return $globals.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv(self._isSmalltalkObject_(anObject))._and_((function(){
+var $1;
+$1=$recv(self._isSmalltalkObject_(anObject))._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(anObject)._isKindOf_($Error());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-if($core.assert($2)){
-$1=anObject;
+if($core.assert($1)){
+return anObject;
 } else {
-$1=$recv($JavaScriptException())._on_(anObject);
+return $recv($JavaScriptException())._on_(anObject);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},$globals.SmalltalkImage)});
 },
 args: ["anObject"],
@@ -21363,9 +20733,7 @@ fn: function (aString){
 var self=this;
 function $SmalltalkParser(){return $globals.SmalltalkParser||(typeof SmalltalkParser=="undefined"?nil:SmalltalkParser)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($SmalltalkParser())._parse_(aString);
-return $1;
+return $recv($SmalltalkParser())._parse_(aString);
 }, function($ctx1) {$ctx1.fill(self,"basicParse:",{aString:aString},$globals.SmalltalkImage)});
 },
 args: ["aString"],
@@ -21457,15 +20825,13 @@ var package_,announcement;
 function $PackageAdded(){return $globals.PackageAdded||(typeof PackageAdded=="undefined"?nil:PackageAdded)}
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1;
 package_=self._basicCreatePackage_(packageName);
 $1=$recv($PackageAdded())._new();
 $recv($1)._package_(package_);
-$2=$recv($1)._yourself();
-announcement=$2;
+announcement=$recv($1)._yourself();
 $recv($recv($SystemAnnouncer())._current())._announce_(announcement);
-$3=package_;
-return $3;
+return package_;
 }, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName,package_:package_,announcement:announcement},$globals.SmalltalkImage)});
 },
 args: ["packageName"],
@@ -21482,9 +20848,7 @@ protocol: 'accessing amd',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1="transport.defaultAmdNamespace"._settingValue();
-return $1;
+return "transport.defaultAmdNamespace"._settingValue();
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},$globals.SmalltalkImage)});
 },
 args: [],
@@ -21576,15 +20940,13 @@ fn: function (aString){
 var self=this;
 function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Platform())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return $recv($recv($Platform())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
 return true;
 
 }),(function(){
 return false;
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"existsJsGlobal:",{aString:aString},$globals.SmalltalkImage)});
 },
 args: ["aString"],
@@ -21709,10 +21071,9 @@ protocol: 'packages',
 fn: function (packageName,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._packageAt_(packageName);
-$1=$recv($2)._ifNil_(aBlock);
-return $1;
+var $1;
+$1=self._packageAt_(packageName);
+return $recv($1)._ifNil_(aBlock);
 }, function($ctx1) {$ctx1.fill(self,"packageAt:ifAbsent:",{packageName:packageName,aBlock:aBlock},$globals.SmalltalkImage)});
 },
 args: ["packageName", "aBlock"],
@@ -21752,7 +21113,7 @@ fn: function (aString){
 var self=this;
 var result;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
+var $1;
 $recv((function(){
 return $core.withContext(function($ctx2) {
 result=self._basicParse_(aString);
@@ -21763,11 +21124,9 @@ return $core.withContext(function($ctx2) {
 return $recv(self._parseError_parsing_(ex,aString))._signal();
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
 }));
-$2=result;
-$recv($2)._source_(aString);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$1=result;
+$recv($1)._source_(aString);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},$globals.SmalltalkImage)});
 },
 args: ["aString"],
@@ -21785,23 +21144,22 @@ fn: function (anException,aString){
 var self=this;
 function $ParseError(){return $globals.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
 return $core.withContext(function($ctx1) {
-var $2,$8,$7,$6,$9,$5,$4,$3,$1;
-$2=$recv($ParseError())._new();
-$8=$recv(anException)._basicAt_("line");
+var $1,$7,$6,$5,$8,$4,$3,$2;
+$1=$recv($ParseError())._new();
+$7=$recv(anException)._basicAt_("line");
 $ctx1.sendIdx["basicAt:"]=1;
-$7="Parse error on line ".__comma($8);
-$6=$recv($7).__comma(" column ");
+$6="Parse error on line ".__comma($7);
+$5=$recv($6).__comma(" column ");
 $ctx1.sendIdx[","]=4;
-$9=$recv(anException)._basicAt_("column");
+$8=$recv(anException)._basicAt_("column");
 $ctx1.sendIdx["basicAt:"]=2;
-$5=$recv($6).__comma($9);
+$4=$recv($5).__comma($8);
 $ctx1.sendIdx[","]=3;
-$4=$recv($5).__comma(" : Unexpected character ");
+$3=$recv($4).__comma(" : Unexpected character ");
 $ctx1.sendIdx[","]=2;
-$3=$recv($4).__comma($recv(anException)._basicAt_("found"));
+$2=$recv($3).__comma($recv(anException)._basicAt_("found"));
 $ctx1.sendIdx[","]=1;
-$1=$recv($2)._messageText_($3);
-return $1;
+return $recv($1)._messageText_($2);
 }, function($ctx1) {$ctx1.fill(self,"parseError:parsing:",{anException:anException,aString:aString},$globals.SmalltalkImage)});
 },
 args: ["anException", "aString"],
@@ -21817,9 +21175,7 @@ selector: "pseudoVariableNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=["self", "super", "nil", "true", "false", "thisContext"];
-return $1;
+return ["self", "super", "nil", "true", "false", "thisContext"];
 
 },
 args: [],
@@ -21856,16 +21212,17 @@ var self=this;
 function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassRemoved(){return $globals.ClassRemoved||(typeof ClassRemoved=="undefined"?nil:ClassRemoved)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1,$2,$4,$3;
 $1=$recv(aClass)._isMetaclass();
 if($core.assert($1)){
 self._error_($recv($recv(aClass)._asString()).__comma(" is a Metaclass and cannot be removed!"));
 };
 self._deleteClass_(aClass);
-$2=$recv($ClassRemoved())._new();
-$recv($2)._theClass_(aClass);
-$3=$recv($2)._yourself();
-$recv($recv($SystemAnnouncer())._current())._announce_($3);
+$2=$recv($SystemAnnouncer())._current();
+$4=$recv($ClassRemoved())._new();
+$recv($4)._theClass_(aClass);
+$3=$recv($4)._yourself();
+$recv($2)._announce_($3);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},$globals.SmalltalkImage)});
 },
@@ -22001,19 +21358,18 @@ protocol: 'instance creation',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@current"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=(
-$ctx1.supercall = true, 
-$globals.SmalltalkImage.klass.superclass.fn.prototype._new.apply($recv(self), []));
-$ctx1.supercall = false;
+var $1,$receiver;
 $1=self["@current"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@current"]=(
+$ctx1.supercall = true,
+($globals.SmalltalkImage.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
+$ctx1.supercall = false;
+return self["@current"];
 } else {
 self._deprecatedAPI();
-$1=self["@current"];
+return self["@current"];
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},$globals.SmalltalkImage.klass)});
 },
 args: [],
@@ -22110,9 +21466,7 @@ fn: function (){
 var self=this;
 function $Setting(){return $globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Setting())._at_ifAbsent_(self,nil);
-return $1;
+return $recv($Setting())._at_ifAbsent_(self,nil);
 }, function($ctx1) {$ctx1.fill(self,"asSetting",{},$globals.String)});
 },
 args: [],
@@ -22130,9 +21484,7 @@ fn: function (aDefaultValue){
 var self=this;
 function $Setting(){return $globals.Setting||(typeof Setting=="undefined"?nil:Setting)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Setting())._at_ifAbsent_(self,aDefaultValue);
-return $1;
+return $recv($Setting())._at_ifAbsent_(self,aDefaultValue);
 }, function($ctx1) {$ctx1.fill(self,"asSettingIfAbsent:",{aDefaultValue:aDefaultValue},$globals.String)});
 },
 args: ["aDefaultValue"],
@@ -22169,9 +21521,7 @@ protocol: '*Kernel-Infrastructure',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._asSetting())._value();
-return $1;
+return $recv(self._asSetting())._value();
 }, function($ctx1) {$ctx1.fill(self,"settingValue",{},$globals.String)});
 },
 args: [],
@@ -22188,9 +21538,7 @@ protocol: '*Kernel-Infrastructure',
 fn: function (aValue){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._asSetting())._value_(aValue);
-return $1;
+return $recv(self._asSetting())._value_(aValue);
 }, function($ctx1) {$ctx1.fill(self,"settingValue:",{aValue:aValue},$globals.String)});
 },
 args: ["aValue"],
@@ -22207,9 +21555,7 @@ protocol: '*Kernel-Infrastructure',
 fn: function (aDefaultValue){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._asSettingIfAbsent_(aDefaultValue))._value();
-return $1;
+return $recv(self._asSettingIfAbsent_(aDefaultValue))._value();
 }, function($ctx1) {$ctx1.fill(self,"settingValueIfAbsent:",{aDefaultValue:aDefaultValue},$globals.String)});
 },
 args: ["aDefaultValue"],
@@ -22235,9 +21581,7 @@ selector: "announcementClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@announcementClass"];
-return $1;
+return self["@announcementClass"];
 
 },
 args: [],
@@ -22294,21 +21638,20 @@ fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $3,$4,$2,$1,$receiver;
-$3=$recv($Smalltalk())._globals();
+var $2,$3,$1,$receiver;
+$2=$recv($Smalltalk())._globals();
 $ctx1.sendIdx["globals"]=1;
-$4=$recv(self._announcementClass())._name();
+$3=$recv(self._announcementClass())._name();
 $ctx1.sendIdx["name"]=1;
-$2=$recv($3)._at_($4);
+$1=$recv($2)._at_($3);
 $ctx1.sendIdx["at:"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
+if(($receiver = $1) == null || $receiver.isNil){
 return false;
 } else {
 var class_;
 class_=$receiver;
-$1=$recv($recv($recv($Smalltalk())._globals())._at_($recv($recv($recv(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
+return $recv($recv($recv($Smalltalk())._globals())._at_($recv($recv($recv(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},$globals.AnnouncementSubscription)});
 },
 args: ["anAnnouncement"],
@@ -22325,9 +21668,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._valuable())._receiver();
-return $1;
+return $recv(self._valuable())._receiver();
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},$globals.AnnouncementSubscription)});
 },
 args: [],
@@ -22343,9 +21684,7 @@ selector: "valuable",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@valuable"];
-return $1;
+return self["@valuable"];
 
 },
 args: [],
@@ -22382,9 +21721,7 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
+return self["@receiver"];
 
 },
 args: [],
@@ -22417,9 +21754,7 @@ selector: "valuable",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@valuable"];
-return $1;
+return self["@valuable"];
 
 },
 args: [],
@@ -22453,9 +21788,7 @@ protocol: 'evaluating',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._valuable())._value();
-return $1;
+return $recv(self._valuable())._value();
 }, function($ctx1) {$ctx1.fill(self,"value",{},$globals.AnnouncementValuable)});
 },
 args: [],
@@ -22472,9 +21805,7 @@ protocol: 'evaluating',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._valuable())._value_(anObject);
-return $1;
+return $recv(self._valuable())._value_(anObject);
 }, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},$globals.AnnouncementValuable)});
 },
 args: ["anObject"],
@@ -22519,8 +21850,8 @@ var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Announcer.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Announcer.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@subscriptions"]=$recv($OrderedCollection())._new();
 return self;
@@ -22560,22 +21891,20 @@ var self=this;
 function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $AnnouncementValuable(){return $globals.AnnouncementValuable||(typeof AnnouncementValuable=="undefined"?nil:AnnouncementValuable)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$4,$6,$7,$5,$8,$2;
+var $1,$3,$5,$6,$4,$2;
 $1=self["@subscriptions"];
 $3=$recv($AnnouncementSubscription())._new();
 $ctx1.sendIdx["new"]=1;
-$4=$3;
-$6=$recv($AnnouncementValuable())._new();
-$recv($6)._valuable_(aBlock);
-$recv($6)._receiver_(aReceiver);
-$7=$recv($6)._yourself();
+$5=$recv($AnnouncementValuable())._new();
+$recv($5)._valuable_(aBlock);
+$recv($5)._receiver_(aReceiver);
+$6=$recv($5)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$5=$7;
-$recv($4)._valuable_($5);
+$4=$6;
+$recv($3)._valuable_($4);
 $ctx1.sendIdx["valuable:"]=1;
 $recv($3)._announcementClass_(aClass);
-$8=$recv($3)._yourself();
-$2=$8;
+$2=$recv($3)._yourself();
 $recv($1)._add_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"on:do:for:",{aClass:aClass,aBlock:aBlock,aReceiver:aReceiver},$globals.Announcer)});
@@ -22596,11 +21925,10 @@ var self=this;
 var subscription;
 function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($AnnouncementSubscription())._new();
 $recv($1)._announcementClass_(aClass);
-$2=$recv($1)._yourself();
-subscription=$2;
+subscription=$recv($1)._yourself();
 $recv(subscription)._valuable_((function(ann){
 return $core.withContext(function($ctx2) {
 $recv(self["@subscriptions"])._remove_(subscription);
@@ -22627,21 +21955,19 @@ var self=this;
 function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$4,$6,$7,$5,$8,$2;
+var $1,$3,$5,$6,$4,$2;
 $1=self["@subscriptions"];
 $3=$recv($AnnouncementSubscription())._new();
 $ctx1.sendIdx["new"]=1;
-$4=$3;
-$6=$recv($MessageSend())._new();
-$recv($6)._receiver_(anObject);
-$recv($6)._selector_(aSelector);
-$7=$recv($6)._yourself();
+$5=$recv($MessageSend())._new();
+$recv($5)._receiver_(anObject);
+$recv($5)._selector_(aSelector);
+$6=$recv($5)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$5=$7;
-$recv($4)._valuable_($5);
+$4=$6;
+$recv($3)._valuable_($4);
 $recv($3)._announcementClass_(aClass);
-$8=$recv($3)._yourself();
-$2=$8;
+$2=$recv($3)._yourself();
 $recv($1)._add_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},$globals.Announcer)});
@@ -22688,18 +22014,17 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@current"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@current"]=(
-$ctx1.supercall = true, 
-$globals.SystemAnnouncer.klass.superclass.fn.prototype._new.apply($recv(self), []));
-$ctx1.supercall = false;
+var $1,$receiver;
 $1=self["@current"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@current"]=(
+$ctx1.supercall = true,
+($globals.SystemAnnouncer.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
+$ctx1.supercall = false;
+return self["@current"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"current",{},$globals.SystemAnnouncer.klass)});
 },
 args: [],
@@ -22756,9 +22081,7 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -22807,9 +22130,7 @@ selector: "oldClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@oldClass"];
-return $1;
+return self["@oldClass"];
 
 },
 args: [],
@@ -22846,9 +22167,7 @@ selector: "oldPackage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@oldPackage"];
-return $1;
+return self["@oldPackage"];
 
 },
 args: [],
@@ -22893,9 +22212,7 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@method"];
-return $1;
+return self["@method"];
 
 },
 args: [],
@@ -22936,9 +22253,7 @@ selector: "oldMethod",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@oldMethod"];
-return $1;
+return self["@oldMethod"];
 
 },
 args: [],
@@ -22975,9 +22290,7 @@ selector: "oldProtocol",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@oldProtocol"];
-return $1;
+return self["@oldProtocol"];
 
 },
 args: [],
@@ -23018,9 +22331,7 @@ selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@package"];
-return $1;
+return self["@package"];
 
 },
 args: [],
@@ -23074,16 +22385,15 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._theClass();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
+var $1,$receiver;
+$1=self._theClass();
+if(($receiver = $1) == null || $receiver.isNil){
+return $1;
 } else {
 var class_;
 class_=$receiver;
-$1=$recv(class_)._packageOfProtocol_(self._protocol());
+return $recv(class_)._packageOfProtocol_(self._protocol());
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"package",{},$globals.ProtocolAnnouncement)});
 },
 args: [],
@@ -23099,9 +22409,7 @@ selector: "protocol",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@protocol"];
-return $1;
+return self["@protocol"];
 
 },
 args: [],
@@ -23134,9 +22442,7 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -23420,10 +22726,8 @@ fn: function (anObject){
 var self=this;
 function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI();
-$1=$recv($PlatformInterface())._ajax_(anObject);
-return $1;
+return $recv($PlatformInterface())._ajax_(anObject);
 }, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.InterfacingObject)});
 },
 args: ["anObject"],
@@ -23441,9 +22745,7 @@ fn: function (aString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Terminal())._alert_(aString);
-return $1;
+return $recv($Terminal())._alert_(aString);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.InterfacingObject)});
 },
 args: ["aString"],
@@ -23461,9 +22763,7 @@ fn: function (aString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Terminal())._confirm_(aString);
-return $1;
+return $recv($Terminal())._confirm_(aString);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.InterfacingObject)});
 },
 args: ["aString"],
@@ -23481,9 +22781,7 @@ fn: function (aString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Terminal())._prompt_(aString);
-return $1;
+return $recv($Terminal())._prompt_(aString);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.InterfacingObject)});
 },
 args: ["aString"],
@@ -23501,9 +22799,7 @@ fn: function (aString,defaultString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Terminal())._prompt_default_(aString,defaultString);
-return $1;
+return $recv($Terminal())._prompt_default_(aString,defaultString);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.InterfacingObject)});
 },
 args: ["aString", "defaultString"],
@@ -23524,15 +22820,15 @@ protocol: 'compiling',
 fn: function (aString,aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$5,$4;
 $1=self._classBuilder();
 $2=$recv(aClass)._superclass();
 $3=$recv(aClass)._name();
 $ctx1.sendIdx["name"]=1;
-$4=$recv($recv(aClass)._instanceVariableNames())._copy();
-$recv($4)._add_(aString);
-$5=$recv($4)._yourself();
-$recv($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$5,$recv($recv(aClass)._package())._name());
+$5=$recv($recv(aClass)._instanceVariableNames())._copy();
+$recv($5)._add_(aString);
+$4=$recv($5)._yourself();
+$recv($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$4,$recv($recv(aClass)._package())._name());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},$globals.Environment)});
 },
@@ -23551,9 +22847,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Smalltalk())._core())._allSelectors();
-return $1;
+return $recv($recv($Smalltalk())._core())._allSelectors();
 }, function($ctx1) {$ctx1.fill(self,"allSelectors",{},$globals.Environment)});
 },
 args: [],
@@ -23571,13 +22865,11 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Smalltalk())._classes())._collect_((function(each){
+return $recv($recv($Smalltalk())._classes())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._name();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},$globals.Environment)});
 },
 args: [],
@@ -23595,13 +22887,11 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Smalltalk())._packages())._collect_((function(each){
+return $recv($recv($Smalltalk())._packages())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._name();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},$globals.Environment)});
 },
 args: [],
@@ -23619,7 +22909,7 @@ fn: function (aClass){
 var self=this;
 var protocols;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 protocols=$recv(aClass)._protocols();
 $1=$recv(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
@@ -23628,8 +22918,7 @@ $1;
 } else {
 $recv(protocols)._addAll_(self._availableProtocolsFor_($recv(aClass)._superclass()));
 };
-$2=$recv($recv($recv(protocols)._asSet())._asArray())._sort();
-return $2;
+return $recv($recv($recv(protocols)._asSet())._asArray())._sort();
 }, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},$globals.Environment)});
 },
 args: ["aClass"],
@@ -23647,9 +22936,7 @@ fn: function (){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($ClassBuilder())._new();
-return $1;
+return $recv($ClassBuilder())._new();
 }, function($ctx1) {$ctx1.fill(self,"classBuilder",{},$globals.Environment)});
 },
 args: [],
@@ -23667,14 +22954,13 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=$recv($recv($Smalltalk())._globals())._at_($recv(aString)._asSymbol());
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("Invalid class name");
+var $1,$receiver;
+$1=$recv($recv($Smalltalk())._globals())._at_($recv(aString)._asSymbol());
+if(($receiver = $1) == null || $receiver.isNil){
+return self._error_("Invalid class name");
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},$globals.Environment)});
 },
 args: ["aString"],
@@ -23692,9 +22978,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._classes();
-return $1;
+return $recv($Smalltalk())._classes();
 }, function($ctx1) {$ctx1.fill(self,"classes",{},$globals.Environment)});
 },
 args: [],
@@ -23775,9 +23059,7 @@ protocol: 'compiling',
 fn: function (sourceCode,class_,protocol){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(class_)._compile_protocol_(sourceCode,protocol);
-return $1;
+return $recv(class_)._compile_protocol_(sourceCode,protocol);
 }, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol},$globals.Environment)});
 },
 args: ["sourceCode", "class", "protocol"],
@@ -23824,9 +23106,7 @@ fn: function (){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($DoIt())._new();
-return $1;
+return $recv($DoIt())._new();
 }, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},$globals.Environment)});
 },
 args: [],
@@ -23844,9 +23124,7 @@ fn: function (aString,anObject){
 var self=this;
 function $Evaluator(){return $globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Evaluator())._evaluate_for_(aString,anObject);
-return $1;
+return $recv($Evaluator())._evaluate_for_(aString,anObject);
 }, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},$globals.Environment)});
 },
 args: ["aString", "anObject"],
@@ -23997,9 +23275,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._packages();
-return $1;
+return $recv($Smalltalk())._packages();
 }, function($ctx1) {$ctx1.fill(self,"packages",{},$globals.Environment)});
 },
 args: [],
@@ -24268,9 +23544,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($recv($Smalltalk())._globals())._at_("SystemAnnouncer"))._current();
-return $1;
+return $recv($recv($recv($Smalltalk())._globals())._at_("SystemAnnouncer"))._current();
 }, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},$globals.Environment)});
 },
 args: [],
@@ -24335,14 +23609,13 @@ fn: function (anObject){
 var self=this;
 function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 return $core.withContext(function($ctx1) {
-var $1,$receiver;
+var $receiver;
 self._deprecatedAPI_("Use Platform newXhr or dedicated library.");
 if(($receiver = $JQuery()) == null || $receiver.isNil){
-$1=self._error_("JQuery wrapper not loaded, cannot do AJAX.");
+return self._error_("JQuery wrapper not loaded, cannot do AJAX.");
 } else {
-$1=$recv($recv($JQuery())._current())._ajax_(anObject);
+return $recv($recv($JQuery())._current())._ajax_(anObject);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.PlatformInterface.klass)});
 },
 args: ["anObject"],
@@ -24360,10 +23633,8 @@ fn: function (aString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Terminal alert:");
-$1=$recv($Terminal())._alert_(aString);
-return $1;
+return $recv($Terminal())._alert_(aString);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.PlatformInterface.klass)});
 },
 args: ["aString"],
@@ -24381,10 +23652,8 @@ fn: function (aString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Terminal confirm:");
-$1=$recv($Terminal())._confirm_(aString);
-return $1;
+return $recv($Terminal())._confirm_(aString);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.PlatformInterface.klass)});
 },
 args: ["aString"],
@@ -24402,16 +23671,14 @@ fn: function (aString){
 var self=this;
 function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Smalltalk existsJsGlobal:");
-$1=$recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return $recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
 return true;
 
 }),(function(){
 return false;
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},$globals.PlatformInterface.klass)});
 },
 args: ["aString"],
@@ -24429,10 +23696,8 @@ fn: function (){
 var self=this;
 function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Platform globals");
-$1=$recv($Platform())._globals();
-return $1;
+return $recv($Platform())._globals();
 }, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.PlatformInterface.klass)});
 },
 args: [],
@@ -24450,10 +23715,8 @@ fn: function (){
 var self=this;
 function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Platform newXhr");
-$1=$recv($Platform())._newXhr();
-return $1;
+return $recv($Platform())._newXhr();
 }, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.PlatformInterface.klass)});
 },
 args: [],
@@ -24471,10 +23734,8 @@ fn: function (aString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Terminal prompt:");
-$1=$recv($Terminal())._prompt_(aString);
-return $1;
+return $recv($Terminal())._prompt_(aString);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.PlatformInterface.klass)});
 },
 args: ["aString"],
@@ -24492,10 +23753,8 @@ fn: function (aString,defaultString){
 var self=this;
 function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._deprecatedAPI_("Use Terminal prompt:default:");
-$1=$recv($Terminal())._prompt_default_(aString,defaultString);
-return $1;
+return $recv($Terminal())._prompt_default_(aString,defaultString);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.PlatformInterface.klass)});
 },
 args: ["aString", "defaultString"],
@@ -24516,9 +23775,7 @@ selector: "current",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@current"];
-return $1;
+return self["@current"];
 
 },
 args: [],
@@ -24616,13 +23873,12 @@ protocol: 'error handling',
 fn: function (anError){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv(anError)._wasHandled();
 if($core.assert($1)){
 return self;
 };
-$2=$recv(self._current())._handleError_(anError);
-return $2;
+return $recv(self._current())._handleError_(anError);
 }, function($ctx1) {$ctx1.fill(self,"handleUnhandledError:",{anError:anError},$globals.ErrorHandler.klass)});
 },
 args: ["anError"],
@@ -24643,9 +23899,7 @@ protocol: 'finding',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._findClass_(aClass);
-return $1;
+return $recv(self._current())._findClass_(aClass);
 }, function($ctx1) {$ctx1.fill(self,"findClass:",{aClass:aClass},$globals.Finder.klass)});
 },
 args: ["aClass"],
@@ -24662,9 +23916,7 @@ protocol: 'finding',
 fn: function (aCompiledMethod){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._findMethod_(aCompiledMethod);
-return $1;
+return $recv(self._current())._findMethod_(aCompiledMethod);
 }, function($ctx1) {$ctx1.fill(self,"findMethod:",{aCompiledMethod:aCompiledMethod},$globals.Finder.klass)});
 },
 args: ["aCompiledMethod"],
@@ -24681,9 +23933,7 @@ protocol: 'finding',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._findString_(aString);
-return $1;
+return $recv(self._current())._findString_(aString);
 }, function($ctx1) {$ctx1.fill(self,"findString:",{aString:aString},$globals.Finder.klass)});
 },
 args: ["aString"],
@@ -24704,9 +23954,7 @@ protocol: 'inspecting',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._inspect_(anObject);
-return $1;
+return $recv(self._current())._inspect_(anObject);
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Inspector.klass)});
 },
 args: ["anObject"],
@@ -24727,9 +23975,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._globals();
-return $1;
+return $recv(self._current())._globals();
 }, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.Platform.klass)});
 },
 args: [],
@@ -24746,9 +23992,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._newXhr();
-return $1;
+return $recv(self._current())._newXhr();
 }, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.Platform.klass)});
 },
 args: [],
@@ -24791,9 +24035,7 @@ protocol: 'dialogs',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._alert_(aString);
-return $1;
+return $recv(self._current())._alert_(aString);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.Terminal.klass)});
 },
 args: ["aString"],
@@ -24810,9 +24052,7 @@ protocol: 'dialogs',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._confirm_(aString);
-return $1;
+return $recv(self._current())._confirm_(aString);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.Terminal.klass)});
 },
 args: ["aString"],
@@ -24829,9 +24069,7 @@ protocol: 'dialogs',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._prompt_(aString);
-return $1;
+return $recv(self._current())._prompt_(aString);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.Terminal.klass)});
 },
 args: ["aString"],
@@ -24848,9 +24086,7 @@ protocol: 'dialogs',
 fn: function (aString,defaultString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._current())._prompt_default_(aString,defaultString);
-return $1;
+return $recv(self._current())._prompt_default_(aString,defaultString);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.Terminal.klass)});
 },
 args: ["aString", "defaultString"],
@@ -24964,7 +24200,6 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
@@ -24976,7 +24211,7 @@ return $recv(variables)._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 }));
 $recv(anInspector)._setLabel_(self._printString());
-$1=$recv(anInspector)._setVariables_(variables);
+$recv(anInspector)._setVariables_(variables);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},$globals.AssociativeCollection)});
 },
@@ -24996,7 +24231,6 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
@@ -25006,7 +24240,7 @@ return $recv(variables)._at_put_(i,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)});
 }));
 $recv(anInspector)._setLabel_(self._printString());
-$1=$recv(anInspector)._setVariables_(variables);
+$recv(anInspector)._setVariables_(variables);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},$globals.Collection)});
 },
@@ -25026,7 +24260,6 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
@@ -25044,7 +24277,7 @@ $recv(variables)._at_put_("#seconds",self._seconds());
 $ctx1.sendIdx["at:put:"]=7;
 $recv(variables)._at_put_("#milliseconds",self._milliseconds());
 $recv(anInspector)._setLabel_(self._printString());
-$1=$recv(anInspector)._setVariables_(variables);
+$recv(anInspector)._setVariables_(variables);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},$globals.Date)});
 },
@@ -25089,7 +24322,6 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
@@ -25107,7 +24339,7 @@ return $recv(variables)._at_put_(each,self._instVarAt_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $recv(anInspector)._setLabel_(self._printString());
-$1=$recv(anInspector)._setVariables_(variables);
+$recv(anInspector)._setVariables_(variables);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},$globals.MethodContext)});
 },
@@ -25127,7 +24359,6 @@ var self=this;
 var variables;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
@@ -25137,7 +24368,7 @@ return $recv(variables)._at_put_(each,self._instVarAt_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $recv(anInspector)._setLabel_(self._printString());
-$1=$recv(anInspector)._setVariables_(variables);
+$recv(anInspector)._setVariables_(variables);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},$globals.Object)});
 },
@@ -25176,7 +24407,6 @@ var self=this;
 var variables,i;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 variables=$recv($Dictionary())._new();
 $recv(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
@@ -25189,7 +24419,7 @@ return i;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $recv(anInspector)._setLabel_(self._printString());
-$1=$recv(anInspector)._setVariables_(variables);
+$recv(anInspector)._setVariables_(variables);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables,i:i},$globals.Set)});
 },
@@ -25210,8 +24440,8 @@ var label;
 return $core.withContext(function($ctx1) {
 var $3,$2,$1,$5,$4;
 (
-$ctx1.supercall = true, 
-$globals.String.superclass.fn.prototype._inspectOn_.apply($recv(self), [anInspector]));
+$ctx1.supercall = true,
+($globals.String.superclass||$boot.dnu).fn.prototype._inspectOn_.apply($recv(self), [anInspector]));
 $ctx1.supercall = false;
 $3=self._printString();
 $ctx1.sendIdx["printString"]=1;
@@ -25254,9 +24484,7 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=global;
-return $1;
+return global;
 
 },
 args: [],
@@ -25274,12 +24502,11 @@ fn: function (){
 var self=this;
 function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
 return $core.withContext(function($ctx1) {
-var $1,$receiver;
+var $receiver;
 if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
 self._error_("XMLHttpRequest not available.");
 } else {
-$1=$recv($XMLHttpRequest())._new();
-return $1;
+return $recv($XMLHttpRequest())._new();
 };
 return self;
 }, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.NodePlatform)});
@@ -25350,13 +24577,15 @@ define('amber/deploy',[
     // --- packages of the core Amber end here ---
 ], function (amber) { return amber; });
 
-define("amber/parser", ["./boot"], function($boot) {
+define('amber/parser',['./boot'], function($boot) {
 var $globals = $boot.globals, nil = $boot.nil;
 $globals.SmalltalkParser = (function() {
+  "use strict";
+
   /*
-   * Generated by PEG.js 0.8.0.
+   * Generated by PEG.js 0.9.0.
    *
-   * http://pegjs.majda.cz/
+   * http://pegjs.org/
    */
 
   function peg$subclass(child, parent) {
@@ -25365,35 +24594,37 @@ $globals.SmalltalkParser = (function() {
     child.prototype = new ctor();
   }
 
-  function SyntaxError(message, expected, found, offset, line, column) {
+  function peg$SyntaxError(message, expected, found, location) {
     this.message  = message;
     this.expected = expected;
     this.found    = found;
-    this.offset   = offset;
-    this.line     = line;
-    this.column   = column;
-
+    this.location = location;
     this.name     = "SyntaxError";
+
+    if (typeof Error.captureStackTrace === "function") {
+      Error.captureStackTrace(this, peg$SyntaxError);
+    }
   }
 
-  peg$subclass(SyntaxError, Error);
+  peg$subclass(peg$SyntaxError, Error);
 
-  function parse(input) {
+  function peg$parse(input) {
     var options = arguments.length > 1 ? arguments[1] : {},
+        parser  = this,
 
         peg$FAILED = {},
 
         peg$startRuleFunctions = { start: peg$parsestart },
         peg$startRuleFunction  = peg$parsestart,
 
-        peg$c0 = [],
-        peg$c1 = peg$FAILED,
-        peg$c2 = /^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/,
-        peg$c3 = { type: "class", value: "[ \\t\\x0B\\f\\xA0\\uFEFF\\n\\r\\u2028\\u2029]", description: "[ \\t\\x0B\\f\\xA0\\uFEFF\\n\\r\\u2028\\u2029]" },
-        peg$c4 = "\"",
-        peg$c5 = { type: "literal", value: "\"", description: "\"\\\"\"" },
-        peg$c6 = /^[^"]/,
-        peg$c7 = { type: "class", value: "[^\"]", description: "[^\"]" },
+        peg$c0 = /^[ \t\x0B\f\xA0\uFEFF\n\r\u2028\u2029]/,
+        peg$c1 = { type: "class", value: "[ \\t\\v\\f\\u00A0\\uFEFF\\n\\r\\u2028\\u2029]", description: "[ \\t\\v\\f\\u00A0\\uFEFF\\n\\r\\u2028\\u2029]" },
+        peg$c2 = "\"",
+        peg$c3 = { type: "literal", value: "\"", description: "\"\\\"\"" },
+        peg$c4 = /^[^"]/,
+        peg$c5 = { type: "class", value: "[^\"]", description: "[^\"]" },
+        peg$c6 = ".",
+        peg$c7 = { type: "literal", value: ".", description: "\".\"" },
         peg$c8 = /^[a-zA-Z]/,
         peg$c9 = { type: "class", value: "[a-zA-Z]", description: "[a-zA-Z]" },
         peg$c10 = /^[a-zA-Z0-9]/,
@@ -25403,7 +24634,7 @@ $globals.SmalltalkParser = (function() {
         peg$c14 = { type: "literal", value: ":", description: "\":\"" },
         peg$c15 = function(first, last) {return first + last;},
         peg$c16 = /^[a-zA-Z0-9:]/,
-        peg$c17 = { type: "class", value: "[a-zA-Z0-9:]", description: "[a-zA-Z0-9:]" },
+        peg$c17 = { type: "class", value: "[a-zA-Z0-9\\:]", description: "[a-zA-Z0-9\\:]" },
         peg$c18 = /^[A-Z]/,
         peg$c19 = { type: "class", value: "[A-Z]", description: "[A-Z]" },
         peg$c20 = "'",
@@ -25415,7 +24646,7 @@ $globals.SmalltalkParser = (function() {
         peg$c26 = { type: "class", value: "[^']", description: "[^']" },
         peg$c27 = function(val) {
                              return $globals.ValueNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._value_(val.join(""));
                          },
@@ -25424,7 +24655,7 @@ $globals.SmalltalkParser = (function() {
         peg$c30 = { type: "any", description: "any character" },
         peg$c31 = function(char) {
                               return $globals.ValueNode._new()
-                                     ._position_((line()).__at(column()))
+                                     ._location_(location())
                                      ._source_(text())
                                      ._value_(char);
                           },
@@ -25434,163 +24665,160 @@ $globals.SmalltalkParser = (function() {
         peg$c35 = function(node) {return node._value();},
         peg$c36 = function(val) {
                               return $globals.ValueNode._new()
-                                     ._position_((line()).__at(column()))
+                                     ._location_(location())
                                      ._source_(text())
                                      ._value_(val);
                           },
         peg$c37 = function(n) {
                              return $globals.ValueNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._value_(n);
                          },
         peg$c38 = "e",
         peg$c39 = { type: "literal", value: "e", description: "\"e\"" },
         peg$c40 = function(n) {return parseFloat(n.join(""));},
-        peg$c41 = null,
-        peg$c42 = "-",
-        peg$c43 = { type: "literal", value: "-", description: "\"-\"" },
-        peg$c44 = "16r",
-        peg$c45 = { type: "literal", value: "16r", description: "\"16r\"" },
-        peg$c46 = /^[0-9a-fA-F]/,
-        peg$c47 = { type: "class", value: "[0-9a-fA-F]", description: "[0-9a-fA-F]" },
-        peg$c48 = function(neg, num) {return parseInt(((neg || '') + num.join("")), 16);},
-        peg$c49 = /^[0-9]/,
-        peg$c50 = { type: "class", value: "[0-9]", description: "[0-9]" },
-        peg$c51 = ".",
-        peg$c52 = { type: "literal", value: ".", description: "\".\"" },
-        peg$c53 = function(neg, digits, dec) {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);},
-        peg$c54 = function(neg, digits) {return (parseInt((neg || '') + digits.join(""), 10));},
-        peg$c55 = "#(",
-        peg$c56 = { type: "literal", value: "#(", description: "\"#(\"" },
+        peg$c41 = "-",
+        peg$c42 = { type: "literal", value: "-", description: "\"-\"" },
+        peg$c43 = "16r",
+        peg$c44 = { type: "literal", value: "16r", description: "\"16r\"" },
+        peg$c45 = /^[0-9a-fA-F]/,
+        peg$c46 = { type: "class", value: "[0-9a-fA-F]", description: "[0-9a-fA-F]" },
+        peg$c47 = function(neg, num) {return parseInt(((neg || '') + num.join("")), 16);},
+        peg$c48 = /^[0-9]/,
+        peg$c49 = { type: "class", value: "[0-9]", description: "[0-9]" },
+        peg$c50 = function(neg, digits, dec) {return parseFloat(((neg || '') + digits.join("") + "." + dec.join("")), 10);},
+        peg$c51 = function(neg, digits) {return (parseInt((neg || '') + digits.join(""), 10));},
+        peg$c52 = "#(",
+        peg$c53 = { type: "literal", value: "#(", description: "\"#(\"" },
+        peg$c54 = ")",
+        peg$c55 = { type: "literal", value: ")", description: "\")\"" },
+        peg$c56 = function(rest) {
+            return rest
+                ._location_(location())
+                ._source_(text());
+        },
         peg$c57 = "(",
         peg$c58 = { type: "literal", value: "(", description: "\"(\"" },
         peg$c59 = function(lit) {return lit._value();},
-        peg$c60 = ")",
-        peg$c61 = { type: "literal", value: ")", description: "\")\"" },
-        peg$c62 = function(lits) {
+        peg$c60 = function(lits) {
                              return $globals.ValueNode._new()
-                                    ._position_((line()).__at(column()))
-                                    ._source_(text())
                                     ._value_(lits);
                          },
-        peg$c63 = "{",
-        peg$c64 = { type: "literal", value: "{", description: "\"{\"" },
-        peg$c65 = "}",
-        peg$c66 = { type: "literal", value: "}", description: "\"}\"" },
-        peg$c67 = function(expressions) {
+        peg$c61 = "{",
+        peg$c62 = { type: "literal", value: "{", description: "\"{\"" },
+        peg$c63 = "}",
+        peg$c64 = { type: "literal", value: "}", description: "\"}\"" },
+        peg$c65 = function(expressions) {
                              return $globals.DynamicArrayNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._nodes_(expressions || []);
                          },
-        peg$c68 = "#{",
-        peg$c69 = { type: "literal", value: "#{", description: "\"#{\"" },
-        peg$c70 = function(expressions) {
+        peg$c66 = "#{",
+        peg$c67 = { type: "literal", value: "#{", description: "\"#{\"" },
+        peg$c68 = function(expressions) {
                                 return $globals.DynamicDictionaryNode._new()
-                                       ._position_((line()).__at(column()))
+                                       ._location_(location())
                                        ._source_(text())
                                        ._nodes_(expressions || []);
                             },
-        peg$c71 = "true",
-        peg$c72 = { type: "literal", value: "true", description: "\"true\"" },
-        peg$c73 = function() {return true;},
-        peg$c74 = "false",
-        peg$c75 = { type: "literal", value: "false", description: "\"false\"" },
-        peg$c76 = function() {return false;},
-        peg$c77 = "nil",
-        peg$c78 = { type: "literal", value: "nil", description: "\"nil\"" },
-        peg$c79 = function() {return nil;},
-        peg$c80 = function(val) {
+        peg$c69 = "true",
+        peg$c70 = { type: "literal", value: "true", description: "\"true\"" },
+        peg$c71 = function() {return true;},
+        peg$c72 = "false",
+        peg$c73 = { type: "literal", value: "false", description: "\"false\"" },
+        peg$c74 = function() {return false;},
+        peg$c75 = "nil",
+        peg$c76 = { type: "literal", value: "nil", description: "\"nil\"" },
+        peg$c77 = function() {return nil;},
+        peg$c78 = function(val) {
                                return $globals.ValueNode._new()
-                                      ._position_((line()).__at(column()))
+                                      ._location_(location())
                                       ._source_(text())
                                       ._value_(val);
                            },
-        peg$c81 = function(identifier) {
+        peg$c79 = function(identifier) {
                              return $globals.VariableNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._value_(identifier);
                          },
-        peg$c82 = function(key, arg) {return {key:key, arg:arg};},
-        peg$c83 = /^[\\+*\/=><,@%~|&\-]/,
-        peg$c84 = { type: "class", value: "[\\\\+*\\/=><,@%~|&\\-]", description: "[\\\\+*\\/=><,@%~|&\\-]" },
-        peg$c85 = function(bin) {return bin.join("");},
-        peg$c86 = function(pairs) {
-                             var keywords = [];
+        peg$c80 = /^[\\+*\/=><,@%~|&\-]/,
+        peg$c81 = { type: "class", value: "[\\\\+*/=><,@%~|&-]", description: "[\\\\+*/=><,@%~|&-]" },
+        peg$c82 = function(bin) {return bin.join("");},
+        peg$c83 = function(key, arg) {return {key:key, arg:arg};},
+        peg$c84 = function(pairs) {
+                             var selector = "";
                              var params = [];
-                             var i = 0;
-                             for(i = 0; i < pairs.length; i++){
-                                 keywords.push(pairs[i].key);
-                             }
-                             for(i = 0; i < pairs.length; i++){
+                             for(var i = 0; i < pairs.length; i++){
+                                 selector += pairs[i].key;
                                  params.push(pairs[i].arg);
                              }
-                             return [keywords.join(""), params];
+                             return [selector, params];
                          },
-        peg$c87 = function(selector, arg) {return [selector, [arg]];},
-        peg$c88 = function(selector) {return [selector, []];},
-        peg$c89 = function(expression) {return expression;},
-        peg$c90 = function(first, others) { return [first].concat(others); },
-        peg$c91 = ":=",
-        peg$c92 = { type: "literal", value: ":=", description: "\":=\"" },
-        peg$c93 = function(variable, expression) {
+        peg$c85 = function(selector, arg) {return [selector, [arg]];},
+        peg$c86 = function(selector) {return [selector, []];},
+        peg$c87 = function(expression) {return expression;},
+        peg$c88 = function(first, others) { return [first].concat(others); },
+        peg$c89 = ":=",
+        peg$c90 = { type: "literal", value: ":=", description: "\":=\"" },
+        peg$c91 = function(variable, expression) {
                              return $globals.AssignmentNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._left_(variable)
                                     ._right_(expression);
                          },
-        peg$c94 = "^",
-        peg$c95 = { type: "literal", value: "^", description: "\"^\"" },
-        peg$c96 = function(expression) {
+        peg$c92 = "^",
+        peg$c93 = { type: "literal", value: "^", description: "\"^\"" },
+        peg$c94 = function(expression) {
                              return $globals.ReturnNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._nodes_([expression]);
                          },
-        peg$c97 = "|",
-        peg$c98 = { type: "literal", value: "|", description: "\"|\"" },
-        peg$c99 = function(variable) {return variable;},
-        peg$c100 = function(vars) {return vars;},
-        peg$c101 = function(param) {return param;},
-        peg$c102 = function(params) {return params;},
-        peg$c103 = function(ret) {return [ret];},
-        peg$c104 = function(exps, ret) {
+        peg$c95 = "|",
+        peg$c96 = { type: "literal", value: "|", description: "\"|\"" },
+        peg$c97 = function(variable) {return variable;},
+        peg$c98 = function(vars) {return vars;},
+        peg$c99 = function(param) {return param;},
+        peg$c100 = function(params) {return params;},
+        peg$c101 = function(ret) {return [ret];},
+        peg$c102 = function(exps, ret) {
                                var expressions = exps;
                                expressions.push(ret);
                                return expressions;
                            },
-        peg$c105 = function(expressions) {
+        peg$c103 = function(expressions) {
                                return expressions || [];
                            },
-        peg$c106 = function(temps, statements) {
+        peg$c104 = function(js) { return js; },
+        peg$c105 = function(temps, statements) {
                              return $globals.SequenceNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._temps_(temps || [])
                                     ._nodes_(statements || []);
                          },
-        peg$c107 = "[",
-        peg$c108 = { type: "literal", value: "[", description: "\"[\"" },
-        peg$c109 = "]",
-        peg$c110 = { type: "literal", value: "]", description: "\"]\"" },
-        peg$c111 = function(params, sequence) {
+        peg$c106 = "[",
+        peg$c107 = { type: "literal", value: "[", description: "\"[\"" },
+        peg$c108 = "]",
+        peg$c109 = { type: "literal", value: "]", description: "\"]\"" },
+        peg$c110 = function(params, sequence) {
                              return $globals.BlockNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._parameters_(params || [])
                                     ._nodes_([sequence._asBlockSequenceNode()]);
                          },
-        peg$c112 = void 0,
-        peg$c113 = function(selector) {
+        peg$c111 = function(selector) {
                              return $globals.SendNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._selector_(selector);
                          },
-        peg$c114 = function(message, tail) {
+        peg$c112 = function(message, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(message);
                              }
@@ -25598,7 +24826,7 @@ $globals.SmalltalkParser = (function() {
                                  return message;
                              }
                          },
-        peg$c115 = function(receiver, tail) {
+        peg$c113 = function(receiver, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(receiver);
                              }
@@ -25606,14 +24834,14 @@ $globals.SmalltalkParser = (function() {
                                  return receiver;
                              }
                          },
-        peg$c116 = function(selector, arg) {
+        peg$c114 = function(selector, arg) {
                              return $globals.SendNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
                                     ._selector_(selector)
                                     ._arguments_([arg]);
                          },
-        peg$c117 = function(message, tail) {
+        peg$c115 = function(message, tail) {
                              if(tail) {
                                  return tail._valueForReceiver_(message);
                               }
@@ -25621,72 +24849,65 @@ $globals.SmalltalkParser = (function() {
                                  return message;
                              }
                          },
-        peg$c118 = function(pairs) {
-                             var selector = [];
+        peg$c116 = function(pairs) {
+                             var selector = "";
                              var args = [];
                               for(var i = 0; i < pairs.length; i++) {
-                                  selector.push(pairs[i].key);
+                                  selector += pairs[i].key;
                                   args.push(pairs[i].arg);
                               }
                               return $globals.SendNode._new()
-                                     ._position_((line()).__at(column()))
+                                     ._location_(location())
                                      ._source_(text())
-                                     ._selector_(selector.join(""))
+                                     ._selector_(selector)
                                      ._arguments_(args);
                          },
-        peg$c119 = function(receiver, tail) {
-                             return tail._valueForReceiver_(receiver);
-                         },
-        peg$c120 = ";",
-        peg$c121 = { type: "literal", value: ";", description: "\";\"" },
-        peg$c122 = function(mess) {return mess;},
-        peg$c123 = function(send, messages) {
-                             var cascade = [];
-                             cascade.push(send);
-                             for(var i = 0; i < messages.length; i++) {
-                                 cascade.push(messages[i]);
-                             }
+        peg$c117 = function(send) { return send._isSendNode(); },
+        peg$c118 = ";",
+        peg$c119 = { type: "literal", value: ";", description: "\";\"" },
+        peg$c120 = function(send, mess) {return mess;},
+        peg$c121 = function(send, messages) {
+                             messages.unshift(send);
                              return $globals.CascadeNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(text())
-                                    ._receiver_(send._receiver())
-                                    ._nodes_(cascade);
+                                    ._nodes_(messages);
                          },
-        peg$c124 = "<",
-        peg$c125 = { type: "literal", value: "<", description: "\"<\"" },
-        peg$c126 = ">>",
-        peg$c127 = { type: "literal", value: ">>", description: "\">>\"" },
-        peg$c128 = function() {return ">";},
-        peg$c129 = /^[^>]/,
-        peg$c130 = { type: "class", value: "[^>]", description: "[^>]" },
-        peg$c131 = ">",
-        peg$c132 = { type: "literal", value: ">", description: "\">\"" },
-        peg$c133 = function(val) {
+        peg$c122 = "<",
+        peg$c123 = { type: "literal", value: "<", description: "\"<\"" },
+        peg$c124 = ">>",
+        peg$c125 = { type: "literal", value: ">>", description: "\">>\"" },
+        peg$c126 = function() {return ">";},
+        peg$c127 = /^[^>]/,
+        peg$c128 = { type: "class", value: "[^>]", description: "[^>]" },
+        peg$c129 = ">",
+        peg$c130 = { type: "literal", value: ">", description: "\">\"" },
+        peg$c131 = function(val) {
                              return $globals.JSStatementNode._new()
-                                    ._position_((line()).__at(column()))
+                                    ._location_(location())
                                     ._source_(val.join(""))
                          },
-        peg$c134 = function(pattern, sequence) {
+        peg$c132 = function(pattern, sequence) {
                               return $globals.MethodNode._new()
-                                     ._position_((line()).__at(column()))
+                                     ._location_(location())
                                      ._source_(text())
                                      ._selector_(pattern[0])
                                      ._arguments_(pattern[1])
                                      ._nodes_([sequence]);
                          },
-        peg$c135 = function(send) { return send._selector() === "->" },
-        peg$c136 = function(send) { return [send._receiver(), send._arguments()[0]]; },
-        peg$c137 = function(first, others) { return first.concat.apply(first, others); },
+        peg$c133 = function(send) { return send._isSendNode() && send._selector() === "->" },
+        peg$c134 = function(send) { return [send._receiver(), send._arguments()[0]]; },
+        peg$c135 = function(first, others) { return first.concat.apply(first, others); },
 
         peg$currPos          = 0,
-        peg$reportedPos      = 0,
-        peg$cachedPos        = 0,
-        peg$cachedPosDetails = { line: 1, column: 1, seenCR: false },
+        peg$savedPos         = 0,
+        peg$posDetailsCache  = [{ line: 1, column: 1, seenCR: false }],
         peg$maxFailPos       = 0,
         peg$maxFailExpected  = [],
         peg$silentFails      = 0,
 
-        peg$cache = {},
+        peg$resultsCache = {},
+
         peg$result;
 
     if ("startRule" in options) {
@@ -25698,38 +24919,51 @@ $globals.SmalltalkParser = (function() {
     }
 
     function text() {
-      return input.substring(peg$reportedPos, peg$currPos);
+      return input.substring(peg$savedPos, peg$currPos);
     }
 
-    function offset() {
-      return peg$reportedPos;
-    }
-
-    function line() {
-      return peg$computePosDetails(peg$reportedPos).line;
-    }
-
-    function column() {
-      return peg$computePosDetails(peg$reportedPos).column;
+    function location() {
+      return peg$computeLocation(peg$savedPos, peg$currPos);
     }
 
     function expected(description) {
       throw peg$buildException(
         null,
         [{ type: "other", description: description }],
-        peg$reportedPos
+        input.substring(peg$savedPos, peg$currPos),
+        peg$computeLocation(peg$savedPos, peg$currPos)
       );
     }
 
     function error(message) {
-      throw peg$buildException(message, null, peg$reportedPos);
+      throw peg$buildException(
+        message,
+        null,
+        input.substring(peg$savedPos, peg$currPos),
+        peg$computeLocation(peg$savedPos, peg$currPos)
+      );
     }
 
     function peg$computePosDetails(pos) {
-      function advance(details, startPos, endPos) {
-        var p, ch;
+      var details = peg$posDetailsCache[pos],
+          p, ch;
 
-        for (p = startPos; p < endPos; p++) {
+      if (details) {
+        return details;
+      } else {
+        p = pos - 1;
+        while (!peg$posDetailsCache[p]) {
+          p--;
+        }
+
+        details = peg$posDetailsCache[p];
+        details = {
+          line:   details.line,
+          column: details.column,
+          seenCR: details.seenCR
+        };
+
+        while (p < pos) {
           ch = input.charAt(p);
           if (ch === "\n") {
             if (!details.seenCR) { details.line++; }
@@ -25743,19 +24977,31 @@ $globals.SmalltalkParser = (function() {
             details.column++;
             details.seenCR = false;
           }
-        }
-      }
 
-      if (peg$cachedPos !== pos) {
-        if (peg$cachedPos > pos) {
-          peg$cachedPos = 0;
-          peg$cachedPosDetails = { line: 1, column: 1, seenCR: false };
+          p++;
         }
-        advance(peg$cachedPosDetails, peg$cachedPos, pos);
-        peg$cachedPos = pos;
-      }
 
-      return peg$cachedPosDetails;
+        peg$posDetailsCache[pos] = details;
+        return details;
+      }
+    }
+
+    function peg$computeLocation(startPos, endPos) {
+      var startPosDetails = peg$computePosDetails(startPos),
+          endPosDetails   = peg$computePosDetails(endPos);
+
+      return {
+        start: {
+          offset: startPos,
+          line:   startPosDetails.line,
+          column: startPosDetails.column
+        },
+        end: {
+          offset: endPos,
+          line:   endPosDetails.line,
+          column: endPosDetails.column
+        }
+      };
     }
 
     function peg$fail(expected) {
@@ -25769,7 +25015,7 @@ $globals.SmalltalkParser = (function() {
       peg$maxFailExpected.push(expected);
     }
 
-    function peg$buildException(message, expected, pos) {
+    function peg$buildException(message, expected, found, location) {
       function cleanupExpected(expected) {
         var i = 1;
 
@@ -25806,8 +25052,8 @@ $globals.SmalltalkParser = (function() {
             .replace(/\r/g,   '\\r')
             .replace(/[\x00-\x07\x0B\x0E\x0F]/g, function(ch) { return '\\x0' + hex(ch); })
             .replace(/[\x10-\x1F\x80-\xFF]/g,    function(ch) { return '\\x'  + hex(ch); })
-            .replace(/[\u0180-\u0FFF]/g,         function(ch) { return '\\u0' + hex(ch); })
-            .replace(/[\u1080-\uFFFF]/g,         function(ch) { return '\\u'  + hex(ch); });
+            .replace(/[\u0100-\u0FFF]/g,         function(ch) { return '\\u0' + hex(ch); })
+            .replace(/[\u1000-\uFFFF]/g,         function(ch) { return '\\u'  + hex(ch); });
         }
 
         var expectedDescs = new Array(expected.length),
@@ -25828,37 +25074,33 @@ $globals.SmalltalkParser = (function() {
         return "Expected " + expectedDesc + " but " + foundDesc + " found.";
       }
 
-      var posDetails = peg$computePosDetails(pos),
-          found      = pos < input.length ? input.charAt(pos) : null;
-
       if (expected !== null) {
         cleanupExpected(expected);
       }
 
-      return new SyntaxError(
+      return new peg$SyntaxError(
         message !== null ? message : buildMessage(expected, found),
         expected,
         found,
-        pos,
-        posDetails.line,
-        posDetails.column
+        location
       );
     }
 
     function peg$parsestart() {
       var s0;
 
-      var key    = peg$currPos * 60 + 0,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 0,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$parsemethod();
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -25866,38 +25108,39 @@ $globals.SmalltalkParser = (function() {
     function peg$parseseparator() {
       var s0, s1;
 
-      var key    = peg$currPos * 60 + 1,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 1,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = [];
-      if (peg$c2.test(input.charAt(peg$currPos))) {
+      if (peg$c0.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c3); }
+        if (peg$silentFails === 0) { peg$fail(peg$c1); }
       }
       if (s1 !== peg$FAILED) {
         while (s1 !== peg$FAILED) {
           s0.push(s1);
-          if (peg$c2.test(input.charAt(peg$currPos))) {
+          if (peg$c0.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c3); }
+            if (peg$silentFails === 0) { peg$fail(peg$c1); }
           }
         }
       } else {
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -25905,124 +25148,125 @@ $globals.SmalltalkParser = (function() {
     function peg$parsecomments() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 2,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 2,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = [];
       s1 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 34) {
-        s2 = peg$c4;
+        s2 = peg$c2;
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c5); }
+        if (peg$silentFails === 0) { peg$fail(peg$c3); }
       }
       if (s2 !== peg$FAILED) {
         s3 = [];
-        if (peg$c6.test(input.charAt(peg$currPos))) {
+        if (peg$c4.test(input.charAt(peg$currPos))) {
           s4 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s4 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c7); }
+          if (peg$silentFails === 0) { peg$fail(peg$c5); }
         }
         while (s4 !== peg$FAILED) {
           s3.push(s4);
-          if (peg$c6.test(input.charAt(peg$currPos))) {
+          if (peg$c4.test(input.charAt(peg$currPos))) {
             s4 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c7); }
+            if (peg$silentFails === 0) { peg$fail(peg$c5); }
           }
         }
         if (s3 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 34) {
-            s4 = peg$c4;
+            s4 = peg$c2;
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c5); }
+            if (peg$silentFails === 0) { peg$fail(peg$c3); }
           }
           if (s4 !== peg$FAILED) {
             s2 = [s2, s3, s4];
             s1 = s2;
           } else {
             peg$currPos = s1;
-            s1 = peg$c1;
+            s1 = peg$FAILED;
           }
         } else {
           peg$currPos = s1;
-          s1 = peg$c1;
+          s1 = peg$FAILED;
         }
       } else {
         peg$currPos = s1;
-        s1 = peg$c1;
+        s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
         while (s1 !== peg$FAILED) {
           s0.push(s1);
           s1 = peg$currPos;
           if (input.charCodeAt(peg$currPos) === 34) {
-            s2 = peg$c4;
+            s2 = peg$c2;
             peg$currPos++;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c5); }
+            if (peg$silentFails === 0) { peg$fail(peg$c3); }
           }
           if (s2 !== peg$FAILED) {
             s3 = [];
-            if (peg$c6.test(input.charAt(peg$currPos))) {
+            if (peg$c4.test(input.charAt(peg$currPos))) {
               s4 = input.charAt(peg$currPos);
               peg$currPos++;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c7); }
+              if (peg$silentFails === 0) { peg$fail(peg$c5); }
             }
             while (s4 !== peg$FAILED) {
               s3.push(s4);
-              if (peg$c6.test(input.charAt(peg$currPos))) {
+              if (peg$c4.test(input.charAt(peg$currPos))) {
                 s4 = input.charAt(peg$currPos);
                 peg$currPos++;
               } else {
                 s4 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c7); }
+                if (peg$silentFails === 0) { peg$fail(peg$c5); }
               }
             }
             if (s3 !== peg$FAILED) {
               if (input.charCodeAt(peg$currPos) === 34) {
-                s4 = peg$c4;
+                s4 = peg$c2;
                 peg$currPos++;
               } else {
                 s4 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c5); }
+                if (peg$silentFails === 0) { peg$fail(peg$c3); }
               }
               if (s4 !== peg$FAILED) {
                 s2 = [s2, s3, s4];
                 s1 = s2;
               } else {
                 peg$currPos = s1;
-                s1 = peg$c1;
+                s1 = peg$FAILED;
               }
             } else {
               peg$currPos = s1;
-              s1 = peg$c1;
+              s1 = peg$FAILED;
             }
           } else {
             peg$currPos = s1;
-            s1 = peg$c1;
+            s1 = peg$FAILED;
           }
         }
       } else {
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26030,11 +25274,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsews() {
       var s0, s1;
 
-      var key    = peg$currPos * 60 + 3,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 3,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26051,7 +25296,55 @@ $globals.SmalltalkParser = (function() {
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsemaybeDotsWs() {
+      var s0, s1;
+
+      var key    = peg$currPos * 61 + 4,
+          cached = peg$resultsCache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+
+        return cached.result;
+      }
+
+      s0 = [];
+      if (input.charCodeAt(peg$currPos) === 46) {
+        s1 = peg$c6;
+        peg$currPos++;
+      } else {
+        s1 = peg$FAILED;
+        if (peg$silentFails === 0) { peg$fail(peg$c7); }
+      }
+      if (s1 === peg$FAILED) {
+        s1 = peg$parseseparator();
+        if (s1 === peg$FAILED) {
+          s1 = peg$parsecomments();
+        }
+      }
+      while (s1 !== peg$FAILED) {
+        s0.push(s1);
+        if (input.charCodeAt(peg$currPos) === 46) {
+          s1 = peg$c6;
+          peg$currPos++;
+        } else {
+          s1 = peg$FAILED;
+          if (peg$silentFails === 0) { peg$fail(peg$c7); }
+        }
+        if (s1 === peg$FAILED) {
+          s1 = peg$parseseparator();
+          if (s1 === peg$FAILED) {
+            s1 = peg$parsecomments();
+          }
+        }
+      }
+
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26059,11 +25352,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseidentifier() {
       var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 4,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 5,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26095,19 +25389,19 @@ $globals.SmalltalkParser = (function() {
           }
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
+          peg$savedPos = s0;
           s1 = peg$c12(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26115,11 +25409,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsekeyword() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 5,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 6,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26134,19 +25429,19 @@ $globals.SmalltalkParser = (function() {
           if (peg$silentFails === 0) { peg$fail(peg$c14); }
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
+          peg$savedPos = s0;
           s1 = peg$c15(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26154,11 +25449,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseselector() {
       var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 6,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 7,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26190,19 +25486,19 @@ $globals.SmalltalkParser = (function() {
           }
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
+          peg$savedPos = s0;
           s1 = peg$c12(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26210,11 +25506,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseclassName() {
       var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 7,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 8,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26246,19 +25543,19 @@ $globals.SmalltalkParser = (function() {
           }
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
+          peg$savedPos = s0;
           s1 = peg$c12(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26266,11 +25563,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsestring() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 8,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 9,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26293,7 +25591,7 @@ $globals.SmalltalkParser = (function() {
           if (peg$silentFails === 0) { peg$fail(peg$c23); }
         }
         if (s4 !== peg$FAILED) {
-          peg$reportedPos = s3;
+          peg$savedPos = s3;
           s4 = peg$c24();
         }
         s3 = s4;
@@ -26317,7 +25615,7 @@ $globals.SmalltalkParser = (function() {
             if (peg$silentFails === 0) { peg$fail(peg$c23); }
           }
           if (s4 !== peg$FAILED) {
-            peg$reportedPos = s3;
+            peg$savedPos = s3;
             s4 = peg$c24();
           }
           s3 = s4;
@@ -26340,23 +25638,23 @@ $globals.SmalltalkParser = (function() {
             if (peg$silentFails === 0) { peg$fail(peg$c21); }
           }
           if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
+            peg$savedPos = s0;
             s1 = peg$c27(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26364,11 +25662,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsecharacter() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 9,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 10,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26389,19 +25688,19 @@ $globals.SmalltalkParser = (function() {
           if (peg$silentFails === 0) { peg$fail(peg$c30); }
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
+          peg$savedPos = s0;
           s1 = peg$c31(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26409,11 +25708,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsesymbol() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 10,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 11,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26428,19 +25728,19 @@ $globals.SmalltalkParser = (function() {
       if (s1 !== peg$FAILED) {
         s2 = peg$parsebareSymbol();
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
+          peg$savedPos = s0;
           s1 = peg$c34(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26448,11 +25748,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsebareSymbol() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 11,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 12,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26464,19 +25765,19 @@ $globals.SmalltalkParser = (function() {
           s1 = peg$currPos;
           s2 = peg$parsestring();
           if (s2 !== peg$FAILED) {
-            peg$reportedPos = s1;
+            peg$savedPos = s1;
             s2 = peg$c35(s2);
           }
           s1 = s2;
         }
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
+        peg$savedPos = s0;
         s1 = peg$c36(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26484,11 +25785,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsenumber() {
       var s0, s1;
 
-      var key    = peg$currPos * 60 + 12,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 13,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26504,12 +25806,12 @@ $globals.SmalltalkParser = (function() {
         }
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
+        peg$savedPos = s0;
         s1 = peg$c37(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26517,11 +25819,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsenumberExp() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 13,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 14,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26546,23 +25849,23 @@ $globals.SmalltalkParser = (function() {
             s1 = s2;
           } else {
             peg$currPos = s1;
-            s1 = peg$c1;
+            s1 = peg$FAILED;
           }
         } else {
           peg$currPos = s1;
-          s1 = peg$c1;
+          s1 = peg$FAILED;
         }
       } else {
         peg$currPos = s1;
-        s1 = peg$c1;
+        s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
+        peg$savedPos = s0;
         s1 = peg$c40(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26570,74 +25873,75 @@ $globals.SmalltalkParser = (function() {
     function peg$parsehex() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 14,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 15,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 45) {
-        s1 = peg$c42;
+        s1 = peg$c41;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c43); }
+        if (peg$silentFails === 0) { peg$fail(peg$c42); }
       }
       if (s1 === peg$FAILED) {
-        s1 = peg$c41;
+        s1 = null;
       }
       if (s1 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 3) === peg$c44) {
-          s2 = peg$c44;
+        if (input.substr(peg$currPos, 3) === peg$c43) {
+          s2 = peg$c43;
           peg$currPos += 3;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c45); }
+          if (peg$silentFails === 0) { peg$fail(peg$c44); }
         }
         if (s2 !== peg$FAILED) {
           s3 = [];
-          if (peg$c46.test(input.charAt(peg$currPos))) {
+          if (peg$c45.test(input.charAt(peg$currPos))) {
             s4 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c47); }
+            if (peg$silentFails === 0) { peg$fail(peg$c46); }
           }
           if (s4 !== peg$FAILED) {
             while (s4 !== peg$FAILED) {
               s3.push(s4);
-              if (peg$c46.test(input.charAt(peg$currPos))) {
+              if (peg$c45.test(input.charAt(peg$currPos))) {
                 s4 = input.charAt(peg$currPos);
                 peg$currPos++;
               } else {
                 s4 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c47); }
+                if (peg$silentFails === 0) { peg$fail(peg$c46); }
               }
             }
           } else {
-            s3 = peg$c1;
+            s3 = peg$FAILED;
           }
           if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c48(s1, s3);
+            peg$savedPos = s0;
+            s1 = peg$c47(s1, s3);
             s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26645,101 +25949,102 @@ $globals.SmalltalkParser = (function() {
     function peg$parsefloat() {
       var s0, s1, s2, s3, s4, s5;
 
-      var key    = peg$currPos * 60 + 15,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 16,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 45) {
-        s1 = peg$c42;
+        s1 = peg$c41;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c43); }
+        if (peg$silentFails === 0) { peg$fail(peg$c42); }
       }
       if (s1 === peg$FAILED) {
-        s1 = peg$c41;
+        s1 = null;
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c49.test(input.charAt(peg$currPos))) {
+        if (peg$c48.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c50); }
+          if (peg$silentFails === 0) { peg$fail(peg$c49); }
         }
         if (s3 !== peg$FAILED) {
           while (s3 !== peg$FAILED) {
             s2.push(s3);
-            if (peg$c49.test(input.charAt(peg$currPos))) {
+            if (peg$c48.test(input.charAt(peg$currPos))) {
               s3 = input.charAt(peg$currPos);
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c50); }
+              if (peg$silentFails === 0) { peg$fail(peg$c49); }
             }
           }
         } else {
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 46) {
-            s3 = peg$c51;
+            s3 = peg$c6;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c52); }
+            if (peg$silentFails === 0) { peg$fail(peg$c7); }
           }
           if (s3 !== peg$FAILED) {
             s4 = [];
-            if (peg$c49.test(input.charAt(peg$currPos))) {
+            if (peg$c48.test(input.charAt(peg$currPos))) {
               s5 = input.charAt(peg$currPos);
               peg$currPos++;
             } else {
               s5 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c50); }
+              if (peg$silentFails === 0) { peg$fail(peg$c49); }
             }
             if (s5 !== peg$FAILED) {
               while (s5 !== peg$FAILED) {
                 s4.push(s5);
-                if (peg$c49.test(input.charAt(peg$currPos))) {
+                if (peg$c48.test(input.charAt(peg$currPos))) {
                   s5 = input.charAt(peg$currPos);
                   peg$currPos++;
                 } else {
                   s5 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c50); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c49); }
                 }
               }
             } else {
-              s4 = peg$c1;
+              s4 = peg$FAILED;
             }
             if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c53(s1, s2, s4);
+              peg$savedPos = s0;
+              s1 = peg$c50(s1, s2, s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -26747,113 +26052,134 @@ $globals.SmalltalkParser = (function() {
     function peg$parseinteger() {
       var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 16,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 17,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 45) {
-        s1 = peg$c42;
+        s1 = peg$c41;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c43); }
+        if (peg$silentFails === 0) { peg$fail(peg$c42); }
       }
       if (s1 === peg$FAILED) {
-        s1 = peg$c41;
+        s1 = null;
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
-        if (peg$c49.test(input.charAt(peg$currPos))) {
+        if (peg$c48.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c50); }
+          if (peg$silentFails === 0) { peg$fail(peg$c49); }
         }
         if (s3 !== peg$FAILED) {
           while (s3 !== peg$FAILED) {
             s2.push(s3);
-            if (peg$c49.test(input.charAt(peg$currPos))) {
+            if (peg$c48.test(input.charAt(peg$currPos))) {
               s3 = input.charAt(peg$currPos);
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c50); }
+              if (peg$silentFails === 0) { peg$fail(peg$c49); }
             }
           }
         } else {
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c54(s1, s2);
+          peg$savedPos = s0;
+          s1 = peg$c51(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parseliteralArray() {
-      var s0, s1, s2;
+      var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 17,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 18,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 2) === peg$c55) {
-        s1 = peg$c55;
+      if (input.substr(peg$currPos, 2) === peg$c52) {
+        s1 = peg$c52;
         peg$currPos += 2;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c56); }
+        if (peg$silentFails === 0) { peg$fail(peg$c53); }
       }
       if (s1 !== peg$FAILED) {
-        s2 = peg$parseliteralArrayRest();
+        s2 = peg$parsewsLiteralArrayContents();
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c34(s2);
-          s0 = s1;
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 41) {
+              s4 = peg$c54;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c55); }
+            }
+            if (s4 !== peg$FAILED) {
+              peg$savedPos = s0;
+              s1 = peg$c56(s2);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parsebareLiteralArray() {
-      var s0, s1, s2;
+      var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 18,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 19,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26866,33 +26192,77 @@ $globals.SmalltalkParser = (function() {
         if (peg$silentFails === 0) { peg$fail(peg$c58); }
       }
       if (s1 !== peg$FAILED) {
-        s2 = peg$parseliteralArrayRest();
+        s2 = peg$parsewsLiteralArrayContents();
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c34(s2);
-          s0 = s1;
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            if (input.charCodeAt(peg$currPos) === 41) {
+              s4 = peg$c54;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c55); }
+            }
+            if (s4 !== peg$FAILED) {
+              peg$savedPos = s0;
+              s1 = peg$c56(s2);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseliteralArrayRest() {
-      var s0, s1, s2, s3, s4;
+    function peg$parseliteralArrayElement() {
+      var s0;
 
-      var key    = peg$currPos * 60 + 19,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 20,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
+        return cached.result;
+      }
+
+      s0 = peg$parseparseTimeLiteral();
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsebareLiteralArray();
+        if (s0 === peg$FAILED) {
+          s0 = peg$parsebareSymbol();
+        }
+      }
+
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsewsLiteralArrayContents() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 21,
+          cached = peg$resultsCache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -26901,159 +26271,112 @@ $globals.SmalltalkParser = (function() {
       s2 = peg$currPos;
       s3 = peg$parsews();
       if (s3 !== peg$FAILED) {
-        s4 = peg$parseparseTimeLiteral();
-        if (s4 === peg$FAILED) {
-          s4 = peg$parsebareLiteralArray();
-          if (s4 === peg$FAILED) {
-            s4 = peg$parsebareSymbol();
-          }
-        }
+        s4 = peg$parseliteralArrayElement();
         if (s4 !== peg$FAILED) {
-          peg$reportedPos = s2;
+          peg$savedPos = s2;
           s3 = peg$c59(s4);
           s2 = s3;
         } else {
           peg$currPos = s2;
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
       } else {
         peg$currPos = s2;
-        s2 = peg$c1;
+        s2 = peg$FAILED;
       }
       while (s2 !== peg$FAILED) {
         s1.push(s2);
         s2 = peg$currPos;
         s3 = peg$parsews();
         if (s3 !== peg$FAILED) {
-          s4 = peg$parseparseTimeLiteral();
-          if (s4 === peg$FAILED) {
-            s4 = peg$parsebareLiteralArray();
-            if (s4 === peg$FAILED) {
-              s4 = peg$parsebareSymbol();
-            }
-          }
+          s4 = peg$parseliteralArrayElement();
           if (s4 !== peg$FAILED) {
-            peg$reportedPos = s2;
+            peg$savedPos = s2;
             s3 = peg$c59(s4);
             s2 = s3;
           } else {
             peg$currPos = s2;
-            s2 = peg$c1;
+            s2 = peg$FAILED;
           }
         } else {
           peg$currPos = s2;
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
       }
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsews();
-        if (s2 !== peg$FAILED) {
-          if (input.charCodeAt(peg$currPos) === 41) {
-            s3 = peg$c60;
-            peg$currPos++;
-          } else {
-            s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c61); }
-          }
-          if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c62(s1);
-            s0 = s1;
-          } else {
-            peg$currPos = s0;
-            s0 = peg$c1;
-          }
-        } else {
-          peg$currPos = s0;
-          s0 = peg$c1;
-        }
-      } else {
-        peg$currPos = s0;
-        s0 = peg$c1;
+        peg$savedPos = s0;
+        s1 = peg$c60(s1);
       }
+      s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parsedynamicArray() {
-      var s0, s1, s2, s3, s4, s5, s6;
+      var s0, s1, s2, s3, s4, s5;
 
-      var key    = peg$currPos * 60 + 20,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 22,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 123) {
-        s1 = peg$c63;
+        s1 = peg$c61;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c64); }
+        if (peg$silentFails === 0) { peg$fail(peg$c62); }
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$parsews();
         if (s2 !== peg$FAILED) {
           s3 = peg$parseexpressions();
           if (s3 === peg$FAILED) {
-            s3 = peg$c41;
+            s3 = null;
           }
           if (s3 !== peg$FAILED) {
-            s4 = peg$parsews();
+            s4 = peg$parsemaybeDotsWs();
             if (s4 !== peg$FAILED) {
-              if (input.charCodeAt(peg$currPos) === 46) {
-                s5 = peg$c51;
+              if (input.charCodeAt(peg$currPos) === 125) {
+                s5 = peg$c63;
                 peg$currPos++;
               } else {
                 s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c52); }
-              }
-              if (s5 === peg$FAILED) {
-                s5 = peg$c41;
+                if (peg$silentFails === 0) { peg$fail(peg$c64); }
               }
               if (s5 !== peg$FAILED) {
-                if (input.charCodeAt(peg$currPos) === 125) {
-                  s6 = peg$c65;
-                  peg$currPos++;
-                } else {
-                  s6 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c66); }
-                }
-                if (s6 !== peg$FAILED) {
-                  peg$reportedPos = s0;
-                  s1 = peg$c67(s3);
-                  s0 = s1;
-                } else {
-                  peg$currPos = s0;
-                  s0 = peg$c1;
-                }
+                peg$savedPos = s0;
+                s1 = peg$c65(s3);
+                s0 = s1;
               } else {
                 peg$currPos = s0;
-                s0 = peg$c1;
+                s0 = peg$FAILED;
               }
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27061,65 +26384,66 @@ $globals.SmalltalkParser = (function() {
     function peg$parsedynamicDictionary() {
       var s0, s1, s2, s3, s4, s5;
 
-      var key    = peg$currPos * 60 + 21,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 23,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      if (input.substr(peg$currPos, 2) === peg$c68) {
-        s1 = peg$c68;
+      if (input.substr(peg$currPos, 2) === peg$c66) {
+        s1 = peg$c66;
         peg$currPos += 2;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c69); }
+        if (peg$silentFails === 0) { peg$fail(peg$c67); }
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$parsews();
         if (s2 !== peg$FAILED) {
           s3 = peg$parseassociations();
           if (s3 === peg$FAILED) {
-            s3 = peg$c41;
+            s3 = null;
           }
           if (s3 !== peg$FAILED) {
-            s4 = peg$parsews();
+            s4 = peg$parsemaybeDotsWs();
             if (s4 !== peg$FAILED) {
               if (input.charCodeAt(peg$currPos) === 125) {
-                s5 = peg$c65;
+                s5 = peg$c63;
                 peg$currPos++;
               } else {
                 s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c66); }
+                if (peg$silentFails === 0) { peg$fail(peg$c64); }
               }
               if (s5 !== peg$FAILED) {
-                peg$reportedPos = s0;
-                s1 = peg$c70(s3);
+                peg$savedPos = s0;
+                s1 = peg$c68(s3);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
-                s0 = peg$c1;
+                s0 = peg$FAILED;
               }
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27127,65 +26451,66 @@ $globals.SmalltalkParser = (function() {
     function peg$parsepseudoVariable() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 22,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 24,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$currPos;
-      if (input.substr(peg$currPos, 4) === peg$c71) {
-        s2 = peg$c71;
+      if (input.substr(peg$currPos, 4) === peg$c69) {
+        s2 = peg$c69;
         peg$currPos += 4;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c72); }
+        if (peg$silentFails === 0) { peg$fail(peg$c70); }
       }
       if (s2 !== peg$FAILED) {
-        peg$reportedPos = s1;
-        s2 = peg$c73();
+        peg$savedPos = s1;
+        s2 = peg$c71();
       }
       s1 = s2;
       if (s1 === peg$FAILED) {
         s1 = peg$currPos;
-        if (input.substr(peg$currPos, 5) === peg$c74) {
-          s2 = peg$c74;
+        if (input.substr(peg$currPos, 5) === peg$c72) {
+          s2 = peg$c72;
           peg$currPos += 5;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c75); }
+          if (peg$silentFails === 0) { peg$fail(peg$c73); }
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s1;
-          s2 = peg$c76();
+          peg$savedPos = s1;
+          s2 = peg$c74();
         }
         s1 = s2;
         if (s1 === peg$FAILED) {
           s1 = peg$currPos;
-          if (input.substr(peg$currPos, 3) === peg$c77) {
-            s2 = peg$c77;
+          if (input.substr(peg$currPos, 3) === peg$c75) {
+            s2 = peg$c75;
             peg$currPos += 3;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c78); }
+            if (peg$silentFails === 0) { peg$fail(peg$c76); }
           }
           if (s2 !== peg$FAILED) {
-            peg$reportedPos = s1;
-            s2 = peg$c79();
+            peg$savedPos = s1;
+            s2 = peg$c77();
           }
           s1 = s2;
         }
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
-        s1 = peg$c80(s1);
+        peg$savedPos = s0;
+        s1 = peg$c78(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27193,11 +26518,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseparseTimeLiteral() {
       var s0;
 
-      var key    = peg$currPos * 60 + 23,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 25,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27218,7 +26544,7 @@ $globals.SmalltalkParser = (function() {
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27226,11 +26552,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseruntimeLiteral() {
       var s0;
 
-      var key    = peg$currPos * 60 + 24,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 26,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27242,7 +26569,7 @@ $globals.SmalltalkParser = (function() {
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27250,11 +26577,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseliteral() {
       var s0;
 
-      var key    = peg$currPos * 60 + 25,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 27,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27263,7 +26591,7 @@ $globals.SmalltalkParser = (function() {
         s0 = peg$parseparseTimeLiteral();
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27271,68 +26599,24 @@ $globals.SmalltalkParser = (function() {
     function peg$parsevariable() {
       var s0, s1;
 
-      var key    = peg$currPos * 60 + 26,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 28,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$parseidentifier();
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
-        s1 = peg$c81(s1);
+        peg$savedPos = s0;
+        s1 = peg$c79(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
-
-      return s0;
-    }
-
-    function peg$parsekeywordPair() {
-      var s0, s1, s2, s3, s4;
-
-      var key    = peg$currPos * 60 + 27,
-          cached = peg$cache[key];
-
-      if (cached) {
-        peg$currPos = cached.nextPos;
-        return cached.result;
-      }
-
-      s0 = peg$currPos;
-      s1 = peg$parsews();
-      if (s1 !== peg$FAILED) {
-        s2 = peg$parsekeyword();
-        if (s2 !== peg$FAILED) {
-          s3 = peg$parsews();
-          if (s3 !== peg$FAILED) {
-            s4 = peg$parsebinarySend();
-            if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c82(s2, s4);
-              s0 = s1;
-            } else {
-              peg$currPos = s0;
-              s0 = peg$c1;
-            }
-          } else {
-            peg$currPos = s0;
-            s0 = peg$c1;
-          }
-        } else {
-          peg$currPos = s0;
-          s0 = peg$c1;
-        }
-      } else {
-        peg$currPos = s0;
-        s0 = peg$c1;
-      }
-
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27340,56 +26624,58 @@ $globals.SmalltalkParser = (function() {
     function peg$parsebinarySelector() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 28,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 29,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = [];
-      if (peg$c83.test(input.charAt(peg$currPos))) {
+      if (peg$c80.test(input.charAt(peg$currPos))) {
         s2 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c84); }
+        if (peg$silentFails === 0) { peg$fail(peg$c81); }
       }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
           s1.push(s2);
-          if (peg$c83.test(input.charAt(peg$currPos))) {
+          if (peg$c80.test(input.charAt(peg$currPos))) {
             s2 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c84); }
+            if (peg$silentFails === 0) { peg$fail(peg$c81); }
           }
         }
       } else {
-        s1 = peg$c1;
+        s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
-        s1 = peg$c85(s1);
+        peg$savedPos = s0;
+        s1 = peg$c82(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsekeywordPattern() {
+    function peg$parsewsKeywordPattern() {
       var s0, s1, s2, s3, s4, s5, s6;
 
-      var key    = peg$currPos * 60 + 29,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 30,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27404,24 +26690,24 @@ $globals.SmalltalkParser = (function() {
           if (s5 !== peg$FAILED) {
             s6 = peg$parseidentifier();
             if (s6 !== peg$FAILED) {
-              peg$reportedPos = s2;
-              s3 = peg$c82(s4, s6);
+              peg$savedPos = s2;
+              s3 = peg$c83(s4, s6);
               s2 = s3;
             } else {
               peg$currPos = s2;
-              s2 = peg$c1;
+              s2 = peg$FAILED;
             }
           } else {
             peg$currPos = s2;
-            s2 = peg$c1;
+            s2 = peg$FAILED;
           }
         } else {
           peg$currPos = s2;
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
       } else {
         peg$currPos = s2;
-        s2 = peg$c1;
+        s2 = peg$FAILED;
       }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
@@ -27435,48 +26721,49 @@ $globals.SmalltalkParser = (function() {
               if (s5 !== peg$FAILED) {
                 s6 = peg$parseidentifier();
                 if (s6 !== peg$FAILED) {
-                  peg$reportedPos = s2;
-                  s3 = peg$c82(s4, s6);
+                  peg$savedPos = s2;
+                  s3 = peg$c83(s4, s6);
                   s2 = s3;
                 } else {
                   peg$currPos = s2;
-                  s2 = peg$c1;
+                  s2 = peg$FAILED;
                 }
               } else {
                 peg$currPos = s2;
-                s2 = peg$c1;
+                s2 = peg$FAILED;
               }
             } else {
               peg$currPos = s2;
-              s2 = peg$c1;
+              s2 = peg$FAILED;
             }
           } else {
             peg$currPos = s2;
-            s2 = peg$c1;
+            s2 = peg$FAILED;
           }
         }
       } else {
-        s1 = peg$c1;
+        s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
-        s1 = peg$c86(s1);
+        peg$savedPos = s0;
+        s1 = peg$c84(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsebinaryPattern() {
+    function peg$parsewsBinaryPattern() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 30,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 31,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27489,39 +26776,40 @@ $globals.SmalltalkParser = (function() {
           if (s3 !== peg$FAILED) {
             s4 = peg$parseidentifier();
             if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c87(s2, s4);
+              peg$savedPos = s0;
+              s1 = peg$c85(s2, s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseunaryPattern() {
+    function peg$parsewsUnaryPattern() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 31,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 32,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27530,19 +26818,19 @@ $globals.SmalltalkParser = (function() {
       if (s1 !== peg$FAILED) {
         s2 = peg$parseidentifier();
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c88(s2);
+          peg$savedPos = s0;
+          s1 = peg$c86(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27550,11 +26838,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseexpression() {
       var s0;
 
-      var key    = peg$currPos * 60 + 32,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 33,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27563,25 +26852,23 @@ $globals.SmalltalkParser = (function() {
         s0 = peg$parsecascade();
         if (s0 === peg$FAILED) {
           s0 = peg$parsekeywordSend();
-          if (s0 === peg$FAILED) {
-            s0 = peg$parsebinarySend();
-          }
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseexpressionList() {
+    function peg$parsewsExpressionsRest() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 33,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 34,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27589,38 +26876,38 @@ $globals.SmalltalkParser = (function() {
       s1 = peg$parsews();
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 46) {
-          s2 = peg$c51;
+          s2 = peg$c6;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c52); }
+          if (peg$silentFails === 0) { peg$fail(peg$c7); }
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsews();
+          s3 = peg$parsemaybeDotsWs();
           if (s3 !== peg$FAILED) {
             s4 = peg$parseexpression();
             if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c89(s4);
+              peg$savedPos = s0;
+              s1 = peg$c87(s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27628,11 +26915,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseexpressions() {
       var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 34,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 35,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27640,25 +26928,25 @@ $globals.SmalltalkParser = (function() {
       s1 = peg$parseexpression();
       if (s1 !== peg$FAILED) {
         s2 = [];
-        s3 = peg$parseexpressionList();
+        s3 = peg$parsewsExpressionsRest();
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          s3 = peg$parseexpressionList();
+          s3 = peg$parsewsExpressionsRest();
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c90(s1, s2);
+          peg$savedPos = s0;
+          s1 = peg$c88(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27666,11 +26954,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseassignment() {
       var s0, s1, s2, s3, s4, s5;
 
-      var key    = peg$currPos * 60 + 35,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 36,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27679,109 +26968,89 @@ $globals.SmalltalkParser = (function() {
       if (s1 !== peg$FAILED) {
         s2 = peg$parsews();
         if (s2 !== peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c91) {
-            s3 = peg$c91;
+          if (input.substr(peg$currPos, 2) === peg$c89) {
+            s3 = peg$c89;
             peg$currPos += 2;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c92); }
+            if (peg$silentFails === 0) { peg$fail(peg$c90); }
           }
           if (s3 !== peg$FAILED) {
             s4 = peg$parsews();
             if (s4 !== peg$FAILED) {
               s5 = peg$parseexpression();
               if (s5 !== peg$FAILED) {
-                peg$reportedPos = s0;
-                s1 = peg$c93(s1, s5);
+                peg$savedPos = s0;
+                s1 = peg$c91(s1, s5);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
-                s0 = peg$c1;
+                s0 = peg$FAILED;
               }
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parseret() {
-      var s0, s1, s2, s3, s4, s5;
+      var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 36,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 37,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 94) {
-        s1 = peg$c94;
+        s1 = peg$c92;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c95); }
+        if (peg$silentFails === 0) { peg$fail(peg$c93); }
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$parsews();
         if (s2 !== peg$FAILED) {
           s3 = peg$parseexpression();
           if (s3 !== peg$FAILED) {
-            s4 = peg$parsews();
-            if (s4 !== peg$FAILED) {
-              if (input.charCodeAt(peg$currPos) === 46) {
-                s5 = peg$c51;
-                peg$currPos++;
-              } else {
-                s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c52); }
-              }
-              if (s5 === peg$FAILED) {
-                s5 = peg$c41;
-              }
-              if (s5 !== peg$FAILED) {
-                peg$reportedPos = s0;
-                s1 = peg$c96(s3);
-                s0 = s1;
-              } else {
-                peg$currPos = s0;
-                s0 = peg$c1;
-              }
-            } else {
-              peg$currPos = s0;
-              s0 = peg$c1;
-            }
+            peg$savedPos = s0;
+            s1 = peg$c94(s3);
+            s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -27789,21 +27058,22 @@ $globals.SmalltalkParser = (function() {
     function peg$parsetemps() {
       var s0, s1, s2, s3, s4, s5;
 
-      var key    = peg$currPos * 60 + 37,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 38,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 124) {
-        s1 = peg$c97;
+        s1 = peg$c95;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c98); }
+        if (peg$silentFails === 0) { peg$fail(peg$c96); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
@@ -27812,16 +27082,16 @@ $globals.SmalltalkParser = (function() {
         if (s4 !== peg$FAILED) {
           s5 = peg$parseidentifier();
           if (s5 !== peg$FAILED) {
-            peg$reportedPos = s3;
-            s4 = peg$c99(s5);
+            peg$savedPos = s3;
+            s4 = peg$c97(s5);
             s3 = s4;
           } else {
             peg$currPos = s3;
-            s3 = peg$c1;
+            s3 = peg$FAILED;
           }
         } else {
           peg$currPos = s3;
-          s3 = peg$c1;
+          s3 = peg$FAILED;
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
@@ -27830,62 +27100,63 @@ $globals.SmalltalkParser = (function() {
           if (s4 !== peg$FAILED) {
             s5 = peg$parseidentifier();
             if (s5 !== peg$FAILED) {
-              peg$reportedPos = s3;
-              s4 = peg$c99(s5);
+              peg$savedPos = s3;
+              s4 = peg$c97(s5);
               s3 = s4;
             } else {
               peg$currPos = s3;
-              s3 = peg$c1;
+              s3 = peg$FAILED;
             }
           } else {
             peg$currPos = s3;
-            s3 = peg$c1;
+            s3 = peg$FAILED;
           }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsews();
           if (s3 !== peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 124) {
-              s4 = peg$c97;
+              s4 = peg$c95;
               peg$currPos++;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c98); }
+              if (peg$silentFails === 0) { peg$fail(peg$c96); }
             }
             if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c100(s2);
+              peg$savedPos = s0;
+              s1 = peg$c98(s2);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseblockParamList() {
+    function peg$parsewsBlockParamList() {
       var s0, s1, s2, s3, s4, s5, s6;
 
-      var key    = peg$currPos * 60 + 38,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 39,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -27906,24 +27177,24 @@ $globals.SmalltalkParser = (function() {
           if (s5 !== peg$FAILED) {
             s6 = peg$parseidentifier();
             if (s6 !== peg$FAILED) {
-              peg$reportedPos = s2;
-              s3 = peg$c101(s6);
+              peg$savedPos = s2;
+              s3 = peg$c99(s6);
               s2 = s3;
             } else {
               peg$currPos = s2;
-              s2 = peg$c1;
+              s2 = peg$FAILED;
             }
           } else {
             peg$currPos = s2;
-            s2 = peg$c1;
+            s2 = peg$FAILED;
           }
         } else {
           peg$currPos = s2;
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
       } else {
         peg$currPos = s2;
-        s2 = peg$c1;
+        s2 = peg$FAILED;
       }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
@@ -27943,57 +27214,57 @@ $globals.SmalltalkParser = (function() {
               if (s5 !== peg$FAILED) {
                 s6 = peg$parseidentifier();
                 if (s6 !== peg$FAILED) {
-                  peg$reportedPos = s2;
-                  s3 = peg$c101(s6);
+                  peg$savedPos = s2;
+                  s3 = peg$c99(s6);
                   s2 = s3;
                 } else {
                   peg$currPos = s2;
-                  s2 = peg$c1;
+                  s2 = peg$FAILED;
                 }
               } else {
                 peg$currPos = s2;
-                s2 = peg$c1;
+                s2 = peg$FAILED;
               }
             } else {
               peg$currPos = s2;
-              s2 = peg$c1;
+              s2 = peg$FAILED;
             }
           } else {
             peg$currPos = s2;
-            s2 = peg$c1;
+            s2 = peg$FAILED;
           }
         }
       } else {
-        s1 = peg$c1;
+        s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$parsews();
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 124) {
-            s3 = peg$c97;
+            s3 = peg$c95;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c98); }
+            if (peg$silentFails === 0) { peg$fail(peg$c96); }
           }
           if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c102(s1);
+            peg$savedPos = s0;
+            s1 = peg$c100(s1);
             s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -28001,11 +27272,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parsesubexpression() {
       var s0, s1, s2, s3, s4, s5;
 
-      var key    = peg$currPos * 60 + 39,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 40,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -28025,85 +27297,69 @@ $globals.SmalltalkParser = (function() {
             s4 = peg$parsews();
             if (s4 !== peg$FAILED) {
               if (input.charCodeAt(peg$currPos) === 41) {
-                s5 = peg$c60;
+                s5 = peg$c54;
                 peg$currPos++;
               } else {
                 s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c61); }
+                if (peg$silentFails === 0) { peg$fail(peg$c55); }
               }
               if (s5 !== peg$FAILED) {
-                peg$reportedPos = s0;
-                s1 = peg$c89(s3);
+                peg$savedPos = s0;
+                s1 = peg$c87(s3);
                 s0 = s1;
               } else {
                 peg$currPos = s0;
-                s0 = peg$c1;
+                s0 = peg$FAILED;
               }
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsestatements() {
-      var s0, s1, s2, s3, s4, s5, s6, s7;
+    function peg$parsestatementsWs() {
+      var s0, s1, s2, s3, s4, s5, s6;
 
-      var key    = peg$currPos * 60 + 40,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 41,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$parseret();
       if (s1 !== peg$FAILED) {
-        s2 = [];
-        if (input.charCodeAt(peg$currPos) === 46) {
-          s3 = peg$c51;
-          peg$currPos++;
-        } else {
-          s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c52); }
-        }
-        while (s3 !== peg$FAILED) {
-          s2.push(s3);
-          if (input.charCodeAt(peg$currPos) === 46) {
-            s3 = peg$c51;
-            peg$currPos++;
-          } else {
-            s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c52); }
-          }
-        }
+        s2 = peg$parsemaybeDotsWs();
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c103(s1);
+          peg$savedPos = s0;
+          s1 = peg$c101(s1);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
       if (s0 === peg$FAILED) {
         s0 = peg$currPos;
@@ -28111,267 +27367,230 @@ $globals.SmalltalkParser = (function() {
         if (s1 !== peg$FAILED) {
           s2 = peg$parsews();
           if (s2 !== peg$FAILED) {
-            s3 = [];
             if (input.charCodeAt(peg$currPos) === 46) {
-              s4 = peg$c51;
+              s3 = peg$c6;
               peg$currPos++;
             } else {
-              s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c52); }
-            }
-            if (s4 !== peg$FAILED) {
-              while (s4 !== peg$FAILED) {
-                s3.push(s4);
-                if (input.charCodeAt(peg$currPos) === 46) {
-                  s4 = peg$c51;
-                  peg$currPos++;
-                } else {
-                  s4 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c52); }
-                }
-              }
-            } else {
-              s3 = peg$c1;
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c7); }
             }
             if (s3 !== peg$FAILED) {
-              s4 = peg$parsews();
+              s4 = peg$parsemaybeDotsWs();
               if (s4 !== peg$FAILED) {
                 s5 = peg$parseret();
                 if (s5 !== peg$FAILED) {
-                  s6 = [];
-                  if (input.charCodeAt(peg$currPos) === 46) {
-                    s7 = peg$c51;
-                    peg$currPos++;
-                  } else {
-                    s7 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c52); }
-                  }
-                  while (s7 !== peg$FAILED) {
-                    s6.push(s7);
-                    if (input.charCodeAt(peg$currPos) === 46) {
-                      s7 = peg$c51;
-                      peg$currPos++;
-                    } else {
-                      s7 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c52); }
-                    }
-                  }
+                  s6 = peg$parsemaybeDotsWs();
                   if (s6 !== peg$FAILED) {
-                    peg$reportedPos = s0;
-                    s1 = peg$c104(s1, s5);
+                    peg$savedPos = s0;
+                    s1 = peg$c102(s1, s5);
                     s0 = s1;
                   } else {
                     peg$currPos = s0;
-                    s0 = peg$c1;
+                    s0 = peg$FAILED;
                   }
                 } else {
                   peg$currPos = s0;
-                  s0 = peg$c1;
+                  s0 = peg$FAILED;
                 }
               } else {
                 peg$currPos = s0;
-                s0 = peg$c1;
+                s0 = peg$FAILED;
               }
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
         if (s0 === peg$FAILED) {
           s0 = peg$currPos;
           s1 = peg$parseexpressions();
           if (s1 === peg$FAILED) {
-            s1 = peg$c41;
+            s1 = null;
           }
           if (s1 !== peg$FAILED) {
-            s2 = [];
-            if (input.charCodeAt(peg$currPos) === 46) {
-              s3 = peg$c51;
-              peg$currPos++;
-            } else {
-              s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c52); }
-            }
-            while (s3 !== peg$FAILED) {
-              s2.push(s3);
-              if (input.charCodeAt(peg$currPos) === 46) {
-                s3 = peg$c51;
-                peg$currPos++;
-              } else {
-                s3 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c52); }
-              }
-            }
+            s2 = peg$parsemaybeDotsWs();
             if (s2 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c105(s1);
+              peg$savedPos = s0;
+              s1 = peg$c103(s1);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsesequence() {
-      var s0;
+    function peg$parsewsSequenceWs() {
+      var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 41,
-          cached = peg$cache[key];
-
-      if (cached) {
-        peg$currPos = cached.nextPos;
-        return cached.result;
-      }
-
-      s0 = peg$parsejsStatement();
-      if (s0 === peg$FAILED) {
-        s0 = peg$parsestSequence();
-      }
-
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
-
-      return s0;
-    }
-
-    function peg$parsestSequence() {
-      var s0, s1, s2, s3, s4;
-
-      var key    = peg$currPos * 60 + 42,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 42,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      s1 = peg$parsetemps();
-      if (s1 === peg$FAILED) {
-        s1 = peg$c41;
-      }
+      s1 = peg$parsews();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsews();
+        s2 = peg$parsejsStatement();
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsestatements();
-          if (s3 === peg$FAILED) {
-            s3 = peg$c41;
-          }
+          s3 = peg$parsews();
           if (s3 !== peg$FAILED) {
-            s4 = peg$parsews();
-            if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c106(s1, s3);
-              s0 = s1;
-            } else {
-              peg$currPos = s0;
-              s0 = peg$c1;
-            }
+            peg$savedPos = s0;
+            s1 = peg$c104(s2);
+            s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
+      }
+      if (s0 === peg$FAILED) {
+        s0 = peg$parsewsStSequenceWs();
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
+
+      return s0;
+    }
+
+    function peg$parsewsStSequenceWs() {
+      var s0, s1, s2, s3, s4;
+
+      var key    = peg$currPos * 61 + 43,
+          cached = peg$resultsCache[key];
+
+      if (cached) {
+        peg$currPos = cached.nextPos;
+
+        return cached.result;
+      }
+
+      s0 = peg$currPos;
+      s1 = peg$parsews();
+      if (s1 !== peg$FAILED) {
+        s2 = peg$parsetemps();
+        if (s2 === peg$FAILED) {
+          s2 = null;
+        }
+        if (s2 !== peg$FAILED) {
+          s3 = peg$parsemaybeDotsWs();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsestatementsWs();
+            if (s4 === peg$FAILED) {
+              s4 = null;
+            }
+            if (s4 !== peg$FAILED) {
+              peg$savedPos = s0;
+              s1 = peg$c105(s2, s4);
+              s0 = s1;
+            } else {
+              peg$currPos = s0;
+              s0 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s0;
+            s0 = peg$FAILED;
+          }
+        } else {
+          peg$currPos = s0;
+          s0 = peg$FAILED;
+        }
+      } else {
+        peg$currPos = s0;
+        s0 = peg$FAILED;
+      }
+
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parseblock() {
-      var s0, s1, s2, s3, s4, s5, s6;
+      var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 43,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 44,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 91) {
-        s1 = peg$c107;
+        s1 = peg$c106;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c108); }
+        if (peg$silentFails === 0) { peg$fail(peg$c107); }
       }
       if (s1 !== peg$FAILED) {
-        s2 = peg$parseblockParamList();
+        s2 = peg$parsewsBlockParamList();
         if (s2 === peg$FAILED) {
-          s2 = peg$c41;
+          s2 = null;
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsews();
+          s3 = peg$parsewsSequenceWs();
+          if (s3 === peg$FAILED) {
+            s3 = null;
+          }
           if (s3 !== peg$FAILED) {
-            s4 = peg$parsesequence();
-            if (s4 === peg$FAILED) {
-              s4 = peg$c41;
+            if (input.charCodeAt(peg$currPos) === 93) {
+              s4 = peg$c108;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c109); }
             }
             if (s4 !== peg$FAILED) {
-              s5 = peg$parsews();
-              if (s5 !== peg$FAILED) {
-                if (input.charCodeAt(peg$currPos) === 93) {
-                  s6 = peg$c109;
-                  peg$currPos++;
-                } else {
-                  s6 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c110); }
-                }
-                if (s6 !== peg$FAILED) {
-                  peg$reportedPos = s0;
-                  s1 = peg$c111(s2, s4);
-                  s0 = s1;
-                } else {
-                  peg$currPos = s0;
-                  s0 = peg$c1;
-                }
-              } else {
-                peg$currPos = s0;
-                s0 = peg$c1;
-              }
+              peg$savedPos = s0;
+              s1 = peg$c110(s2, s3);
+              s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -28379,11 +27598,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseoperand() {
       var s0;
 
-      var key    = peg$currPos * 60 + 44,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 45,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -28395,19 +27615,20 @@ $globals.SmalltalkParser = (function() {
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseunaryMessage() {
+    function peg$parsewsUnaryMessage() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 45,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 46,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -28427,131 +27648,116 @@ $globals.SmalltalkParser = (function() {
           }
           peg$silentFails--;
           if (s4 === peg$FAILED) {
-            s3 = peg$c112;
+            s3 = void 0;
           } else {
             peg$currPos = s3;
-            s3 = peg$c1;
+            s3 = peg$FAILED;
           }
           if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c113(s2);
+            peg$savedPos = s0;
+            s1 = peg$c111(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseunaryTail() {
-      var s0, s1, s2, s3, s4;
+    function peg$parsewsUnaryTail() {
+      var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 46,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 47,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      s1 = peg$parseunaryMessage();
+      s1 = peg$parsewsUnaryMessage();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsews();
+        s2 = peg$parsewsUnaryTail();
+        if (s2 === peg$FAILED) {
+          s2 = null;
+        }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parseunaryTail();
-          if (s3 === peg$FAILED) {
-            s3 = peg$c41;
-          }
-          if (s3 !== peg$FAILED) {
-            s4 = peg$parsews();
-            if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c114(s1, s3);
-              s0 = s1;
-            } else {
-              peg$currPos = s0;
-              s0 = peg$c1;
-            }
-          } else {
-            peg$currPos = s0;
-            s0 = peg$c1;
-          }
+          peg$savedPos = s0;
+          s1 = peg$c112(s1, s2);
+          s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parseunarySend() {
-      var s0, s1, s2, s3;
+      var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 47,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 48,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$parseoperand();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsews();
+        s2 = peg$parsewsUnaryTail();
+        if (s2 === peg$FAILED) {
+          s2 = null;
+        }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parseunaryTail();
-          if (s3 === peg$FAILED) {
-            s3 = peg$c41;
-          }
-          if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c115(s1, s3);
-            s0 = s1;
-          } else {
-            peg$currPos = s0;
-            s0 = peg$c1;
-          }
+          peg$savedPos = s0;
+          s1 = peg$c113(s1, s2);
+          s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsebinaryMessage() {
+    function peg$parsewsBinaryMessage() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 48,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 49,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -28563,67 +27769,65 @@ $globals.SmalltalkParser = (function() {
           s3 = peg$parsews();
           if (s3 !== peg$FAILED) {
             s4 = peg$parseunarySend();
-            if (s4 === peg$FAILED) {
-              s4 = peg$parseoperand();
-            }
             if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c116(s2, s4);
+              peg$savedPos = s0;
+              s1 = peg$c114(s2, s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsebinaryTail() {
+    function peg$parsewsBinaryTail() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 49,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 50,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      s1 = peg$parsebinaryMessage();
+      s1 = peg$parsewsBinaryMessage();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsebinaryTail();
+        s2 = peg$parsewsBinaryTail();
         if (s2 === peg$FAILED) {
-          s2 = peg$c41;
+          s2 = null;
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c117(s1, s2);
+          peg$savedPos = s0;
+          s1 = peg$c115(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -28631,68 +27835,124 @@ $globals.SmalltalkParser = (function() {
     function peg$parsebinarySend() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 50,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 51,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$parseunarySend();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsebinaryTail();
+        s2 = peg$parsewsBinaryTail();
         if (s2 === peg$FAILED) {
-          s2 = peg$c41;
+          s2 = null;
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c115(s1, s2);
+          peg$savedPos = s0;
+          s1 = peg$c113(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsekeywordMessage() {
-      var s0, s1, s2;
+    function peg$parsewsKeywordMessage() {
+      var s0, s1, s2, s3, s4, s5, s6;
 
-      var key    = peg$currPos * 60 + 51,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 52,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = [];
-      s2 = peg$parsekeywordPair();
+      s2 = peg$currPos;
+      s3 = peg$parsews();
+      if (s3 !== peg$FAILED) {
+        s4 = peg$parsekeyword();
+        if (s4 !== peg$FAILED) {
+          s5 = peg$parsews();
+          if (s5 !== peg$FAILED) {
+            s6 = peg$parsebinarySend();
+            if (s6 !== peg$FAILED) {
+              peg$savedPos = s2;
+              s3 = peg$c83(s4, s6);
+              s2 = s3;
+            } else {
+              peg$currPos = s2;
+              s2 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s2;
+            s2 = peg$FAILED;
+          }
+        } else {
+          peg$currPos = s2;
+          s2 = peg$FAILED;
+        }
+      } else {
+        peg$currPos = s2;
+        s2 = peg$FAILED;
+      }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
           s1.push(s2);
-          s2 = peg$parsekeywordPair();
+          s2 = peg$currPos;
+          s3 = peg$parsews();
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parsekeyword();
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsews();
+              if (s5 !== peg$FAILED) {
+                s6 = peg$parsebinarySend();
+                if (s6 !== peg$FAILED) {
+                  peg$savedPos = s2;
+                  s3 = peg$c83(s4, s6);
+                  s2 = s3;
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$FAILED;
+                }
+              } else {
+                peg$currPos = s2;
+                s2 = peg$FAILED;
+              }
+            } else {
+              peg$currPos = s2;
+              s2 = peg$FAILED;
+            }
+          } else {
+            peg$currPos = s2;
+            s2 = peg$FAILED;
+          }
         }
       } else {
-        s1 = peg$c1;
+        s1 = peg$FAILED;
       }
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = s0;
-        s1 = peg$c118(s1);
+        peg$savedPos = s0;
+        s1 = peg$c116(s1);
       }
       s0 = s1;
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -28700,77 +27960,86 @@ $globals.SmalltalkParser = (function() {
     function peg$parsekeywordSend() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 52,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 53,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$parsebinarySend();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsekeywordMessage();
+        s2 = peg$parsewsKeywordMessage();
+        if (s2 === peg$FAILED) {
+          s2 = null;
+        }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c119(s1, s2);
+          peg$savedPos = s0;
+          s1 = peg$c113(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parsemessage() {
+    function peg$parsewsMessage() {
       var s0;
 
-      var key    = peg$currPos * 60 + 53,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 54,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
-      s0 = peg$parsebinaryMessage();
+      s0 = peg$parsewsBinaryMessage();
       if (s0 === peg$FAILED) {
-        s0 = peg$parseunaryMessage();
+        s0 = peg$parsewsUnaryMessage();
         if (s0 === peg$FAILED) {
-          s0 = peg$parsekeywordMessage();
+          s0 = peg$parsewsKeywordMessage();
         }
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parsecascade() {
-      var s0, s1, s2, s3, s4, s5, s6, s7, s8;
+      var s0, s1, s2, s3, s4, s5, s6, s7;
 
-      var key    = peg$currPos * 60 + 54,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 55,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      s1 = peg$parsews();
+      s1 = peg$parsekeywordSend();
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsekeywordSend();
-        if (s2 === peg$FAILED) {
-          s2 = peg$parsebinarySend();
+        peg$savedPos = peg$currPos;
+        s2 = peg$c117(s1);
+        if (s2) {
+          s2 = void 0;
+        } else {
+          s2 = peg$FAILED;
         }
         if (s2 !== peg$FAILED) {
           s3 = [];
@@ -28778,35 +28047,29 @@ $globals.SmalltalkParser = (function() {
           s5 = peg$parsews();
           if (s5 !== peg$FAILED) {
             if (input.charCodeAt(peg$currPos) === 59) {
-              s6 = peg$c120;
+              s6 = peg$c118;
               peg$currPos++;
             } else {
               s6 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c121); }
+              if (peg$silentFails === 0) { peg$fail(peg$c119); }
             }
             if (s6 !== peg$FAILED) {
-              s7 = peg$parsews();
+              s7 = peg$parsewsMessage();
               if (s7 !== peg$FAILED) {
-                s8 = peg$parsemessage();
-                if (s8 !== peg$FAILED) {
-                  peg$reportedPos = s4;
-                  s5 = peg$c122(s8);
-                  s4 = s5;
-                } else {
-                  peg$currPos = s4;
-                  s4 = peg$c1;
-                }
+                peg$savedPos = s4;
+                s5 = peg$c120(s1, s7);
+                s4 = s5;
               } else {
                 peg$currPos = s4;
-                s4 = peg$c1;
+                s4 = peg$FAILED;
               }
             } else {
               peg$currPos = s4;
-              s4 = peg$c1;
+              s4 = peg$FAILED;
             }
           } else {
             peg$currPos = s4;
-            s4 = peg$c1;
+            s4 = peg$FAILED;
           }
           if (s4 !== peg$FAILED) {
             while (s4 !== peg$FAILED) {
@@ -28815,58 +28078,52 @@ $globals.SmalltalkParser = (function() {
               s5 = peg$parsews();
               if (s5 !== peg$FAILED) {
                 if (input.charCodeAt(peg$currPos) === 59) {
-                  s6 = peg$c120;
+                  s6 = peg$c118;
                   peg$currPos++;
                 } else {
                   s6 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c121); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c119); }
                 }
                 if (s6 !== peg$FAILED) {
-                  s7 = peg$parsews();
+                  s7 = peg$parsewsMessage();
                   if (s7 !== peg$FAILED) {
-                    s8 = peg$parsemessage();
-                    if (s8 !== peg$FAILED) {
-                      peg$reportedPos = s4;
-                      s5 = peg$c122(s8);
-                      s4 = s5;
-                    } else {
-                      peg$currPos = s4;
-                      s4 = peg$c1;
-                    }
+                    peg$savedPos = s4;
+                    s5 = peg$c120(s1, s7);
+                    s4 = s5;
                   } else {
                     peg$currPos = s4;
-                    s4 = peg$c1;
+                    s4 = peg$FAILED;
                   }
                 } else {
                   peg$currPos = s4;
-                  s4 = peg$c1;
+                  s4 = peg$FAILED;
                 }
               } else {
                 peg$currPos = s4;
-                s4 = peg$c1;
+                s4 = peg$FAILED;
               }
             }
           } else {
-            s3 = peg$c1;
+            s3 = peg$FAILED;
           }
           if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c123(s2, s3);
+            peg$savedPos = s0;
+            s1 = peg$c121(s1, s3);
             s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -28874,151 +28131,141 @@ $globals.SmalltalkParser = (function() {
     function peg$parsejsStatement() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 55,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 56,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 60) {
-        s1 = peg$c124;
+        s1 = peg$c122;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c125); }
+        if (peg$silentFails === 0) { peg$fail(peg$c123); }
       }
       if (s1 !== peg$FAILED) {
         s2 = [];
         s3 = peg$currPos;
-        if (input.substr(peg$currPos, 2) === peg$c126) {
-          s4 = peg$c126;
+        if (input.substr(peg$currPos, 2) === peg$c124) {
+          s4 = peg$c124;
           peg$currPos += 2;
         } else {
           s4 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c127); }
+          if (peg$silentFails === 0) { peg$fail(peg$c125); }
         }
         if (s4 !== peg$FAILED) {
-          peg$reportedPos = s3;
-          s4 = peg$c128();
+          peg$savedPos = s3;
+          s4 = peg$c126();
         }
         s3 = s4;
         if (s3 === peg$FAILED) {
-          if (peg$c129.test(input.charAt(peg$currPos))) {
+          if (peg$c127.test(input.charAt(peg$currPos))) {
             s3 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c130); }
+            if (peg$silentFails === 0) { peg$fail(peg$c128); }
           }
         }
         while (s3 !== peg$FAILED) {
           s2.push(s3);
           s3 = peg$currPos;
-          if (input.substr(peg$currPos, 2) === peg$c126) {
-            s4 = peg$c126;
+          if (input.substr(peg$currPos, 2) === peg$c124) {
+            s4 = peg$c124;
             peg$currPos += 2;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c127); }
+            if (peg$silentFails === 0) { peg$fail(peg$c125); }
           }
           if (s4 !== peg$FAILED) {
-            peg$reportedPos = s3;
-            s4 = peg$c128();
+            peg$savedPos = s3;
+            s4 = peg$c126();
           }
           s3 = s4;
           if (s3 === peg$FAILED) {
-            if (peg$c129.test(input.charAt(peg$currPos))) {
+            if (peg$c127.test(input.charAt(peg$currPos))) {
               s3 = input.charAt(peg$currPos);
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c130); }
+              if (peg$silentFails === 0) { peg$fail(peg$c128); }
             }
           }
         }
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 62) {
-            s3 = peg$c131;
+            s3 = peg$c129;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c132); }
+            if (peg$silentFails === 0) { peg$fail(peg$c130); }
           }
           if (s3 !== peg$FAILED) {
-            peg$reportedPos = s0;
-            s1 = peg$c133(s2);
+            peg$savedPos = s0;
+            s1 = peg$c131(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
     function peg$parsemethod() {
-      var s0, s1, s2, s3, s4;
+      var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 56,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 57,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
-      s1 = peg$parsekeywordPattern();
+      s1 = peg$parsewsKeywordPattern();
       if (s1 === peg$FAILED) {
-        s1 = peg$parsebinaryPattern();
+        s1 = peg$parsewsBinaryPattern();
         if (s1 === peg$FAILED) {
-          s1 = peg$parseunaryPattern();
+          s1 = peg$parsewsUnaryPattern();
         }
       }
       if (s1 !== peg$FAILED) {
-        s2 = peg$parsews();
+        s2 = peg$parsewsSequenceWs();
+        if (s2 === peg$FAILED) {
+          s2 = null;
+        }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsesequence();
-          if (s3 === peg$FAILED) {
-            s3 = peg$c41;
-          }
-          if (s3 !== peg$FAILED) {
-            s4 = peg$parsews();
-            if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c134(s1, s3);
-              s0 = s1;
-            } else {
-              peg$currPos = s0;
-              s0 = peg$c1;
-            }
-          } else {
-            peg$currPos = s0;
-            s0 = peg$c1;
-          }
+          peg$savedPos = s0;
+          s1 = peg$c132(s1, s2);
+          s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -29026,50 +28273,52 @@ $globals.SmalltalkParser = (function() {
     function peg$parseassociationSend() {
       var s0, s1, s2;
 
-      var key    = peg$currPos * 60 + 57,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 58,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
       s0 = peg$currPos;
       s1 = peg$parsebinarySend();
       if (s1 !== peg$FAILED) {
-        peg$reportedPos = peg$currPos;
-        s2 = peg$c135(s1);
+        peg$savedPos = peg$currPos;
+        s2 = peg$c133(s1);
         if (s2) {
-          s2 = peg$c112;
+          s2 = void 0;
         } else {
-          s2 = peg$c1;
+          s2 = peg$FAILED;
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c136(s1);
+          peg$savedPos = s0;
+          s1 = peg$c134(s1);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
 
-    function peg$parseassociationList() {
+    function peg$parsewsAssociationsRest() {
       var s0, s1, s2, s3, s4;
 
-      var key    = peg$currPos * 60 + 58,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 59,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -29077,38 +28326,38 @@ $globals.SmalltalkParser = (function() {
       s1 = peg$parsews();
       if (s1 !== peg$FAILED) {
         if (input.charCodeAt(peg$currPos) === 46) {
-          s2 = peg$c51;
+          s2 = peg$c6;
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c52); }
+          if (peg$silentFails === 0) { peg$fail(peg$c7); }
         }
         if (s2 !== peg$FAILED) {
-          s3 = peg$parsews();
+          s3 = peg$parsemaybeDotsWs();
           if (s3 !== peg$FAILED) {
             s4 = peg$parseassociationSend();
             if (s4 !== peg$FAILED) {
-              peg$reportedPos = s0;
-              s1 = peg$c89(s4);
+              peg$savedPos = s0;
+              s1 = peg$c87(s4);
               s0 = s1;
             } else {
               peg$currPos = s0;
-              s0 = peg$c1;
+              s0 = peg$FAILED;
             }
           } else {
             peg$currPos = s0;
-            s0 = peg$c1;
+            s0 = peg$FAILED;
           }
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -29116,11 +28365,12 @@ $globals.SmalltalkParser = (function() {
     function peg$parseassociations() {
       var s0, s1, s2, s3;
 
-      var key    = peg$currPos * 60 + 59,
-          cached = peg$cache[key];
+      var key    = peg$currPos * 61 + 60,
+          cached = peg$resultsCache[key];
 
       if (cached) {
         peg$currPos = cached.nextPos;
+
         return cached.result;
       }
 
@@ -29128,25 +28378,25 @@ $globals.SmalltalkParser = (function() {
       s1 = peg$parseassociationSend();
       if (s1 !== peg$FAILED) {
         s2 = [];
-        s3 = peg$parseassociationList();
+        s3 = peg$parsewsAssociationsRest();
         while (s3 !== peg$FAILED) {
           s2.push(s3);
-          s3 = peg$parseassociationList();
+          s3 = peg$parsewsAssociationsRest();
         }
         if (s2 !== peg$FAILED) {
-          peg$reportedPos = s0;
-          s1 = peg$c137(s1, s2);
+          peg$savedPos = s0;
+          s1 = peg$c135(s1, s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
-          s0 = peg$c1;
+          s0 = peg$FAILED;
         }
       } else {
         peg$currPos = s0;
-        s0 = peg$c1;
+        s0 = peg$FAILED;
       }
 
-      peg$cache[key] = { nextPos: peg$currPos, result: s0 };
+      peg$resultsCache[key] = { nextPos: peg$currPos, result: s0 };
 
       return s0;
     }
@@ -29160,13 +28410,20 @@ $globals.SmalltalkParser = (function() {
         peg$fail({ type: "end", description: "end of input" });
       }
 
-      throw peg$buildException(null, peg$maxFailExpected, peg$maxFailPos);
+      throw peg$buildException(
+        null,
+        peg$maxFailExpected,
+        peg$maxFailPos < input.length ? input.charAt(peg$maxFailPos) : null,
+        peg$maxFailPos < input.length
+          ? peg$computeLocation(peg$maxFailPos, peg$maxFailPos + 1)
+          : peg$computeLocation(peg$maxFailPos, peg$maxFailPos)
+      );
     }
   }
 
   return {
-    SyntaxError: SyntaxError,
-    parse:       parse
+    SyntaxError: peg$SyntaxError,
+    parse:       peg$parse
   };
 })();
 });
@@ -29236,15 +28493,13 @@ var self=this;
 var result;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $1;
 result=$recv($OrderedCollection())._new();
 $recv(self._extensionProtocolsOfPackage_(aPackage))._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(result)._addAll_($recv(each)._methods());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=result;
-return $1;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,result:result},$globals.AbstractExporter)});
 },
 args: ["aPackage"],
@@ -29265,7 +28520,7 @@ function $OrderedCollection(){return $globals.OrderedCollection||(typeof Ordered
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ExportMethodProtocol(){return $globals.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2,$3;
 $1=$recv(aPackage)._name();
 $ctx1.sendIdx["name"]=1;
 extensionName="*".__comma($1);
@@ -29289,8 +28544,7 @@ return $recv(result)._add_($recv($ExportMethodProtocol())._name_theClass_(extens
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
 $ctx1.sendIdx["do:"]=1;
-$4=result;
-return $4;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},$globals.AbstractExporter)});
 },
 args: ["aPackage"],
@@ -29311,9 +28565,7 @@ protocol: 'convenience',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(aString)._replace_with_("!","!!"))._trimBoth();
-return $1;
+return $recv($recv(aString)._replace_with_("!","!!"))._trimBoth();
 }, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},$globals.ChunkExporter)});
 },
 args: ["aString"],
@@ -29330,11 +28582,10 @@ protocol: 'output',
 fn: function (aCategory,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_(" !");
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
-$1=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},$globals.ChunkExporter)});
 },
@@ -29352,14 +28603,14 @@ protocol: 'output',
 fn: function (aCategory,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2;
+var $1,$2;
 $1="!".__comma(self._classNameFor_($recv(aCategory)._theClass()));
 $ctx1.sendIdx[","]=1;
 $recv(aStream)._nextPutAll_($1);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$3=$recv(" methodsFor: '".__comma($recv(aCategory)._name())).__comma("'!");
+$2=$recv(" methodsFor: '".__comma($recv(aCategory)._name())).__comma("'!");
 $ctx1.sendIdx[","]=2;
-$2=$recv(aStream)._nextPutAll_($3);
+$recv(aStream)._nextPutAll_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},$globals.ChunkExporter)});
 },
@@ -29453,7 +28704,7 @@ protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1,$5,$4,$6,$7;
+var $3,$2,$1,$5,$4,$6;
 $3=$recv(aClass)._class();
 $ctx1.sendIdx["class"]=1;
 $2=$recv($3)._instanceVariableNames();
@@ -29482,8 +28733,7 @@ $ctx2.sendIdx["nextPutAll:"]=4;
 $recv(aStream)._nextPutAll_("'!");
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
-$7=$recv(aStream)._lf();
-$7;
+$recv(aStream)._lf();
 };
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},$globals.ChunkExporter)});
@@ -29502,7 +28752,6 @@ protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $recv(aStream)._lf();
@@ -29510,7 +28759,7 @@ $ctx1.sendIdx["lf"]=2;
 $recv(aStream)._nextPutAll_(self._chunkEscape_($recv(aMethod)._source()));
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._lf();
-$1=$recv(aStream)._nextPutAll_("!");
+$recv(aStream)._nextPutAll_("!");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},$globals.ChunkExporter)});
 },
@@ -29528,15 +28777,15 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 self._exportPackageDefinitionOf_on_(aPackage,aStream);
-$1=self._exportPackageImportsOf_on_(aPackage,aStream);
+self._exportPackageImportsOf_on_(aPackage,aStream);
 $recv($recv(aPackage)._sortedClasses())._do_((function(each){
 return $core.withContext(function($ctx2) {
 self._exportDefinitionOf_on_(each,aStream);
-$2=self._ownMethodProtocolsOfClass_(each);
+$1=self._ownMethodProtocolsOfClass_(each);
 $ctx2.sendIdx["ownMethodProtocolsOfClass:"]=1;
-self._exportProtocols_on_($2,aStream);
+self._exportProtocols_on_($1,aStream);
 $ctx2.sendIdx["exportProtocols:on:"]=1;
 self._exportMetaDefinitionOf_on_(each,aStream);
 return self._exportProtocols_on_(self._ownMethodProtocolsOfClass_($recv(each)._class()),aStream);
@@ -29561,11 +28810,11 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv("Smalltalk createPackage: '".__comma($recv(aPackage)._name())).__comma("'!");
 $ctx1.sendIdx[","]=1;
 $recv(aStream)._nextPutAll_($1);
-$2=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},$globals.ChunkExporter)});
 },
@@ -29583,7 +28832,6 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv($recv(aPackage)._imports())._ifNotEmpty_((function(imports){
 return $core.withContext(function($ctx2) {
 $recv(aStream)._nextPutAll_("(Smalltalk packageAt: '");
@@ -29595,8 +28843,7 @@ $ctx2.sendIdx["nextPutAll:"]=3;
 $recv(aStream)._nextPutAll_(self._chunkEscape_($recv(aPackage)._importsDefinition()));
 $ctx2.sendIdx["nextPutAll:"]=4;
 $recv(aStream)._nextPutAll_("!");
-$1=$recv(aStream)._lf();
-return $1;
+return $recv(aStream)._lf();
 }, function($ctx2) {$ctx2.fillBlock({imports:imports},$ctx1,1)});
 }));
 return self;
@@ -29640,11 +28887,10 @@ protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_(" !");
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
-$1=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportProtocolEpilogueOf:on:",{aProtocol:aProtocol,aStream:aStream},$globals.ChunkExporter)});
 },
@@ -29662,14 +28908,14 @@ protocol: 'output',
 fn: function (aProtocol,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2;
+var $1,$2;
 $1="!".__comma(self._classNameFor_($recv(aProtocol)._theClass()));
 $ctx1.sendIdx[","]=1;
 $recv(aStream)._nextPutAll_($1);
 $ctx1.sendIdx["nextPutAll:"]=1;
-$3=$recv(" methodsFor: '".__comma($recv(aProtocol)._name())).__comma("'!");
+$2=$recv(" methodsFor: '".__comma($recv(aProtocol)._name())).__comma("'!");
 $ctx1.sendIdx[","]=2;
-$2=$recv(aStream)._nextPutAll_($3);
+$recv(aStream)._nextPutAll_($2);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportProtocolPrologueOf:on:",{aProtocol:aProtocol,aStream:aStream},$globals.ChunkExporter)});
 },
@@ -29715,7 +28961,7 @@ function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $MethodCategory(){return $globals.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 name=$recv(aPackage)._name();
 result=$recv($OrderedCollection())._new();
 $ctx1.sendIdx["new"]=1;
@@ -29747,8 +28993,7 @@ return $recv($MethodCategory())._name_theClass_methods_(category,aClass,$recv(ma
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $ctx1.sendIdx["do:"]=1;
-$2=result;
-return $2;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},$globals.ChunkExporter)});
 },
 args: ["aPackage"],
@@ -29768,7 +29013,7 @@ var map;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $MethodCategory(){return $globals.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 map=$recv($Dictionary())._new();
 $recv(aClass)._protocolsDo_((function(each,methods){
 return $core.withContext(function($ctx2) {
@@ -29778,7 +29023,7 @@ return $recv(map)._at_put_(each,methods);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each,methods:methods},$ctx1,1)});
 }));
-$2=$recv($recv($recv(map)._keys())._sorted_((function(a,b){
+return $recv($recv($recv(map)._keys())._sorted_((function(a,b){
 return $core.withContext(function($ctx2) {
 return $recv(a).__lt_eq(b);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)});
@@ -29787,7 +29032,6 @@ return $core.withContext(function($ctx2) {
 return $recv($MethodCategory())._name_theClass_methods_(each,aClass,$recv(map)._at_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
 }));
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},$globals.ChunkExporter)});
 },
 args: ["aClass"],
@@ -29804,9 +29048,7 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._ownCategoriesOfClass_($recv(aClass)._class());
-return $1;
+return self._ownCategoriesOfClass_($recv(aClass)._class());
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfMetaClass:",{aClass:aClass},$globals.ChunkExporter)});
 },
 args: ["aClass"],
@@ -29824,13 +29066,11 @@ fn: function (aClass){
 var self=this;
 function $ExportMethodProtocol(){return $globals.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(aClass)._ownProtocols())._collect_((function(each){
+return $recv($recv(aClass)._ownProtocols())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv($ExportMethodProtocol())._name_theClass_(each,aClass);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownMethodProtocolsOfClass:",{aClass:aClass},$globals.ChunkExporter)});
 },
 args: ["aClass"],
@@ -29851,7 +29091,7 @@ protocol: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$3,$4,$6,$5,$7,$9,$8,$10;
+var $2,$1,$3,$4,$6,$5,$7,$9,$8;
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=1;
 $recv(aStream)._nextPutAll_("$core.addClass(");
@@ -29909,8 +29149,7 @@ $recv(aStream)._nextPutAll_(";");
 $ctx1.sendIdx["nextPutAll:"]=14;
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=4;
-$10=$recv(aStream)._nextPutAll_("//>>excludeEnd(\x22ide\x22);");
-$10;
+$recv(aStream)._nextPutAll_("//>>excludeEnd(\x22ide\x22);");
 };
 $recv(aStream)._lf();
 return self;
@@ -29982,7 +29221,7 @@ protocol: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14,$17;
+var $3,$2,$1,$5,$4,$7,$6,$10,$9,$8,$13,$12,$11,$16,$15,$14;
 $recv(aStream)._nextPutAll_("$core.addMethod(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._lf();
@@ -30068,7 +29307,7 @@ $ctx1.sendIdx["nextPutAll:"]=13;
 $recv(aStream)._nextPutAll_(");");
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=13;
-$17=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},$globals.Exporter)});
 },
@@ -30086,18 +29325,18 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 self._exportPackagePrologueOf_on_(aPackage,aStream);
 self._exportPackageDefinitionOf_on_(aPackage,aStream);
 self._exportPackageContextOf_on_(aPackage,aStream);
 self._exportPackageImportsOf_on_(aPackage,aStream);
-$1=self._exportPackageTransportOf_on_(aPackage,aStream);
+self._exportPackageTransportOf_on_(aPackage,aStream);
 $recv($recv(aPackage)._sortedClasses())._do_((function(each){
 return $core.withContext(function($ctx2) {
 self._exportDefinitionOf_on_(each,aStream);
-$2=$recv(each)._ownMethods();
+$1=$recv(each)._ownMethods();
 $ctx2.sendIdx["ownMethods"]=1;
-$recv($2)._do_((function(method){
+$recv($1)._do_((function(method){
 return $core.withContext(function($ctx3) {
 return self._exportMethod_on_(method,aStream);
 $ctx3.sendIdx["exportMethod:on:"]=1;
@@ -30138,7 +29377,6 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_("$core.packages[");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_($recv($recv(aPackage)._name())._asJavascript());
@@ -30148,7 +29386,7 @@ $ctx1.sendIdx["nextPutAll:"]=3;
 $recv(aStream)._nextPutAll_("function (expr) { return eval(expr); }");
 $ctx1.sendIdx["nextPutAll:"]=4;
 $recv(aStream)._nextPutAll_(";");
-$1=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageContextOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
 },
@@ -30166,13 +29404,13 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $recv(aStream)._nextPutAll_("$core.addPackage(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $1=$recv("'".__comma($recv(aPackage)._name())).__comma("');");
 $ctx1.sendIdx[","]=1;
 $recv(aStream)._nextPutAll_($1);
-$2=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
 },
@@ -30208,7 +29446,7 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $recv($recv(aPackage)._importsAsJson())._ifNotEmpty_((function(imports){
 return $core.withContext(function($ctx2) {
 $recv(aStream)._nextPutAll_("$core.packages[");
@@ -30222,8 +29460,7 @@ $ctx2.sendIdx["nextPutAll:"]=3;
 $recv(aStream)._nextPutAll_($recv(imports)._asJavascript());
 $ctx2.sendIdx["nextPutAll:"]=4;
 $recv(aStream)._nextPutAll_(";");
-$2=$recv(aStream)._lf();
-return $2;
+return $recv(aStream)._lf();
 }, function($ctx2) {$ctx2.fillBlock({imports:imports},$ctx1,1)});
 }));
 return self;
@@ -30261,7 +29498,6 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_("$core.packages[");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_($recv($recv(aPackage)._name())._asJavascript());
@@ -30271,7 +29507,7 @@ $ctx1.sendIdx["nextPutAll:"]=3;
 $recv(aStream)._nextPutAll_($recv($recv(aPackage)._transport())._asJSONString());
 $ctx1.sendIdx["nextPutAll:"]=4;
 $recv(aStream)._nextPutAll_(";");
-$1=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},$globals.Exporter)});
 },
@@ -30289,19 +29525,18 @@ protocol: 'convenience',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=$recv(aClass)._isMetaclass();
-if($core.assert($2)){
-$1=$recv(self._jsClassNameFor_($recv(aClass)._instanceClass())).__comma(".klass");
+var $1,$receiver;
+$1=$recv(aClass)._isMetaclass();
+if($core.assert($1)){
+return $recv(self._jsClassNameFor_($recv(aClass)._instanceClass())).__comma(".klass");
 $ctx1.sendIdx[","]=1;
 } else {
 if(($receiver = aClass) == null || $receiver.isNil){
-$1="null";
+return "null";
 } else {
-$1="$globals.".__comma($recv(aClass)._name());
+return "$globals.".__comma($recv(aClass)._name());
 };
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"jsClassNameFor:",{aClass:aClass},$globals.Exporter)});
 },
 args: ["aClass"],
@@ -30318,19 +29553,18 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv($recv($recv($recv(aClass)._methodDictionary())._values())._sorted_((function(a,b){
+var $1;
+return $recv($recv($recv($recv(aClass)._methodDictionary())._values())._sorted_((function(a,b){
 return $core.withContext(function($ctx2) {
-$2=$recv(a)._selector();
+$1=$recv(a)._selector();
 $ctx2.sendIdx["selector"]=1;
-return $recv($2).__lt_eq($recv(b)._selector());
+return $recv($1).__lt_eq($recv(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
 })))._reject_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv($recv(each)._protocol())._match_("^\x5c*");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownMethodsOfClass:",{aClass:aClass},$globals.Exporter)});
 },
 args: ["aClass"],
@@ -30347,9 +29581,7 @@ protocol: 'accessing',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._ownMethodsOfClass_($recv(aClass)._class());
-return $1;
+return self._ownMethodsOfClass_($recv(aClass)._class());
 }, function($ctx1) {$ctx1.fill(self,"ownMethodsOfMetaClass:",{aClass:aClass},$globals.Exporter)});
 },
 args: ["aClass"],
@@ -30370,12 +29602,12 @@ protocol: 'private',
 fn: function (anArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv($recv(anArray)._select_((function(each){
+var $1;
+return $recv($recv(anArray)._select_((function(each){
 return $core.withContext(function($ctx2) {
-$2=self._amdNamespaceOfPackage_(each);
+$1=self._amdNamespaceOfPackage_(each);
 $ctx2.sendIdx["amdNamespaceOfPackage:"]=1;
-return $recv($2)._notNil();
+return $recv($1)._notNil();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 })))._collect_((function(each){
 return $core.withContext(function($ctx2) {
@@ -30383,7 +29615,6 @@ return $recv($recv(self._amdNamespaceOfPackage_(each)).__comma("/")).__comma($re
 $ctx2.sendIdx[","]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray},$globals.AmdExporter)});
 },
 args: ["anArray"],
@@ -30400,17 +29631,16 @@ protocol: 'private',
 fn: function (aPackage){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $4,$3,$2,$1;
-$4=$recv(aPackage)._transport();
+var $3,$2,$1;
+$3=$recv(aPackage)._transport();
 $ctx1.sendIdx["transport"]=1;
-$3=$recv($4)._type();
-$2=$recv($3).__eq("amd");
-if($core.assert($2)){
-$1=$recv($recv(aPackage)._transport())._namespace();
+$2=$recv($3)._type();
+$1=$recv($2).__eq("amd");
+if($core.assert($1)){
+return $recv($recv(aPackage)._transport())._namespace();
 } else {
-$1=nil;
+return nil;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdNamespaceOfPackage:",{aPackage:aPackage},$globals.AmdExporter)});
 },
 args: ["aPackage"],
@@ -30427,9 +29657,8 @@ protocol: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aStream)._nextPutAll_("});");
-$1=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},$globals.AmdExporter)});
 },
@@ -30449,7 +29678,7 @@ var self=this;
 var importsForOutput,loadDependencies,pragmaStart,pragmaEnd;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4,$6,$5,$7,$13,$12,$11,$10,$9,$8,$17,$16,$15,$14,$18;
+var $1,$3,$2,$4,$6,$5,$7,$13,$12,$11,$10,$9,$8,$17,$16,$15,$14;
 pragmaStart="";
 pragmaEnd="";
 importsForOutput=self._importsForOutput_(aPackage);
@@ -30516,7 +29745,7 @@ $ctx1.sendIdx["nextPutAll:"]=9;
 $recv(aStream)._lf();
 $ctx1.sendIdx["lf"]=5;
 $recv(aStream)._nextPutAll_("var $core=$boot.api,nil=$boot.nil,$recv=$boot.asReceiver,$globals=$boot.globals;");
-$18=$recv(aStream)._lf();
+$recv(aStream)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream,importsForOutput:importsForOutput,loadDependencies:loadDependencies,pragmaStart:pragmaStart,pragmaEnd:pragmaEnd},$globals.AmdExporter)});
 },
@@ -30535,7 +29764,7 @@ fn: function (aPackage){
 var self=this;
 var namedImports,anonImports,importVarNames;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 namedImports=[];
 anonImports=[];
 importVarNames=[];
@@ -30552,8 +29781,7 @@ return $recv(importVarNames)._add_($recv(each)._key());
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=$recv(importVarNames).__minus_gt($recv(namedImports).__comma(anonImports));
-return $2;
+return $recv(importVarNames).__minus_gt($recv(namedImports).__comma(anonImports));
 }, function($ctx1) {$ctx1.fill(self,"importsForOutput:",{aPackage:aPackage,namedImports:namedImports,anonImports:anonImports,importVarNames:importVarNames},$globals.AmdExporter)});
 },
 args: ["aPackage"],
@@ -30573,9 +29801,7 @@ selector: "last",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@last"];
-return $1;
+return self["@last"];
 
 },
 args: [],
@@ -30660,9 +29886,7 @@ protocol: 'instance creation',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._new())._stream_(aStream);
-return $1;
+return $recv(self._new())._stream_(aStream);
 }, function($ctx1) {$ctx1.fill(self,"on:",{aStream:aStream},$globals.ChunkParser.klass)});
 },
 args: ["aStream"],
@@ -30700,8 +29924,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.ClassCommentReader.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.ClassCommentReader.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ClassCommentReader)});
@@ -30804,8 +30028,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.ClassProtocolReader.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.ClassProtocolReader.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ClassProtocolReader)});
@@ -30859,15 +30083,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv($recv(self._theClass())._methodsInProtocol_(self._name()))._sorted_((function(a,b){
+var $1;
+return $recv($recv(self._theClass())._methodsInProtocol_(self._name()))._sorted_((function(a,b){
 return $core.withContext(function($ctx2) {
-$2=$recv(a)._selector();
+$1=$recv(a)._selector();
 $ctx2.sendIdx["selector"]=1;
-return $recv($2).__lt_eq($recv(b)._selector());
+return $recv($1).__lt_eq($recv(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"methods",{},$globals.ExportMethodProtocol)});
 },
 args: [],
@@ -30883,9 +30106,7 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@name"];
-return $1;
+return self["@name"];
 
 },
 args: [],
@@ -30918,9 +30139,7 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -30955,13 +30174,11 @@ protocol: 'instance creation',
 fn: function (aString,aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._name_(aString);
-$recv($2)._theClass_(aClass);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._name_(aString);
+$recv($1)._theClass_(aClass);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"name:theClass:",{aString:aString,aClass:aClass},$globals.ExportMethodProtocol.klass)});
 },
 args: ["aString", "aClass"],
@@ -31044,9 +30261,7 @@ selector: "lastChunk",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@lastChunk"];
-return $1;
+return self["@lastChunk"];
 
 },
 args: [],
@@ -31062,9 +30277,7 @@ selector: "lastSection",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@lastSection"];
-return $1;
+return self["@lastSection"];
 
 },
 args: [],
@@ -31129,13 +30342,11 @@ fn: function (aPackage){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($String())._streamContents_((function(str){
+return $recv($String())._streamContents_((function(str){
 return $core.withContext(function($ctx2) {
 return $recv(self._chunkExporter())._exportPackage_on_(aPackage,str);
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"chunkContentsFor:",{aPackage:aPackage},$globals.PackageHandler)});
 },
 args: ["aPackage"],
@@ -31152,9 +30363,7 @@ protocol: 'factory',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._chunkExporterClass())._new();
-return $1;
+return $recv(self._chunkExporterClass())._new();
 }, function($ctx1) {$ctx1.fill(self,"chunkExporter",{},$globals.PackageHandler)});
 },
 args: [],
@@ -31189,18 +30398,16 @@ fn: function (aPackage){
 var self=this;
 function $PackageCommitError(){return $globals.PackageCommitError||(typeof PackageCommitError=="undefined"?nil:PackageCommitError)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2;
 self._commit_onSuccess_onError_(aPackage,(function(){
 
 }),(function(error){
 return $core.withContext(function($ctx2) {
 $1=$recv($PackageCommitError())._new();
-$2=$1;
-$3=$recv("Commiting failed with reason: \x22".__comma($recv(error)._responseText())).__comma("\x22");
+$2=$recv("Commiting failed with reason: \x22".__comma($recv(error)._responseText())).__comma("\x22");
 $ctx2.sendIdx[","]=1;
-$recv($2)._messageText_($3);
-$4=$recv($1)._signal();
-return $4;
+$recv($1)._messageText_($2);
+return $recv($1)._signal();
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)});
 }));
 return self;
@@ -31330,13 +30537,11 @@ fn: function (aPackage){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($String())._streamContents_((function(str){
+return $recv($String())._streamContents_((function(str){
 return $core.withContext(function($ctx2) {
 return $recv(self._exporter())._exportPackage_on_(aPackage,str);
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"contentsFor:",{aPackage:aPackage},$globals.PackageHandler)});
 },
 args: ["aPackage"],
@@ -31353,9 +30558,7 @@ protocol: 'factory',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._exporterClass())._new();
-return $1;
+return $recv(self._exporterClass())._new();
 }, function($ctx1) {$ctx1.fill(self,"exporter",{},$globals.PackageHandler)});
 },
 args: [],
@@ -31409,13 +30612,12 @@ fn: function (anError){
 var self=this;
 function $PackageCommitError(){return $globals.PackageCommitError||(typeof PackageCommitError=="undefined"?nil:PackageCommitError)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2;
 $1=$recv($PackageCommitError())._new();
-$2=$1;
-$3=$recv("Commiting failed with reason: \x22".__comma($recv(anError)._responseText())).__comma("\x22");
+$2=$recv("Commiting failed with reason: \x22".__comma($recv(anError)._responseText())).__comma("\x22");
 $ctx1.sendIdx[","]=1;
-$recv($2)._messageText_($3);
-$4=$recv($1)._signal();
+$recv($1)._messageText_($2);
+$recv($1)._signal();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"onCommitError:",{anError:anError},$globals.PackageHandler)});
 },
@@ -31437,9 +30639,7 @@ protocol: 'accessing',
 fn: function (aPackage){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._toUrl_(self._namespaceFor_(aPackage));
-return $1;
+return self._toUrl_(self._namespaceFor_(aPackage));
 }, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},$globals.AmdPackageHandler)});
 },
 args: ["aPackage"],
@@ -31457,18 +30657,17 @@ fn: function (aPackage){
 var self=this;
 var path,pathWithout;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2;
+var $1,$2;
 $1=$recv(self._namespaceFor_(aPackage)).__comma("/_source");
 $ctx1.sendIdx[","]=1;
 path=self._toUrl_($1);
 pathWithout=self._commitPathJsFor_(aPackage);
-$3=$recv(path).__eq($recv(pathWithout).__comma("/_source"));
-if($core.assert($3)){
-$2=pathWithout;
+$2=$recv(path).__eq($recv(pathWithout).__comma("/_source"));
+if($core.assert($2)){
+return pathWithout;
 } else {
-$2=path;
+return path;
 };
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,path:path,pathWithout:pathWithout},$globals.AmdPackageHandler)});
 },
 args: ["aPackage"],
@@ -31533,9 +30732,7 @@ protocol: 'committing',
 fn: function (aPackage){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(aPackage)._transport())._namespace();
-return $1;
+return $recv($recv(aPackage)._transport())._namespace();
 }, function($ctx1) {$ctx1.fill(self,"namespaceFor:",{aPackage:aPackage},$globals.AmdPackageHandler)});
 },
 args: ["aPackage"],
@@ -31553,16 +30750,15 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=$recv($Smalltalk())._amdRequire();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._error_("AMD loader not present");
+var $1,$receiver;
+$1=$recv($Smalltalk())._amdRequire();
+if(($receiver = $1) == null || $receiver.isNil){
+return self._error_("AMD loader not present");
 } else {
 var require;
 require=$receiver;
-$1=$recv($recv(require)._basicAt_("toUrl"))._value_(aString);
+return $recv($recv(require)._basicAt_("toUrl"))._value_(aString);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},$globals.AmdPackageHandler)});
 },
 args: ["aString"],
@@ -31581,9 +30777,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._defaultAmdNamespace();
-return $1;
+return $recv($Smalltalk())._defaultAmdNamespace();
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},$globals.AmdPackageHandler.klass)});
 },
 args: [],
@@ -31622,9 +30816,7 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["type",self._type()]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["type",self._type()]);
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},$globals.PackageTransport)});
 },
 args: [],
@@ -31659,9 +30851,7 @@ protocol: 'factory',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._commitHandlerClass())._new();
-return $1;
+return $recv(self._commitHandlerClass())._new();
 }, function($ctx1) {$ctx1.fill(self,"commitHandler",{},$globals.PackageTransport)});
 },
 args: [],
@@ -31747,9 +30937,7 @@ selector: "package",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@package"];
-return $1;
+return self["@package"];
 
 },
 args: [],
@@ -31799,9 +30987,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._type();
-return $1;
+return $recv(self._class())._type();
 }, function($ctx1) {$ctx1.fill(self,"type",{},$globals.PackageTransport)});
 },
 args: [],
@@ -31820,9 +31006,7 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@registry"])._at_(aString);
-return $1;
+return $recv(self["@registry"])._at_(aString);
 }, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},$globals.PackageTransport.klass)});
 },
 args: ["aString"],
@@ -31840,9 +31024,7 @@ fn: function (){
 var self=this;
 function $AmdPackageTransport(){return $globals.AmdPackageTransport||(typeof AmdPackageTransport=="undefined"?nil:AmdPackageTransport)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($AmdPackageTransport())._type();
-return $1;
+return $recv($AmdPackageTransport())._type();
 }, function($ctx1) {$ctx1.fill(self,"defaultType",{},$globals.PackageTransport.klass)});
 },
 args: [],
@@ -31859,9 +31041,7 @@ protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._classRegisteredFor_(aString))._new();
-return $1;
+return $recv(self._classRegisteredFor_(aString))._new();
 }, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},$globals.PackageTransport.klass)});
 },
 args: ["aString"],
@@ -31878,7 +31058,7 @@ protocol: 'instance creation',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$3,$4,$2,$receiver;
+var $1,$2,$receiver;
 if(($receiver = anObject) == null || $receiver.isNil){
 $1=self._for_(self._defaultType());
 $ctx1.sendIdx["for:"]=1;
@@ -31886,11 +31066,9 @@ return $1;
 } else {
 anObject;
 };
-$3=self._for_($recv(anObject)._type());
-$recv($3)._setupFromJson_(anObject);
-$4=$recv($3)._yourself();
-$2=$4;
-return $2;
+$2=self._for_($recv(anObject)._type());
+$recv($2)._setupFromJson_(anObject);
+return $recv($2)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"fromJson:",{anObject:anObject},$globals.PackageTransport.klass)});
 },
 args: ["anObject"],
@@ -31910,8 +31088,8 @@ function $PackageTransport(){return $globals.PackageTransport||(typeof PackageTr
 return $core.withContext(function($ctx1) {
 var $1;
 (
-$ctx1.supercall = true, 
-$globals.PackageTransport.klass.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.PackageTransport.klass.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 $1=self.__eq_eq($PackageTransport());
 if($core.assert($1)){
@@ -32000,15 +31178,13 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=(
-$ctx1.supercall = true, 
-$globals.AmdPackageTransport.superclass.fn.prototype._asJSON.apply($recv(self), []));
+var $1;
+$1=(
+$ctx1.supercall = true,
+($globals.AmdPackageTransport.superclass||$boot.dnu).fn.prototype._asJSON.apply($recv(self), []));
 $ctx1.supercall = false;
-$recv($2)._at_put_("amdNamespace",self._namespace());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_("amdNamespace",self._namespace());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},$globals.AmdPackageTransport)});
 },
 args: [],
@@ -32043,9 +31219,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._defaultAmdNamespace();
-return $1;
+return $recv($Smalltalk())._defaultAmdNamespace();
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},$globals.AmdPackageTransport)});
 },
 args: [],
@@ -32063,20 +31237,18 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$1=$recv($String())._streamContents_((function(stream){
+var $1;
+return $recv($String())._streamContents_((function(stream){
 return $core.withContext(function($ctx2) {
 $recv(stream)._nextPutAll_($recv(self._class())._name());
 $ctx2.sendIdx["nextPutAll:"]=1;
 $recv(stream)._nextPutAll_(" namespace: ");
 $ctx2.sendIdx["nextPutAll:"]=2;
-$3=$recv("'".__comma(self._namespace())).__comma("'");
+$1=$recv("'".__comma(self._namespace())).__comma("'");
 $ctx2.sendIdx[","]=1;
-$2=$recv(stream)._nextPutAll_($3);
-return $2;
+return $recv(stream)._nextPutAll_($1);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},$globals.AmdPackageTransport)});
 },
 args: [],
@@ -32093,14 +31265,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@namespace"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=self._defaultNamespace();
+var $1,$receiver;
+$1=self["@namespace"];
+if(($receiver = $1) == null || $receiver.isNil){
+return self._defaultNamespace();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"namespace",{},$globals.AmdPackageTransport)});
 },
 args: [],
@@ -32134,16 +31305,15 @@ protocol: 'printing',
 fn: function (aStream){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 (
-$ctx1.supercall = true, 
-$globals.AmdPackageTransport.superclass.fn.prototype._printOn_.apply($recv(self), [aStream]));
+$ctx1.supercall = true,
+($globals.AmdPackageTransport.superclass||$boot.dnu).fn.prototype._printOn_.apply($recv(self), [aStream]));
 $ctx1.supercall = false;
 $recv(aStream)._nextPutAll_(" (AMD Namespace: ");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._nextPutAll_(self._namespace());
 $ctx1.sendIdx["nextPutAll:"]=2;
-$1=$recv(aStream)._nextPutAll_(")");
+$recv(aStream)._nextPutAll_(")");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},$globals.AmdPackageTransport)});
 },
@@ -32198,12 +31368,10 @@ protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._namespace_(aString);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._namespace_(aString);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"namespace:",{aString:aString},$globals.AmdPackageTransport.klass)});
 },
 args: ["aString"],
@@ -32237,12 +31405,10 @@ fn: function (){
 var self=this;
 function $ClassCommentReader(){return $globals.ClassCommentReader||(typeof ClassCommentReader=="undefined"?nil:ClassCommentReader)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($ClassCommentReader())._new();
-$recv($2)._class_(self);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($ClassCommentReader())._new();
+$recv($1)._class_(self);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"commentStamp",{},$globals.Behavior)});
 },
 args: [],
@@ -32259,9 +31425,7 @@ protocol: '*Platform-ImportExport',
 fn: function (aStamp,prior){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._commentStamp();
-return $1;
+return self._commentStamp();
 }, function($ctx1) {$ctx1.fill(self,"commentStamp:prior:",{aStamp:aStamp,prior:prior},$globals.Behavior)});
 },
 args: ["aStamp", "prior"],
@@ -32279,12 +31443,10 @@ fn: function (aString){
 var self=this;
 function $ClassProtocolReader(){return $globals.ClassProtocolReader||(typeof ClassProtocolReader=="undefined"?nil:ClassProtocolReader)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($ClassProtocolReader())._new();
-$recv($2)._class_category_(self,aString);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($ClassProtocolReader())._new();
+$recv($1)._class_category_(self,aString);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"methodsFor:",{aString:aString},$globals.Behavior)});
 },
 args: ["aString"],
@@ -32301,9 +31463,7 @@ protocol: '*Platform-ImportExport',
 fn: function (aString,aStamp){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._methodsFor_(aString);
-return $1;
+return self._methodsFor_(aString);
 }, function($ctx1) {$ctx1.fill(self,"methodsFor:stamp:",{aString:aString,aStamp:aStamp},$globals.Behavior)});
 },
 args: ["aString", "aStamp"],
@@ -32320,9 +31480,7 @@ protocol: '*Platform-ImportExport',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._transport())._commit();
-return $1;
+return $recv(self._transport())._commit();
 }, function($ctx1) {$ctx1.fill(self,"commit",{},$globals.Package)});
 },
 args: [],
@@ -32339,9 +31497,7 @@ protocol: '*Platform-ImportExport',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._transport())._load();
-return $1;
+return $recv(self._transport())._load();
 }, function($ctx1) {$ctx1.fill(self,"load",{},$globals.Package)});
 },
 args: [],
@@ -32358,12 +31514,10 @@ protocol: '*Platform-ImportExport',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._transport();
-$recv($2)._namespace_(aString);
-$3=$recv($2)._load();
-$1=$3;
-return $1;
+var $1;
+$1=self._transport();
+$recv($1)._namespace_(aString);
+return $recv($1)._load();
 }, function($ctx1) {$ctx1.fill(self,"loadFromNamespace:",{aString:aString},$globals.Package)});
 },
 args: ["aString"],
@@ -32474,9 +31628,7 @@ selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@currentClass"];
-return $1;
+return self["@currentClass"];
 
 },
 args: [],
@@ -32509,9 +31661,7 @@ selector: "currentPackage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@currentPackage"];
-return $1;
+return self["@currentPackage"];
 
 },
 args: [],
@@ -32546,9 +31696,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._pseudoVariableNames();
-return $1;
+return $recv($Smalltalk())._pseudoVariableNames();
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},$globals.AbstractCodeGenerator)});
 },
 args: [],
@@ -32565,14 +31713,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@source"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1="";
+var $1,$receiver;
+$1=self["@source"];
+if(($receiver = $1) == null || $receiver.isNil){
+return "";
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"source",{},$globals.AbstractCodeGenerator)});
 },
 args: [],
@@ -32611,17 +31758,15 @@ fn: function (aNode){
 var self=this;
 var ir,stream;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
+var $1;
 $recv(self._semanticAnalyzer())._visit_(aNode);
 $ctx1.sendIdx["visit:"]=1;
 ir=$recv(self._translator())._visit_(aNode);
 $ctx1.sendIdx["visit:"]=2;
-$2=self._irTranslator();
-$recv($2)._currentClass_(self._currentClass());
-$recv($2)._visit_(ir);
-$3=$recv($2)._contents();
-$1=$3;
-return $1;
+$1=self._irTranslator();
+$recv($1)._currentClass_(self._currentClass());
+$recv($1)._visit_(ir);
+return $recv($1)._contents();
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},$globals.CodeGenerator)});
 },
 args: ["aNode"],
@@ -32639,9 +31784,7 @@ fn: function (){
 var self=this;
 function $IRJSTranslator(){return $globals.IRJSTranslator||(typeof IRJSTranslator=="undefined"?nil:IRJSTranslator)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($IRJSTranslator())._new();
-return $1;
+return $recv($IRJSTranslator())._new();
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},$globals.CodeGenerator)});
 },
 args: [],
@@ -32659,12 +31802,10 @@ fn: function (){
 var self=this;
 function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($SemanticAnalyzer())._on_(self._currentClass());
-$recv($2)._thePackage_(self._currentPackage());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($SemanticAnalyzer())._on_(self._currentClass());
+$recv($1)._thePackage_(self._currentPackage());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},$globals.CodeGenerator)});
 },
 args: [],
@@ -32682,13 +31823,11 @@ fn: function (){
 var self=this;
 function $IRASTTranslator(){return $globals.IRASTTranslator||(typeof IRASTTranslator=="undefined"?nil:IRASTTranslator)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRASTTranslator())._new();
-$recv($2)._source_(self._source());
-$recv($2)._theClass_(self._currentClass());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRASTTranslator())._new();
+$recv($1)._source_(self._source());
+$recv($1)._theClass_(self._currentClass());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"translator",{},$globals.CodeGenerator)});
 },
 args: [],
@@ -32710,14 +31849,13 @@ fn: function (){
 var self=this;
 function $InliningCodeGenerator(){return $globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@codeGeneratorClass"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$InliningCodeGenerator();
+var $1,$receiver;
+$1=self["@codeGeneratorClass"];
+if(($receiver = $1) == null || $receiver.isNil){
+return $InliningCodeGenerator();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},$globals.Compiler)});
 },
 args: [],
@@ -32751,11 +31889,8 @@ protocol: 'compiling',
 fn: function (aString,aClass,anotherString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
 self._source_(aString);
-$2=self._compileNode_forClass_package_(self._parse_(aString),aClass,$recv(aClass)._packageOfProtocol_(anotherString));
-$1=$2;
-return $1;
+return self._compileNode_forClass_package_(self._parse_(aString),aClass,$recv(aClass)._packageOfProtocol_(anotherString));
 }, function($ctx1) {$ctx1.fill(self,"compile:forClass:protocol:",{aString:aString,aClass:aClass,anotherString:anotherString},$globals.Compiler)});
 },
 args: ["aString", "aClass", "anotherString"],
@@ -32772,11 +31907,10 @@ protocol: 'compiling',
 fn: function (aString,anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
+var $1;
+$1=$recv("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
 $ctx1.sendIdx[","]=1;
-$1=self._compile_forClass_protocol_($2,$recv(anObject)._class(),"**xxxDoIt");
-return $1;
+return self._compile_forClass_protocol_($1,$recv(anObject)._class(),"**xxxDoIt");
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},$globals.Compiler)});
 },
 args: ["aString", "anObject"],
@@ -32794,16 +31928,15 @@ fn: function (aNode){
 var self=this;
 var generator,result;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1;
 generator=$recv(self._codeGeneratorClass())._new();
 $1=generator;
 $recv($1)._source_(self._source());
 $recv($1)._currentClass_(self._currentClass());
-$2=$recv($1)._currentPackage_(self._currentPackage());
+$recv($1)._currentPackage_(self._currentPackage());
 result=$recv(generator)._compileNode_(aNode);
 self._unknownVariables_([]);
-$3=result;
-return $3;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result},$globals.Compiler)});
 },
 args: ["aNode"],
@@ -32820,12 +31953,9 @@ protocol: 'compiling',
 fn: function (aNode,aClass,aPackage){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
 self._currentClass_(aClass);
 self._currentPackage_(aPackage);
-$2=self._compileNode_(aNode);
-$1=$2;
-return $1;
+return self._compileNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"compileNode:forClass:package:",{aNode:aNode,aClass:aClass,aPackage:aPackage},$globals.Compiler)});
 },
 args: ["aNode", "aClass", "aPackage"],
@@ -32841,9 +31971,7 @@ selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@currentClass"];
-return $1;
+return self["@currentClass"];
 
 },
 args: [],
@@ -32876,9 +32004,7 @@ selector: "currentPackage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@currentPackage"];
-return $1;
+return self["@currentPackage"];
 
 },
 args: [],
@@ -32951,9 +32077,7 @@ fn: function (aString){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._evaluateExpression_on_(aString,$recv($DoIt())._new());
-return $1;
+return self._evaluateExpression_on_(aString,$recv($DoIt())._new());
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString},$globals.Compiler)});
 },
 args: ["aString"],
@@ -32971,7 +32095,7 @@ fn: function (aString,anObject){
 var self=this;
 var result,method;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 method=self._eval_(self._compileExpression_on_(aString,anObject));
 $recv(method)._protocol_("**xxxDoIt");
 $1=$recv(anObject)._class();
@@ -32979,8 +32103,7 @@ $ctx1.sendIdx["class"]=1;
 $recv($1)._addCompiledMethod_(method);
 result=$recv(anObject)._xxxDoIt();
 $recv($recv(anObject)._class())._removeCompiledMethod_(method);
-$2=result;
-return $2;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},$globals.Compiler)});
 },
 args: ["aString", "anObject"],
@@ -32999,10 +32122,8 @@ var self=this;
 var compiledMethod;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return $core.withContext(function($ctx1) {
-var $1;
 compiledMethod=self._eval_forPackage_(self._compile_forClass_protocol_(aString,aBehavior,anotherString),$recv(aBehavior)._packageOfProtocol_(anotherString));
-$1=$recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(compiledMethod,aBehavior,anotherString);
-return $1;
+return $recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(compiledMethod,aBehavior,anotherString);
 }, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString,compiledMethod:compiledMethod},$globals.Compiler)});
 },
 args: ["aString", "aBehavior", "anotherString"],
@@ -33020,9 +32141,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._parse_(aString);
-return $1;
+return $recv($Smalltalk())._parse_(aString);
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},$globals.Compiler)});
 },
 args: ["aString"],
@@ -33039,11 +32158,10 @@ protocol: 'compiling',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv("doIt ^ [ ".__comma(aString)).__comma(" ] value");
+var $1;
+$1=$recv("doIt ^ [ ".__comma(aString)).__comma(" ] value");
 $ctx1.sendIdx[","]=1;
-$1=self._parse_($2);
-return $1;
+return self._parse_($1);
 }, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString},$globals.Compiler)});
 },
 args: ["aString"],
@@ -33110,14 +32228,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@source"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1="";
+var $1,$receiver;
+$1=self["@source"];
+if(($receiver = $1) == null || $receiver.isNil){
+return "";
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"source",{},$globals.Compiler)});
 },
 args: [],
@@ -33150,9 +32267,7 @@ selector: "unknownVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@unknownVariables"];
-return $1;
+return self["@unknownVariables"];
 
 },
 args: [],
@@ -33243,7 +32358,7 @@ function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $AISemanticAnalyzer(){return $globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1;
 var $early={};
 try {
 compiler=$recv($Compiler())._new();
@@ -33254,15 +32369,13 @@ return ast;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }))._on_do_($Error(),(function(ex){
 return $core.withContext(function($ctx2) {
-$1=self._alert_($recv(ex)._messageText());
-throw $early=[$1];
+throw $early=[self._alert_($recv(ex)._messageText())];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
 }));
-$2=$recv($AISemanticAnalyzer())._on_($recv($recv(aContext)._receiver())._class());
-$recv($2)._context_(aContext);
-$3=$recv($2)._visit_(ast);
-$4=$recv(aContext)._evaluateNode_(ast);
-return $4;
+$1=$recv($AISemanticAnalyzer())._on_($recv($recv(aContext)._receiver())._class());
+$recv($1)._context_(aContext);
+$recv($1)._visit_(ast);
+return $recv(aContext)._evaluateNode_(ast);
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"evaluate:context:",{aString:aString,aContext:aContext,compiler:compiler,ast:ast},$globals.Evaluator)});
@@ -33281,9 +32394,7 @@ protocol: 'evaluating',
 fn: function (aString,anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anObject)._evaluate_on_(aString,self);
-return $1;
+return $recv(anObject)._evaluate_on_(aString,self);
 }, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},$globals.Evaluator)});
 },
 args: ["aString", "anObject"],
@@ -33303,7 +32414,6 @@ var compiler;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
 var $early={};
 try {
 compiler=$recv($Compiler())._new();
@@ -33313,12 +32423,10 @@ return $recv(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }))._on_do_($Error(),(function(ex){
 return $core.withContext(function($ctx2) {
-$1=self._alert_($recv(ex)._messageText());
-throw $early=[$1];
+throw $early=[self._alert_($recv(ex)._messageText())];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
 }));
-$2=$recv(compiler)._evaluateExpression_on_(aString,anObject);
-return $2;
+return $recv(compiler)._evaluateExpression_on_(aString,anObject);
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"evaluate:receiver:",{aString:aString,anObject:anObject,compiler:compiler},$globals.Evaluator)});
@@ -33338,9 +32446,7 @@ protocol: 'instance creation',
 fn: function (aString,anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._new())._evaluate_for_(aString,anObject);
-return $1;
+return $recv(self._new())._evaluate_for_(aString,anObject);
 }, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},$globals.Evaluator.klass)});
 },
 args: ["aString", "anObject"],
@@ -33358,14 +32464,13 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv($recv($Smalltalk())._reservedWords())._includes_(self);
-if($core.assert($2)){
-$1=self.__comma("_");
+var $1;
+$1=$recv($recv($Smalltalk())._reservedWords())._includes_(self);
+if($core.assert($1)){
+return self.__comma("_");
 } else {
-$1=self;
+return self;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"asVariableName",{},$globals.String)});
 },
 args: [],
@@ -33392,9 +32497,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitNode_(self);
-return $1;
+return $recv(aVisitor)._visitNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.Node)});
 },
 args: ["aVisitor"],
@@ -33431,7 +32534,7 @@ fn: function (){
 var self=this;
 var allNodes;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self._nodes();
 $ctx1.sendIdx["nodes"]=1;
 allNodes=$recv($1)._asSet();
@@ -33440,8 +32543,7 @@ return $core.withContext(function($ctx2) {
 return $recv(allNodes)._addAll_($recv(each)._allNodes());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$2=allNodes;
-return $2;
+return allNodes;
 }, function($ctx1) {$ctx1.fill(self,"allNodes",{allNodes:allNodes},$globals.Node)});
 },
 args: [],
@@ -33458,13 +32560,11 @@ protocol: 'testing',
 fn: function (aPoint){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._positionStart()).__lt_eq(aPoint))._and_((function(){
+return $recv($recv(self._positionStart()).__lt_eq(aPoint))._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._positionEnd()).__gt_eq(aPoint);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"inPosition:",{aPoint:aPoint},$globals.Node)});
 },
 args: ["aPoint"],
@@ -33577,9 +32677,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($recv(self._parent())._nodes())._last()).__eq(self);
-return $1;
+return $recv($recv($recv(self._parent())._nodes())._last()).__eq(self);
 }, function($ctx1) {$ctx1.fill(self,"isLastChild",{},$globals.Node)});
 },
 args: [],
@@ -33628,17 +32726,16 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $4,$3,$2,$1;
-$4=self._parent();
+var $3,$2,$1;
+$3=self._parent();
 $ctx1.sendIdx["parent"]=1;
-$3=$recv($4)._isSequenceNode();
-$2=$recv($3)._or_((function(){
+$2=$recv($3)._isSequenceNode();
+$1=$recv($2)._or_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._parent())._isAssignmentNode();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$1=$recv($2)._not();
-return $1;
+return $recv($1)._not();
 }, function($ctx1) {$ctx1.fill(self,"isReferenced",{},$globals.Node)});
 },
 args: [],
@@ -33730,21 +32827,43 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
+selector: "location:",
+protocol: 'accessing',
+fn: function (aLocation){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $3,$2,$1;
+$3=$recv(aLocation)._start();
+$ctx1.sendIdx["start"]=1;
+$2=$recv($3)._line();
+$1=$recv($2).__at($recv($recv(aLocation)._start())._column());
+self._position_($1);
+return self;
+}, function($ctx1) {$ctx1.fill(self,"location:",{aLocation:aLocation},$globals.Node)});
+},
+args: ["aLocation"],
+source: "location: aLocation\x0a\x09self position: aLocation start line @ aLocation start column",
+referencedClasses: [],
+messageSends: ["position:", "@", "line", "start", "column"]
+}),
+$globals.Node);
+
+$core.addMethod(
+$core.method({
 selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._parent();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
+var $1,$receiver;
+$1=self._parent();
+if(($receiver = $1) == null || $receiver.isNil){
+return $1;
 } else {
 var node;
 node=$receiver;
-$1=$recv(node)._method();
+return $recv(node)._method();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},$globals.Node)});
 },
 args: [],
@@ -33762,7 +32881,7 @@ fn: function (aPoint,aBlock){
 var self=this;
 var children;
 return $core.withContext(function($ctx1) {
-var $1,$4,$3,$2;
+var $2,$1;
 var $early={};
 try {
 children=$recv(self._allNodes())._select_((function(each){
@@ -33776,20 +32895,18 @@ return $recv(each)._inPosition_(aPoint);
 }));
 $recv(children)._ifEmpty_((function(){
 return $core.withContext(function($ctx2) {
-$1=$recv(aBlock)._value();
-throw $early=[$1];
+throw $early=[$recv(aBlock)._value()];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 }));
-$2=$recv($recv($recv(children)._asArray())._sort_((function(a,b){
+return $recv($recv($recv(children)._asArray())._sort_((function(a,b){
 return $core.withContext(function($ctx2) {
-$4=$recv(a)._positionStart();
+$2=$recv(a)._positionStart();
 $ctx2.sendIdx["positionStart"]=1;
-$3=$recv($4)._dist_(aPoint);
+$1=$recv($2)._dist_(aPoint);
 $ctx2.sendIdx["dist:"]=1;
-return $recv($3).__lt_eq($recv($recv(b)._positionStart())._dist_(aPoint));
+return $recv($1).__lt_eq($recv($recv(b)._positionStart())._dist_(aPoint));
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,4)});
 })))._first();
-return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"navigationNodeAt:ifAbsent:",{aPoint:aPoint,aBlock:aBlock,children:children},$globals.Node)});
@@ -33809,15 +32926,14 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@nodes"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@nodes"]=$recv($Array())._new();
+var $1,$receiver;
 $1=self["@nodes"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@nodes"]=$recv($Array())._new();
+return self["@nodes"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},$globals.Node)});
 },
 args: [],
@@ -33856,9 +32972,7 @@ selector: "parent",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@parent"];
-return $1;
+return self["@parent"];
 
 },
 args: [],
@@ -33892,21 +33006,20 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1,$receiver;
-$2=self["@position"];
+var $1,$2,$receiver;
+$1=self["@position"];
+if(($receiver = $1) == null || $receiver.isNil){
+$2=self._parent();
 if(($receiver = $2) == null || $receiver.isNil){
-$3=self._parent();
-if(($receiver = $3) == null || $receiver.isNil){
-$1=$3;
+return $2;
 } else {
 var node;
 node=$receiver;
-$1=$recv(node)._position();
+return $recv(node)._position();
 };
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"position",{},$globals.Node)});
 },
 args: [],
@@ -33940,19 +33053,18 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$7,$6,$5,$4,$3,$1;
-$2=self._positionStart();
-$7=self._source();
+var $1,$6,$5,$4,$3,$2;
+$1=self._positionStart();
+$6=self._source();
 $ctx1.sendIdx["source"]=1;
-$6=$recv($7)._lines();
+$5=$recv($6)._lines();
 $ctx1.sendIdx["lines"]=1;
-$5=$recv($6)._size();
+$4=$recv($5)._size();
 $ctx1.sendIdx["size"]=1;
-$4=$recv($5).__minus((1));
+$3=$recv($4).__minus((1));
 $ctx1.sendIdx["-"]=1;
-$3=$recv($4).__at($recv($recv($recv($recv(self._source())._lines())._last())._size()).__minus((1)));
-$1=$recv($2).__plus($3);
-return $1;
+$2=$recv($3).__at($recv($recv($recv($recv(self._source())._lines())._last())._size()).__minus((1)));
+return $recv($1).__plus($2);
 }, function($ctx1) {$ctx1.fill(self,"positionEnd",{},$globals.Node)});
 },
 args: [],
@@ -33969,9 +33081,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._position();
-return $1;
+return self._position();
 }, function($ctx1) {$ctx1.fill(self,"positionStart",{},$globals.Node)});
 },
 args: [],
@@ -33989,8 +33099,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Node.superclass.fn.prototype._postCopy.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Node.superclass||$boot.dnu).fn.prototype._postCopy.apply($recv(self), []));
 $ctx1.supercall = false;
 $recv(self._nodes())._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -34014,8 +33124,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._nodes())._detect_ifNone_((function(each){
+return $recv($recv(self._nodes())._detect_ifNone_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._requiresSmalltalkContext();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
@@ -34023,7 +33132,6 @@ return $recv(each)._requiresSmalltalkContext();
 return nil;
 
 })))._notNil();
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},$globals.Node)});
 },
 args: [],
@@ -34040,14 +33148,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@shouldBeAliased"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@shouldBeAliased"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{},$globals.Node)});
 },
 args: [],
@@ -34081,14 +33188,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@shouldBeInlined"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@shouldBeInlined"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"shouldBeInlined",{},$globals.Node)});
 },
 args: [],
@@ -34122,9 +33228,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._source())._size();
-return $1;
+return $recv(self._source())._size();
 }, function($ctx1) {$ctx1.fill(self,"size",{},$globals.Node)});
 },
 args: [],
@@ -34141,14 +33245,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@source"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1="";
+var $1,$receiver;
+$1=self["@source"];
+if(($receiver = $1) == null || $receiver.isNil){
+return "";
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"source",{},$globals.Node)});
 },
 args: [],
@@ -34218,9 +33321,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitAssignmentNode_(self);
-return $1;
+return $recv(aVisitor)._visitAssignmentNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.AssignmentNode)});
 },
 args: ["aVisitor"],
@@ -34252,9 +33353,7 @@ selector: "left",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@left"];
-return $1;
+return self["@left"];
 
 },
 args: [],
@@ -34291,9 +33390,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Array())._with_with_(self._left(),self._right());
-return $1;
+return $recv($Array())._with_with_(self._left(),self._right());
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},$globals.AssignmentNode)});
 },
 args: [],
@@ -34309,9 +33406,7 @@ selector: "right",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@right"];
-return $1;
+return self["@right"];
 
 },
 args: [],
@@ -34347,17 +33442,16 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=(
-$ctx1.supercall = true, 
-$globals.AssignmentNode.superclass.fn.prototype._shouldBeAliased.apply($recv(self), []));
+var $1;
+$1=(
+$ctx1.supercall = true,
+($globals.AssignmentNode.superclass||$boot.dnu).fn.prototype._shouldBeAliased.apply($recv(self), []));
 $ctx1.supercall = false;
-$1=$recv($2)._or_((function(){
+return $recv($1)._or_((function(){
 return $core.withContext(function($ctx2) {
 return self._isReferenced();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{},$globals.AssignmentNode)});
 },
 args: [],
@@ -34378,9 +33472,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitBlockNode_(self);
-return $1;
+return $recv(aVisitor)._visitBlockNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.BlockNode)});
 },
 args: ["aVisitor"],
@@ -34414,15 +33506,14 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@parameters"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@parameters"]=$recv($Array())._new();
+var $1,$receiver;
 $1=self["@parameters"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@parameters"]=$recv($Array())._new();
+return self["@parameters"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"parameters",{},$globals.BlockNode)});
 },
 args: [],
@@ -34455,9 +33546,7 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@scope"];
-return $1;
+return self["@scope"];
 
 },
 args: [],
@@ -34491,13 +33580,11 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._shouldBeAliased())._or_((function(){
+return $recv(self._shouldBeAliased())._or_((function(){
 return $core.withContext(function($ctx2) {
 return self._shouldBeInlined();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},$globals.BlockNode)});
 },
 args: [],
@@ -34518,9 +33605,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitCascadeNode_(self);
-return $1;
+return $recv(aVisitor)._visitCascadeNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.CascadeNode)});
 },
 args: ["aVisitor"],
@@ -34552,9 +33637,7 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
+return self["@receiver"];
 
 },
 args: [],
@@ -34581,6 +33664,23 @@ messageSends: []
 }),
 $globals.CascadeNode);
 
+$core.addMethod(
+$core.method({
+selector: "subtreeNeedsAliasing",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+return $recv($recv(self._parent())._isSequenceNode())._not();
+}, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},$globals.CascadeNode)});
+},
+args: [],
+source: "subtreeNeedsAliasing\x0a\x09^ self parent isSequenceNode not",
+referencedClasses: [],
+messageSends: ["not", "isSequenceNode", "parent"]
+}),
+$globals.CascadeNode);
+
 
 
 $core.addClass('DynamicArrayNode', $globals.Node, [], 'Compiler-AST');
@@ -34592,9 +33692,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitDynamicArrayNode_(self);
-return $1;
+return $recv(aVisitor)._visitDynamicArrayNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.DynamicArrayNode)});
 },
 args: ["aVisitor"],
@@ -34615,9 +33713,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitDynamicDictionaryNode_(self);
-return $1;
+return $recv(aVisitor)._visitDynamicDictionaryNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.DynamicDictionaryNode)});
 },
 args: ["aVisitor"],
@@ -34638,9 +33734,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitJSStatementNode_(self);
-return $1;
+return $recv(aVisitor)._visitJSStatementNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.JSStatementNode)});
 },
 args: ["aVisitor"],
@@ -34684,7 +33778,7 @@ $globals.JSStatementNode);
 
 
 
-$core.addClass('MethodNode', $globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes', 'superSends'], 'Compiler-AST');
+$core.addClass('MethodNode', $globals.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'sendIndexes'], 'Compiler-AST');
 $globals.MethodNode.comment="I represent an method node.\x0a\x0aA method node must be the root and only method node of a valid AST.";
 $core.addMethod(
 $core.method({
@@ -34693,9 +33787,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitMethodNode_(self);
-return $1;
+return $recv(aVisitor)._visitMethodNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.MethodNode)});
 },
 args: ["aVisitor"],
@@ -34712,14 +33804,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@arguments"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=[];
+var $1,$receiver;
+$1=self["@arguments"];
+if(($receiver = $1) == null || $receiver.isNil){
+return [];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.MethodNode)});
 },
 args: [],
@@ -34752,9 +33843,7 @@ selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@classReferences"];
-return $1;
+return self["@classReferences"];
 
 },
 args: [],
@@ -34788,9 +33877,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._sendIndexes())._keys();
-return $1;
+return $recv(self._sendIndexes())._keys();
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},$globals.MethodNode)});
 },
 args: [],
@@ -34822,9 +33909,7 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@scope"];
-return $1;
+return self["@scope"];
 
 },
 args: [],
@@ -34857,9 +33942,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -34892,9 +33975,7 @@ selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@sendIndexes"];
-return $1;
+return self["@sendIndexes"];
 
 },
 args: [],
@@ -34957,9 +34038,7 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@source"];
-return $1;
+return self["@source"];
 
 },
 args: [],
@@ -34986,41 +34065,6 @@ messageSends: []
 }),
 $globals.MethodNode);
 
-$core.addMethod(
-$core.method({
-selector: "superSends",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@superSends"];
-return $1;
-
-},
-args: [],
-source: "superSends\x0a\x09^ superSends",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.MethodNode);
-
-$core.addMethod(
-$core.method({
-selector: "superSends:",
-protocol: 'accessing',
-fn: function (aCollection){
-var self=this;
-self["@superSends"]=aCollection;
-return self;
-
-},
-args: ["aCollection"],
-source: "superSends: aCollection\x0a\x09superSends := aCollection",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.MethodNode);
-
 
 
 $core.addClass('ReturnNode', $globals.Node, ['scope'], 'Compiler-AST');
@@ -35032,9 +34076,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitReturnNode_(self);
-return $1;
+return $recv(aVisitor)._visitReturnNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.ReturnNode)});
 },
 args: ["aVisitor"],
@@ -35067,9 +34109,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._scope())._isMethodScope())._not();
-return $1;
+return $recv($recv(self._scope())._isMethodScope())._not();
 }, function($ctx1) {$ctx1.fill(self,"nonLocalReturn",{},$globals.ReturnNode)});
 },
 args: [],
@@ -35085,9 +34125,7 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@scope"];
-return $1;
+return self["@scope"];
 
 },
 args: [],
@@ -35116,7 +34154,7 @@ $globals.ReturnNode);
 
 
 
-$core.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
+$core.addClass('SendNode', $globals.Node, ['selector', 'arguments', 'receiver', 'index'], 'Compiler-AST');
 $globals.SendNode.comment="I represent an message send node.";
 $core.addMethod(
 $core.method({
@@ -35125,9 +34163,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitSendNode_(self);
-return $1;
+return $recv(aVisitor)._visitSendNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.SendNode)});
 },
 args: ["aVisitor"],
@@ -35144,15 +34180,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@arguments"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@arguments"]=[];
+var $1,$receiver;
 $1=self["@arguments"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@arguments"]=[];
+return self["@arguments"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.SendNode)});
 },
 args: [],
@@ -35196,7 +34231,7 @@ function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil
 function $CascadeNode(){return $globals.CascadeNode||(typeof CascadeNode=="undefined"?nil:CascadeNode)}
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$4,$5,$3;
+var $1,$2,$3;
 $1=$recv($SendNode())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._selector_(self._selector());
@@ -35204,12 +34239,10 @@ $recv($1)._arguments_(self._arguments());
 $2=$recv($1)._yourself();
 $ctx1.sendIdx["yourself"]=1;
 first=$2;
-$4=$recv($CascadeNode())._new();
-$recv($4)._receiver_(self._receiver());
-$recv($4)._nodes_($recv($recv($Array())._with_(first)).__comma(aCollection));
-$5=$recv($4)._yourself();
-$3=$5;
-return $3;
+$3=$recv($CascadeNode())._new();
+$recv($3)._receiver_(self._receiver());
+$recv($3)._nodes_($recv($recv($Array())._with_(first)).__comma(aCollection));
+return $recv($3)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"cascadeNodeWithMessages:",{aCollection:aCollection,first:first},$globals.SendNode)});
 },
 args: ["aCollection"],
@@ -35225,9 +34258,7 @@ selector: "index",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@index"];
-return $1;
+return self["@index"];
 
 },
 args: [],
@@ -35261,9 +34292,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._parent())._isCascadeNode();
-return $1;
+return $recv(self._parent())._isCascadeNode();
 }, function($ctx1) {$ctx1.fill(self,"isCascadeSendNode",{},$globals.SendNode)});
 },
 args: [],
@@ -35312,9 +34341,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._selector();
-return $1;
+return self._selector();
 }, function($ctx1) {$ctx1.fill(self,"navigationLink",{},$globals.SendNode)});
 },
 args: [],
@@ -35332,22 +34359,19 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$5,$6,$4,$receiver;
+var $1,$2,$3,$receiver;
 $1=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
-$3=self._arguments();
+$2=self._arguments();
 $ctx1.sendIdx["arguments"]=1;
-$2=$recv($3)._copy();
-return $2;
+return $recv($2)._copy();
 } else {
 $1;
 };
-$5=$recv($Array())._with_(self._receiver());
-$recv($5)._addAll_(self._arguments());
-$6=$recv($5)._yourself();
-$4=$6;
-return $4;
+$3=$recv($Array())._with_(self._receiver());
+$recv($3)._addAll_(self._arguments());
+return $recv($3)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},$globals.SendNode)});
 },
 args: [],
@@ -35363,9 +34387,7 @@ selector: "receiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@receiver"];
-return $1;
+return self["@receiver"];
 
 },
 args: [],
@@ -35420,9 +34442,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -35460,8 +34480,8 @@ return $core.withContext(function($ctx1) {
 var $2,$1;
 sends=$recv($recv($recv(self._method())._sendIndexes())._at_(self._selector()))._size();
 $2=(
-$ctx1.supercall = true, 
-$globals.SendNode.superclass.fn.prototype._shouldBeAliased.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.SendNode.superclass||$boot.dnu).fn.prototype._shouldBeAliased.apply($recv(self), []));
 $ctx1.supercall = false;
 $1=$recv($2)._or_((function(){
 return $core.withContext(function($ctx2) {
@@ -35499,37 +34519,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@superSend"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
-} else {
-$1=$2;
-};
-return $1;
+return $recv($recv(self._receiver())._value()).__eq("super");
 }, function($ctx1) {$ctx1.fill(self,"superSend",{},$globals.SendNode)});
 },
 args: [],
-source: "superSend\x0a\x09^ superSend ifNil: [ false ]",
+source: "superSend\x0a\x09^ self receiver value = 'super'",
 referencedClasses: [],
-messageSends: ["ifNil:"]
-}),
-$globals.SendNode);
-
-$core.addMethod(
-$core.method({
-selector: "superSend:",
-protocol: 'accessing',
-fn: function (aBoolean){
-var self=this;
-self["@superSend"]=aBoolean;
-return self;
-
-},
-args: ["aBoolean"],
-source: "superSend: aBoolean\x0a\x09superSend := aBoolean",
-referencedClasses: [],
-messageSends: []
+messageSends: ["=", "value", "receiver"]
 }),
 $globals.SendNode);
 
@@ -35541,24 +34537,21 @@ fn: function (anObject){
 var self=this;
 function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$5,$4,$6,$1,$receiver;
-$2=$recv($SendNode())._new();
-$recv($2)._position_(self._position());
-$recv($2)._source_(self._source());
-$3=$2;
-$5=self._receiver();
+var $1,$3,$2,$receiver;
+$1=$recv($SendNode())._new();
+$recv($1)._position_(self._position());
+$recv($1)._source_(self._source());
+$3=self._receiver();
 $ctx1.sendIdx["receiver"]=1;
-if(($receiver = $5) == null || $receiver.isNil){
-$4=anObject;
+if(($receiver = $3) == null || $receiver.isNil){
+$2=anObject;
 } else {
-$4=$recv(self._receiver())._valueForReceiver_(anObject);
+$2=$recv(self._receiver())._valueForReceiver_(anObject);
 };
-$recv($3)._receiver_($4);
-$recv($2)._selector_(self._selector());
-$recv($2)._arguments_(self._arguments());
-$6=$recv($2)._yourself();
-$1=$6;
-return $1;
+$recv($1)._receiver_($2);
+$recv($1)._selector_(self._selector());
+$recv($1)._arguments_(self._arguments());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},$globals.SendNode)});
 },
 args: ["anObject"],
@@ -35579,9 +34572,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitSequenceNode_(self);
-return $1;
+return $recv(aVisitor)._visitSequenceNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.SequenceNode)});
 },
 args: ["aVisitor"],
@@ -35599,15 +34590,13 @@ fn: function (){
 var self=this;
 function $BlockSequenceNode(){return $globals.BlockSequenceNode||(typeof BlockSequenceNode=="undefined"?nil:BlockSequenceNode)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($BlockSequenceNode())._new();
-$recv($2)._position_(self._position());
-$recv($2)._source_(self._source());
-$recv($2)._nodes_(self._nodes());
-$recv($2)._temps_(self._temps());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($BlockSequenceNode())._new();
+$recv($1)._position_(self._position());
+$recv($1)._source_(self._source());
+$recv($1)._nodes_(self._nodes());
+$recv($1)._temps_(self._temps());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},$globals.SequenceNode)});
 },
 args: [],
@@ -35639,9 +34628,7 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@scope"];
-return $1;
+return self["@scope"];
 
 },
 args: [],
@@ -35675,14 +34662,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@temps"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=[];
+var $1,$receiver;
+$1=self["@temps"];
+if(($receiver = $1) == null || $receiver.isNil){
+return [];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"temps",{},$globals.SequenceNode)});
 },
 args: [],
@@ -35720,9 +34706,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitBlockSequenceNode_(self);
-return $1;
+return $recv(aVisitor)._visitBlockSequenceNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.BlockSequenceNode)});
 },
 args: ["aVisitor"],
@@ -35759,9 +34743,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitValueNode_(self);
-return $1;
+return $recv(aVisitor)._visitValueNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.ValueNode)});
 },
 args: ["aVisitor"],
@@ -35778,9 +34760,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._value())._isImmutable();
-return $1;
+return $recv(self._value())._isImmutable();
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},$globals.ValueNode)});
 },
 args: [],
@@ -35812,9 +34792,7 @@ selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@value"];
-return $1;
+return self["@value"];
 
 },
 args: [],
@@ -35852,9 +34830,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitVariableNode_(self);
-return $1;
+return $recv(aVisitor)._visitVariableNode_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.VariableNode)});
 },
 args: ["aVisitor"],
@@ -35871,9 +34847,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._binding())._alias();
-return $1;
+return $recv(self._binding())._alias();
 }, function($ctx1) {$ctx1.fill(self,"alias",{},$globals.VariableNode)});
 },
 args: [],
@@ -35890,14 +34864,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@assigned"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@assigned"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"assigned",{},$globals.VariableNode)});
 },
 args: [],
@@ -35949,9 +34922,7 @@ selector: "binding",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@binding"];
-return $1;
+return self["@binding"];
 
 },
 args: [],
@@ -35985,9 +34956,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._binding())._isArgVar();
-return $1;
+return $recv(self._binding())._isArgVar();
 }, function($ctx1) {$ctx1.fill(self,"isArgument",{},$globals.VariableNode)});
 },
 args: [],
@@ -36004,9 +34973,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._binding())._isImmutable();
-return $1;
+return $recv(self._binding())._isImmutable();
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},$globals.VariableNode)});
 },
 args: [],
@@ -36055,9 +35022,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._value();
-return $1;
+return self._value();
 }, function($ctx1) {$ctx1.fill(self,"navigationLink",{},$globals.VariableNode)});
 },
 args: [],
@@ -36078,9 +35043,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aNode)._accept_(self);
-return $1;
+return $recv(aNode)._accept_(self);
 }, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36097,13 +35060,11 @@ protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aCollection)._collect_((function(each){
+return $recv(aCollection)._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return self._visit_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},$globals.NodeVisitor)});
 },
 args: ["aCollection"],
@@ -36120,9 +35081,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36139,9 +35098,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36158,9 +35115,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitSequenceNode_(aNode);
-return $1;
+return self._visitSequenceNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36177,9 +35132,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36196,9 +35149,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36215,9 +35166,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36234,9 +35183,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36253,9 +35200,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36272,9 +35217,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitAll_($recv(aNode)._nodes());
-return $1;
+return self._visitAll_($recv(aNode)._nodes());
 }, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36291,9 +35234,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36310,9 +35251,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36329,9 +35268,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36348,9 +35285,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36367,9 +35302,7 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitNode_(aNode);
-return $1;
+return self._visitNode_(aNode);
 }, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.NodeVisitor)});
 },
 args: ["aNode"],
@@ -36388,7 +35321,7 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self._source();
 $ctx1.sendIdx["source"]=1;
 $recv($1)._ifEmpty_((function(){
@@ -36396,8 +35329,7 @@ return $core.withContext(function($ctx2) {
 return self._error_("Method source is empty");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$2=$recv($Smalltalk())._parse_(self._source());
-return $2;
+return $recv($Smalltalk())._parse_(self._source());
 }, function($ctx1) {$ctx1.fill(self,"ast",{},$globals.CompiledMethod)});
 },
 args: [],
@@ -36486,9 +35418,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1="$ctx".__comma($recv(self._scopeLevel())._asString());
-return $1;
+return "$ctx".__comma($recv(self._scopeLevel())._asString());
 }, function($ctx1) {$ctx1.fill(self,"alias",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36505,11 +35435,10 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv(self._args())._keys();
+var $1;
+$1=$recv(self._args())._keys();
 $ctx1.sendIdx["keys"]=1;
-$1=$recv($2).__comma($recv(self._temps())._keys());
-return $1;
+return $recv($1).__comma($recv(self._temps())._keys());
 }, function($ctx1) {$ctx1.fill(self,"allVariableNames",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36527,15 +35456,14 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@args"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@args"]=$recv($Dictionary())._new();
+var $1,$receiver;
 $1=self["@args"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@args"]=$recv($Dictionary())._new();
+return self["@args"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"args",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36590,14 +35518,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@blockIndex"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=(0);
+var $1,$receiver;
+$1=self["@blockIndex"];
+if(($receiver = $1) == null || $receiver.isNil){
+return (0);
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"blockIndex",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36631,13 +35558,11 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._isInlined())._and_((function(){
+return $recv(self._isInlined())._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._outerScope())._canInlineNonLocalReturns();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"canInlineNonLocalReturns",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36653,9 +35578,7 @@ selector: "instruction",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@instruction"];
-return $1;
+return self["@instruction"];
 
 },
 args: [],
@@ -36689,9 +35612,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._isMethodScope())._not();
-return $1;
+return $recv(self._isMethodScope())._not();
 }, function($ctx1) {$ctx1.fill(self,"isBlockScope",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36708,16 +35629,15 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=self._instruction();
+var $2,$1;
+$2=self._instruction();
 $ctx1.sendIdx["instruction"]=1;
-$2=$recv($3)._notNil();
-$1=$recv($2)._and_((function(){
+$1=$recv($2)._notNil();
+return $recv($1)._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._instruction())._isInlined();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"isInlined",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36751,7 +35671,7 @@ fn: function (aNode){
 var self=this;
 var lookup;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$receiver;
+var $1,$2,$receiver;
 lookup=self._bindingFor_(aNode);
 $1=lookup;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -36766,8 +35686,7 @@ lookup;
 } else {
 $1;
 };
-$3=lookup;
-return $3;
+return lookup;
 }, function($ctx1) {$ctx1.fill(self,"lookupVariable:",{aNode:aNode,lookup:lookup},$globals.LexicalScope)});
 },
 args: ["aNode"],
@@ -36784,15 +35703,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._outerScope();
+var $1,$receiver;
+$1=self._outerScope();
 $ctx1.sendIdx["outerScope"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
-} else {
-$1=$recv(self._outerScope())._methodScope();
-};
+if(($receiver = $1) == null || $receiver.isNil){
 return $1;
+} else {
+return $recv(self._outerScope())._methodScope();
+};
 }, function($ctx1) {$ctx1.fill(self,"methodScope",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36808,9 +35726,7 @@ selector: "node",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@node"];
-return $1;
+return self["@node"];
 
 },
 args: [],
@@ -36843,9 +35759,7 @@ selector: "outerScope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@outerScope"];
-return $1;
+return self["@outerScope"];
 
 },
 args: [],
@@ -36879,9 +35793,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._methodScope())._pseudoVars();
-return $1;
+return $recv(self._methodScope())._pseudoVars();
 }, function($ctx1) {$ctx1.fill(self,"pseudoVars",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36898,7 +35810,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$4,$3,$5,$receiver;
+var $1,$2,$4,$3,$receiver;
 $1=self._outerScope();
 $ctx1.sendIdx["outerScope"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -36914,8 +35826,7 @@ $3=$recv($4)._scopeLevel();
 $ctx1.sendIdx["scopeLevel"]=1;
 return $3;
 };
-$5=$recv($recv(self._outerScope())._scopeLevel()).__plus((1));
-return $5;
+return $recv($recv(self._outerScope())._scopeLevel()).__plus((1));
 }, function($ctx1) {$ctx1.fill(self,"scopeLevel",{},$globals.LexicalScope)});
 },
 args: [],
@@ -36933,15 +35844,14 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@temps"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@temps"]=$recv($Dictionary())._new();
+var $1,$receiver;
 $1=self["@temps"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@temps"]=$recv($Dictionary())._new();
+return self["@temps"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"temps",{},$globals.LexicalScope)});
 },
 args: [],
@@ -37003,13 +35913,12 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=(
-$ctx1.supercall = true, 
-$globals.MethodLexicalScope.superclass.fn.prototype._allVariableNames.apply($recv(self), []));
+var $1;
+$1=(
+$ctx1.supercall = true,
+($globals.MethodLexicalScope.superclass||$boot.dnu).fn.prototype._allVariableNames.apply($recv(self), []));
 $ctx1.supercall = false;
-$1=$recv($2).__comma($recv(self._iVars())._keys());
-return $1;
+return $recv($1).__comma($recv(self._iVars())._keys());
 }, function($ctx1) {$ctx1.fill(self,"allVariableNames",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37026,20 +35935,19 @@ protocol: 'accessing',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=(
-$ctx1.supercall = true, 
-$globals.MethodLexicalScope.superclass.fn.prototype._bindingFor_.apply($recv(self), [aNode]));
+var $1,$receiver;
+$1=(
+$ctx1.supercall = true,
+($globals.MethodLexicalScope.superclass||$boot.dnu).fn.prototype._bindingFor_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv(self._iVars())._at_ifAbsent_($recv(aNode)._value(),(function(){
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv(self._iVars())._at_ifAbsent_($recv(aNode)._value(),(function(){
 return nil;
 
 }));
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"bindingFor:",{aNode:aNode},$globals.MethodLexicalScope)});
 },
 args: ["aNode"],
@@ -37072,9 +35980,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._localReturn();
-return $1;
+return self._localReturn();
 }, function($ctx1) {$ctx1.fill(self,"hasLocalReturn",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37091,9 +35997,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._nonLocalReturns())._notEmpty();
-return $1;
+return $recv(self._nonLocalReturns())._notEmpty();
 }, function($ctx1) {$ctx1.fill(self,"hasNonLocalReturn",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37111,15 +36015,14 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@iVars"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@iVars"]=$recv($Dictionary())._new();
+var $1,$receiver;
 $1=self["@iVars"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@iVars"]=$recv($Dictionary())._new();
+return self["@iVars"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"iVars",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37152,14 +36055,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@localReturn"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@localReturn"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"localReturn",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37210,15 +36112,14 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@nonLocalReturns"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@nonLocalReturns"]=$recv($OrderedCollection())._new();
+var $1,$receiver;
 $1=self["@nonLocalReturns"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@nonLocalReturns"]=$recv($OrderedCollection())._new();
+return self["@nonLocalReturns"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"nonLocalReturns",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37238,24 +36139,24 @@ function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefine
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $PseudoVar(){return $globals.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$receiver;
+var $1,$2,$4,$3,$receiver;
 $1=self["@pseudoVars"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@pseudoVars"]=$recv($Dictionary())._new();
 self["@pseudoVars"];
 $recv($recv($Smalltalk())._pseudoVariableNames())._do_((function(each){
 return $core.withContext(function($ctx2) {
-$2=$recv($PseudoVar())._on_(each);
-$recv($2)._scope_(self._methodScope());
-$3=$recv($2)._yourself();
-return $recv(self["@pseudoVars"])._at_put_(each,$3);
+$2=self["@pseudoVars"];
+$4=$recv($PseudoVar())._on_(each);
+$recv($4)._scope_(self._methodScope());
+$3=$recv($4)._yourself();
+return $recv($2)._at_put_(each,$3);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
 } else {
 $1;
 };
-$4=self["@pseudoVars"];
-return $4;
+return self["@pseudoVars"];
 }, function($ctx1) {$ctx1.fill(self,"pseudoVars",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37293,15 +36194,14 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@unknownVariables"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@unknownVariables"]=$recv($OrderedCollection())._new();
+var $1,$receiver;
 $1=self["@unknownVariables"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@unknownVariables"]=$recv($OrderedCollection())._new();
+return self["@unknownVariables"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"unknownVariables",{},$globals.MethodLexicalScope)});
 },
 args: [],
@@ -37322,9 +36222,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._name())._asVariableName();
-return $1;
+return $recv(self._name())._asVariableName();
 }, function($ctx1) {$ctx1.fill(self,"alias",{},$globals.ScopeVar)});
 },
 args: [],
@@ -37452,9 +36350,7 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@name"];
-return $1;
+return self["@name"];
 
 },
 args: [],
@@ -37487,9 +36383,7 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@scope"];
-return $1;
+return self["@scope"];
 
 },
 args: [],
@@ -37524,7 +36418,7 @@ fn: function (){
 var self=this;
 function $InvalidAssignmentError(){return $globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1,$2;
 $1=$recv(self._isArgVar())._or_((function(){
 return $core.withContext(function($ctx2) {
 return self._isPseudoVar();
@@ -37533,8 +36427,7 @@ return self._isPseudoVar();
 if($core.assert($1)){
 $2=$recv($InvalidAssignmentError())._new();
 $recv($2)._variableName_(self._name());
-$3=$recv($2)._signal();
-$3;
+$recv($2)._signal();
 };
 return self;
 }, function($ctx1) {$ctx1.fill(self,"validateAssignment",{},$globals.ScopeVar)});
@@ -37554,12 +36447,10 @@ protocol: 'instance creation',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._name_(aString);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._name_(aString);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{aString:aString},$globals.ScopeVar.klass)});
 },
 args: ["aString"],
@@ -37574,13 +36465,27 @@ $core.addClass('AliasVar', $globals.ScopeVar, ['node'], 'Compiler-Semantic');
 $globals.AliasVar.comment="I am an internally defined variable by the compiler";
 $core.addMethod(
 $core.method({
+selector: "isImmutable",
+protocol: 'testing',
+fn: function (){
+var self=this;
+return true;
+
+},
+args: [],
+source: "isImmutable\x0a\x09^ true",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.AliasVar);
+
+$core.addMethod(
+$core.method({
 selector: "node",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@node"];
-return $1;
+return self["@node"];
 
 },
 args: [],
@@ -37750,9 +36655,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._name();
-return $1;
+return self._name();
 }, function($ctx1) {$ctx1.fill(self,"alias",{},$globals.PseudoVar)});
 },
 args: [],
@@ -37836,7 +36739,7 @@ $globals.UnknownVar);
 
 
 
-$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+$core.addClass('SemanticAnalyzer', $globals.NodeVisitor, ['currentScope', 'blockIndex', 'thePackage', 'theClass', 'classReferences', 'messageSends'], 'Compiler-Semantic');
 $globals.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 $core.addMethod(
 $core.method({
@@ -37846,15 +36749,14 @@ fn: function (){
 var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@classReferences"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@classReferences"]=$recv($Set())._new();
+var $1,$receiver;
 $1=self["@classReferences"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@classReferences"]=$recv($Set())._new();
+return self["@classReferences"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"classReferences",{},$globals.SemanticAnalyzer)});
 },
 args: [],
@@ -37872,10 +36774,10 @@ fn: function (aString){
 var self=this;
 function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($ShadowingVariableError())._new();
 $recv($1)._variableName_(aString);
-$2=$recv($1)._signal();
+$recv($1)._signal();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"errorShadowingVariable:",{aString:aString},$globals.SemanticAnalyzer)});
 },
@@ -37896,7 +36798,7 @@ var identifier;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5;
+var $1,$2,$3;
 identifier=$recv(aNode)._value();
 $ctx1.sendIdx["value"]=1;
 $1=$recv($recv($recv($recv($Smalltalk())._globalJsVariables())._includes_(identifier))._not())._and_((function(){
@@ -37906,12 +36808,10 @@ return self._isVariableUndefined_inPackage_(identifier,self._thePackage());
 }));
 if($core.assert($1)){
 $2=$recv($UnknownVariableError())._new();
-$3=$2;
-$4=$recv(aNode)._value();
+$3=$recv(aNode)._value();
 $ctx1.sendIdx["value"]=2;
-$recv($3)._variableName_($4);
-$5=$recv($2)._signal();
-$5;
+$recv($2)._variableName_($3);
+$recv($2)._signal();
 } else {
 $recv($recv($recv(self["@currentScope"])._methodScope())._unknownVariables())._add_($recv(aNode)._value());
 };
@@ -37933,7 +36833,7 @@ fn: function (aString,aPackage){
 var self=this;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$4,$2,$receiver;
+var $1,$2,$3,$receiver;
 if(($receiver = aPackage) == null || $receiver.isNil){
 aPackage;
 } else {
@@ -37945,11 +36845,10 @@ if($core.assert($1)){
 return false;
 };
 };
-$3=$recv($Compiler())._new();
-$4=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
+$2=$recv($Compiler())._new();
+$3=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
 $ctx1.sendIdx[","]=1;
-$2=$recv($3)._eval_($4);
-return $2;
+return $recv($2)._eval_($3);
 }, function($ctx1) {$ctx1.fill(self,"isVariableUndefined:inPackage:",{aString:aString,aPackage:aPackage},$globals.SemanticAnalyzer)});
 },
 args: ["aString", "aPackage"],
@@ -37967,15 +36866,14 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@messageSends"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@messageSends"]=$recv($Dictionary())._new();
+var $1,$receiver;
 $1=self["@messageSends"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@messageSends"]=$recv($Dictionary())._new();
+return self["@messageSends"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},$globals.SemanticAnalyzer)});
 },
 args: [],
@@ -37993,9 +36891,7 @@ fn: function (){
 var self=this;
 function $LexicalScope(){return $globals.LexicalScope||(typeof LexicalScope=="undefined"?nil:LexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._newScopeOfClass_($LexicalScope());
-return $1;
+return self._newScopeOfClass_($LexicalScope());
 }, function($ctx1) {$ctx1.fill(self,"newBlockScope",{},$globals.SemanticAnalyzer)});
 },
 args: [],
@@ -38013,9 +36909,7 @@ fn: function (){
 var self=this;
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._newScopeOfClass_($MethodLexicalScope());
-return $1;
+return self._newScopeOfClass_($MethodLexicalScope());
 }, function($ctx1) {$ctx1.fill(self,"newMethodScope",{},$globals.SemanticAnalyzer)});
 },
 args: [],
@@ -38032,12 +36926,10 @@ protocol: 'factory',
 fn: function (aLexicalScopeClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv(aLexicalScopeClass)._new();
-$recv($2)._outerScope_(self["@currentScope"]);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv(aLexicalScopeClass)._new();
+$recv($1)._outerScope_(self["@currentScope"]);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"newScopeOfClass:",{aLexicalScopeClass:aLexicalScopeClass},$globals.SemanticAnalyzer)});
 },
 args: ["aLexicalScopeClass"],
@@ -38054,7 +36946,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self["@blockIndex"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@blockIndex"]=(0);
@@ -38063,8 +36955,7 @@ self["@blockIndex"];
 $1;
 };
 self["@blockIndex"]=$recv(self["@blockIndex"]).__plus((1));
-$2=self["@blockIndex"];
-return $2;
+return self["@blockIndex"];
 }, function($ctx1) {$ctx1.fill(self,"nextBlockIndex",{},$globals.SemanticAnalyzer)});
 },
 args: [],
@@ -38120,39 +37011,11 @@ $globals.SemanticAnalyzer);
 
 $core.addMethod(
 $core.method({
-selector: "superSends",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@superSends"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@superSends"]=$recv($Dictionary())._new();
-$1=self["@superSends"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"superSends",{},$globals.SemanticAnalyzer)});
-},
-args: [],
-source: "superSends\x0a\x09^ superSends ifNil: [ superSends := Dictionary new ]",
-referencedClasses: ["Dictionary"],
-messageSends: ["ifNil:", "new"]
-}),
-$globals.SemanticAnalyzer);
-
-$core.addMethod(
-$core.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -38185,9 +37048,7 @@ selector: "thePackage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@thePackage"];
-return $1;
+return self["@thePackage"];
 
 },
 args: [],
@@ -38246,8 +37107,8 @@ fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitAssignmentNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitAssignmentNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 $recv($recv(aNode)._left())._beAssigned();
 return self;
@@ -38278,8 +37139,8 @@ return $recv(self["@currentScope"])._addArg_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitBlockNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitBlockNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 self._popScope();
 return self;
@@ -38299,29 +37160,18 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
+$recv(aNode)._receiver_($recv($recv($recv(aNode)._nodes())._first())._receiver());
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitCascadeNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitCascadeNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
-$3=$recv(aNode)._nodes();
-$ctx1.sendIdx["nodes"]=1;
-$2=$recv($3)._first();
-$1=$recv($2)._superSend();
-if($core.assert($1)){
-$recv($recv(aNode)._nodes())._do_((function(each){
-return $core.withContext(function($ctx2) {
-return $recv(each)._superSend_(true);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
-}));
-};
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
 },
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09super visitCascadeNode: aNode.\x0a\x09aNode nodes first superSend ifTrue: [\x0a\x09\x09aNode nodes do: [ :each | each superSend: true ] ]",
+source: "visitCascadeNode: aNode\x0a\x09aNode receiver: aNode nodes first receiver.\x0a\x09super visitCascadeNode: aNode",
 referencedClasses: [],
-messageSends: ["visitCascadeNode:", "ifTrue:", "superSend", "first", "nodes", "do:", "superSend:"]
+messageSends: ["receiver:", "receiver", "first", "nodes", "visitCascadeNode:"]
 }),
 $globals.SemanticAnalyzer);
 
@@ -38332,7 +37182,6 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 self._pushScope_(self._newMethodScope());
 $recv(aNode)._scope_(self["@currentScope"]);
 $recv(self["@currentScope"])._node_(aNode);
@@ -38349,20 +37198,19 @@ return $recv(self["@currentScope"])._addArg_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitMethodNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitMethodNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 $recv(aNode)._classReferences_(self._classReferences());
 $recv(aNode)._sendIndexes_(self._messageSends());
-$1=$recv(aNode)._superSends_($recv(self._superSends())._keys());
 self._popScope();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
 },
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [ :each |\x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode\x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09sendIndexes: self messageSends;\x0a\x09\x09superSends: self superSends keys.\x0a\x09self popScope",
+source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [ :each |\x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode\x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09sendIndexes: self messageSends.\x0a\x09self popScope",
 referencedClasses: [],
-messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "sendIndexes:", "messageSends", "superSends:", "keys", "superSends", "popScope"]
+messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "sendIndexes:", "messageSends", "popScope"]
 }),
 $globals.SemanticAnalyzer);
 
@@ -38382,8 +37230,8 @@ $recv(self["@currentScope"])._localReturn_(true);
 $recv($recv(self["@currentScope"])._methodScope())._addNonLocalReturn_(self["@currentScope"]);
 };
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitReturnNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitReturnNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
@@ -38401,47 +37249,24 @@ selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
+function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1,$4,$5,$6,$8,$9,$7,$11,$12,$10,$13,$14,$15,$17,$18,$16,$receiver;
+var $3,$2,$1,$5,$6,$4,$7,$8,$9,$11,$12,$10,$receiver;
 $3=$recv(aNode)._receiver();
 $ctx1.sendIdx["receiver"]=1;
 $2=$recv($3)._value();
 $1=$recv($2).__eq("super");
-if($core.assert($1)){
-$recv(aNode)._superSend_(true);
-$4=$recv(aNode)._receiver();
-$ctx1.sendIdx["receiver"]=2;
-$recv($4)._value_("self");
-$5=self._superSends();
-$ctx1.sendIdx["superSends"]=1;
+if(!$core.assert($1)){
+$5=$recv($IRSendInliner())._inlinedSelectors();
 $6=$recv(aNode)._selector();
 $ctx1.sendIdx["selector"]=1;
-$recv($5)._at_ifAbsentPut_($6,(function(){
-return $core.withContext(function($ctx2) {
-return $recv($Set())._new();
-$ctx2.sendIdx["new"]=1;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-}));
-$ctx1.sendIdx["at:ifAbsentPut:"]=1;
-$8=self._superSends();
-$9=$recv(aNode)._selector();
-$ctx1.sendIdx["selector"]=2;
-$7=$recv($8)._at_($9);
-$ctx1.sendIdx["at:"]=1;
-$recv($7)._add_(aNode);
-$ctx1.sendIdx["add:"]=1;
-} else {
-$11=$recv($IRSendInliner())._inlinedSelectors();
-$12=$recv(aNode)._selector();
-$ctx1.sendIdx["selector"]=3;
-$10=$recv($11)._includes_($12);
-if($core.assert($10)){
+$4=$recv($5)._includes_($6);
+if($core.assert($4)){
 $recv(aNode)._shouldBeInlined_(true);
-$13=$recv(aNode)._receiver();
-if(($receiver = $13) == null || $receiver.isNil){
-$13;
+$7=$recv(aNode)._receiver();
+if(($receiver = $7) == null || $receiver.isNil){
+$7;
 } else {
 var receiver;
 receiver=$receiver;
@@ -38449,34 +37274,34 @@ $recv(receiver)._shouldBeAliased_(true);
 };
 };
 };
-$14=self._messageSends();
+$8=self._messageSends();
 $ctx1.sendIdx["messageSends"]=1;
-$15=$recv(aNode)._selector();
-$ctx1.sendIdx["selector"]=4;
-$recv($14)._at_ifAbsentPut_($15,(function(){
+$9=$recv(aNode)._selector();
+$ctx1.sendIdx["selector"]=2;
+$recv($8)._at_ifAbsentPut_($9,(function(){
 return $core.withContext(function($ctx2) {
 return $recv($Set())._new();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)});
 }));
-$17=self._messageSends();
+$11=self._messageSends();
 $ctx1.sendIdx["messageSends"]=2;
-$18=$recv(aNode)._selector();
-$ctx1.sendIdx["selector"]=5;
-$16=$recv($17)._at_($18);
-$ctx1.sendIdx["at:"]=2;
-$recv($16)._add_(aNode);
+$12=$recv(aNode)._selector();
+$ctx1.sendIdx["selector"]=3;
+$10=$recv($11)._at_($12);
+$ctx1.sendIdx["at:"]=1;
+$recv($10)._add_(aNode);
 $recv(aNode)._index_($recv($recv(self._messageSends())._at_($recv(aNode)._selector()))._size());
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
 },
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a\x09\x09\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver ifNotNil: [ :receiver |\x0a\x09\x09\x09\x09receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
-referencedClasses: ["Set", "IRSendInliner"],
-messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "at:ifAbsentPut:", "superSends", "selector", "new", "add:", "at:", "ifTrue:", "includes:", "inlinedSelectors", "shouldBeInlined:", "ifNotNil:", "shouldBeAliased:", "messageSends", "index:", "size", "visitSendNode:"]
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver ifNotNil: [ :receiver |\x0a\x09\x09\x09\x09receiver shouldBeAliased: true ] ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
+referencedClasses: ["IRSendInliner", "Set"],
+messageSends: ["ifFalse:", "=", "value", "receiver", "ifTrue:", "includes:", "inlinedSelectors", "selector", "shouldBeInlined:", "ifNotNil:", "shouldBeAliased:", "at:ifAbsentPut:", "messageSends", "new", "add:", "at:", "index:", "size", "visitSendNode:"]
 }),
 $globals.SemanticAnalyzer);
 
@@ -38494,8 +37319,8 @@ return $recv(self["@currentScope"])._addTemp_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 (
-$ctx1.supercall = true, 
-$globals.SemanticAnalyzer.superclass.fn.prototype._visitSequenceNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.SemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitSequenceNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.SemanticAnalyzer)});
@@ -38517,7 +37342,7 @@ var binding;
 function $ClassRefVar(){return $globals.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
 function $UnknownVar(){return $globals.UnknownVar||(typeof UnknownVar=="undefined"?nil:UnknownVar)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4,$5,$6,$7,$8,$9,$10,$11,$receiver;
+var $1,$3,$2,$4,$5,$6,$7,$8,$9,$receiver;
 binding=$recv(self["@currentScope"])._lookupVariable_(aNode);
 $1=binding;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -38527,25 +37352,23 @@ $2=$recv($3)._isCapitalized();
 if($core.assert($2)){
 $4=$recv($ClassRefVar())._new();
 $ctx1.sendIdx["new"]=1;
-$5=$4;
-$6=$recv(aNode)._value();
+$5=$recv(aNode)._value();
 $ctx1.sendIdx["value"]=2;
-$recv($5)._name_($6);
+$recv($4)._name_($5);
 $ctx1.sendIdx["name:"]=1;
-$7=$recv($4)._yourself();
+$6=$recv($4)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-binding=$7;
+binding=$6;
 binding;
-$8=self._classReferences();
-$9=$recv(aNode)._value();
+$7=self._classReferences();
+$8=$recv(aNode)._value();
 $ctx1.sendIdx["value"]=3;
-$recv($8)._add_($9);
+$recv($7)._add_($8);
 } else {
 self._errorUnknownVariable_(aNode);
-$10=$recv($UnknownVar())._new();
-$recv($10)._name_($recv(aNode)._value());
-$11=$recv($10)._yourself();
-binding=$11;
+$9=$recv($UnknownVar())._new();
+$recv($9)._name_($recv(aNode)._value());
+binding=$recv($9)._yourself();
 binding;
 };
 } else {
@@ -38570,12 +37393,10 @@ protocol: 'instance creation',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._theClass_(aClass);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._theClass_(aClass);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{aClass:aClass},$globals.SemanticAnalyzer.klass)});
 },
 args: ["aClass"],
@@ -38599,9 +37420,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=" Invalid assignment to variable: ".__comma(self._variableName());
-return $1;
+return " Invalid assignment to variable: ".__comma(self._variableName());
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},$globals.InvalidAssignmentError)});
 },
 args: [],
@@ -38617,9 +37436,7 @@ selector: "variableName",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@variableName"];
-return $1;
+return self["@variableName"];
 
 },
 args: [],
@@ -38676,9 +37493,7 @@ selector: "variableName",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@variableName"];
-return $1;
+return self["@variableName"];
 
 },
 args: [],
@@ -38735,9 +37550,7 @@ selector: "variableName",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@variableName"];
-return $1;
+return self["@variableName"];
 
 },
 args: [],
@@ -38786,7 +37599,7 @@ function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefine
 function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$6,$5,$7,$8,$10,$11,$9,$12;
+var $1,$2,$3,$5,$4,$6,$7,$9,$8;
 $1=$recv(aNode)._isImmutable();
 if($core.assert($1)){
 $2=self._visit_(aNode);
@@ -38795,27 +37608,24 @@ return $2;
 };
 $3=$recv($IRVariable())._new();
 $ctx1.sendIdx["new"]=1;
-$4=$3;
-$6=$recv($AliasVar())._new();
+$5=$recv($AliasVar())._new();
 $ctx1.sendIdx["new"]=2;
-$5=$recv($6)._name_("$".__comma(self._nextAlias()));
-$recv($4)._variable_($5);
-$7=$recv($3)._yourself();
+$4=$recv($5)._name_("$".__comma(self._nextAlias()));
+$recv($3)._variable_($4);
+$6=$recv($3)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-variable=$7;
-$8=self._sequence();
-$10=$recv($IRAssignment())._new();
-$recv($10)._add_(variable);
+variable=$6;
+$7=self._sequence();
+$9=$recv($IRAssignment())._new();
+$recv($9)._add_(variable);
 $ctx1.sendIdx["add:"]=2;
-$recv($10)._add_(self._visit_(aNode));
+$recv($9)._add_(self._visit_(aNode));
 $ctx1.sendIdx["add:"]=3;
-$11=$recv($10)._yourself();
-$9=$11;
-$recv($8)._add_($9);
+$8=$recv($9)._yourself();
+$recv($7)._add_($8);
 $ctx1.sendIdx["add:"]=1;
 $recv($recv(self._method())._internalVariables())._add_(variable);
-$12=variable;
-return $12;
+return variable;
 }, function($ctx1) {$ctx1.fill(self,"alias:",{aNode:aNode,variable:variable},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -38834,7 +37644,7 @@ var self=this;
 var threshold,result;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$4,$3,$5;
+var $1,$2,$4,$3;
 threshold=(0);
 $recv(aCollection)._withIndexDo_((function(each,i){
 return $core.withContext(function($ctx2) {
@@ -38859,8 +37669,7 @@ $3=self._visit_(each);
 return $recv($2)._add_($3);
 }, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,3)});
 }));
-$5=result;
-return $5;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"aliasTemporally:",{aCollection:aCollection,threshold:threshold,result:result},$globals.IRASTTranslator)});
 },
 args: ["aCollection"],
@@ -38876,9 +37685,7 @@ selector: "method",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@method"];
-return $1;
+return self["@method"];
 
 },
 args: [],
@@ -38912,7 +37719,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self["@nextAlias"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@nextAlias"]=(0);
@@ -38921,8 +37728,7 @@ self["@nextAlias"];
 $1;
 };
 self["@nextAlias"]=$recv(self["@nextAlias"]).__plus((1));
-$2=$recv(self["@nextAlias"])._asString();
-return $2;
+return $recv(self["@nextAlias"])._asString();
 }, function($ctx1) {$ctx1.fill(self,"nextAlias",{},$globals.IRASTTranslator)});
 },
 args: [],
@@ -38938,9 +37744,7 @@ selector: "sequence",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@sequence"];
-return $1;
+return self["@sequence"];
 
 },
 args: [],
@@ -38973,9 +37777,7 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@source"];
-return $1;
+return self["@source"];
 
 },
 args: [],
@@ -39008,9 +37810,7 @@ selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -39046,7 +37846,7 @@ var self=this;
 var left,right,assignment;
 function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$4,$2,$5;
+var $1,$3,$2;
 right=self._visit_($recv(aNode)._right());
 $ctx1.sendIdx["visit:"]=1;
 left=self._visit_($recv(aNode)._left());
@@ -39055,12 +37855,10 @@ $3=$recv($IRAssignment())._new();
 $recv($3)._add_(left);
 $ctx1.sendIdx["add:"]=2;
 $recv($3)._add_(right);
-$4=$recv($3)._yourself();
-$2=$4;
+$2=$recv($3)._yourself();
 $recv($1)._add_($2);
 $ctx1.sendIdx["add:"]=1;
-$5=left;
-return $5;
+return left;
 }, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,left:left,right:right,assignment:assignment},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39080,29 +37878,29 @@ var closure;
 function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$6,$5,$7,$8,$9;
+var $1,$2,$3,$5,$4,$6,$8,$7;
 $1=$recv($IRClosure())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._arguments_($recv(aNode)._parameters());
 $recv($1)._requiresSmalltalkContext_($recv(aNode)._requiresSmalltalkContext());
-$2=$1;
-$3=$recv(aNode)._scope();
+$2=$recv(aNode)._scope();
 $ctx1.sendIdx["scope"]=1;
-$recv($2)._scope_($3);
+$recv($1)._scope_($2);
 $ctx1.sendIdx["scope:"]=1;
-$4=$recv($1)._yourself();
+$3=$recv($1)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-closure=$4;
-$6=$recv(aNode)._scope();
+closure=$3;
+$5=$recv(aNode)._scope();
 $ctx1.sendIdx["scope"]=2;
-$5=$recv($6)._temps();
-$recv($5)._do_((function(each){
+$4=$recv($5)._temps();
+$recv($4)._do_((function(each){
 return $core.withContext(function($ctx2) {
-$7=$recv($IRTempDeclaration())._new();
-$recv($7)._name_($recv(each)._name());
-$recv($7)._scope_($recv(aNode)._scope());
-$8=$recv($7)._yourself();
-return $recv(closure)._add_($8);
+$6=closure;
+$8=$recv($IRTempDeclaration())._new();
+$recv($8)._name_($recv(each)._name());
+$recv($8)._scope_($recv(aNode)._scope());
+$7=$recv($8)._yourself();
+return $recv($6)._add_($7);
 $ctx2.sendIdx["add:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
@@ -39112,8 +37910,7 @@ return $core.withContext(function($ctx2) {
 return $recv(closure)._add_(self._visit_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-$9=closure;
-return $9;
+return closure;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,closure:closure},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39132,58 +37929,55 @@ var self=this;
 function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 function $IRBlockReturn(){return $globals.IRBlockReturn||(typeof IRBlockReturn=="undefined"?nil:IRBlockReturn)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$5,$4,$6,$7,$10,$9,$8,$11,$13,$14,$17,$16,$15,$18,$12,$1;
-$2=$recv($IRBlockSequence())._new();
+var $1,$2,$4,$3,$5,$6,$9,$8,$7,$10,$12,$15,$14,$13,$11;
+$1=$recv($IRBlockSequence())._new();
 $ctx1.sendIdx["new"]=1;
-$1=self._withSequence_do_($2,(function(){
+return self._withSequence_do_($1,(function(){
 return $core.withContext(function($ctx2) {
-$3=$recv(aNode)._nodes();
+$2=$recv(aNode)._nodes();
 $ctx2.sendIdx["nodes"]=1;
-return $recv($3)._ifNotEmpty_((function(){
+return $recv($2)._ifNotEmpty_((function(){
 return $core.withContext(function($ctx3) {
-$5=$recv(aNode)._nodes();
+$4=$recv(aNode)._nodes();
 $ctx3.sendIdx["nodes"]=2;
-$4=$recv($5)._allButLast();
-$recv($4)._do_((function(each){
+$3=$recv($4)._allButLast();
+$recv($3)._do_((function(each){
 return $core.withContext(function($ctx4) {
-$6=self._sequence();
+$5=self._sequence();
 $ctx4.sendIdx["sequence"]=1;
-$7=self._visitOrAlias_(each);
+$6=self._visitOrAlias_(each);
 $ctx4.sendIdx["visitOrAlias:"]=1;
-return $recv($6)._add_($7);
+return $recv($5)._add_($6);
 $ctx4.sendIdx["add:"]=1;
 }, function($ctx4) {$ctx4.fillBlock({each:each},$ctx3,3)});
 }));
-$10=$recv(aNode)._nodes();
+$9=$recv(aNode)._nodes();
 $ctx3.sendIdx["nodes"]=3;
-$9=$recv($10)._last();
+$8=$recv($9)._last();
 $ctx3.sendIdx["last"]=1;
-$8=$recv($9)._isReturnNode();
-if($core.assert($8)){
+$7=$recv($8)._isReturnNode();
+if($core.assert($7)){
 return $recv(self._sequence())._add_(self._visitOrAlias_($recv($recv(aNode)._nodes())._last()));
 } else {
-$11=self._sequence();
+$10=self._sequence();
 $ctx3.sendIdx["sequence"]=2;
-$13=$recv($IRBlockReturn())._new();
-$14=$13;
-$17=$recv(aNode)._nodes();
+$12=$recv($IRBlockReturn())._new();
+$15=$recv(aNode)._nodes();
 $ctx3.sendIdx["nodes"]=4;
-$16=$recv($17)._last();
+$14=$recv($15)._last();
 $ctx3.sendIdx["last"]=2;
-$15=self._visitOrAlias_($16);
+$13=self._visitOrAlias_($14);
 $ctx3.sendIdx["visitOrAlias:"]=2;
-$recv($14)._add_($15);
+$recv($12)._add_($13);
 $ctx3.sendIdx["add:"]=3;
-$18=$recv($13)._yourself();
-$12=$18;
-return $recv($11)._add_($12);
+$11=$recv($12)._yourself();
+return $recv($10)._add_($11);
 $ctx3.sendIdx["add:"]=2;
 };
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 }));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39199,48 +37993,43 @@ selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-var alias,receiver;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$3,$5,$4,$6;
-$2=$recv(aNode)._receiver();
-$ctx1.sendIdx["receiver"]=1;
-$1=$recv($2)._isImmutable();
-if($core.assert($1)){
-receiver=$recv(aNode)._receiver();
-$ctx1.sendIdx["receiver"]=2;
-receiver;
+var $1,$2,$4,$3;
+$1=$recv(aNode)._nodes();
+$ctx1.sendIdx["nodes"]=1;
+$recv($1)._inject_into_($recv(aNode)._receiver(),(function(previous,each){
+var receiver;
+return $core.withContext(function($ctx2) {
+$2=$recv(previous)._isImmutable();
+if($core.assert($2)){
+receiver=previous;
 } else {
-alias=self._alias_($recv(aNode)._receiver());
-$ctx1.sendIdx["alias:"]=1;
+var alias;
+alias=self._alias_(previous);
 alias;
 receiver=$recv($recv($VariableNode())._new())._binding_($recv(alias)._variable());
-receiver;
 };
-$3=$recv(aNode)._nodes();
-$ctx1.sendIdx["nodes"]=1;
-$recv($3)._do_((function(each){
-return $core.withContext(function($ctx2) {
-return $recv(each)._receiver_(receiver);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
+receiver;
+$recv(each)._receiver_(receiver);
+return receiver;
+}, function($ctx2) {$ctx2.fillBlock({previous:previous,each:each,receiver:receiver},$ctx1,1)});
 }));
-$ctx1.sendIdx["do:"]=1;
-$5=$recv(aNode)._nodes();
+$4=$recv(aNode)._nodes();
 $ctx1.sendIdx["nodes"]=2;
-$4=$recv($5)._allButLast();
-$recv($4)._do_((function(each){
+$3=$recv($4)._allButLast();
+$recv($3)._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(self._sequence())._add_(self._visit_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)});
 }));
-$6=self._alias_($recv($recv(aNode)._nodes())._last());
-return $6;
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode,alias:alias,receiver:receiver},$globals.IRASTTranslator)});
+return self._visitOrAlias_($recv($recv(aNode)._nodes())._last());
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09| alias receiver |\x0a\x0a\x09aNode receiver isImmutable \x0a\x09\x09ifTrue: [ receiver := aNode receiver ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09alias := self alias: aNode receiver.\x0a\x09\x09\x09receiver := VariableNode new binding: alias variable ].\x0a\x09\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09\x09each receiver: receiver ].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self alias: aNode nodes last",
+source: "visitCascadeNode: aNode\x0a\x09aNode nodes inject: aNode receiver into: [ :previous :each |\x0a\x09\x09| receiver |\x0a\x09\x09receiver := previous isImmutable \x0a\x09\x09\x09ifTrue: [ previous ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09| alias |\x0a\x09\x09\x09\x09alias := self alias: previous.\x0a\x09\x09\x09\x09VariableNode new binding: alias variable ].\x0a\x09\x09each receiver: receiver.\x0a\x09\x09receiver ].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self visitOrAlias: aNode nodes last",
 referencedClasses: ["VariableNode"],
-messageSends: ["ifTrue:ifFalse:", "isImmutable", "receiver", "alias:", "binding:", "new", "variable", "do:", "nodes", "receiver:", "allButLast", "add:", "sequence", "visit:", "last"]
+messageSends: ["inject:into:", "nodes", "receiver", "ifTrue:ifFalse:", "isImmutable", "alias:", "binding:", "new", "variable", "receiver:", "do:", "allButLast", "add:", "sequence", "visit:", "visitOrAlias:", "last"]
 }),
 $globals.IRASTTranslator);
 
@@ -39253,15 +38042,13 @@ var self=this;
 var array;
 function $IRDynamicArray(){return $globals.IRDynamicArray||(typeof IRDynamicArray=="undefined"?nil:IRDynamicArray)}
 return $core.withContext(function($ctx1) {
-var $1;
 array=$recv($IRDynamicArray())._new();
 $recv(self._aliasTemporally_($recv(aNode)._nodes()))._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(array)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=array;
-return $1;
+return array;
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39280,15 +38067,13 @@ var self=this;
 var dictionary;
 function $IRDynamicDictionary(){return $globals.IRDynamicDictionary||(typeof IRDynamicDictionary=="undefined"?nil:IRDynamicDictionary)}
 return $core.withContext(function($ctx1) {
-var $1;
 dictionary=$recv($IRDynamicDictionary())._new();
 $recv(self._aliasTemporally_($recv(aNode)._nodes()))._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(dictionary)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$1=dictionary;
-return $1;
+return dictionary;
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,dictionary:dictionary},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39306,12 +38091,10 @@ fn: function (aNode){
 var self=this;
 function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRVerbatim())._new();
-$recv($2)._source_($recv($recv(aNode)._source())._crlfSanitized());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRVerbatim())._new();
+$recv($1)._source_($recv($recv(aNode)._source())._crlfSanitized());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39333,7 +38116,7 @@ function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil
 function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$5,$1,$7,$6,$8,$10,$11,$12,$13,$9,$14,$16,$15,$17,$18,$20,$21,$23,$24,$22,$25,$19,$27,$28,$26,$29;
+var $2,$3,$4,$1,$6,$5,$7,$9,$10,$11,$8,$12,$14,$13,$15,$17,$19,$20,$18,$21,$16,$23,$22;
 $2=$recv($IRMethod())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($2)._source_($recv(self._source())._crlfSanitized());
@@ -39342,85 +38125,78 @@ $recv($2)._theClass_(self._theClass());
 $recv($2)._arguments_($recv(aNode)._arguments());
 $recv($2)._selector_($recv(aNode)._selector());
 $recv($2)._sendIndexes_($recv(aNode)._sendIndexes());
-$recv($2)._superSends_($recv(aNode)._superSends());
 $recv($2)._requiresSmalltalkContext_($recv(aNode)._requiresSmalltalkContext());
 $recv($2)._classReferences_($recv(aNode)._classReferences());
-$3=$2;
-$4=$recv(aNode)._scope();
+$3=$recv(aNode)._scope();
 $ctx1.sendIdx["scope"]=1;
-$recv($3)._scope_($4);
+$recv($2)._scope_($3);
 $ctx1.sendIdx["scope:"]=1;
-$5=$recv($2)._yourself();
+$4=$recv($2)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$1=$5;
+$1=$4;
 self._method_($1);
-$7=$recv(aNode)._scope();
+$6=$recv(aNode)._scope();
 $ctx1.sendIdx["scope"]=2;
-$6=$recv($7)._temps();
-$recv($6)._do_((function(each){
+$5=$recv($6)._temps();
+$recv($5)._do_((function(each){
 return $core.withContext(function($ctx2) {
-$8=self._method();
+$7=self._method();
 $ctx2.sendIdx["method"]=1;
-$10=$recv($IRTempDeclaration())._new();
+$9=$recv($IRTempDeclaration())._new();
 $ctx2.sendIdx["new"]=2;
-$recv($10)._name_($recv(each)._name());
-$11=$10;
-$12=$recv(aNode)._scope();
+$recv($9)._name_($recv(each)._name());
+$10=$recv(aNode)._scope();
 $ctx2.sendIdx["scope"]=3;
-$recv($11)._scope_($12);
-$13=$recv($10)._yourself();
+$recv($9)._scope_($10);
+$11=$recv($9)._yourself();
 $ctx2.sendIdx["yourself"]=2;
-$9=$13;
-return $recv($8)._add_($9);
+$8=$11;
+return $recv($7)._add_($8);
 $ctx2.sendIdx["add:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $ctx1.sendIdx["do:"]=1;
 $recv($recv(aNode)._nodes())._do_((function(each){
 return $core.withContext(function($ctx2) {
-$14=self._method();
+$12=self._method();
 $ctx2.sendIdx["method"]=2;
-return $recv($14)._add_(self._visit_(each));
+return $recv($12)._add_(self._visit_(each));
 $ctx2.sendIdx["add:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-$16=$recv(aNode)._scope();
+$14=$recv(aNode)._scope();
 $ctx1.sendIdx["scope"]=4;
-$15=$recv($16)._hasLocalReturn();
-if(!$core.assert($15)){
-$17=self._method();
+$13=$recv($14)._hasLocalReturn();
+if(!$core.assert($13)){
+$15=self._method();
 $ctx1.sendIdx["method"]=3;
-$18=$17;
-$20=$recv($IRReturn())._new();
+$17=$recv($IRReturn())._new();
 $ctx1.sendIdx["new"]=3;
-$21=$20;
-$23=$recv($IRVariable())._new();
+$19=$recv($IRVariable())._new();
 $ctx1.sendIdx["new"]=4;
-$recv($23)._variable_($recv($recv($recv(aNode)._scope())._pseudoVars())._at_("self"));
-$24=$recv($23)._yourself();
+$recv($19)._variable_($recv($recv($recv(aNode)._scope())._pseudoVars())._at_("self"));
+$20=$recv($19)._yourself();
 $ctx1.sendIdx["yourself"]=3;
-$22=$24;
-$recv($21)._add_($22);
+$18=$20;
+$recv($17)._add_($18);
 $ctx1.sendIdx["add:"]=4;
-$25=$recv($20)._yourself();
+$21=$recv($17)._yourself();
 $ctx1.sendIdx["yourself"]=4;
-$19=$25;
-$recv($18)._add_($19);
+$16=$21;
+$recv($15)._add_($16);
 $ctx1.sendIdx["add:"]=3;
-$27=$recv($IRVerbatim())._new();
-$recv($27)._source_("");
-$28=$recv($27)._yourself();
-$26=$recv($17)._add_($28);
-$26;
+$23=$recv($IRVerbatim())._new();
+$recv($23)._source_("");
+$22=$recv($23)._yourself();
+$recv($15)._add_($22);
 };
-$29=self._method();
-return $29;
+return self._method();
 }, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
-source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source crlfSanitized;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09sendIndexes: aNode sendIndexes;\x0a\x09\x09superSends: aNode superSends;\x0a\x09\x09requiresSmalltalkContext: aNode requiresSmalltalkContext;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [self method\x0a\x09\x09add: (IRReturn new\x0a\x09\x09\x09add: (IRVariable new\x0a\x09\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself);\x0a\x09\x09add: (IRVerbatim new source: ''; yourself) ].\x0a\x0a\x09^ self method",
+source: "visitMethodNode: aNode\x0a\x0a\x09self method: (IRMethod new\x0a\x09\x09source: self source crlfSanitized;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09arguments: aNode arguments;\x0a\x09\x09selector: aNode selector;\x0a\x09\x09sendIndexes: aNode sendIndexes;\x0a\x09\x09requiresSmalltalkContext: aNode requiresSmalltalkContext;\x0a\x09\x09classReferences: aNode classReferences;\x0a\x09\x09scope: aNode scope;\x0a\x09\x09yourself).\x0a\x0a\x09aNode scope temps do: [ :each |\x0a\x09\x09self method add: (IRTempDeclaration new\x0a\x09\x09\x09name: each name;\x0a\x09\x09\x09scope: aNode scope;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09aNode nodes do: [ :each | self method add: (self visit: each) ].\x0a\x0a\x09aNode scope hasLocalReturn ifFalse: [self method\x0a\x09\x09add: (IRReturn new\x0a\x09\x09\x09add: (IRVariable new\x0a\x09\x09\x09\x09variable: (aNode scope pseudoVars at: 'self');\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself);\x0a\x09\x09add: (IRVerbatim new source: ''; yourself) ].\x0a\x0a\x09^ self method",
 referencedClasses: ["IRMethod", "IRTempDeclaration", "IRReturn", "IRVariable", "IRVerbatim"],
-messageSends: ["method:", "source:", "new", "crlfSanitized", "source", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "sendIndexes:", "sendIndexes", "superSends:", "superSends", "requiresSmalltalkContext:", "requiresSmalltalkContext", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "temps", "add:", "method", "name:", "name", "nodes", "visit:", "ifFalse:", "hasLocalReturn", "variable:", "at:", "pseudoVars"]
+messageSends: ["method:", "source:", "new", "crlfSanitized", "source", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "sendIndexes:", "sendIndexes", "requiresSmalltalkContext:", "requiresSmalltalkContext", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "temps", "add:", "method", "name:", "name", "nodes", "visit:", "ifFalse:", "hasLocalReturn", "variable:", "at:", "pseudoVars"]
 }),
 $globals.IRASTTranslator);
 
@@ -39431,14 +38207,13 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv(aNode)._shouldBeAliased();
-if($core.assert($2)){
-$1=self._alias_(aNode);
+var $1;
+$1=$recv(aNode)._shouldBeAliased();
+if($core.assert($1)){
+return self._alias_(aNode);
 } else {
-$1=self._visit_(aNode);
+return self._visit_(aNode);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitOrAlias:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39458,7 +38233,7 @@ var return_;
 function $IRNonLocalReturn(){return $globals.IRNonLocalReturn||(typeof IRNonLocalReturn=="undefined"?nil:IRNonLocalReturn)}
 function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv(aNode)._nonLocalReturn();
 if($core.assert($1)){
 return_=$recv($IRNonLocalReturn())._new();
@@ -39469,17 +38244,16 @@ return_=$recv($IRReturn())._new();
 $recv(return_)._scope_($recv(aNode)._scope());
 $recv($recv(aNode)._nodes())._do_((function(each){
 return $core.withContext(function($ctx2) {
-return $recv(return_)._add_(self._alias_(each));
+return $recv(return_)._add_(self._visitOrAlias_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 }));
-$2=return_;
-return $2;
+return return_;
 }, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode,return_:return_},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
-source: "visitReturnNode: aNode\x0a\x09| return |\x0a\x09return := aNode nonLocalReturn\x0a\x09\x09ifTrue: [ IRNonLocalReturn new ]\x0a\x09\x09ifFalse: [ IRReturn new ].\x0a\x09return scope: aNode scope.\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09return add: (self alias: each) ].\x0a\x09^ return",
+source: "visitReturnNode: aNode\x0a\x09| return |\x0a\x09return := aNode nonLocalReturn\x0a\x09\x09ifTrue: [ IRNonLocalReturn new ]\x0a\x09\x09ifFalse: [ IRReturn new ].\x0a\x09return scope: aNode scope.\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09return add: (self visitOrAlias: each) ].\x0a\x09^ return",
 referencedClasses: ["IRNonLocalReturn", "IRReturn"],
-messageSends: ["ifTrue:ifFalse:", "nonLocalReturn", "new", "scope:", "scope", "do:", "nodes", "add:", "alias:"]
+messageSends: ["ifTrue:ifFalse:", "nonLocalReturn", "new", "scope:", "scope", "do:", "nodes", "add:", "visitOrAlias:"]
 }),
 $globals.IRASTTranslator);
 
@@ -39489,36 +38263,26 @@ selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-var send,all,receiver,arguments_;
+var send;
 function $IRSend(){return $globals.IRSend||(typeof IRSend=="undefined"?nil:IRSend)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1;
 send=$recv($IRSend())._new();
 $1=send;
 $recv($1)._selector_($recv(aNode)._selector());
-$2=$recv($1)._index_($recv(aNode)._index());
-$3=$recv(aNode)._superSend();
-if($core.assert($3)){
-$recv(send)._classSend_($recv(self._theClass())._superclass());
-};
-all=self._aliasTemporally_($recv([$recv(aNode)._receiver()]).__comma($recv(aNode)._arguments()));
-receiver=$recv(all)._first();
-arguments_=$recv(all)._allButFirst();
-$recv(send)._add_(receiver);
-$ctx1.sendIdx["add:"]=1;
-$recv(arguments_)._do_((function(each){
+$recv($1)._index_($recv(aNode)._index());
+$recv(self._aliasTemporally_($recv(aNode)._nodes()))._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(send)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-$4=send;
-return $4;
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,send:send,all:all,receiver:receiver,arguments_:arguments_},$globals.IRASTTranslator)});
+return send;
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,send:send},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| send all receiver arguments |\x0a\x09send := IRSend new.\x0a\x09send\x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09aNode superSend ifTrue: [ send classSend: self theClass superclass ].\x0a\x09\x0a\x09all := self aliasTemporally: { aNode receiver }, aNode arguments.\x0a\x09receiver := all first.\x0a\x09arguments := all allButFirst.\x0a\x0a\x09send add: receiver.\x0a\x09arguments do: [ :each | send add: each ].\x0a\x0a\x09^ send",
+source: "visitSendNode: aNode\x0a\x09| send |\x0a\x09send := IRSend new.\x0a\x09send\x0a\x09\x09selector: aNode selector;\x0a\x09\x09index: aNode index.\x0a\x09\x0a\x09(self aliasTemporally: aNode nodes) do: [ :each | send add: each ].\x0a\x0a\x09^ send",
 referencedClasses: ["IRSend"],
-messageSends: ["new", "selector:", "selector", "index:", "index", "ifTrue:", "superSend", "classSend:", "superclass", "theClass", "aliasTemporally:", ",", "receiver", "arguments", "first", "allButFirst", "add:", "do:"]
+messageSends: ["new", "selector:", "selector", "index:", "index", "do:", "aliasTemporally:", "nodes", "add:"]
 }),
 $globals.IRASTTranslator);
 
@@ -39530,23 +38294,22 @@ fn: function (aNode){
 var self=this;
 function $IRSequence(){return $globals.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=self._withSequence_do_($recv($IRSequence())._new(),(function(){
+var $1;
+return self._withSequence_do_($recv($IRSequence())._new(),(function(){
 return $core.withContext(function($ctx2) {
 return $recv($recv(aNode)._nodes())._do_((function(each){
 var instruction;
 return $core.withContext(function($ctx3) {
 instruction=self._visitOrAlias_(each);
 instruction;
-$2=$recv(instruction)._isVariable();
-if(!$core.assert($2)){
+$1=$recv(instruction)._isVariable();
+if(!$core.assert($1)){
 return $recv(self._sequence())._add_(instruction);
 };
 }, function($ctx3) {$ctx3.fillBlock({each:each,instruction:instruction},$ctx2,2)});
 }));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39564,12 +38327,10 @@ fn: function (aNode){
 var self=this;
 function $IRValue(){return $globals.IRValue||(typeof IRValue=="undefined"?nil:IRValue)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRValue())._new();
-$recv($2)._value_($recv(aNode)._value());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRValue())._new();
+$recv($1)._value_($recv(aNode)._value());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39587,12 +38348,10 @@ fn: function (aNode){
 var self=this;
 function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRVariable())._new();
-$recv($2)._variable_($recv(aNode)._binding());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRVariable())._new();
+$recv($1)._variable_($recv(aNode)._binding());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},$globals.IRASTTranslator)});
 },
 args: ["aNode"],
@@ -39636,9 +38395,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRInstruction_(self);
-return $1;
+return $recv(aVisitor)._visitIRInstruction_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInstruction)});
 },
 args: ["aVisitor"],
@@ -39655,10 +38412,8 @@ protocol: 'building',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(anObject)._parent_(self);
-$1=$recv(self._instructions())._add_(anObject);
-return $1;
+return $recv(self._instructions())._add_(anObject);
 }, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},$globals.IRInstruction)});
 },
 args: ["anObject"],
@@ -39692,15 +38447,14 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@instructions"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@instructions"]=$recv($OrderedCollection())._new();
+var $1,$receiver;
 $1=self["@instructions"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@instructions"]=$recv($OrderedCollection())._new();
+return self["@instructions"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"instructions",{},$globals.IRInstruction)});
 },
 args: [],
@@ -39861,9 +38615,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._parent())._method();
-return $1;
+return $recv(self._parent())._method();
 }, function($ctx1) {$ctx1.fill(self,"method",{},$globals.IRInstruction)});
 },
 args: [],
@@ -39895,9 +38647,7 @@ selector: "parent",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@parent"];
-return $1;
+return self["@parent"];
 
 },
 args: [],
@@ -40007,16 +38757,15 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._parent();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
+var $1,$receiver;
+$1=self._parent();
+if(($receiver = $1) == null || $receiver.isNil){
+return $1;
 } else {
 var node;
 node=$receiver;
-$1=$recv(node)._scope();
+return $recv(node)._scope();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"scope",{},$globals.IRInstruction)});
 },
 args: [],
@@ -40034,12 +38783,10 @@ protocol: 'instance creation',
 fn: function (aBuilder){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._builder_(aBuilder);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._builder_(aBuilder);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"on:",{aBuilder:aBuilder},$globals.IRInstruction.klass)});
 },
 args: ["aBuilder"],
@@ -40058,9 +38805,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRAssignment_(self);
-return $1;
+return $recv(aVisitor)._visitIRAssignment_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRAssignment)});
 },
 args: ["aVisitor"],
@@ -40080,9 +38825,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRDynamicArray_(self);
-return $1;
+return $recv(aVisitor)._visitIRDynamicArray_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRDynamicArray)});
 },
 args: ["aVisitor"],
@@ -40102,9 +38845,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRDynamicDictionary_(self);
-return $1;
+return $recv(aVisitor)._visitIRDynamicDictionary_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRDynamicDictionary)});
 },
 args: ["aVisitor"],
@@ -40123,9 +38864,7 @@ selector: "scope",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@scope"];
-return $1;
+return self["@scope"];
 
 },
 args: [],
@@ -40162,14 +38901,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@arguments"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=[];
+var $1,$receiver;
+$1=self["@arguments"];
+if(($receiver = $1) == null || $receiver.isNil){
+return [];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.IRClosureInstruction)});
 },
 args: [],
@@ -40203,16 +38941,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv(self._arguments())._copy();
-$recv($2)._addAll_($recv(self._tempDeclarations())._collect_((function(each){
+var $1;
+$1=$recv(self._arguments())._copy();
+$recv($1)._addAll_($recv(self._tempDeclarations())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._name();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 })));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"locals",{},$globals.IRClosureInstruction)});
 },
 args: [],
@@ -40229,14 +38965,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@requiresSmalltalkContext"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@requiresSmalltalkContext"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"requiresSmalltalkContext",{},$globals.IRClosureInstruction)});
 },
 args: [],
@@ -40271,8 +39006,8 @@ fn: function (aScope){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.IRClosureInstruction.superclass.fn.prototype._scope_.apply($recv(self), [aScope]));
+$ctx1.supercall = true,
+($globals.IRClosureInstruction.superclass||$boot.dnu).fn.prototype._scope_.apply($recv(self), [aScope]));
 $ctx1.supercall = false;
 $recv(aScope)._instruction_(self);
 return self;
@@ -40292,13 +39027,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._instructions())._select_((function(each){
+return $recv(self._instructions())._select_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._isTempDeclaration();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"tempDeclarations",{},$globals.IRClosureInstruction)});
 },
 args: [],
@@ -40318,9 +39051,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRClosure_(self);
-return $1;
+return $recv(aVisitor)._visitIRClosure_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRClosure)});
 },
 args: ["aVisitor"],
@@ -40353,9 +39084,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._instructions())._last();
-return $1;
+return $recv(self._instructions())._last();
 }, function($ctx1) {$ctx1.fill(self,"sequence",{},$globals.IRClosure)});
 },
 args: [],
@@ -40367,7 +39096,7 @@ $globals.IRClosure);
 
 
 
-$core.addClass('IRMethod', $globals.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'superSends', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
+$core.addClass('IRMethod', $globals.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'sendIndexes', 'requiresSmalltalkContext', 'internalVariables'], 'Compiler-IR');
 $globals.IRMethod.comment="I am a method instruction";
 $core.addMethod(
 $core.method({
@@ -40376,9 +39105,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRMethod_(self);
-return $1;
+return $recv(aVisitor)._visitIRMethod_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRMethod)});
 },
 args: ["aVisitor"],
@@ -40394,9 +39121,7 @@ selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@classReferences"];
-return $1;
+return self["@classReferences"];
 
 },
 args: [],
@@ -40431,15 +39156,14 @@ fn: function (){
 var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@internalVariables"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@internalVariables"]=$recv($Set())._new();
+var $1,$receiver;
 $1=self["@internalVariables"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@internalVariables"]=$recv($Set())._new();
+return self["@internalVariables"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"internalVariables",{},$globals.IRMethod)});
 },
 args: [],
@@ -40472,9 +39196,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._sendIndexes())._keys();
-return $1;
+return $recv(self._sendIndexes())._keys();
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},$globals.IRMethod)});
 },
 args: [],
@@ -40506,9 +39228,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -40541,9 +39261,7 @@ selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@sendIndexes"];
-return $1;
+return self["@sendIndexes"];
 
 },
 args: [],
@@ -40576,9 +39294,7 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@source"];
-return $1;
+return self["@source"];
 
 },
 args: [],
@@ -40607,48 +39323,11 @@ $globals.IRMethod);
 
 $core.addMethod(
 $core.method({
-selector: "superSends",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@superSends"];
-return $1;
-
-},
-args: [],
-source: "superSends\x0a\x09^ superSends",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.IRMethod);
-
-$core.addMethod(
-$core.method({
-selector: "superSends:",
-protocol: 'accessing',
-fn: function (aCollection){
-var self=this;
-self["@superSends"]=aCollection;
-return self;
-
-},
-args: ["aCollection"],
-source: "superSends: aCollection\x0a\x09superSends := aCollection",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.IRMethod);
-
-$core.addMethod(
-$core.method({
 selector: "theClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@theClass"];
-return $1;
+return self["@theClass"];
 
 },
 args: [],
@@ -40686,9 +39365,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRReturn_(self);
-return $1;
+return $recv(aVisitor)._visitIRReturn_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRReturn)});
 },
 args: ["aVisitor"],
@@ -40753,9 +39430,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._isLocalReturn())._not();
-return $1;
+return $recv(self._isLocalReturn())._not();
 }, function($ctx1) {$ctx1.fill(self,"isNonLocalReturn",{},$globals.IRReturn)});
 },
 args: [],
@@ -40788,14 +39463,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@scope"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv(self._parent())._scope();
+var $1,$receiver;
+$1=self["@scope"];
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv(self._parent())._scope();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"scope",{},$globals.IRReturn)});
 },
 args: [],
@@ -40816,9 +39490,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRBlockReturn_(self);
-return $1;
+return $recv(aVisitor)._visitIRBlockReturn_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRBlockReturn)});
 },
 args: ["aVisitor"],
@@ -40855,9 +39527,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRNonLocalReturn_(self);
-return $1;
+return $recv(aVisitor)._visitIRNonLocalReturn_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRNonLocalReturn)});
 },
 args: ["aVisitor"],
@@ -40893,9 +39563,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRTempDeclaration_(self);
-return $1;
+return $recv(aVisitor)._visitIRTempDeclaration_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRTempDeclaration)});
 },
 args: ["aVisitor"],
@@ -40927,9 +39595,7 @@ selector: "name",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@name"];
-return $1;
+return self["@name"];
 
 },
 args: [],
@@ -40958,7 +39624,7 @@ $globals.IRTempDeclaration);
 
 
 
-$core.addClass('IRSend', $globals.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
+$core.addClass('IRSend', $globals.IRInstruction, ['selector', 'index'], 'Compiler-IR');
 $globals.IRSend.comment="I am a message send instruction.";
 $core.addMethod(
 $core.method({
@@ -40967,9 +39633,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRSend_(self);
-return $1;
+return $recv(aVisitor)._visitIRSend_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRSend)});
 },
 args: ["aVisitor"],
@@ -40981,48 +39645,11 @@ $globals.IRSend);
 
 $core.addMethod(
 $core.method({
-selector: "classSend",
-protocol: 'accessing',
-fn: function (){
-var self=this;
-var $1;
-$1=self["@classSend"];
-return $1;
-
-},
-args: [],
-source: "classSend\x0a\x09^ classSend",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.IRSend);
-
-$core.addMethod(
-$core.method({
-selector: "classSend:",
-protocol: 'accessing',
-fn: function (aClass){
-var self=this;
-self["@classSend"]=aClass;
-return self;
-
-},
-args: ["aClass"],
-source: "classSend: aClass\x0a\x09classSend := aClass",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.IRSend);
-
-$core.addMethod(
-$core.method({
 selector: "index",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@index"];
-return $1;
+return self["@index"];
 
 },
 args: [],
@@ -41067,13 +39694,34 @@ $globals.IRSend);
 
 $core.addMethod(
 $core.method({
+selector: "isSuperSend",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+var receiver;
+return $core.withContext(function($ctx1) {
+receiver=$recv(self._instructions())._first();
+return $recv($recv(receiver)._isVariable())._and_((function(){
+return $core.withContext(function($ctx2) {
+return $recv($recv($recv(receiver)._variable())._name()).__eq("super");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}));
+}, function($ctx1) {$ctx1.fill(self,"isSuperSend",{receiver:receiver},$globals.IRSend)});
+},
+args: [],
+source: "isSuperSend\x0a\x09| receiver |\x0a\x09receiver := self instructions first.\x0a\x09^ receiver isVariable and: [ receiver variable name = 'super' ]",
+referencedClasses: [],
+messageSends: ["first", "instructions", "and:", "isVariable", "=", "name", "variable"]
+}),
+$globals.IRSend);
+
+$core.addMethod(
+$core.method({
 selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -41110,9 +39758,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRSequence_(self);
-return $1;
+return $recv(aVisitor)._visitIRSequence_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRSequence)});
 },
 args: ["aVisitor"],
@@ -41148,9 +39794,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRBlockSequence_(self);
-return $1;
+return $recv(aVisitor)._visitIRBlockSequence_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRBlockSequence)});
 },
 args: ["aVisitor"],
@@ -41171,9 +39815,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRValue_(self);
-return $1;
+return $recv(aVisitor)._visitIRValue_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRValue)});
 },
 args: ["aVisitor"],
@@ -41205,9 +39847,7 @@ selector: "value",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@value"];
-return $1;
+return self["@value"];
 
 },
 args: [],
@@ -41245,9 +39885,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRVariable_(self);
-return $1;
+return $recv(aVisitor)._visitIRVariable_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRVariable)});
 },
 args: ["aVisitor"],
@@ -41280,9 +39918,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._variable())._isPseudoVar())._not();
-return $1;
+return $recv($recv(self._variable())._isPseudoVar())._not();
 }, function($ctx1) {$ctx1.fill(self,"needsBoxingAsReceiver",{},$globals.IRVariable)});
 },
 args: [],
@@ -41298,9 +39934,7 @@ selector: "variable",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@variable"];
-return $1;
+return self["@variable"];
 
 },
 args: [],
@@ -41337,9 +39971,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRVerbatim_(self);
-return $1;
+return $recv(aVisitor)._visitIRVerbatim_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRVerbatim)});
 },
 args: ["aVisitor"],
@@ -41355,9 +39987,7 @@ selector: "source",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@source"];
-return $1;
+return self["@source"];
 
 },
 args: [],
@@ -41394,9 +40024,7 @@ protocol: 'visiting',
 fn: function (anIRInstruction){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anIRInstruction)._accept_(self);
-return $1;
+return $recv(anIRInstruction)._accept_(self);
 }, function($ctx1) {$ctx1.fill(self,"visit:",{anIRInstruction:anIRInstruction},$globals.IRVisitor)});
 },
 args: ["anIRInstruction"],
@@ -41413,9 +40041,7 @@ protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRAssignment);
-return $1;
+return self._visitIRInstruction_(anIRAssignment);
 }, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRVisitor)});
 },
 args: ["anIRAssignment"],
@@ -41432,9 +40058,7 @@ protocol: 'visiting',
 fn: function (anIRBlockReturn){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRReturn_(anIRBlockReturn);
-return $1;
+return self._visitIRReturn_(anIRBlockReturn);
 }, function($ctx1) {$ctx1.fill(self,"visitIRBlockReturn:",{anIRBlockReturn:anIRBlockReturn},$globals.IRVisitor)});
 },
 args: ["anIRBlockReturn"],
@@ -41451,9 +40075,7 @@ protocol: 'visiting',
 fn: function (anIRBlockSequence){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRSequence_(anIRBlockSequence);
-return $1;
+return self._visitIRSequence_(anIRBlockSequence);
 }, function($ctx1) {$ctx1.fill(self,"visitIRBlockSequence:",{anIRBlockSequence:anIRBlockSequence},$globals.IRVisitor)});
 },
 args: ["anIRBlockSequence"],
@@ -41470,9 +40092,7 @@ protocol: 'visiting',
 fn: function (anIRClosure){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRClosure);
-return $1;
+return self._visitIRInstruction_(anIRClosure);
 }, function($ctx1) {$ctx1.fill(self,"visitIRClosure:",{anIRClosure:anIRClosure},$globals.IRVisitor)});
 },
 args: ["anIRClosure"],
@@ -41489,9 +40109,7 @@ protocol: 'visiting',
 fn: function (anIRDynamicArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRDynamicArray);
-return $1;
+return self._visitIRInstruction_(anIRDynamicArray);
 }, function($ctx1) {$ctx1.fill(self,"visitIRDynamicArray:",{anIRDynamicArray:anIRDynamicArray},$globals.IRVisitor)});
 },
 args: ["anIRDynamicArray"],
@@ -41508,9 +40126,7 @@ protocol: 'visiting',
 fn: function (anIRDynamicDictionary){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRDynamicDictionary);
-return $1;
+return self._visitIRInstruction_(anIRDynamicDictionary);
 }, function($ctx1) {$ctx1.fill(self,"visitIRDynamicDictionary:",{anIRDynamicDictionary:anIRDynamicDictionary},$globals.IRVisitor)});
 },
 args: ["anIRDynamicDictionary"],
@@ -41527,9 +40143,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedClosure){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRClosure_(anIRInlinedClosure);
-return $1;
+return self._visitIRClosure_(anIRInlinedClosure);
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},$globals.IRVisitor)});
 },
 args: ["anIRInlinedClosure"],
@@ -41546,9 +40160,7 @@ protocol: 'visiting',
 fn: function (anIRInlinedSequence){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRSequence_(anIRInlinedSequence);
-return $1;
+return self._visitIRSequence_(anIRInlinedSequence);
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedSequence:",{anIRInlinedSequence:anIRInlinedSequence},$globals.IRVisitor)});
 },
 args: ["anIRInlinedSequence"],
@@ -41587,9 +40199,7 @@ protocol: 'visiting',
 fn: function (anIRMethod){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRMethod);
-return $1;
+return self._visitIRInstruction_(anIRMethod);
 }, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},$globals.IRVisitor)});
 },
 args: ["anIRMethod"],
@@ -41606,9 +40216,7 @@ protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRNonLocalReturn);
-return $1;
+return self._visitIRInstruction_(anIRNonLocalReturn);
 }, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},$globals.IRVisitor)});
 },
 args: ["anIRNonLocalReturn"],
@@ -41625,9 +40233,7 @@ protocol: 'visiting',
 fn: function (anIRNonLocalReturnHandling){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRNonLocalReturnHandling);
-return $1;
+return self._visitIRInstruction_(anIRNonLocalReturnHandling);
 }, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturnHandling:",{anIRNonLocalReturnHandling:anIRNonLocalReturnHandling},$globals.IRVisitor)});
 },
 args: ["anIRNonLocalReturnHandling"],
@@ -41644,9 +40250,7 @@ protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRReturn);
-return $1;
+return self._visitIRInstruction_(anIRReturn);
 }, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},$globals.IRVisitor)});
 },
 args: ["anIRReturn"],
@@ -41663,9 +40267,7 @@ protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRSend);
-return $1;
+return self._visitIRInstruction_(anIRSend);
 }, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},$globals.IRVisitor)});
 },
 args: ["anIRSend"],
@@ -41682,9 +40284,7 @@ protocol: 'visiting',
 fn: function (anIRSequence){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRSequence);
-return $1;
+return self._visitIRInstruction_(anIRSequence);
 }, function($ctx1) {$ctx1.fill(self,"visitIRSequence:",{anIRSequence:anIRSequence},$globals.IRVisitor)});
 },
 args: ["anIRSequence"],
@@ -41701,9 +40301,7 @@ protocol: 'visiting',
 fn: function (anIRTempDeclaration){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRTempDeclaration);
-return $1;
+return self._visitIRInstruction_(anIRTempDeclaration);
 }, function($ctx1) {$ctx1.fill(self,"visitIRTempDeclaration:",{anIRTempDeclaration:anIRTempDeclaration},$globals.IRVisitor)});
 },
 args: ["anIRTempDeclaration"],
@@ -41720,9 +40318,7 @@ protocol: 'visiting',
 fn: function (anIRValue){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRValue);
-return $1;
+return self._visitIRInstruction_(anIRValue);
 }, function($ctx1) {$ctx1.fill(self,"visitIRValue:",{anIRValue:anIRValue},$globals.IRVisitor)});
 },
 args: ["anIRValue"],
@@ -41739,9 +40335,7 @@ protocol: 'visiting',
 fn: function (anIRVariable){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRVariable);
-return $1;
+return self._visitIRInstruction_(anIRVariable);
 }, function($ctx1) {$ctx1.fill(self,"visitIRVariable:",{anIRVariable:anIRVariable},$globals.IRVisitor)});
 },
 args: ["anIRVariable"],
@@ -41758,9 +40352,7 @@ protocol: 'visiting',
 fn: function (anIRVerbatim){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._visitIRInstruction_(anIRVerbatim);
-return $1;
+return self._visitIRInstruction_(anIRVerbatim);
 }, function($ctx1) {$ctx1.fill(self,"visitIRVerbatim:",{anIRVerbatim:anIRVerbatim},$globals.IRVisitor)});
 },
 args: ["anIRVerbatim"],
@@ -41780,9 +40372,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._stream())._contents();
-return $1;
+return $recv(self._stream())._contents();
 }, function($ctx1) {$ctx1.fill(self,"contents",{},$globals.IRJSTranslator)});
 },
 args: [],
@@ -41798,9 +40388,7 @@ selector: "currentClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@currentClass"];
-return $1;
+return self["@currentClass"];
 
 },
 args: [],
@@ -41836,8 +40424,8 @@ var self=this;
 function $JSStream(){return $globals.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.IRJSTranslator.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@stream"]=$recv($JSStream())._new();
 return self;
@@ -41856,9 +40444,7 @@ selector: "stream",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@stream"];
-return $1;
+return self["@stream"];
 
 },
 args: [],
@@ -41893,20 +40479,26 @@ fn: function (anIRAssignment){
 var self=this;
 return $core.withContext(function($ctx1) {
 var $2,$1;
+$recv(self._stream())._nextPutAssignLhs_rhs_((function(){
+return $core.withContext(function($ctx2) {
 $2=$recv(anIRAssignment)._instructions();
-$ctx1.sendIdx["instructions"]=1;
+$ctx2.sendIdx["instructions"]=1;
 $1=$recv($2)._first();
-self._visit_($1);
-$ctx1.sendIdx["visit:"]=1;
-$recv(self._stream())._nextPutAssignment();
-self._visit_($recv($recv(anIRAssignment)._instructions())._last());
+return self._visit_($1);
+$ctx2.sendIdx["visit:"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}),(function(){
+return $core.withContext(function($ctx2) {
+return self._visit_($recv($recv(anIRAssignment)._instructions())._last());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+}));
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRJSTranslator)});
 },
 args: ["anIRAssignment"],
-source: "visitIRAssignment: anIRAssignment\x0a\x09self visit: anIRAssignment instructions first.\x0a\x09self stream nextPutAssignment.\x0a\x09self visit: anIRAssignment instructions last.",
+source: "visitIRAssignment: anIRAssignment\x0a\x09self stream\x0a\x09\x09nextPutAssignLhs: [self visit: anIRAssignment instructions first]\x0a\x09\x09rhs: [self visit: anIRAssignment instructions last].",
 referencedClasses: [],
-messageSends: ["visit:", "first", "instructions", "nextPutAssignment", "stream", "last"]
+messageSends: ["nextPutAssignLhs:rhs:", "stream", "visit:", "first", "instructions", "last"]
 }),
 $globals.IRJSTranslator);
 
@@ -41932,8 +40524,8 @@ return $recv($recv(each)._name())._asVariableName();
 return $recv(self._stream())._nextPutBlockContextFor_during_(anIRClosure,(function(){
 return $core.withContext(function($ctx3) {
 return (
-$ctx3.supercall = true, 
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRClosure_.apply($recv(self), [anIRClosure]));
+$ctx3.supercall = true,
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRClosure_.apply($recv(self), [anIRClosure]));
 $ctx3.supercall = false;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 }));
@@ -41956,29 +40548,14 @@ protocol: 'visiting',
 fn: function (anIRDynamicArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._stream();
-$ctx1.sendIdx["stream"]=1;
-$recv($1)._nextPutAll_("[");
-$ctx1.sendIdx["nextPutAll:"]=1;
-$recv($recv(anIRDynamicArray)._instructions())._do_separatedBy_((function(each){
-return $core.withContext(function($ctx2) {
-return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-}),(function(){
-return $core.withContext(function($ctx2) {
-return $recv(self._stream())._nextPutAll_(",");
-$ctx2.sendIdx["nextPutAll:"]=2;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-}));
-$recv(self["@stream"])._nextPutAll_("]");
+self._visitInstructionList_enclosedBetween_and_($recv(anIRDynamicArray)._instructions(),"[","]");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRDynamicArray:",{anIRDynamicArray:anIRDynamicArray},$globals.IRJSTranslator)});
 },
 args: ["anIRDynamicArray"],
-source: "visitIRDynamicArray: anIRDynamicArray\x0a\x09self stream nextPutAll: '['.\x0a\x09anIRDynamicArray instructions\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: ']'",
+source: "visitIRDynamicArray: anIRDynamicArray\x0a\x09self\x0a\x09\x09visitInstructionList: anIRDynamicArray instructions\x0a\x09\x09enclosedBetween: '[' and: ']'",
 referencedClasses: [],
-messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "instructions", "visit:"]
+messageSends: ["visitInstructionList:enclosedBetween:and:", "instructions"]
 }),
 $globals.IRJSTranslator);
 
@@ -41989,31 +40566,14 @@ protocol: 'visiting',
 fn: function (anIRDynamicDictionary){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
-$1=self._stream();
-$ctx1.sendIdx["stream"]=1;
-$recv($1)._nextPutAll_("$globals.HashedCollection._newFromPairs_([");
-$ctx1.sendIdx["nextPutAll:"]=1;
-$recv($recv(anIRDynamicDictionary)._instructions())._do_separatedBy_((function(each){
-return $core.withContext(function($ctx2) {
-return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-}),(function(){
-return $core.withContext(function($ctx2) {
-$2=self._stream();
-$ctx2.sendIdx["stream"]=2;
-return $recv($2)._nextPutAll_(",");
-$ctx2.sendIdx["nextPutAll:"]=2;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-}));
-$recv(self._stream())._nextPutAll_("])");
+self._visitInstructionList_enclosedBetween_and_($recv(anIRDynamicDictionary)._instructions(),"$globals.HashedCollection._newFromPairs_([","])");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRDynamicDictionary:",{anIRDynamicDictionary:anIRDynamicDictionary},$globals.IRJSTranslator)});
 },
 args: ["anIRDynamicDictionary"],
-source: "visitIRDynamicDictionary: anIRDynamicDictionary\x0a\x09self stream nextPutAll: '$globals.HashedCollection._newFromPairs_(['.\x0a\x09\x09anIRDynamicDictionary instructions\x0a\x09\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: '])'",
+source: "visitIRDynamicDictionary: anIRDynamicDictionary\x0a\x09self\x0a\x09\x09visitInstructionList: anIRDynamicDictionary instructions\x0a\x09\x09enclosedBetween: '$globals.HashedCollection._newFromPairs_([' and: '])'",
 referencedClasses: [],
-messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "instructions", "visit:"]
+messageSends: ["visitInstructionList:enclosedBetween:and:", "instructions"]
 }),
 $globals.IRJSTranslator);
 
@@ -42071,16 +40631,16 @@ if($core.assert($10)){
 return $recv(self._stream())._nextPutNonLocalReturnHandlingWith_((function(){
 return $core.withContext(function($ctx5) {
 return (
-$ctx5.supercall = true, 
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
+$ctx5.supercall = true,
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
 $ctx5.supercall = false;
 $ctx5.sendIdx["visitIRMethod:"]=1;
 }, function($ctx5) {$ctx5.fillBlock({},$ctx4,9)});
 }));
 } else {
 return (
-$ctx4.supercall = true, 
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
+$ctx4.supercall = true,
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRMethod_.apply($recv(self), [anIRMethod]));
 $ctx4.supercall = false;
 };
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3,5)});
@@ -42109,8 +40669,8 @@ return $core.withContext(function($ctx1) {
 $recv(self._stream())._nextPutNonLocalReturnWith_((function(){
 return $core.withContext(function($ctx2) {
 return (
-$ctx2.supercall = true, 
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
+$ctx2.supercall = true,
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
 $ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
@@ -42134,8 +40694,8 @@ return $core.withContext(function($ctx1) {
 $recv(self._stream())._nextPutReturnWith_((function(){
 return $core.withContext(function($ctx2) {
 return (
-$ctx2.supercall = true, 
-$globals.IRJSTranslator.superclass.fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
+$ctx2.supercall = true,
+($globals.IRJSTranslator.superclass||$boot.dnu).fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
 $ctx2.supercall = false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
@@ -42155,15 +40715,15 @@ selector: "visitIRSend:",
 protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
-var sends;
+var sends,superclass;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$2;
 sends=$recv($recv($recv($recv(anIRSend)._method())._sendIndexes())._at_($recv(anIRSend)._selector()))._size();
-$1=$recv(anIRSend)._classSend();
-if(($receiver = $1) == null || $receiver.isNil){
-self._visitSend_(anIRSend);
-} else {
+$1=$recv(anIRSend)._isSuperSend();
+if($core.assert($1)){
 self._visitSuperSend_(anIRSend);
+} else {
+self._visitSend_(anIRSend);
 };
 $2=$recv($recv(sends).__gt((1)))._and_((function(){
 return $core.withContext(function($ctx2) {
@@ -42174,12 +40734,12 @@ if($core.assert($2)){
 $recv(self._stream())._nextPutSendIndexFor_(anIRSend);
 };
 return self;
-}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend,sends:sends},$globals.IRJSTranslator)});
+}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend,sends:sends,superclass:superclass},$globals.IRJSTranslator)});
 },
 args: ["anIRSend"],
-source: "visitIRSend: anIRSend\x0a\x09| sends |\x0a\x09sends := (anIRSend method sendIndexes at: anIRSend selector) size.\x0a\x09\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ].\x0a\x09\x09\x0a\x09(sends > 1 and: [ anIRSend index < sends ])\x0a\x09\x09ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]",
+source: "visitIRSend: anIRSend\x0a\x09| sends superclass |\x0a\x09sends := (anIRSend method sendIndexes at: anIRSend selector) size.\x0a\x09\x0a\x09anIRSend isSuperSend\x0a\x09\x09ifTrue: [ self visitSuperSend: anIRSend ]\x0a\x09\x09ifFalse: [ self visitSend: anIRSend ].\x0a\x09\x09\x0a\x09(sends > 1 and: [ anIRSend index < sends ])\x0a\x09\x09ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]",
 referencedClasses: [],
-messageSends: ["size", "at:", "sendIndexes", "method", "selector", "ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:", "ifTrue:", "and:", ">", "<", "index", "nextPutSendIndexFor:", "stream"]
+messageSends: ["size", "at:", "sendIndexes", "method", "selector", "ifTrue:ifFalse:", "isSuperSend", "visitSuperSend:", "visitSend:", "ifTrue:", "and:", ">", "<", "index", "nextPutSendIndexFor:", "stream"]
 }),
 $globals.IRJSTranslator);
 
@@ -42303,6 +40863,39 @@ $globals.IRJSTranslator);
 
 $core.addMethod(
 $core.method({
+selector: "visitInstructionList:enclosedBetween:and:",
+protocol: 'visiting',
+fn: function (anArray,aString,anotherString){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._stream();
+$ctx1.sendIdx["stream"]=1;
+$recv($1)._nextPutAll_(aString);
+$ctx1.sendIdx["nextPutAll:"]=1;
+$recv(anArray)._do_separatedBy_((function(each){
+return $core.withContext(function($ctx2) {
+return self._visit_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}),(function(){
+return $core.withContext(function($ctx2) {
+return $recv(self._stream())._nextPutAll_(",");
+$ctx2.sendIdx["nextPutAll:"]=2;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
+}));
+$recv(self["@stream"])._nextPutAll_(anotherString);
+return self;
+}, function($ctx1) {$ctx1.fill(self,"visitInstructionList:enclosedBetween:and:",{anArray:anArray,aString:aString,anotherString:anotherString},$globals.IRJSTranslator)});
+},
+args: ["anArray", "aString", "anotherString"],
+source: "visitInstructionList: anArray enclosedBetween: aString and: anotherString\x0a\x09self stream nextPutAll: aString.\x0a\x09anArray\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09stream nextPutAll: anotherString",
+referencedClasses: [],
+messageSends: ["nextPutAll:", "stream", "do:separatedBy:", "visit:"]
+}),
+$globals.IRJSTranslator);
+
+$core.addMethod(
+$core.method({
 selector: "visitReceiver:",
 protocol: 'visiting',
 fn: function (anIRInstruction){
@@ -42338,37 +40931,20 @@ protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$3,$4,$5;
+var $2,$1;
 $2=$recv(anIRSend)._instructions();
 $ctx1.sendIdx["instructions"]=1;
 $1=$recv($2)._first();
 self._visitReceiver_($1);
-$3=self._stream();
-$ctx1.sendIdx["stream"]=1;
-$4=$recv(".".__comma($recv($recv(anIRSend)._selector())._asJavaScriptMethodName())).__comma("(");
-$ctx1.sendIdx[","]=1;
-$recv($3)._nextPutAll_($4);
-$ctx1.sendIdx["nextPutAll:"]=1;
-$recv($recv($recv(anIRSend)._instructions())._allButFirst())._do_separatedBy_((function(each){
-return $core.withContext(function($ctx2) {
-return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-}),(function(){
-return $core.withContext(function($ctx2) {
-$5=self._stream();
-$ctx2.sendIdx["stream"]=2;
-return $recv($5)._nextPutAll_(",");
-$ctx2.sendIdx["nextPutAll:"]=2;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-}));
-$recv(self._stream())._nextPutAll_(")");
+$recv(self._stream())._nextPutAll_(".".__comma($recv($recv(anIRSend)._selector())._asJavaScriptMethodName()));
+self._visitInstructionList_enclosedBetween_and_($recv($recv(anIRSend)._instructions())._allButFirst(),"(",")");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSend:",{anIRSend:anIRSend},$globals.IRJSTranslator)});
 },
 args: ["anIRSend"],
-source: "visitSend: anIRSend\x0a\x09self visitReceiver: anIRSend instructions first.\x0a\x09self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName, '('.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream nextPutAll: ')'",
+source: "visitSend: anIRSend\x0a\x09self visitReceiver: anIRSend instructions first.\x0a\x09self stream nextPutAll: '.', anIRSend selector asJavaScriptMethodName.\x0a\x09self\x0a\x09\x09visitInstructionList: anIRSend instructions allButFirst\x0a\x09\x09enclosedBetween: '(' and: ')'",
 referencedClasses: [],
-messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asJavaScriptMethodName", "selector", "do:separatedBy:", "allButFirst", "visit:"]
+messageSends: ["visitReceiver:", "first", "instructions", "nextPutAll:", "stream", ",", "asJavaScriptMethodName", "selector", "visitInstructionList:enclosedBetween:and:", "allButFirst"]
 }),
 $globals.IRJSTranslator);
 
@@ -42379,7 +40955,7 @@ protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$5,$4,$3,$6,$7,$8,$10,$9,$11,$12,$13,$14;
+var $1,$4,$3,$2,$5,$6,$7,$8;
 $1=self._stream();
 $ctx1.sendIdx["stream"]=1;
 $recv($1)._nextPutAll_("(");
@@ -42390,14 +40966,13 @@ $recv($1)._nextPutAll_("//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContex
 $ctx1.sendIdx["nextPutAll:"]=2;
 $recv($1)._lf();
 $ctx1.sendIdx["lf"]=2;
-$2=$1;
-$5=$recv(anIRSend)._scope();
+$4=$recv(anIRSend)._scope();
 $ctx1.sendIdx["scope"]=1;
-$4=$recv($5)._alias();
+$3=$recv($4)._alias();
 $ctx1.sendIdx["alias"]=1;
-$3=$recv($4).__comma(".supercall = true, ");
+$2=$recv($3).__comma(".supercall = true,");
 $ctx1.sendIdx[","]=1;
-$recv($2)._nextPutAll_($3);
+$recv($1)._nextPutAll_($2);
 $ctx1.sendIdx["nextPutAll:"]=3;
 $recv($1)._lf();
 $ctx1.sendIdx["lf"]=3;
@@ -42405,58 +40980,39 @@ $recv($1)._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 $ctx1.sendIdx["nextPutAll:"]=4;
 $recv($1)._lf();
 $ctx1.sendIdx["lf"]=4;
-$recv($1)._nextPutAll_($recv(self._currentClass())._asJavascript());
-$ctx1.sendIdx["nextPutAll:"]=5;
-$recv($1)._nextPutAll_(".superclass.fn.prototype.");
-$ctx1.sendIdx["nextPutAll:"]=6;
-$6=$1;
-$7=$recv($recv($recv(anIRSend)._selector())._asJavaScriptMethodName()).__comma(".apply(");
+$5="(".__comma($recv(self._currentClass())._asJavascript());
 $ctx1.sendIdx[","]=2;
-$recv($6)._nextPutAll_($7);
+$recv($1)._nextPutAll_($5);
+$ctx1.sendIdx["nextPutAll:"]=5;
+$recv($1)._nextPutAll_(".superclass||$boot.dnu).fn.prototype.");
+$ctx1.sendIdx["nextPutAll:"]=6;
+$6=$recv($recv($recv(anIRSend)._selector())._asJavaScriptMethodName()).__comma(".apply(");
+$ctx1.sendIdx[","]=3;
+$recv($1)._nextPutAll_($6);
 $ctx1.sendIdx["nextPutAll:"]=7;
-$8=$recv($1)._nextPutAll_("$recv(");
+$7=$recv($1)._nextPutAll_("$recv(self), ");
 $ctx1.sendIdx["nextPutAll:"]=8;
-$10=$recv(anIRSend)._instructions();
-$ctx1.sendIdx["instructions"]=1;
-$9=$recv($10)._first();
-self._visit_($9);
-$ctx1.sendIdx["visit:"]=1;
-$11=self._stream();
-$ctx1.sendIdx["stream"]=2;
-$recv($11)._nextPutAll_("), [");
+self._visitInstructionList_enclosedBetween_and_($recv($recv(anIRSend)._instructions())._allButFirst(),"[","]");
+$8=self._stream();
+$recv($8)._nextPutAll_("));");
 $ctx1.sendIdx["nextPutAll:"]=9;
-$recv($recv($recv(anIRSend)._instructions())._allButFirst())._do_separatedBy_((function(each){
-return $core.withContext(function($ctx2) {
-return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-}),(function(){
-return $core.withContext(function($ctx2) {
-$12=self._stream();
-$ctx2.sendIdx["stream"]=3;
-return $recv($12)._nextPutAll_(",");
-$ctx2.sendIdx["nextPutAll:"]=10;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
-}));
-$13=self._stream();
-$recv($13)._nextPutAll_("]));");
-$ctx1.sendIdx["nextPutAll:"]=11;
-$recv($13)._lf();
+$recv($8)._lf();
 $ctx1.sendIdx["lf"]=5;
-$recv($13)._nextPutAll_("//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);");
-$ctx1.sendIdx["nextPutAll:"]=12;
-$recv($13)._lf();
+$recv($8)._nextPutAll_("//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);");
+$ctx1.sendIdx["nextPutAll:"]=10;
+$recv($8)._lf();
 $ctx1.sendIdx["lf"]=6;
-$recv($13)._nextPutAll_($recv($recv($recv(anIRSend)._scope())._alias()).__comma(".supercall = false;"));
-$ctx1.sendIdx["nextPutAll:"]=13;
-$recv($13)._lf();
-$14=$recv($13)._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
+$recv($8)._nextPutAll_($recv($recv($recv(anIRSend)._scope())._alias()).__comma(".supercall = false;"));
+$ctx1.sendIdx["nextPutAll:"]=11;
+$recv($8)._lf();
+$recv($8)._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSuperSend:",{anIRSend:anIRSend},$globals.IRJSTranslator)});
 },
 args: ["anIRSend"],
-source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '('; lf;\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = true, '; lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'; lf;\x0a\x09\x09nextPutAll: self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass.fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';\x0a\x09\x09nextPutAll: '$recv('.\x0a\x09self visit: anIRSend instructions first.\x0a\x09self stream nextPutAll: '), ['.\x0a\x09anIRSend instructions allButFirst\x0a\x09\x09do: [ :each | self visit: each ]\x0a\x09\x09separatedBy: [ self stream nextPutAll: ',' ].\x0a\x09self stream \x0a\x09\x09nextPutAll: ']));'; lf;\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false;'; lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'",
+source: "visitSuperSend: anIRSend\x0a\x09self stream\x0a\x09\x09nextPutAll: '('; lf;\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = true,'; lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'; lf;\x0a\x09\x09nextPutAll: '(', self currentClass asJavascript;\x0a\x09\x09nextPutAll: '.superclass||$boot.dnu).fn.prototype.';\x0a\x09\x09nextPutAll: anIRSend selector asJavaScriptMethodName, '.apply(';\x0a\x09\x09nextPutAll: '$recv(self), '.\x0a\x09self\x0a\x09\x09visitInstructionList: anIRSend instructions allButFirst\x0a\x09\x09enclosedBetween: '[' and: ']'.\x0a\x09self stream \x0a\x09\x09nextPutAll: '));'; lf;\x0a\x09\x09nextPutAll: '//>>excludeStart(\x22ctx\x22, pragmas.excludeDebugContexts);'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias, '.supercall = false;'; lf;\x0a\x09\x09nextPutAll: '//>>excludeEnd(\x22ctx\x22);'",
 referencedClasses: [],
-messageSends: ["nextPutAll:", "stream", "lf", ",", "alias", "scope", "asJavascript", "currentClass", "asJavaScriptMethodName", "selector", "visit:", "first", "instructions", "do:separatedBy:", "allButFirst"]
+messageSends: ["nextPutAll:", "stream", "lf", ",", "alias", "scope", "asJavascript", "currentClass", "asJavaScriptMethodName", "selector", "visitInstructionList:enclosedBetween:and:", "allButFirst", "instructions"]
 }),
 $globals.IRJSTranslator);
 
@@ -42470,9 +41026,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@stream"])._contents();
-return $1;
+return $recv(self["@stream"])._contents();
 }, function($ctx1) {$ctx1.fill(self,"contents",{},$globals.JSStream)});
 },
 args: [],
@@ -42490,8 +41044,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.JSStream.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.JSStream.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@stream"]=""._writeStream();
 return self;
@@ -42560,19 +41114,22 @@ $globals.JSStream);
 
 $core.addMethod(
 $core.method({
-selector: "nextPutAssignment",
+selector: "nextPutAssignLhs:rhs:",
 protocol: 'streaming',
-fn: function (){
+fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
+$recv(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
 $recv(self["@stream"])._nextPutAll_("=");
+$recv(anotherBlock)._value();
 return self;
-}, function($ctx1) {$ctx1.fill(self,"nextPutAssignment",{},$globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutAssignLhs:rhs:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.JSStream)});
 },
-args: [],
-source: "nextPutAssignment\x0a\x09stream nextPutAll: '='",
+args: ["aBlock", "anotherBlock"],
+source: "nextPutAssignLhs: aBlock rhs: anotherBlock\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '='.\x0a\x09anotherBlock value",
 referencedClasses: [],
-messageSends: ["nextPutAll:"]
+messageSends: ["value", "nextPutAll:"]
 }),
 $globals.JSStream);
 
@@ -42583,7 +41140,7 @@ protocol: 'streaming',
 fn: function (anIRClosure,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$6,$5,$4,$3,$7,$11,$10,$9,$8,$15,$14,$13,$12,$16,$17,$23,$22,$21,$20,$19,$18,$24;
+var $1,$2,$6,$5,$4,$3,$7,$11,$10,$9,$8,$15,$14,$13,$12,$16,$17,$23,$22,$21,$20,$19,$18;
 $1=$recv(anIRClosure)._requiresSmalltalkContext();
 if(!$core.assert($1)){
 $2=$recv(aBlock)._value();
@@ -42665,7 +41222,7 @@ $ctx1.sendIdx[","]=6;
 self._nextPutAll_($18);
 $ctx1.sendIdx["nextPutAll:"]=12;
 self._lf();
-$24=self._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
+self._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},$globals.JSStream)});
 },
@@ -42683,7 +41240,7 @@ protocol: 'streaming',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self["@stream"];
 $recv($1)._nextPutAll_("function $");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -42702,7 +41259,7 @@ $ctx1.sendIdx["nextPutAll:"]=7;
 $recv($1)._nextPutAll_(aString);
 $ctx1.sendIdx["nextPutAll:"]=8;
 $recv($1)._nextPutAll_(")}");
-$2=$recv($1)._lf();
+$recv($1)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutClassRefFunction:",{aString:aString},$globals.JSStream)});
 },
@@ -42720,7 +41277,7 @@ protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2,$3;
 $recv(self["@stream"])._nextPutAll_("(function(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(anArray)._do_separatedBy_((function(each){
@@ -42741,7 +41298,7 @@ $ctx1.sendIdx["lf"]=1;
 $recv(aBlock)._value();
 $3=self["@stream"];
 $recv($3)._lf();
-$4=$recv($3)._nextPutAll_("})");
+$recv($3)._nextPutAll_("})");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutClosureWith:arguments:",{aBlock:aBlock,anArray:anArray},$globals.JSStream)});
 },
@@ -42759,7 +41316,7 @@ protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$6,$5,$4,$3,$7,$12,$11,$10,$9,$8,$16,$15,$14,$13,$17,$18,$19;
+var $1,$2,$6,$5,$4,$3,$7,$12,$11,$10,$9,$8,$16,$15,$14,$13,$17,$18;
 $1=$recv(aMethod)._requiresSmalltalkContext();
 if(!$core.assert($1)){
 $2=$recv(aBlock)._value();
@@ -42835,7 +41392,7 @@ $ctx1.sendIdx["nextPutAll:"]=12;
 self._nextPutAll_(")});");
 $ctx1.sendIdx["nextPutAll:"]=13;
 self._lf();
-$19=self._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
+self._nextPutAll_("//>>excludeEnd(\x22ctx\x22);");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},$globals.JSStream)});
 },
@@ -42853,7 +41410,7 @@ protocol: 'streaming',
 fn: function (aBlock,anArray){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4,$5;
 $recv(self["@stream"])._nextPutAll_("fn: function(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(anArray)._do_separatedBy_((function(each){
@@ -42879,7 +41436,7 @@ $ctx1.sendIdx["lf"]=2;
 $recv(aBlock)._value();
 $5=self["@stream"];
 $recv($5)._lf();
-$6=$recv($5)._nextPutAll_("}");
+$recv($5)._nextPutAll_("}");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutFunctionWith:arguments:",{aBlock:aBlock,anArray:anArray},$globals.JSStream)});
 },
@@ -42892,12 +41449,12 @@ $globals.JSStream);
 
 $core.addMethod(
 $core.method({
-selector: "nextPutIf:with:",
+selector: "nextPutIf:then:",
 protocol: 'streaming',
 fn: function (aBlock,anotherBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $recv(self["@stream"])._nextPutAll_("if(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aBlock)._value();
@@ -42905,14 +41462,14 @@ $ctx1.sendIdx["value"]=1;
 $1=self["@stream"];
 $recv($1)._nextPutAll_("){");
 $ctx1.sendIdx["nextPutAll:"]=2;
-$2=$recv($1)._lf();
+$recv($1)._lf();
 $recv(anotherBlock)._value();
 $recv(self["@stream"])._nextPutAll_("}");
 return self;
-}, function($ctx1) {$ctx1.fill(self,"nextPutIf:with:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutIf:then:",{aBlock:aBlock,anotherBlock:anotherBlock},$globals.JSStream)});
 },
 args: ["aBlock", "anotherBlock"],
-source: "nextPutIf: aBlock with: anotherBlock\x0a\x09stream nextPutAll: 'if('.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09anotherBlock value.\x0a\x09stream nextPutAll: '}'",
+source: "nextPutIf: aBlock then: anotherBlock\x0a\x09stream nextPutAll: 'if('.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09anotherBlock value.\x0a\x09stream nextPutAll: '}'",
 referencedClasses: [],
 messageSends: ["nextPutAll:", "value", "lf"]
 }),
@@ -42920,12 +41477,12 @@ $globals.JSStream);
 
 $core.addMethod(
 $core.method({
-selector: "nextPutIfElse:with:with:",
+selector: "nextPutIf:then:else:",
 protocol: 'streaming',
 fn: function (aBlock,ifBlock,elseBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2,$3;
 $recv(self["@stream"])._nextPutAll_("if(");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv(aBlock)._value();
@@ -42940,14 +41497,14 @@ $ctx1.sendIdx["value"]=2;
 $3=self["@stream"];
 $recv($3)._nextPutAll_("} else {");
 $ctx1.sendIdx["nextPutAll:"]=3;
-$4=$recv($3)._lf();
+$recv($3)._lf();
 $recv(elseBlock)._value();
 $recv(self["@stream"])._nextPutAll_("}");
 return self;
-}, function($ctx1) {$ctx1.fill(self,"nextPutIfElse:with:with:",{aBlock:aBlock,ifBlock:ifBlock,elseBlock:elseBlock},$globals.JSStream)});
+}, function($ctx1) {$ctx1.fill(self,"nextPutIf:then:else:",{aBlock:aBlock,ifBlock:ifBlock,elseBlock:elseBlock},$globals.JSStream)});
 },
 args: ["aBlock", "ifBlock", "elseBlock"],
-source: "nextPutIfElse: aBlock with: ifBlock with: elseBlock\x0a\x09stream nextPutAll: 'if('.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09ifBlock value.\x0a\x09stream nextPutAll: '} else {'; lf.\x0a\x09elseBlock value.\x0a\x09stream nextPutAll: '}'",
+source: "nextPutIf: aBlock then: ifBlock else: elseBlock\x0a\x09stream nextPutAll: 'if('.\x0a\x09aBlock value.\x0a\x09stream nextPutAll: '){'; lf.\x0a\x09ifBlock value.\x0a\x09stream nextPutAll: '} else {'; lf.\x0a\x09elseBlock value.\x0a\x09stream nextPutAll: '}'",
 referencedClasses: [],
 messageSends: ["nextPutAll:", "value", "lf"]
 }),
@@ -42961,71 +41518,66 @@ fn: function (aMethod,aBlock){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$5,$4,$3,$6,$9,$8,$7,$10,$11,$12,$15,$14,$13,$16,$19,$18,$17,$20,$23,$22,$21,$24,$25,$26;
+var $1,$4,$3,$2,$7,$6,$5,$8,$9,$12,$11,$10,$15,$14,$13,$18,$17,$16,$19,$20;
 $1=self["@stream"];
 $recv($1)._nextPutAll_("$core.method({");
 $ctx1.sendIdx["nextPutAll:"]=1;
 $recv($1)._lf();
 $ctx1.sendIdx["lf"]=1;
-$2=$1;
-$5=$recv($recv(aMethod)._selector())._asJavascript();
+$4=$recv($recv(aMethod)._selector())._asJavascript();
 $ctx1.sendIdx["asJavascript"]=1;
-$4="selector: ".__comma($5);
+$3="selector: ".__comma($4);
 $ctx1.sendIdx[","]=2;
-$3=$recv($4).__comma(",");
+$2=$recv($3).__comma(",");
 $ctx1.sendIdx[","]=1;
-$recv($2)._nextPutAll_($3);
+$recv($1)._nextPutAll_($2);
 $ctx1.sendIdx["nextPutAll:"]=2;
 $recv($1)._lf();
 $ctx1.sendIdx["lf"]=2;
-$6=$1;
-$9=$recv($recv(aMethod)._source())._asJavascript();
+$7=$recv($recv(aMethod)._source())._asJavascript();
 $ctx1.sendIdx["asJavascript"]=2;
-$8="source: ".__comma($9);
+$6="source: ".__comma($7);
 $ctx1.sendIdx[","]=4;
-$7=$recv($8).__comma(",");
+$5=$recv($6).__comma(",");
 $ctx1.sendIdx[","]=3;
-$recv($6)._nextPutAll_($7);
+$recv($1)._nextPutAll_($5);
 $ctx1.sendIdx["nextPutAll:"]=3;
-$10=$recv($1)._lf();
+$8=$recv($1)._lf();
 $ctx1.sendIdx["lf"]=3;
 $recv(aBlock)._value();
 $ctx1.sendIdx["value"]=1;
-$11=self["@stream"];
-$12=$11;
-$15=$recv($String())._lf();
+$9=self["@stream"];
+$12=$recv($String())._lf();
 $ctx1.sendIdx["lf"]=4;
-$14=",".__comma($15);
+$11=",".__comma($12);
 $ctx1.sendIdx[","]=6;
-$13=$recv($14).__comma("messageSends: ");
+$10=$recv($11).__comma("messageSends: ");
 $ctx1.sendIdx[","]=5;
-$recv($12)._nextPutAll_($13);
+$recv($9)._nextPutAll_($10);
 $ctx1.sendIdx["nextPutAll:"]=4;
-$16=$11;
-$19=$recv($recv(aMethod)._messageSends())._asArray();
+$15=$recv($recv(aMethod)._messageSends())._asArray();
 $ctx1.sendIdx["asArray"]=1;
-$18=$recv($19)._asJavascript();
+$14=$recv($15)._asJavascript();
 $ctx1.sendIdx["asJavascript"]=3;
-$17=$recv($18).__comma(",");
+$13=$recv($14).__comma(",");
 $ctx1.sendIdx[","]=7;
-$recv($16)._nextPutAll_($17);
+$recv($9)._nextPutAll_($13);
 $ctx1.sendIdx["nextPutAll:"]=5;
-$recv($11)._lf();
+$recv($9)._lf();
 $ctx1.sendIdx["lf"]=5;
-$20=$11;
-$23=$recv($recv($recv($recv(aMethod)._arguments())._collect_((function(each){
+$18=$recv($recv($recv($recv(aMethod)._arguments())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._value();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 })))._asArray())._asJavascript();
 $ctx1.sendIdx["asJavascript"]=4;
-$22="args: ".__comma($23);
-$21=$recv($22).__comma(",");
+$17="args: ".__comma($18);
+$16=$recv($17).__comma(",");
 $ctx1.sendIdx[","]=8;
-$recv($20)._nextPutAll_($21);
+$recv($9)._nextPutAll_($16);
 $ctx1.sendIdx["nextPutAll:"]=6;
-$recv($11)._lf();
-$24=$recv($11)._nextPutAll_("referencedClasses: [");
+$recv($9)._lf();
+$19=$recv($9)._nextPutAll_("referencedClasses: [");
 $ctx1.sendIdx["nextPutAll:"]=7;
 $recv($recv(aMethod)._classReferences())._do_separatedBy_((function(each){
 return $core.withContext(function($ctx2) {
@@ -43038,10 +41590,10 @@ return $recv(self["@stream"])._nextPutAll_(",");
 $ctx2.sendIdx["nextPutAll:"]=9;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 }));
-$25=self["@stream"];
-$recv($25)._nextPutAll_("]");
+$20=self["@stream"];
+$recv($20)._nextPutAll_("]");
 $ctx1.sendIdx["nextPutAll:"]=10;
-$26=$recv($25)._nextPutAll_("})");
+$recv($20)._nextPutAll_("})");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutMethodDeclaration:with:",{aMethod:aMethod,aBlock:aBlock},$globals.JSStream)});
 },
@@ -43059,7 +41611,7 @@ protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2,$3;
 $1=self["@stream"];
 $recv($1)._nextPutAll_("var $early={};");
 $ctx1.sendIdx["nextPutAll:"]=1;
@@ -43076,7 +41628,7 @@ $ctx1.sendIdx["nextPutAll:"]=3;
 $recv($3)._lf();
 $ctx1.sendIdx["lf"]=3;
 $recv($3)._nextPutAll_("catch(e) {if(e===$early)return e[0]; throw e}");
-$4=$recv($3)._lf();
+$recv($3)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutNonLocalReturnHandlingWith:",{aBlock:aBlock},$globals.JSStream)});
 },
@@ -43110,38 +41662,20 @@ $globals.JSStream);
 
 $core.addMethod(
 $core.method({
-selector: "nextPutReturn",
-protocol: 'streaming',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-$recv(self["@stream"])._nextPutAll_("return ");
-return self;
-}, function($ctx1) {$ctx1.fill(self,"nextPutReturn",{},$globals.JSStream)});
-},
-args: [],
-source: "nextPutReturn\x0a\x09stream nextPutAll: 'return '",
-referencedClasses: [],
-messageSends: ["nextPutAll:"]
-}),
-$globals.JSStream);
-
-$core.addMethod(
-$core.method({
 selector: "nextPutReturnWith:",
 protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-self._nextPutReturn();
+$recv(self["@stream"])._nextPutAll_("return ");
 $recv(aBlock)._value();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutReturnWith:",{aBlock:aBlock},$globals.JSStream)});
 },
 args: ["aBlock"],
-source: "nextPutReturnWith: aBlock\x0a\x09self nextPutReturn.\x0a\x09aBlock value",
+source: "nextPutReturnWith: aBlock\x0a\x09stream nextPutAll: 'return '.\x0a\x09aBlock value",
 referencedClasses: [],
-messageSends: ["nextPutReturn", "value"]
+messageSends: ["nextPutAll:", "value"]
 }),
 $globals.JSStream);
 
@@ -43152,7 +41686,6 @@ protocol: 'streaming',
 fn: function (anIRSend){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 self._nextPutAll_(";");
 $ctx1.sendIdx["nextPutAll:"]=1;
 self._lf();
@@ -43174,7 +41707,7 @@ $ctx1.sendIdx["nextPutAll:"]=7;
 self._nextPutAll_(";");
 $ctx1.sendIdx["nextPutAll:"]=8;
 self._lf();
-$1=self._nextPutAll_("//>>excludeEnd(\x22ctx\x22)");
+self._nextPutAll_("//>>excludeEnd(\x22ctx\x22)");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutSendIndexFor:",{anIRSend:anIRSend},$globals.JSStream)});
 },
@@ -43210,11 +41743,11 @@ protocol: 'streaming',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $recv(aBlock)._value();
 $1=self["@stream"];
 $recv($1)._nextPutAll_(";");
-$2=$recv($1)._lf();
+$recv($1)._lf();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nextPutStatementWith:",{aBlock:aBlock},$globals.JSStream)});
 },
@@ -43232,7 +41765,7 @@ protocol: 'streaming',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $recv(aCollection)._ifNotEmpty_((function(){
 return $core.withContext(function($ctx2) {
 $recv(self["@stream"])._nextPutAll_("var ");
@@ -43250,8 +41783,7 @@ $ctx3.sendIdx["nextPutAll:"]=3;
 }));
 $1=self["@stream"];
 $recv($1)._nextPutAll_(";");
-$2=$recv($1)._lf();
-return $2;
+return $recv($1)._lf();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
 return self;
@@ -43300,9 +41832,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRInlinedAssignment_(self);
-return $1;
+return $recv(aVisitor)._visitIRInlinedAssignment_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedAssignment)});
 },
 args: ["aVisitor"],
@@ -43377,9 +41907,7 @@ protocol: 'visiting',
 fn: function (aVisitor){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aVisitor)._visitIRInlinedReturn_(self);
-return $1;
+return $recv(aVisitor)._visitIRInlinedReturn_(self);
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},$globals.IRInlinedReturn)});
 },
 args: ["aVisitor"],
@@ -43433,9 +41961,7 @@ selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=[];
-return $1;
+return [];
 
 },
 args: [],
@@ -43513,9 +42039,7 @@ fn: function (){
 var self=this;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Array())._with_(self._receiverInternalVariable());
-return $1;
+return $recv($Array())._with_(self._receiverInternalVariable());
 }, function($ctx1) {$ctx1.fill(self,"internalVariables",{},$globals.IRInlinedIfNilIfNotNil)});
 },
 args: [],
@@ -43534,13 +42058,11 @@ var self=this;
 function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRVariable())._new();
+var $1;
+$1=$recv($IRVariable())._new();
 $ctx1.sendIdx["new"]=1;
-$recv($2)._variable_($recv($recv($AliasVar())._new())._name_(self._receiverInternalVariableName()));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._variable_($recv($recv($AliasVar())._new())._name_(self._receiverInternalVariableName()));
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"receiverInternalVariable",{},$globals.IRInlinedIfNilIfNotNil)});
 },
 args: [],
@@ -43660,12 +42182,10 @@ fn: function (){
 var self=this;
 function $IRAssignmentInliner(){return $globals.IRAssignmentInliner||(typeof IRAssignmentInliner=="undefined"?nil:IRAssignmentInliner)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRAssignmentInliner())._new();
-$recv($2)._translator_(self);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRAssignmentInliner())._new();
+$recv($1)._translator_(self);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"assignmentInliner",{},$globals.IRInliner)});
 },
 args: [],
@@ -43683,12 +42203,10 @@ fn: function (){
 var self=this;
 function $IRReturnInliner(){return $globals.IRReturnInliner||(typeof IRReturnInliner=="undefined"?nil:IRReturnInliner)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRReturnInliner())._new();
-$recv($2)._translator_(self);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRReturnInliner())._new();
+$recv($1)._translator_(self);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"returnInliner",{},$globals.IRInliner)});
 },
 args: [],
@@ -43706,12 +42224,10 @@ fn: function (){
 var self=this;
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($IRSendInliner())._new();
-$recv($2)._translator_(self);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($IRSendInliner())._new();
+$recv($1)._translator_(self);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"sendInliner",{},$globals.IRInliner)});
 },
 args: [],
@@ -43795,13 +42311,11 @@ fn: function (anIRSend){
 var self=this;
 function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($recv(anIRSend)._isInlined())._not())._and_((function(){
+return $recv($recv($recv(anIRSend)._isInlined())._not())._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv($IRSendInliner())._shouldInline_(anIRSend);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInlineSend:",{anIRSend:anIRSend},$globals.IRInliner)});
 },
 args: ["anIRSend"],
@@ -43820,7 +42334,7 @@ var self=this;
 var localReturn;
 function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$4,$3,$5,$6,$7,$8,$9;
+var $2,$1,$4,$3,$5,$6,$7;
 $2=$recv(anIRNonLocalReturn)._scope();
 $ctx1.sendIdx["scope"]=1;
 $1=$recv($2)._canInlineNonLocalReturns();
@@ -43833,8 +42347,7 @@ $ctx1.sendIdx["scope"]=3;
 $recv($3)._removeNonLocalReturn_($5);
 $6=$recv($IRReturn())._new();
 $recv($6)._scope_($recv(anIRNonLocalReturn)._scope());
-$7=$recv($6)._yourself();
-localReturn=$7;
+localReturn=$recv($6)._yourself();
 localReturn;
 $recv($recv(anIRNonLocalReturn)._instructions())._do_((function(each){
 return $core.withContext(function($ctx2) {
@@ -43842,14 +42355,13 @@ return $recv(localReturn)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
 $recv(anIRNonLocalReturn)._replaceWith_(localReturn);
-$8=localReturn;
-return $8;
+return localReturn;
 };
-$9=(
-$ctx1.supercall = true, 
-$globals.IRInliner.superclass.fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
+$7=(
+$ctx1.supercall = true,
+($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRNonLocalReturn_.apply($recv(self), [anIRNonLocalReturn]));
 $ctx1.supercall = false;
-return $9;
+return $7;
 }, function($ctx1) {$ctx1.fill(self,"transformNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn,localReturn:localReturn},$globals.IRInliner)});
 },
 args: ["anIRNonLocalReturn"],
@@ -43866,17 +42378,16 @@ protocol: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._shouldInlineAssignment_(anIRAssignment);
-if($core.assert($2)){
-$1=$recv(self._assignmentInliner())._inlineAssignment_(anIRAssignment);
+var $1;
+$1=self._shouldInlineAssignment_(anIRAssignment);
+if($core.assert($1)){
+return $recv(self._assignmentInliner())._inlineAssignment_(anIRAssignment);
 } else {
-$1=(
-$ctx1.supercall = true, 
-$globals.IRInliner.superclass.fn.prototype._visitIRAssignment_.apply($recv(self), [anIRAssignment]));
+return (
+$ctx1.supercall = true,
+($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRAssignment_.apply($recv(self), [anIRAssignment]));
 $ctx1.supercall = false;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRAssignment:",{anIRAssignment:anIRAssignment},$globals.IRInliner)});
 },
 args: ["anIRAssignment"],
@@ -43893,9 +42404,7 @@ protocol: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._transformNonLocalReturn_(anIRNonLocalReturn);
-return $1;
+return self._transformNonLocalReturn_(anIRNonLocalReturn);
 }, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},$globals.IRInliner)});
 },
 args: ["anIRNonLocalReturn"],
@@ -43912,17 +42421,16 @@ protocol: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._shouldInlineReturn_(anIRReturn);
-if($core.assert($2)){
-$1=$recv(self._returnInliner())._inlineReturn_(anIRReturn);
+var $1;
+$1=self._shouldInlineReturn_(anIRReturn);
+if($core.assert($1)){
+return $recv(self._returnInliner())._inlineReturn_(anIRReturn);
 } else {
-$1=(
-$ctx1.supercall = true, 
-$globals.IRInliner.superclass.fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
+return (
+$ctx1.supercall = true,
+($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRReturn_.apply($recv(self), [anIRReturn]));
 $ctx1.supercall = false;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRReturn:",{anIRReturn:anIRReturn},$globals.IRInliner)});
 },
 args: ["anIRReturn"],
@@ -43939,17 +42447,16 @@ protocol: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._shouldInlineSend_(anIRSend);
-if($core.assert($2)){
-$1=$recv(self._sendInliner())._inlineSend_(anIRSend);
+var $1;
+$1=self._shouldInlineSend_(anIRSend);
+if($core.assert($1)){
+return $recv(self._sendInliner())._inlineSend_(anIRSend);
 } else {
-$1=(
-$ctx1.supercall = true, 
-$globals.IRInliner.superclass.fn.prototype._visitIRSend_.apply($recv(self), [anIRSend]));
+return (
+$ctx1.supercall = true,
+($globals.IRInliner.superclass||$boot.dnu).fn.prototype._visitIRSend_.apply($recv(self), [anIRSend]));
 $ctx1.supercall = false;
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},$globals.IRInliner)});
 },
 args: ["anIRSend"],
@@ -44018,7 +42525,7 @@ return $core.withContext(function($ctx1) {
 var $1,$2,$4,$3;
 $1=self._stream();
 $ctx1.sendIdx["stream"]=1;
-$recv($1)._nextPutIf_with_((function(){
+$recv($1)._nextPutIf_then_((function(){
 return $core.withContext(function($ctx2) {
 $2=self._stream();
 $ctx2.sendIdx["stream"]=2;
@@ -44040,9 +42547,9 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfFalse:",{anIRInlinedIfFalse:anIRInlinedIfFalse},$globals.IRInliningJSTranslator)});
 },
 args: ["anIRInlinedIfFalse"],
-source: "visitIRInlinedIfFalse: anIRInlinedIfFalse\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '!$core.assert('.\x0a\x09\x09self visit: anIRInlinedIfFalse instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfFalse instructions last ]",
+source: "visitIRInlinedIfFalse: anIRInlinedIfFalse\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '!$core.assert('.\x0a\x09\x09self visit: anIRInlinedIfFalse instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09then: [ self visit: anIRInlinedIfFalse instructions last ]",
 referencedClasses: [],
-messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
+messageSends: ["nextPutIf:then:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
 $globals.IRInliningJSTranslator);
 
@@ -44053,30 +42560,38 @@ protocol: 'visiting',
 fn: function (anIRInlinedIfNilIfNotNil){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$5,$4,$7,$6;
+var $1,$2,$4,$3,$6,$5,$7,$8,$10,$9;
 $1=self._stream();
 $ctx1.sendIdx["stream"]=1;
-$recv($1)._nextPutIfElse_with_with_((function(){
+$recv($1)._nextPutIf_then_else_((function(){
+var recvVarName;
 return $core.withContext(function($ctx2) {
+recvVarName=$recv(anIRInlinedIfNilIfNotNil)._receiverInternalVariableName();
+recvVarName;
 $2=self._stream();
 $ctx2.sendIdx["stream"]=2;
-$3=$recv("(".__comma($recv(anIRInlinedIfNilIfNotNil)._receiverInternalVariableName())).__comma(" = ");
+$4="(".__comma(recvVarName);
+$ctx2.sendIdx[","]=2;
+$3=$recv($4).__comma(" = ");
 $ctx2.sendIdx[","]=1;
 $recv($2)._nextPutAll_($3);
 $ctx2.sendIdx["nextPutAll:"]=1;
-$5=$recv(anIRInlinedIfNilIfNotNil)._instructions();
+$6=$recv(anIRInlinedIfNilIfNotNil)._instructions();
 $ctx2.sendIdx["instructions"]=1;
-$4=$recv($5)._first();
-self._visit_($4);
+$5=$recv($6)._first();
+self._visit_($5);
 $ctx2.sendIdx["visit:"]=1;
-return $recv(self._stream())._nextPutAll_(") == null || $receiver.isNil");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+$7=self._stream();
+$8=$recv(") == null || ".__comma(recvVarName)).__comma(".isNil");
+$ctx2.sendIdx[","]=3;
+return $recv($7)._nextPutAll_($8);
+}, function($ctx2) {$ctx2.fillBlock({recvVarName:recvVarName},$ctx1,1)});
 }),(function(){
 return $core.withContext(function($ctx2) {
-$7=$recv(anIRInlinedIfNilIfNotNil)._instructions();
+$10=$recv(anIRInlinedIfNilIfNotNil)._instructions();
 $ctx2.sendIdx["instructions"]=2;
-$6=$recv($7)._second();
-return self._visit_($6);
+$9=$recv($10)._second();
+return self._visit_($9);
 $ctx2.sendIdx["visit:"]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }),(function(){
@@ -44088,9 +42603,9 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNilIfNotNil:",{anIRInlinedIfNilIfNotNil:anIRInlinedIfNilIfNotNil},$globals.IRInliningJSTranslator)});
 },
 args: ["anIRInlinedIfNilIfNotNil"],
-source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '(', anIRInlinedIfNilIfNotNil receiverInternalVariableName, ' = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == null || $receiver.isNil' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
+source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIf: [\x0a\x09\x09\x09| recvVarName |\x0a\x09\x09\x09recvVarName := anIRInlinedIfNilIfNotNil receiverInternalVariableName.\x0a\x09\x09\x09self stream nextPutAll: '(', recvVarName, ' = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == null || ', recvVarName, '.isNil' ]\x0a\x09\x09then: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09else: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
 referencedClasses: [],
-messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", ",", "receiverInternalVariableName", "visit:", "first", "instructions", "second", "third"]
+messageSends: ["nextPutIf:then:else:", "stream", "receiverInternalVariableName", "nextPutAll:", ",", "visit:", "first", "instructions", "second", "third"]
 }),
 $globals.IRInliningJSTranslator);
 
@@ -44104,7 +42619,7 @@ return $core.withContext(function($ctx1) {
 var $1,$2,$4,$3;
 $1=self._stream();
 $ctx1.sendIdx["stream"]=1;
-$recv($1)._nextPutIf_with_((function(){
+$recv($1)._nextPutIf_then_((function(){
 return $core.withContext(function($ctx2) {
 $2=self._stream();
 $ctx2.sendIdx["stream"]=2;
@@ -44126,9 +42641,9 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrue:",{anIRInlinedIfTrue:anIRInlinedIfTrue},$globals.IRInliningJSTranslator)});
 },
 args: ["anIRInlinedIfTrue"],
-source: "visitIRInlinedIfTrue: anIRInlinedIfTrue\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '$core.assert('.\x0a\x09\x09self visit: anIRInlinedIfTrue instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrue instructions last ]",
+source: "visitIRInlinedIfTrue: anIRInlinedIfTrue\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '$core.assert('.\x0a\x09\x09self visit: anIRInlinedIfTrue instructions first.\x0a\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09then: [ self visit: anIRInlinedIfTrue instructions last ]",
 referencedClasses: [],
-messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
+messageSends: ["nextPutIf:then:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"]
 }),
 $globals.IRInliningJSTranslator);
 
@@ -44142,7 +42657,7 @@ return $core.withContext(function($ctx1) {
 var $1,$2,$4,$3,$6,$5;
 $1=self._stream();
 $ctx1.sendIdx["stream"]=1;
-$recv($1)._nextPutIfElse_with_with_((function(){
+$recv($1)._nextPutIf_then_else_((function(){
 return $core.withContext(function($ctx2) {
 $2=self._stream();
 $ctx2.sendIdx["stream"]=2;
@@ -44172,9 +42687,9 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfTrueIfFalse:",{anIRInlinedIfTrueIfFalse:anIRInlinedIfTrueIfFalse},$globals.IRInliningJSTranslator)});
 },
 args: ["anIRInlinedIfTrueIfFalse"],
-source: "visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '$core.assert('.\x0a\x09\x09\x09self visit: anIRInlinedIfTrueIfFalse instructions first.\x0a\x09\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]",
+source: "visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse\x0a\x09self stream\x0a\x09\x09nextPutIf: [\x0a\x09\x09\x09self stream nextPutAll: '$core.assert('.\x0a\x09\x09\x09self visit: anIRInlinedIfTrueIfFalse instructions first.\x0a\x09\x09\x09self stream nextPutAll: ')' ]\x0a\x09\x09then: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]\x0a\x09\x09else: [ self visit: anIRInlinedIfTrueIfFalse instructions third ]",
 referencedClasses: [],
-messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"]
+messageSends: ["nextPutIf:then:else:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"]
 }),
 $globals.IRInliningJSTranslator);
 
@@ -44262,15 +42777,13 @@ fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfFalse(){return $globals.IRInlinedIfFalse||(typeof IRInlinedIfFalse=="undefined"?nil:IRInlinedIfFalse)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._inlinedSend_with_($recv($IRInlinedIfFalse())._new(),anIRInstruction);
-return $1;
+return self._inlinedSend_withBlock_($recv($IRInlinedIfFalse())._new(),anIRInstruction);
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction"],
-source: "ifFalse: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfFalse new with: anIRInstruction",
+source: "ifFalse: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfFalse new withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfFalse"],
-messageSends: ["inlinedSend:with:", "new"]
+messageSends: ["inlinedSend:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -44281,9 +42794,7 @@ protocol: 'inlining',
 fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._perform_withArguments_("ifTrue:ifFalse:",[anotherIRInstruction,anIRInstruction]);
-return $1;
+return self._perform_withArguments_("ifTrue:ifFalse:",[anotherIRInstruction,anIRInstruction]);
 }, function($ctx1) {$ctx1.fill(self,"ifFalse:ifTrue:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction", "anotherIRInstruction"],
@@ -44303,30 +42814,27 @@ function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(type
 function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 return $core.withContext(function($ctx1) {
-var $2,$4,$5,$7,$8,$6,$9,$3,$1;
-$2=$recv($IRInlinedIfNilIfNotNil())._new();
+var $1,$3,$5,$6,$4,$2;
+$1=$recv($IRInlinedIfNilIfNotNil())._new();
 $ctx1.sendIdx["new"]=1;
-$4=$recv($IRClosure())._new();
+$3=$recv($IRClosure())._new();
 $ctx1.sendIdx["new"]=2;
-$recv($4)._scope_($recv($recv(anIRInstruction)._scope())._copy());
-$5=$4;
-$7=$recv($IRBlockSequence())._new();
-$recv($7)._add_($recv($recv(self._send())._instructions())._first());
-$8=$recv($7)._yourself();
+$recv($3)._scope_($recv($recv(anIRInstruction)._scope())._copy());
+$5=$recv($IRBlockSequence())._new();
+$recv($5)._add_($recv($recv(self._send())._instructions())._first());
+$6=$recv($5)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$6=$8;
-$recv($5)._add_($6);
+$4=$6;
+$recv($3)._add_($4);
 $ctx1.sendIdx["add:"]=1;
-$9=$recv($4)._yourself();
-$3=$9;
-$1=self._inlinedSend_with_with_($2,anIRInstruction,$3);
-return $1;
+$2=$recv($3)._yourself();
+return self._inlinedSend_withBlock_withBlock_($1,anIRInstruction,$2);
 }, function($ctx1) {$ctx1.fill(self,"ifNil:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction"],
-source: "ifNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09with: anIRInstruction\x0a\x09\x09with: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)",
+source: "ifNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09withBlock: anIRInstruction\x0a\x09\x09withBlock: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)",
 referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
-messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
 $globals.IRSendInliner);
 
@@ -44338,15 +42846,13 @@ fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._inlinedSend_with_with_($recv($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
-return $1;
+return self._inlinedSend_withBlock_withBlock_($recv($IRInlinedIfNilIfNotNil())._new(),anIRInstruction,anotherIRInstruction);
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction", "anotherIRInstruction"],
-source: "ifNil: anIRInstruction ifNotNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anIRInstruction with: anotherIRInstruction",
+source: "ifNil: anIRInstruction ifNotNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new withBlock: anIRInstruction withBlock: anotherIRInstruction",
 referencedClasses: ["IRInlinedIfNilIfNotNil"],
-messageSends: ["inlinedSend:with:with:", "new"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -44360,30 +42866,27 @@ function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(type
 function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
 function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
 return $core.withContext(function($ctx1) {
-var $2,$4,$5,$7,$8,$6,$9,$3,$1;
-$2=$recv($IRInlinedIfNilIfNotNil())._new();
+var $1,$3,$5,$6,$4,$2;
+$1=$recv($IRInlinedIfNilIfNotNil())._new();
 $ctx1.sendIdx["new"]=1;
-$4=$recv($IRClosure())._new();
+$3=$recv($IRClosure())._new();
 $ctx1.sendIdx["new"]=2;
-$recv($4)._scope_($recv($recv(anIRInstruction)._scope())._copy());
-$5=$4;
-$7=$recv($IRBlockSequence())._new();
-$recv($7)._add_($recv($recv(self._send())._instructions())._first());
-$8=$recv($7)._yourself();
+$recv($3)._scope_($recv($recv(anIRInstruction)._scope())._copy());
+$5=$recv($IRBlockSequence())._new();
+$recv($5)._add_($recv($recv(self._send())._instructions())._first());
+$6=$recv($5)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$6=$8;
-$recv($5)._add_($6);
+$4=$6;
+$recv($3)._add_($4);
 $ctx1.sendIdx["add:"]=1;
-$9=$recv($4)._yourself();
-$3=$9;
-$1=self._inlinedSend_with_with_($2,$3,anIRInstruction);
-return $1;
+$2=$recv($3)._yourself();
+return self._inlinedSend_withBlock_withBlock_($1,$2,anIRInstruction);
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction"],
-source: "ifNotNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09with: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)\x0a\x09\x09with: anIRInstruction",
+source: "ifNotNil: anIRInstruction\x0a\x09^ self\x0a\x09\x09inlinedSend: IRInlinedIfNilIfNotNil new\x0a\x09\x09withBlock: (IRClosure new\x0a\x09\x09\x09scope: anIRInstruction scope copy;\x0a\x09\x09\x09add: (IRBlockSequence new\x0a\x09\x09\x09\x09add: self send instructions first;\x0a\x09\x09\x09\x09yourself);\x0a\x09\x09\x09yourself)\x0a\x09\x09withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"],
-messageSends: ["inlinedSend:with:with:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new", "scope:", "copy", "scope", "add:", "first", "instructions", "send", "yourself"]
 }),
 $globals.IRSendInliner);
 
@@ -44395,15 +42898,13 @@ fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfNilIfNotNil(){return $globals.IRInlinedIfNilIfNotNil||(typeof IRInlinedIfNilIfNotNil=="undefined"?nil:IRInlinedIfNilIfNotNil)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._inlinedSend_with_with_($recv($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
-return $1;
+return self._inlinedSend_withBlock_withBlock_($recv($IRInlinedIfNilIfNotNil())._new(),anotherIRInstruction,anIRInstruction);
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction", "anotherIRInstruction"],
-source: "ifNotNil: anIRInstruction ifNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new with: anotherIRInstruction with: anIRInstruction",
+source: "ifNotNil: anIRInstruction ifNil: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfNilIfNotNil new withBlock: anotherIRInstruction withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfNilIfNotNil"],
-messageSends: ["inlinedSend:with:with:", "new"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -44415,15 +42916,13 @@ fn: function (anIRInstruction){
 var self=this;
 function $IRInlinedIfTrue(){return $globals.IRInlinedIfTrue||(typeof IRInlinedIfTrue=="undefined"?nil:IRInlinedIfTrue)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._inlinedSend_with_($recv($IRInlinedIfTrue())._new(),anIRInstruction);
-return $1;
+return self._inlinedSend_withBlock_($recv($IRInlinedIfTrue())._new(),anIRInstruction);
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction"],
-source: "ifTrue: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrue new with: anIRInstruction",
+source: "ifTrue: anIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrue new withBlock: anIRInstruction",
 referencedClasses: ["IRInlinedIfTrue"],
-messageSends: ["inlinedSend:with:", "new"]
+messageSends: ["inlinedSend:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -44435,15 +42934,13 @@ fn: function (anIRInstruction,anotherIRInstruction){
 var self=this;
 function $IRInlinedIfTrueIfFalse(){return $globals.IRInlinedIfTrueIfFalse||(typeof IRInlinedIfTrueIfFalse=="undefined"?nil:IRInlinedIfTrueIfFalse)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._inlinedSend_with_with_($recv($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
-return $1;
+return self._inlinedSend_withBlock_withBlock_($recv($IRInlinedIfTrueIfFalse())._new(),anIRInstruction,anotherIRInstruction);
 }, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction},$globals.IRSendInliner)});
 },
 args: ["anIRInstruction", "anotherIRInstruction"],
-source: "ifTrue: anIRInstruction ifFalse: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrueIfFalse new with: anIRInstruction with: anotherIRInstruction",
+source: "ifTrue: anIRInstruction ifFalse: anotherIRInstruction\x0a\x09^ self inlinedSend: IRInlinedIfTrueIfFalse new withBlock: anIRInstruction withBlock: anotherIRInstruction",
 referencedClasses: ["IRInlinedIfTrueIfFalse"],
-messageSends: ["inlinedSend:with:with:", "new"]
+messageSends: ["inlinedSend:withBlock:withBlock:", "new"]
 }),
 $globals.IRSendInliner);
 
@@ -44459,15 +42956,14 @@ function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="un
 function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$7,$8,$6,$9,$11,$12,$14,$16,$17,$18,$19,$15,$13,$20,$22,$24,$25,$23,$21,$26,$10,$28,$27,$31,$30,$32,$29,$33,$36,$35,$34,$37;
+var $1,$2,$3,$5,$6,$4,$7,$9,$11,$13,$14,$15,$12,$10,$17,$19,$20,$18,$16,$8,$22,$21,$25,$24,$26,$23,$27,$30,$29,$28;
 inlinedClosure=self._inlinedClosure();
 $1=inlinedClosure;
-$2=$1;
-$3=$recv(anIRClosure)._scope();
+$2=$recv(anIRClosure)._scope();
 $ctx1.sendIdx["scope"]=1;
-$recv($2)._scope_($3);
+$recv($1)._scope_($2);
 $ctx1.sendIdx["scope:"]=1;
-$4=$recv($1)._parent_($recv(anIRClosure)._parent());
+$recv($1)._parent_($recv(anIRClosure)._parent());
 $recv($recv(anIRClosure)._tempDeclarations())._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(inlinedClosure)._add_(each);
@@ -44478,64 +42974,60 @@ $ctx1.sendIdx["do:"]=1;
 sequence=self._inlinedSequence();
 $recv($recv(anIRClosure)._arguments())._do_((function(each){
 return $core.withContext(function($ctx2) {
-$5=inlinedClosure;
-$7=$recv($IRTempDeclaration())._new();
+$3=inlinedClosure;
+$5=$recv($IRTempDeclaration())._new();
 $ctx2.sendIdx["new"]=1;
-$recv($7)._name_(each);
+$recv($5)._name_(each);
 $ctx2.sendIdx["name:"]=1;
-$8=$recv($7)._yourself();
+$6=$recv($5)._yourself();
 $ctx2.sendIdx["yourself"]=1;
-$6=$8;
-$recv($5)._add_($6);
+$4=$6;
+$recv($3)._add_($4);
 $ctx2.sendIdx["add:"]=2;
-$9=sequence;
-$11=$recv($IRAssignment())._new();
+$7=sequence;
+$9=$recv($IRAssignment())._new();
 $ctx2.sendIdx["new"]=2;
-$12=$11;
-$14=$recv($IRVariable())._new();
+$11=$recv($IRVariable())._new();
 $ctx2.sendIdx["new"]=3;
-$16=$recv($AliasVar())._new();
+$13=$recv($AliasVar())._new();
 $ctx2.sendIdx["new"]=4;
-$17=$16;
-$18=$recv(inlinedClosure)._scope();
+$14=$recv(inlinedClosure)._scope();
 $ctx2.sendIdx["scope"]=2;
-$recv($17)._scope_($18);
+$recv($13)._scope_($14);
 $ctx2.sendIdx["scope:"]=2;
-$recv($16)._name_(each);
+$recv($13)._name_(each);
 $ctx2.sendIdx["name:"]=2;
-$19=$recv($16)._yourself();
+$15=$recv($13)._yourself();
 $ctx2.sendIdx["yourself"]=2;
-$15=$19;
-$13=$recv($14)._variable_($15);
+$12=$15;
+$10=$recv($11)._variable_($12);
 $ctx2.sendIdx["variable:"]=1;
-$recv($12)._add_($13);
+$recv($9)._add_($10);
 $ctx2.sendIdx["add:"]=4;
-$20=$11;
-$22=$recv($IRVariable())._new();
+$17=$recv($IRVariable())._new();
 $ctx2.sendIdx["new"]=5;
-$24=$recv($AliasVar())._new();
-$recv($24)._scope_($recv(inlinedClosure)._scope());
-$recv($24)._name_("$receiver");
-$25=$recv($24)._yourself();
+$19=$recv($AliasVar())._new();
+$recv($19)._scope_($recv(inlinedClosure)._scope());
+$recv($19)._name_("$receiver");
+$20=$recv($19)._yourself();
 $ctx2.sendIdx["yourself"]=3;
-$23=$25;
-$21=$recv($22)._variable_($23);
-$recv($20)._add_($21);
+$18=$20;
+$16=$recv($17)._variable_($18);
+$recv($9)._add_($16);
 $ctx2.sendIdx["add:"]=5;
-$26=$recv($11)._yourself();
-$10=$26;
-return $recv($9)._add_($10);
+$8=$recv($9)._yourself();
+return $recv($7)._add_($8);
 $ctx2.sendIdx["add:"]=3;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
 $ctx1.sendIdx["do:"]=2;
 $recv(inlinedClosure)._add_(sequence);
 $ctx1.sendIdx["add:"]=6;
-$28=$recv(anIRClosure)._instructions();
+$22=$recv(anIRClosure)._instructions();
 $ctx1.sendIdx["instructions"]=2;
-$27=$recv($28)._last();
+$21=$recv($22)._last();
 $ctx1.sendIdx["last"]=1;
-statements=$recv($27)._instructions();
+statements=$recv($21)._instructions();
 $ctx1.sendIdx["instructions"]=1;
 $recv(statements)._ifNotEmpty_((function(){
 return $core.withContext(function($ctx2) {
@@ -44545,31 +43037,30 @@ return $recv(sequence)._add_(each);
 $ctx3.sendIdx["add:"]=7;
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,4)});
 }));
-$31=$recv(statements)._last();
+$25=$recv(statements)._last();
 $ctx2.sendIdx["last"]=2;
-$30=$recv($31)._isReturn();
-$29=$recv($30)._and_((function(){
+$24=$recv($25)._isReturn();
+$23=$recv($24)._and_((function(){
 return $core.withContext(function($ctx3) {
-$32=$recv(statements)._last();
+$26=$recv(statements)._last();
 $ctx3.sendIdx["last"]=3;
-return $recv($32)._isBlockReturn();
+return $recv($26)._isBlockReturn();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)});
 }));
-if($core.assert($29)){
-$33=sequence;
-$36=$recv(statements)._last();
+if($core.assert($23)){
+$27=sequence;
+$30=$recv(statements)._last();
 $ctx2.sendIdx["last"]=4;
-$35=$recv($36)._instructions();
-$34=$recv($35)._first();
-return $recv($33)._add_($34);
+$29=$recv($30)._instructions();
+$28=$recv($29)._first();
+return $recv($27)._add_($28);
 $ctx2.sendIdx["add:"]=8;
 } else {
 return $recv(sequence)._add_($recv(statements)._last());
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 }));
-$37=inlinedClosure;
-return $37;
+return inlinedClosure;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements},$globals.IRSendInliner)});
 },
 args: ["anIRClosure"],
@@ -44586,13 +43077,12 @@ protocol: 'inlining',
 fn: function (anIRSend){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
+var $2,$1;
 self._send_(anIRSend);
-$3=self._send();
+$2=self._send();
 $ctx1.sendIdx["send"]=1;
-$2=$recv($3)._selector();
-$1=self._perform_withArguments_($2,$recv($recv(self._send())._instructions())._allButFirst());
-return $1;
+$1=$recv($2)._selector();
+return self._perform_withArguments_($1,$recv($recv(self._send())._instructions())._allButFirst());
 }, function($ctx1) {$ctx1.fill(self,"inlineSend:",{anIRSend:anIRSend},$globals.IRSendInliner)});
 },
 args: ["anIRSend"],
@@ -44610,9 +43100,7 @@ fn: function (){
 var self=this;
 function $IRInlinedClosure(){return $globals.IRInlinedClosure||(typeof IRInlinedClosure=="undefined"?nil:IRInlinedClosure)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($IRInlinedClosure())._new();
-return $1;
+return $recv($IRInlinedClosure())._new();
 }, function($ctx1) {$ctx1.fill(self,"inlinedClosure",{},$globals.IRSendInliner)});
 },
 args: [],
@@ -44624,13 +43112,13 @@ $globals.IRSendInliner);
 
 $core.addMethod(
 $core.method({
-selector: "inlinedSend:with:",
+selector: "inlinedSend:withBlock:",
 protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction){
 var self=this;
 var inlinedClosure;
 return $core.withContext(function($ctx1) {
-var $1,$2,$5,$4,$3,$6,$7;
+var $1,$2,$5,$4,$3,$6;
 $1=$recv(anIRInstruction)._isClosure();
 if(!$core.assert($1)){
 self._inliningError_("Message argument should be a block");
@@ -44647,16 +43135,16 @@ $4=$recv($5)._instructions();
 $3=$recv($4)._first();
 $recv(inlinedSend)._add_($3);
 $ctx1.sendIdx["add:"]=1;
-$6=$recv(inlinedSend)._add_(inlinedClosure);
+$recv(inlinedSend)._add_(inlinedClosure);
 $recv(self._send())._replaceWith_(inlinedSend);
-$7=$recv($recv(inlinedSend)._method())._internalVariables();
+$6=$recv($recv(inlinedSend)._method())._internalVariables();
 $ctx1.sendIdx["internalVariables"]=1;
-$recv($7)._addAll_($recv(inlinedSend)._internalVariables());
+$recv($6)._addAll_($recv(inlinedSend)._internalVariables());
 return inlinedSend;
-}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},$globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSend:withBlock:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},$globals.IRSendInliner)});
 },
 args: ["inlinedSend", "anIRInstruction"],
-source: "inlinedSend: inlinedSend with: anIRInstruction\x0a\x09| inlinedClosure |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09inlinedClosure := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x0a\x09^ inlinedSend",
+source: "inlinedSend: inlinedSend withBlock: anIRInstruction\x0a\x09| inlinedClosure |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09inlinedClosure := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x0a\x09^ inlinedSend",
 referencedClasses: [],
 messageSends: ["ifFalse:", "isClosure", "inliningError:", "=", "size", "arguments", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
 }),
@@ -44664,13 +43152,13 @@ $globals.IRSendInliner);
 
 $core.addMethod(
 $core.method({
-selector: "inlinedSend:with:with:",
+selector: "inlinedSend:withBlock:withBlock:",
 protocol: 'inlining',
 fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
 var inlinedClosure1,inlinedClosure2;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$7,$6,$5,$8,$9;
+var $1,$2,$3,$4,$7,$6,$5,$8;
 $1=$recv(anIRInstruction)._isClosure();
 $ctx1.sendIdx["isClosure"]=1;
 if(!$core.assert($1)){
@@ -44696,16 +43184,16 @@ $recv(inlinedSend)._add_($5);
 $ctx1.sendIdx["add:"]=1;
 $recv(inlinedSend)._add_(inlinedClosure1);
 $ctx1.sendIdx["add:"]=2;
-$8=$recv(inlinedSend)._add_(inlinedClosure2);
+$recv(inlinedSend)._add_(inlinedClosure2);
 $recv(self._send())._replaceWith_(inlinedSend);
-$9=$recv($recv(inlinedSend)._method())._internalVariables();
+$8=$recv($recv(inlinedSend)._method())._internalVariables();
 $ctx1.sendIdx["internalVariables"]=1;
-$recv($9)._addAll_($recv(inlinedSend)._internalVariables());
+$recv($8)._addAll_($recv(inlinedSend)._internalVariables());
 return inlinedSend;
-}, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},$globals.IRSendInliner)});
+}, function($ctx1) {$ctx1.fill(self,"inlinedSend:withBlock:withBlock:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},$globals.IRSendInliner)});
 },
 args: ["inlinedSend", "anIRInstruction", "anotherIRInstruction"],
-source: "inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x09\x09\x0a\x09^ inlinedSend",
+source: "inlinedSend: inlinedSend withBlock: anIRInstruction withBlock: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09inlinedSend method internalVariables \x0a\x09\x09addAll: inlinedSend internalVariables.\x0a\x09\x09\x0a\x09^ inlinedSend",
 referencedClasses: [],
 messageSends: ["ifFalse:", "isClosure", "inliningError:", "visit:", "translator", "inlineClosure:", "add:", "first", "instructions", "send", "replaceWith:", "addAll:", "internalVariables", "method"]
 }),
@@ -44719,9 +43207,7 @@ fn: function (){
 var self=this;
 function $IRInlinedSequence(){return $globals.IRInlinedSequence||(typeof IRInlinedSequence=="undefined"?nil:IRInlinedSequence)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($IRInlinedSequence())._new();
-return $1;
+return $recv($IRInlinedSequence())._new();
 }, function($ctx1) {$ctx1.fill(self,"inlinedSequence",{},$globals.IRSendInliner)});
 },
 args: [],
@@ -44756,9 +43242,7 @@ selector: "send",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@send"];
-return $1;
+return self["@send"];
 
 },
 args: [],
@@ -44791,9 +43275,7 @@ selector: "translator",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@translator"];
-return $1;
+return self["@translator"];
 
 },
 args: [],
@@ -44827,9 +43309,7 @@ selector: "inlinedSelectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"];
-return $1;
+return ["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"];
 
 },
 args: [],
@@ -44846,17 +43326,16 @@ protocol: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv(self._inlinedSelectors())._includes_($recv(anIRInstruction)._selector());
 if(!$core.assert($1)){
 return false;
 };
-$2=$recv($recv($recv(anIRInstruction)._instructions())._allButFirst())._allSatisfy_((function(each){
+return $recv($recv($recv(anIRInstruction)._instructions())._allButFirst())._allSatisfy_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._isClosure();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 }));
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"shouldInline:",{anIRInstruction:anIRInstruction},$globals.IRSendInliner.klass)});
 },
 args: ["anIRInstruction"],
@@ -44875,9 +43354,7 @@ selector: "assignment",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@assignment"];
-return $1;
+return self["@assignment"];
 
 },
 args: [],
@@ -44913,7 +43390,7 @@ var self=this;
 var inlinedAssignment;
 function $IRInlinedAssignment(){return $globals.IRInlinedAssignment||(typeof IRInlinedAssignment=="undefined"?nil:IRInlinedAssignment)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 self._assignment_(anIRAssignment);
 inlinedAssignment=$recv($IRInlinedAssignment())._new();
 $1=$recv(anIRAssignment)._instructions();
@@ -44925,8 +43402,7 @@ return $recv(inlinedAssignment)._add_(each);
 }));
 $recv(anIRAssignment)._replaceWith_(inlinedAssignment);
 self._inlineSend_($recv($recv(inlinedAssignment)._instructions())._last());
-$2=inlinedAssignment;
-return $2;
+return inlinedAssignment;
 }, function($ctx1) {$ctx1.fill(self,"inlineAssignment:",{anIRAssignment:anIRAssignment,inlinedAssignment:inlinedAssignment},$globals.IRAssignmentInliner)});
 },
 args: ["anIRAssignment"],
@@ -44945,10 +43421,10 @@ var self=this;
 var inlinedClosure,statements;
 function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$4,$3,$5,$7,$8,$6,$9;
+var $2,$1,$4,$3,$5,$7,$6;
 inlinedClosure=(
-$ctx1.supercall = true, 
-$globals.IRAssignmentInliner.superclass.fn.prototype._inlineClosure_.apply($recv(self), [anIRClosure]));
+$ctx1.supercall = true,
+($globals.IRAssignmentInliner.superclass||$boot.dnu).fn.prototype._inlineClosure_.apply($recv(self), [anIRClosure]));
 $ctx1.supercall = false;
 $2=$recv(inlinedClosure)._instructions();
 $ctx1.sendIdx["instructions"]=2;
@@ -44968,14 +43444,12 @@ $7=$recv($IRAssignment())._new();
 $recv($7)._add_($recv($recv(self._assignment())._instructions())._first());
 $ctx2.sendIdx["add:"]=1;
 $recv($7)._add_($recv($recv(statements)._last())._copy());
-$8=$recv($7)._yourself();
-$6=$8;
+$6=$recv($7)._yourself();
 return $recv($5)._replaceWith_($6);
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$9=inlinedClosure;
-return $9;
+return inlinedClosure;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,statements:statements},$globals.IRAssignmentInliner)});
 },
 args: ["anIRClosure"],
@@ -44998,10 +43472,10 @@ var self=this;
 var closure,statements;
 function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4,$5,$6,$7;
+var $1,$3,$2,$4,$6,$5;
 closure=(
-$ctx1.supercall = true, 
-$globals.IRReturnInliner.superclass.fn.prototype._inlineClosure_.apply($recv(self), [anIRClosure]));
+$ctx1.supercall = true,
+($globals.IRReturnInliner.superclass||$boot.dnu).fn.prototype._inlineClosure_.apply($recv(self), [anIRClosure]));
 $ctx1.supercall = false;
 $1=$recv($recv(closure)._instructions())._last();
 $ctx1.sendIdx["last"]=1;
@@ -45015,15 +43489,14 @@ $2=$recv($3)._isReturn();
 if(!$core.assert($2)){
 $4=$recv(statements)._last();
 $ctx2.sendIdx["last"]=3;
-$5=$recv($IRReturn())._new();
-$recv($5)._add_($recv($recv(statements)._last())._copy());
-$6=$recv($5)._yourself();
-return $recv($4)._replaceWith_($6);
+$6=$recv($IRReturn())._new();
+$recv($6)._add_($recv($recv(statements)._last())._copy());
+$5=$recv($6)._yourself();
+return $recv($4)._replaceWith_($5);
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$7=closure;
-return $7;
+return closure;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,closure:closure,statements:statements},$globals.IRReturnInliner)});
 },
 args: ["anIRClosure"],
@@ -45041,7 +43514,7 @@ fn: function (anIRReturn){
 var self=this;
 var return_;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 return_=self._inlinedReturn();
 $1=$recv(anIRReturn)._instructions();
 $ctx1.sendIdx["instructions"]=1;
@@ -45052,8 +43525,7 @@ return $recv(return_)._add_(each);
 }));
 $recv(anIRReturn)._replaceWith_(return_);
 self._inlineSend_($recv($recv(return_)._instructions())._last());
-$2=return_;
-return $2;
+return return_;
 }, function($ctx1) {$ctx1.fill(self,"inlineReturn:",{anIRReturn:anIRReturn,return_:return_},$globals.IRReturnInliner)});
 },
 args: ["anIRReturn"],
@@ -45071,9 +43543,7 @@ fn: function (){
 var self=this;
 function $IRInlinedReturn(){return $globals.IRInlinedReturn||(typeof IRInlinedReturn=="undefined"?nil:IRInlinedReturn)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($IRInlinedReturn())._new();
-return $1;
+return $recv($IRInlinedReturn())._new();
 }, function($ctx1) {$ctx1.fill(self,"inlinedReturn",{},$globals.IRReturnInliner)});
 },
 args: [],
@@ -45095,19 +43565,17 @@ fn: function (aNode){
 var self=this;
 var ir,stream;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
+var $1;
 $recv(self._semanticAnalyzer())._visit_(aNode);
 $ctx1.sendIdx["visit:"]=1;
 ir=$recv(self._translator())._visit_(aNode);
 $ctx1.sendIdx["visit:"]=2;
 $recv(self._inliner())._visit_(ir);
 $ctx1.sendIdx["visit:"]=3;
-$2=self._irTranslator();
-$recv($2)._currentClass_(self._currentClass());
-$recv($2)._visit_(ir);
-$3=$recv($2)._contents();
-$1=$3;
-return $1;
+$1=self._irTranslator();
+$recv($1)._currentClass_(self._currentClass());
+$recv($1)._visit_(ir);
+return $recv($1)._contents();
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},$globals.InliningCodeGenerator)});
 },
 args: ["aNode"],
@@ -45125,9 +43593,7 @@ fn: function (){
 var self=this;
 function $IRInliner(){return $globals.IRInliner||(typeof IRInliner=="undefined"?nil:IRInliner)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($IRInliner())._new();
-return $1;
+return $recv($IRInliner())._new();
 }, function($ctx1) {$ctx1.fill(self,"inliner",{},$globals.InliningCodeGenerator)});
 },
 args: [],
@@ -45145,9 +43611,7 @@ fn: function (){
 var self=this;
 function $IRInliningJSTranslator(){return $globals.IRInliningJSTranslator||(typeof IRInliningJSTranslator=="undefined"?nil:IRInliningJSTranslator)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($IRInliningJSTranslator())._new();
-return $1;
+return $recv($IRInliningJSTranslator())._new();
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},$globals.InliningCodeGenerator)});
 },
 args: [],
@@ -45268,9 +43732,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self["@node"])._temps())._size();
-return $1;
+return $recv($recv(self["@node"])._temps())._size();
 }, function($ctx1) {$ctx1.fill(self,"numArgs",{},$globals.AIBlockClosure)});
 },
 args: [],
@@ -45287,9 +43749,7 @@ protocol: 'evaluating',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._valueWithPossibleArguments_([]);
-return $1;
+return self._valueWithPossibleArguments_([]);
 }, function($ctx1) {$ctx1.fill(self,"value",{},$globals.AIBlockClosure)});
 },
 args: [],
@@ -45306,9 +43766,7 @@ protocol: 'evaluating',
 fn: function (anArgument){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._valueWithPossibleArguments_([anArgument]);
-return $1;
+return self._valueWithPossibleArguments_([anArgument]);
 }, function($ctx1) {$ctx1.fill(self,"value:",{anArgument:anArgument},$globals.AIBlockClosure)});
 },
 args: ["anArgument"],
@@ -45325,9 +43783,7 @@ protocol: 'evaluating',
 fn: function (firstArgument,secondArgument){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._valueWithPossibleArguments_([firstArgument,secondArgument]);
-return $1;
+return self._valueWithPossibleArguments_([firstArgument,secondArgument]);
 }, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},$globals.AIBlockClosure)});
 },
 args: ["firstArgument", "secondArgument"],
@@ -45344,9 +43800,7 @@ protocol: 'evaluating',
 fn: function (firstArgument,secondArgument,thirdArgument){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._valueWithPossibleArguments_([firstArgument,secondArgument,thirdArgument]);
-return $1;
+return self._valueWithPossibleArguments_([firstArgument,secondArgument,thirdArgument]);
 }, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},$globals.AIBlockClosure)});
 },
 args: ["firstArgument", "secondArgument", "thirdArgument"],
@@ -45364,12 +43818,11 @@ fn: function (aCollection){
 var self=this;
 var context,sequenceNode;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3;
 context=$recv(self["@outerContext"])._newInnerContext();
 $1=$recv($recv($recv(self["@node"])._nodes())._first())._copy();
 $recv($1)._parent_(nil);
-$2=$recv($1)._yourself();
-sequenceNode=$2;
+sequenceNode=$recv($1)._yourself();
 $recv($recv(sequenceNode)._temps())._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(context)._defineLocal_(each);
@@ -45385,21 +43838,21 @@ return nil;
 })));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,2)});
 }));
-$3=$recv(context)._interpreter();
+$2=$recv(context)._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
-$recv($3)._node_($recv(sequenceNode)._nextChild());
-$4=$recv($3)._proceed();
-$5=$recv(self["@outerContext"])._interpreter();
+$recv($2)._node_(sequenceNode);
+$recv($2)._enterNode();
+$recv($2)._proceed();
+$3=$recv(self["@outerContext"])._interpreter();
 $ctx1.sendIdx["interpreter"]=2;
-$recv($5)._setNonLocalReturnFromContext_(context);
-$6=$recv($recv(context)._interpreter())._pop();
-return $6;
+$recv($3)._setNonLocalReturnFromContext_(context);
+return $recv($recv(context)._interpreter())._pop();
 }, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context,sequenceNode:sequenceNode},$globals.AIBlockClosure)});
 },
 args: ["aCollection"],
-source: "valueWithPossibleArguments: aCollection\x0a\x09| context sequenceNode |\x0a\x09context := outerContext newInnerContext.\x0a\x0a\x09\x22Interpret a copy of the sequence node to avoid creating a new AIBlockClosure\x22\x0a\x09sequenceNode := node nodes first copy\x0a\x09\x09parent: nil;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals in the context\x22\x0a\x09sequenceNode temps do: [ :each |\x0a\x09\x09context defineLocal: each ].\x0a\x09\x09\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context defineLocal: each.\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: sequenceNode nextChild;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter\x0a\x09\x09setNonLocalReturnFromContext: context.\x0a\x09\x09\x0a\x09^ context interpreter pop",
+source: "valueWithPossibleArguments: aCollection\x0a\x09| context sequenceNode |\x0a\x09context := outerContext newInnerContext.\x0a\x0a\x09\x22Interpret a copy of the sequence node to avoid creating a new AIBlockClosure\x22\x0a\x09sequenceNode := node nodes first copy\x0a\x09\x09parent: nil;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals in the context\x22\x0a\x09sequenceNode temps do: [ :each |\x0a\x09\x09context defineLocal: each ].\x0a\x09\x09\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context defineLocal: each.\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: sequenceNode;\x0a\x09\x09enterNode;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter\x0a\x09\x09setNonLocalReturnFromContext: context.\x0a\x09\x09\x0a\x09^ context interpreter pop",
 referencedClasses: [],
-messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "proceed", "setNonLocalReturnFromContext:", "pop"]
+messageSends: ["newInnerContext", "parent:", "copy", "first", "nodes", "yourself", "do:", "temps", "defineLocal:", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "enterNode", "proceed", "setNonLocalReturnFromContext:", "pop"]
 }),
 $globals.AIBlockClosure);
 
@@ -45411,12 +43864,10 @@ protocol: 'instance creation',
 fn: function (aContext,aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._initializeWithContext_node_(aContext,aNode);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._initializeWithContext_node_(aContext,aNode);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"forContext:node:",{aContext:aContext,aNode:aNode},$globals.AIBlockClosure.klass)});
 },
 args: ["aContext", "aNode"],
@@ -45436,8 +43887,7 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._ast())._arguments())._collect_((function(each){
+return $recv($recv(self._ast())._arguments())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return self._localAt_ifAbsent_(each,(function(){
 return $core.withContext(function($ctx3) {
@@ -45446,7 +43896,6 @@ return self._error_("Argument not in context");
 }));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},$globals.AIContext)});
 },
 args: [],
@@ -45463,27 +43912,23 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4,$5,$receiver;
+var $1,$2,$3,$receiver;
 $1=self._isBlockContext();
 if($core.assert($1)){
-$3=self._outerContext();
+$2=self._outerContext();
+return $recv($2)._ifNotNil_((function(context){
+return $core.withContext(function($ctx2) {
+return $recv(context)._ast();
+}, function($ctx2) {$ctx2.fillBlock({context:context},$ctx1,2)});
+}));
+};
+$3=self["@ast"];
 if(($receiver = $3) == null || $receiver.isNil){
-$2=$3;
-} else {
-var context;
-context=$receiver;
-$2=$recv(context)._ast();
-};
-return $2;
-};
-$4=self["@ast"];
-if(($receiver = $4) == null || $receiver.isNil){
 self._initializeAST();
 } else {
-$4;
+$3;
 };
-$5=self["@ast"];
-return $5;
+return self["@ast"];
 }, function($ctx1) {$ctx1.fill(self,"ast",{},$globals.AIContext)});
 },
 args: [],
@@ -45500,9 +43945,7 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._locals())._at_(aString);
-return $1;
+return $recv(self._locals())._at_(aString);
 }, function($ctx1) {$ctx1.fill(self,"basicLocalAt:",{aString:aString},$globals.AIContext)});
 },
 args: ["aString"],
@@ -45537,9 +43980,7 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._localAt_("self");
-return $1;
+return self._localAt_("self");
 }, function($ctx1) {$ctx1.fill(self,"basicReceiver",{},$globals.AIContext)});
 },
 args: [],
@@ -45574,9 +44015,7 @@ protocol: 'evaluating',
 fn: function (aString,anEvaluator){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(anEvaluator)._evaluate_context_(aString,self);
-return $1;
+return $recv(anEvaluator)._evaluate_context_(aString,self);
 }, function($ctx1) {$ctx1.fill(self,"evaluate:on:",{aString:aString,anEvaluator:anEvaluator},$globals.AIContext)});
 },
 args: ["aString", "anEvaluator"],
@@ -45594,20 +44033,19 @@ fn: function (aNode){
 var self=this;
 function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($ASTInterpreter())._new();
-$recv($2)._context_(self);
-$recv($2)._node_($recv(aNode)._nextChild());
-$recv($2)._proceed();
-$3=$recv($2)._result();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($ASTInterpreter())._new();
+$recv($1)._context_(self);
+$recv($1)._node_(aNode);
+$recv($1)._enterNode();
+$recv($1)._proceed();
+return $recv($1)._result();
 }, function($ctx1) {$ctx1.fill(self,"evaluateNode:",{aNode:aNode},$globals.AIContext)});
 },
 args: ["aNode"],
-source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+source: "evaluateNode: aNode\x0a\x09^ ASTInterpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: aNode;\x0a\x09\x09enterNode;\x0a\x09\x09proceed;\x0a\x09\x09result",
 referencedClasses: ["ASTInterpreter"],
-messageSends: ["context:", "new", "node:", "nextChild", "proceed", "result"]
+messageSends: ["context:", "new", "node:", "enterNode", "proceed", "result"]
 }),
 $globals.AIContext);
 
@@ -45617,9 +44055,7 @@ selector: "evaluatedSelector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@evaluatedSelector"];
-return $1;
+return self["@evaluatedSelector"];
 
 },
 args: [],
@@ -45653,14 +44089,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@index"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=(0);
+var $1,$receiver;
+$1=self["@index"];
+if(($receiver = $1) == null || $receiver.isNil){
+return (0);
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"index",{},$globals.AIContext)});
 },
 args: [],
@@ -45717,29 +44152,29 @@ protocol: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$receiver;
+var $1,$2,$3,$receiver;
 self._evaluatedSelector_($recv(aMethodContext)._evaluatedSelector());
 self._index_($recv(aMethodContext)._index());
 self._sendIndexes_($recv(aMethodContext)._sendIndexes());
 self._receiver_($recv(aMethodContext)._receiver());
 self._supercall_($recv(aMethodContext)._supercall());
-$1=self._selector_($recv(aMethodContext)._selector());
-$2=$recv(aMethodContext)._outerContext();
+self._selector_($recv(aMethodContext)._selector());
+$1=$recv(aMethodContext)._outerContext();
 $ctx1.sendIdx["outerContext"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$2;
+if(($receiver = $1) == null || $receiver.isNil){
+$1;
 } else {
 var outer;
 outer=$receiver;
-$3=$recv(outer)._methodContext();
-if(($receiver = $3) == null || $receiver.isNil){
-$3;
+$2=$recv(outer)._methodContext();
+if(($receiver = $2) == null || $receiver.isNil){
+$2;
 } else {
 self._outerContext_($recv(self._class())._fromMethodContext_($recv(aMethodContext)._outerContext()));
 };
-$4=$recv(aMethodContext)._locals();
+$3=$recv(aMethodContext)._locals();
 $ctx1.sendIdx["locals"]=1;
-$recv($4)._keysAndValuesDo_((function(key,value){
+$recv($3)._keysAndValuesDo_((function(key,value){
 return $core.withContext(function($ctx2) {
 return $recv(self._locals())._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,3)});
@@ -45763,14 +44198,13 @@ fn: function (){
 var self=this;
 function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$receiver;
+var $1,$2,$receiver;
 $1=$recv($ASTInterpreter())._new();
 $recv($1)._context_(self);
-$2=$recv($1)._yourself();
-self["@interpreter"]=$2;
-$3=self._innerContext();
-if(($receiver = $3) == null || $receiver.isNil){
-$3;
+self["@interpreter"]=$recv($1)._yourself();
+$2=self._innerContext();
+if(($receiver = $2) == null || $receiver.isNil){
+$2;
 } else {
 self._setupInterpreter_(self["@interpreter"]);
 };
@@ -45810,9 +44244,7 @@ selector: "innerContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@innerContext"];
-return $1;
+return self["@innerContext"];
 
 },
 args: [],
@@ -45846,15 +44278,14 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self["@interpreter"];
 if(($receiver = $1) == null || $receiver.isNil){
 self._initializeInterpreter();
 } else {
 $1;
 };
-$2=self["@interpreter"];
-return $2;
+return self["@interpreter"];
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},$globals.AIContext)});
 },
 args: [],
@@ -45888,9 +44319,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._innerContext())._isNil();
-return $1;
+return $recv(self._innerContext())._isNil();
 }, function($ctx1) {$ctx1.fill(self,"isTopContext",{},$globals.AIContext)});
 },
 args: [],
@@ -45908,10 +44337,8 @@ fn: function (aString){
 var self=this;
 var context;
 return $core.withContext(function($ctx1) {
-var $1;
 context=self._lookupContextForLocal_(aString);
-$1=$recv(context)._basicLocalAt_(aString);
-return $1;
+return $recv(context)._basicLocalAt_(aString);
 }, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString,context:context},$globals.AIContext)});
 },
 args: ["aString"],
@@ -45929,17 +44356,14 @@ fn: function (aString,aBlock){
 var self=this;
 var context;
 return $core.withContext(function($ctx1) {
-var $1,$2;
 var $early={};
 try {
 context=self._lookupContextForLocal_ifNone_(aString,(function(){
 return $core.withContext(function($ctx2) {
-$1=$recv(aBlock)._value();
-throw $early=[$1];
+throw $early=[$recv(aBlock)._value()];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-$2=$recv(context)._basicLocalAt_(aString);
-return $2;
+return $recv(context)._basicLocalAt_(aString);
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock,context:context},$globals.AIContext)});
@@ -45978,15 +44402,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self["@locals"];
 if(($receiver = $1) == null || $receiver.isNil){
 self._initializeLocals();
 } else {
 $1;
 };
-$2=self["@locals"];
-return $2;
+return self["@locals"];
 }, function($ctx1) {$ctx1.fill(self,"locals",{},$globals.AIContext)});
 },
 args: [],
@@ -46003,13 +44426,11 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._lookupContextForLocal_ifNone_(aString,(function(){
+return self._lookupContextForLocal_ifNone_(aString,(function(){
 return $core.withContext(function($ctx2) {
 return self._variableNotFound();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:",{aString:aString},$globals.AIContext)});
 },
 args: ["aString"],
@@ -46026,21 +44447,20 @@ protocol: 'private',
 fn: function (aString,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$1=$recv(self._locals())._at_ifPresent_ifAbsent_(aString,(function(){
+var $1;
+return $recv(self._locals())._at_ifPresent_ifAbsent_(aString,(function(){
 return self;
 
 }),(function(){
 return $core.withContext(function($ctx2) {
-$2=self._outerContext();
-return $recv($2)._ifNil_ifNotNil_(aBlock,(function(context){
+$1=self._outerContext();
+return $recv($1)._ifNil_ifNotNil_(aBlock,(function(context){
 return $core.withContext(function($ctx3) {
 return $recv(context)._lookupContextForLocal_(aString);
 }, function($ctx3) {$ctx3.fillBlock({context:context},$ctx2,3)});
 }));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"lookupContextForLocal:ifNone:",{aString:aString,aBlock:aBlock},$globals.AIContext)});
 },
 args: ["aString", "aBlock"],
@@ -46057,12 +44477,10 @@ protocol: 'factory',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv(self._class())._new();
-$recv($2)._outerContext_(self);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv(self._class())._new();
+$recv($1)._outerContext_(self);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"newInnerContext",{},$globals.AIContext)});
 },
 args: [],
@@ -46078,9 +44496,7 @@ selector: "outerContext",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@outerContext"];
-return $1;
+return self["@outerContext"];
 
 },
 args: [],
@@ -46141,9 +44557,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -46177,12 +44591,10 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._sendIndexes())._at_ifAbsent_(aString,(function(){
+return $recv(self._sendIndexes())._at_ifAbsent_(aString,(function(){
 return (0);
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aString:aString},$globals.AIContext)});
 },
 args: ["aString"],
@@ -46200,14 +44612,13 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@sendIndexes"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv($Dictionary())._new();
+var $1,$receiver;
+$1=self["@sendIndexes"];
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv($Dictionary())._new();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},$globals.AIContext)});
 },
 args: [],
@@ -46243,19 +44654,17 @@ var self=this;
 var currentNode;
 function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$8,$7,$6,$receiver;
+var $1,$2,$3,$6,$5,$4,$receiver;
 $1=$recv($ASTPCNodeVisitor())._new();
 $recv($1)._selector_(self._evaluatedSelector());
 $recv($1)._context_(self);
-$2=$1;
-$3=self._ast();
+$2=self._ast();
 $ctx1.sendIdx["ast"]=1;
-$recv($2)._visit_($3);
-$4=$recv($1)._currentNode();
-currentNode=$4;
-$5=$recv(self._ast())._sequenceNode();
-if(($receiver = $5) == null || $receiver.isNil){
-$5;
+$recv($1)._visit_($2);
+currentNode=$recv($1)._currentNode();
+$3=$recv(self._ast())._sequenceNode();
+if(($receiver = $3) == null || $receiver.isNil){
+$3;
 } else {
 var sequence;
 sequence=$receiver;
@@ -46267,11 +44676,11 @@ return self._defineLocal_(each);
 $ctx1.sendIdx["do:"]=1;
 };
 $recv(anInterpreter)._node_(currentNode);
-$8=self._innerContext();
+$6=self._innerContext();
 $ctx1.sendIdx["innerContext"]=1;
-$7=$recv($8)._arguments();
-$6=$recv($7)._reversed();
-$recv($6)._do_((function(each){
+$5=$recv($6)._arguments();
+$4=$recv($5)._reversed();
+$recv($4)._do_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(anInterpreter)._push_(each);
 $ctx2.sendIdx["push:"]=1;
@@ -46295,14 +44704,13 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@supercall"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@supercall"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"supercall",{},$globals.AIContext)});
 },
 args: [],
@@ -46355,12 +44763,10 @@ protocol: 'instance creation',
 fn: function (aMethodContext){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._initializeFromMethodContext_(aMethodContext);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._initializeFromMethodContext_(aMethodContext);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"fromMethodContext:",{aMethodContext:aMethodContext},$globals.AIContext.klass)});
 },
 args: ["aMethodContext"],
@@ -46379,9 +44785,7 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@context"];
-return $1;
+return self["@context"];
 
 },
 args: [],
@@ -46422,8 +44826,8 @@ try {
 $recv(self._context())._localAt_ifAbsent_($recv(aNode)._value(),(function(){
 return $core.withContext(function($ctx2) {
 $1=(
-$ctx2.supercall = true, 
-$globals.AISemanticAnalyzer.superclass.fn.prototype._visitVariableNode_.apply($recv(self), [aNode]));
+$ctx2.supercall = true,
+($globals.AISemanticAnalyzer.superclass||$boot.dnu).fn.prototype._visitVariableNode_.apply($recv(self), [aNode]));
 $ctx2.supercall = false;
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
@@ -46451,9 +44855,7 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@context"];
-return $1;
+return self["@context"];
 
 },
 args: [],
@@ -46491,7 +44893,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self._context();
 $ctx1.sendIdx["context"]=1;
 if(($receiver = $1) == null || $receiver.isNil){
@@ -46499,12 +44901,11 @@ return true;
 } else {
 $1;
 };
-$2=$recv($recv(self._interpreter())._atEnd())._and_((function(){
+return $recv($recv(self._interpreter())._atEnd())._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._context())._isTopContext();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},$globals.ASTDebugger)});
 },
 args: [],
@@ -46520,9 +44921,7 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@context"];
-return $1;
+return self["@context"];
 
 },
 args: [],
@@ -46582,16 +44981,15 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._context();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
+var $1,$receiver;
+$1=self._context();
+if(($receiver = $1) == null || $receiver.isNil){
+return $1;
 } else {
 var ctx;
 ctx=$receiver;
-$1=$recv(ctx)._interpreter();
+return $recv(ctx)._interpreter();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},$globals.ASTDebugger)});
 },
 args: [],
@@ -46608,9 +45006,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._context())._method();
-return $1;
+return $recv(self._context())._method();
 }, function($ctx1) {$ctx1.fill(self,"method",{},$globals.ASTDebugger)});
 },
 args: [],
@@ -46627,15 +45023,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._interpreter();
+var $1,$receiver;
+$1=self._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
-} else {
-$1=$recv(self._interpreter())._node();
-};
+if(($receiver = $1) == null || $receiver.isNil){
 return $1;
+} else {
+return $recv(self._interpreter())._node();
+};
 }, function($ctx1) {$ctx1.fill(self,"node",{},$globals.ASTDebugger)});
 },
 args: [],
@@ -46738,9 +45133,7 @@ selector: "result",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@result"];
-return $1;
+return self["@result"];
 
 },
 args: [],
@@ -46803,12 +45196,10 @@ protocol: 'instance creation',
 fn: function (aContext){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._context_(aContext);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._context_(aContext);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},$globals.ASTDebugger.klass)});
 },
 args: ["aContext"],
@@ -46817,6 +45208,134 @@ referencedClasses: [],
 messageSends: ["context:", "new", "yourself"]
 }),
 $globals.ASTDebugger.klass);
+
+
+$core.addClass('ASTEnterNode', $globals.NodeVisitor, ['interpreter'], 'Compiler-Interpreter');
+$core.addMethod(
+$core.method({
+selector: "interpreter",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return self["@interpreter"];
+
+},
+args: [],
+source: "interpreter\x0a\x09^ interpreter",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "interpreter:",
+protocol: 'accessing',
+fn: function (anObject){
+var self=this;
+self["@interpreter"]=anObject;
+return self;
+
+},
+args: ["anObject"],
+source: "interpreter: anObject\x0a\x09interpreter := anObject",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "visitBlockNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return aNode;
+
+},
+args: ["aNode"],
+source: "visitBlockNode: aNode\x0a\x09\x22Answer the node as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ aNode",
+referencedClasses: [],
+messageSends: []
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "visitNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $early={};
+try {
+$recv($recv(aNode)._nodes())._ifEmpty_ifNotEmpty_((function(){
+throw $early=[aNode];
+
+}),(function(nodes){
+return $core.withContext(function($ctx2) {
+throw $early=[self._visit_($recv(nodes)._first())];
+}, function($ctx2) {$ctx2.fillBlock({nodes:nodes},$ctx1,2)});
+}));
+return self;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode},$globals.ASTEnterNode)});
+},
+args: ["aNode"],
+source: "visitNode: aNode\x0a\x09aNode nodes\x0a\x09\x09ifEmpty: [ ^ aNode ]\x0a\x09\x09ifNotEmpty: [ :nodes | ^ self visit: nodes first ]",
+referencedClasses: [],
+messageSends: ["ifEmpty:ifNotEmpty:", "nodes", "visit:", "first"]
+}),
+$globals.ASTEnterNode);
+
+$core.addMethod(
+$core.method({
+selector: "visitSequenceNode:",
+protocol: 'visiting',
+fn: function (aNode){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$recv($recv(aNode)._temps())._do_((function(each){
+return $core.withContext(function($ctx2) {
+return $recv($recv(self._interpreter())._context())._defineLocal_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+}));
+$1=(
+$ctx1.supercall = true,
+($globals.ASTEnterNode.superclass||$boot.dnu).fn.prototype._visitSequenceNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = false;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.ASTEnterNode)});
+},
+args: ["aNode"],
+source: "visitSequenceNode: aNode\x0a\x09aNode temps do: [ :each |\x0a\x09\x09self interpreter context defineLocal: each ].\x0a\x09^ super visitSequenceNode: aNode",
+referencedClasses: [],
+messageSends: ["do:", "temps", "defineLocal:", "context", "interpreter", "visitSequenceNode:"]
+}),
+$globals.ASTEnterNode);
+
+
+$core.addMethod(
+$core.method({
+selector: "on:",
+protocol: 'instance creation',
+fn: function (anInterpreter){
+var self=this;
+return $core.withContext(function($ctx1) {
+var $1;
+$1=self._new();
+$recv($1)._interpreter_(anInterpreter);
+return $recv($1)._yourself();
+}, function($ctx1) {$ctx1.fill(self,"on:",{anInterpreter:anInterpreter},$globals.ASTEnterNode.klass)});
+},
+args: ["anInterpreter"],
+source: "on: anInterpreter\x0a\x09^ self new\x0a\x09\x09interpreter: anInterpreter;\x0a\x09\x09yourself",
+referencedClasses: [],
+messageSends: ["interpreter:", "new", "yourself"]
+}),
+$globals.ASTEnterNode.klass);
 
 
 $core.addClass('ASTInterpreter', $globals.NodeVisitor, ['node', 'context', 'stack', 'returnValue', 'returned', 'forceAtEnd'], 'Compiler-Interpreter');
@@ -46857,17 +45376,16 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self["@forceAtEnd"];
 if($core.assert($1)){
 return true;
 };
-$2=$recv(self._hasReturned())._or_((function(){
+return $recv(self._hasReturned())._or_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._node())._isNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-return $2;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},$globals.ASTInterpreter)});
 },
 args: [],
@@ -46883,9 +45401,7 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@context"];
-return $1;
+return self["@context"];
 
 },
 args: [],
@@ -46914,6 +45430,25 @@ $globals.ASTInterpreter);
 
 $core.addMethod(
 $core.method({
+selector: "enterNode",
+protocol: 'interpreting',
+fn: function (){
+var self=this;
+function $ASTEnterNode(){return $globals.ASTEnterNode||(typeof ASTEnterNode=="undefined"?nil:ASTEnterNode)}
+return $core.withContext(function($ctx1) {
+self._node_($recv($recv($ASTEnterNode())._on_(self))._visit_(self._node()));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"enterNode",{},$globals.ASTInterpreter)});
+},
+args: [],
+source: "enterNode\x0a\x09self node: ((ASTEnterNode on: self) visit: self node)",
+referencedClasses: ["ASTEnterNode"],
+messageSends: ["node:", "visit:", "on:", "node"]
+}),
+$globals.ASTInterpreter);
+
+$core.addMethod(
+$core.method({
 selector: "eval:",
 protocol: 'private',
 fn: function (aString){
@@ -46922,7 +45457,7 @@ var source,function_;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1,$4,$5;
+var $3,$2,$1;
 source=$recv($String())._streamContents_((function(str){
 return $core.withContext(function($ctx2) {
 $recv(str)._nextPutAll_("0,(function(");
@@ -46947,13 +45482,11 @@ $recv(str)._nextPutAll_("){ return (function() {");
 $ctx2.sendIdx["nextPutAll:"]=4;
 $recv(str)._nextPutAll_(aString);
 $ctx2.sendIdx["nextPutAll:"]=5;
-$4=$recv(str)._nextPutAll_("})()})");
-return $4;
+return $recv(str)._nextPutAll_("})()})");
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
 }));
 function_=$recv($recv($Compiler())._new())._eval_(source);
-$5=$recv(function_)._valueWithPossibleArguments_($recv($recv(self._context())._locals())._values());
-return $5;
+return $recv(function_)._valueWithPossibleArguments_($recv($recv(self._context())._locals())._values());
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_},$globals.ASTInterpreter)});
 },
 args: ["aString"],
@@ -46970,14 +45503,13 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@returned"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=false;
+var $1,$receiver;
+$1=self["@returned"];
+if(($receiver = $1) == null || $receiver.isNil){
+return false;
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"hasReturned",{},$globals.ASTInterpreter)});
 },
 args: [],
@@ -46995,8 +45527,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.ASTInterpreter.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@forceAtEnd"]=false;
 return self;
@@ -47029,38 +45561,17 @@ $globals.ASTInterpreter);
 
 $core.addMethod(
 $core.method({
-selector: "interpret:",
-protocol: 'interpreting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-self._node_(aNode);
-self._interpret();
-return self;
-}, function($ctx1) {$ctx1.fill(self,"interpret:",{aNode:aNode},$globals.ASTInterpreter)});
-},
-args: ["aNode"],
-source: "interpret: aNode\x0a\x09self node: aNode.\x0a\x09self interpret",
-referencedClasses: [],
-messageSends: ["node:", "interpret"]
-}),
-$globals.ASTInterpreter);
-
-$core.addMethod(
-$core.method({
 selector: "messageFromSendNode:arguments:",
 protocol: 'private',
 fn: function (aSendNode,aCollection){
 var self=this;
 function $Message(){return $globals.Message||(typeof Message=="undefined"?nil:Message)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Message())._new();
-$recv($2)._selector_($recv(aSendNode)._selector());
-$recv($2)._arguments_(aCollection);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Message())._new();
+$recv($1)._selector_($recv(aSendNode)._selector());
+$recv($1)._arguments_(aCollection);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:arguments:",{aSendNode:aSendNode,aCollection:aCollection},$globals.ASTInterpreter)});
 },
 args: ["aSendNode", "aCollection"],
@@ -47078,18 +45589,18 @@ fn: function (aMessage,anObject){
 var self=this;
 function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($MessageNotUnderstood())._new();
-$recv($1)._meesage_(aMessage);
+$recv($1)._message_(aMessage);
 $recv($1)._receiver_(anObject);
-$2=$recv($1)._signal();
+$recv($1)._signal();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"messageNotUnderstood:receiver:",{aMessage:aMessage,anObject:anObject},$globals.ASTInterpreter)});
 },
 args: ["aMessage", "anObject"],
-source: "messageNotUnderstood: aMessage receiver: anObject\x0a\x09MessageNotUnderstood new\x0a\x09\x09meesage: aMessage;\x0a\x09\x09receiver: anObject;\x0a\x09\x09signal",
+source: "messageNotUnderstood: aMessage receiver: anObject\x0a\x09MessageNotUnderstood new\x0a\x09\x09message: aMessage;\x0a\x09\x09receiver: anObject;\x0a\x09\x09signal",
 referencedClasses: ["MessageNotUnderstood"],
-messageSends: ["meesage:", "new", "receiver:", "signal"]
+messageSends: ["message:", "new", "receiver:", "signal"]
 }),
 $globals.ASTInterpreter);
 
@@ -47099,15 +45610,34 @@ selector: "next",
 protocol: 'interpreting',
 fn: function (){
 var self=this;
+var nd,nextNode;
+function $ASTEnterNode(){return $globals.ASTEnterNode||(typeof ASTEnterNode=="undefined"?nil:ASTEnterNode)}
 return $core.withContext(function($ctx1) {
-self._node_($recv(self._node())._nextNode());
+var $1,$2,$receiver;
+nd=self._node();
+$1=$recv(nd)._parent();
+if(($receiver = $1) == null || $receiver.isNil){
+nextNode=$1;
+} else {
+var parent;
+parent=$receiver;
+$2=$recv(parent)._nextSiblingNode_(nd);
+if(($receiver = $2) == null || $receiver.isNil){
+nextNode=parent;
+} else {
+var sibling;
+sibling=$receiver;
+nextNode=$recv($recv($ASTEnterNode())._on_(self))._visit_(sibling);
+};
+};
+self._node_(nextNode);
 return self;
-}, function($ctx1) {$ctx1.fill(self,"next",{},$globals.ASTInterpreter)});
+}, function($ctx1) {$ctx1.fill(self,"next",{nd:nd,nextNode:nextNode},$globals.ASTInterpreter)});
 },
 args: [],
-source: "next\x0a\x09self node: self node nextNode",
-referencedClasses: [],
-messageSends: ["node:", "nextNode", "node"]
+source: "next\x0a\x09| nd nextNode |\x0a\x09nd := self node.\x0a\x09nextNode := nd parent ifNotNil: [ :parent |\x0a\x09\x09(parent nextSiblingNode: nd)\x0a\x09\x09\x09ifNil: [ parent ]\x0a\x09\x09\x09ifNotNil: [ :sibling | (ASTEnterNode on: self) visit: sibling ] ].\x0a\x09self node: nextNode",
+referencedClasses: ["ASTEnterNode"],
+messageSends: ["node", "ifNotNil:", "parent", "ifNil:ifNotNil:", "nextSiblingNode:", "visit:", "on:", "node:"]
 }),
 $globals.ASTInterpreter);
 
@@ -47117,9 +45647,7 @@ selector: "node",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@node"];
-return $1;
+return self["@node"];
 
 },
 args: [],
@@ -47153,7 +45681,7 @@ protocol: 'stack',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 var $early={};
 try {
 $1=self._stack();
@@ -47162,8 +45690,7 @@ $recv($1)._ifEmpty_((function(){
 throw $early=[nil];
 
 }));
-$2=$recv(self._stack())._last();
-return $2;
+return $recv(self._stack())._last();
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"peek",{},$globals.ASTInterpreter)});
@@ -47183,11 +45710,9 @@ fn: function (){
 var self=this;
 var peekedValue;
 return $core.withContext(function($ctx1) {
-var $1;
 peekedValue=self._peek();
 $recv(self._stack())._removeLast();
-$1=peekedValue;
-return $1;
+return peekedValue;
 }, function($ctx1) {$ctx1.fill(self,"pop",{peekedValue:peekedValue},$globals.ASTInterpreter)});
 },
 args: [],
@@ -47230,9 +45755,7 @@ protocol: 'stack',
 fn: function (anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._stack())._add_(anObject);
-return $1;
+return $recv(self._stack())._add_(anObject);
 }, function($ctx1) {$ctx1.fill(self,"push:",{anObject:anObject},$globals.ASTInterpreter)});
 },
 args: ["anObject"],
@@ -47249,14 +45772,15 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-self._node_($recv($recv(self._context())._ast())._nextChild());
+self._node_($recv(self._context())._ast());
+self._enterNode();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"restart",{},$globals.ASTInterpreter)});
 },
 args: [],
-source: "restart\x0a\x09self node: self context ast nextChild",
+source: "restart\x0a\x09self node: self context ast; enterNode",
 referencedClasses: [],
-messageSends: ["node:", "nextChild", "ast", "context"]
+messageSends: ["node:", "ast", "context", "enterNode"]
 }),
 $globals.ASTInterpreter);
 
@@ -47267,14 +45791,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=self._hasReturned();
-if($core.assert($2)){
-$1=self._returnValue();
+var $1;
+$1=self._hasReturned();
+if($core.assert($1)){
+return self._returnValue();
 } else {
-$1=$recv(self._context())._receiver();
+return $recv(self._context())._receiver();
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"result",{},$globals.ASTInterpreter)});
 },
 args: [],
@@ -47290,9 +45813,7 @@ selector: "returnValue",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@returnValue"];
-return $1;
+return self["@returnValue"];
 
 },
 args: [],
@@ -47327,32 +45848,29 @@ fn: function (aMessage,anObject,aBoolean){
 var self=this;
 var method;
 return $core.withContext(function($ctx1) {
-var $1,$3,$2,$4,$5,$6,$receiver;
+var $2,$1,$3,$receiver;
 var $early={};
 try {
 if(!$core.assert(aBoolean)){
-$1=$recv(aMessage)._sendTo_(anObject);
-return $1;
+return $recv(aMessage)._sendTo_(anObject);
 };
-$3=$recv(anObject)._class();
+$2=$recv(anObject)._class();
 $ctx1.sendIdx["class"]=1;
-$2=$recv($3)._superclass();
+$1=$recv($2)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$4=self._messageNotUnderstood_receiver_(aMessage,anObject);
+if(($receiver = $1) == null || $receiver.isNil){
+$3=self._messageNotUnderstood_receiver_(aMessage,anObject);
 $ctx1.sendIdx["messageNotUnderstood:receiver:"]=1;
-return $4;
+return $3;
 } else {
-$2;
+$1;
 };
 method=$recv($recv($recv($recv(anObject)._class())._superclass())._methodDictionary())._at_ifAbsent_($recv(aMessage)._selector(),(function(){
 return $core.withContext(function($ctx2) {
-$5=self._messageNotUnderstood_receiver_(aMessage,anObject);
-throw $early=[$5];
+throw $early=[self._messageNotUnderstood_receiver_(aMessage,anObject)];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 }));
-$6=$recv(method)._sendTo_arguments_(anObject,$recv(aMessage)._arguments());
-return $6;
+return $recv(method)._sendTo_arguments_(anObject,$recv(aMessage)._arguments());
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},$globals.ASTInterpreter)});
@@ -47416,15 +45934,14 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@stack"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@stack"]=$recv($OrderedCollection())._new();
+var $1,$receiver;
 $1=self["@stack"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@stack"]=$recv($OrderedCollection())._new();
+return self["@stack"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"stack",{},$globals.ASTInterpreter)});
 },
 args: [],
@@ -47441,9 +45958,8 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 self._interpret();
-$1=self._next();
+self._next();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"step",{},$globals.ASTInterpreter)});
 },
@@ -47501,8 +46017,8 @@ var $1;
 $1=self._hasReturned();
 if(!$core.assert($1)){
 (
-$ctx1.supercall = true, 
-$globals.ASTInterpreter.superclass.fn.prototype._visit_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._visit_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 };
 return self;
@@ -47567,8 +46083,8 @@ fn: function (aNode){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.ASTInterpreter.superclass.fn.prototype._visitBlockSequenceNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.ASTInterpreter.superclass||$boot.dnu).fn.prototype._visitBlockSequenceNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 self["@forceAtEnd"]=true;
 return self;
@@ -47702,7 +46218,7 @@ return self._pop();
 $ctx2.sendIdx["pop"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-receiver=self._pop();
+receiver=self._peek();
 message=self._messageFromSendNode_arguments_(aNode,$recv(args)._reversed());
 result=self._sendMessage_to_superSend_(message,receiver,$recv(aNode)._superSend());
 $1=$recv($recv(aNode)._isCascadeSendNode())._and_((function(){
@@ -47710,41 +46226,17 @@ return $core.withContext(function($ctx2) {
 return $recv($recv(aNode)._isLastChild())._not();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-if($core.assert($1)){
-self._push_(receiver);
-$ctx1.sendIdx["push:"]=1;
-} else {
+if(!$core.assert($1)){
+self._pop();
 self._push_(result);
 };
 return self;
 }, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,receiver:receiver,args:args,message:message,result:result},$globals.ASTInterpreter)});
 },
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self pop.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifTrue: [ self push: receiver ]\x0a\x09\x09ifFalse: [ self push: result ]",
+source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self peek.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifFalse: [ self pop; push: result ]",
 referencedClasses: [],
-messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
-}),
-$globals.ASTInterpreter);
-
-$core.addMethod(
-$core.method({
-selector: "visitSequenceNode:",
-protocol: 'visiting',
-fn: function (aNode){
-var self=this;
-return $core.withContext(function($ctx1) {
-$recv($recv(aNode)._temps())._do_((function(each){
-return $core.withContext(function($ctx2) {
-return $recv(self._context())._defineLocal_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
-}));
-return self;
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},$globals.ASTInterpreter)});
-},
-args: ["aNode"],
-source: "visitSequenceNode: aNode\x0a\x09aNode temps do: [ :each |\x0a\x09\x09self context defineLocal: each ]",
-referencedClasses: [],
-messageSends: ["do:", "temps", "defineLocal:", "context"]
+messageSends: ["collect:", "arguments", "pop", "peek", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"]
 }),
 $globals.ASTInterpreter);
 
@@ -47850,9 +46342,7 @@ selector: "context",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@context"];
-return $1;
+return self["@context"];
 
 },
 args: [],
@@ -47885,9 +46375,7 @@ selector: "currentNode",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@currentNode"];
-return $1;
+return self["@currentNode"];
 
 },
 args: [],
@@ -47922,15 +46410,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@index"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@index"]=(0);
+var $1,$receiver;
 $1=self["@index"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@index"]=(0);
+return self["@index"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"index",{},$globals.ASTPCNodeVisitor)});
 },
 args: [],
@@ -47946,9 +46433,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@selector"];
-return $1;
+return self["@selector"];
 
 },
 args: [],
@@ -48006,8 +46491,8 @@ $2=self._selector();
 $ctx1.sendIdx["selector"]=1;
 sendIndex=$recv($1)._sendIndexAt_($2);
 (
-$ctx1.supercall = true, 
-$globals.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
+$ctx1.supercall = true,
+($globals.ASTPCNodeVisitor.superclass||$boot.dnu).fn.prototype._visitSendNode_.apply($recv(self), [aNode]));
 $ctx1.supercall = false;
 $4=self._selector();
 $ctx1.sendIdx["selector"]=2;
@@ -48066,31 +46551,15 @@ $globals.BlockNode);
 
 $core.addMethod(
 $core.method({
-selector: "nextChild",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
-return self;
-
-},
-args: [],
-source: "nextChild\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
-referencedClasses: [],
-messageSends: []
-}),
-$globals.BlockNode);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
+selector: "nextSiblingNode:",
 protocol: '*Compiler-Interpreter',
 fn: function (aNode){
 var self=this;
-return self;
+return nil;
 
 },
 args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
+source: "nextSiblingNode: aNode\x0a\x09\x22Answer nil as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09\x22In fact, this should not have been called, ever. IMO. -- herby\x22\x0a\x09\x0a\x09^ nil",
 referencedClasses: [],
 messageSends: []
 }),
@@ -48162,83 +46631,28 @@ $globals.Node);
 
 $core.addMethod(
 $core.method({
-selector: "nextChild",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=self._nodes();
-$ctx1.sendIdx["nodes"]=1;
-$2=$recv($3)._isEmpty();
-if($core.assert($2)){
-$1=self;
-} else {
-$1=$recv($recv(self._nodes())._first())._nextChild();
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextChild",{},$globals.Node)});
-},
-args: [],
-source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
-referencedClasses: [],
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode",
-protocol: '*Compiler-Interpreter',
-fn: function (){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self._parent();
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$2;
-} else {
-var node;
-node=$receiver;
-$1=$recv(node)._nextNode_(self);
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextNode",{},$globals.Node)});
-},
-args: [],
-source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
-referencedClasses: [],
-messageSends: ["ifNotNil:", "parent", "nextNode:"]
-}),
-$globals.Node);
-
-$core.addMethod(
-$core.method({
-selector: "nextNode:",
+selector: "nextSiblingNode:",
 protocol: '*Compiler-Interpreter',
 fn: function (aNode){
 var self=this;
-var next;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 var $early={};
 try {
 $1=self._nodes();
 $ctx1.sendIdx["nodes"]=1;
-next=$recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
-throw $early=[self];
+return $recv($1)._at_ifAbsent_($recv($recv(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+throw $early=[nil];
 
 }));
-$2=$recv(next)._nextChild();
-return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},$globals.Node)});
+}, function($ctx1) {$ctx1.fill(self,"nextSiblingNode:",{aNode:aNode},$globals.Node)});
 },
 args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
+source: "nextSiblingNode: aNode\x0a\x09\x22Answer the next node after aNode or nil\x22\x0a\x09\x0a\x09^ self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ nil ]",
 referencedClasses: [],
-messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:"]
 }),
 $globals.Node);
 
@@ -48261,18 +46675,18 @@ $globals.SendNode);
 });
 
 define('amber/lang',[
-	'./helpers', // pre-fetch, dep of ./deploy
-	'./deploy',
-	'./parser',
-	// --- packages for the Amber reflection begin here ---
-	'amber_core/Platform-ImportExport',
-	'amber_core/Compiler-Core',
-	'amber_core/Compiler-AST',
-	'amber_core/Compiler-Semantic',
-	'amber_core/Compiler-IR',
-	'amber_core/Compiler-Inlining',
-	'amber_core/Compiler-Interpreter'
-	// --- packages for the Amber reflection end here ---
+    './helpers', // pre-fetch, dep of ./deploy
+    './deploy',
+    './parser',
+    // --- packages for the Amber reflection begin here ---
+    'amber_core/Platform-ImportExport',
+    'amber_core/Compiler-Core',
+    'amber_core/Compiler-AST',
+    'amber_core/Compiler-Semantic',
+    'amber_core/Compiler-IR',
+    'amber_core/Compiler-Inlining',
+    'amber_core/Compiler-Interpreter'
+    // --- packages for the Amber reflection end here ---
 ], function (amber) { return amber; });
 
 define("amber_core/SUnit", ["amber/boot", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Classes"], function($boot){"use strict";
@@ -48289,9 +46703,7 @@ selector: "result",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@result"];
-return $1;
+return self["@result"];
 
 },
 args: [],
@@ -48367,17 +46779,16 @@ protocol: 'testing',
 fn: function (actual,expected){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$6,$5,$4,$3,$1;
-$2=$recv(actual).__eq(expected);
-$6=$recv(expected)._printString();
+var $1,$5,$4,$3,$2;
+$1=$recv(actual).__eq(expected);
+$5=$recv(expected)._printString();
 $ctx1.sendIdx["printString"]=1;
-$5="Expected: ".__comma($6);
-$4=$recv($5).__comma(" but was: ");
+$4="Expected: ".__comma($5);
+$3=$recv($4).__comma(" but was: ");
 $ctx1.sendIdx[","]=2;
-$3=$recv($4).__comma($recv(actual)._printString());
+$2=$recv($3).__comma($recv(actual)._printString());
 $ctx1.sendIdx[","]=1;
-$1=self._assert_description_($2,$3);
-return $1;
+return self._assert_description_($1,$2);
 }, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected},$globals.TestCase)});
 },
 args: ["actual", "expected"],
@@ -48395,18 +46806,17 @@ fn: function (aBlock){
 var self=this;
 var c;
 return $core.withContext(function($ctx1) {
-var $2,$1;
+var $1;
 self._errorIfNotAsync_("#async");
 c=self["@context"];
-$1=(function(){
+return (function(){
 return $core.withContext(function($ctx2) {
-$2=self._isAsync();
-if($core.assert($2)){
+$1=self._isAsync();
+if($core.assert($1)){
 return $recv(c)._execute_(aBlock);
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 });
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"async:",{aBlock:aBlock,c:c},$globals.TestCase)});
 },
 args: ["aBlock"],
@@ -48499,9 +46909,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@asyncTimeout"])._notNil();
-return $1;
+return $recv(self["@asyncTimeout"])._notNil();
 }, function($ctx1) {$ctx1.fill(self,"isAsync",{},$globals.TestCase)});
 },
 args: [],
@@ -48555,9 +46963,7 @@ selector: "selector",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@testSelector"];
-return $1;
+return self["@testSelector"];
 
 },
 args: [],
@@ -48678,10 +47084,10 @@ fn: function (aString){
 var self=this;
 function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($TestFailure())._new();
 $recv($1)._messageText_(aString);
-$2=$recv($1)._signal();
+$recv($1)._signal();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"signalFailure:",{aString:aString},$globals.TestCase)});
 },
@@ -48747,14 +47153,13 @@ fn: function (){
 var self=this;
 var selectors;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 selectors=self._testSelectors();
 $1=self._shouldInheritSelectors();
 if($core.assert($1)){
 $recv(selectors)._addAll_($recv(self._superclass())._allTestSelectors());
 };
-$2=selectors;
-return $2;
+return selectors;
 }, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},$globals.TestCase.klass)});
 },
 args: [],
@@ -48771,13 +47176,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._allTestSelectors())._collect_((function(each){
+return $recv(self._allTestSelectors())._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return self._selector_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"buildSuite",{},$globals.TestCase.klass)});
 },
 args: [],
@@ -48810,9 +47213,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._name()).__eq("TestCase");
-return $1;
+return $recv(self._name()).__eq("TestCase");
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.TestCase.klass)});
 },
 args: [],
@@ -48846,12 +47247,10 @@ protocol: 'accessing',
 fn: function (aSelector){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._setTestSelector_(aSelector);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._setTestSelector_(aSelector);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"selector:",{aSelector:aSelector},$globals.TestCase.klass)});
 },
 args: ["aSelector"],
@@ -48868,9 +47267,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self.__tild_eq(self._lookupHierarchyRoot());
-return $1;
+return self.__tild_eq(self._lookupHierarchyRoot());
 }, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},$globals.TestCase.klass)});
 },
 args: [],
@@ -48887,13 +47284,11 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._methodDictionary())._keys())._select_((function(each){
+return $recv($recv(self._methodDictionary())._keys())._select_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._match_("^test");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"testSelectors",{},$globals.TestCase.klass)});
 },
 args: [],
@@ -49001,12 +47396,10 @@ protocol: 'instance creation',
 fn: function (aTestCase){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._new();
-$recv($2)._testCase_(aTestCase);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._new();
+$recv($1)._testCase_(aTestCase);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"testCase:",{aTestCase:aTestCase},$globals.TestContext.klass)});
 },
 args: ["aTestCase"],
@@ -49032,8 +47425,8 @@ return $core.withContext(function($ctx2) {
 return self._withErrorReporting_((function(){
 return $core.withContext(function($ctx3) {
 return (
-$ctx3.supercall = true, 
-$globals.ReportingTestContext.superclass.fn.prototype._execute_.apply($recv(self), [aBlock]));
+$ctx3.supercall = true,
+($globals.ReportingTestContext.superclass||$boot.dnu).fn.prototype._execute_.apply($recv(self), [aBlock]));
 $ctx3.supercall = false;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 }));
@@ -49132,16 +47525,14 @@ protocol: 'instance creation',
 fn: function (aTestCase,aTestResult,aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=(
-$ctx1.supercall = true, 
-$globals.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply($recv(self), [aTestCase]));
+var $1;
+$1=(
+$ctx1.supercall = true,
+($globals.ReportingTestContext.klass.superclass||$boot.dnu).fn.prototype._testCase_.apply($recv(self), [aTestCase]));
 $ctx1.supercall = false;
-$recv($2)._result_(aTestResult);
-$recv($2)._finished_(aBlock);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._result_(aTestResult);
+$recv($1)._finished_(aBlock);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"testCase:result:finished:",{aTestCase:aTestCase,aTestResult:aTestResult,aBlock:aBlock},$globals.ReportingTestContext.klass)});
 },
 args: ["aTestCase", "aTestResult", "aBlock"],
@@ -49200,9 +47591,7 @@ selector: "errors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@errors"];
-return $1;
+return self["@errors"];
 
 },
 args: [],
@@ -49218,9 +47607,7 @@ selector: "failures",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@failures"];
-return $1;
+return self["@failures"];
 
 },
 args: [],
@@ -49258,8 +47645,8 @@ function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.TestResult.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.TestResult.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@timestamp"]=$recv($Date())._now();
 self["@runs"]=(0);
@@ -49284,14 +47671,13 @@ protocol: 'running',
 fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
-$3=self._runs();
+var $2,$1;
+$2=self._runs();
 $ctx1.sendIdx["runs"]=1;
-$2=$recv($3).__eq_eq(self._total());
-if(!$core.assert($2)){
-$1=$recv(aBlock)._value_($recv(self._runs()).__plus((1)));
+$1=$recv($2).__eq_eq(self._total());
+if(!$core.assert($1)){
+return $recv(aBlock)._value_($recv(self._runs()).__plus((1)));
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},$globals.TestResult)});
 },
 args: ["aBlock"],
@@ -49345,9 +47731,7 @@ selector: "runs",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@runs"];
-return $1;
+return self["@runs"];
 
 },
 args: [],
@@ -49393,9 +47777,7 @@ selector: "timestamp",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@timestamp"];
-return $1;
+return self["@timestamp"];
 
 },
 args: [],
@@ -49411,9 +47793,7 @@ selector: "total",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@total"];
-return $1;
+return self["@total"];
 
 },
 args: [],
@@ -49450,9 +47830,7 @@ selector: "announcer",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@announcer"];
-return $1;
+return self["@announcer"];
 
 },
 args: [],
@@ -49470,13 +47848,11 @@ fn: function (anInteger){
 var self=this;
 function $ReportingTestContext(){return $globals.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($ReportingTestContext())._testCase_result_finished_($recv(self["@suite"])._at_(anInteger),self["@result"],(function(){
+return $recv($ReportingTestContext())._testCase_result_finished_($recv(self["@suite"])._at_(anInteger),self["@result"],(function(){
 return $core.withContext(function($ctx2) {
 return self._resume();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"contextOf:",{anInteger:anInteger},$globals.TestSuiteRunner)});
 },
 args: ["anInteger"],
@@ -49497,8 +47873,8 @@ function $TestResult(){return $globals.TestResult||(typeof TestResult=="undefine
 return $core.withContext(function($ctx1) {
 var $1;
 (
-$ctx1.supercall = true, 
-$globals.TestSuiteRunner.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.TestSuiteRunner.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@announcer"]=$recv($Announcer())._new();
 $ctx1.sendIdx["new"]=1;
@@ -49530,9 +47906,7 @@ selector: "result",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@result"];
-return $1;
+return self["@result"];
 
 },
 args: [],
@@ -49624,13 +47998,12 @@ protocol: 'instance creation',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=(
-$ctx1.supercall = true, 
-$globals.TestSuiteRunner.klass.superclass.fn.prototype._new.apply($recv(self), []));
+var $1;
+$1=(
+$ctx1.supercall = true,
+($globals.TestSuiteRunner.klass.superclass||$boot.dnu).fn.prototype._new.apply($recv(self), []));
 $ctx1.supercall = false;
-$1=$recv($2)._suite_(aCollection);
-return $1;
+return $recv($1)._suite_(aCollection);
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},$globals.TestSuiteRunner.klass)});
 },
 args: ["aCollection"],
@@ -49648,13 +48021,11 @@ fn: function (){
 var self=this;
 function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._includesBehavior_($TestCase()))._and_((function(){
+return $recv(self._includesBehavior_($TestCase()))._and_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(self._isAbstract())._not();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"isTestClass",{},$globals.Behavior)});
 },
 args: [],
@@ -49671,13 +48042,11 @@ protocol: '*SUnit',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._classes())._anySatisfy_((function(each){
+return $recv(self._classes())._anySatisfy_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._isTestClass();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"isTestPackage",{},$globals.Package)});
 },
 args: [],
@@ -49723,9 +48092,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._parse_(aString);
-return $1;
+return $recv($Smalltalk())._parse_(aString);
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},$globals.ASTParsingTest)});
 },
 args: ["aString"],
@@ -49742,9 +48109,7 @@ protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._analyze_forClass_(self._parse_(aString),aClass);
-return $1;
+return self._analyze_forClass_(self._parse_(aString),aClass);
 }, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},$globals.ASTParsingTest)});
 },
 args: ["aString", "aClass"],
@@ -49766,16 +48131,13 @@ var self=this;
 function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$5,$1;
-$2=$recv($ASTPCNodeVisitor())._new();
+var $1,$2;
+$1=$recv($ASTPCNodeVisitor())._new();
 $ctx1.sendIdx["new"]=1;
-$3=$2;
-$4=$recv($recv($AIContext())._new())._yourself();
+$2=$recv($recv($AIContext())._new())._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$recv($3)._context_($4);
-$5=$recv($2)._yourself();
-$1=$5;
-return $1;
+$recv($1)._context_($2);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},$globals.ASTPCNodeVisitorTest)});
 },
 args: [],
@@ -49794,17 +48156,14 @@ var self=this;
 function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$5,$1;
-$2=$recv($ASTPCNodeVisitor())._new();
+var $1,$2;
+$1=$recv($ASTPCNodeVisitor())._new();
 $ctx1.sendIdx["new"]=1;
-$recv($2)._selector_(aString);
-$3=$2;
-$4=$recv($recv($AIContext())._new())._yourself();
+$recv($1)._selector_(aString);
+$2=$recv($recv($AIContext())._new())._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$recv($3)._context_($4);
-$5=$recv($2)._yourself();
-$1=$5;
-return $1;
+$recv($1)._context_($2);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForSelector:",{aString:aString},$globals.ASTPCNodeVisitorTest)});
 },
 args: ["aString"],
@@ -49823,12 +48182,13 @@ var self=this;
 var ast,visitor;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo <consolee.log(1)>",$Object());
-$1=self._astPCNodeVisitor();
-$recv($1)._visit_(ast);
-$2=$recv($1)._currentNode();
-self._assert_($recv($2)._isJSStatementNode());
+$3=self._astPCNodeVisitor();
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._isJSStatementNode();
+self._assert_($1);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testJSStatementNode",{ast:ast,visitor:visitor},$globals.ASTPCNodeVisitorTest)});
 },
@@ -49848,12 +48208,13 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo self asString yourself. ^ self asBoolean",$Object());
-$1=self._astPCNodeVisitorForSelector_("yourself");
-$recv($1)._visit_(ast);
-$2=$recv($1)._currentNode();
-self._assert_equals_($recv($2)._selector(),"yourself");
+$3=self._astPCNodeVisitorForSelector_("yourself");
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._selector();
+self._assert_equals_($1,"yourself");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 },
@@ -49873,12 +48234,13 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean",$Object());
-$1=self._astPCNodeVisitorForSelector_("yourself");
-$recv($1)._visit_(ast);
-$2=$recv($1)._currentNode();
-self._assert_equals_($recv($2)._selector(),"yourself");
+$3=self._astPCNodeVisitorForSelector_("yourself");
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._selector();
+self._assert_equals_($1,"yourself");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSendWithBlocks",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 },
@@ -49898,7 +48260,7 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $3,$4,$2,$1,$5,$6;
+var $3,$4,$2,$1,$7,$6,$5;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
 $ctx1.sendIdx["parse:forClass:"]=1;
 $3=self._astPCNodeVisitorForSelector_("yourself");
@@ -49913,10 +48275,11 @@ $ctx1.sendIdx["selector"]=1;
 self._assert_equals_($1,"yourself");
 $ctx1.sendIdx["assert:equals:"]=1;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
-$5=self._astPCNodeVisitorForSelector_("asBoolean");
-$recv($5)._visit_(ast);
-$6=$recv($5)._currentNode();
-self._assert_equals_($recv($6)._selector(),"asBoolean");
+$7=self._astPCNodeVisitorForSelector_("asBoolean");
+$recv($7)._visit_(ast);
+$6=$recv($7)._currentNode();
+$5=$recv($6)._selector();
+self._assert_equals_($5,"asBoolean");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 },
@@ -49936,12 +48299,13 @@ var self=this;
 var ast;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo ^ self",$Object());
-$1=self._astPCNodeVisitor();
-$recv($1)._visit_(ast);
-$2=$recv($1)._currentNode();
-self._assert_($recv($2)._isNil());
+$3=self._astPCNodeVisitor();
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._isNil();
+self._assert_($1);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testNoMessageSend",{ast:ast},$globals.ASTPCNodeVisitorTest)});
 },
@@ -49961,12 +48325,13 @@ var self=this;
 var ast,visitor;
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $3,$2,$1;
 ast=self._parse_forClass_("foo <console.log(1)>",$Object());
-$1=self._astPCNodeVisitor();
-$recv($1)._visit_(ast);
-$2=$recv($1)._currentNode();
-self._assert_($recv($2)._isJSStatementNode());
+$3=self._astPCNodeVisitor();
+$recv($3)._visit_(ast);
+$2=$recv($3)._currentNode();
+$1=$recv($2)._isJSStatementNode();
+self._assert_($1);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testPC",{ast:ast,visitor:visitor},$globals.ASTPCNodeVisitorTest)});
 },
@@ -50059,12 +48424,10 @@ fn: function (){
 var self=this;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Compiler())._new();
-$recv($2)._codeGeneratorClass_(self._codeGeneratorClass());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Compiler())._new();
+$recv($1)._codeGeneratorClass_(self._codeGeneratorClass());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"compiler",{},$globals.CodeGeneratorTest)});
 },
 args: [],
@@ -50090,6 +48453,49 @@ args: [],
 source: "setUp\x0a\x09receiver := DoIt new",
 referencedClasses: ["DoIt"],
 messageSends: ["new"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
+selector: "should:receiver:raise:",
+protocol: 'testing',
+fn: function (aString,anObject,anErrorClass){
+var self=this;
+var method,result;
+return $core.withContext(function($ctx1) {
+var $1,$2,$3,$receiver;
+self["@receiver"]=anObject;
+$recv((function(){
+return $core.withContext(function($ctx2) {
+return self._should_raise_((function(){
+return $core.withContext(function($ctx3) {
+$1=self._compiler();
+$2=$recv(anObject)._class();
+$ctx3.sendIdx["class"]=1;
+method=$recv($1)._install_forClass_protocol_(aString,$2,"tests");
+method;
+return $recv(self["@receiver"])._perform_($recv(method)._selector());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
+}),anErrorClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+}))._ensure_((function(){
+return $core.withContext(function($ctx2) {
+$3=method;
+if(($receiver = $3) == null || $receiver.isNil){
+return $3;
+} else {
+return $recv($recv(anObject)._class())._removeCompiledMethod_(method);
+};
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+}));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"should:receiver:raise:",{aString:aString,anObject:anObject,anErrorClass:anErrorClass,method:method,result:result},$globals.CodeGeneratorTest)});
+},
+args: ["aString", "anObject", "anErrorClass"],
+source: "should: aString receiver: anObject raise: anErrorClass\x0a\x09| method result |\x0a\x0a\x09receiver := anObject.\x0a\x09[ self should: [\x0a\x09\x09method := self compiler install: aString forClass: anObject class protocol: 'tests'.\x0a\x09\x09receiver perform: method selector ] raise: anErrorClass ]\x0a\x09ensure: [ method ifNotNil: [ anObject class removeCompiledMethod: method ] ]",
+referencedClasses: [],
+messageSends: ["ensure:", "should:raise:", "install:forClass:protocol:", "compiler", "class", "perform:", "selector", "ifNotNil:", "removeCompiledMethod:"]
 }),
 $globals.CodeGeneratorTest);
 
@@ -50127,9 +48533,7 @@ protocol: 'testing',
 fn: function (aString,anObject){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._should_receiver_return_(aString,self["@receiver"],anObject);
-return $1;
+return self._should_receiver_return_(aString,self["@receiver"],anObject);
 }, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},$globals.CodeGeneratorTest)});
 },
 args: ["aString", "anObject"],
@@ -50239,19 +48643,73 @@ $globals.CodeGeneratorTest);
 
 $core.addMethod(
 $core.method({
+selector: "testCascadesInDynamicArray",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+self._should_return_("foo | x | x := 1. ^ {x. [x:=2] value; in: [x]}",[(1), (2)]);
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testCascadesInDynamicArray",{},$globals.CodeGeneratorTest)});
+},
+args: [],
+source: "testCascadesInDynamicArray\x0a\x09self should: 'foo | x | x := 1. ^ {x. [x:=2] value; in: [x]}' return: #(1 2)",
+referencedClasses: [],
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
+selector: "testCascadesInDynamicDictioary",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+self._should_return_("foo | x | x := 1. ^ #{'one' -> x. 'two' -> ([x:=2] value; in: [x])}",$globals.HashedCollection._newFromPairs_(["one",(1),"two",(2)]));
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testCascadesInDynamicDictioary",{},$globals.CodeGeneratorTest)});
+},
+args: [],
+source: "testCascadesInDynamicDictioary\x0a\x09self should: 'foo | x | x := 1. ^ #{''one'' -> x. ''two'' -> ([x:=2] value; in: [x])}' return: #{'one' -> 1. 'two' -> 2}",
+referencedClasses: [],
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
+selector: "testCascadesInSend",
+protocol: 'tests',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+self._should_return_("foo | x | x := 1. ^ Array with: x with: ([x:=2] value; in: [x])",[(1), (2)]);
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testCascadesInSend",{},$globals.CodeGeneratorTest)});
+},
+args: [],
+source: "testCascadesInSend\x0a\x09self should: 'foo | x | x := 1. ^ Array with: x with: ([x:=2] value; in: [x])' return: #(1 2)",
+referencedClasses: [],
+messageSends: ["should:return:"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
 selector: "testCascadesWithInlining",
 protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-self._should_return_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
+self._should_return_("foo ^ true class; ifTrue: [ 1 ] ifFalse: [ 2 ]",(1));
 $ctx1.sendIdx["should:return:"]=1;
-self._should_return_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]",(2));
+self._should_return_("foo ^ false class; ifTrue: [ 1 ] ifFalse: [ 2 ]",(2));
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testCascadesWithInlining",{},$globals.CodeGeneratorTest)});
 },
 args: [],
-source: "testCascadesWithInlining\x0a\x09\x0a\x09self should: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2",
+source: "testCascadesWithInlining\x0a\x09\x0a\x09self should: 'foo ^ true class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 1.\x0a\x09self should: 'foo ^ false class; ifTrue: [ 1 ] ifFalse: [ 2 ]' return: 2",
 referencedClasses: [],
 messageSends: ["should:return:"]
 }),
@@ -50639,6 +49097,26 @@ $globals.CodeGeneratorTest);
 
 $core.addMethod(
 $core.method({
+selector: "testRootSuperSend",
+protocol: 'tests',
+fn: function (){
+var self=this;
+function $ProtoObject(){return $globals.ProtoObject||(typeof ProtoObject=="undefined"?nil:ProtoObject)}
+function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return $core.withContext(function($ctx1) {
+self._should_receiver_raise_("foo ^ super class",$recv($ProtoObject())._new(),$MessageNotUnderstood());
+return self;
+}, function($ctx1) {$ctx1.fill(self,"testRootSuperSend",{},$globals.CodeGeneratorTest)});
+},
+args: [],
+source: "testRootSuperSend\x0a\x09self \x0a\x09\x09should: 'foo ^ super class' \x0a\x09\x09receiver: ProtoObject new\x0a\x09\x09raise: MessageNotUnderstood",
+referencedClasses: ["ProtoObject", "MessageNotUnderstood"],
+messageSends: ["should:receiver:raise:", "new"]
+}),
+$globals.CodeGeneratorTest);
+
+$core.addMethod(
+$core.method({
 selector: "testSendReceiverAndArgumentsOrdered",
 protocol: 'tests',
 fn: function (){
@@ -50950,18 +49428,17 @@ var ctx,ast,interpreter;
 function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$5,$6,$4,$receiver;
+var $1,$2,$3,$receiver;
 interpreter=$recv($ASTInterpreter())._new();
 $ctx1.sendIdx["new"]=1;
 ast=self._parse_forClass_(aString,$recv(anObject)._class());
 $1=$recv($AIContext())._new();
 $recv($1)._receiver_(anObject);
 $recv($1)._interpreter_(interpreter);
-$2=$recv($1)._yourself();
-ctx=$2;
-$3=$recv(ast)._sequenceNode();
-if(($receiver = $3) == null || $receiver.isNil){
-$3;
+ctx=$recv($1)._yourself();
+$2=$recv(ast)._sequenceNode();
+if(($receiver = $2) == null || $receiver.isNil){
+$2;
 } else {
 var sequence;
 sequence=$receiver;
@@ -50976,19 +49453,18 @@ return $core.withContext(function($ctx2) {
 return $recv(ctx)._localAt_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,3)});
 }));
-$5=interpreter;
-$recv($5)._context_(ctx);
-$recv($5)._interpret_($recv(ast)._nextChild());
-$recv($5)._proceed();
-$6=$recv($5)._result();
-$4=$6;
-return $4;
+$3=interpreter;
+$recv($3)._context_(ctx);
+$recv($3)._node_(ast);
+$recv($3)._enterNode();
+$recv($3)._proceed();
+return $recv($3)._result();
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,interpreter:interpreter},$globals.ASTInterpreterTest)});
 },
 args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: ast nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx ast interpreter |\x0a\x09\x0a\x09interpreter := ASTInterpreter new.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09node: ast;\x0a\x09\x09enterNode;\x0a\x09\x09proceed;\x0a\x09\x09result",
 referencedClasses: ["ASTInterpreter", "AIContext"],
-messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "proceed", "result"]
+messageSends: ["new", "parse:forClass:", "class", "receiver:", "interpreter:", "yourself", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "node:", "enterNode", "proceed", "result"]
 }),
 $globals.ASTInterpreterTest);
 
@@ -51000,9 +49476,7 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($Smalltalk())._parse_(aString);
-return $1;
+return $recv($Smalltalk())._parse_(aString);
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},$globals.ASTInterpreterTest)});
 },
 args: ["aString"],
@@ -51019,9 +49493,7 @@ protocol: 'parsing',
 fn: function (aString,aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._analyze_forClass_(self._parse_(aString),aClass);
-return $1;
+return self._analyze_forClass_(self._parse_(aString),aClass);
 }, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},$globals.ASTInterpreterTest)});
 },
 args: ["aString", "aClass"],
@@ -51038,35 +49510,14 @@ protocol: 'testing',
 fn: function (aString,anObject,aResult){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 self["@receiver"]=anObject;
-$1=self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],$globals.HashedCollection._newFromPairs_([])),aResult);
-return $1;
+return self._assert_equals_(self._interpret_receiver_withArguments_(aString,self["@receiver"],$globals.HashedCollection._newFromPairs_([])),aResult);
 }, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult},$globals.ASTInterpreterTest)});
 },
 args: ["aString", "anObject", "aResult"],
 source: "should: aString receiver: anObject return: aResult\x0a\x09receiver := anObject.\x0a\x09\x0a\x09^ self \x0a\x09\x09assert: (self interpret: aString receiver: receiver withArguments: #{})\x0a\x09\x09equals: aResult",
 referencedClasses: [],
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:"]
-}),
-$globals.ASTInterpreterTest);
-
-$core.addMethod(
-$core.method({
-selector: "should:return:",
-protocol: 'testing',
-fn: function (aString,anObject){
-var self=this;
-return $core.withContext(function($ctx1) {
-var $1;
-$1=self._should_receiver_return_(aString,self["@receiver"],anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject},$globals.ASTInterpreterTest)});
-},
-args: ["aString", "anObject"],
-source: "should: aString return: anObject\x0a\x09^ self \x0a\x09\x09should: aString\x0a\x09\x09receiver: receiver\x0a\x09\x09return: anObject",
-referencedClasses: [],
-messageSends: ["should:receiver:return:"]
 }),
 $globals.ASTInterpreterTest);
 
@@ -51084,17 +49535,16 @@ function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?
 function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 function $ASTDebugger(){return $globals.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$6,$7,$5,$receiver;
+var $1,$2,$3,$4,$5,$receiver;
 $1=$recv($AIContext())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._receiver_(anObject);
 $recv($1)._interpreter_($recv($ASTInterpreter())._new());
-$2=$recv($1)._yourself();
-ctx=$2;
+ctx=$recv($1)._yourself();
 ast=self._parse_forClass_(aString,$recv(anObject)._class());
-$3=$recv(ast)._sequenceNode();
-if(($receiver = $3) == null || $receiver.isNil){
-$3;
+$2=$recv(ast)._sequenceNode();
+if(($receiver = $2) == null || $receiver.isNil){
+$2;
 } else {
 var sequence;
 sequence=$receiver;
@@ -51109,23 +49559,23 @@ return $core.withContext(function($ctx2) {
 return $recv(ctx)._localAt_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,3)});
 }));
-$4=$recv(ctx)._interpreter();
+$3=$recv(ctx)._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
-$recv($4)._context_(ctx);
+$recv($3)._context_(ctx);
 $ctx1.sendIdx["context:"]=1;
-$recv($recv(ctx)._interpreter())._node_($recv(ast)._nextChild());
+$4=$recv(ctx)._interpreter();
+$recv($4)._node_(ast);
+$recv($4)._enterNode();
 debugger_=$recv($ASTDebugger())._context_(ctx);
-$6=debugger_;
-$recv($6)._proceed();
-$7=$recv($6)._result();
-$5=$7;
-return $5;
+$5=debugger_;
+$recv($5)._proceed();
+return $recv($5)._result();
 }, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,ast:ast,debugger_:debugger_},$globals.ASTDebuggerTest)});
 },
 args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx ast debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: ast nextChild.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09| ctx ast debugger |\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: ASTInterpreter new;\x0a\x09\x09yourself.\x0a\x09ast := self parse: aString forClass: anObject class.\x0a\x09\x09\x0a\x09\x22Define locals for the context\x22\x0a\x09ast sequenceNode ifNotNil: [ :sequence |\x0a\x09\x09sequence temps do: [ :each |\x0a\x09\x09\x09ctx defineLocal: each ] ].\x0a\x09\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09ctx interpreter context: ctx.\x0a\x09\x0a\x09ctx interpreter node: ast; enterNode.\x0a\x09\x0a\x09debugger := ASTDebugger context: ctx.\x0a\x09\x0a\x09^ debugger \x0a\x09\x09proceed; \x0a\x09\x09result",
 referencedClasses: ["AIContext", "ASTInterpreter", "ASTDebugger"],
-messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "nextChild", "proceed", "result"]
+messageSends: ["receiver:", "new", "interpreter:", "yourself", "parse:forClass:", "class", "ifNotNil:", "sequenceNode", "do:", "temps", "defineLocal:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "node:", "enterNode", "proceed", "result"]
 }),
 $globals.ASTDebuggerTest);
 
@@ -51163,16 +49613,15 @@ function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="un
 function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4;
+var $1,$2;
 $1=$recv($VariableNode())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._value_("Object");
-$2=$recv($1)._yourself();
-node=$2;
-$3=$recv($SemanticAnalyzer())._new();
+node=$recv($1)._yourself();
+$2=$recv($SemanticAnalyzer())._new();
 $ctx1.sendIdx["new"]=2;
-$recv($3)._pushScope_($recv($MethodLexicalScope())._new());
-$4=$recv($3)._visit_(node);
+$recv($2)._pushScope_($recv($MethodLexicalScope())._new());
+$recv($2)._visit_(node);
 self._assert_($recv($recv(node)._binding())._isClassRefVar());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node},$globals.ScopeVarTest)});
@@ -51194,12 +49643,11 @@ var node,scope;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($VariableNode())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._value_("bzzz");
-$2=$recv($1)._yourself();
-node=$2;
+node=$recv($1)._yourself();
 scope=$recv($MethodLexicalScope())._new();
 $recv(scope)._addIVar_("bzzz");
 self._assert_($recv($recv(scope)._bindingFor_(node))._isInstanceVar());
@@ -51223,15 +49671,14 @@ var node,pseudoVars;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 pseudoVars=["self", "super", "true", "false", "nil"];
 $recv(pseudoVars)._do_((function(each){
 return $core.withContext(function($ctx2) {
 $1=$recv($VariableNode())._new();
 $ctx2.sendIdx["new"]=1;
 $recv($1)._value_(each);
-$2=$recv($1)._yourself();
-node=$2;
+node=$recv($1)._yourself();
 node;
 return self._assert_($recv($recv($recv($MethodLexicalScope())._new())._bindingFor_(node))._isPseudoVar());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
@@ -51256,12 +49703,11 @@ var node,scope;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($VariableNode())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._value_("bzzz");
-$2=$recv($1)._yourself();
-node=$2;
+node=$recv($1)._yourself();
 scope=$recv($MethodLexicalScope())._new();
 $recv(scope)._addTemp_("bzzz");
 self._assert_($recv($recv(scope)._bindingFor_(node))._isTempVar());
@@ -51285,12 +49731,11 @@ var node;
 function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($VariableNode())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._value_("bzzz");
-$2=$recv($1)._yourself();
-node=$2;
+node=$recv($1)._yourself();
 self._assert_($recv($recv($recv($MethodLexicalScope())._new())._bindingFor_(node))._isNil());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testUnknownVar",{node:node},$globals.ScopeVarTest)});
@@ -51803,18 +50248,16 @@ function $AISemanticAnalyzer(){return $globals.AISemanticAnalyzer||(typeof AISem
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 function $AIContext(){return $globals.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$4,$5,$3,$6;
+var $1,$3,$4,$2;
 $1=$recv($AISemanticAnalyzer())._on_($Object());
-$2=$1;
-$4=$recv($AIContext())._new();
-$recv($4)._defineLocal_("local");
-$recv($4)._localAt_put_("local",(3));
-$5=$recv($4)._yourself();
+$3=$recv($AIContext())._new();
+$recv($3)._defineLocal_("local");
+$recv($3)._localAt_put_("local",(3));
+$4=$recv($3)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$3=$5;
-$recv($2)._context_($3);
-$6=$recv($1)._yourself();
-self["@analyzer"]=$6;
+$2=$4;
+$recv($1)._context_($2);
+self["@analyzer"]=$recv($1)._yourself();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.AISemanticAnalyzerTest)});
 },
@@ -52890,7 +51333,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$17,$18,$16,$15,$20,$19,$22,$21,$25,$24,$23;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$16,$17,$15,$19,$18,$21,$20,$23,$22;
 $1=true.__and(true);
 $ctx1.sendIdx["&"]=1;
 self._assert_($1);
@@ -52935,28 +51378,28 @@ $13=$recv($14).__and(false);
 $ctx1.sendIdx["&"]=6;
 self._deny_($13);
 $ctx1.sendIdx["deny:"]=5;
-$17=(1).__gt((0));
+$16=(1).__gt((0));
 $ctx1.sendIdx[">"]=3;
-$18=(1).__gt((2));
+$17=(1).__gt((2));
 $ctx1.sendIdx[">"]=4;
-$16=$recv($17).__and($18);
-$15=self._deny_($16);
-$20=(1).__gt((0));
+$15=$recv($16).__and($17);
+self._deny_($15);
+$19=(1).__gt((0));
 $ctx1.sendIdx[">"]=5;
-$19=false.__or($20);
+$18=false.__or($19);
 $ctx1.sendIdx["|"]=5;
-self._assert_($19);
+self._assert_($18);
 $ctx1.sendIdx["assert:"]=6;
-$22=(1).__gt((0));
+$21=(1).__gt((0));
 $ctx1.sendIdx[">"]=6;
-$21=$recv($22).__or(false);
+$20=$recv($21).__or(false);
 $ctx1.sendIdx["|"]=6;
-self._assert_($21);
+self._assert_($20);
 $ctx1.sendIdx["assert:"]=7;
-$25=(1).__gt((0));
+$23=(1).__gt((0));
 $ctx1.sendIdx[">"]=7;
-$24=$recv($25).__or((1).__gt((2)));
-$23=self._assert_($24);
+$22=$recv($23).__or((1).__gt((2)));
+self._assert_($22);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testLogic",{},$globals.BooleanTest)});
 },
@@ -52974,7 +51417,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$11,$13,$12,$16,$15,$14,$17,$19,$18,$22,$21,$20;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$11,$13,$12,$15,$14,$16,$18,$17,$20,$19;
 $1=true._and_((function(){
 return true;
 
@@ -53049,41 +51492,41 @@ return false;
 $ctx1.sendIdx["and:"]=6;
 self._deny_($12);
 $ctx1.sendIdx["deny:"]=5;
-$16=(1).__gt((0));
+$15=(1).__gt((0));
 $ctx1.sendIdx[">"]=3;
-$15=$recv($16)._and_((function(){
+$14=$recv($15)._and_((function(){
 return $core.withContext(function($ctx2) {
 return (1).__gt((2));
 $ctx2.sendIdx[">"]=4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,11)});
 }));
-$14=self._deny_($15);
-$17=false._or_((function(){
+self._deny_($14);
+$16=false._or_((function(){
 return $core.withContext(function($ctx2) {
 return (1).__gt((0));
 $ctx2.sendIdx[">"]=5;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,12)});
 }));
 $ctx1.sendIdx["or:"]=5;
-self._assert_($17);
+self._assert_($16);
 $ctx1.sendIdx["assert:"]=6;
-$19=(1).__gt((0));
+$18=(1).__gt((0));
 $ctx1.sendIdx[">"]=6;
-$18=$recv($19)._or_((function(){
+$17=$recv($18)._or_((function(){
 return false;
 
 }));
 $ctx1.sendIdx["or:"]=6;
-self._assert_($18);
+self._assert_($17);
 $ctx1.sendIdx["assert:"]=7;
-$22=(1).__gt((0));
+$20=(1).__gt((0));
 $ctx1.sendIdx[">"]=7;
-$21=$recv($22)._or_((function(){
+$19=$recv($20)._or_((function(){
 return $core.withContext(function($ctx2) {
 return (1).__gt((2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,14)});
 }));
-$20=self._assert_($21);
+self._assert_($19);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},$globals.BooleanTest)});
 },
@@ -53496,7 +51939,7 @@ $globals.ClassTest);
 
 
 
-$core.addClass('CollectionTest', $globals.TestCase, [], 'Kernel-Tests');
+$core.addClass('CollectionTest', $globals.TestCase, ['sampleBlock'], 'Kernel-Tests');
 $core.addMethod(
 $core.method({
 selector: "assertSameContents:as:",
@@ -53554,9 +51997,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._collectionClass();
-return $1;
+return $recv(self._class())._collectionClass();
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.CollectionTest)});
 },
 args: [],
@@ -53640,6 +52081,30 @@ $globals.CollectionTest);
 
 $core.addMethod(
 $core.method({
+selector: "initialize",
+protocol: 'initialization',
+fn: function (){
+var self=this;
+return $core.withContext(function($ctx1) {
+(
+$ctx1.supercall = true,
+($globals.CollectionTest.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = false;
+self["@sampleBlock"]=(function(){
+
+});
+return self;
+}, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.CollectionTest)});
+},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x0a\x09sampleBlock := []",
+referencedClasses: [],
+messageSends: ["initialize"]
+}),
+$globals.CollectionTest);
+
+$core.addMethod(
+$core.method({
 selector: "isCollectionReadOnly",
 protocol: 'testing',
 fn: function (){
@@ -53677,9 +52142,7 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._collectionClass())._with_(self._sampleNewValue());
-return $1;
+return $recv(self._collectionClass())._with_(self._sampleNewValue());
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.CollectionTest)});
 },
 args: [],
@@ -53696,72 +52159,68 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$5,$4,$6,$1,$7,$10,$9,$11,$12,$13,$8,$14,$17,$16,$18,$20,$19,$21,$15,$23,$24,$25,$26,$22,$27,$28,$29;
+var $2,$4,$3,$5,$1,$6,$9,$8,$10,$11,$7,$12,$15,$14,$17,$16,$18,$13,$20,$21,$22,$19,$23,$25,$24;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$3=$2;
-$5=self._collectionClass();
+$4=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
-$4=$recv($5)._new();
+$3=$recv($4)._new();
 $ctx1.sendIdx["new"]=1;
-$recv($3)._addAll_($4);
+$recv($2)._addAll_($3);
 $ctx1.sendIdx["addAll:"]=1;
-$6=$recv($2)._yourself();
+$5=$recv($2)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$1=$6;
-$7=self._collection();
+$1=$5;
+$6=self._collection();
 $ctx1.sendIdx["collection"]=2;
-self._assert_equals_($1,$7);
+self._assert_equals_($1,$6);
 $ctx1.sendIdx["assert:equals:"]=1;
-$10=self._collectionClass();
+$9=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=2;
-$9=$recv($10)._new();
+$8=$recv($9)._new();
 $ctx1.sendIdx["new"]=2;
-$11=$9;
-$12=self._collection();
+$10=self._collection();
 $ctx1.sendIdx["collection"]=3;
-$recv($11)._addAll_($12);
+$recv($8)._addAll_($10);
 $ctx1.sendIdx["addAll:"]=2;
-$13=$recv($9)._yourself();
+$11=$recv($8)._yourself();
 $ctx1.sendIdx["yourself"]=2;
-$8=$13;
-$14=self._collection();
+$7=$11;
+$12=self._collection();
 $ctx1.sendIdx["collection"]=4;
-self._assert_equals_($8,$14);
+self._assert_equals_($7,$12);
 $ctx1.sendIdx["assert:equals:"]=2;
-$17=self._collectionClass();
+$15=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=3;
-$16=$recv($17)._new();
+$14=$recv($15)._new();
 $ctx1.sendIdx["new"]=3;
-$18=$16;
-$20=self._collectionClass();
+$17=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=4;
-$19=$recv($20)._new();
+$16=$recv($17)._new();
 $ctx1.sendIdx["new"]=4;
-$recv($18)._addAll_($19);
+$recv($14)._addAll_($16);
 $ctx1.sendIdx["addAll:"]=3;
-$21=$recv($16)._yourself();
+$18=$recv($14)._yourself();
 $ctx1.sendIdx["yourself"]=3;
-$15=$21;
-self._assert_equals_($15,$recv(self._collectionClass())._new());
+$13=$18;
+self._assert_equals_($13,$recv(self._collectionClass())._new());
 $ctx1.sendIdx["assert:equals:"]=3;
-$23=self._collection();
+$20=self._collection();
 $ctx1.sendIdx["collection"]=5;
-$24=$23;
-$25=self._sampleNewValueAsCollection();
+$21=self._sampleNewValueAsCollection();
 $ctx1.sendIdx["sampleNewValueAsCollection"]=1;
-$recv($24)._addAll_($25);
+$recv($20)._addAll_($21);
 $ctx1.sendIdx["addAll:"]=4;
-$26=$recv($23)._yourself();
+$22=$recv($20)._yourself();
 $ctx1.sendIdx["yourself"]=4;
-$22=$26;
-$27=self._collectionWithNewValue();
+$19=$22;
+$23=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=1;
-self._assert_equals_($22,$27);
-$28=self._sampleNewValueAsCollection();
-$recv($28)._addAll_(self._collection());
-$29=$recv($28)._yourself();
-self._assertSameContents_as_($29,self._collectionWithNewValue());
+self._assert_equals_($19,$23);
+$25=self._sampleNewValueAsCollection();
+$recv($25)._addAll_(self._collection());
+$24=$recv($25)._yourself();
+self._assertSameContents_as_($24,self._collectionWithNewValue());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.CollectionTest)});
 },
@@ -53924,7 +52383,7 @@ var c,set;
 return $core.withContext(function($ctx1) {
 c=self._collectionWithDuplicates();
 set=$recv(c)._asSet();
-self._assert_equals_($recv(set)._size(),(5));
+self._assert_equals_($recv(set)._size(),(6));
 $recv(c)._do_((function(each){
 return $core.withContext(function($ctx2) {
 return self._assert_($recv(set)._includes_(each));
@@ -53934,7 +52393,7 @@ return self;
 }, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set},$globals.CollectionTest)});
 },
 args: [],
-source: "testAsSet\x0a\x09| c set |\x0a\x09c := self collectionWithDuplicates.\x0a\x09set := c asSet.\x0a\x09self assert: set size equals: 5.\x0a\x09c do: [ :each |\x0a\x09\x09self assert: (set includes: each) ]",
+source: "testAsSet\x0a\x09| c set |\x0a\x09c := self collectionWithDuplicates.\x0a\x09set := c asSet.\x0a\x09self assert: set size equals: 6.\x0a\x09c do: [ :each |\x0a\x09\x09self assert: (set includes: each) ]",
 referencedClasses: [],
 messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "do:", "assert:", "includes:"]
 }),
@@ -54626,11 +53085,11 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
-$1=self._collection();
-$recv($1)._removeAll();
-$2=$recv($1)._yourself();
-self._assert_equals_($2,$recv(self._collectionClass())._new());
+var $2,$1;
+$2=self._collection();
+$recv($2)._removeAll();
+$1=$recv($2)._yourself();
+self._assert_equals_($1,$recv(self._collectionClass())._new());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},$globals.CollectionTest)});
 },
@@ -54779,9 +53238,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._collectionClass())._isNil();
-return $1;
+return $recv(self._collectionClass())._isNil();
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.CollectionTest.klass)});
 },
 args: [],
@@ -55183,14 +53640,14 @@ var self=this;
 var jsNull;
 function $JSON(){return $globals.JSON||(typeof JSON=="undefined"?nil:JSON)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $2,$1;
 jsNull=$recv($JSON())._parse_("null");
 self._samplesDo_((function(index,value){
 return $core.withContext(function($ctx2) {
-$1=self._collection();
-$recv($1)._at_put_(index,jsNull);
-$2=$recv($1)._indexOf_(jsNull);
-return self._assert_equals_($2,index);
+$2=self._collection();
+$recv($2)._at_put_(index,jsNull);
+$1=$recv($2)._indexOf_(jsNull);
+return self._assert_equals_($1,index);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value},$ctx1,1)});
 }));
 return self;
@@ -55273,17 +53730,24 @@ selector: "nonIndexesDo:",
 protocol: 'fixture',
 fn: function (aBlock){
 var self=this;
+function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
 $recv(aBlock)._value_((5));
 $ctx1.sendIdx["value:"]=1;
+$recv(aBlock)._value_((function(){
+
+}));
+$ctx1.sendIdx["value:"]=2;
+$recv(aBlock)._value_($recv($Object())._new());
+$ctx1.sendIdx["value:"]=3;
 $recv(aBlock)._value_("z");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"nonIndexesDo:",{aBlock:aBlock},$globals.AssociativeCollectionTest)});
 },
 args: ["aBlock"],
-source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 5.\x0a\x09aBlock value: 'z'",
-referencedClasses: [],
-messageSends: ["value:"]
+source: "nonIndexesDo: aBlock\x0a\x09aBlock value: 5.\x0a\x09aBlock value: [].\x0a\x09aBlock value: Object new.\x0a\x09aBlock value: 'z'",
+referencedClasses: ["Object"],
+messageSends: ["value:", "new"]
 }),
 $globals.AssociativeCollectionTest);
 
@@ -55328,45 +53792,42 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
+var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$12,$11;
 (
-$ctx1.supercall = true, 
-$globals.AssociativeCollectionTest.superclass.fn.prototype._testAddAll.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.AssociativeCollectionTest.superclass||$boot.dnu).fn.prototype._testAddAll.apply($recv(self), []));
 $ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$3=$2;
-$4=self._collection();
+$3=self._collection();
 $ctx1.sendIdx["collection"]=2;
-$recv($3)._addAll_($4);
+$recv($2)._addAll_($3);
 $ctx1.sendIdx["addAll:"]=1;
-$5=$recv($2)._yourself();
+$4=$recv($2)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$1=$5;
-$6=self._collection();
+$1=$4;
+$5=self._collection();
 $ctx1.sendIdx["collection"]=3;
-self._assert_equals_($1,$6);
+self._assert_equals_($1,$5);
 $ctx1.sendIdx["assert:equals:"]=1;
-$8=self._collection();
+$7=self._collection();
 $ctx1.sendIdx["collection"]=4;
-$9=$8;
-$10=self._collectionWithNewValue();
+$8=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=1;
-$recv($9)._addAll_($10);
+$recv($7)._addAll_($8);
 $ctx1.sendIdx["addAll:"]=2;
-$11=$recv($8)._yourself();
+$9=$recv($7)._yourself();
 $ctx1.sendIdx["yourself"]=2;
-$7=$11;
-$12=self._collectionWithNewValue();
+$6=$9;
+$10=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=2;
-self._assert_equals_($7,$12);
+self._assert_equals_($6,$10);
 $ctx1.sendIdx["assert:equals:"]=2;
-$14=self._collectionWithNewValue();
+$12=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=3;
-$recv($14)._addAll_(self._collection());
-$15=$recv($14)._yourself();
-$13=$15;
-self._assert_equals_($13,self._collectionWithNewValue());
+$recv($12)._addAll_(self._collection());
+$11=$recv($12)._yourself();
+self._assert_equals_($11,self._collectionWithNewValue());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.AssociativeCollectionTest)});
 },
@@ -55424,8 +53885,8 @@ var self=this;
 return $core.withContext(function($ctx1) {
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 (
-$ctx1.supercall = true, 
-$globals.AssociativeCollectionTest.superclass.fn.prototype._testComma.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.AssociativeCollectionTest.superclass||$boot.dnu).fn.prototype._testComma.apply($recv(self), []));
 $ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
@@ -55540,18 +54001,17 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$4,$1,$5;
+var $3,$2,$1,$4;
 $3=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
 $2=$recv($3)._new();
 $recv($2)._at_put_("firstname","James");
 $ctx1.sendIdx["at:put:"]=1;
 $recv($2)._at_put_("lastname","Bond");
-$4=$recv($2)._printString();
-$1=$4;
-$5=$recv("a ".__comma($recv(self._collectionClass())._name())).__comma(" ('firstname' -> 'James' , 'lastname' -> 'Bond')");
+$1=$recv($2)._printString();
+$4=$recv("a ".__comma($recv(self._collectionClass())._name())).__comma(" ('firstname' -> 'James' , 'lastname' -> 'Bond')");
 $ctx1.sendIdx[","]=1;
-self._assert_equals_($1,$5);
+self._assert_equals_($1,$4);
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testPrintString",{},$globals.AssociativeCollectionTest)});
 },
@@ -55570,7 +54030,7 @@ fn: function (){
 var self=this;
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$5,$6,$4,$7,$8;
+var $1,$2,$3,$5,$6,$4,$8,$7;
 self._nonIndexesDo_((function(each){
 var collection;
 return $core.withContext(function($ctx2) {
@@ -55607,10 +54067,10 @@ $4=$recv($5).__eq($6);
 return self._deny_($4);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,3)});
 }));
-$7=self._collectionWithNewValue();
-$recv($7)._removeKey_(self._sampleNewIndex());
-$8=$recv($7)._yourself();
-self._assert_equals_($8,self._collection());
+$8=self._collectionWithNewValue();
+$recv($8)._removeKey_(self._sampleNewIndex());
+$7=$recv($8)._yourself();
+self._assert_equals_($7,self._collection());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKey",{},$globals.AssociativeCollectionTest)});
 },
@@ -55628,7 +54088,7 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$7,$8,$6,$9,$10;
+var $1,$2,$3,$4,$5,$7,$8,$6,$10,$9;
 self._nonIndexesDo_((function(each){
 var collection;
 return $core.withContext(function($ctx2) {
@@ -55674,14 +54134,14 @@ $6=$recv($7).__eq($8);
 return self._deny_($6);
 }, function($ctx2) {$ctx2.fillBlock({index:index,value:value,collection:collection},$ctx1,3)});
 }));
-$9=self._collectionWithNewValue();
-$recv($9)._removeKey_ifAbsent_(self._sampleNewIndex(),(function(){
+$10=self._collectionWithNewValue();
+$recv($10)._removeKey_ifAbsent_(self._sampleNewIndex(),(function(){
 return $core.withContext(function($ctx2) {
 return self._assert_(false);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 }));
-$10=$recv($9)._yourself();
-self._assert_equals_($10,self._collection());
+$9=$recv($10)._yourself();
+self._assert_equals_($9,self._collection());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{},$globals.AssociativeCollectionTest)});
 },
@@ -55732,22 +54192,22 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),(1));
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),(1));
 $ctx1.sendIdx["at:put:"]=1;
-$recv($2)._at_put_("a",(2));
+$recv($1)._at_put_("a",(2));
 $ctx1.sendIdx["at:put:"]=2;
-$recv($2)._at_put_(true,(3));
+$recv($1)._at_put_(true,(3));
 $ctx1.sendIdx["at:put:"]=3;
-$recv($2)._at_put_((1).__at((3)),(-4));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((1).__at((3)),(-4));
+$ctx1.sendIdx["at:put:"]=4;
+$recv($1)._at_put_(self["@sampleBlock"],(9));
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.DictionaryTest)});
 },
 args: [],
-source: "collection\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09yourself",
+source: "collection\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: sampleBlock put: 9;\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
@@ -55760,13 +54220,11 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=[(1),"a",true,(1).__at((3))];
-return $1;
+return [(1),"a",true,(1).__at((3)),self["@sampleBlock"]];
 }, function($ctx1) {$ctx1.fill(self,"collectionKeys",{},$globals.DictionaryTest)});
 },
 args: [],
-source: "collectionKeys\x0a\x09^ {1. 'a'. true. 1@3}",
+source: "collectionKeys\x0a\x09^ {1. 'a'. true. 1@3. sampleBlock}",
 referencedClasses: [],
 messageSends: ["@"]
 }),
@@ -55780,22 +54238,22 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),"1");
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),"1");
 $ctx1.sendIdx["at:put:"]=1;
-$recv($2)._at_put_("a","2");
+$recv($1)._at_put_("a","2");
 $ctx1.sendIdx["at:put:"]=2;
-$recv($2)._at_put_(true,"3");
+$recv($1)._at_put_(true,"3");
 $ctx1.sendIdx["at:put:"]=3;
-$recv($2)._at_put_((1).__at((3)),"-4");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((1).__at((3)),"-4");
+$ctx1.sendIdx["at:put:"]=4;
+$recv($1)._at_put_(self["@sampleBlock"],"9");
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.DictionaryTest)});
 },
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: '1';\x0a\x09\x09at: 'a' put: '2';\x0a\x09\x09at: true put: '3';\x0a\x09\x09at: 1@3 put: '-4';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: '1';\x0a\x09\x09at: 'a' put: '2';\x0a\x09\x09at: true put: '3';\x0a\x09\x09at: 1@3 put: '-4';\x0a\x09\x09at: sampleBlock put: '9';\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
@@ -55807,11 +54265,11 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return (4);
+return (5);
 
 },
 args: [],
-source: "collectionSize\x0a\x09^ 4",
+source: "collectionSize\x0a\x09^ 5",
 referencedClasses: [],
 messageSends: []
 }),
@@ -55823,13 +54281,11 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1),(2),(3),(-4)];
-return $1;
+return [(1),(2),(3),(-4),(9)];
 
 },
 args: [],
-source: "collectionValues\x0a\x09^ {1. 2. 3. -4}",
+source: "collectionValues\x0a\x09^ {1. 2. 3. -4. 9}",
 referencedClasses: [],
 messageSends: []
 }),
@@ -55843,28 +54299,28 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),(1));
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),(1));
 $ctx1.sendIdx["at:put:"]=1;
-$recv($2)._at_put_("a",(2));
+$recv($1)._at_put_("a",(2));
 $ctx1.sendIdx["at:put:"]=2;
-$recv($2)._at_put_(true,(3));
+$recv($1)._at_put_(true,(3));
 $ctx1.sendIdx["at:put:"]=3;
-$recv($2)._at_put_((4),(-4));
+$recv($1)._at_put_((4),(-4));
 $ctx1.sendIdx["at:put:"]=4;
-$recv($2)._at_put_("b",(1));
+$recv($1)._at_put_(self["@sampleBlock"],(9));
 $ctx1.sendIdx["at:put:"]=5;
-$recv($2)._at_put_((3),(3));
+$recv($1)._at_put_("b",(1));
 $ctx1.sendIdx["at:put:"]=6;
-$recv($2)._at_put_(false,(12));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_((3),(3));
+$ctx1.sendIdx["at:put:"]=7;
+$recv($1)._at_put_(false,(12));
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.DictionaryTest)});
 },
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 4 put: -4;\x0a\x09\x09at: 'b' put: 1;\x0a\x09\x09at: 3 put: 3;\x0a\x09\x09at: false put: 12;\x0a\x09\x09yourself",
+source: "collectionWithDuplicates\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 4 put: -4;\x0a\x09\x09at: sampleBlock put: 9;\x0a\x09\x09at: 'b' put: 1;\x0a\x09\x09at: 3 put: 3;\x0a\x09\x09at: false put: 12;\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 messageSends: ["at:put:", "new", "yourself"]
 }),
@@ -55878,24 +54334,24 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_((1),(1));
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_((1),(1));
 $ctx1.sendIdx["at:put:"]=1;
-$recv($2)._at_put_("a",(2));
+$recv($1)._at_put_("a",(2));
 $ctx1.sendIdx["at:put:"]=2;
-$recv($2)._at_put_(true,(3));
+$recv($1)._at_put_(true,(3));
 $ctx1.sendIdx["at:put:"]=3;
-$recv($2)._at_put_((1).__at((3)),(-4));
+$recv($1)._at_put_((1).__at((3)),(-4));
 $ctx1.sendIdx["at:put:"]=4;
-$recv($2)._at_put_("new","N");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._at_put_(self["@sampleBlock"],(9));
+$ctx1.sendIdx["at:put:"]=5;
+$recv($1)._at_put_("new","N");
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.DictionaryTest)});
 },
 args: [],
-source: "collectionWithNewValue\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
+source: "collectionWithNewValue\x0a\x09^ Dictionary new\x0a\x09\x09at: 1 put: 1;\x0a\x09\x09at: 'a' put: 2;\x0a\x09\x09at: true put: 3;\x0a\x09\x09at: 1@3 put: -4;\x0a\x09\x09at: sampleBlock put: 9;\x0a\x09\x09at: 'new' put: 'N';\x0a\x09\x09yourself",
 referencedClasses: ["Dictionary"],
 messageSends: ["at:put:", "new", "@", "yourself"]
 }),
@@ -55909,12 +54365,10 @@ fn: function (){
 var self=this;
 function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Dictionary())._new();
-$recv($2)._at_put_("new","N");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Dictionary())._new();
+$recv($1)._at_put_("new","N");
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"sampleNewValueAsCollection",{},$globals.DictionaryTest)});
 },
 args: [],
@@ -55932,17 +54386,19 @@ fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.DictionaryTest.superclass.fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
+$ctx1.supercall = true,
+($globals.DictionaryTest.superclass||$boot.dnu).fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 $ctx1.supercall = false;
 $recv(aBlock)._value_value_(true,(3));
 $ctx1.sendIdx["value:value:"]=1;
 $recv(aBlock)._value_value_((1).__at((3)),(-4));
+$ctx1.sendIdx["value:value:"]=2;
+$recv(aBlock)._value_value_(self["@sampleBlock"],(9));
 return self;
 }, function($ctx1) {$ctx1.fill(self,"samplesDo:",{aBlock:aBlock},$globals.DictionaryTest)});
 },
 args: ["aBlock"],
-source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: true value: 3.\x0a\x09aBlock value: 1@3 value: -4",
+source: "samplesDo: aBlock\x0a\x09super samplesDo: aBlock.\x0a\x09aBlock value: true value: 3.\x0a\x09aBlock value: 1@3 value: -4.\x0a\x09aBlock value: sampleBlock value: 9",
 referencedClasses: [],
 messageSends: ["samplesDo:", "value:value:", "@"]
 }),
@@ -56062,9 +54518,7 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4)]);
 
 },
 args: [],
@@ -56080,9 +54534,7 @@ selector: "collectionKeys",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=["b","a","c","d"];
-return $1;
+return ["b","a","c","d"];
 
 },
 args: [],
@@ -56098,9 +54550,7 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b","1","a","2","c","3","d","-4"]);
 
 },
 args: [],
@@ -56132,9 +54582,7 @@ selector: "collectionValues",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1),(2),(3),(-4)];
-return $1;
+return [(1),(2),(3),(-4)];
 
 },
 args: [],
@@ -56150,13 +54598,11 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10)]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"e",(1),"f",(2),"g",(10),"h",(0)]);
 
 },
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }",
+source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10. 'h' -> 0 }",
 referencedClasses: [],
 messageSends: []
 }),
@@ -56168,9 +54614,7 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["b",(1),"a",(2),"c",(3),"d",(-4),"new","N"]);
 
 },
 args: [],
@@ -56186,9 +54630,7 @@ selector: "sampleNewValueAsCollection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["new","N"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["new","N"]);
 
 },
 args: [],
@@ -56700,9 +55142,7 @@ selector: "collection",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1), (2), (3), (-4)];
-return $1;
+return [(1), (2), (3), (-4)];
 
 },
 args: [],
@@ -56734,9 +55174,7 @@ selector: "collectionFirstTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1), (2)];
-return $1;
+return [(1), (2)];
 
 },
 args: [],
@@ -56768,9 +55206,7 @@ selector: "collectionLastTwo",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(3), (-4)];
-return $1;
+return [(3), (-4)];
 
 },
 args: [],
@@ -56786,9 +55222,7 @@ selector: "collectionOfPrintStrings",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=["1", "2", "3", "-4"];
-return $1;
+return ["1", "2", "3", "-4"];
 
 },
 args: [],
@@ -56820,13 +55254,11 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=["a", "b", "c", (1), (2), (1), "a"];
-return $1;
+return ["a", "b", "c", (1), (2), (1), "a", []];
 
 },
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ #('a' 'b' 'c' 1 2 1 'a')",
+source: "collectionWithDuplicates\x0a\x09^ #('a' 'b' 'c' 1 2 1 'a' ())",
 referencedClasses: [],
 messageSends: []
 }),
@@ -56838,9 +55270,7 @@ selector: "collectionWithNewValue",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-var $1;
-$1=[(1), (2), (3), (-4), "N"];
-return $1;
+return [(1), (2), (3), (-4), "N"];
 
 },
 args: [],
@@ -56874,8 +55304,8 @@ fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.ArrayTest.superclass.fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
+$ctx1.supercall = true,
+($globals.ArrayTest.superclass||$boot.dnu).fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 $ctx1.supercall = false;
 $recv(aBlock)._value_value_((3),(3));
 return self;
@@ -56916,11 +55346,12 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2;
-$1=self._collection();
-$recv($1)._addFirst_((0));
-$2=$recv($1)._yourself();
-self._assert_equals_($recv($2)._first(),(0));
+var $3,$2,$1;
+$3=self._collection();
+$recv($3)._addFirst_((0));
+$2=$recv($3)._yourself();
+$1=$recv($2)._first();
+self._assert_equals_($1,(0));
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},$globals.ArrayTest)});
 },
@@ -56940,7 +55371,7 @@ var self=this;
 var array;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$6,$7,$8,$9;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 array=$recv($Array())._new();
 $1=$recv(array)._printString();
 $ctx1.sendIdx["printString"]=1;
@@ -56963,16 +55394,16 @@ $ctx1.sendIdx["assert:equals:"]=3;
 $6=array;
 $recv($6)._remove_((1));
 $ctx1.sendIdx["remove:"]=1;
-$7=$recv($6)._remove_((3));
-$8=$recv(array)._printString();
+$recv($6)._remove_((3));
+$7=$recv(array)._printString();
 $ctx1.sendIdx["printString"]=4;
-self._assert_equals_($8,"an Array ('foo')");
+self._assert_equals_($7,"an Array ('foo')");
 $ctx1.sendIdx["assert:equals:"]=4;
 $recv(array)._addLast_((3));
 $ctx1.sendIdx["addLast:"]=1;
-$9=$recv(array)._printString();
+$8=$recv(array)._printString();
 $ctx1.sendIdx["printString"]=5;
-self._assert_equals_($9,"an Array ('foo' 3)");
+self._assert_equals_($8,"an Array ('foo' 3)");
 $ctx1.sendIdx["assert:equals:"]=5;
 $recv(array)._addLast_((3));
 self._assert_equals_($recv(array)._printString(),"an Array ('foo' 3 3)");
@@ -57268,11 +55699,11 @@ selector: "collectionWithDuplicates",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return "abbaerte";
+return "abbaerten";
 
 },
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ 'abbaerte'",
+source: "collectionWithDuplicates\x0a\x09^ 'abbaerten'",
 referencedClasses: [],
 messageSends: []
 }),
@@ -57318,8 +55749,8 @@ fn: function (aBlock){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.StringTest.superclass.fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
+$ctx1.supercall = true,
+($globals.StringTest.superclass||$boot.dnu).fn.prototype._samplesDo_.apply($recv(self), [aBlock]));
 $ctx1.supercall = false;
 $recv(aBlock)._value_value_((3),"l");
 return self;
@@ -57898,14 +56329,12 @@ fn: function (){
 var self=this;
 function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 return $core.withContext(function($ctx1) {
-var $1;
 self._assert_equals_($recv($String())._streamContents_((function(aStream){
 return $core.withContext(function($ctx2) {
 $recv(aStream)._nextPutAll_("hello");
 $ctx2.sendIdx["nextPutAll:"]=1;
 $recv(aStream)._space();
-$1=$recv(aStream)._nextPutAll_("world");
-return $1;
+return $recv(aStream)._nextPutAll_("world");
 }, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1,1)});
 })),"hello world");
 return self;
@@ -58005,22 +56434,22 @@ var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Set())._new();
-$recv($2)._add_($Smalltalk());
+var $1;
+$1=$recv($Set())._new();
+$recv($1)._add_($Smalltalk());
 $ctx1.sendIdx["add:"]=1;
-$recv($2)._add_(nil);
+$recv($1)._add_(nil);
 $ctx1.sendIdx["add:"]=2;
-$recv($2)._add_((3).__at((3)));
+$recv($1)._add_((3).__at((3)));
 $ctx1.sendIdx["add:"]=3;
-$recv($2)._add_(false);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_(false);
+$ctx1.sendIdx["add:"]=4;
+$recv($1)._add_(self["@sampleBlock"]);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collection",{},$globals.SetTest)});
 },
 args: [],
-source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09yourself",
+source: "collection\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: false;\x0a\x09\x09add: sampleBlock;\x0a\x09\x09yourself",
 referencedClasses: ["Set", "Smalltalk"],
 messageSends: ["add:", "new", "@", "yourself"]
 }),
@@ -58034,22 +56463,22 @@ fn: function (){
 var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Set())._new();
-$recv($2)._add_("a SmalltalkImage");
+var $1;
+$1=$recv($Set())._new();
+$recv($1)._add_("a SmalltalkImage");
 $ctx1.sendIdx["add:"]=1;
-$recv($2)._add_("nil");
+$recv($1)._add_("nil");
 $ctx1.sendIdx["add:"]=2;
-$recv($2)._add_("3@3");
+$recv($1)._add_("3@3");
 $ctx1.sendIdx["add:"]=3;
-$recv($2)._add_("false");
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_("false");
+$ctx1.sendIdx["add:"]=4;
+$recv($1)._add_("a BlockClosure");
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collectionOfPrintStrings",{},$globals.SetTest)});
 },
 args: [],
-source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09yourself",
+source: "collectionOfPrintStrings\x0a\x09^ Set new\x0a\x09\x09add: 'a SmalltalkImage';\x0a\x09\x09add: 'nil';\x0a\x09\x09add: '3@3';\x0a\x09\x09add: 'false';\x0a\x09\x09add: 'a BlockClosure';\x0a\x09\x09yourself",
 referencedClasses: ["Set"],
 messageSends: ["add:", "new", "yourself"]
 }),
@@ -58061,11 +56490,11 @@ selector: "collectionSize",
 protocol: 'fixture',
 fn: function (){
 var self=this;
-return (4);
+return (5);
 
 },
 args: [],
-source: "collectionSize\x0a\x09^ 4",
+source: "collectionSize\x0a\x09^ 5",
 referencedClasses: [],
 messageSends: []
 }),
@@ -58078,12 +56507,10 @@ protocol: 'fixture',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=self._collection();
-$recv($2)._add_((0));
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=self._collection();
+$recv($1)._add_((0));
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},$globals.SetTest)});
 },
 args: [],
@@ -58102,24 +56529,24 @@ var self=this;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Set())._new();
-$recv($2)._add_($Smalltalk());
+var $1;
+$1=$recv($Set())._new();
+$recv($1)._add_($Smalltalk());
 $ctx1.sendIdx["add:"]=1;
-$recv($2)._add_(nil);
+$recv($1)._add_(nil);
 $ctx1.sendIdx["add:"]=2;
-$recv($2)._add_((3).__at((3)));
+$recv($1)._add_((3).__at((3)));
 $ctx1.sendIdx["add:"]=3;
-$recv($2)._add_("N");
+$recv($1)._add_("N");
 $ctx1.sendIdx["add:"]=4;
-$recv($2)._add_(false);
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+$recv($1)._add_(false);
+$ctx1.sendIdx["add:"]=5;
+$recv($1)._add_(self["@sampleBlock"]);
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"collectionWithNewValue",{},$globals.SetTest)});
 },
 args: [],
-source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09yourself",
+source: "collectionWithNewValue\x0a\x09^ Set new\x0a\x09\x09add: Smalltalk;\x0a\x09\x09add: nil;\x0a\x09\x09add: 3@3;\x0a\x09\x09add: 'N';\x0a\x09\x09add: false;\x0a\x09\x09add: sampleBlock;\x0a\x09\x09yourself",
 referencedClasses: ["Set", "Smalltalk"],
 messageSends: ["add:", "new", "@", "yourself"]
 }),
@@ -58132,45 +56559,42 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$4,$5,$1,$6,$8,$9,$10,$11,$7,$12,$14,$15,$13;
+var $2,$3,$4,$1,$5,$7,$8,$9,$6,$10,$12,$11;
 (
-$ctx1.supercall = true, 
-$globals.SetTest.superclass.fn.prototype._testAddAll.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.SetTest.superclass||$boot.dnu).fn.prototype._testAddAll.apply($recv(self), []));
 $ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$3=$2;
-$4=self._collection();
+$3=self._collection();
 $ctx1.sendIdx["collection"]=2;
-$recv($3)._addAll_($4);
+$recv($2)._addAll_($3);
 $ctx1.sendIdx["addAll:"]=1;
-$5=$recv($2)._yourself();
+$4=$recv($2)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$1=$5;
-$6=self._collection();
+$1=$4;
+$5=self._collection();
 $ctx1.sendIdx["collection"]=3;
-self._assert_equals_($1,$6);
+self._assert_equals_($1,$5);
 $ctx1.sendIdx["assert:equals:"]=1;
-$8=self._collection();
+$7=self._collection();
 $ctx1.sendIdx["collection"]=4;
-$9=$8;
-$10=self._collectionWithNewValue();
+$8=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=1;
-$recv($9)._addAll_($10);
+$recv($7)._addAll_($8);
 $ctx1.sendIdx["addAll:"]=2;
-$11=$recv($8)._yourself();
+$9=$recv($7)._yourself();
 $ctx1.sendIdx["yourself"]=2;
-$7=$11;
-$12=self._collectionWithNewValue();
+$6=$9;
+$10=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=2;
-self._assert_equals_($7,$12);
+self._assert_equals_($6,$10);
 $ctx1.sendIdx["assert:equals:"]=2;
-$14=self._collectionWithNewValue();
+$12=self._collectionWithNewValue();
 $ctx1.sendIdx["collectionWithNewValue"]=3;
-$recv($14)._addAll_(self._collection());
-$15=$recv($14)._yourself();
-$13=$15;
-self._assert_equals_($13,self._collectionWithNewValue());
+$recv($12)._addAll_(self._collection());
+$11=$recv($12)._yourself();
+self._assert_equals_($11,self._collectionWithNewValue());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testAddAll",{},$globals.SetTest)});
 },
@@ -58249,8 +56673,8 @@ var self=this;
 return $core.withContext(function($ctx1) {
 var $2,$1;
 (
-$ctx1.supercall = true, 
-$globals.SetTest.superclass.fn.prototype._testCollect.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.SetTest.superclass||$boot.dnu).fn.prototype._testCollect.apply($recv(self), []));
 $ctx1.supercall = false;
 $2=[(5), (6), (8)]._asSet();
 $ctx1.sendIdx["asSet"]=1;
@@ -58279,8 +56703,8 @@ var self=this;
 return $core.withContext(function($ctx1) {
 var $2,$3,$1,$4,$6,$7,$5,$8,$10,$9;
 (
-$ctx1.supercall = true, 
-$globals.SetTest.superclass.fn.prototype._testComma.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.SetTest.superclass||$boot.dnu).fn.prototype._testComma.apply($recv(self), []));
 $ctx1.supercall = false;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
@@ -58366,7 +56790,7 @@ var self=this;
 var set;
 function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$6,$7,$8,$9;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 set=$recv($Set())._new();
 $1=$recv(set)._printString();
 $ctx1.sendIdx["printString"]=1;
@@ -58390,16 +56814,16 @@ $ctx1.sendIdx["assert:equals:"]=3;
 $6=set;
 $recv($6)._remove_((1));
 $ctx1.sendIdx["remove:"]=1;
-$7=$recv($6)._remove_((3));
-$8=$recv(set)._printString();
+$recv($6)._remove_((3));
+$7=$recv(set)._printString();
 $ctx1.sendIdx["printString"]=4;
-self._assert_equals_($8,"a Set ('foo')");
+self._assert_equals_($7,"a Set ('foo')");
 $ctx1.sendIdx["assert:equals:"]=4;
 $recv(set)._add_((3));
 $ctx1.sendIdx["add:"]=4;
-$9=$recv(set)._printString();
+$8=$recv(set)._printString();
 $ctx1.sendIdx["printString"]=5;
-self._assert_equals_($9,"a Set (3 'foo')");
+self._assert_equals_($8,"a Set (3 'foo')");
 $ctx1.sendIdx["assert:equals:"]=5;
 $recv(set)._add_((3));
 self._assert_equals_($recv(set)._printString(),"a Set (3 'foo')");
@@ -59270,11 +57694,10 @@ fn: function (){
 var self=this;
 var object;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=self._jsObject();
 $recv($1)._d_("test");
-$2=$recv($1)._yourself();
-object=$2;
+object=$recv($1)._yourself();
 self._assert_equals_($recv(object)._d(),"test");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testYourself",{object:object},$globals.JSObjectProxyTest)});
@@ -59370,13 +57793,12 @@ var messageSend;
 function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($MessageSend())._new();
 $ctx1.sendIdx["new"]=1;
 $recv($1)._receiver_($recv($Object())._new());
 $recv($1)._selector_("asString");
-$2=$recv($1)._yourself();
-messageSend=$2;
+messageSend=$recv($1)._yourself();
 self._assert_equals_($recv(messageSend)._value(),"an Object");
 return self;
 }, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},$globals.MessageSendTest)});
@@ -59397,12 +57819,11 @@ var self=this;
 var messageSend;
 function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv($MessageSend())._new();
 $recv($1)._receiver_((2));
 $recv($1)._selector_("+");
-$2=$recv($1)._yourself();
-messageSend=$2;
+messageSend=$recv($1)._yourself();
 self._assert_equals_($recv(messageSend)._value_((3)),(5));
 $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_($recv(messageSend)._valueWithPossibleArguments_([(4)]),(6));
@@ -59444,12 +57865,10 @@ fn: function (){
 var self=this;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $2,$3,$1;
-$2=$recv($Compiler())._new();
-$recv($2)._codeGeneratorClass_(self._codeGeneratorClass());
-$3=$recv($2)._yourself();
-$1=$3;
-return $1;
+var $1;
+$1=$recv($Compiler())._new();
+$recv($1)._codeGeneratorClass_(self._codeGeneratorClass());
+return $recv($1)._yourself();
 }, function($ctx1) {$ctx1.fill(self,"compiler",{},$globals.MethodInheritanceTest)});
 },
 args: [],
@@ -60949,9 +59368,7 @@ selector: "foo",
 protocol: 'not yet classified',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@foo"];
-return $1;
+return self["@foo"];
 
 },
 args: [],
@@ -61692,21 +60109,21 @@ var queue;
 function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$4,$3,$6,$5;
+var $1,$3,$2,$5,$4;
 queue=$recv($Queue())._new();
 $1=queue;
 $recv($1)._nextPut_("index1");
 $ctx1.sendIdx["nextPut:"]=1;
-$2=$recv($1)._nextPut_("index2");
-$4=$recv(queue)._next();
+$recv($1)._nextPut_("index2");
+$3=$recv(queue)._next();
 $ctx1.sendIdx["next"]=1;
-$3=$recv($4).__eq("index1");
+$2=$recv($3).__eq("index1");
 $ctx1.sendIdx["="]=1;
-self._assert_($3);
-$6=$recv(queue)._next();
+self._assert_($2);
+$5=$recv(queue)._next();
 $ctx1.sendIdx["next"]=2;
-$5=$recv($6).__eq("index");
-self._deny_($5);
+$4=$recv($5).__eq("index");
+self._deny_($4);
 self._should_raise_((function(){
 return $core.withContext(function($ctx2) {
 return $recv(queue)._next();
@@ -61828,9 +60245,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._class())._collectionClass();
-return $1;
+return $recv(self._class())._collectionClass();
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{},$globals.StreamTest)});
 },
 args: [],
@@ -61847,9 +60262,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._collectionClass())._new();
-return $1;
+return $recv(self._collectionClass())._new();
 }, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.StreamTest)});
 },
 args: [],
@@ -61866,9 +60279,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(self._collectionClass())._new())._stream();
-return $1;
+return $recv($recv(self._collectionClass())._new())._stream();
 }, function($ctx1) {$ctx1.fill(self,"newStream",{},$globals.StreamTest)});
 },
 args: [],
@@ -62015,17 +60426,17 @@ fn: function (){
 var self=this;
 var stream,collection;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1,$2;
 collection=self._newCollection();
 stream=self._newStream();
 $1=stream;
 $recv($1)._nextPutAll_(collection);
-$2=$recv($1)._position_((0));
+$recv($1)._position_((0));
 $recv(collection)._do_((function(each){
 return $core.withContext(function($ctx2) {
-$3=$recv(stream)._next();
+$2=$recv(stream)._next();
 $ctx2.sendIdx["next"]=1;
-return self._assert_equals_($3,each);
+return self._assert_equals_($2,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 self._assert_($recv($recv(stream)._next())._isNil());
@@ -62139,9 +60550,7 @@ protocol: 'testing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._collectionClass())._isNil();
-return $1;
+return $recv(self._collectionClass())._isNil();
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{},$globals.StreamTest.klass)});
 },
 args: [],
@@ -62160,9 +60569,7 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=[true,(1),(3).__at((4)),"foo"];
-return $1;
+return [true,(1),(3).__at((4)),"foo"];
 }, function($ctx1) {$ctx1.fill(self,"newCollection",{},$globals.ArrayStreamTest)});
 },
 args: [],
@@ -62677,13 +61084,11 @@ protocol: 'private',
 fn: function (aCollection){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv(aCollection)._collect_((function(each){
+return $recv($recv(aCollection)._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 })))._asSet();
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorSetOf:",{aCollection:aCollection},$globals.SUnitAsyncTest)});
 },
 args: ["aCollection"],
@@ -63003,9 +61408,9 @@ $globals.SUnitAsyncTest);
 });
 
 define('amber/devel',[
-	'./helpers', // pre-fetch, dep of ./deploy
-	'./deploy', // pre-fetch, dep of ./lang
-	'./lang',
+    './helpers', // pre-fetch, dep of ./deploy
+    './deploy', // pre-fetch, dep of ./lang
+    './lang',
     // --- packages of the development only Amber begin here ---
     'amber_core/SUnit',
     'amber_core/Compiler-Tests',
@@ -63031,7 +61436,6 @@ fn: function (){
 var self=this;
 var switches;
 return $core.withContext(function($ctx1) {
-var $1;
 switches=$recv($recv(self._class())._methodsInProtocol_("commands"))._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._selector();
@@ -63048,8 +61452,7 @@ return $core.withContext(function($ctx2) {
 return $recv($recv($recv(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 }));
-$1=switches;
-return $1;
+return switches;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},$globals.AmberCli.klass)});
 },
 args: [],
@@ -63156,7 +61559,7 @@ var args;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1,$4,$5;
+var $3,$2,$1,$4;
 $3=$recv("Welcome to Amber version ".__comma($recv($Smalltalk())._version())).__comma(" (NodeJS ");
 $ctx1.sendIdx[","]=3;
 $2=$recv($3).__comma($recv($recv(process)._versions())._node());
@@ -63170,8 +61573,7 @@ $4=$recv(args)._isEmpty();
 if($core.assert($4)){
 self._help_(nil);
 } else {
-$5=self._handleArguments_(args);
-return $5;
+return self._handleArguments_(args);
 };
 return self;
 }, function($ctx1) {$ctx1.fill(self,"main",{args:args},$globals.AmberCli.klass)});
@@ -63191,9 +61593,7 @@ fn: function (args){
 var self=this;
 function $Repl(){return $globals.Repl||(typeof Repl=="undefined"?nil:Repl)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($Repl())._new())._createInterface();
-return $1;
+return $recv($recv($Repl())._new())._createInterface();
 }, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},$globals.AmberCli.klass)});
 },
 args: ["args"],
@@ -63211,7 +61611,7 @@ fn: function (aSwitch){
 var self=this;
 var command,selector;
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 $1=$recv(self._commandLineSwitches())._includes_(aSwitch);
 if($core.assert($1)){
 selector=$recv($recv(aSwitch)._replace_with_("-[a-z]",(function(each){
@@ -63224,8 +61624,7 @@ selector;
 selector="help:";
 selector;
 };
-$2=selector;
-return $2;
+return selector;
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},$globals.AmberCli.klass)});
 },
 args: ["aSwitch"],
@@ -63243,9 +61642,7 @@ fn: function (args){
 var self=this;
 function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($FileServer())._createServerWithArguments_(args))._start();
-return $1;
+return $recv($recv($FileServer())._createServerWithArguments_(args))._start();
 }, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},$globals.AmberCli.klass)});
 },
 args: ["args"],
@@ -63299,8 +61696,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.BaseFileManipulator.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.BaseFileManipulator.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@path"]=$recv(require)._value_("path");
 $ctx1.sendIdx["value:"]=1;
@@ -63322,9 +61719,7 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@path"])._join_with_(self._dirname(),"..");
-return $1;
+return $recv(self["@path"])._join_with_(self._dirname(),"..");
 }, function($ctx1) {$ctx1.fill(self,"rootDirname",{},$globals.BaseFileManipulator)});
 },
 args: [],
@@ -63345,8 +61740,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Configurator.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Configurator.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 return self;
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Configurator)});
@@ -63432,14 +61827,13 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@basePath"];
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv(self._class())._defaultBasePath();
+var $1,$receiver;
+$1=self["@basePath"];
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv(self._class())._defaultBasePath();
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"basePath",{},$globals.FileServer)});
 },
 args: [],
@@ -63502,9 +61896,7 @@ selector: "fallbackPage",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@fallbackPage"];
-return $1;
+return self["@fallbackPage"];
 
 },
 args: [],
@@ -63689,9 +62081,7 @@ selector: "host",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@host"];
-return $1;
+return self["@host"];
 
 },
 args: [],
@@ -63727,8 +62117,8 @@ var self=this;
 return $core.withContext(function($ctx1) {
 var $1;
 (
-$ctx1.supercall = true, 
-$globals.FileServer.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.FileServer.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@http"]=self._require_("http");
 $ctx1.sendIdx["require:"]=1;
@@ -63846,9 +62236,7 @@ selector: "port",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@port"];
-return $1;
+return self["@port"];
 
 },
 args: [],
@@ -63882,9 +62270,7 @@ protocol: 'private',
 fn: function (aModuleString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(require)._value_(aModuleString);
-return $1;
+return $recv(require)._value_(aModuleString);
 }, function($ctx1) {$ctx1.fill(self,"require:",{aModuleString:aModuleString},$globals.FileServer)});
 },
 args: ["aModuleString"],
@@ -63901,10 +62287,9 @@ protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aResponse)._writeHead_options_((401),$globals.HashedCollection._newFromPairs_(["WWW-Authenticate","Basic realm=\x22Secured Developer Area\x22"]));
 $recv(aResponse)._write_("<html><body>Authentication needed</body></html>");
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondAuthenticationRequiredTo:",{aResponse:aResponse},$globals.FileServer)});
 },
@@ -63922,9 +62307,8 @@ protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aResponse)._writeHead_options_((201),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},$globals.FileServer)});
 },
@@ -63980,7 +62364,7 @@ fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4;
 filename=aFilename;
 $recv(self["@fs"])._readFile_do_(filename,(function(ex,file){
 return $core.withContext(function($ctx2) {
@@ -64001,8 +62385,7 @@ type;
 };
 $recv(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type",type]));
 $recv(aResponse)._write_encoding_(file,"binary");
-$5=$recv(aResponse)._end();
-return $5;
+return $recv(aResponse)._end();
 };
 }, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,1)});
 }));
@@ -64023,10 +62406,9 @@ protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aResponse)._writeHead_options_((500),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
 $recv(aResponse)._write_("500 Internal server error");
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondInternalErrorTo:",{aResponse:aResponse},$globals.FileServer)});
 },
@@ -64044,10 +62426,9 @@ protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aResponse)._writeHead_options_((400),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain"]));
 $recv(aResponse)._write_("File could not be created. Did you forget to create the src directory on the server?");
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},$globals.FileServer)});
 },
@@ -64065,13 +62446,12 @@ protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$3,$4;
+var $2,$1;
 $2=self._fallbackPage();
 $ctx1.sendIdx["fallbackPage"]=1;
 $1=$recv($2)._isNil();
 if(!$core.assert($1)){
-$3=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
-return $3;
+return self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 };
 $recv(aResponse)._writeHead_options_((404),$globals.HashedCollection._newFromPairs_(["Content-Type","text/html"]));
 $recv(aResponse)._write_("<html><body><p>404 Not found</p>");
@@ -64085,7 +62465,7 @@ $ctx1.sendIdx["write:"]=4;
 $recv(aResponse)._write_("<li>change the directory to be served with the \x22--base-path\x22 option.</li>");
 $ctx1.sendIdx["write:"]=5;
 $recv(aResponse)._write_("</ul></p></body></html>");
-$4=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},$globals.FileServer)});
 },
@@ -64103,9 +62483,8 @@ protocol: 'request handling',
 fn: function (aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aResponse)._writeHead_options_((200),$globals.HashedCollection._newFromPairs_(["Content-Type","text/plain","Access-Control-Allow-Origin","*"]));
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},$globals.FileServer)});
 },
@@ -64123,9 +62502,8 @@ protocol: 'request handling',
 fn: function (aString,aResponse){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 $recv(aResponse)._writeHead_options_((303),$globals.HashedCollection._newFromPairs_(["Location",aString]));
-$1=$recv(aResponse)._end();
+$recv(aResponse)._end();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"respondRedirect:to:",{aString:aString,aResponse:aResponse},$globals.FileServer)});
 },
@@ -64143,7 +62521,7 @@ protocol: 'starting',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5,$11;
+var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5;
 self._checkDirectoryLayout();
 $1=$recv(self["@http"])._createServer_((function(request,response){
 return $core.withContext(function($ctx2) {
@@ -64176,7 +62554,7 @@ $ctx2.sendIdx[","]=2;
 return $recv($4)._log_($5);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 }));
-$11=$recv($1)._listen_host_(self._port(),self._host());
+$recv($1)._listen_host_(self._port(),self._host());
 return self;
 }, function($ctx1) {$ctx1.fill(self,"start",{},$globals.FileServer)});
 },
@@ -64274,9 +62652,7 @@ protocol: 'private',
 fn: function (aBaseRelativePath){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
-return $1;
+return $recv(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
 }, function($ctx1) {$ctx1.fill(self,"withBasePath:",{aBaseRelativePath:aBaseRelativePath},$globals.FileServer)});
 },
 args: ["aBaseRelativePath"],
@@ -64314,7 +62690,6 @@ fn: function (){
 var self=this;
 var switches;
 return $core.withContext(function($ctx1) {
-var $1;
 switches=$recv(self._methodsInProtocol_("accessing"))._collect_((function(each){
 return $core.withContext(function($ctx2) {
 return $recv(each)._selector();
@@ -64332,8 +62707,7 @@ return $recv($recv($recv($recv(each)._allButLast())._replace_with_("([A-Z])","-$
 $ctx2.sendIdx["replace:with:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)});
 }));
-$1=switches;
-return $1;
+return switches;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},$globals.FileServer.klass)});
 },
 args: [],
@@ -64352,32 +62726,30 @@ var self=this;
 var server,popFront,front,optionName,optionValue,switches;
 function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
+var $1,$2,$3,$4,$5,$6,$7,$8;
 var $early={};
 try {
 switches=self._commandLineSwitches();
 server=self._new();
 $recv(options)._ifEmpty_((function(){
-$1=server;
-throw $early=[$1];
+throw $early=[server];
 
 }));
-$2=$recv($recv(options)._size())._even();
-if(!$core.assert($2)){
+$1=$recv($recv(options)._size())._even();
+if(!$core.assert($1)){
 $recv(console)._log_("Using default parameters.");
 $ctx1.sendIdx["log:"]=1;
-$3=console;
-$4="Wrong commandline options or not enough arguments for: ".__comma(options);
+$2=console;
+$3="Wrong commandline options or not enough arguments for: ".__comma(options);
 $ctx1.sendIdx[","]=1;
-$recv($3)._log_($4);
+$recv($2)._log_($3);
 $ctx1.sendIdx["log:"]=2;
-$5=console;
-$6="Use any of the following ones: ".__comma(switches);
+$4=console;
+$5="Use any of the following ones: ".__comma(switches);
 $ctx1.sendIdx[","]=2;
-$recv($5)._log_($6);
+$recv($4)._log_($5);
 $ctx1.sendIdx["log:"]=3;
-$7=server;
-return $7;
+return server;
 };
 popFront=(function(args){
 return $core.withContext(function($ctx2) {
@@ -64398,23 +62770,22 @@ $ctx2.sendIdx["value:"]=1;
 optionName;
 optionValue=$recv(popFront)._value_(options);
 optionValue;
-$8=$recv(switches)._includes_(optionName);
-if($core.assert($8)){
+$6=$recv(switches)._includes_(optionName);
+if($core.assert($6)){
 optionName=self._selectorForCommandLineSwitch_(optionName);
 optionName;
 return $recv(server)._perform_withArguments_(optionName,$recv($Array())._with_(optionValue));
 } else {
-$9=console;
-$10=$recv(optionName).__comma(" is not a valid commandline option");
+$7=console;
+$8=$recv(optionName).__comma(" is not a valid commandline option");
 $ctx2.sendIdx[","]=3;
-$recv($9)._log_($10);
+$recv($7)._log_($8);
 $ctx2.sendIdx["log:"]=4;
 return $recv(console)._log_("Use any of the following ones: ".__comma(switches));
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)});
 }));
-$11=server;
-return $11;
+return server;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"createServerWithArguments:",{options:options,server:server,popFront:popFront,front:front,optionName:optionName,optionValue:optionValue,switches:switches},$globals.FileServer.klass)});
@@ -64464,9 +62835,7 @@ selector: "defaultMimeTypes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=$globals.HashedCollection._newFromPairs_(["%","application/x-trash","323","text/h323","abw","application/x-abiword","ai","application/postscript","aif","audio/x-aiff","aifc","audio/x-aiff","aiff","audio/x-aiff","alc","chemical/x-alchemy","art","image/x-jg","asc","text/plain","asf","video/x-ms-asf","asn","chemical/x-ncbi-asn1-spec","aso","chemical/x-ncbi-asn1-binary","asx","video/x-ms-asf","au","audio/basic","avi","video/x-msvideo","b","chemical/x-molconn-Z","bak","application/x-trash","bat","application/x-msdos-program","bcpio","application/x-bcpio","bib","text/x-bibtex","bin","application/octet-stream","bmp","image/x-ms-bmp","book","application/x-maker","bsd","chemical/x-crossfire","c","text/x-csrc","c++","text/x-c++src","c3d","chemical/x-chem3d","cac","chemical/x-cache","cache","chemical/x-cache","cascii","chemical/x-cactvs-binary","cat","application/vnd.ms-pki.seccat","cbin","chemical/x-cactvs-binary","cc","text/x-c++src","cdf","application/x-cdf","cdr","image/x-coreldraw","cdt","image/x-coreldrawtemplate","cdx","chemical/x-cdx","cdy","application/vnd.cinderella","cef","chemical/x-cxf","cer","chemical/x-cerius","chm","chemical/x-chemdraw","chrt","application/x-kchart","cif","chemical/x-cif","class","application/java-vm","cls","text/x-tex","cmdf","chemical/x-cmdf","cml","chemical/x-cml","cod","application/vnd.rim.cod","com","application/x-msdos-program","cpa","chemical/x-compass","cpio","application/x-cpio","cpp","text/x-c++src","cpt","image/x-corelphotopaint","crl","application/x-pkcs7-crl","crt","application/x-x509-ca-cert","csf","chemical/x-cache-csf","csh","text/x-csh","csm","chemical/x-csml","csml","chemical/x-csml","css","text/css","csv","text/comma-separated-values","ctab","chemical/x-cactvs-binary","ctx","chemical/x-ctx","cu","application/cu-seeme","cub","chemical/x-gaussian-cube","cxf","chemical/x-cxf","cxx","text/x-c++src","dat","chemical/x-mopac-input","dcr","application/x-director","deb","application/x-debian-package","dif","video/dv","diff","text/plain","dir","application/x-director","djv","image/vnd.djvu","djvu","image/vnd.djvu","dl","video/dl","dll","application/x-msdos-program","dmg","application/x-apple-diskimage","dms","application/x-dms","doc","application/msword","dot","application/msword","dv","video/dv","dvi","application/x-dvi","dx","chemical/x-jcamp-dx","dxr","application/x-director","emb","chemical/x-embl-dl-nucleotide","embl","chemical/x-embl-dl-nucleotide","ent","chemical/x-pdb","eps","application/postscript","etx","text/x-setext","exe","application/x-msdos-program","ez","application/andrew-inset","fb","application/x-maker","fbdoc","application/x-maker","fch","chemical/x-gaussian-checkpoint","fchk","chemical/x-gaussian-checkpoint","fig","application/x-xfig","flac","application/x-flac","fli","video/fli","fm","application/x-maker","frame","application/x-maker","frm","application/x-maker","gal","chemical/x-gaussian-log","gam","chemical/x-gamess-input","gamin","chemical/x-gamess-input","gau","chemical/x-gaussian-input","gcd","text/x-pcs-gcd","gcf","application/x-graphing-calculator","gcg","chemical/x-gcg8-sequence","gen","chemical/x-genbank","gf","application/x-tex-gf","gif","image/gif","gjc","chemical/x-gaussian-input","gjf","chemical/x-gaussian-input","gl","video/gl","gnumeric","application/x-gnumeric","gpt","chemical/x-mopac-graph","gsf","application/x-font","gsm","audio/x-gsm","gtar","application/x-gtar","h","text/x-chdr","h++","text/x-c++hdr","hdf","application/x-hdf","hh","text/x-c++hdr","hin","chemical/x-hin","hpp","text/x-c++hdr","hqx","application/mac-binhex40","hs","text/x-haskell","hta","application/hta","htc","text/x-component","htm","text/html","html","text/html","hxx","text/x-c++hdr","ica","application/x-ica","ice","x-conference/x-cooltalk","ico","image/x-icon","ics","text/calendar","icz","text/calendar","ief","image/ief","iges","model/iges","igs","model/iges","iii","application/x-iphone","inp","chemical/x-gamess-input","ins","application/x-internet-signup","iso","application/x-iso9660-image","isp","application/x-internet-signup","ist","chemical/x-isostar","istr","chemical/x-isostar","jad","text/vnd.sun.j2me.app-descriptor","jar","application/java-archive","java","text/x-java","jdx","chemical/x-jcamp-dx","jmz","application/x-jmol","jng","image/x-jng","jnlp","application/x-java-jnlp-file","jpe","image/jpeg","jpeg","image/jpeg","jpg","image/jpeg","js","application/javascript","kar","audio/midi","key","application/pgp-keys","kil","application/x-killustrator","kin","chemical/x-kinemage","kpr","application/x-kpresenter","kpt","application/x-kpresenter","ksp","application/x-kspread","kwd","application/x-kword","kwt","application/x-kword","latex","application/x-latex","lha","application/x-lha","lhs","text/x-literate-haskell","lsf","video/x-la-asf","lsx","video/x-la-asf","ltx","text/x-tex","lzh","application/x-lzh","lzx","application/x-lzx","m3u","audio/x-mpegurl","m4a","audio/mpeg","maker","application/x-maker","man","application/x-troff-man","mcif","chemical/x-mmcif","mcm","chemical/x-macmolecule","mdb","application/msaccess","me","application/x-troff-me","mesh","model/mesh","mid","audio/midi","midi","audio/midi","mif","application/x-mif","mm","application/x-freemind","mmd","chemical/x-macromodel-input","mmf","application/vnd.smaf","mml","text/mathml","mmod","chemical/x-macromodel-input","mng","video/x-mng","moc","text/x-moc","mol","chemical/x-mdl-molfile","mol2","chemical/x-mol2","moo","chemical/x-mopac-out","mop","chemical/x-mopac-input","mopcrt","chemical/x-mopac-input","mov","video/quicktime","movie","video/x-sgi-movie","mp2","audio/mpeg","mp3","audio/mpeg","mp4","video/mp4","mpc","chemical/x-mopac-input","mpe","video/mpeg","mpeg","video/mpeg","mpega","audio/mpeg","mpg","video/mpeg","mpga","audio/mpeg","ms","application/x-troff-ms","msh","model/mesh","msi","application/x-msi","mvb","chemical/x-mopac-vib","mxu","video/vnd.mpegurl","nb","application/mathematica","nc","application/x-netcdf","nwc","application/x-nwc","o","application/x-object","oda","application/oda","odb","application/vnd.oasis.opendocument.database","odc","application/vnd.oasis.opendocument.chart","odf","application/vnd.oasis.opendocument.formula","odg","application/vnd.oasis.opendocument.graphics","odi","application/vnd.oasis.opendocument.image","odm","application/vnd.oasis.opendocument.text-master","odp","application/vnd.oasis.opendocument.presentation","ods","application/vnd.oasis.opendocument.spreadsheet","odt","application/vnd.oasis.opendocument.text","ogg","application/ogg","old","application/x-trash","oth","application/vnd.oasis.opendocument.text-web","oza","application/x-oz-application","p","text/x-pascal","p7r","application/x-pkcs7-certreqresp","pac","application/x-ns-proxy-autoconfig","pas","text/x-pascal","pat","image/x-coreldrawpattern","pbm","image/x-portable-bitmap","pcf","application/x-font","pcf.Z","application/x-font","pcx","image/pcx","pdb","chemical/x-pdb","pdf","application/pdf","pfa","application/x-font","pfb","application/x-font","pgm","image/x-portable-graymap","pgn","application/x-chess-pgn","pgp","application/pgp-signature","pk","application/x-tex-pk","pl","text/x-perl","pls","audio/x-scpls","pm","text/x-perl","png","image/png","pnm","image/x-portable-anymap","pot","text/plain","ppm","image/x-portable-pixmap","pps","application/vnd.ms-powerpoint","ppt","application/vnd.ms-powerpoint","prf","application/pics-rules","prt","chemical/x-ncbi-asn1-ascii","ps","application/postscript","psd","image/x-photoshop","psp","text/x-psp","py","text/x-python","pyc","application/x-python-code","pyo","application/x-python-code","qt","video/quicktime","qtl","application/x-quicktimeplayer","ra","audio/x-realaudio","ram","audio/x-pn-realaudio","rar","application/rar","ras","image/x-cmu-raster","rd","chemical/x-mdl-rdfile","rdf","application/rdf+xml","rgb","image/x-rgb","rm","audio/x-pn-realaudio","roff","application/x-troff","ros","chemical/x-rosdal","rpm","application/x-redhat-package-manager","rss","application/rss+xml","rtf","text/rtf","rtx","text/richtext","rxn","chemical/x-mdl-rxnfile","sct","text/scriptlet","sd","chemical/x-mdl-sdfile","sd2","audio/x-sd2","sda","application/vnd.stardivision.draw","sdc","application/vnd.stardivision.calc","sdd","application/vnd.stardivision.impress","sdf","chemical/x-mdl-sdfile","sdp","application/vnd.stardivision.impress","sdw","application/vnd.stardivision.writer","ser","application/java-serialized-object","sgf","application/x-go-sgf","sgl","application/vnd.stardivision.writer-global","sh","text/x-sh","shar","application/x-shar","shtml","text/html","sid","audio/prs.sid","sik","application/x-trash","silo","model/mesh","sis","application/vnd.symbian.install","sit","application/x-stuffit","skd","application/x-koan","skm","application/x-koan","skp","application/x-koan","skt","application/x-koan","smf","application/vnd.stardivision.math","smi","application/smil","smil","application/smil","snd","audio/basic","spc","chemical/x-galactic-spc","spl","application/x-futuresplash","src","application/x-wais-source","stc","application/vnd.sun.xml.calc.template","std","application/vnd.sun.xml.draw.template","sti","application/vnd.sun.xml.impress.template","stl","application/vnd.ms-pki.stl","stw","application/vnd.sun.xml.writer.template","sty","text/x-tex","sv4cpio","application/x-sv4cpio","sv4crc","application/x-sv4crc","svg","image/svg+xml","svgz","image/svg+xml","sw","chemical/x-swissprot","swf","application/x-shockwave-flash","swfl","application/x-shockwave-flash","sxc","application/vnd.sun.xml.calc","sxd","application/vnd.sun.xml.draw","sxg","application/vnd.sun.xml.writer.global","sxi","application/vnd.sun.xml.impress","sxm","application/vnd.sun.xml.math","sxw","application/vnd.sun.xml.writer","t","application/x-troff","tar","application/x-tar","taz","application/x-gtar","tcl","text/x-tcl","tex","text/x-tex","texi","application/x-texinfo","texinfo","application/x-texinfo","text","text/plain","tgf","chemical/x-mdl-tgf","tgz","application/x-gtar","tif","image/tiff","tiff","image/tiff","tk","text/x-tcl","tm","text/texmacs","torrent","application/x-bittorrent","tr","application/x-troff","ts","text/texmacs","tsp","application/dsptype","tsv","text/tab-separated-values","txt","text/plain","udeb","application/x-debian-package","uls","text/iuls","ustar","application/x-ustar","val","chemical/x-ncbi-asn1-binary","vcd","application/x-cdlink","vcf","text/x-vcard","vcs","text/x-vcalendar","vmd","chemical/x-vmd","vms","chemical/x-vamas-iso14976","vor","application/vnd.stardivision.writer","vrm","x-world/x-vrml","vrml","x-world/x-vrml","vsd","application/vnd.visio","wad","application/x-doom","wav","audio/x-wav","wax","audio/x-ms-wax","wbmp","image/vnd.wap.wbmp","wbxml","application/vnd.wap.wbxml","wk","application/x-123","wm","video/x-ms-wm","wma","audio/x-ms-wma","wmd","application/x-ms-wmd","wml","text/vnd.wap.wml","wmlc","application/vnd.wap.wmlc","wmls","text/vnd.wap.wmlscript","wmlsc","application/vnd.wap.wmlscriptc","wmv","video/x-ms-wmv","wmx","video/x-ms-wmx","wmz","application/x-ms-wmz","wp5","application/wordperfect5.1","wpd","application/wordperfect","wrl","x-world/x-vrml","wsc","text/scriptlet","wvx","video/x-ms-wvx","wz","application/x-wingz","xbm","image/x-xbitmap","xcf","application/x-xcf","xht","application/xhtml+xml","xhtml","application/xhtml+xml","xlb","application/vnd.ms-excel","xls","application/vnd.ms-excel","xlt","application/vnd.ms-excel","xml","application/xml","xpi","application/x-xpinstall","xpm","image/x-xpixmap","xsl","application/xml","xtel","chemical/x-xtel","xul","application/vnd.mozilla.xul+xml","xwd","image/x-xwindowdump","xyz","chemical/x-xyz","zip","application/zip","zmt","chemical/x-mopac-input","~","application/x-trash"]);
-return $1;
+return $globals.HashedCollection._newFromPairs_(["%","application/x-trash","323","text/h323","abw","application/x-abiword","ai","application/postscript","aif","audio/x-aiff","aifc","audio/x-aiff","aiff","audio/x-aiff","alc","chemical/x-alchemy","art","image/x-jg","asc","text/plain","asf","video/x-ms-asf","asn","chemical/x-ncbi-asn1-spec","aso","chemical/x-ncbi-asn1-binary","asx","video/x-ms-asf","au","audio/basic","avi","video/x-msvideo","b","chemical/x-molconn-Z","bak","application/x-trash","bat","application/x-msdos-program","bcpio","application/x-bcpio","bib","text/x-bibtex","bin","application/octet-stream","bmp","image/x-ms-bmp","book","application/x-maker","bsd","chemical/x-crossfire","c","text/x-csrc","c++","text/x-c++src","c3d","chemical/x-chem3d","cac","chemical/x-cache","cache","chemical/x-cache","cascii","chemical/x-cactvs-binary","cat","application/vnd.ms-pki.seccat","cbin","chemical/x-cactvs-binary","cc","text/x-c++src","cdf","application/x-cdf","cdr","image/x-coreldraw","cdt","image/x-coreldrawtemplate","cdx","chemical/x-cdx","cdy","application/vnd.cinderella","cef","chemical/x-cxf","cer","chemical/x-cerius","chm","chemical/x-chemdraw","chrt","application/x-kchart","cif","chemical/x-cif","class","application/java-vm","cls","text/x-tex","cmdf","chemical/x-cmdf","cml","chemical/x-cml","cod","application/vnd.rim.cod","com","application/x-msdos-program","cpa","chemical/x-compass","cpio","application/x-cpio","cpp","text/x-c++src","cpt","image/x-corelphotopaint","crl","application/x-pkcs7-crl","crt","application/x-x509-ca-cert","csf","chemical/x-cache-csf","csh","text/x-csh","csm","chemical/x-csml","csml","chemical/x-csml","css","text/css","csv","text/comma-separated-values","ctab","chemical/x-cactvs-binary","ctx","chemical/x-ctx","cu","application/cu-seeme","cub","chemical/x-gaussian-cube","cxf","chemical/x-cxf","cxx","text/x-c++src","dat","chemical/x-mopac-input","dcr","application/x-director","deb","application/x-debian-package","dif","video/dv","diff","text/plain","dir","application/x-director","djv","image/vnd.djvu","djvu","image/vnd.djvu","dl","video/dl","dll","application/x-msdos-program","dmg","application/x-apple-diskimage","dms","application/x-dms","doc","application/msword","dot","application/msword","dv","video/dv","dvi","application/x-dvi","dx","chemical/x-jcamp-dx","dxr","application/x-director","emb","chemical/x-embl-dl-nucleotide","embl","chemical/x-embl-dl-nucleotide","ent","chemical/x-pdb","eps","application/postscript","etx","text/x-setext","exe","application/x-msdos-program","ez","application/andrew-inset","fb","application/x-maker","fbdoc","application/x-maker","fch","chemical/x-gaussian-checkpoint","fchk","chemical/x-gaussian-checkpoint","fig","application/x-xfig","flac","application/x-flac","fli","video/fli","fm","application/x-maker","frame","application/x-maker","frm","application/x-maker","gal","chemical/x-gaussian-log","gam","chemical/x-gamess-input","gamin","chemical/x-gamess-input","gau","chemical/x-gaussian-input","gcd","text/x-pcs-gcd","gcf","application/x-graphing-calculator","gcg","chemical/x-gcg8-sequence","gen","chemical/x-genbank","gf","application/x-tex-gf","gif","image/gif","gjc","chemical/x-gaussian-input","gjf","chemical/x-gaussian-input","gl","video/gl","gnumeric","application/x-gnumeric","gpt","chemical/x-mopac-graph","gsf","application/x-font","gsm","audio/x-gsm","gtar","application/x-gtar","h","text/x-chdr","h++","text/x-c++hdr","hdf","application/x-hdf","hh","text/x-c++hdr","hin","chemical/x-hin","hpp","text/x-c++hdr","hqx","application/mac-binhex40","hs","text/x-haskell","hta","application/hta","htc","text/x-component","htm","text/html","html","text/html","hxx","text/x-c++hdr","ica","application/x-ica","ice","x-conference/x-cooltalk","ico","image/x-icon","ics","text/calendar","icz","text/calendar","ief","image/ief","iges","model/iges","igs","model/iges","iii","application/x-iphone","inp","chemical/x-gamess-input","ins","application/x-internet-signup","iso","application/x-iso9660-image","isp","application/x-internet-signup","ist","chemical/x-isostar","istr","chemical/x-isostar","jad","text/vnd.sun.j2me.app-descriptor","jar","application/java-archive","java","text/x-java","jdx","chemical/x-jcamp-dx","jmz","application/x-jmol","jng","image/x-jng","jnlp","application/x-java-jnlp-file","jpe","image/jpeg","jpeg","image/jpeg","jpg","image/jpeg","js","application/javascript","kar","audio/midi","key","application/pgp-keys","kil","application/x-killustrator","kin","chemical/x-kinemage","kpr","application/x-kpresenter","kpt","application/x-kpresenter","ksp","application/x-kspread","kwd","application/x-kword","kwt","application/x-kword","latex","application/x-latex","lha","application/x-lha","lhs","text/x-literate-haskell","lsf","video/x-la-asf","lsx","video/x-la-asf","ltx","text/x-tex","lzh","application/x-lzh","lzx","application/x-lzx","m3u","audio/x-mpegurl","m4a","audio/mpeg","maker","application/x-maker","man","application/x-troff-man","mcif","chemical/x-mmcif","mcm","chemical/x-macmolecule","mdb","application/msaccess","me","application/x-troff-me","mesh","model/mesh","mid","audio/midi","midi","audio/midi","mif","application/x-mif","mm","application/x-freemind","mmd","chemical/x-macromodel-input","mmf","application/vnd.smaf","mml","text/mathml","mmod","chemical/x-macromodel-input","mng","video/x-mng","moc","text/x-moc","mol","chemical/x-mdl-molfile","mol2","chemical/x-mol2","moo","chemical/x-mopac-out","mop","chemical/x-mopac-input","mopcrt","chemical/x-mopac-input","mov","video/quicktime","movie","video/x-sgi-movie","mp2","audio/mpeg","mp3","audio/mpeg","mp4","video/mp4","mpc","chemical/x-mopac-input","mpe","video/mpeg","mpeg","video/mpeg","mpega","audio/mpeg","mpg","video/mpeg","mpga","audio/mpeg","ms","application/x-troff-ms","msh","model/mesh","msi","application/x-msi","mvb","chemical/x-mopac-vib","mxu","video/vnd.mpegurl","nb","application/mathematica","nc","application/x-netcdf","nwc","application/x-nwc","o","application/x-object","oda","application/oda","odb","application/vnd.oasis.opendocument.database","odc","application/vnd.oasis.opendocument.chart","odf","application/vnd.oasis.opendocument.formula","odg","application/vnd.oasis.opendocument.graphics","odi","application/vnd.oasis.opendocument.image","odm","application/vnd.oasis.opendocument.text-master","odp","application/vnd.oasis.opendocument.presentation","ods","application/vnd.oasis.opendocument.spreadsheet","odt","application/vnd.oasis.opendocument.text","ogg","application/ogg","old","application/x-trash","oth","application/vnd.oasis.opendocument.text-web","oza","application/x-oz-application","p","text/x-pascal","p7r","application/x-pkcs7-certreqresp","pac","application/x-ns-proxy-autoconfig","pas","text/x-pascal","pat","image/x-coreldrawpattern","pbm","image/x-portable-bitmap","pcf","application/x-font","pcf.Z","application/x-font","pcx","image/pcx","pdb","chemical/x-pdb","pdf","application/pdf","pfa","application/x-font","pfb","application/x-font","pgm","image/x-portable-graymap","pgn","application/x-chess-pgn","pgp","application/pgp-signature","pk","application/x-tex-pk","pl","text/x-perl","pls","audio/x-scpls","pm","text/x-perl","png","image/png","pnm","image/x-portable-anymap","pot","text/plain","ppm","image/x-portable-pixmap","pps","application/vnd.ms-powerpoint","ppt","application/vnd.ms-powerpoint","prf","application/pics-rules","prt","chemical/x-ncbi-asn1-ascii","ps","application/postscript","psd","image/x-photoshop","psp","text/x-psp","py","text/x-python","pyc","application/x-python-code","pyo","application/x-python-code","qt","video/quicktime","qtl","application/x-quicktimeplayer","ra","audio/x-realaudio","ram","audio/x-pn-realaudio","rar","application/rar","ras","image/x-cmu-raster","rd","chemical/x-mdl-rdfile","rdf","application/rdf+xml","rgb","image/x-rgb","rm","audio/x-pn-realaudio","roff","application/x-troff","ros","chemical/x-rosdal","rpm","application/x-redhat-package-manager","rss","application/rss+xml","rtf","text/rtf","rtx","text/richtext","rxn","chemical/x-mdl-rxnfile","sct","text/scriptlet","sd","chemical/x-mdl-sdfile","sd2","audio/x-sd2","sda","application/vnd.stardivision.draw","sdc","application/vnd.stardivision.calc","sdd","application/vnd.stardivision.impress","sdf","chemical/x-mdl-sdfile","sdp","application/vnd.stardivision.impress","sdw","application/vnd.stardivision.writer","ser","application/java-serialized-object","sgf","application/x-go-sgf","sgl","application/vnd.stardivision.writer-global","sh","text/x-sh","shar","application/x-shar","shtml","text/html","sid","audio/prs.sid","sik","application/x-trash","silo","model/mesh","sis","application/vnd.symbian.install","sit","application/x-stuffit","skd","application/x-koan","skm","application/x-koan","skp","application/x-koan","skt","application/x-koan","smf","application/vnd.stardivision.math","smi","application/smil","smil","application/smil","snd","audio/basic","spc","chemical/x-galactic-spc","spl","application/x-futuresplash","src","application/x-wais-source","stc","application/vnd.sun.xml.calc.template","std","application/vnd.sun.xml.draw.template","sti","application/vnd.sun.xml.impress.template","stl","application/vnd.ms-pki.stl","stw","application/vnd.sun.xml.writer.template","sty","text/x-tex","sv4cpio","application/x-sv4cpio","sv4crc","application/x-sv4crc","svg","image/svg+xml","svgz","image/svg+xml","sw","chemical/x-swissprot","swf","application/x-shockwave-flash","swfl","application/x-shockwave-flash","sxc","application/vnd.sun.xml.calc","sxd","application/vnd.sun.xml.draw","sxg","application/vnd.sun.xml.writer.global","sxi","application/vnd.sun.xml.impress","sxm","application/vnd.sun.xml.math","sxw","application/vnd.sun.xml.writer","t","application/x-troff","tar","application/x-tar","taz","application/x-gtar","tcl","text/x-tcl","tex","text/x-tex","texi","application/x-texinfo","texinfo","application/x-texinfo","text","text/plain","tgf","chemical/x-mdl-tgf","tgz","application/x-gtar","tif","image/tiff","tiff","image/tiff","tk","text/x-tcl","tm","text/texmacs","torrent","application/x-bittorrent","tr","application/x-troff","ts","text/texmacs","tsp","application/dsptype","tsv","text/tab-separated-values","txt","text/plain","udeb","application/x-debian-package","uls","text/iuls","ustar","application/x-ustar","val","chemical/x-ncbi-asn1-binary","vcd","application/x-cdlink","vcf","text/x-vcard","vcs","text/x-vcalendar","vmd","chemical/x-vmd","vms","chemical/x-vamas-iso14976","vor","application/vnd.stardivision.writer","vrm","x-world/x-vrml","vrml","x-world/x-vrml","vsd","application/vnd.visio","wad","application/x-doom","wav","audio/x-wav","wax","audio/x-ms-wax","wbmp","image/vnd.wap.wbmp","wbxml","application/vnd.wap.wbxml","wk","application/x-123","wm","video/x-ms-wm","wma","audio/x-ms-wma","wmd","application/x-ms-wmd","wml","text/vnd.wap.wml","wmlc","application/vnd.wap.wmlc","wmls","text/vnd.wap.wmlscript","wmlsc","application/vnd.wap.wmlscriptc","wmv","video/x-ms-wmv","wmx","video/x-ms-wmx","wmz","application/x-ms-wmz","wp5","application/wordperfect5.1","wpd","application/wordperfect","wrl","x-world/x-vrml","wsc","text/scriptlet","wvx","video/x-ms-wvx","wz","application/x-wingz","xbm","image/x-xbitmap","xcf","application/x-xcf","xht","application/xhtml+xml","xhtml","application/xhtml+xml","xlb","application/vnd.ms-excel","xls","application/vnd.ms-excel","xlt","application/vnd.ms-excel","xml","application/xml","xpi","application/x-xpinstall","xpm","image/x-xpixmap","xsl","application/xml","xtel","chemical/x-xtel","xul","application/vnd.mozilla.xul+xml","xwd","image/x-xwindowdump","xyz","chemical/x-xyz","zip","application/zip","zmt","chemical/x-mopac-input","~","application/x-trash"]);
 
 },
 args: [],
@@ -64501,7 +62870,7 @@ var self=this;
 var fileServer,args;
 function $FileServer(){return $globals.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 return $core.withContext(function($ctx1) {
-var $1,$2;
+var $1;
 var $early={};
 try {
 args=$recv(process)._argv();
@@ -64517,8 +62886,7 @@ return $recv($FileServer())._printHelp();
 return $core.withContext(function($ctx2) {
 fileServer=$recv($FileServer())._createServerWithArguments_(args);
 fileServer;
-$2=$recv(fileServer)._start();
-throw $early=[$2];
+throw $early=[$recv(fileServer)._start()];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 }));
 return self;
@@ -64540,12 +62908,10 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._mimeTypes())._at_ifAbsent_($recv(aString)._replace_with_(".*[\x5c.]",""),(function(){
+return $recv(self._mimeTypes())._at_ifAbsent_($recv(aString)._replace_with_(".*[\x5c.]",""),(function(){
 return "text/plain";
 
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"mimeTypeFor:",{aString:aString},$globals.FileServer.klass)});
 },
 args: ["aString"],
@@ -64562,15 +62928,14 @@ protocol: 'accessing',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1,$receiver;
-$2=self["@mimeTypes"];
-if(($receiver = $2) == null || $receiver.isNil){
-self["@mimeTypes"]=self._defaultMimeTypes();
+var $1,$receiver;
 $1=self["@mimeTypes"];
+if(($receiver = $1) == null || $receiver.isNil){
+self["@mimeTypes"]=self._defaultMimeTypes();
+return self["@mimeTypes"];
 } else {
-$1=$2;
-};
 return $1;
+};
 }, function($ctx1) {$ctx1.fill(self,"mimeTypes",{},$globals.FileServer.klass)});
 },
 args: [],
@@ -64613,15 +62978,14 @@ protocol: 'accessing',
 fn: function (aSwitch){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$1;
-$2=$recv($recv(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
+var $1;
+$1=$recv($recv(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
 return $core.withContext(function($ctx2) {
 return $recv($recv(each)._second())._asUppercase();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 }));
 $ctx1.sendIdx["replace:with:"]=1;
-$1=$recv($2).__comma(":");
-return $1;
+return $recv($1).__comma(":");
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},$globals.FileServer.klass)});
 },
 args: ["aSwitch"],
@@ -64641,20 +63005,20 @@ fn: function (aBlock){
 var self=this;
 var child;
 return $core.withContext(function($ctx1) {
-var $1,$4,$3,$2;
+var $1,$3,$2;
 child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("bower","bower"),["install"]);
 $1=child;
 $recv($1)._on_do_("error",aBlock);
 $ctx1.sendIdx["on:do:"]=1;
-$2=$recv($1)._on_do_("close",(function(code){
+$recv($1)._on_do_("close",(function(code){
 return $core.withContext(function($ctx2) {
-$4=$recv(code).__eq((0));
-if($core.assert($4)){
-$3=nil;
+$3=$recv(code).__eq((0));
+if($core.assert($3)){
+$2=nil;
 } else {
-$3=code;
+$2=code;
 };
-return $recv(aBlock)._value_($3);
+return $recv(aBlock)._value_($2);
 }, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 }));
 return self;
@@ -64697,22 +63061,22 @@ fn: function (aBlock){
 var self=this;
 var child,sanitizedTemplatePath;
 return $core.withContext(function($ctx1) {
-var $1,$4,$3,$2;
+var $1,$3,$2;
 sanitizedTemplatePath=$recv($recv($recv(self["@path"])._join_with_(self["@nmPath"],"grunt-init-amber"))._replace_with_("\x5c\x5c","\x5c\x5c"))._replace_with_(":","\x5c:");
 $ctx1.sendIdx["replace:with:"]=1;
 child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-init","grunt-init"),[sanitizedTemplatePath]);
 $1=child;
 $recv($1)._on_do_("error",aBlock);
 $ctx1.sendIdx["on:do:"]=1;
-$2=$recv($1)._on_do_("close",(function(code){
+$recv($1)._on_do_("close",(function(code){
 return $core.withContext(function($ctx2) {
-$4=$recv(code).__eq((0));
-if($core.assert($4)){
-$3=nil;
+$3=$recv(code).__eq((0));
+if($core.assert($3)){
+$2=nil;
 } else {
-$3=code;
+$2=code;
 };
-return $recv(aBlock)._value_($3);
+return $recv(aBlock)._value_($2);
 }, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 }));
 return self;
@@ -64733,20 +63097,20 @@ fn: function (aBlock){
 var self=this;
 var child;
 return $core.withContext(function($ctx1) {
-var $1,$4,$3,$2;
+var $1,$3,$2;
 child=$recv(self["@childProcess"])._fork_args_(self._npmScriptForModule_named_("grunt-cli","grunt"),["default", "devel"]);
 $1=child;
 $recv($1)._on_do_("error",aBlock);
 $ctx1.sendIdx["on:do:"]=1;
-$2=$recv($1)._on_do_("close",(function(code){
+$recv($1)._on_do_("close",(function(code){
 return $core.withContext(function($ctx2) {
-$4=$recv(code).__eq((0));
-if($core.assert($4)){
-$3=nil;
+$3=$recv(code).__eq((0));
+if($core.assert($3)){
+$2=nil;
 } else {
-$3=code;
+$2=code;
 };
-return $recv(aBlock)._value_($3);
+return $recv(aBlock)._value_($2);
 }, function($ctx2) {$ctx2.fillBlock({code:code},$ctx1,1)});
 }));
 return self;
@@ -64767,8 +63131,8 @@ fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Initer.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Initer.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@childProcess"]=$recv(require)._value_("child_process");
 self["@nmPath"]=$recv(self["@path"])._join_with_(self._rootDirname(),"node_modules");
@@ -64815,7 +63179,7 @@ var modulePath,packageJson,binSection,scriptPath;
 function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return $core.withContext(function($ctx1) {
-var $1,$3,$4,$2,$5,$6;
+var $1,$3,$4,$2,$5;
 $1=self["@path"];
 $3=$recv($JSObjectProxy())._on_(require);
 $4=$recv(aString).__comma("/package.json");
@@ -64831,8 +63195,7 @@ scriptPath=binSection;
 } else {
 scriptPath=$recv(binSection)._at_(anotherString);
 };
-$6=$recv(self["@path"])._join_with_(modulePath,scriptPath);
-return $6;
+return $recv(self["@path"])._join_with_(modulePath,scriptPath);
 }, function($ctx1) {$ctx1.fill(self,"npmScriptForModule:named:",{aString:aString,anotherString:anotherString,modulePath:modulePath,packageJson:packageJson,binSection:binSection,scriptPath:scriptPath},$globals.Initer)});
 },
 args: ["aString", "anotherString"],
@@ -64849,7 +63212,7 @@ protocol: 'action',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$3,$4,$5,$6,$7,$8,$receiver;
+var $1,$2,$3,$4,$5,$6,$7,$receiver;
 self._gruntInitThenDo_((function(error){
 return $core.withContext(function($ctx2) {
 if(($receiver = error) == null || $receiver.isNil){
@@ -64868,8 +63231,7 @@ return $recv(process)._exit();
 $7=console;
 $recv($7)._log_("grunt exec error:");
 $ctx5.sendIdx["log:"]=7;
-$8=$recv($7)._log_(error4);
-$8;
+$recv($7)._log_(error4);
 return $recv(process)._exit_((104));
 };
 }, function($ctx5) {$ctx5.fillBlock({error4:error4},$ctx4,10)});
@@ -64932,13 +63294,11 @@ fn: function (aString,anObject){
 var self=this;
 var newClass,newObject;
 return $core.withContext(function($ctx1) {
-var $1;
 newClass=self._subclass_withVariable_($recv(anObject)._class(),aString);
 self._encapsulateVariable_withValue_in_(aString,anObject,newClass);
 newObject=$recv(newClass)._new();
 self._setPreviousVariablesFor_from_(newObject,anObject);
-$1=newObject;
-return $1;
+return newObject;
 }, function($ctx1) {$ctx1.fill(self,"addVariableNamed:to:",{aString:aString,anObject:anObject,newClass:newClass,newObject:newObject},$globals.Repl)});
 },
 args: ["aString", "anObject"],
@@ -64957,8 +63317,8 @@ var self=this;
 function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 function $ConsoleErrorHandler(){return $globals.ConsoleErrorHandler||(typeof ConsoleErrorHandler=="undefined"?nil:ConsoleErrorHandler)}
 return $core.withContext(function($ctx1) {
-var $3,$4,$2,$1,$receiver;
-$1=self._parseAssignment_do_(buffer,(function(name,expr){
+var $2,$3,$1,$receiver;
+return self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 return $core.withContext(function($ctx2) {
 if(($receiver = name) == null || $receiver.isNil){
@@ -64971,15 +63331,15 @@ self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
 self["@session"];
 $recv((function(){
 return $core.withContext(function($ctx3) {
-$3=$recv(varName).__comma(" := ");
+$2=$recv(varName).__comma(" := ");
 if(($receiver = expr) == null || $receiver.isNil){
-$4=buffer;
+$3=buffer;
 } else {
-$4=expr;
+$3=expr;
 };
-$2=$recv($3).__comma($4);
+$1=$recv($2).__comma($3);
 $ctx3.sendIdx[","]=1;
-value=self._eval_on_($2,self["@session"]);
+value=self._eval_on_($1,self["@session"]);
 return value;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)});
 }))._on_do_($Error(),(function(e){
@@ -64992,7 +63352,6 @@ return value;
 return $recv(aBlock)._value_value_(varName,value);
 }, function($ctx2) {$ctx2.fillBlock({name:name,expr:expr,varName:varName,value:value},$ctx1,1)});
 }));
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},$globals.Repl)});
 },
 args: ["buffer", "aBlock"],
@@ -65053,9 +63412,7 @@ selector: "commands",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=self["@commands"];
-return $1;
+return self["@commands"];
 
 },
 args: [],
@@ -65072,7 +63429,6 @@ protocol: 'actions',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
 self["@interface"]=$recv(self["@readline"])._createInterface_stdout_($recv(process)._stdin(),$recv(process)._stdout());
 $recv(self["@interface"])._on_do_("line",(function(buffer){
 return $core.withContext(function($ctx2) {
@@ -65087,7 +63443,7 @@ return self._close();
 }));
 self._printWelcome();
 self._setupHotkeys();
-$1=self._setPrompt();
+self._setPrompt();
 $recv(self["@interface"])._prompt();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"createInterface",{},$globals.Repl)});
@@ -65141,9 +63497,7 @@ fn: function (buffer){
 var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=self._eval_on_(buffer,$recv($DoIt())._new());
-return $1;
+return self._eval_on_(buffer,$recv($DoIt())._new());
 }, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer},$globals.Repl)});
 },
 args: ["buffer"],
@@ -65162,7 +63516,7 @@ var self=this;
 var result;
 function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return $core.withContext(function($ctx1) {
-var $1,$2,$3;
+var $1,$2;
 $1=$recv(buffer)._isEmpty();
 if(!$core.assert($1)){
 $recv((function(){
@@ -65181,8 +63535,7 @@ return $recv($recv(process)._stdout())._write_($recv(e)._jsStack());
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,3)});
 }));
 };
-$3=result;
-return $3;
+return result;
 }, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},$globals.Repl)});
 },
 args: ["buffer", "anObject"],
@@ -65232,8 +63585,8 @@ var self=this;
 function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return $core.withContext(function($ctx1) {
 (
-$ctx1.supercall = true, 
-$globals.Repl.superclass.fn.prototype._initialize.apply($recv(self), []));
+$ctx1.supercall = true,
+($globals.Repl.superclass||$boot.dnu).fn.prototype._initialize.apply($recv(self), []));
 $ctx1.supercall = false;
 self["@session"]=$recv($DoIt())._new();
 self["@readline"]=$recv(require)._value_("readline");
@@ -65257,17 +63610,16 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $2,$3,$1,$receiver;
-$2=$recv(aClass)._superclass();
+var $1,$2,$receiver;
+$1=$recv(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv(aClass)._instanceVariableNames();
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv(aClass)._instanceVariableNames();
 } else {
-$3=$recv(aClass)._instanceVariableNames();
+$2=$recv(aClass)._instanceVariableNames();
 $ctx1.sendIdx["instanceVariableNames"]=1;
-$1=$recv($3)._copyWithAll_(self._instanceVariableNamesFor_($recv(aClass)._superclass()));
+return $recv($2)._copyWithAll_(self._instanceVariableNamesFor_($recv(aClass)._superclass()));
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},$globals.Repl)});
 },
 args: ["aClass"],
@@ -65284,9 +63636,7 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
-return $1;
+return $recv(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
 }, function($ctx1) {$ctx1.fill(self,"isIdentifier:",{aString:aString},$globals.Repl)});
 },
 args: ["aString"],
@@ -65303,9 +63653,7 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv(self._instanceVariableNamesFor_($recv(self["@session"])._class()))._includes_(aString);
-return $1;
+return $recv(self._instanceVariableNamesFor_($recv(self["@session"])._class()))._includes_(aString);
 }, function($ctx1) {$ctx1.fill(self,"isVariableDefined:",{aString:aString},$globals.Repl)});
 },
 args: ["aString"],
@@ -65322,15 +63670,14 @@ protocol: 'private',
 fn: function (){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $1,$2,$receiver;
+var $1,$receiver;
 $1=self["@resultCount"];
 if(($receiver = $1) == null || $receiver.isNil){
 self["@resultCount"]=(1);
 } else {
 self["@resultCount"]=$recv(self["@resultCount"]).__plus((1));
 };
-$2="res".__comma($recv(self["@resultCount"])._asString());
-return $2;
+return "res".__comma($recv(self["@resultCount"])._asString());
 }, function($ctx1) {$ctx1.fill(self,"nextResultName",{},$globals.Repl)});
 },
 args: [],
@@ -65374,26 +63721,25 @@ fn: function (aString,aBlock){
 var self=this;
 var assignment;
 return $core.withContext(function($ctx1) {
-var $3,$2,$1;
+var $2,$1;
 assignment=$recv($recv(aString)._tokenize_(":="))._collect_((function(s){
 return $core.withContext(function($ctx2) {
 return $recv(s)._trimBoth();
 }, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1,1)});
 }));
-$2=$recv($recv($recv(assignment)._size()).__eq((2)))._and_((function(){
+$1=$recv($recv($recv(assignment)._size()).__eq((2)))._and_((function(){
 return $core.withContext(function($ctx2) {
-$3=$recv(assignment)._first();
+$2=$recv(assignment)._first();
 $ctx2.sendIdx["first"]=1;
-return self._isIdentifier_($3);
+return self._isIdentifier_($2);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 }));
-if($core.assert($2)){
-$1=$recv(aBlock)._value_value_($recv(assignment)._first(),$recv(assignment)._last());
+if($core.assert($1)){
+return $recv(aBlock)._value_value_($recv(assignment)._first(),$recv(assignment)._last());
 $ctx1.sendIdx["value:value:"]=1;
 } else {
-$1=$recv(aBlock)._value_value_(nil,nil);
+return $recv(aBlock)._value_value_(nil,nil);
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"parseAssignment:do:",{aString:aString,aBlock:aBlock,assignment:assignment},$globals.Repl)});
 },
 args: ["aString", "aBlock"],
@@ -65411,7 +63757,7 @@ fn: function (varName,value){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return $core.withContext(function($ctx1) {
-var $3,$2,$1,$4;
+var $3,$2,$1;
 $3=$recv($recv(varName).__comma(": ")).__comma($recv($recv(value)._class())._name());
 $ctx1.sendIdx[","]=3;
 $2=$recv($3).__comma(" = ");
@@ -65419,7 +63765,7 @@ $ctx1.sendIdx[","]=2;
 $1=$recv($2).__comma($recv(value)._asString());
 $ctx1.sendIdx[","]=1;
 $recv($Transcript())._show_($1);
-$4=$recv($Transcript())._cr();
+$recv($Transcript())._cr();
 $recv(self["@interface"])._prompt();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"presentResultNamed:withValue:",{varName:varName,value:value},$globals.Repl)});
@@ -65439,9 +63785,8 @@ fn: function (){
 var self=this;
 function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return $core.withContext(function($ctx1) {
-var $1;
 $recv($Transcript())._show_("Type :q to exit.");
-$1=$recv($Transcript())._cr();
+$recv($Transcript())._cr();
 return self;
 }, function($ctx1) {$ctx1.fill(self,"printWelcome",{},$globals.Repl)});
 },
@@ -65607,9 +63952,7 @@ fn: function (aClass,varName){
 var self=this;
 function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return $core.withContext(function($ctx1) {
-var $1;
-$1=$recv($recv($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,$recv(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
-return $1;
+return $recv($recv($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,$recv(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
 }, function($ctx1) {$ctx1.fill(self,"subclass:withVariable:",{aClass:aClass,varName:varName},$globals.Repl)});
 },
 args: ["aClass", "varName"],
@@ -65626,27 +63969,26 @@ protocol: 'private',
 fn: function (aClass){
 var self=this;
 return $core.withContext(function($ctx1) {
-var $3,$2,$7,$6,$5,$4,$8,$1,$receiver;
-$3=$recv(aClass)._name();
+var $2,$1,$6,$5,$4,$3,$7,$receiver;
+$2=$recv(aClass)._name();
 $ctx1.sendIdx["name"]=1;
-$2=$recv($3)._matchesOf_("\x5cd+$");
+$1=$recv($2)._matchesOf_("\x5cd+$");
 $ctx1.sendIdx["matchesOf:"]=1;
-if(($receiver = $2) == null || $receiver.isNil){
-$1=$recv($recv(aClass)._name()).__comma("2");
+if(($receiver = $1) == null || $receiver.isNil){
+return $recv($recv(aClass)._name()).__comma("2");
 } else {
 var counter;
-$7=$recv(aClass)._name();
+$6=$recv(aClass)._name();
 $ctx1.sendIdx["name"]=2;
-$6=$recv($7)._matchesOf_("\x5cd+$");
-$5=$recv($6)._first();
-$4=$recv($5)._asNumber();
-counter=$recv($4).__plus((1));
+$5=$recv($6)._matchesOf_("\x5cd+$");
+$4=$recv($5)._first();
+$3=$recv($4)._asNumber();
+counter=$recv($3).__plus((1));
 counter;
-$8=$recv(aClass)._name();
+$7=$recv(aClass)._name();
 $ctx1.sendIdx["name"]=3;
-$1=$recv($8)._replaceRegexp_with_("\x5cd+$"._asRegexp(),$recv(counter)._asString());
+return $recv($7)._replaceRegexp_with_("\x5cd+$"._asRegexp(),$recv(counter)._asString());
 };
-return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclassNameFor:",{aClass:aClass},$globals.Repl)});
 },
 args: ["aClass"],

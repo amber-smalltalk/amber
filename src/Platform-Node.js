@@ -14,9 +14,7 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-var $1;
-$1=global;
-return $1;
+return global;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -38,12 +36,11 @@ function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpReques
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-var $1,$receiver;
+var $receiver;
 if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
 self._error_("XMLHttpRequest not available.");
 } else {
-$1=$recv($XMLHttpRequest())._new();
-return $1;
+return $recv($XMLHttpRequest())._new();
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
