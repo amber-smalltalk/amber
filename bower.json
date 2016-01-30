@@ -13,5 +13,8 @@
     "/test_runner.js",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "amber-compat-es2015": "^0.1.0"
+  }
 }

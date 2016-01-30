@@ -57,10 +57,18 @@ define(["amber/boot", "require"], function (boot, require) {
     }
 
     exports.initialize = function (options) {
-        globals.SmalltalkSettings['transport.defaultAmdNamespace'] = api.defaultAmdNamespace;
-        settingsInLocalStorage();
-        mixinToSettings(options || {});
-        return api.initialize();
+        return Promise.resolve()
+            .then(function () {
+                globals.SmalltalkSettings['transport.defaultAmdNamespace'] = api.defaultAmdNamespace;
+            })
+            .then(settingsInLocalStorage)
+            .then(function () {
+                return options || {};
+            })
+            .then(mixinToSettings)
+            .then(function () {
+                return api.initialize();
+            })
     };
 
     // Exports

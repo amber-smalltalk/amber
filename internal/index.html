@@ -16,15 +16,26 @@
 </head>
 
 <body>
+<p id="loading">Loading Amber for development ...</p>
+<p id="startlegacy">To start legacy in-page IDE, <a href="#" onclick="require('amber/helpers').globals.Browser._open(); return false;">click here</a>.</p>
+<p id="starthelios">To popup Helios IDE, <a href="#" onclick="require('amber/helpers').popupHelios(); return false;">click here</a>.</p>
 <script type='text/javascript'>
+    var startLegacy = document.getElementById("startlegacy");
+    startLegacy.parentNode.removeChild(startLegacy);
+    var startHelios = document.getElementById("starthelios");
+    startHelios.parentNode.removeChild(startHelios);
     require(
         ["amber/devel", "amber/legacy/IDE", "amber/web/Web", "amber/legacy/Benchfib", "helios/all", "amber_cli/AmberCli"],
         function (amber) {
-            amber.initialize({'transport.defaultAmdNamespace': "amber_core"});
+            amber.initialize({'transport.defaultAmdNamespace': "amber_core"})
+                    .then(function () {
+                        var loading = document.getElementById("loading");
+                        loading.parentNode.appendChild(startLegacy);
+                        loading.parentNode.appendChild(startHelios);
+                        loading.parentNode.removeChild(loading);
+                    });
         }
     );
 </script>
-<p>To start legacy in-page IDE, <a href="#" onclick="require('amber/helpers').globals.Browser._open(); return false;">click here</a>.</p>
-<p>To popup Helios IDE, <a href="#" onclick="require('amber/helpers').popupHelios(); return false;">click here</a>.</p>
 </body>
 </html> 
