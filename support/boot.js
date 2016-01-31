@@ -117,7 +117,8 @@ define(['require', './compatibility'], function (require) {
         return child;
     }
 
-    var globals = {};
+    var jsGlobals = new Function("return this")();
+    var globals = Object.create(jsGlobals);
     globals.SmalltalkSettings = {};
     var api = {};
     var brikz = new Brikz(api);
@@ -485,20 +486,21 @@ define(['require', './compatibility'], function (require) {
             if (!superclass || superclass == nil) {
                 superclass = null;
             }
-            if (globals[className] && globals[className].superclass == superclass) {
-                //            globals[className].superclass = superclass;
-                globals[className].iVarNames = iVarNames || [];
-                if (pkg) globals[className].pkg = pkg;
+            var theClass = globals.hasOwnProperty(className) && globals[className];
+            if (theClass && theClass.superclass == superclass) {
+                //            theClass.superclass = superclass;
+                theClass.iVarNames = iVarNames || [];
+                if (pkg) theClass.pkg = pkg;
                 if (fn) {
-                    fn.prototype = globals[className].fn.prototype;
-                    globals[className].fn = fn;
+                    fn.prototype = theClass.fn.prototype;
+                    theClass.fn = fn;
                     fn.prototype.constructor = fn;
                 }
             } else {
-                if (globals[className]) {
-                    st.removeClass(globals[className]);
+                if (theClass) {
+                    st.removeClass(theClass);
                 }
-                globals[className] = klass({
+                theClass = globals[className] = klass({
                     className: className,
                     superclass: superclass,
                     pkg: pkg,
@@ -507,11 +509,11 @@ define(['require', './compatibility'], function (require) {
                     wrapped: wrapped
                 });
 
-                addSubclass(globals[className]);
+                addSubclass(theClass);
             }
 
-            classes.addElement(globals[className]);
-            org.addOrganizationElement(pkg, globals[className]);
+            classes.addElement(theClass);
+            org.addOrganizationElement(pkg, theClass);
         }
 
         st.removeClass = function (klass) {
