@@ -1,8 +1,6 @@
 var path = require('path');
 
 module.exports = function (grunt) {
-    var helpers = require('./external/amber-dev').helpers;
-
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
@@ -10,6 +8,8 @@ module.exports = function (grunt) {
 
     grunt.loadTasks('./internal/grunt-tasks');
     grunt.loadTasks('./external/amber-dev/tasks');
+
+    var helpers = require('./external/amber-dev').helpers;
 
     grunt.registerTask('default', ['peg', 'build:all']);
     grunt.registerTask('build:all', ['amberc:amber', 'build:cli', 'amberc:dev']);
