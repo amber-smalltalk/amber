@@ -94,6 +94,7 @@ AmberCompiler.prototype.main = function (configuration, finished_callback) {
     rjsConfig.map = rjsConfig.map || {};
     rjsConfig.map["*"] = rjsConfig.map["*"] || {};
     rjsConfig.map["*"]["amber/Platform"] = "amber_core/Platform-Node";
+    rjsConfig.map["*"]["amber/compatibility"] = "amber/node-compatibility";
     rjsConfig.nodeRequire = require;
     rjsConfig.context = "amberc";
     configuration.requirejs = requirejs.config(rjsConfig);
