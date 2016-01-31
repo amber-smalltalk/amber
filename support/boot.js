@@ -39,7 +39,7 @@
 
 //jshint eqnull:true
 
-define(['require', './browser-compatibility'], function (require) {
+define(['require', './compatibility'], function (require) {
 
     /* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 

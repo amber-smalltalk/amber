@@ -15,6 +15,6 @@
     "tests"
   ],
   "devDependencies": {
-    "amber-compat-es2015": "^0.1.0"
+    "amber-compat-es2015": "^0.1.1"
   }
 }
