@@ -15,9 +15,6 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var variable;
-function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
-function $AliasVar(){return $globals.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
-function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -30,11 +27,11 @@ $ctx1.sendIdx["visit:"]=1;
 //>>excludeEnd("ctx");
 return $2;
 };
-$3=$recv($IRVariable())._new();
+$3=$recv($globals.IRVariable)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$5=$recv($AliasVar())._new();
+$5=$recv($globals.AliasVar)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
@@ -46,7 +43,7 @@ $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
 variable=$6;
 $7=self._sequence();
-$9=$recv($IRAssignment())._new();
+$9=$recv($globals.IRAssignment)._new();
 $recv($9)._add_(variable);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
@@ -82,7 +79,6 @@ protocol: 'visiting',
 fn: function (aCollection){
 var self=this;
 var threshold,result;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -104,7 +100,7 @@ return threshold;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["withIndexDo:"]=1;
 //>>excludeEnd("ctx");
-result=$recv($OrderedCollection())._new();
+result=$recv($globals.OrderedCollection)._new();
 $recv(aCollection)._withIndexDo_((function(each,i){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -322,7 +318,6 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var left,right,assignment;
-function $IRAssignment(){return $globals.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -333,7 +328,7 @@ $ctx1.sendIdx["visit:"]=1;
 //>>excludeEnd("ctx");
 left=self._visit_($recv(aNode)._left());
 $1=self._sequence();
-$3=$recv($IRAssignment())._new();
+$3=$recv($globals.IRAssignment)._new();
 $recv($3)._add_(left);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=2;
@@ -365,13 +360,11 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var closure;
-function $IRClosure(){return $globals.IRClosure||(typeof IRClosure=="undefined"?nil:IRClosure)}
-function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$5,$4,$6,$8,$7;
-$1=$recv($IRClosure())._new();
+$1=$recv($globals.IRClosure)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -400,7 +393,7 @@ $recv($4)._do_((function(each){
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $6=closure;
-$8=$recv($IRTempDeclaration())._new();
+$8=$recv($globals.IRTempDeclaration)._new();
 $recv($8)._name_($recv(each)._name());
 $recv($8)._scope_($recv(aNode)._scope());
 $7=$recv($8)._yourself();
@@ -444,13 +437,11 @@ selector: "visitBlockSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRBlockSequence(){return $globals.IRBlockSequence||(typeof IRBlockSequence=="undefined"?nil:IRBlockSequence)}
-function $IRBlockReturn(){return $globals.IRBlockReturn||(typeof IRBlockReturn=="undefined"?nil:IRBlockReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$5,$6,$9,$8,$7,$10,$12,$15,$14,$13,$11;
-$1=$recv($IRBlockSequence())._new();
+$1=$recv($globals.IRBlockSequence)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -507,7 +498,7 @@ $10=self._sequence();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["sequence"]=2;
 //>>excludeEnd("ctx");
-$12=$recv($IRBlockReturn())._new();
+$12=$recv($globals.IRBlockReturn)._new();
 $15=$recv(aNode)._nodes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx3.sendIdx["nodes"]=4;
@@ -557,7 +548,6 @@ selector: "visitCascadeNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $VariableNode(){return $globals.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -578,7 +568,7 @@ receiver=previous;
 var alias;
 alias=self._alias_(previous);
 alias;
-receiver=$recv($recv($VariableNode())._new())._binding_($recv(alias)._variable());
+receiver=$recv($recv($globals.VariableNode)._new())._binding_($recv(alias)._variable());
 };
 receiver;
 $recv(each)._receiver_(receiver);
@@ -622,11 +612,10 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var array;
-function $IRDynamicArray(){return $globals.IRDynamicArray||(typeof IRDynamicArray=="undefined"?nil:IRDynamicArray)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-array=$recv($IRDynamicArray())._new();
+array=$recv($globals.IRDynamicArray)._new();
 $recv(self._aliasTemporally_($recv(aNode)._nodes()))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -657,11 +646,10 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var dictionary;
-function $IRDynamicDictionary(){return $globals.IRDynamicDictionary||(typeof IRDynamicDictionary=="undefined"?nil:IRDynamicDictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-dictionary=$recv($IRDynamicDictionary())._new();
+dictionary=$recv($globals.IRDynamicDictionary)._new();
 $recv(self._aliasTemporally_($recv(aNode)._nodes()))._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -691,12 +679,11 @@ selector: "visitJSStatementNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($IRVerbatim())._new();
+$1=$recv($globals.IRVerbatim)._new();
 $recv($1)._source_($recv($recv(aNode)._source())._crlfSanitized());
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -718,16 +705,11 @@ selector: "visitMethodNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRMethod(){return $globals.IRMethod||(typeof IRMethod=="undefined"?nil:IRMethod)}
-function $IRTempDeclaration(){return $globals.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
-function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
-function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
-function $IRVerbatim(){return $globals.IRVerbatim||(typeof IRVerbatim=="undefined"?nil:IRVerbatim)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$4,$1,$6,$5,$7,$9,$10,$11,$8,$12,$14,$13,$15,$17,$19,$20,$18,$21,$16,$23,$22;
-$2=$recv($IRMethod())._new();
+$2=$recv($globals.IRMethod)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -768,7 +750,7 @@ $7=self._method();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["method"]=1;
 //>>excludeEnd("ctx");
-$9=$recv($IRTempDeclaration())._new();
+$9=$recv($globals.IRTempDeclaration)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["new"]=2;
 //>>excludeEnd("ctx");
@@ -820,11 +802,11 @@ $15=self._method();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["method"]=3;
 //>>excludeEnd("ctx");
-$17=$recv($IRReturn())._new();
+$17=$recv($globals.IRReturn)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=3;
 //>>excludeEnd("ctx");
-$19=$recv($IRVariable())._new();
+$19=$recv($globals.IRVariable)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=4;
 //>>excludeEnd("ctx");
@@ -847,7 +829,7 @@ $recv($15)._add_($16);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["add:"]=3;
 //>>excludeEnd("ctx");
-$23=$recv($IRVerbatim())._new();
+$23=$recv($globals.IRVerbatim)._new();
 $recv($23)._source_("");
 $22=$recv($23)._yourself();
 $recv($15)._add_($22);
@@ -902,20 +884,18 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var return_;
-function $IRNonLocalReturn(){return $globals.IRNonLocalReturn||(typeof IRNonLocalReturn=="undefined"?nil:IRNonLocalReturn)}
-function $IRReturn(){return $globals.IRReturn||(typeof IRReturn=="undefined"?nil:IRReturn)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=$recv(aNode)._nonLocalReturn();
 if($core.assert($1)){
-return_=$recv($IRNonLocalReturn())._new();
+return_=$recv($globals.IRNonLocalReturn)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
 } else {
-return_=$recv($IRReturn())._new();
+return_=$recv($globals.IRReturn)._new();
 };
 $recv(return_)._scope_($recv(aNode)._scope());
 $recv($recv(aNode)._nodes())._do_((function(each){
@@ -948,12 +928,11 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var send;
-function $IRSend(){return $globals.IRSend||(typeof IRSend=="undefined"?nil:IRSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-send=$recv($IRSend())._new();
+send=$recv($globals.IRSend)._new();
 $1=send;
 $recv($1)._selector_($recv(aNode)._selector());
 $recv($1)._index_($recv(aNode)._index());
@@ -986,12 +965,11 @@ selector: "visitSequenceNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRSequence(){return $globals.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-return self._withSequence_do_($recv($IRSequence())._new(),(function(){
+return self._withSequence_do_($recv($globals.IRSequence)._new(),(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1033,12 +1011,11 @@ selector: "visitValueNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRValue(){return $globals.IRValue||(typeof IRValue=="undefined"?nil:IRValue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($IRValue())._new();
+$1=$recv($globals.IRValue)._new();
 $recv($1)._value_($recv(aNode)._value());
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1060,12 +1037,11 @@ selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRVariable(){return $globals.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($IRVariable())._new();
+$1=$recv($globals.IRVariable)._new();
 $recv($1)._variable_($recv(aNode)._binding());
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1189,14 +1165,13 @@ selector: "instructions",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@instructions"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@instructions"]=$recv($OrderedCollection())._new();
+self["@instructions"]=$recv($globals.OrderedCollection)._new();
 return self["@instructions"];
 } else {
 return $1;
@@ -2066,14 +2041,13 @@ selector: "internalVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@internalVariables"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@internalVariables"]=$recv($Set())._new();
+self["@internalVariables"]=$recv($globals.Set)._new();
 return self["@internalVariables"];
 } else {
 return $1;
@@ -3645,7 +3619,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $JSStream(){return $globals.JSStream||(typeof JSStream=="undefined"?nil:JSStream)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -3657,7 +3630,7 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@stream"]=$recv($JSStream())._new();
+self["@stream"]=$recv($globals.JSStream)._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.IRJSTranslator)});
@@ -5272,7 +5245,6 @@ selector: "nextPutMethodDeclaration:with:",
 protocol: 'streaming',
 fn: function (aMethod,aBlock){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -5331,7 +5303,7 @@ $recv(aBlock)._value();
 $ctx1.sendIdx["value"]=1;
 //>>excludeEnd("ctx");
 $9=self["@stream"];
-$12=$recv($String())._lf();
+$12=$recv($globals.String)._lf();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["lf"]=4;
 //>>excludeEnd("ctx");

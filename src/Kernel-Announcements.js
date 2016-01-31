@@ -79,12 +79,11 @@ selector: "handlesAnnouncement:",
 protocol: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$3,$1,$receiver;
-$2=$recv($Smalltalk())._globals();
+$2=$recv($globals.Smalltalk)._globals();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["globals"]=1;
 //>>excludeEnd("ctx");
@@ -101,7 +100,7 @@ return false;
 } else {
 var class_;
 class_=$receiver;
-return $recv($recv($recv($Smalltalk())._globals())._at_($recv($recv($recv(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
+return $recv($recv($recv($globals.Smalltalk)._globals())._at_($recv($recv($recv(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},$globals.AnnouncementSubscription)});
@@ -346,7 +345,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -358,7 +356,7 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@subscriptions"]=$recv($OrderedCollection())._new();
+self["@subscriptions"]=$recv($globals.OrderedCollection)._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.Announcer)});
@@ -403,18 +401,16 @@ selector: "on:do:for:",
 protocol: 'subscribing',
 fn: function (aClass,aBlock,aReceiver){
 var self=this;
-function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
-function $AnnouncementValuable(){return $globals.AnnouncementValuable||(typeof AnnouncementValuable=="undefined"?nil:AnnouncementValuable)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$5,$6,$4,$2;
 $1=self["@subscriptions"];
-$3=$recv($AnnouncementSubscription())._new();
+$3=$recv($globals.AnnouncementSubscription)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$5=$recv($AnnouncementValuable())._new();
+$5=$recv($globals.AnnouncementValuable)._new();
 $recv($5)._valuable_(aBlock);
 $recv($5)._receiver_(aReceiver);
 $6=$recv($5)._yourself();
@@ -450,12 +446,11 @@ protocol: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
 var subscription;
-function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($AnnouncementSubscription())._new();
+$1=$recv($globals.AnnouncementSubscription)._new();
 $recv($1)._announcementClass_(aClass);
 subscription=$recv($1)._yourself();
 $recv(subscription)._valuable_((function(ann){
@@ -489,18 +484,16 @@ selector: "on:send:to:",
 protocol: 'subscribing',
 fn: function (aClass,aSelector,anObject){
 var self=this;
-function $AnnouncementSubscription(){return $globals.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
-function $MessageSend(){return $globals.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$5,$6,$4,$2;
 $1=self["@subscriptions"];
-$3=$recv($AnnouncementSubscription())._new();
+$3=$recv($globals.AnnouncementSubscription)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-$5=$recv($MessageSend())._new();
+$5=$recv($globals.MessageSend)._new();
 $recv($5)._receiver_(anObject);
 $recv($5)._selector_(aSelector);
 $6=$recv($5)._yourself();

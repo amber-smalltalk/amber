@@ -14,12 +14,11 @@ selector: "setUp",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self["@empty"]=$recv($Set())._new();
-self["@full"]=$recv($Set())._with_with_((5),"abc");
+self["@empty"]=$recv($globals.Set)._new();
+self["@full"]=$recv($globals.Set)._with_with_((5),"abc");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"setUp",{},$globals.ExampleSetTest)});
@@ -90,7 +89,6 @@ selector: "testIllegal",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -102,7 +100,7 @@ return $recv(self["@empty"])._at_((5));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}),$Error());
+}),$globals.Error);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["should:raise:"]=1;
 //>>excludeEnd("ctx");
@@ -114,7 +112,7 @@ return $recv(self["@empty"])._at_put_((5),"abc");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
-}),$Error());
+}),$globals.Error);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testIllegal",{},$globals.ExampleSetTest)});
@@ -564,8 +562,6 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
-function $TestSuiteRunner(){return $globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -579,7 +575,7 @@ return $recv(self._class())._selector_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-runner=$recv($TestSuiteRunner())._on_(suite);
+runner=$recv($globals.TestSuiteRunner)._on_(suite);
 self._timeout_((200));
 result=$recv(runner)._result();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -607,7 +603,7 @@ return self._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-$recv($recv(runner)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
+$recv($recv(runner)._announcer())._on_do_($globals.ResultAnnouncement,(function(ann){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -641,7 +637,6 @@ selector: "testAsyncNeedsTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -658,7 +653,7 @@ $ctx2.sendIdx["async:"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}),$Error());
+}),$globals.Error);
 self._timeout_((0));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -670,7 +665,7 @@ return self._async_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
 //>>excludeEnd("ctx");
-}),$Error());
+}),$globals.Error);
 self._finished();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -692,7 +687,6 @@ selector: "testFinishedNeedsTimeout",
 protocol: 'tests',
 fn: function (){
 var self=this;
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -707,7 +701,7 @@ $ctx2.sendIdx["finished"]=1;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}),$Error());
+}),$globals.Error);
 self._timeout_((0));
 self._shouldnt_raise_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -717,7 +711,7 @@ return self._finished();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
-}),$Error());
+}),$globals.Error);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"testFinishedNeedsTimeout",{},$globals.SUnitAsyncTest)});
@@ -816,9 +810,6 @@ protocol: 'tests',
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
-function $TestSuiteRunner(){return $globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
-function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -832,7 +823,7 @@ return $recv(self._class())._selector_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-runner=$recv($TestSuiteRunner())._on_(suite);
+runner=$recv($globals.TestSuiteRunner)._on_(suite);
 self._timeout_((200));
 result=$recv(runner)._result();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -846,7 +837,7 @@ $1=self._selectorSetOf_($recv(result)._errors());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["selectorSetOf:"]=1;
 //>>excludeEnd("ctx");
-self._assert_equals_($1,$recv($Set())._new());
+self._assert_equals_($1,$recv($globals.Set)._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["assert:equals:"]=1;
 //>>excludeEnd("ctx");
@@ -856,7 +847,7 @@ return self._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-$recv($recv(runner)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
+$recv($recv(runner)._announcer())._on_do_($globals.ResultAnnouncement,(function(ann){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");

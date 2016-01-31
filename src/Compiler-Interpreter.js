@@ -100,11 +100,10 @@ selector: "interpreterError",
 protocol: 'error handling',
 fn: function (){
 var self=this;
-function $ASTInterpreterError(){return $globals.ASTInterpreterError||(typeof ASTInterpreterError=="undefined"?nil:ASTInterpreterError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ASTInterpreterError())._signal_("Method cannot be interpreted by the interpreter.");
+$recv($globals.ASTInterpreterError)._signal_("Method cannot be interpreted by the interpreter.");
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"interpreterError",{},$globals.AIBlockClosure)});
@@ -537,12 +536,11 @@ selector: "evaluateNode:",
 protocol: 'evaluating',
 fn: function (aNode){
 var self=this;
-function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($ASTInterpreter())._new();
+$1=$recv($globals.ASTInterpreter)._new();
 $recv($1)._context_(self);
 $recv($1)._node_(aNode);
 $recv($1)._enterNode();
@@ -652,7 +650,6 @@ selector: "initializeAST",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -662,7 +659,7 @@ $1=self._method();
 $ctx1.sendIdx["method"]=1;
 //>>excludeEnd("ctx");
 self["@ast"]=$recv($1)._ast();
-$recv($recv($SemanticAnalyzer())._on_($recv(self._method())._methodClass()))._visit_(self["@ast"]);
+$recv($recv($globals.SemanticAnalyzer)._on_($recv(self._method())._methodClass()))._visit_(self["@ast"]);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initializeAST",{},$globals.AIContext)});
@@ -742,12 +739,11 @@ selector: "initializeInterpreter",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $ASTInterpreter(){return $globals.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
-$1=$recv($ASTInterpreter())._new();
+$1=$recv($globals.ASTInterpreter)._new();
 $recv($1)._context_(self);
 self["@interpreter"]=$recv($1)._yourself();
 $2=self._innerContext();
@@ -776,11 +772,10 @@ selector: "initializeLocals",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self["@locals"]=$recv($Dictionary())._new();
+self["@locals"]=$recv($globals.Dictionary)._new();
 $recv(self["@locals"])._at_put_("thisContext",self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1268,14 +1263,13 @@ selector: "sendIndexes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@sendIndexes"];
 if(($receiver = $1) == null || $receiver.isNil){
-return $recv($Dictionary())._new();
+return $recv($globals.Dictionary)._new();
 } else {
 return $1;
 };
@@ -1318,12 +1312,11 @@ protocol: 'interpreting',
 fn: function (anInterpreter){
 var self=this;
 var currentNode;
-function $ASTPCNodeVisitor(){return $globals.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3,$6,$5,$4,$receiver;
-$1=$recv($ASTPCNodeVisitor())._new();
+$1=$recv($globals.ASTPCNodeVisitor)._new();
 $recv($1)._selector_(self._evaluatedSelector());
 $recv($1)._context_(self);
 $2=self._ast();
@@ -1532,7 +1525,6 @@ selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $ASTContextVar(){return $globals.ASTContextVar||(typeof ASTContextVar=="undefined"?nil:ASTContextVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1556,7 +1548,7 @@ throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-$recv(aNode)._binding_($recv($ASTContextVar())._new());
+$recv(aNode)._binding_($recv($globals.ASTContextVar)._new());
 return self;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -2330,11 +2322,10 @@ selector: "enterNode",
 protocol: 'interpreting',
 fn: function (){
 var self=this;
-function $ASTEnterNode(){return $globals.ASTEnterNode||(typeof ASTEnterNode=="undefined"?nil:ASTEnterNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-self._node_($recv($recv($ASTEnterNode())._on_(self))._visit_(self._node()));
+self._node_($recv($recv($globals.ASTEnterNode)._on_(self))._visit_(self._node()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"enterNode",{},$globals.ASTInterpreter)});
@@ -2356,13 +2347,11 @@ protocol: 'private',
 fn: function (aString){
 var self=this;
 var source,function_;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
-function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $3,$2,$1;
-source=$recv($String())._streamContents_((function(str){
+source=$recv($globals.String)._streamContents_((function(str){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -2415,7 +2404,7 @@ return $recv(str)._nextPutAll_("})()})");
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-function_=$recv($recv($Compiler())._new())._eval_(source);
+function_=$recv($recv($globals.Compiler)._new())._eval_(source);
 return $recv(function_)._valueWithPossibleArguments_($recv($recv(self._context())._locals())._values());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_},$globals.ASTInterpreter)});
@@ -2521,12 +2510,11 @@ selector: "messageFromSendNode:arguments:",
 protocol: 'private',
 fn: function (aSendNode,aCollection){
 var self=this;
-function $Message(){return $globals.Message||(typeof Message=="undefined"?nil:Message)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($Message())._new();
+$1=$recv($globals.Message)._new();
 $recv($1)._selector_($recv(aSendNode)._selector());
 $recv($1)._arguments_(aCollection);
 return $recv($1)._yourself();
@@ -2549,12 +2537,11 @@ selector: "messageNotUnderstood:receiver:",
 protocol: 'private',
 fn: function (aMessage,anObject){
 var self=this;
-function $MessageNotUnderstood(){return $globals.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($MessageNotUnderstood())._new();
+$1=$recv($globals.MessageNotUnderstood)._new();
 $recv($1)._message_(aMessage);
 $recv($1)._receiver_(anObject);
 $recv($1)._signal();
@@ -2579,7 +2566,6 @@ protocol: 'interpreting',
 fn: function (){
 var self=this;
 var nd,nextNode;
-function $ASTEnterNode(){return $globals.ASTEnterNode||(typeof ASTEnterNode=="undefined"?nil:ASTEnterNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -2597,7 +2583,7 @@ nextNode=parent;
 } else {
 var sibling;
 sibling=$receiver;
-nextNode=$recv($recv($ASTEnterNode())._on_(self))._visit_(sibling);
+nextNode=$recv($recv($globals.ASTEnterNode)._on_(self))._visit_(sibling);
 };
 };
 self._node_(nextNode);
@@ -2990,14 +2976,13 @@ selector: "stack",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@stack"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@stack"]=$recv($OrderedCollection())._new();
+self["@stack"]=$recv($globals.OrderedCollection)._new();
 return self["@stack"];
 } else {
 return $1;
@@ -3171,11 +3156,10 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var block;
-function $AIBlockClosure(){return $globals.AIBlockClosure||(typeof AIBlockClosure=="undefined"?nil:AIBlockClosure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-block=$recv($AIBlockClosure())._forContext_node_(self._context(),aNode);
+block=$recv($globals.AIBlockClosure)._forContext_node_(self._context(),aNode);
 self._push_(block);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -3265,12 +3249,10 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var keyValueList;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-keyValueList=$recv($OrderedCollection())._new();
+keyValueList=$recv($globals.OrderedCollection)._new();
 $recv($recv(aNode)._nodes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -3280,7 +3262,7 @@ return $recv(keyValueList)._add_(self._pop());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-self._push_($recv($HashedCollection())._newFromPairs_($recv(keyValueList)._reversed()));
+self._push_($recv($globals.HashedCollection)._newFromPairs_($recv(keyValueList)._reversed()));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,keyValueList:keyValueList},$globals.ASTInterpreter)});
@@ -3446,8 +3428,6 @@ selector: "visitVariableNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -3458,7 +3438,7 @@ $ctx1.sendIdx["binding"]=1;
 //>>excludeEnd("ctx");
 $1=$recv($2)._isUnknownVar();
 if($core.assert($1)){
-$5=$recv($Platform())._globals();
+$5=$recv($globals.Platform)._globals();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["globals"]=1;
 //>>excludeEnd("ctx");
@@ -3512,7 +3492,7 @@ $ctx2.sendIdx["value"]=4;
 //>>excludeEnd("ctx");
 $14=$recv($15)._isCapitalized();
 if($core.assert($14)){
-$16=$recv($Smalltalk())._globals();
+$16=$recv($globals.Smalltalk)._globals();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx2.sendIdx["globals"]=2;
 //>>excludeEnd("ctx");
@@ -3524,7 +3504,7 @@ return $recv($16)._at_ifAbsent_($17,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
-return $recv($recv($Platform())._globals())._at_($recv(aNode)._value());
+return $recv($recv($globals.Platform)._globals())._at_($recv(aNode)._value());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,7)});
 //>>excludeEnd("ctx");

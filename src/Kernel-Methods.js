@@ -140,11 +140,10 @@ selector: "fork",
 protocol: 'timeout/interval',
 fn: function (){
 var self=this;
-function $ForkPool(){return $globals.ForkPool||(typeof ForkPool=="undefined"?nil:ForkPool)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($recv($ForkPool())._default())._fork_(self);
+$recv($recv($globals.ForkPool)._default())._fork_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"fork",{},$globals.BlockClosure)});
@@ -310,7 +309,6 @@ selector: "on:do:",
 protocol: 'error handling',
 fn: function (anErrorClass,aBlock){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -320,7 +318,7 @@ var smalltalkError;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-smalltalkError=$recv($Smalltalk())._asSmalltalkException_(error);
+smalltalkError=$recv($globals.Smalltalk)._asSmalltalkException_(error);
 smalltalkError;
 $1=$recv(smalltalkError)._isKindOf_(anErrorClass);
 if($core.assert($1)){
@@ -369,11 +367,10 @@ selector: "timeToRun",
 protocol: 'evaluating',
 fn: function (){
 var self=this;
-function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Date())._millisecondsToRun_(self);
+return $recv($globals.Date)._millisecondsToRun_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"timeToRun",{},$globals.BlockClosure)});
 //>>excludeEnd("ctx");
@@ -729,11 +726,10 @@ selector: "browse",
 protocol: 'browsing',
 fn: function (){
 var self=this;
-function $Finder(){return $globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Finder())._findMethod_(self);
+$recv($globals.Finder)._findMethod_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"browse",{},$globals.CompiledMethod)});
@@ -1048,16 +1044,14 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 var oldProtocol;
-function $SystemAnnouncer(){return $globals.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
-function $MethodMoved(){return $globals.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$2,$4,$receiver;
 oldProtocol=self._protocol();
 self._basicAt_put_("protocol",aString);
-$1=$recv($SystemAnnouncer())._current();
-$3=$recv($MethodMoved())._new();
+$1=$recv($globals.SystemAnnouncer)._current();
+$3=$recv($globals.MethodMoved)._new();
 $recv($3)._method_(self);
 $recv($3)._oldProtocol_(oldProtocol);
 $2=$recv($3)._yourself();
@@ -1320,7 +1314,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Queue(){return $globals.Queue||(typeof Queue=="undefined"?nil:Queue)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1333,7 +1326,7 @@ $ctx1.supercall = true,
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
 self["@poolSize"]=(0);
-self["@queue"]=$recv($Queue())._new();
+self["@queue"]=$recv($globals.Queue)._new();
 self["@worker"]=self._makeWorker();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1356,12 +1349,11 @@ protocol: 'initialization',
 fn: function (){
 var self=this;
 var sentinel;
-function $Object(){return $globals.Object||(typeof Object=="undefined"?nil:Object)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-sentinel=$recv($Object())._new();
+sentinel=$recv($globals.Object)._new();
 return (function(){
 var block;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1756,7 +1748,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Message(){return $globals.Message||(typeof Message=="undefined"?nil:Message)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1768,7 +1759,7 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@message"]=$recv($Message())._new();
+self["@message"]=$recv($globals.Message)._new();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.MessageSend)});
@@ -2979,11 +2970,10 @@ selector: "exists:",
 protocol: 'testing',
 fn: function (aString){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Smalltalk())._existsJsGlobal_(aString);
+return $recv($globals.Smalltalk)._existsJsGlobal_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},$globals.NativeFunction.klass)});
 //>>excludeEnd("ctx");

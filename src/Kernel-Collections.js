@@ -630,11 +630,10 @@ selector: "asArray",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Array())._withAll_(self);
+return $recv($globals.Array)._withAll_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asArray",{},$globals.Collection)});
 //>>excludeEnd("ctx");
@@ -708,11 +707,10 @@ selector: "asSet",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Set())._withAll_(self);
+return $recv($globals.Set)._withAll_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asSet",{},$globals.Collection)});
 //>>excludeEnd("ctx");
@@ -1212,13 +1210,12 @@ protocol: 'enumerating',
 fn: function (aCollection){
 var self=this;
 var set,outputSet;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1;
 set=self._asSet();
-outputSet=$recv($Set())._new();
+outputSet=$recv($globals.Set)._new();
 $recv(aCollection)._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2204,11 +2201,10 @@ selector: "asDictionary",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Dictionary())._from_(self._associations());
+return $recv($globals.Dictionary)._from_(self._associations());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},$globals.AssociativeCollection)});
 //>>excludeEnd("ctx");
@@ -2228,11 +2224,10 @@ selector: "asHashedCollection",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($HashedCollection())._from_(self._associations());
+return $recv($globals.HashedCollection)._from_(self._associations());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},$globals.AssociativeCollection)});
 //>>excludeEnd("ctx");
@@ -2253,11 +2248,10 @@ protocol: 'converting',
 fn: function (){
 var self=this;
 var hash;
-function $HashedCollection(){return $globals.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-hash=$recv($HashedCollection())._new();
+hash=$recv($globals.HashedCollection)._new();
 self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -2321,7 +2315,6 @@ selector: "associationsDo:",
 protocol: 'enumerating',
 fn: function (aBlock){
 var self=this;
-function $Association(){return $globals.Association||(typeof Association=="undefined"?nil:Association)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -2329,7 +2322,7 @@ self._keysAndValuesDo_((function(key,value){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return $recv(aBlock)._value_($recv($Association())._key_value_(key,value));
+return $recv(aBlock)._value_($recv($globals.Association)._key_value_(key,value));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)});
 //>>excludeEnd("ctx");
@@ -4594,8 +4587,7 @@ selector: "streamClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Stream(){return $globals.Stream||(typeof Stream=="undefined"?nil:Stream)}
-return $Stream();
+return $globals.Stream;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -6115,11 +6107,10 @@ selector: "asRegexp",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($RegularExpression())._fromString_(self);
+return $recv($globals.RegularExpression)._fromString_(self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"asRegexp",{},$globals.String)});
 //>>excludeEnd("ctx");
@@ -6351,11 +6342,10 @@ selector: "crlfSanitized",
 protocol: 'converting',
 fn: function (){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv(self._lines())._join_($recv($String())._lf());
+return $recv(self._lines())._join_($recv($globals.String)._lf());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},$globals.String)});
 //>>excludeEnd("ctx");
@@ -6542,11 +6532,10 @@ selector: "join:",
 protocol: 'split join',
 fn: function (aCollection){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($String())._streamContents_((function(stream){
+return $recv($globals.String)._streamContents_((function(stream){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -6594,7 +6583,6 @@ protocol: 'split join',
 fn: function (aBlock){
 var self=this;
 var cr,lf,start,sz,nextLF,nextCR;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -6603,12 +6591,12 @@ var $early={};
 try {
 start=(1);
 sz=self._size();
-cr=$recv($String())._cr();
+cr=$recv($globals.String)._cr();
 nextCR=self._indexOf_startingAt_(cr,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["indexOf:startingAt:"]=1;
 //>>excludeEnd("ctx");
-lf=$recv($String())._lf();
+lf=$recv($globals.String)._lf();
 nextLF=self._indexOf_startingAt_(lf,(1));
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["indexOf:startingAt:"]=2;
@@ -6984,11 +6972,10 @@ selector: "replace:with:",
 protocol: 'regular expressions',
 fn: function (aString,anotherString){
 var self=this;
-function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._replaceRegexp_with_($recv($RegularExpression())._fromString_flag_(aString,"g"),anotherString);
+return self._replaceRegexp_with_($recv($globals.RegularExpression)._fromString_flag_(aString,"g"),anotherString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"replace:with:",{aString:aString,anotherString:anotherString},$globals.String)});
 //>>excludeEnd("ctx");
@@ -7214,7 +7201,6 @@ selector: "trimLeft:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
-function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -7223,7 +7209,7 @@ $2=$recv("^[".__comma(separators)).__comma("]+");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-$1=$recv($RegularExpression())._fromString_flag_($2,"g");
+$1=$recv($globals.RegularExpression)._fromString_flag_($2,"g");
 return self._replaceRegexp_with_($1,"");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"trimLeft:",{separators:separators},$globals.String)});
@@ -7267,7 +7253,6 @@ selector: "trimRight:",
 protocol: 'regular expressions',
 fn: function (separators){
 var self=this;
-function $RegularExpression(){return $globals.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -7276,7 +7261,7 @@ $2=$recv("[".__comma(separators)).__comma("]+$");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
-$1=$recv($RegularExpression())._fromString_flag_($2,"g");
+$1=$recv($globals.RegularExpression)._fromString_flag_($2,"g");
 return self._replaceRegexp_with_($1,"");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"trimRight:",{separators:separators},$globals.String)});
@@ -7667,8 +7652,7 @@ selector: "streamClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $StringStream(){return $globals.StringStream||(typeof StringStream=="undefined"?nil:StringStream)}
-return $StringStream();
+return $globals.StringStream;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -8146,12 +8130,11 @@ selector: "initializeSlowBucketStores",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $ArrayBucketStore(){return $globals.ArrayBucketStore||(typeof ArrayBucketStore=="undefined"?nil:ArrayBucketStore)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($ArrayBucketStore())._hashBlock_((function(x){
+$1=$recv($globals.ArrayBucketStore)._hashBlock_((function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -8163,7 +8146,7 @@ return self._classNameOf_(x);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["hashBlock:"]=1;
 //>>excludeEnd("ctx");
-self["@slowBucketStores"]=[$1,$recv($ArrayBucketStore())._hashBlock_((function(x){
+self["@slowBucketStores"]=[$1,$recv($globals.ArrayBucketStore)._hashBlock_((function(x){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -9469,11 +9452,10 @@ selector: "cr",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._nextPutAll_($recv($String())._cr());
+return self._nextPutAll_($recv($globals.String)._cr());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"cr",{},$globals.StringStream)});
 //>>excludeEnd("ctx");
@@ -9493,11 +9475,10 @@ selector: "crlf",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._nextPutAll_($recv($String())._crlf());
+return self._nextPutAll_($recv($globals.String)._crlf());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"crlf",{},$globals.StringStream)});
 //>>excludeEnd("ctx");
@@ -9517,11 +9498,10 @@ selector: "lf",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._nextPutAll_($recv($String())._lf());
+return self._nextPutAll_($recv($globals.String)._lf());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"lf",{},$globals.StringStream)});
 //>>excludeEnd("ctx");
@@ -9744,11 +9724,10 @@ selector: "tab",
 protocol: 'writing',
 fn: function (){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._nextPutAll_($recv($String())._tab());
+return self._nextPutAll_($recv($globals.String)._tab());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"tab",{},$globals.StringStream)});
 //>>excludeEnd("ctx");
@@ -9774,7 +9753,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -9786,11 +9764,11 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@read"]=$recv($OrderedCollection())._new();
+self["@read"]=$recv($globals.OrderedCollection)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-self["@write"]=$recv($OrderedCollection())._new();
+self["@write"]=$recv($globals.OrderedCollection)._new();
 self["@readIndex"]=(1);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -9844,7 +9822,6 @@ protocol: 'accessing',
 fn: function (aBlock){
 var self=this;
 var result;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -9870,7 +9847,7 @@ self["@read"]=self["@write"];
 self["@read"];
 self["@readIndex"]=(1);
 self["@readIndex"];
-self["@write"]=$recv($OrderedCollection())._new();
+self["@write"]=$recv($globals.OrderedCollection)._new();
 self["@write"];
 return $recv(self["@read"])._first();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

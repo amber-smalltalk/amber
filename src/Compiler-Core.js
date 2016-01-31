@@ -151,11 +151,10 @@ selector: "pseudoVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Smalltalk())._pseudoVariableNames();
+return $recv($globals.Smalltalk)._pseudoVariableNames();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},$globals.AbstractCodeGenerator)});
 //>>excludeEnd("ctx");
@@ -265,11 +264,10 @@ selector: "irTranslator",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $IRJSTranslator(){return $globals.IRJSTranslator||(typeof IRJSTranslator=="undefined"?nil:IRJSTranslator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($IRJSTranslator())._new();
+return $recv($globals.IRJSTranslator)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},$globals.CodeGenerator)});
 //>>excludeEnd("ctx");
@@ -289,12 +287,11 @@ selector: "semanticAnalyzer",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $SemanticAnalyzer(){return $globals.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($SemanticAnalyzer())._on_(self._currentClass());
+$1=$recv($globals.SemanticAnalyzer)._on_(self._currentClass());
 $recv($1)._thePackage_(self._currentPackage());
 return $recv($1)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -316,12 +313,11 @@ selector: "translator",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $IRASTTranslator(){return $globals.IRASTTranslator||(typeof IRASTTranslator=="undefined"?nil:IRASTTranslator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($IRASTTranslator())._new();
+$1=$recv($globals.IRASTTranslator)._new();
 $recv($1)._source_(self._source());
 $recv($1)._theClass_(self._currentClass());
 return $recv($1)._yourself();
@@ -350,14 +346,13 @@ selector: "codeGeneratorClass",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $InliningCodeGenerator(){return $globals.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@codeGeneratorClass"];
 if(($receiver = $1) == null || $receiver.isNil){
-return $InliningCodeGenerator();
+return $globals.InliningCodeGenerator;
 } else {
 return $1;
 };
@@ -632,11 +627,10 @@ selector: "evaluateExpression:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._evaluateExpression_on_(aString,$recv($DoIt())._new());
+return self._evaluateExpression_on_(aString,$recv($globals.DoIt)._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString},$globals.Compiler)});
 //>>excludeEnd("ctx");
@@ -691,12 +685,11 @@ protocol: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
 var compiledMethod;
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 compiledMethod=self._eval_forPackage_(self._compile_forClass_protocol_(aString,aBehavior,anotherString),$recv(aBehavior)._packageOfProtocol_(anotherString));
-return $recv($recv($ClassBuilder())._new())._installMethod_forClass_protocol_(compiledMethod,aBehavior,anotherString);
+return $recv($recv($globals.ClassBuilder)._new())._installMethod_forClass_protocol_(compiledMethod,aBehavior,anotherString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString,compiledMethod:compiledMethod},$globals.Compiler)});
 //>>excludeEnd("ctx");
@@ -716,11 +709,10 @@ selector: "parse:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Smalltalk())._parse_(aString);
+return $recv($globals.Smalltalk)._parse_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},$globals.Compiler)});
 //>>excludeEnd("ctx");
@@ -805,11 +797,10 @@ selector: "recompileAll",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($recv($Smalltalk())._classes())._do_displayingProgress_((function(each){
+$recv($recv($globals.Smalltalk)._classes())._do_displayingProgress_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -948,11 +939,10 @@ selector: "recompileAll",
 protocol: 'compiling',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($recv($Smalltalk())._classes())._do_((function(each){
+$recv($recv($globals.Smalltalk)._classes())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -999,16 +989,13 @@ protocol: 'evaluating',
 fn: function (aString,aContext){
 var self=this;
 var compiler,ast;
-function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
-function $AISemanticAnalyzer(){return $globals.AISemanticAnalyzer||(typeof AISemanticAnalyzer=="undefined"?nil:AISemanticAnalyzer)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 var $early={};
 try {
-compiler=$recv($Compiler())._new();
+compiler=$recv($globals.Compiler)._new();
 $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -1018,7 +1005,7 @@ return ast;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}))._on_do_($Error(),(function(ex){
+}))._on_do_($globals.Error,(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1027,7 +1014,7 @@ throw $early=[self._alert_($recv(ex)._messageText())];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-$1=$recv($AISemanticAnalyzer())._on_($recv($recv(aContext)._receiver())._class());
+$1=$recv($globals.AISemanticAnalyzer)._on_($recv($recv(aContext)._receiver())._class());
 $recv($1)._context_(aContext);
 $recv($1)._visit_(ast);
 return $recv(aContext)._evaluateNode_(ast);
@@ -1076,14 +1063,12 @@ protocol: 'evaluating',
 fn: function (aString,anObject){
 var self=this;
 var compiler;
-function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $early={};
 try {
-compiler=$recv($Compiler())._new();
+compiler=$recv($globals.Compiler)._new();
 $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
@@ -1092,7 +1077,7 @@ return $recv(compiler)._parseExpression_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}))._on_do_($Error(),(function(ex){
+}))._on_do_($globals.Error,(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1147,12 +1132,11 @@ selector: "asVariableName",
 protocol: '*Compiler-Core',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($recv($Smalltalk())._reservedWords())._includes_(self);
+$1=$recv($recv($globals.Smalltalk)._reservedWords())._includes_(self);
 if($core.assert($1)){
 return self.__comma("_");
 } else {

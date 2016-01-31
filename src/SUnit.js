@@ -327,11 +327,10 @@ selector: "runCase",
 protocol: 'running',
 fn: function (){
 var self=this;
-function $TestContext(){return $globals.TestContext||(typeof TestContext=="undefined"?nil:TestContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($recv($TestContext())._testCase_(self))._start();
+$recv($recv($globals.TestContext)._testCase_(self))._start();
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"runCase",{},$globals.TestCase)});
@@ -503,12 +502,11 @@ selector: "signalFailure:",
 protocol: 'private',
 fn: function (aString){
 var self=this;
-function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($TestFailure())._new();
+$1=$recv($globals.TestFailure)._new();
 $recv($1)._messageText_(aString);
 $recv($1)._signal();
 return self;
@@ -692,8 +690,7 @@ selector: "lookupHierarchyRoot",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-return $TestCase();
+return $globals.TestCase;
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
@@ -1047,8 +1044,6 @@ selector: "withErrorReporting:",
 protocol: 'private',
 fn: function (aBlock){
 var self=this;
-function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1056,7 +1051,7 @@ $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return $recv(aBlock)._on_do_($TestFailure(),(function(ex){
+return $recv(aBlock)._on_do_($globals.TestFailure,(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1068,7 +1063,7 @@ return $recv(self["@result"])._addFailure_(self["@testCase"]);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}))._on_do_($Error(),(function(ex){
+}))._on_do_($globals.Error,(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1254,8 +1249,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Date(){return $globals.Date||(typeof Date=="undefined"?nil:Date)}
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1267,13 +1260,13 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@timestamp"]=$recv($Date())._now();
+self["@timestamp"]=$recv($globals.Date)._now();
 self["@runs"]=(0);
-self["@errors"]=$recv($Array())._new();
+self["@errors"]=$recv($globals.Array)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-self["@failures"]=$recv($Array())._new();
+self["@failures"]=$recv($globals.Array)._new();
 self["@total"]=(0);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1326,8 +1319,6 @@ selector: "runCase:",
 protocol: 'running',
 fn: function (aTestCase){
 var self=this;
-function $TestFailure(){return $globals.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1344,7 +1335,7 @@ return $recv(aTestCase)._runCase();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)});
 //>>excludeEnd("ctx");
-}))._on_do_($TestFailure(),(function(ex){
+}))._on_do_($globals.TestFailure,(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx3) {
 //>>excludeEnd("ctx");
@@ -1356,7 +1347,7 @@ return self._addFailure_(aTestCase);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}))._on_do_($Error(),(function(ex){
+}))._on_do_($globals.Error,(function(ex){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1523,11 +1514,10 @@ selector: "contextOf:",
 protocol: 'private',
 fn: function (anInteger){
 var self=this;
-function $ReportingTestContext(){return $globals.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($ReportingTestContext())._testCase_result_finished_($recv(self["@suite"])._at_(anInteger),self["@result"],(function(){
+return $recv($globals.ReportingTestContext)._testCase_result_finished_($recv(self["@suite"])._at_(anInteger),self["@result"],(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1555,8 +1545,6 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Announcer(){return $globals.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
-function $TestResult(){return $globals.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1569,11 +1557,11 @@ $ctx1.supercall = true,
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.supercall = false;
 //>>excludeEnd("ctx");;
-self["@announcer"]=$recv($Announcer())._new();
+self["@announcer"]=$recv($globals.Announcer)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
-self["@result"]=$recv($TestResult())._new();
+self["@result"]=$recv($globals.TestResult)._new();
 self["@runNextTest"]=(function(){
 var runs;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -1627,12 +1615,11 @@ selector: "resume",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 $recv(self["@runNextTest"])._fork();
-$recv(self["@announcer"])._announce_($recv($recv($ResultAnnouncement())._new())._result_(self["@result"]));
+$recv(self["@announcer"])._announce_($recv($recv($globals.ResultAnnouncement)._new())._result_(self["@result"]));
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"resume",{},$globals.TestSuiteRunner)});
@@ -1754,11 +1741,10 @@ selector: "isTestClass",
 protocol: '*SUnit',
 fn: function (){
 var self=this;
-function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv(self._includesBehavior_($TestCase()))._and_((function(){
+return $recv(self._includesBehavior_($globals.TestCase))._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");

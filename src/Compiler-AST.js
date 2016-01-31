@@ -560,14 +560,13 @@ selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@nodes"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@nodes"]=$recv($Array())._new();
+self["@nodes"]=$recv($globals.Array)._new();
 return self["@nodes"];
 } else {
 return $1;
@@ -1164,11 +1163,10 @@ selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Array())._with_with_(self._left(),self._right());
+return $recv($globals.Array)._with_with_(self._left(),self._right());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},$globals.AssignmentNode)});
 //>>excludeEnd("ctx");
@@ -1318,14 +1316,13 @@ selector: "parameters",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@parameters"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@parameters"]=$recv($Array())._new();
+self["@parameters"]=$recv($globals.Array)._new();
 return self["@parameters"];
 } else {
 return $1;
@@ -2209,14 +2206,11 @@ protocol: 'accessing',
 fn: function (aCollection){
 var self=this;
 var first;
-function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
-function $CascadeNode(){return $globals.CascadeNode||(typeof CascadeNode=="undefined"?nil:CascadeNode)}
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$3;
-$1=$recv($SendNode())._new();
+$1=$recv($globals.SendNode)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -2227,9 +2221,9 @@ $2=$recv($1)._yourself();
 $ctx1.sendIdx["yourself"]=1;
 //>>excludeEnd("ctx");
 first=$2;
-$3=$recv($CascadeNode())._new();
+$3=$recv($globals.CascadeNode)._new();
 $recv($3)._receiver_(self._receiver());
-$recv($3)._nodes_($recv($recv($Array())._with_(first)).__comma(aCollection));
+$recv($3)._nodes_($recv($recv($globals.Array)._with_(first)).__comma(aCollection));
 return $recv($3)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"cascadeNodeWithMessages:",{aCollection:aCollection,first:first},$globals.SendNode)});
@@ -2369,7 +2363,6 @@ selector: "nodes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Array(){return $globals.Array||(typeof Array=="undefined"?nil:Array)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -2387,7 +2380,7 @@ return $recv($2)._copy();
 } else {
 $1;
 };
-$3=$recv($Array())._with_(self._receiver());
+$3=$recv($globals.Array)._with_(self._receiver());
 $recv($3)._addAll_(self._arguments());
 return $recv($3)._yourself();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2607,12 +2600,11 @@ selector: "valueForReceiver:",
 protocol: 'building',
 fn: function (anObject){
 var self=this;
-function $SendNode(){return $globals.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$3,$2,$receiver;
-$1=$recv($SendNode())._new();
+$1=$recv($globals.SendNode)._new();
 $recv($1)._position_(self._position());
 $recv($1)._source_(self._source());
 $3=self._receiver();
@@ -2676,12 +2668,11 @@ selector: "asBlockSequenceNode",
 protocol: 'building',
 fn: function (){
 var self=this;
-function $BlockSequenceNode(){return $globals.BlockSequenceNode||(typeof BlockSequenceNode=="undefined"?nil:BlockSequenceNode)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($BlockSequenceNode())._new();
+$1=$recv($globals.BlockSequenceNode)._new();
 $recv($1)._position_(self._position());
 $recv($1)._source_(self._source());
 $recv($1)._nodes_(self._nodes());
@@ -3613,7 +3604,6 @@ selector: "ast",
 protocol: '*Compiler-AST',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -3631,7 +3621,7 @@ return self._error_("Method source is empty");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
 }));
-return $recv($Smalltalk())._parse_(self._source());
+return $recv($globals.Smalltalk)._parse_(self._source());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ast",{},$globals.CompiledMethod)});
 //>>excludeEnd("ctx");

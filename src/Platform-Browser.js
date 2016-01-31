@@ -32,16 +32,14 @@ selector: "newXhr",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $XMLHttpRequest(){return $globals.XMLHttpRequest||(typeof XMLHttpRequest=="undefined"?nil:XMLHttpRequest)}
-function $NativeFunction(){return $globals.NativeFunction||(typeof NativeFunction=="undefined"?nil:NativeFunction)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $receiver;
-if(($receiver = $XMLHttpRequest()) == null || $receiver.isNil){
+if(($receiver = $globals.XMLHttpRequest) == null || $receiver.isNil){
 self._error_("XMLHttpRequest not available.");
 } else {
-return $recv($NativeFunction())._constructorOf_($XMLHttpRequest());
+return $recv($globals.NativeFunction)._constructorOf_($globals.XMLHttpRequest);
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -64,14 +62,13 @@ selector: "initialize",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._isFeasible();
 if($core.assert($1)){
-$recv($Platform())._registerIfNone_(self._new());
+$recv($globals.Platform)._registerIfNone_(self._new());
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -215,14 +212,13 @@ selector: "initialize",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
 $1=self._isFeasible();
 if($core.assert($1)){
-$recv($Terminal())._registerIfNone_(self._new());
+$recv($globals.Terminal)._registerIfNone_(self._new());
 };
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);

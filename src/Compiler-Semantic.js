@@ -14,7 +14,6 @@ selector: "addArg:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
-function $ArgVar(){return $globals.ArgVar||(typeof ArgVar=="undefined"?nil:ArgVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -23,7 +22,7 @@ $1=self._args();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["args"]=1;
 //>>excludeEnd("ctx");
-$recv($1)._at_put_(aString,$recv($ArgVar())._on_(aString));
+$recv($1)._at_put_(aString,$recv($globals.ArgVar)._on_(aString));
 $recv($recv(self._args())._at_(aString))._scope_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -45,7 +44,6 @@ selector: "addTemp:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
-function $TempVar(){return $globals.TempVar||(typeof TempVar=="undefined"?nil:TempVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -54,7 +52,7 @@ $1=self._temps();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["temps"]=1;
 //>>excludeEnd("ctx");
-$recv($1)._at_put_(aString,$recv($TempVar())._on_(aString));
+$recv($1)._at_put_(aString,$recv($globals.TempVar)._on_(aString));
 $recv($recv(self._temps())._at_(aString))._scope_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -127,14 +125,13 @@ selector: "args",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@args"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@args"]=$recv($Dictionary())._new();
+self["@args"]=$recv($globals.Dictionary)._new();
 return self["@args"];
 } else {
 return $1;
@@ -627,14 +624,13 @@ selector: "temps",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@temps"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@temps"]=$recv($Dictionary())._new();
+self["@temps"]=$recv($globals.Dictionary)._new();
 return self["@temps"];
 } else {
 return $1;
@@ -664,7 +660,6 @@ selector: "addIVar:",
 protocol: 'adding',
 fn: function (aString){
 var self=this;
-function $InstanceVar(){return $globals.InstanceVar||(typeof InstanceVar=="undefined"?nil:InstanceVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -673,7 +668,7 @@ $1=self._iVars();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["iVars"]=1;
 //>>excludeEnd("ctx");
-$recv($1)._at_put_(aString,$recv($InstanceVar())._on_(aString));
+$recv($1)._at_put_(aString,$recv($globals.InstanceVar)._on_(aString));
 $recv($recv(self._iVars())._at_(aString))._scope_(self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -854,14 +849,13 @@ selector: "iVars",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@iVars"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@iVars"]=$recv($Dictionary())._new();
+self["@iVars"]=$recv($globals.Dictionary)._new();
 return self["@iVars"];
 } else {
 return $1;
@@ -969,14 +963,13 @@ selector: "nonLocalReturns",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@nonLocalReturns"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@nonLocalReturns"]=$recv($OrderedCollection())._new();
+self["@nonLocalReturns"]=$recv($globals.OrderedCollection)._new();
 return self["@nonLocalReturns"];
 } else {
 return $1;
@@ -1000,23 +993,20 @@ selector: "pseudoVars",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $PseudoVar(){return $globals.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$4,$3,$receiver;
 $1=self["@pseudoVars"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@pseudoVars"]=$recv($Dictionary())._new();
+self["@pseudoVars"]=$recv($globals.Dictionary)._new();
 self["@pseudoVars"];
-$recv($recv($Smalltalk())._pseudoVariableNames())._do_((function(each){
+$recv($recv($globals.Smalltalk)._pseudoVariableNames())._do_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
 $2=self["@pseudoVars"];
-$4=$recv($PseudoVar())._on_(each);
+$4=$recv($globals.PseudoVar)._on_(each);
 $recv($4)._scope_(self._methodScope());
 $3=$recv($4)._yourself();
 return $recv($2)._at_put_(each,$3);
@@ -1073,14 +1063,13 @@ selector: "unknownVariables",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@unknownVariables"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@unknownVariables"]=$recv($OrderedCollection())._new();
+self["@unknownVariables"]=$recv($globals.OrderedCollection)._new();
 return self["@unknownVariables"];
 } else {
 return $1;
@@ -1333,7 +1322,6 @@ selector: "validateAssignment",
 protocol: 'testing',
 fn: function (){
 var self=this;
-function $InvalidAssignmentError(){return $globals.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1348,7 +1336,7 @@ return self._isPseudoVar();
 //>>excludeEnd("ctx");
 }));
 if($core.assert($1)){
-$2=$recv($InvalidAssignmentError())._new();
+$2=$recv($globals.InvalidAssignmentError)._new();
 $recv($2)._variableName_(self._name());
 $recv($2)._signal();
 };
@@ -1737,14 +1725,13 @@ selector: "classReferences",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@classReferences"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@classReferences"]=$recv($Set())._new();
+self["@classReferences"]=$recv($globals.Set)._new();
 return self["@classReferences"];
 } else {
 return $1;
@@ -1768,12 +1755,11 @@ selector: "errorShadowingVariable:",
 protocol: 'error handling',
 fn: function (aString){
 var self=this;
-function $ShadowingVariableError(){return $globals.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1;
-$1=$recv($ShadowingVariableError())._new();
+$1=$recv($globals.ShadowingVariableError)._new();
 $recv($1)._variableName_(aString);
 $recv($1)._signal();
 return self;
@@ -1797,8 +1783,6 @@ protocol: 'error handling',
 fn: function (aNode){
 var self=this;
 var identifier;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $UnknownVariableError(){return $globals.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1807,7 +1791,7 @@ identifier=$recv(aNode)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=1;
 //>>excludeEnd("ctx");
-$1=$recv($recv($recv($recv($Smalltalk())._globalJsVariables())._includes_(identifier))._not())._and_((function(){
+$1=$recv($recv($recv($recv($globals.Smalltalk)._globalJsVariables())._includes_(identifier))._not())._and_((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -1817,7 +1801,7 @@ return self._isVariableUndefined_inPackage_(identifier,self._thePackage());
 //>>excludeEnd("ctx");
 }));
 if($core.assert($1)){
-$2=$recv($UnknownVariableError())._new();
+$2=$recv($globals.UnknownVariableError)._new();
 $3=$recv(aNode)._value();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["value"]=2;
@@ -1847,7 +1831,6 @@ selector: "isVariableUndefined:inPackage:",
 protocol: 'testing',
 fn: function (aString,aPackage){
 var self=this;
-function $Compiler(){return $globals.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -1863,7 +1846,7 @@ if($core.assert($1)){
 return false;
 };
 };
-$2=$recv($Compiler())._new();
+$2=$recv($globals.Compiler)._new();
 $3=$recv("typeof ".__comma(aString)).__comma(" == \x22undefined\x22");
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx[","]=1;
@@ -1888,14 +1871,13 @@ selector: "messageSends",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
 $1=self["@messageSends"];
 if(($receiver = $1) == null || $receiver.isNil){
-self["@messageSends"]=$recv($Dictionary())._new();
+self["@messageSends"]=$recv($globals.Dictionary)._new();
 return self["@messageSends"];
 } else {
 return $1;
@@ -1919,11 +1901,10 @@ selector: "newBlockScope",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $LexicalScope(){return $globals.LexicalScope||(typeof LexicalScope=="undefined"?nil:LexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._newScopeOfClass_($LexicalScope());
+return self._newScopeOfClass_($globals.LexicalScope);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newBlockScope",{},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
@@ -1943,11 +1924,10 @@ selector: "newMethodScope",
 protocol: 'factory',
 fn: function (){
 var self=this;
-function $MethodLexicalScope(){return $globals.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self._newScopeOfClass_($MethodLexicalScope());
+return self._newScopeOfClass_($globals.MethodLexicalScope);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newMethodScope",{},$globals.SemanticAnalyzer)});
 //>>excludeEnd("ctx");
@@ -2393,8 +2373,6 @@ selector: "visitSendNode:",
 protocol: 'visiting',
 fn: function (aNode){
 var self=this;
-function $IRSendInliner(){return $globals.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
-function $Set(){return $globals.Set||(typeof Set=="undefined"?nil:Set)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -2406,7 +2384,7 @@ $ctx1.sendIdx["receiver"]=1;
 $2=$recv($3)._value();
 $1=$recv($2).__eq("super");
 if(!$core.assert($1)){
-$5=$recv($IRSendInliner())._inlinedSelectors();
+$5=$recv($globals.IRSendInliner)._inlinedSelectors();
 $6=$recv(aNode)._selector();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["selector"]=1;
@@ -2436,7 +2414,7 @@ $recv($8)._at_ifAbsentPut_($9,(function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return $recv($Set())._new();
+return $recv($globals.Set)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)});
 //>>excludeEnd("ctx");
@@ -2525,8 +2503,6 @@ protocol: 'visiting',
 fn: function (aNode){
 var self=this;
 var binding;
-function $ClassRefVar(){return $globals.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
-function $UnknownVar(){return $globals.UnknownVar||(typeof UnknownVar=="undefined"?nil:UnknownVar)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -2540,7 +2516,7 @@ $ctx1.sendIdx["value"]=1;
 //>>excludeEnd("ctx");
 $2=$recv($3)._isCapitalized();
 if($core.assert($2)){
-$4=$recv($ClassRefVar())._new();
+$4=$recv($globals.ClassRefVar)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["new"]=1;
 //>>excludeEnd("ctx");
@@ -2566,7 +2542,7 @@ $ctx1.sendIdx["value"]=3;
 $recv($7)._add_($8);
 } else {
 self._errorUnknownVariable_(aNode);
-$9=$recv($UnknownVar())._new();
+$9=$recv($globals.UnknownVar)._new();
 $recv($9)._name_($recv(aNode)._value());
 binding=$recv($9)._yourself();
 binding;

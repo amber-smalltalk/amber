@@ -169,11 +169,10 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ErrorHandler())._registerIfNone_(self._new());
+$recv($globals.ErrorHandler)._registerIfNone_(self._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleErrorHandler.klass)});
@@ -278,11 +277,10 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Transcript())._registerIfNone_(self._new());
+$recv($globals.Transcript)._registerIfNone_(self._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.ConsoleTranscript.klass)});
@@ -308,12 +306,11 @@ selector: "ajax:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI();
-return $recv($PlatformInterface())._ajax_(anObject);
+return $recv($globals.PlatformInterface)._ajax_(anObject);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.InterfacingObject)});
 //>>excludeEnd("ctx");
@@ -333,11 +330,10 @@ selector: "alert:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Terminal())._alert_(aString);
+return $recv($globals.Terminal)._alert_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.InterfacingObject)});
 //>>excludeEnd("ctx");
@@ -357,11 +353,10 @@ selector: "confirm:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Terminal())._confirm_(aString);
+return $recv($globals.Terminal)._confirm_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.InterfacingObject)});
 //>>excludeEnd("ctx");
@@ -381,11 +376,10 @@ selector: "prompt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Terminal())._prompt_(aString);
+return $recv($globals.Terminal)._prompt_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.InterfacingObject)});
 //>>excludeEnd("ctx");
@@ -405,11 +399,10 @@ selector: "prompt:default:",
 protocol: 'actions',
 fn: function (aString,defaultString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Terminal())._prompt_default_(aString,defaultString);
+return $recv($globals.Terminal)._prompt_default_(aString,defaultString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.InterfacingObject)});
 //>>excludeEnd("ctx");
@@ -469,11 +462,10 @@ selector: "allSelectors",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($recv($Smalltalk())._core())._allSelectors();
+return $recv($recv($globals.Smalltalk)._core())._allSelectors();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"allSelectors",{},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -493,11 +485,10 @@ selector: "availableClassNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($recv($Smalltalk())._classes())._collect_((function(each){
+return $recv($recv($globals.Smalltalk)._classes())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -525,11 +516,10 @@ selector: "availablePackageNames",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($recv($Smalltalk())._packages())._collect_((function(each){
+return $recv($recv($globals.Smalltalk)._packages())._collect_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -592,11 +582,10 @@ selector: "classBuilder",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($ClassBuilder())._new();
+return $recv($globals.ClassBuilder)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"classBuilder",{},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -616,12 +605,11 @@ selector: "classNamed:",
 protocol: 'accessing',
 fn: function (aString){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$receiver;
-$1=$recv($recv($Smalltalk())._globals())._at_($recv(aString)._asSymbol());
+$1=$recv($recv($globals.Smalltalk)._globals())._at_($recv(aString)._asSymbol());
 if(($receiver = $1) == null || $receiver.isNil){
 return self._error_("Invalid class name");
 } else {
@@ -646,11 +634,10 @@ selector: "classes",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Smalltalk())._classes();
+return $recv($globals.Smalltalk)._classes();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"classes",{},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -718,8 +705,6 @@ selector: "compileClassDefinition:",
 protocol: 'compiling',
 fn: function (aString){
 var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-function $Error(){return $globals.Error||(typeof Error=="undefined"?nil:Error)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
@@ -727,11 +712,11 @@ $recv((function(){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
-return self._evaluate_for_(aString,$recv($DoIt())._new());
+return self._evaluate_for_(aString,$recv($globals.DoIt)._new());
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
 //>>excludeEnd("ctx");
-}))._on_do_($Error(),(function(error){
+}))._on_do_($globals.Error,(function(error){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -783,13 +768,11 @@ selector: "copyClass:to:",
 protocol: 'actions',
 fn: function (aClass,aClassName){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
-$1=$recv($recv($Smalltalk())._globals())._at_(aClassName);
+$1=$recv($recv($globals.Smalltalk)._globals())._at_(aClassName);
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
@@ -799,7 +782,7 @@ $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 self._error_($2);
 };
-$recv($recv($ClassBuilder())._new())._copyClass_named_(aClass,aClassName);
+$recv($recv($globals.ClassBuilder)._new())._copyClass_named_(aClass,aClassName);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},$globals.Environment)});
@@ -820,11 +803,10 @@ selector: "doItReceiver",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $DoIt(){return $globals.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($DoIt())._new();
+return $recv($globals.DoIt)._new();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -844,11 +826,10 @@ selector: "evaluate:for:",
 protocol: 'evaluating',
 fn: function (aString,anObject){
 var self=this;
-function $Evaluator(){return $globals.Evaluator||(typeof Evaluator=="undefined"?nil:Evaluator)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Evaluator())._evaluate_for_(aString,anObject);
+return $recv($globals.Evaluator)._evaluate_for_(aString,anObject);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"evaluate:for:",{aString:aString,anObject:anObject},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -906,11 +887,10 @@ selector: "inspect:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
-function $Inspector(){return $globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Inspector())._inspect_(anObject);
+$recv($globals.Inspector)._inspect_(anObject);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},$globals.Environment)});
@@ -932,12 +912,11 @@ protocol: 'actions',
 fn: function (aClass,aPackageName){
 var self=this;
 var package_;
-function $Package(){return $globals.Package||(typeof Package=="undefined"?nil:Package)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
-package_=$recv($Package())._named_(aPackageName);
+package_=$recv($globals.Package)._named_(aPackageName);
 $1=package_;
 if(($receiver = $1) == null || $receiver.isNil){
 self._error_("Invalid package name");
@@ -1039,11 +1018,10 @@ selector: "packages",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($Smalltalk())._packages();
+return $recv($globals.Smalltalk)._packages();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"packages",{},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -1063,11 +1041,10 @@ selector: "registerErrorHandler:",
 protocol: 'services',
 fn: function (anErrorHandler){
 var self=this;
-function $ErrorHandler(){return $globals.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ErrorHandler())._register_(anErrorHandler);
+$recv($globals.ErrorHandler)._register_(anErrorHandler);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},$globals.Environment)});
@@ -1088,11 +1065,10 @@ selector: "registerFinder:",
 protocol: 'services',
 fn: function (aFinder){
 var self=this;
-function $Finder(){return $globals.Finder||(typeof Finder=="undefined"?nil:Finder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Finder())._register_(aFinder);
+$recv($globals.Finder)._register_(aFinder);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"registerFinder:",{aFinder:aFinder},$globals.Environment)});
@@ -1113,11 +1089,10 @@ selector: "registerInspector:",
 protocol: 'services',
 fn: function (anInspector){
 var self=this;
-function $Inspector(){return $globals.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Inspector())._register_(anInspector);
+$recv($globals.Inspector)._register_(anInspector);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},$globals.Environment)});
@@ -1138,11 +1113,10 @@ selector: "registerProgressHandler:",
 protocol: 'services',
 fn: function (aProgressHandler){
 var self=this;
-function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ProgressHandler())._register_(aProgressHandler);
+$recv($globals.ProgressHandler)._register_(aProgressHandler);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},$globals.Environment)});
@@ -1163,11 +1137,10 @@ selector: "registerTranscript:",
 protocol: 'services',
 fn: function (aTranscript){
 var self=this;
-function $Transcript(){return $globals.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Transcript())._register_(aTranscript);
+$recv($globals.Transcript)._register_(aTranscript);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"registerTranscript:",{aTranscript:aTranscript},$globals.Environment)});
@@ -1188,11 +1161,10 @@ selector: "removeClass:",
 protocol: 'actions',
 fn: function (aClass){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($Smalltalk())._removeClass_(aClass);
+$recv($globals.Smalltalk)._removeClass_(aClass);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},$globals.Environment)});
@@ -1269,13 +1241,11 @@ selector: "renameClass:to:",
 protocol: 'actions',
 fn: function (aClass,aClassName){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $ClassBuilder(){return $globals.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
-$1=$recv($recv($Smalltalk())._globals())._at_(aClassName);
+$1=$recv($recv($globals.Smalltalk)._globals())._at_(aClassName);
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
@@ -1285,7 +1255,7 @@ $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 self._error_($2);
 };
-$recv($recv($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
+$recv($recv($globals.ClassBuilder)._new())._renameClass_to_(aClass,aClassName);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},$globals.Environment)});
@@ -1306,12 +1276,11 @@ selector: "renamePackage:to:",
 protocol: 'actions',
 fn: function (aPackageName,aNewPackageName){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $1,$2,$receiver;
-$1=$recv($recv($Smalltalk())._globals())._at_(aNewPackageName);
+$1=$recv($recv($globals.Smalltalk)._globals())._at_(aNewPackageName);
 if(($receiver = $1) == null || $receiver.isNil){
 $1;
 } else {
@@ -1321,7 +1290,7 @@ $ctx1.sendIdx[","]=1;
 //>>excludeEnd("ctx");
 self._error_($2);
 };
-$recv($Smalltalk())._renamePackage_to_(aPackageName,aNewPackageName);
+$recv($globals.Smalltalk)._renamePackage_to_(aPackageName,aNewPackageName);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{aPackageName:aPackageName,aNewPackageName:aNewPackageName},$globals.Environment)});
@@ -1398,11 +1367,10 @@ selector: "systemAnnouncer",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return $globals.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return $recv($recv($recv($Smalltalk())._globals())._at_("SystemAnnouncer"))._current();
+return $recv($recv($recv($globals.Smalltalk)._globals())._at_("SystemAnnouncer"))._current();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},$globals.Environment)});
 //>>excludeEnd("ctx");
@@ -1454,11 +1422,10 @@ selector: "initialize",
 protocol: 'initialization',
 fn: function (){
 var self=this;
-function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ProgressHandler())._registerIfNone_(self._new());
+$recv($globals.ProgressHandler)._registerIfNone_(self._new());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"initialize",{},$globals.NullProgressHandler.klass)});
@@ -1485,16 +1452,15 @@ selector: "ajax:",
 protocol: 'actions',
 fn: function (anObject){
 var self=this;
-function $JQuery(){return $globals.JQuery||(typeof JQuery=="undefined"?nil:JQuery)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $receiver;
 self._deprecatedAPI_("Use Platform newXhr or dedicated library.");
-if(($receiver = $JQuery()) == null || $receiver.isNil){
+if(($receiver = $globals.JQuery) == null || $receiver.isNil){
 return self._error_("JQuery wrapper not loaded, cannot do AJAX.");
 } else {
-return $recv($recv($JQuery())._current())._ajax_(anObject);
+return $recv($recv($globals.JQuery)._current())._ajax_(anObject);
 };
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},$globals.PlatformInterface.klass)});
@@ -1515,12 +1481,11 @@ selector: "alert:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Terminal alert:");
-return $recv($Terminal())._alert_(aString);
+return $recv($globals.Terminal)._alert_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
@@ -1540,12 +1505,11 @@ selector: "confirm:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Terminal confirm:");
-return $recv($Terminal())._confirm_(aString);
+return $recv($globals.Terminal)._confirm_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
@@ -1565,12 +1529,11 @@ selector: "existsGlobal:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $PlatformInterface(){return $globals.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Smalltalk existsJsGlobal:");
-return $recv($recv($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return $recv($recv($globals.PlatformInterface)._globals())._at_ifPresent_ifAbsent_(aString,(function(){
 return true;
 
 }),(function(){
@@ -1596,12 +1559,11 @@ selector: "globals",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Platform globals");
-return $recv($Platform())._globals();
+return $recv($globals.Platform)._globals();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"globals",{},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
@@ -1621,12 +1583,11 @@ selector: "newXhr",
 protocol: 'actions',
 fn: function (){
 var self=this;
-function $Platform(){return $globals.Platform||(typeof Platform=="undefined"?nil:Platform)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Platform newXhr");
-return $recv($Platform())._newXhr();
+return $recv($globals.Platform)._newXhr();
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"newXhr",{},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
@@ -1646,12 +1607,11 @@ selector: "prompt:",
 protocol: 'actions',
 fn: function (aString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Terminal prompt:");
-return $recv($Terminal())._prompt_(aString);
+return $recv($globals.Terminal)._prompt_(aString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
@@ -1671,12 +1631,11 @@ selector: "prompt:default:",
 protocol: 'actions',
 fn: function (aString,defaultString){
 var self=this;
-function $Terminal(){return $globals.Terminal||(typeof Terminal=="undefined"?nil:Terminal)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 self._deprecatedAPI_("Use Terminal prompt:default:");
-return $recv($Terminal())._prompt_default_(aString,defaultString);
+return $recv($globals.Terminal)._prompt_default_(aString,defaultString);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"prompt:default:",{aString:aString,defaultString:defaultString},$globals.PlatformInterface.klass)});
 //>>excludeEnd("ctx");
@@ -2166,11 +2125,10 @@ selector: "cr",
 protocol: 'printing',
 fn: function (){
 var self=this;
-function $String(){return $globals.String||(typeof String=="undefined"?nil:String)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv(self._current())._show_($recv($String())._cr());
+$recv(self._current())._show_($recv($globals.String)._cr());
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"cr",{},$globals.Transcript.klass)});
@@ -2264,11 +2222,10 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
@@ -2309,11 +2266,10 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
@@ -2350,11 +2306,10 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
@@ -2407,15 +2362,13 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $JSObjectProxy(){return $globals.JSObjectProxy||(typeof JSObjectProxy=="undefined"?nil:JSObjectProxy)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self._jsObject());
 $recv(anInspector)._setLabel_(self._printString());
-$recv($JSObjectProxy())._addObjectVariablesTo_ofProxy_(variables,self);
+$recv($globals.JSObjectProxy)._addObjectVariablesTo_ofProxy_(variables,self);
 $recv(anInspector)._setVariables_(variables);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -2438,11 +2391,10 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
@@ -2495,11 +2447,10 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
@@ -2535,11 +2486,10 @@ selector: "do:displayingProgress:",
 protocol: '*Platform-Services',
 fn: function (aBlock,aString){
 var self=this;
-function $ProgressHandler(){return $globals.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($ProgressHandler())._do_on_displaying_(aBlock,self,aString);
+$recv($globals.ProgressHandler)._do_on_displaying_(aBlock,self,aString);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},$globals.SequenceableCollection)});
@@ -2561,11 +2511,10 @@ protocol: '*Platform-Services',
 fn: function (anInspector){
 var self=this;
 var variables,i;
-function $Dictionary(){return $globals.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-variables=$recv($Dictionary())._new();
+variables=$recv($globals.Dictionary)._new();
 $recv(variables)._at_put_("#self",self);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 $ctx1.sendIdx["at:put:"]=1;
