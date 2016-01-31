@@ -500,7 +500,7 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-$recv($recv(require)._value_("amber-dev/lib/config"))._writeConfig_toFile_thenDo_($recv(process)._cwd(),"config.js",aBlock);
+$recv($recv($recv(require)._value_("amber-dev"))._configBuilder())._writeConfig_toFile_thenDo_($recv(process)._cwd(),"config.js",aBlock);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"writeConfigThenDo:",{aBlock:aBlock},$globals.Configurator)});
@@ -508,10 +508,10 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "writeConfigThenDo: aBlock\x0a\x09(require value: 'amber-dev/lib/config')\x0a\x09\x09writeConfig: process cwd\x0a\x09\x09toFile: 'config.js'\x0a\x09\x09thenDo: aBlock",
+source: "writeConfigThenDo: aBlock\x0a\x09(require value: 'amber-dev') configBuilder\x0a\x09\x09writeConfig: process cwd\x0a\x09\x09toFile: 'config.js'\x0a\x09\x09thenDo: aBlock",
 referencedClasses: [],
 //>>excludeEnd("ide");
-messageSends: ["writeConfig:toFile:thenDo:", "value:", "cwd"]
+messageSends: ["writeConfig:toFile:thenDo:", "configBuilder", "value:", "cwd"]
 }),
 $globals.Configurator);
 
