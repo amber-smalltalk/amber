@@ -13,7 +13,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['peg', 'build:all']);
     grunt.registerTask('build:all', ['amberc:amber', 'build:cli', 'amberc:dev']);
-    grunt.registerTask('build:cli', ['amberc:cli', 'requirejs:cli']);
+    grunt.registerTask('build:cli', ['amberc:cli', 'amdconfig:amber', 'requirejs:cli']);
     grunt.registerTask('test', ['amdconfig:amber', 'requirejs:test_runner', 'execute:test_runner', 'clean:test_runner']);
     grunt.registerTask('devel', ['amdconfig:amber']);
 
