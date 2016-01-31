@@ -1,7 +1,7 @@
 var path = require('path');
 
 module.exports = function (grunt) {
-    var helpers = require('./external/amber-dev/lib/helpers');
+    var helpers = require('./external/amber-dev').helpers;
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-clean');
