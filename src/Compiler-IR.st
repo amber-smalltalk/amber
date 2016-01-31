@@ -960,7 +960,6 @@ visitIRMethod: anIRMethod
 			nextPutFunctionWith: [
 				self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |
 					each name asVariableName ]).
-				anIRMethod classReferences do: [ :each | self stream nextPutClassRefFunction: each ].
 				self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asSet collect: [ :each |
@@ -1134,23 +1133,6 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')});';
 		lf;
 		nextPutAll: '//>>excludeEnd("ctx");'
-!
-
-nextPutClassRefFunction: aString
-	"Creates an inner function $aString into method and called as `$Foo()`whenever the global is accessed.
-	This ensures that undefined global access will answer `nil`"
-	
-	stream
-		nextPutAll: 'function $';
-		nextPutAll: aString;
-		nextPutAll: '(){return $globals.';
-		nextPutAll: aString;
-		nextPutAll: '||(typeof ';
-		nextPutAll: aString;
-		nextPutAll: '=="undefined"?nil:';
-		nextPutAll: aString;
-		nextPutAll: ')}';
-		lf
 !
 
 nextPutClosureWith: aBlock arguments: anArray

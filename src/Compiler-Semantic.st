@@ -332,7 +332,7 @@ alias
 	A function is created in the method definition, answering the class or nil.
 	See JSStream >> #nextPutClassRefFunction:"
 	
-	^ '$', self name, '()'
+	^ '$globals.', self name
 ! !
 
 !ClassRefVar methodsFor: 'testing'!
