@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "amber": "^0.14.17",
-    "amber-dev": "^0.8.0",
+    "amber-dev": "^0.8.2",
     "bower": "^1.6.0",
     "grunt-init-amber": "^0.14.18"
   },

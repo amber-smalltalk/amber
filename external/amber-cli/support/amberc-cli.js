@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var path = require('path');
-var amberc = require('amber-dev/lib/amberc');
+var amberc = require('amber-dev').amberc;
 
 // get parameters passed to the command line script
 // discard the first two parameters which are the node binary and the script name
