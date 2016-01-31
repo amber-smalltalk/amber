@@ -27,7 +27,7 @@ module.exports = function (grunt) {
             grunt.fail.warn('Only one destination file supported.');
         }
 
-        require('../lib/config.js').writeConfig(options.root_dir, this.files[0].dest, function (err) {
+        require('..').configBuilder.writeConfig(options.root_dir, this.files[0].dest, function (err) {
             done(!err);
         })
     });
