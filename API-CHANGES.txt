@@ -1,3 +1,42 @@
+0.15.0:
+
+* Thenable class added
+* Promise class added, wraps JS Promise, subclass of Thenable
+
++ Thenable >>
+  + catch:
+  + on:do:
+  + on:do:catch:
+  + then:
+  + then:catch:
+  + then:on:do:
+  + then:on:do:catch:
+  + all:
+  + all:catch:
+  + all:on:do:
+  + all:on:do:catch:
+  + all:then:
+  + all:then:catch:
+  + all:then:on:do:
+  + all:then:on:do:catch:
++ JSObjectProxy >>
+  + catch:
+  + on:do:
+  + on:do:catch:
+  + then:
+  + then:catch:
+  + then:on:do:
+  + then:on:do:catch:
+  + all:
+  + all:catch:
+  + all:on:do:
+  + all:on:do:catch:
+  + all:then:
+  + all:then:catch:
+  + all:then:on:do:
+  + all:then:on:do:catch:
+
+
 0.14.18:
 
 * Some internal API changes in Compiler-*.
