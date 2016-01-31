@@ -37,16 +37,12 @@ protocol: 'not yet classified',
 fn: function (){
 var self=this;
 var suite,worker;
-function $OrderedCollection(){return $globals.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
-function $TestCase(){return $globals.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-function $TestSuiteRunner(){return $globals.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
-function $ResultAnnouncement(){return $globals.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var $2,$1,$3,$9,$8,$12,$11,$10,$7,$6,$15,$14,$13,$5,$4,$17,$16,$19,$18,$26,$25,$24,$23,$22,$28,$27,$21,$20,$30,$29,$32,$31,$39,$38,$37,$36,$35,$34,$33;
-suite=$recv($OrderedCollection())._new();
-$recv($recv($recv($TestCase())._allSubclasses())._select_((function(each){
+suite=$recv($globals.OrderedCollection)._new();
+$recv($recv($recv($globals.TestCase)._allSubclasses())._select_((function(each){
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
 //>>excludeEnd("ctx");
@@ -63,8 +59,8 @@ return $recv(suite)._addAll_($recv(each)._buildSuite());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)});
 //>>excludeEnd("ctx");
 }));
-worker=$recv($TestSuiteRunner())._on_(suite);
-$recv($recv(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
+worker=$recv($globals.TestSuiteRunner)._on_(suite);
+$recv($recv(worker)._announcer())._on_do_($globals.ResultAnnouncement,(function(ann){
 var result;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx2) {
