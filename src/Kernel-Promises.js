@@ -141,6 +141,9 @@ messageSends: []
 $globals.Thenable);
 
 
+
+$core.addClass('Promise', $globals.Thenable, [], 'Kernel-Promises');
+
 $core.addMethod(
 $core.method({
 selector: "all:",

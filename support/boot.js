@@ -772,6 +772,10 @@ define(['require', './compatibility'], function (require) {
             st.addPackage("Kernel-Exceptions");
             st.wrapClassName("Error", "Kernel-Exceptions", Error, globals.Object);
 
+            st.addPackage("Kernel-Promises");
+            st.addClass("Thenable", globals.Object, null, "Kernel-Promises");
+            st.wrapClassName("Promise", "Kernel-Promises", Promise, globals.Thenable);
+
             /* Alias definitions */
 
             st.alias(globals.Array, "OrderedCollection");

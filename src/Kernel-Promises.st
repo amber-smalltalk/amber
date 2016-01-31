@@ -43,6 +43,10 @@ then: aBlock
 })>
 ! !
 
+Thenable subclass: #Promise
+	instanceVariableNames: ''
+	package: 'Kernel-Promises'!
+
 !JSObjectProxy methodsFor: '*Kernel-Promises'!
 
 all: nadicBlock
