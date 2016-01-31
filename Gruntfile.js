@@ -76,8 +76,9 @@ module.exports = function (grunt) {
                     rawText: {
                         "app": "(" + function () {
                             define(["amber/devel", "amber_cli/AmberCli"], function (amber) {
-                                amber.initialize();
-                                amber.globals.AmberCli._main();
+                                amber.initialize().then(function () {
+                                    amber.globals.AmberCli._main();
+                                });
                             });
                         } + "());"
                     },
