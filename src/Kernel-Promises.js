@@ -202,38 +202,6 @@ $core.addClass('Promise', $globals.Thenable, [], 'Kernel-Promises');
 
 $core.addMethod(
 $core.method({
-selector: "all:",
-protocol: '*Kernel-Promises',
-fn: function (nadicBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-var js = self["@jsObject"];
-if (typeof js.then === "function")
-    return $globals.Thenable.fn.prototype._all_.call(js, nadicBlock);
-else
-    return self._doesNotUnderstand_(
-        $globals.Message._new()
-            ._selector_("all:")
-            ._arguments_([nadicBlock])
-    );
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"all:",{nadicBlock:nadicBlock},$globals.JSObjectProxy)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["nadicBlock"],
-source: "all: nadicBlock\x0a<var js = self[\x22@jsObject\x22];\x0aif (typeof js.then === \x22function\x22)\x0a    return $globals.Thenable.fn.prototype._all_.call(js, nadicBlock);\x0aelse\x0a    return self._doesNotUnderstand_(\x0a        $globals.Message._new()\x0a            ._selector_(\x22all:\x22)\x0a            ._arguments_([nadicBlock])\x0a    )>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.JSObjectProxy);
-
-$core.addMethod(
-$core.method({
 selector: "catch:",
 protocol: '*Kernel-Promises',
 fn: function (aBlock){
@@ -332,28 +300,124 @@ $core.addMethod(
 $core.method({
 selector: "then:",
 protocol: '*Kernel-Promises',
-fn: function (aBlock){
+fn: function (aBlockOrArray){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
 var js = self["@jsObject"];
 if (typeof js.then === "function")
-    return $globals.Thenable.fn.prototype._then_.call(js, aBlock);
+    return $globals.Thenable.fn.prototype._then_.call(js, aBlockOrArray);
 else
     return self._doesNotUnderstand_(
         $globals.Message._new()
             ._selector_("then:")
-            ._arguments_([aBlock])
+            ._arguments_([aBlockOrArray])
     );
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"then:",{aBlock:aBlock},$globals.JSObjectProxy)});
+}, function($ctx1) {$ctx1.fill(self,"then:",{aBlockOrArray:aBlockOrArray},$globals.JSObjectProxy)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "then: aBlock\x0a<var js = self[\x22@jsObject\x22];\x0aif (typeof js.then === \x22function\x22)\x0a    return $globals.Thenable.fn.prototype._then_.call(js, aBlock);\x0aelse\x0a    return self._doesNotUnderstand_(\x0a        $globals.Message._new()\x0a            ._selector_(\x22then:\x22)\x0a            ._arguments_([aBlock])\x0a    )>",
+args: ["aBlockOrArray"],
+source: "then: aBlockOrArray\x0a<var js = self[\x22@jsObject\x22];\x0aif (typeof js.then === \x22function\x22)\x0a    return $globals.Thenable.fn.prototype._then_.call(js, aBlockOrArray);\x0aelse\x0a    return self._doesNotUnderstand_(\x0a        $globals.Message._new()\x0a            ._selector_(\x22then:\x22)\x0a            ._arguments_([aBlockOrArray])\x0a    )>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy);
+
+$core.addMethod(
+$core.method({
+selector: "then:catch:",
+protocol: '*Kernel-Promises',
+fn: function (aBlockOrArray,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var js = self["@jsObject"];
+if (typeof js.then === "function")
+    return $globals.Thenable.fn.prototype._then_catch_.call(js, aBlockOrArray, anotherBlock);
+else
+    return self._doesNotUnderstand_(
+        $globals.Message._new()
+            ._selector_("then:catch:")
+            ._arguments_([aBlockOrArray, anotherBlock])
+    );
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"then:catch:",{aBlockOrArray:aBlockOrArray,anotherBlock:anotherBlock},$globals.JSObjectProxy)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlockOrArray", "anotherBlock"],
+source: "then: aBlockOrArray catch: anotherBlock\x0a<var js = self[\x22@jsObject\x22];\x0aif (typeof js.then === \x22function\x22)\x0a    return $globals.Thenable.fn.prototype._then_catch_.call(js, aBlockOrArray, anotherBlock);\x0aelse\x0a    return self._doesNotUnderstand_(\x0a        $globals.Message._new()\x0a            ._selector_(\x22then:catch:\x22)\x0a            ._arguments_([aBlockOrArray, anotherBlock])\x0a    )>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy);
+
+$core.addMethod(
+$core.method({
+selector: "then:on:do:",
+protocol: '*Kernel-Promises',
+fn: function (aBlockOrArray,aClass,aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var js = self["@jsObject"];
+if (typeof js.then === "function")
+    return $globals.Thenable.fn.prototype._then_on_do_.call(js, aBlockOrArray, aClass, aBlock);
+else
+    return self._doesNotUnderstand_(
+        $globals.Message._new()
+            ._selector_("then:on:do:")
+            ._arguments_([aBlockOrArray, aClass, aBlock])
+    );
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"then:on:do:",{aBlockOrArray:aBlockOrArray,aClass:aClass,aBlock:aBlock},$globals.JSObjectProxy)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlockOrArray", "aClass", "aBlock"],
+source: "then: aBlockOrArray on: aClass do: aBlock\x0a<var js = self[\x22@jsObject\x22];\x0aif (typeof js.then === \x22function\x22)\x0a    return $globals.Thenable.fn.prototype._then_on_do_.call(js, aBlockOrArray, aClass, aBlock);\x0aelse\x0a    return self._doesNotUnderstand_(\x0a        $globals.Message._new()\x0a            ._selector_(\x22then:on:do:\x22)\x0a            ._arguments_([aBlockOrArray, aClass, aBlock])\x0a    )>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.JSObjectProxy);
+
+$core.addMethod(
+$core.method({
+selector: "then:on:do:catch:",
+protocol: '*Kernel-Promises',
+fn: function (aBlockOrArray,aClass,aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var js = self["@jsObject"];
+if (typeof js.then === "function")
+    return $globals.Thenable.fn.prototype._then_on_do_catch_.call(js, aBlockOrArray, aClass, aBlock, anotherBlock);
+else
+    return self._doesNotUnderstand_(
+        $globals.Message._new()
+            ._selector_("then:on:do:catch:")
+            ._arguments_([aBlockOrArray, aClass, aBlock, anotherBlock])
+    );
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"then:on:do:catch:",{aBlockOrArray:aBlockOrArray,aClass:aClass,aBlock:aBlock,anotherBlock:anotherBlock},$globals.JSObjectProxy)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlockOrArray", "aClass", "aBlock", "anotherBlock"],
+source: "then: aBlockOrArray on: aClass do: aBlock catch: anotherBlock\x0a<var js = self[\x22@jsObject\x22];\x0aif (typeof js.then === \x22function\x22)\x0a    return $globals.Thenable.fn.prototype._then_on_do_catch_.call(js, aBlockOrArray, aClass, aBlock, anotherBlock);\x0aelse\x0a    return self._doesNotUnderstand_(\x0a        $globals.Message._new()\x0a            ._selector_(\x22then:on:do:catch:\x22)\x0a            ._arguments_([aBlockOrArray, aClass, aBlock, anotherBlock])\x0a    )>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

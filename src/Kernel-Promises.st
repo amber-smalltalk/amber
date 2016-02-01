@@ -76,18 +76,6 @@ Thenable subclass: #Promise
 
 !JSObjectProxy methodsFor: '*Kernel-Promises'!
 
-all: nadicBlock
-<var js = self["@jsObject"];
-if (typeof js.then === "function")
-    return $globals.Thenable.fn.prototype._all_.call(js, nadicBlock);
-else
-    return self._doesNotUnderstand_(
-        $globals.Message._new()
-            ._selector_("all:")
-            ._arguments_([nadicBlock])
-    )>
-!
-
 catch: aBlock
 <var js = self["@jsObject"];
 if (typeof js.then === "function")
@@ -124,15 +112,51 @@ else
     )>
 !
 
-then: aBlock
+then: aBlockOrArray
 <var js = self["@jsObject"];
 if (typeof js.then === "function")
-    return $globals.Thenable.fn.prototype._then_.call(js, aBlock);
+    return $globals.Thenable.fn.prototype._then_.call(js, aBlockOrArray);
 else
     return self._doesNotUnderstand_(
         $globals.Message._new()
             ._selector_("then:")
-            ._arguments_([aBlock])
+            ._arguments_([aBlockOrArray])
+    )>
+!
+
+then: aBlockOrArray catch: anotherBlock
+<var js = self["@jsObject"];
+if (typeof js.then === "function")
+    return $globals.Thenable.fn.prototype._then_catch_.call(js, aBlockOrArray, anotherBlock);
+else
+    return self._doesNotUnderstand_(
+        $globals.Message._new()
+            ._selector_("then:catch:")
+            ._arguments_([aBlockOrArray, anotherBlock])
+    )>
+!
+
+then: aBlockOrArray on: aClass do: aBlock
+<var js = self["@jsObject"];
+if (typeof js.then === "function")
+    return $globals.Thenable.fn.prototype._then_on_do_.call(js, aBlockOrArray, aClass, aBlock);
+else
+    return self._doesNotUnderstand_(
+        $globals.Message._new()
+            ._selector_("then:on:do:")
+            ._arguments_([aBlockOrArray, aClass, aBlock])
+    )>
+!
+
+then: aBlockOrArray on: aClass do: aBlock catch: anotherBlock
+<var js = self["@jsObject"];
+if (typeof js.then === "function")
+    return $globals.Thenable.fn.prototype._then_on_do_catch_.call(js, aBlockOrArray, aClass, aBlock, anotherBlock);
+else
+    return self._doesNotUnderstand_(
+        $globals.Message._new()
+            ._selector_("then:on:do:catch:")
+            ._arguments_([aBlockOrArray, aClass, aBlock, anotherBlock])
     )>
 ! !
 
