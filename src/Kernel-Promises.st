@@ -37,10 +37,14 @@ on: aClass do: aBlock catch: anotherBlock
 })>
 !
 
-then: aBlock
-<return self.then(function (result) {
-    return aBlock._value_(result);
-})>
+then: aBlockOrArray
+<
+var array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];
+return array.reduce(function (soFar, aBlock) {
+    return soFar.then(function (result) {
+        return aBlock._value_(result);
+    });
+}, self)>
 ! !
 
 Thenable subclass: #Promise

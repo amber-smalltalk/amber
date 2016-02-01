@@ -118,22 +118,26 @@ $core.addMethod(
 $core.method({
 selector: "then:",
 protocol: 'promises',
-fn: function (aBlock){
+fn: function (aBlockOrArray){
 var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return self.then(function (result) {
-    return aBlock._value_(result);
-});
+
+var array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];
+return array.reduce(function (soFar, aBlock) {
+    return soFar.then(function (result) {
+        return aBlock._value_(result);
+    });
+}, self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"then:",{aBlock:aBlock},$globals.Thenable)});
+}, function($ctx1) {$ctx1.fill(self,"then:",{aBlockOrArray:aBlockOrArray},$globals.Thenable)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["aBlock"],
-source: "then: aBlock\x0a<return self.then(function (result) {\x0a    return aBlock._value_(result);\x0a})>",
+args: ["aBlockOrArray"],
+source: "then: aBlockOrArray\x0a<\x0avar array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];\x0areturn array.reduce(function (soFar, aBlock) {\x0a    return soFar.then(function (result) {\x0a        return aBlock._value_(result);\x0a    });\x0a}, self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
