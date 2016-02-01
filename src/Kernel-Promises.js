@@ -144,6 +144,75 @@ messageSends: []
 }),
 $globals.Thenable);
 
+$core.addMethod(
+$core.method({
+selector: "then:catch:",
+protocol: 'promises',
+fn: function (aBlockOrArray,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(self._then_(aBlockOrArray))._catch_(anotherBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"then:catch:",{aBlockOrArray:aBlockOrArray,anotherBlock:anotherBlock},$globals.Thenable)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlockOrArray", "anotherBlock"],
+source: "then: aBlockOrArray catch: anotherBlock\x0a\x09^ (self then: aBlockOrArray) catch: anotherBlock",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["catch:", "then:"]
+}),
+$globals.Thenable);
+
+$core.addMethod(
+$core.method({
+selector: "then:on:do:",
+protocol: 'promises',
+fn: function (aBlockOrArray,aClass,aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(self._then_(aBlockOrArray))._on_do_(aClass,aBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"then:on:do:",{aBlockOrArray:aBlockOrArray,aClass:aClass,aBlock:aBlock},$globals.Thenable)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlockOrArray", "aClass", "aBlock"],
+source: "then: aBlockOrArray on: aClass do: aBlock\x0a\x09^ (self then: aBlockOrArray) on: aClass do: aBlock",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["on:do:", "then:"]
+}),
+$globals.Thenable);
+
+$core.addMethod(
+$core.method({
+selector: "then:on:do:catch:",
+protocol: 'promises',
+fn: function (aBlockOrArray,aClass,aBlock,anotherBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv($recv(self._then_(aBlockOrArray))._on_do_(aClass,aBlock))._catch_(anotherBlock);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"then:on:do:catch:",{aBlockOrArray:aBlockOrArray,aClass:aClass,aBlock:aBlock,anotherBlock:anotherBlock},$globals.Thenable)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlockOrArray", "aClass", "aBlock", "anotherBlock"],
+source: "then: aBlockOrArray on: aClass do: aBlock catch: anotherBlock\x0a\x09^ ((self then: aBlockOrArray) on: aClass do: aBlock) catch: anotherBlock",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["catch:", "on:do:", "then:"]
+}),
+$globals.Thenable);
+
 
 
 $core.addClass('Promise', $globals.Thenable, [], 'Kernel-Promises');

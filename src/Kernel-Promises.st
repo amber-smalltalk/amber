@@ -45,6 +45,18 @@ return array.reduce(function (soFar, aBlock) {
         return aBlock._value_(result);
     });
 }, self)>
+!
+
+then: aBlockOrArray catch: anotherBlock
+	^ (self then: aBlockOrArray) catch: anotherBlock
+!
+
+then: aBlockOrArray on: aClass do: aBlock
+	^ (self then: aBlockOrArray) on: aClass do: aBlock
+!
+
+then: aBlockOrArray on: aClass do: aBlock catch: anotherBlock
+	^ ((self then: aBlockOrArray) on: aClass do: aBlock) catch: anotherBlock
 ! !
 
 Thenable subclass: #Promise
