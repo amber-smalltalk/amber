@@ -10,32 +10,6 @@ $globals.Thenable.comment="I am the abstract base class for Promises.\x0a\x0aMy 
 //>>excludeEnd("ide");
 $core.addMethod(
 $core.method({
-selector: "all:",
-protocol: 'promises',
-fn: function (nadicBlock){
-var self=this;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-return $core.withContext(function($ctx1) {
-//>>excludeEnd("ctx");
-return self.then(function (array) {
-    return nadicBlock._valueWithPossibleArguments_(array);
-});
-return self;
-//>>excludeStart("ctx", pragmas.excludeDebugContexts);
-}, function($ctx1) {$ctx1.fill(self,"all:",{nadicBlock:nadicBlock},$globals.Thenable)});
-//>>excludeEnd("ctx");
-},
-//>>excludeStart("ide", pragmas.excludeIdeData);
-args: ["nadicBlock"],
-source: "all: nadicBlock\x0a<return self.then(function (array) {\x0a    return nadicBlock._valueWithPossibleArguments_(array);\x0a})>",
-referencedClasses: [],
-//>>excludeEnd("ide");
-messageSends: []
-}),
-$globals.Thenable);
-
-$core.addMethod(
-$core.method({
 selector: "catch:",
 protocol: 'promises',
 fn: function (aBlock){
@@ -126,9 +100,18 @@ return $core.withContext(function($ctx1) {
 
 var array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];
 return array.reduce(function (soFar, aBlock) {
-    return soFar.then(function (result) {
-        return aBlock._value_(result);
-    });
+    return soFar.then(typeof aBlock === "function" && aBlock.length > 1 ?
+        function (result) {
+            if (Array.isArray(result)) {
+                return aBlock._valueWithPossibleArguments_([result].concat(result.slice(0, aBlock.length-1)));
+            } else {
+                return aBlock._value_(result);
+            }
+        } :
+        function (result) {
+            return aBlock._value_(result);
+        }
+    );
 }, self);
 return self;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
@@ -137,7 +120,7 @@ return self;
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlockOrArray"],
-source: "then: aBlockOrArray\x0a<\x0avar array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];\x0areturn array.reduce(function (soFar, aBlock) {\x0a    return soFar.then(function (result) {\x0a        return aBlock._value_(result);\x0a    });\x0a}, self)>",
+source: "then: aBlockOrArray\x0a\x22Accepts a block or array of blocks.\x0aEach of blocks in the array or the singleton one is\x0aused in .then call to a promise, to accept a result\x0aand transform it to the result for the next one.\x0aIn case a block has more than one argument\x0aand result is an array, first n-1 elements of the array\x0aare put into additional arguments beyond the first.\x0aThe first argument always contains the result as-is.\x22\x0a<\x0avar array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];\x0areturn array.reduce(function (soFar, aBlock) {\x0a    return soFar.then(typeof aBlock === \x22function\x22 && aBlock.length >> 1 ?\x0a        function (result) {\x0a            if (Array.isArray(result)) {\x0a                return aBlock._valueWithPossibleArguments_([result].concat(result.slice(0, aBlock.length-1)));\x0a            } else {\x0a                return aBlock._value_(result);\x0a            }\x0a        } :\x0a        function (result) {\x0a            return aBlock._value_(result);\x0a        }\x0a    );\x0a}, self)>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []

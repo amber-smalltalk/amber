@@ -11,12 +11,6 @@ I contain methods that wrap Promises/A+ `.then` behaviour.!
 
 !Thenable methodsFor: 'promises'!
 
-all: nadicBlock
-<return self.then(function (array) {
-    return nadicBlock._valueWithPossibleArguments_(array);
-})>
-!
-
 catch: aBlock
 <return self.then(null, function (err) {
     return aBlock._value_(err);
@@ -38,12 +32,29 @@ on: aClass do: aBlock catch: anotherBlock
 !
 
 then: aBlockOrArray
+"Accepts a block or array of blocks.
+Each of blocks in the array or the singleton one is
+used in .then call to a promise, to accept a result
+and transform it to the result for the next one.
+In case a block has more than one argument
+and result is an array, first n-1 elements of the array
+are put into additional arguments beyond the first.
+The first argument always contains the result as-is."
 <
 var array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];
 return array.reduce(function (soFar, aBlock) {
-    return soFar.then(function (result) {
-        return aBlock._value_(result);
-    });
+    return soFar.then(typeof aBlock === "function" && aBlock.length >> 1 ?
+        function (result) {
+            if (Array.isArray(result)) {
+                return aBlock._valueWithPossibleArguments_([result].concat(result.slice(0, aBlock.length-1)));
+            } else {
+                return aBlock._value_(result);
+            }
+        } :
+        function (result) {
+            return aBlock._value_(result);
+        }
+    );
 }, self)>
 !
 
