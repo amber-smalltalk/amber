@@ -12,23 +12,23 @@ I contain methods that wrap Promises/A+ `.then` behaviour.!
 !Thenable methodsFor: 'promises'!
 
 catch: aBlock
-<return self.then(null, function (err) {
+<return self.then(null, function (err) {return $core.seamless(function () {
     return aBlock._value_(err);
-})>
+})})>
 !
 
 on: aClass do: aBlock
-<return self.then(null, function (err) {
+<return self.then(null, function (err) {return $core.seamless(function () {
     if (err._isKindOf_(aClass)) return aBlock._value_(err);
     else throw err;
-})>
+})})>
 !
 
 on: aClass do: aBlock catch: anotherBlock
-<return self.then(null, function (err) {
+<return self.then(null, function (err) {return $core.seamless(function () {
     try { if (err._isKindOf_(aClass)) return aBlock._value_(err); } catch (e) { err = e; }
     return anotherBlock._value_(err);
-})>
+})})>
 !
 
 then: aBlockOrArray
@@ -44,16 +44,16 @@ The first argument always contains the result as-is."
 var array = Array.isArray(aBlockOrArray) ? aBlockOrArray : [aBlockOrArray];
 return array.reduce(function (soFar, aBlock) {
     return soFar.then(typeof aBlock === "function" && aBlock.length >> 1 ?
-        function (result) {
+        function (result) {return $core.seamless(function () {
             if (Array.isArray(result)) {
                 return aBlock._valueWithPossibleArguments_([result].concat(result.slice(0, aBlock.length-1)));
             } else {
                 return aBlock._value_(result);
             }
-        } :
-        function (result) {
+        })} :
+        function (result) {return $core.seamless(function () {
             return aBlock._value_(result);
-        }
+        })}
     );
 }, self)>
 !

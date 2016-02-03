@@ -19,6 +19,8 @@
   + then:catch:
   + then:on:do:
   + then:on:do:catch:
++ amber/boot api
+  + seamless
 
 
 0.14.18:

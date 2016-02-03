@@ -924,6 +924,20 @@ define(['require', './compatibility'], function (require) {
             }
         };
 
+        /*
+           Runs worker function so that error handler is not set up
+           if there isn't one. This is accomplished by unconditional
+           wrapping inside a context of a simulated `nil seamlessDoIt` call,
+           which then stops error handler setup (see st.withContext above).
+           The effect is, $core.seamless(fn)'s exceptions are not
+           handed into ST error handler and caller should process them.
+         */
+        st.seamless = function (worker) {
+            return inContext(worker, function (ctx) {
+                ctx.fill(nil, "seamlessDoIt", {}, globals.UndefinedObject);
+            });
+        };
+
         function inContextWithErrorHandling(worker, setup) {
             try {
                 return inContext(worker, setup);
