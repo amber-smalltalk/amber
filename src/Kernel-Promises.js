@@ -202,6 +202,105 @@ $core.addClass('Promise', $globals.Thenable, [], 'Kernel-Promises');
 
 $core.addMethod(
 $core.method({
+selector: "forBlock:",
+protocol: 'instance creation',
+fn: function (aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return Promise.resolve().then(function () {return $core.seamless(function () {return $recv(aBlock)._value_()})});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"forBlock:",{aBlock:aBlock},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "forBlock: aBlock\x0a\x22Returns a Promise that is resolved with the value of aBlock,\x0aand rejected if error happens while evaluating aBlock.\x22\x0a<return Promise.resolve().then(function () {return $core.seamless(function () {return $recv(aBlock)._value_()})})>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
+selector: "new:",
+protocol: 'instance creation',
+fn: function (aBlock){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return new Promise(function (resolve, reject) {
+    var model = {value: resolve, signal: reject}; // TODO make faster
+    aBlock._value_(model);
+});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"new:",{aBlock:aBlock},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock"],
+source: "new: aBlock\x0a\x22Returns a Promise that is eventually resolved or rejected.\x0aPass a block that is called with one argument, model.\x0aYou should call model value: ... to resolve the promise\x0aand model signal: ... to reject the promise.\x0aIf error happens during run of the block,\x0apromise is rejected with that error as well.\x22\x0a<return new Promise(function (resolve, reject) {\x0a    var model = {value: resolve, signal: reject}; // TODO make faster\x0a    aBlock._value_(model);\x0a})>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
+selector: "signal:",
+protocol: 'instance creation',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(anObject)._in_(function (x) {return Promise.reject(x)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"signal:",{anObject:anObject},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "signal: anObject\x0a\x22Returns a Promise rejected with anObject.\x22\x0a<return $recv(anObject)._in_(function (x) {return Promise.reject(x)})>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
+selector: "value:",
+protocol: 'instance creation',
+fn: function (anObject){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return $recv(anObject)._in_(function (x) {return Promise.resolve(x)});
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["anObject"],
+source: "value: anObject\x0a\x22Returns a Promise resolved with anObject.\x22\x0a<return $recv(anObject)._in_(function (x) {return Promise.resolve(x)})>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
 selector: "catch:",
 protocol: '*Kernel-Promises',
 fn: function (aBlock){

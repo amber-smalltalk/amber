@@ -74,6 +74,37 @@ Thenable subclass: #Promise
 	instanceVariableNames: ''
 	package: 'Kernel-Promises'!
 
+!Promise class methodsFor: 'instance creation'!
+
+forBlock: aBlock
+"Returns a Promise that is resolved with the value of aBlock,
+and rejected if error happens while evaluating aBlock."
+<return Promise.resolve().then(function () {return $core.seamless(function () {return $recv(aBlock)._value_()})})>
+!
+
+new: aBlock
+"Returns a Promise that is eventually resolved or rejected.
+Pass a block that is called with one argument, model.
+You should call model value: ... to resolve the promise
+and model signal: ... to reject the promise.
+If error happens during run of the block,
+promise is rejected with that error as well."
+<return new Promise(function (resolve, reject) {
+    var model = {value: resolve, signal: reject}; // TODO make faster
+    aBlock._value_(model);
+})>
+!
+
+signal: anObject
+"Returns a Promise rejected with anObject."
+<return $recv(anObject)._in_(function (x) {return Promise.reject(x)})>
+!
+
+value: anObject
+"Returns a Promise resolved with anObject."
+<return $recv(anObject)._in_(function (x) {return Promise.resolve(x)})>
+! !
+
 !JSObjectProxy methodsFor: '*Kernel-Promises'!
 
 catch: aBlock
