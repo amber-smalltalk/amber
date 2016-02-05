@@ -1,3 +1,19 @@
+6 February 2016 - Release 0.15.0
+===================================
+
+* From this version on, Amber will fully comply to semver:
+  * Any breaking change will result in increase of first non-zero number.
+  * If first non-zero number is not changed, no breaking changes are present in release.
+* Changed how ST globals are implemented, resulting in shorter and faster code.
+* Not working any more on IE8 (b/c of changed globals).
+* amber.initialize(...) returns a promise.
+* JS global Promise must be present.
+  * If missing, you can polyfill with `bower install amber-compat-es2015 --save`.
+* JS Promise is wrapped in ST class Promise.
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.18...0.15.0.
+
+
 1 January 2016 - Release 0.14.18
 ===================================
 
