@@ -1,6 +1,6 @@
 {
   "name": "amber",
-  "version": "0.15.0",
+  "version": "0.16.0-pre",
   "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
   "homepage": "http://amber-lang.net",
   "keywords": [
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/amber-smalltalk/amber.git#0.15.0"
+    "url": "git://github.com/amber-smalltalk/amber.git"
   },
   "engines": {
     "node": "0.10.x || 0.12.x || >=4.0.0"
