@@ -26,6 +26,8 @@
   + forBlock:
   + value:
   + signal:
+  + all:
+  + any:
 
 
 0.14.18:

@@ -74,6 +74,18 @@ Thenable subclass: #Promise
 	instanceVariableNames: ''
 	package: 'Kernel-Promises'!
 
+!Promise class methodsFor: 'composites'!
+
+all: aCollection
+"Returns a Promise resolved with results of sub-promises."
+<return Promise.all($recv(aCollection)._asArray())>
+!
+
+any: aCollection
+"Returns a Promise resolved with first result of sub-promises."
+<return Promise.race($recv(aCollection)._asArray())>
+! !
+
 !Promise class methodsFor: 'instance creation'!
 
 forBlock: aBlock

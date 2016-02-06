@@ -202,6 +202,54 @@ $core.addClass('Promise', $globals.Thenable, [], 'Kernel-Promises');
 
 $core.addMethod(
 $core.method({
+selector: "all:",
+protocol: 'composites',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return Promise.all($recv(aCollection)._asArray());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"all:",{aCollection:aCollection},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "all: aCollection\x0a\x22Returns a Promise resolved with results of sub-promises.\x22\x0a<return Promise.all($recv(aCollection)._asArray())>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
+selector: "any:",
+protocol: 'composites',
+fn: function (aCollection){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return Promise.race($recv(aCollection)._asArray());
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"any:",{aCollection:aCollection},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "any: aCollection\x0a\x22Returns a Promise resolved with first result of sub-promises.\x22\x0a<return Promise.race($recv(aCollection)._asArray())>",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: []
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
 selector: "forBlock:",
 protocol: 'instance creation',
 fn: function (aBlock){
