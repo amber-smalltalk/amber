@@ -21,6 +21,11 @@
   + then:on:do:catch:
 + amber/boot api
   + seamless
++ Promise class >>
+  + new:
+  + forBlock:
+  + value:
+  + signal:
 
 
 0.14.18:
