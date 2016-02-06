@@ -3382,12 +3382,12 @@ selector: "version",
 protocol: 'accessing',
 fn: function (){
 var self=this;
-return "0.16.0-pre";
+return "0.15.1";
 
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.16.0-pre'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.15.1'",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
