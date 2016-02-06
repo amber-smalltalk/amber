@@ -1,4 +1,4 @@
-0.15.0:
+0.15.1:
 
 * Thenable class added
 * Promise class added, wraps JS Promise, subclass of Thenable

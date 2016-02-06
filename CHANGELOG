@@ -1,4 +1,4 @@
-6 February 2016 - Release 0.15.0
+6 February 2016 - Release 0.15.1
 ===================================
 
 * From this version on, Amber will fully comply to semver:
@@ -11,7 +11,7 @@
   * If missing, you can polyfill with `bower install amber-compat-es2015 --save`.
 * JS Promise is wrapped in ST class Promise.
 
-Commits: https://github.com/amber-smalltalk/amber/compare/0.14.18...0.15.0.
+Commits: https://github.com/amber-smalltalk/amber/compare/0.14.18...0.15.1.
 
 
 1 January 2016 - Release 0.14.18
