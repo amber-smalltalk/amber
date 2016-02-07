@@ -91,7 +91,12 @@ any: aCollection
 forBlock: aBlock
 "Returns a Promise that is resolved with the value of aBlock,
 and rejected if error happens while evaluating aBlock."
-<return Promise.resolve().then(function () {return $core.seamless(function () {return $recv(aBlock)._value_()})})>
+	^ self new then: aBlock
+!
+
+new
+"Returns a dumb Promise resolved with nil."
+<return Promise.resolve()>
 !
 
 new: aBlock

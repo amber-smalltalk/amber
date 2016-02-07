@@ -257,15 +257,38 @@ var self=this;
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 return $core.withContext(function($ctx1) {
 //>>excludeEnd("ctx");
-return Promise.resolve().then(function () {return $core.seamless(function () {return $recv(aBlock)._value_()})});
-return self;
+return $recv(self._new())._then_(aBlock);
 //>>excludeStart("ctx", pragmas.excludeDebugContexts);
 }, function($ctx1) {$ctx1.fill(self,"forBlock:",{aBlock:aBlock},$globals.Promise.klass)});
 //>>excludeEnd("ctx");
 },
 //>>excludeStart("ide", pragmas.excludeIdeData);
 args: ["aBlock"],
-source: "forBlock: aBlock\x0a\x22Returns a Promise that is resolved with the value of aBlock,\x0aand rejected if error happens while evaluating aBlock.\x22\x0a<return Promise.resolve().then(function () {return $core.seamless(function () {return $recv(aBlock)._value_()})})>",
+source: "forBlock: aBlock\x0a\x22Returns a Promise that is resolved with the value of aBlock,\x0aand rejected if error happens while evaluating aBlock.\x22\x0a\x09^ self new then: aBlock",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["then:", "new"]
+}),
+$globals.Promise.klass);
+
+$core.addMethod(
+$core.method({
+selector: "new",
+protocol: 'instance creation',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+return Promise.resolve();
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"new",{},$globals.Promise.klass)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "new\x0a\x22Returns a dumb Promise resolved with nil.\x22\x0a<return Promise.resolve()>",
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: []
