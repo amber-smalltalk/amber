@@ -7,7 +7,9 @@ Amber
 [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber) [![devDependency status](https://david-dm.org/amber-smalltalk/amber/dev-status.svg?style=flat)](https://david-dm.org/amber-smalltalk/amber#info=devDependencies) [![Bountysource](https://www.bountysource.com/badge/team?team_id=19271&style=raised)](https://www.bountysource.com/teams/amber-smalltalk?utm_source=amber-smalltalk&utm_medium=shield&utm_campaign=raised)
 
 
-By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/amber-smalltalk/amber/contributors)
+Copyright 2011-2015 Nicolas Petton
+
+Copyright 2014-2016 Herbert Vojčík and [Amber contributors](https://github.com/amber-smalltalk/amber/contributors)
 
 Amber is an implementation of the Smalltalk language that runs on top of the JavaScript runtime. It is designed to make client-side development faster and easier.
 
