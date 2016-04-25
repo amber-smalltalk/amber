@@ -15,6 +15,33 @@ Amber is an implementation of the Smalltalk language that runs on top of the Jav
 
 Try Amber online and learn more on [project page](http://amber-lang.net).
 
+MOVED
+====
+
+Amber is now at https://lolg.it/amber/amber.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
+.
+
 Overview
 --------
 
