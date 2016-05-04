@@ -15,9 +15,7 @@
     "email": "petton.nicolas@gmail.com",
     "url": "http://www.nicolas-petton.fr"
   },
-  "license": {
-    "type": "MIT"
-  },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/amber-smalltalk/amber.git"
