@@ -184,3 +184,63 @@ testTwoAsyncPassesWithFinishedOnlyOneIsRun
 	flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
 ! !
 
+TestCase subclass: #SUnitTest
+	instanceVariableNames: ''
+	package: 'SUnit-Tests'!
+
+!SUnitTest methodsFor: 'as yet unclassified'!
+
+testACollectionHasSameElementsOfAnotherCollection
+
+	|aCollection anotherCollection|
+
+	aCollection := #(1 2 3).
+	anotherCollection := #(1 2 3).
+	
+	self assertCollection: aCollection asOrderedCollection hasSameElements: anotherCollection
+!
+
+testACollectionHasSameElementsOfAnotherCollectionFailsWhenFirstCollectionMissAnyElementOfTheOtherCollection
+
+	|aCollection anotherCollection|
+
+	aCollection := #(1 2 3).
+	anotherCollection := #(1 2 4).
+	
+	self should: [
+		self assertCollection: aCollection asOrderedCollection hasSameElements: anotherCollection
+	]
+	raise: TestFailure
+	description: 'Expected collection to not have 3. Expected collection to have 4.'
+!
+
+testACollectionHasSameElementsOfAnotherCollectionFailsWhenSomeElementIsMissingOrIfCollectionsHaveAdditionalElements
+
+	|aCollection anotherCollection|
+
+	aCollection := #(1 2 3).
+	anotherCollection := #(1 2 4).
+	
+	self should: [
+		self assertCollection: aCollection asOrderedCollection hasSameElements: anotherCollection
+	]
+	raise: TestFailure
+	description: 'Expected collection to not have 3. Expected collection to have 4.'
+!
+
+testAssertionShouldRaiseExceptionWithMessage
+
+	self 
+		should: [ self error: 'My cool error message!! B|' ] 
+		raise: Error
+		description: 'My cool error message!! B|'.
+!
+
+testAssertionShouldntRaiseExceptionWillFinishSuccessfullyWhenHavingDifferentErrorClass
+
+	self 
+		shouldnt: [ self error: 'My cool error message!!' ] 
+		raise: Error
+		description: 'My cool error message!! B|'.
+! !
+

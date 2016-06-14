@@ -141,6 +141,85 @@ $globals.TestCase);
 
 $core.addMethod(
 $core.method({
+selector: "assertCollection:hasSameElements:",
+protocol: 'testing',
+fn: function (actual,expected){
+var self=this;
+var missingElements,additionalElements,assertionDescription;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+var $1,$3,$2,$4,$5,$7,$6;
+additionalElements=$recv(actual)._difference_(expected);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["difference:"]=1;
+//>>excludeEnd("ctx");
+missingElements=$recv(expected)._difference_($recv(actual)._intersection_(expected));
+assertionDescription="";
+$1=$recv(additionalElements)._isEmpty();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isEmpty"]=1;
+//>>excludeEnd("ctx");
+if(!$core.assert($1)){
+$3=$recv(assertionDescription).__comma("Expected collection to not have ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=3;
+//>>excludeEnd("ctx");
+$2=$recv($3).__comma(additionalElements);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=2;
+//>>excludeEnd("ctx");
+assertionDescription=$recv($2).__comma(". ");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=1;
+//>>excludeEnd("ctx");
+assertionDescription;
+};
+$4=$recv(missingElements)._isEmpty();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isEmpty"]=2;
+//>>excludeEnd("ctx");
+if(!$core.assert($4)){
+$5=$recv($recv(assertionDescription).__comma("Expected collection to have ")).__comma(missingElements);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=5;
+//>>excludeEnd("ctx");
+assertionDescription=$recv($5).__comma(".");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx[","]=4;
+//>>excludeEnd("ctx");
+assertionDescription;
+};
+$7=$recv(additionalElements)._isEmpty();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+$ctx1.sendIdx["isEmpty"]=3;
+//>>excludeEnd("ctx");
+$6=$recv($7)._and_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(missingElements)._isEmpty();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)});
+//>>excludeEnd("ctx");
+}));
+self._assert_description_($6,assertionDescription);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"assertCollection:hasSameElements:",{actual:actual,expected:expected,missingElements:missingElements,additionalElements:additionalElements,assertionDescription:assertionDescription},$globals.TestCase)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["actual", "expected"],
+source: "assertCollection: actual hasSameElements: expected\x0a\x0a\x09\x22Assert that a collection contains the same elements as the given collection. Order is not checked, only the presence/absence of elements.\x22\x0a\x09| missingElements additionalElements assertionDescription |\x0a\x09\x0a\x09additionalElements := actual difference: expected.\x0a\x09missingElements := expected difference: (actual intersection: expected).\x0a\x09assertionDescription := ''.\x0a\x09additionalElements isEmpty ifFalse: [assertionDescription := assertionDescription, 'Expected collection to not have ', additionalElements, '. '].\x0a\x09missingElements isEmpty ifFalse: [assertionDescription := assertionDescription, 'Expected collection to have ', missingElements, '.'].\x0a\x09\x0a\x09self \x0a\x09\x09assert: (additionalElements isEmpty and: [ missingElements isEmpty ])\x0a\x09\x09description: assertionDescription.",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["difference:", "intersection:", "ifFalse:", "isEmpty", ",", "assert:description:", "and:"]
+}),
+$globals.TestCase);
+
+$core.addMethod(
+$core.method({
 selector: "async:",
 protocol: 'async',
 fn: function (aBlock){
@@ -462,6 +541,47 @@ $globals.TestCase);
 
 $core.addMethod(
 $core.method({
+selector: "should:raise:description:",
+protocol: 'testing',
+fn: function (aBlock,anExceptionClass,anExceptionMessage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._assert_($recv((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(aBlock)._value();
+return false;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._on_do_(anExceptionClass,(function(exception){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv($recv(exception)._messageText()).__eq(anExceptionMessage);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)});
+//>>excludeEnd("ctx");
+})));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"should:raise:description:",{aBlock:aBlock,anExceptionClass:anExceptionClass,anExceptionMessage:anExceptionMessage},$globals.TestCase)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anExceptionClass", "anExceptionMessage"],
+source: "should: aBlock raise: anExceptionClass description: anExceptionMessage\x0a\x09self assert: ([ aBlock value. false ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :exception | exception messageText = anExceptionMessage ])",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:", "on:do:", "value", "=", "messageText"]
+}),
+$globals.TestCase);
+
+$core.addMethod(
+$core.method({
 selector: "shouldnt:raise:",
 protocol: 'testing',
 fn: function (aBlock,anExceptionClass){
@@ -493,6 +613,47 @@ source: "shouldnt: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock 
 referencedClasses: [],
 //>>excludeEnd("ide");
 messageSends: ["assert:", "on:do:", "value"]
+}),
+$globals.TestCase);
+
+$core.addMethod(
+$core.method({
+selector: "shouldnt:raise:description:",
+protocol: 'testing',
+fn: function (aBlock,anExceptionClass,anExceptionMessage){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._assert_($recv((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+$recv(aBlock)._value();
+return true;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}))._on_do_(anExceptionClass,(function(exception){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv($recv($recv(exception)._messageText()).__eq(anExceptionMessage))._not();
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,2)});
+//>>excludeEnd("ctx");
+})));
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:description:",{aBlock:aBlock,anExceptionClass:anExceptionClass,anExceptionMessage:anExceptionMessage},$globals.TestCase)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aBlock", "anExceptionClass", "anExceptionMessage"],
+source: "shouldnt: aBlock raise: anExceptionClass description: anExceptionMessage\x0a\x09self assert: ([ aBlock value. true ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :exception | (exception messageText = anExceptionMessage) not ])",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assert:", "on:do:", "value", "not", "=", "messageText"]
 }),
 $globals.TestCase);
 
