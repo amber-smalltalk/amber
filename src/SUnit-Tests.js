@@ -948,4 +948,168 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished", "+", "asse
 $globals.SUnitAsyncTest);
 
 
+
+$core.addClass('SUnitTest', $globals.TestCase, [], 'SUnit-Tests');
+$core.addMethod(
+$core.method({
+selector: "testACollectionHasSameElementsOfAnotherCollection",
+protocol: 'as yet unclassified',
+fn: function (){
+var self=this;
+var aCollection,anotherCollection;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+aCollection=[(1), (2), (3)];
+anotherCollection=[(1), (2), (3)];
+self._assertCollection_hasSameElements_($recv(aCollection)._asOrderedCollection(),anotherCollection);
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testACollectionHasSameElementsOfAnotherCollection",{aCollection:aCollection,anotherCollection:anotherCollection},$globals.SUnitTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testACollectionHasSameElementsOfAnotherCollection\x0a\x0a\x09|aCollection anotherCollection|\x0a\x0a\x09aCollection := #(1 2 3).\x0a\x09anotherCollection := #(1 2 3).\x0a\x09\x0a\x09self assertCollection: aCollection asOrderedCollection hasSameElements: anotherCollection",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["assertCollection:hasSameElements:", "asOrderedCollection"]
+}),
+$globals.SUnitTest);
+
+$core.addMethod(
+$core.method({
+selector: "testACollectionHasSameElementsOfAnotherCollectionFailsWhenFirstCollectionMissAnyElementOfTheOtherCollection",
+protocol: 'as yet unclassified',
+fn: function (){
+var self=this;
+var aCollection,anotherCollection;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+aCollection=[(1), (2), (3)];
+anotherCollection=[(1), (2), (4)];
+self._should_raise_description_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._assertCollection_hasSameElements_($recv(aCollection)._asOrderedCollection(),anotherCollection);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$globals.TestFailure,"Expected collection to not have 3. Expected collection to have 4.");
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testACollectionHasSameElementsOfAnotherCollectionFailsWhenFirstCollectionMissAnyElementOfTheOtherCollection",{aCollection:aCollection,anotherCollection:anotherCollection},$globals.SUnitTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testACollectionHasSameElementsOfAnotherCollectionFailsWhenFirstCollectionMissAnyElementOfTheOtherCollection\x0a\x0a\x09|aCollection anotherCollection|\x0a\x0a\x09aCollection := #(1 2 3).\x0a\x09anotherCollection := #(1 2 4).\x0a\x09\x0a\x09self should: [\x0a\x09\x09self assertCollection: aCollection asOrderedCollection hasSameElements: anotherCollection\x0a\x09]\x0a\x09raise: TestFailure\x0a\x09description: 'Expected collection to not have 3. Expected collection to have 4.'",
+referencedClasses: ["TestFailure"],
+//>>excludeEnd("ide");
+messageSends: ["should:raise:description:", "assertCollection:hasSameElements:", "asOrderedCollection"]
+}),
+$globals.SUnitTest);
+
+$core.addMethod(
+$core.method({
+selector: "testACollectionHasSameElementsOfAnotherCollectionFailsWhenSomeElementIsMissingOrIfCollectionsHaveAdditionalElements",
+protocol: 'as yet unclassified',
+fn: function (){
+var self=this;
+var aCollection,anotherCollection;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+aCollection=[(1), (2), (3)];
+anotherCollection=[(1), (2), (4)];
+self._should_raise_description_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._assertCollection_hasSameElements_($recv(aCollection)._asOrderedCollection(),anotherCollection);
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$globals.TestFailure,"Expected collection to not have 3. Expected collection to have 4.");
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testACollectionHasSameElementsOfAnotherCollectionFailsWhenSomeElementIsMissingOrIfCollectionsHaveAdditionalElements",{aCollection:aCollection,anotherCollection:anotherCollection},$globals.SUnitTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testACollectionHasSameElementsOfAnotherCollectionFailsWhenSomeElementIsMissingOrIfCollectionsHaveAdditionalElements\x0a\x0a\x09|aCollection anotherCollection|\x0a\x0a\x09aCollection := #(1 2 3).\x0a\x09anotherCollection := #(1 2 4).\x0a\x09\x0a\x09self should: [\x0a\x09\x09self assertCollection: aCollection asOrderedCollection hasSameElements: anotherCollection\x0a\x09]\x0a\x09raise: TestFailure\x0a\x09description: 'Expected collection to not have 3. Expected collection to have 4.'",
+referencedClasses: ["TestFailure"],
+//>>excludeEnd("ide");
+messageSends: ["should:raise:description:", "assertCollection:hasSameElements:", "asOrderedCollection"]
+}),
+$globals.SUnitTest);
+
+$core.addMethod(
+$core.method({
+selector: "testAssertionShouldRaiseExceptionWithMessage",
+protocol: 'as yet unclassified',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._should_raise_description_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._error_("My cool error message! B|");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$globals.Error,"My cool error message! B|");
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testAssertionShouldRaiseExceptionWithMessage",{},$globals.SUnitTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testAssertionShouldRaiseExceptionWithMessage\x0a\x0a\x09self \x0a\x09\x09should: [ self error: 'My cool error message! B|' ] \x0a\x09\x09raise: Error\x0a\x09\x09description: 'My cool error message! B|'.",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["should:raise:description:", "error:"]
+}),
+$globals.SUnitTest);
+
+$core.addMethod(
+$core.method({
+selector: "testAssertionShouldntRaiseExceptionWillFinishSuccessfullyWhenHavingDifferentErrorClass",
+protocol: 'as yet unclassified',
+fn: function (){
+var self=this;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+self._shouldnt_raise_description_((function(){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return self._error_("My cool error message!");
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)});
+//>>excludeEnd("ctx");
+}),$globals.Error,"My cool error message! B|");
+return self;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"testAssertionShouldntRaiseExceptionWillFinishSuccessfullyWhenHavingDifferentErrorClass",{},$globals.SUnitTest)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: [],
+source: "testAssertionShouldntRaiseExceptionWillFinishSuccessfullyWhenHavingDifferentErrorClass\x0a\x0a\x09self \x0a\x09\x09shouldnt: [ self error: 'My cool error message!' ] \x0a\x09\x09raise: Error\x0a\x09\x09description: 'My cool error message! B|'.",
+referencedClasses: ["Error"],
+//>>excludeEnd("ide");
+messageSends: ["shouldnt:raise:description:", "error:"]
+}),
+$globals.SUnitTest);
+
+
 });

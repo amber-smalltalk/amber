@@ -929,6 +929,42 @@ $globals.Collection);
 
 $core.addMethod(
 $core.method({
+selector: "difference:",
+protocol: 'enumerating',
+fn: function (aCollection){
+var self=this;
+var set;
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx1) {
+//>>excludeEnd("ctx");
+set=self._asSet();
+$recv(aCollection)._do_((function(each){
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+return $core.withContext(function($ctx2) {
+//>>excludeEnd("ctx");
+return $recv(set)._remove_ifAbsent_(each,(function(){
+
+}));
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)});
+//>>excludeEnd("ctx");
+}));
+return $recv(self._class())._withAll_($recv(set)._asArray());
+//>>excludeStart("ctx", pragmas.excludeDebugContexts);
+}, function($ctx1) {$ctx1.fill(self,"difference:",{aCollection:aCollection,set:set},$globals.Collection)});
+//>>excludeEnd("ctx");
+},
+//>>excludeStart("ide", pragmas.excludeIdeData);
+args: ["aCollection"],
+source: "difference: aCollection\x0a\x09\x22Answer the set theoretic difference of two collections.\x22\x0a\x0a\x09\x22#(a b c d e f) difference:  #(a b z k)\x0a\x09=> #(#f #d #e #c)\x0a\x09\x0a\x09#(a b z k) difference: #(a b c d e f) \x0a\x09=> #(#k #z) \x0a\x09\x22\x0a\x0a\x09| set |\x0a\x09set := self asSet.\x0a\x09aCollection do: [ :each | set remove: each ifAbsent: [  ] ].\x0a\x09^ self class withAll: set asArray",
+referencedClasses: [],
+//>>excludeEnd("ide");
+messageSends: ["asSet", "do:", "remove:ifAbsent:", "withAll:", "class", "asArray"]
+}),
+$globals.Collection);
+
+$core.addMethod(
+$core.method({
 selector: "do:",
 protocol: 'enumerating',
 fn: function (aBlock){

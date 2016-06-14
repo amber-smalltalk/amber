@@ -122,6 +122,22 @@ assert: actual equals: expected
 	^ self assert: (actual = expected) description: 'Expected: ', expected printString, ' but was: ', actual printString
 !
 
+assertCollection: actual hasSameElements: expected
+
+	"Assert that a collection contains the same elements as the given collection. Order is not checked, only the presence/absence of elements."
+	| missingElements additionalElements assertionDescription |
+	
+	additionalElements := actual difference: expected.
+	missingElements := expected difference: (actual intersection: expected).
+	assertionDescription := ''.
+	additionalElements isEmpty ifFalse: [assertionDescription := assertionDescription, 'Expected collection to not have ', additionalElements, '. '].
+	missingElements isEmpty ifFalse: [assertionDescription := assertionDescription, 'Expected collection to have ', missingElements, '.'].
+	
+	self 
+		assert: (additionalElements isEmpty and: [ missingElements isEmpty ])
+		description: assertionDescription.
+!
+
 deny: aBoolean
 	self assert: aBoolean not
 !
@@ -140,10 +156,22 @@ should: aBlock raise: anExceptionClass
 		do: [ :ex | true ])
 !
 
+should: aBlock raise: anExceptionClass description: anExceptionMessage
+	self assert: ([ aBlock value. false ]
+		on: anExceptionClass
+		do: [ :exception | exception messageText = anExceptionMessage ])
+!
+
 shouldnt: aBlock raise: anExceptionClass
 	self assert: ([ aBlock value. true ]
 		on: anExceptionClass
 		do: [ :ex | false ])
+!
+
+shouldnt: aBlock raise: anExceptionClass description: anExceptionMessage
+	self assert: ([ aBlock value. true ]
+		on: anExceptionClass
+		do: [ :exception | (exception messageText = anExceptionMessage) not ])
 ! !
 
 !TestCase class methodsFor: 'accessing'!
